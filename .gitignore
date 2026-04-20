@@ -1,0 +1,39 @@
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.hypothesis/
+.nox/
+.tox/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Coverage and build artifacts
+.coverage
+.coverage.*
+htmlcov/
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Local environment files
+.env
+.env.*
+*.local
+
+# Notebook checkpoints
+.ipynb_checkpoints/
+
+# Editor and OS files
+.DS_Store
+.idea/
+.vscode/
+
+# Project-generated outputs
+/scripts/output/

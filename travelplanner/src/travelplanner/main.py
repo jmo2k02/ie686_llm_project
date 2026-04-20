@@ -1,0 +1,3 @@
+"""Entrypoint für den Anfang"""
+
+

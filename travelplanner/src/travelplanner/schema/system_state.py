@@ -1,6 +1,8 @@
 from typing import Annotated, Literal
 from pydantic import BaseModel, Field
 
+from .calender import CalenderModel
+
 
 class MessageHistoryModel(BaseModel):
     """"""
@@ -8,19 +10,19 @@ class MessageHistoryModel(BaseModel):
     user_agent: Annotated[
         str | None,
         Field(default=None, description="The user agent that acted in this history"),
-    ]
+    ] = None
     model: Annotated[
         str | None,
         Field(
             default=None, description="The type of model that was used in the history"
         ),
-    ]
+    ] = None
     agent_ref: Annotated[
         str | None,
         Field(
             default=None, description="Reference to the Agent that created this history"
         ),
-    ]
+    ] = None
     messages: Annotated[
         list[dict], Field(description="Message history of a user and agent chat")
     ]
@@ -69,7 +71,7 @@ class TaskModel(BaseModel):
     ]
     validation_comment: Annotated[
         str | None, Field(description="Comment on why this task is NOT valid")
-    ]
+    ] = None
 
 
 class StateContractModel(BaseModel):
@@ -87,3 +89,4 @@ class StateContractModel(BaseModel):
     ]
     constraint_list: Annotated[list[Constraint], Field(default=[])]
     task_list: Annotated[list[Task], Field(default=[])]
+    timetable: Annotated[CalenderModel|None, Field(description=)] = None

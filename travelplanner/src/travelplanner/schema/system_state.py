@@ -2,7 +2,7 @@ from typing import Annotated, Literal
 from pydantic import BaseModel, Field
 
 
-class MessageHistory(BaseModel):
+class MessageHistoryModel(BaseModel):
     """"""
 
     user_agent: Annotated[
@@ -26,7 +26,7 @@ class MessageHistory(BaseModel):
     ]
 
 
-class Constraint(BaseModel):
+class ConstraintModel(BaseModel):
     """Defines what a constraint in our system looks like"""
 
     type: Annotated[
@@ -42,7 +42,7 @@ class Constraint(BaseModel):
     text: Annotated[str, Field(description="The textual definition of the constraint")]
 
 
-class Task(BaseModel):
+class TaskModel(BaseModel):
     """An actionable task within the TravelPlanner System.
     It will be used by the Execution Agent to start different Agents and build the Timetable
     """
@@ -67,9 +67,12 @@ class Task(BaseModel):
             description="Defines whether this task is valid and ready for a search agent",
         ),
     ]
+    validation_comment: Annotated[
+        str | None, Field(description="Comment on why this task is NOT valid")
+    ]
 
 
-class StateContract(BaseModel):
+class StateContractModel(BaseModel):
     """This model defines all important states the system uses"""
 
     query: Annotated[

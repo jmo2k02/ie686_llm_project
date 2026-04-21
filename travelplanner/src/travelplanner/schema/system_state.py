@@ -59,7 +59,7 @@ class TaskModel(BaseModel):
             "opening_times",
             "routing-check",
             "general-web-search",
-        ]
+        ], Field(description="The type of task that defines which Search Agent is supposed to be used for this task")
     ]
     text: Annotated[str, Field(description="The textual definition of the task")]
     is_valid: Annotated[
@@ -81,12 +81,12 @@ class StateContractModel(BaseModel):
         str, Field(description="Initial user query of the Travel Planner system")
     ]
     message_histories: Annotated[
-        dict[str, MessageHistory],
+        dict[str, MessageHistoryModel],
         Field(
             default={},
             description="Dictionary that maps different message histories of Chats to string keys",
         ),
     ]
-    constraint_list: Annotated[list[Constraint], Field(default=[])]
-    task_list: Annotated[list[Task], Field(default=[])]
-    timetable: Annotated[CalenderModel|None, Field(description=)] = None
+    constraint_list: Annotated[list[ConstraintModel], Field(default=[])]
+    task_list: Annotated[list[TaskModel], Field(default=[])]
+    timetable: Annotated[CalenderModel|None, Field(description="The final output calender schema that will be returned by the Execution Agent")] = None

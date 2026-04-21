@@ -32,8 +32,41 @@ class Constraint(BaseModel):
     type: Annotated[
         Literal["hard", "commonsense"], Field(description="The type of this constraint")
     ]
-    user_skipped: Annotated[bool, Field(default=False, description="Denotation of whether a user specifically skipped this constraint")]
+    user_skipped: Annotated[
+        bool,
+        Field(
+            default=False,
+            description="Denotation of whether a user specifically skipped this constraint",
+        ),
+    ]
     text: Annotated[str, Field(description="The textual definition of the constraint")]
+
+
+class Task(BaseModel):
+    """An actionable task within the TravelPlanner System.
+    It will be used by the Execution Agent to start different Agents and build the Timetable
+    """
+
+    name: Annotated[str, Field(description="Identifier for this task")]
+    type: Annotated[
+        Literal[
+            "flight",
+            "hotel",
+            "restaurant",
+            "attraction",
+            "opening_times",
+            "routing-check",
+            "general-web-search",
+        ]
+    ]
+    text: Annotated[str, Field(description="The textual definition of the task")]
+    is_valid: Annotated[
+        bool,
+        Field(
+            default=False,
+            description="Defines whether this task is valid and ready for a search agent",
+        ),
+    ]
 
 
 class StateContract(BaseModel):
@@ -50,3 +83,4 @@ class StateContract(BaseModel):
         ),
     ]
     constraint_list: Annotated[list[Constraint], Field(default=[])]
+    task_list: Annotated[list[Task], Field(default=[])]

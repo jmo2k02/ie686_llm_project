@@ -1,7 +1,7 @@
 from typing import Annotated, Literal
 from pydantic import BaseModel, Field
 
-from .calender import CalenderModel
+from travelplanner.schema.calender import CalenderModel
 
 
 class MessageHistoryModel(BaseModel):

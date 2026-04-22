@@ -9,7 +9,7 @@ app = typer.Typer(
     no_args_is_help=True,
     rich_markup_mode="rich",
 )
-app.add_typer(evaluation_app, name="eval")
+app.add_typer(evaluation_app, name="eval", no_args_is_help=True)
 
 
 def main() -> None:

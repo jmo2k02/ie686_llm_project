@@ -5,7 +5,11 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
 
-app = typer.Typer(help="Run and inspect evaluation jobs.")
+app = typer.Typer(
+    help="Run and inspect evaluation jobs.",
+    no_args_is_help=True,
+    rich_markup_mode="rich",
+)
 console = Console()
 
 
@@ -31,9 +35,3 @@ def run(
             title="Evaluation",
         )
     )
-
-
-@app.command()
-def hello() -> None:
-    """Print a small evaluation-specific greeting."""
-    console.print("[bold green]Evaluation CLI ready.[/bold green]")

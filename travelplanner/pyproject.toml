@@ -14,7 +14,7 @@ dependencies = [
 ]
 
 [project.scripts]
-travelplanner = "travelplanner.cli.main:main"
+tp = "travelplanner.cli.main:main"
 
 [build-system]
 requires = ["uv_build>=0.10.0,<0.11.0"]

@@ -1,2 +1,3 @@
-def main() -> None:
-    print("Hello from travelplanner!")
+from .cli.main import main
+
+__all__ = ["main"]

@@ -28,6 +28,21 @@ class MessageHistoryModel(BaseModel):
     ]
 
 
+class AgentArtifactModel(BaseModel):
+    """A generic artifact produced by an agent."""
+
+    name: Annotated[str, Field(description="Identifier for this artifact")]
+    type: Annotated[str, Field(description="Artifact type or category")]
+    content: Annotated[
+        dict | list | str | int | float | bool | None,
+        Field(description="Artifact payload"),
+    ]
+    description: Annotated[
+        str | None,
+        Field(default=None, description="Optional human-readable artifact summary"),
+    ] = None
+
+
 class ConstraintModel(BaseModel):
     """Defines what a constraint in our system looks like"""
 
@@ -59,7 +74,10 @@ class TaskModel(BaseModel):
             "opening_times",
             "routing-check",
             "general-web-search",
-        ], Field(description="The type of task that defines which Search Agent is supposed to be used for this task")
+        ],
+        Field(
+            description="The type of task that defines which Search Agent is supposed to be used for this task"
+        ),
     ]
     text: Annotated[str, Field(description="The textual definition of the task")]
     is_valid: Annotated[
@@ -83,10 +101,23 @@ class StateContractModel(BaseModel):
     message_histories: Annotated[
         dict[str, MessageHistoryModel],
         Field(
-            default={},
+            default_factory=dict,
             description="Dictionary that maps different message histories of Chats to string keys",
         ),
     ]
-    constraint_list: Annotated[list[ConstraintModel], Field(default=[])]
-    task_list: Annotated[list[TaskModel], Field(default=[])]
-    timetable: Annotated[CalenderModel|None, Field(description="The final output calender schema that will be returned by the Execution Agent")] = None
+    constraint_list: Annotated[list[ConstraintModel], Field(default_factory=list)]
+    task_list: Annotated[list[TaskModel], Field(default_factory=list)]
+    timetable: Annotated[
+        CalenderModel | None,
+        Field(
+            default=None,
+            description="The final output calender schema that will be returned by the Execution Agent",
+        ),
+    ] = None
+    agent_artifacts: Annotated[
+        dict[str, list[AgentArtifactModel]],
+        Field(
+            default_factory=dict,
+            description="Artifacts produced by agents, grouped by agent key",
+        ),
+    ]

@@ -1,0 +1,14 @@
+{
+  "dataset_name": "scifact",
+  "dataset_dir": "data/scifact",
+  "split": "test",
+  "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+  "chunk_size": 500,
+  "chunk_overlap": 100,
+  "document_count": 5183,
+  "chunk_count": 24678,
+  "asset_dir": "data/scifact_assets/minilm_l6_v2_cs500_ov100",
+  "chunk_path": "data/scifact_assets/minilm_l6_v2_cs500_ov100/chunks.jsonl",
+  "embedding_path": "data/scifact_assets/minilm_l6_v2_cs500_ov100/chunk_embeddings.npy",
+  "faiss_dir": "data/scifact_assets/minilm_l6_v2_cs500_ov100/faiss"
+}

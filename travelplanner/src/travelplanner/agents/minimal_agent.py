@@ -3,11 +3,11 @@ from __future__ import annotations
 import json
 from typing import Any
 
-from langchain_community.chat_models import ChatOpenAI
 from langchain_core.messages import HumanMessage, SystemMessage
 from langgraph.graph import END, StateGraph
 from langgraph.pregel import Pregel
 
+from travelplanner.agents.llm_utils import make_chat_model
 from travelplanner.schema.system_state import MessageHistoryModel, StateContractModel
 
 
@@ -50,7 +50,7 @@ def make_graph(
     temperature: float = 0.6,
     history_key: str = "minimal_agent",
 ) -> Pregel:
-    client = ChatOpenAI(model=model_name, temperature=temperature)
+    client = make_chat_model(model_name=model_name, temperature=temperature)
 
     def planner_node(state: StateContractModel) -> dict[str, Any]:
         prompt = _build_user_prompt(state.query, _format_state_context(state))

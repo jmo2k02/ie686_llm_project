@@ -139,12 +139,19 @@ def _format_hard_constraints_message(constraints: list[ConstraintModel]) -> str:
     return "\n".join(lines)
 
 
-def _format_commonsense_question(index: int, total: int, constraint: ConstraintModel) -> str:
-    return (
-        f"[Commonsense check {index}/{total}]\n"
-        f"{constraint.text}\n"
-        "Does this apply to your trip? Type 'ok' to confirm or 'skip' if not applicable."
-    )
+def _format_all_commonsense_message(constraints: list[ConstraintModel]) -> str:
+    lines = [
+        "Here are the commonsense constraints that apply to all trips:",
+        "",
+    ]
+    for i, c in enumerate(constraints, 1):
+        lines.append(f"  {i:2d}. {c.text}")
+    lines += [
+        "",
+        "Type 'all ok' to confirm all of them.",
+        "Or list the numbers you want to skip, separated by spaces (e.g. '3 7 15').",
+    ]
+    return "\n".join(lines)
 
 
 def _build_message_history(messages: list[dict]) -> MessageHistoryModel:
@@ -234,25 +241,25 @@ def make_graph():
             "category_index": state.category_index + 1,
         }
 
-    def present_commonsense_constraint(state: ConstraintIterationState) -> dict[str, Any]:
-        idx = state.constraint_index
-        constraint = state.commonsense_constraints[idx]
-        total = len(state.commonsense_constraints)
-        question = _format_commonsense_question(idx + 1, total, constraint)
-        messages = [*state.messages, {"role": "assistant", "content": question}]
+    def present_all_commonsense_constraints(state: ConstraintIterationState) -> dict[str, Any]:
+        constraints = state.commonsense_constraints
+        message = _format_all_commonsense_message(constraints)
+        messages = [*state.messages, {"role": "assistant", "content": message}]
 
-        user_input: str = interrupt(question)
+        user_input: str = interrupt(message)
         messages = [*messages, {"role": "user", "content": user_input}]
 
-        updated = list(state.commonsense_constraints)
-        updated[idx] = constraint.model_copy(
-            update={"user_skipped": _is_skip(user_input)}
-        )
+        updated = list(constraints)
+        if user_input.strip().lower() not in {"all ok", "alles ok", "ok all", "all"}:
+            for token in user_input.replace(",", " ").split():
+                if token.isdigit():
+                    idx = int(token) - 1
+                    if 0 <= idx < len(updated):
+                        updated[idx] = updated[idx].model_copy(update={"user_skipped": True})
 
         return {
             "messages": messages,
             "commonsense_constraints": updated,
-            "constraint_index": idx + 1,
         }
 
     def _route_after_present_hard(state: ConstraintIterationState) -> str:
@@ -260,29 +267,24 @@ def make_graph():
             return "extract_hard_constraints"
         if state.phase == "missing" and state.category_index < len(state.missing_categories):
             return "ask_missing_category"
-        return "present_commonsense_constraint"
+        return "present_all_commonsense_constraints"
 
     def _route_after_missing(state: ConstraintIterationState) -> str:
         if state.category_index < len(state.missing_categories):
             return "ask_missing_category"
-        return "present_commonsense_constraint"
-
-    def _route_after_commonsense(state: ConstraintIterationState) -> str:
-        if state.constraint_index < len(state.commonsense_constraints):
-            return "present_commonsense_constraint"
-        return END
+        return "present_all_commonsense_constraints"
 
     graph = StateGraph(ConstraintIterationState)
     graph.add_node("extract_hard_constraints", extract_hard_constraints)
     graph.add_node("present_hard_constraints", present_hard_constraints)
     graph.add_node("ask_missing_category", ask_missing_category)
-    graph.add_node("present_commonsense_constraint", present_commonsense_constraint)
+    graph.add_node("present_all_commonsense_constraints", present_all_commonsense_constraints)
 
     graph.set_entry_point("extract_hard_constraints")
     graph.add_edge("extract_hard_constraints", "present_hard_constraints")
     graph.add_conditional_edges("present_hard_constraints", _route_after_present_hard)
     graph.add_conditional_edges("ask_missing_category", _route_after_missing)
-    graph.add_conditional_edges("present_commonsense_constraint", _route_after_commonsense)
+    graph.add_edge("present_all_commonsense_constraints", END)
 
     return graph.compile(checkpointer=MemorySaver())
 

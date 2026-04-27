@@ -5,7 +5,7 @@ from typing import Any
 from langgraph.graph import END, StateGraph
 from pydantic import BaseModel, Field
 
-from travelplanner.agents.llm_utils import invoke_structured_model
+from travelplanner.utils.llm import invoke_structured_model
 from travelplanner.schema.system_state import ConstraintModel, MessageHistoryModel
 
 

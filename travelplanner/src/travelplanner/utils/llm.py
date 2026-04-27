@@ -15,6 +15,18 @@ ResponseModelT = TypeVar("ResponseModelT", bound=BaseModel)
 
 @dataclass(frozen=True)
 class OpenAICompatibleProvider:
+    """Configuration for an OpenAI-compatible provider.
+
+    Attributes:
+        api_key_env: Name of the environment variable containing the provider API
+            key. May be `None` if the provider does not require one.
+        default_base_url: Default OpenAI-compatible base URL for the provider.
+        base_url_env: Name of the environment variable that overrides the base
+            URL.
+        organization_env: Name of the environment variable containing the
+            provider organization ID, if supported.
+    """
+
     api_key_env: str | None
     default_base_url: str | None = None
     base_url_env: str | None = None
@@ -45,6 +57,17 @@ OPENAI_COMPATIBLE_PROVIDERS: dict[str, OpenAICompatibleProvider] = {
 
 
 def _get_env_value(name: str | None) -> str | None:
+    """Returns a normalized environment variable value.
+
+    Args:
+        name: Environment variable name to read. If `None`, no lookup is
+            performed.
+
+    Returns:
+        The stripped environment variable value, or `None` if the variable name
+        is `None`, the variable is unset, or the value is empty after stripping.
+    """
+
     if name is None:
         return None
 
@@ -57,6 +80,21 @@ def _get_env_value(name: str | None) -> str | None:
 
 
 def _parse_model_name(model_name: str) -> tuple[str, str]:
+    """Parses a model string into provider and provider model name.
+
+    Args:
+        model_name: Model identifier in either `<model>` or
+            `<provider>:<model>` format.
+
+    Returns:
+        A `(provider_name, provider_model)` tuple. Bare model names default to
+        the `openai` provider.
+
+    Raises:
+        ValueError: If a provider-prefixed model name is malformed, such as a
+            missing provider or missing model segment.
+    """
+
     provider_name, separator, provider_model = model_name.partition(":")
     if separator == "":
         return "openai", model_name.strip()
@@ -72,6 +110,23 @@ def _parse_model_name(model_name: str) -> tuple[str, str]:
 
 
 def make_chat_model(*, model_name: str, temperature: float) -> ChatOpenAI:
+    """Builds a chat model client from a provider-aware model name.
+
+    Args:
+        model_name: Model identifier in either `<model>` or
+            `<provider>:<model>` format.
+        temperature: Sampling temperature passed to the chat model client.
+
+    Returns:
+        A configured `ChatOpenAI` client pointed at the resolved provider,
+        model, API key, base URL, and organization settings.
+
+    Raises:
+        ValueError: If the provider is not supported.
+        ValueError: If the provider requires an API key and the expected
+            environment variable is missing.
+    """
+
     provider_name, provider_model = _parse_model_name(model_name)
     provider = OPENAI_COMPATIBLE_PROVIDERS.get(provider_name)
     if provider is None:
@@ -106,6 +161,17 @@ def make_chat_model(*, model_name: str, temperature: float) -> ChatOpenAI:
 
 
 def _coerce_message_content(content: object) -> str:
+    """Converts LangChain message content into plain text.
+
+    Args:
+        content: Raw message content returned by the chat model. This may be a
+            string, a list of structured parts, or another serializable object.
+
+    Returns:
+        A single string representation of the content. List payloads are
+        flattened by concatenating their text parts.
+    """
+
     if isinstance(content, str):
         return content
     if isinstance(content, list):
@@ -120,6 +186,19 @@ def _coerce_message_content(content: object) -> str:
 
 
 def _extract_json_payload(text: str) -> str:
+    """Extracts and validates a JSON payload from model output text.
+
+    Args:
+        text: Raw model output that should contain JSON, optionally wrapped in a
+            fenced code block.
+
+    Returns:
+        The JSON payload as a string, with outer code fences removed if present.
+
+    Raises:
+        json.JSONDecodeError: If the extracted text is not valid JSON.
+    """
+
     stripped = text.strip()
     if stripped.startswith("```"):
         lines = stripped.splitlines()
@@ -138,6 +217,33 @@ def invoke_structured_model(
     user_prompt: str,
     response_model: type[ResponseModelT],
 ) -> tuple[ResponseModelT, str, str]:
+    """Invokes a chat model and parses its JSON response into a Pydantic model.
+
+    Args:
+        model_name: Model identifier in either `<model>` or
+            `<provider>:<model>` format.
+        temperature: Sampling temperature for the model call.
+        system_prompt: System message sent to the model.
+        user_prompt: User message sent to the model.
+        response_model: Pydantic model class used to validate the JSON payload
+            returned by the model.
+
+    Returns:
+        A tuple containing:
+
+        - The validated `response_model` instance.
+        - The exact `user_prompt` string that was sent.
+        - The raw text content returned by the model before JSON parsing.
+
+    Raises:
+        ValueError: If the provider is unsupported or a required API key is
+            missing.
+        json.JSONDecodeError: If the model response is not valid JSON after
+            optional code-fence removal.
+        pydantic.ValidationError: If the JSON payload does not match
+            `response_model`.
+    """
+
     client = make_chat_model(model_name=model_name, temperature=temperature)
     response = client.invoke(
         [

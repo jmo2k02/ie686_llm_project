@@ -7,7 +7,7 @@ from langchain_core.messages import HumanMessage, SystemMessage
 from langgraph.graph import END, StateGraph
 from langgraph.pregel import Pregel
 
-from travelplanner.agents.llm_utils import make_chat_model
+from travelplanner.utils.llm import make_chat_model
 from travelplanner.schema.system_state import MessageHistoryModel, StateContractModel
 
 

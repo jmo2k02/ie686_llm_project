@@ -1,0 +1,35 @@
+[
+  {
+    "id": "trip_planning_1",
+    "type": "trip_planning",
+    "query": "Plan me a 5-day trip to Barcelona in June with a budget of €1000. I want a mix of sightseeing, good food, and some beach time.",
+    "entities": {
+      "destination": "Barcelona",
+      "duration_days": 5,
+      "budget_eur": 1000,
+      "interests": ["sightseeing", "food", "beach"]
+    }
+  },
+  {
+    "id": "transport_optimization_1",
+    "type": "transport_optimization",
+    "query": "What’s the fastest and cheapest way to travel from Mannheim to Paris next weekend, including train and flight options?",
+    "entities": {
+      "origin": "Mannheim",
+      "destination": "Paris",
+      "timeframe": "next weekend",
+      "preferences": ["fastest", "cheapest"],
+      "transport_modes": ["train", "flight"]
+    }
+  },
+  {
+    "id": "discovery_1",
+    "type": "destination_discovery",
+    "query": "What are some hidden gems in Italy for a 1-week trip that aren’t too touristy but still have great food and culture?",
+    "entities": {
+      "country": "Italy",
+      "duration_days": 7,
+      "preferences": ["hidden gems", "low tourism", "food", "culture"]
+    }
+  }
+]

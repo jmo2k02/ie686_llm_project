@@ -45,11 +45,10 @@ def _build_user_prompt(query: str, context_blob: str) -> str:
     return "\n".join(section for section in sections if section is not None)
 
 
-def make_graph(
-    model_name: str,
-    temperature: float = 0.6,
-    history_key: str = "minimal_agent",
-) -> Pregel:
+def make_graph() -> Pregel:
+    model_name: str = "gpt-5.4-nano-2026-03-17"
+    temperature: float = 0.6
+    history_key: str = "minimal_agent"
     client = make_chat_model(model_name=model_name, temperature=temperature)
 
     def planner_node(state: StateContractModel) -> dict[str, Any]:

@@ -1,6 +1,6 @@
 """Agent modules for TravelPlanner."""
 
-from travelplanner.agents.task_planning_workflow import (
+from travelplanner.workflows.task_planning import (
     get_reviewed_task_list,
     make_graph,
     run,

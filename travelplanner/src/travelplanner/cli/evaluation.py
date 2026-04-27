@@ -8,17 +8,24 @@ from pathlib import Path
 from typing import Any
 
 import typer
-from tqdm import tqdm
 from dotenv import load_dotenv
+
 load_dotenv()
 from InquirerPy import inquirer
 from rich.console import Console
-from rich.panel import Panel
-from rich.table import Table
 from langgraph.graph.state import CompiledStateGraph
 
+from travelplanner.cli.evaluation_rendering import (
+    normalize_for_display,
+    print_record_start,
+    print_state_update,
+    render_evaluation_settings,
+    state_summary,
+)
+from travelplanner.schema.system_state import StateContractModel
+
 from travelplanner.evaluation import AVAILABLE_DATASETS, AVAILABLE_WORKFLOWS
-from travelplanner.utils.imports import load_callable, load_object
+from travelplanner.utils.imports import load_callable
 
 app = typer.Typer(
     help="Run and inspect evaluation jobs.",
@@ -82,11 +89,9 @@ def _resolve_graph_reference(
 def _compile_graph(graph_ref: str) -> CompiledStateGraph:
     graph_target = load_callable(graph_ref)
     if hasattr(graph_target, "invoke"):
-        return graph_target # type: ignore
+        return graph_target  # type: ignore
 
-    compiled_graph = _call_with_supported_kwargs(
-        graph_target
-    )
+    compiled_graph = _call_with_supported_kwargs(graph_target)
     if hasattr(compiled_graph, "compile"):
         compiled_graph = compiled_graph.compile()
     if not hasattr(compiled_graph, "invoke"):
@@ -136,21 +141,14 @@ def run(
     workflow_label, graph_ref = _resolve_graph_reference(workflow, graph)
     dataset_records = _load_dataset_records(dataset, limit)
 
-    table = Table(show_header=False, box=None, pad_edge=False)
-    table.add_row("[bold]Run[/bold]", name)
-    table.add_row("[bold]Dataset[/bold]", dataset)
-    table.add_row("[bold]Workflow[/bold]", workflow_label)
-    table.add_row("[bold]Graph[/bold]", graph_ref)
-    table.add_row("[bold]Limit[/bold]", str(limit))
-    table.add_row("[bold]Records[/bold]", str(len(dataset_records)))
-    table.add_row("[bold]Status[/bold]", "configured")
-
-    console.print(
-        Panel.fit(
-            table,
-            border_style="cyan",
-            title="[bold cyan]Travel Planner[/bold cyan] Evaluation Settings",
-        )
+    render_evaluation_settings(
+        console,
+        name=name,
+        dataset=dataset,
+        workflow_label=workflow_label,
+        graph_ref=graph_ref,
+        limit=limit,
+        record_count=len(dataset_records),
     )
     if not inquirer.confirm(
         message="Do you want to start evaluation with these settings?"
@@ -159,16 +157,46 @@ def run(
         return
 
     compiled_graph = _compile_graph(graph_ref)
-    console.print("[green]Successfully compiled graph[/green]")
-
-    for record in tqdm(dataset_records, desc="Processing Dataset Records", total=len(dataset_records)):
+    console.print(
+        f"[green]Successfully compiled graph[/green] [cyan]{graph_ref}[/cyan]"
+    )
+    console.print(f"[green]Starting evaluation on dataset[/green] [cyan]{dataset}[/cyan]")
+    for index, record in enumerate(dataset_records, start=1):
+        record_id = str(record.get("id", f"record-{index}"))
         graph_query = record["query"]
-        result = compiled_graph.invoke({
-          "query":graph_query
-        })
-        console.print(f"Processed [bold]{record.get('id', 'unknown')}[/bold]")
-        print(result)
-        break
 
+        print_record_start(
+            console,
+            index=index,
+            record_id=record_id,
+            graph_query=graph_query,
+        )
+
+        state_snapshot = StateContractModel(query=graph_query)
+        step = 0
+        for streamed_update in compiled_graph.stream(
+            {"query": graph_query},
+            stream_mode="updates",
+        ):
+            for node_name, node_update in streamed_update.items():
+                step += 1
+                normalized_update = normalize_for_display(node_update)
+                merged_state = state_snapshot.model_dump(mode="json")
+                merged_state.update(normalized_update)
+                next_state = StateContractModel.model_validate(merged_state)
+                print_state_update(
+                    console,
+                    record_id=record_id,
+                    step=step,
+                    node_name=node_name,
+                    update_payload=normalized_update,
+                    previous_state=state_snapshot,
+                    current_state=next_state,
+                )
+                state_snapshot = next_state
+
+        console.print(
+            f"Processed [bold]{record_id}[/bold] with final state: [dim]{state_summary(state_snapshot)}[/dim]"
+        )
 
     console.print(f"Finished evaluation run for {len(dataset_records)} record(s)")

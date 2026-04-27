@@ -121,7 +121,28 @@ These parts of the public code path were preserved:
 - `task_planning_workflow.run(query, model_name, temperature)` still accepts a `model_name` string.
 - Agent prompts and workflow structure were not changed.
 - State models in `src/travelplanner/schema/system_state.py` were not changed.
-- CLI behavior was not changed.
+- Core workflow entrypoints were preserved, but the evaluation CLI now accepts direct graph import strings.
+
+## Evaluation CLI Graph Loading
+
+The evaluation CLI can now run either:
+
+- a workflow label from `AVAILABLE_WORKFLOWS`
+- a direct graph reference such as `package.module:make_graph`
+
+Examples:
+
+```bash
+uv run tp eval run --workflow task-planning --model openai:gpt-4o-mini
+uv run tp eval run --graph travelplanner.workflows.task_planning:make_graph --model openai:gpt-4o-mini
+uv run tp eval run --graph travelplanner.agents.constraint_agent:make_graph --graph-input-factory your_package.eval_inputs:build_constraint_input
+```
+
+Notes:
+
+- If the imported object is callable, the CLI will pass `model_name` and `temperature` only when that builder accepts them.
+- If the compiled graph exposes a Pydantic input schema, the CLI auto-fills common fields like `query`, `model_name`, and `temperature` from the dataset record and CLI options.
+- For graphs with custom input contracts, pass `--graph-input-factory` to adapt each dataset record into the expected graph input.
 
 ## Example Usage
 

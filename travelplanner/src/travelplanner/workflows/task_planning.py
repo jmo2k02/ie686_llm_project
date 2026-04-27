@@ -24,7 +24,9 @@ PLANNER_HISTORY_KEY = "planner_agent"
 REVIEWER_HISTORY_KEY = "reviewer_agent"
 
 
-def make_graph(model_name: str, temperature: float = 0.0):
+def make_graph():
+    model_name: str = "gpt-5.4-nano-2026-03-17"
+    temperature: float = 0.0
     constraint_graph = make_constraint_graph()
     planner_graph = make_planner_graph()
     reviewer_graph = make_reviewer_graph()

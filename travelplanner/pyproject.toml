@@ -8,11 +8,15 @@ authors = [
 ]
 requires-python = ">=3.12"
 dependencies = [
+    "langchain-openai>=1.2.0",
+    "langgraph>=1.1.9",
     "pydantic>=2.13.3",
+    "rich>=15.0.0",
+    "typer>=0.24.1",
 ]
 
 [project.scripts]
-travelplanner = "travelplanner:main"
+tp = "travelplanner.cli.main:main"
 
 [build-system]
 requires = ["uv_build>=0.10.0,<0.11.0"]

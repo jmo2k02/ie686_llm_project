@@ -1,5 +1,18 @@
 # ie686_llm_project
 
+## Setup
+
+1. Install [uv](https://docs.astral.sh/uv/getting-started/installation/)
+2. `cd travelplanner`
+3. `uv sync`
+4. `source .venv/bin/activate`
+
+**Setup is finished**
+
+- Check cli availability: `tp`
+
+
+
 ## Topic
 
 - Automated Travel and Event Planner

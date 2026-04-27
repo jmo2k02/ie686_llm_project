@@ -26,6 +26,7 @@ dist/
 .env
 .env.*
 *.local
+!.env.example
 
 # Notebook checkpoints
 .ipynb_checkpoints/
@@ -37,3 +38,5 @@ dist/
 
 # Project-generated outputs
 /scripts/output/
+
+.pdf-enrich-cache/

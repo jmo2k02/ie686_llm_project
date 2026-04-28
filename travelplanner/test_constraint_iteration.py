@@ -67,11 +67,20 @@ def run_interactive(query: str, model_name: str = "openai:gpt-4o-mini") -> None:
 
 
 if __name__ == "__main__":
-    import sys
+    print("\n" + "=" * 60)
+    print("TravelPlanner — Constraint Iteration Agent")
+    print("=" * 60)
+    print("Describe your trip (press Enter twice when done):\n")
 
-    query = (
-        " ".join(sys.argv[1:])
-        if len(sys.argv) > 1
-        else "I want to go to Barcelona from June 15 to June 22."
-    )
-    run_interactive(query)
+    lines = []
+    while True:
+        line = input()
+        if line == "" and lines:
+            break
+        lines.append(line)
+
+    query = " ".join(lines).strip()
+    if not query:
+        print("No input provided. Exiting.")
+    else:
+        run_interactive(query)

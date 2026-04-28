@@ -1,0 +1,159 @@
+{
+  "task_ref": "general_web_search-demo-1",
+  "query": "Best way to get from Barcelona airport to the city center with approximate cost?",
+  "provider": "tavily",
+  "status": "success",
+  "attempt": 1,
+  "result": {
+    "ok": true,
+    "query": "Best way to get from Barcelona airport to the city center with approximate cost?",
+    "answer": "Aerob\u00fas costs \u20ac7.75, train \u20ac4.95, metro \u20ac5.90, official taxi \u20ac30-45, and Uber/Cabify/Bolt \u20ac30-50. All options take 20-30 minutes."
+  },
+  "answer": "**Barcelona Airport to City Center \u2014 Transport Options**\n\nBased on multiple current sources, here are the main options:\n\n---\n\n**Aerobus (Best Balance of Speed + Convenience)**\n- Cost: **\u20ac7.25\u2013\u20ac10.25** one-way depending on terminal; round-trip ~\u20ac12.50\u2013\u20ac16.50\n- Travel Time: **25\u201335 minutes** to Pla\u00e7a Catalunya\n- Frequency: Every 5\u201310 minutes (peak) to every 30 minutes (off-peak)\n- Route: T1 (A1) or T2 (A2) \u2192 Pla\u00e7a Espanya \u2192 Gran Via \u2192 Pla\u00e7a Catalunya \u2192 Pla\u00e7a Universitat\n- Buy online at aerobusbarcelona.es or onboard with card\n- **Confidence: HIGH** \u2014 multiple 2024\u20132025 sources confirm pricing and schedule\n\n---\n\n**RENFE Train (Cheapest Rail Option)**\n- Cost: **\u20ac4.60\u2013\u20ac4.95** one-way\n- Travel Time: **25 minutes** to Barcelona Sants or Passeig de Gr\u00e0cia\n- Frequency: Every 30 minutes\n- Location: **Terminal 2 only** (not T1) \u2014 requires shuttle if arriving at T1\n- Connects to Metro at Passeig de Gr\u00e0cia for Sagrada Fam\u00edlia and other attractions\n- **Confidence: HIGH** \u2014 confirmed by Rick Steves forum and Barcelona tourist guide\n\n---\n\n**Metro (Direct Underground)**\n- Cost: **\u20ac5.70\u2013\u20ac5.90** (T-Casual card or single ticket)\n- Travel Time: **~30 minutes** to central Barcelona\n- Location: Both T1 and T2 have metro stations\n- **Confidence: MEDIUM** \u2014 prices vary slightly by ticket type\n\n---\n\n**Official Taxi (Fastest Door-to-Door)**\n- Cost: **\u20ac30\u2013\u20ac45** (flat rate to city center; higher at night/early morning)\n- Travel Time: **~20 minutes** (traffic dependent)\n- Surcharge: \u20ac4.50 added to fare from airport\n- **Confidence: HIGH** \u2014 consistent across multiple sources\n\n---\n\n**Regular Bus 46 / N17 (Cheapest)**\n- Cost: **\u20ac2.65** per ticket (may require transfer)\n- Travel Time: Longer (~45\u201360 min) depending on traffic\n- Route: Terminal \u2192 Pla\u00e7a d'Espanya \u2192 city center\n- **Confidence: MEDIUM** \u2014 cheaper but less convenient\n\n---\n\n**Summary Recommendation:**\n- **Best value:** RENFE train (\u20ac4.60, 25 min) from T2\n- **Best overall:** Aerobus (\u20ac7.25, 25\u201335 min) runs from both terminals, drops at central Pla\u00e7a Catalunya\n- **Fastest:** Taxi (\u20ac30\u201345, ~20 min) for groups or heavy luggage",
+  "model": "openrouter:minimax/minimax-m2.5",
+  "sources": [
+    {
+      "title": "\u2708 Getting from Barcelona Airport to City | Welcome Pickups",
+      "url": "https://www.welcomepickups.com/barcelona/airport-to-city/",
+      "snippet": "You have **six transport options: Barcelona Airport taxi, private transfer, train, metro, airport shuttle bus, or the local bus.** The fastest options are via airport taxi or Barcelona Airport transfer, as these services are door-to-door and take just 20 minutes. ## How to get from Barcelona Airport to the city by bus. ## How much is the bus from Barcelona Airport to city? A **one-way ticket for the Aerobus from Barcelona Airport to the city center costs \u20ac7.25,** and a return is priced at \u20ac12.50. ## How to get from Barcelona Airport to the city center by bus. ## How much is the bus from Barcelona Airport to city center? There are six modes of transport from Barcelona Airport to the city: taxi, private transfer, train, metro, airport shuttle bus, or the local bus. ## How much is a taxi from Barcelona Airport to city center? So a taxi from Barcelona El Prat Airport to the city center usually costs between \u20ac35 and \u20ac45.",
+      "score": 0.9999914
+    },
+    {
+      "title": "Barcelona airport to the city centre: taking a taxi, bus, or transfer - Wise",
+      "url": "https://wise.com/gb/blog/barcelona-airport-to-city",
+      "snippet": "The cheapest way to get from Barcelona airport to the city centre is by local bus or train, where you'll pay just a few euros for a one-way trip",
+      "score": 0.8987045
+    },
+    {
+      "title": "Barcelona Airport to City Centre (7 Ways Fast + Cheap)",
+      "url": "https://barcelonahacks.com/barcelona-airport-to-city-centre/",
+      "snippet": "* barcelona airport to city centre. ## How to Get From Barcelona Airport to City Centre. Before choosing the best Barcelona airport transport **make sure you\u2019ve double checked** **the terminal** \u2013 if you arrive at the wrong one you\u2019re looking at a 20 minute airport shuttle (minimum) to get to the other. ## Barcelona Airport to City Centre Options. In my opinion, the Aerobus the best way to get from Barcelona airport to the city because it runs:. ### Barcelona Airport to City Centre by Taxi. ### Is there a train from Barcelona Airport to the city centre? ### How long from Barcelona airport to the city centre? ### How do you get from Barcelona airport to the city centre? To get to the city centre from Barcelona airport you can take the city bus (46 or N17), the RENFE train from Terminal 2, the Aerobus rapid bus, or a taxi. ### How much from Barcelona airport to the city centre?",
+      "score": 0.83549726
+    },
+    {
+      "title": "Barcelona Airport to City, Multiple Trips, Most Affordable Method - Rick Steves Travel Forum",
+      "url": "https://community.ricksteves.com/travel-forum/spain/barcelona-airport-to-city-multiple-trips-most-affordable-method",
+      "snippet": "# Barcelona Airport to City, Multiple Trips, Most Affordable Method. We will have to make a few trips to and from the airport to center city. What is the most affordable way to make the trip, and how long will it take? How much can we expect to spend on a taxi from the airport to a hotel near the Sagrada Familia? We also took the Aeorbus from the airport and dropped us off in Placa Catalunya, very affordable and quick. The most affordable way is a 3-minute walk from Terminal 2\u2013where all international flights arrive at Barcelona\u2019s Prat airport. It costs \u20ac4.60, takes 25 minutes and is on the commuter rail line R2 NORD which will take you to both Barcelona Sants and Passeig de Gracia train/metro stations. Once at the Passeig de Gracia Train/ Metro station there are connections to Metro lines that can take you directly to Sagrada Familia and many of Barcelona\u2019s top attractions.",
+      "score": 0.846159
+    },
+    {
+      "title": "Barcelona Airport Transport and Transfers: Ultimate Guide to City ...",
+      "url": "https://www.barcelona-tourist-guide.com/en/airport/barcelona-airport-transport.html",
+      "snippet": "This page gives you an in-depth guide to the Barcelona airport transport and transfer options to the city centre. The Aerobus service is an express bus service that links Barcelona airport to the city centre. Our Insider Tip Click here to learn more about TMB bus from city centre to Barcelona Airport. NitBus is the bus that operates between Barcelona Airport and the city centre. The RENFE train service runs approximately every 30 minutes to and from Barcelona airport to the city centre. If travelling from the airport to the city centre you can get off at **Barcelona Sants**, **Passeig de Gr\u00e0cia or Clot** which are serviced by metro stops. **The Barcelona Card also gives you\u00a0Free\u00a0travel on the RENFE train from the airport to the city centre**. For more information on the metro connection to the city centre see our page on Travelling to Barcelona Airport on the Metro system.",
+      "score": 0.8138313
+    },
+    {
+      "title": "The EASIEST way to get from Barcelona Airport to city center!",
+      "url": "https://www.youtube.com/watch?v=ao0Ac3S2CGA",
+      "snippet": "Wondering how to get from Barcelona Airport to the city center? Stay tuned! This is a quick video to show you how the Barcelona airport",
+      "score": 0.99981624
+    },
+    {
+      "title": "Barcelona Airport to City Travel Options | Go City\u00ae",
+      "url": "https://gocity.com/en/barcelona/things-to-do/barcelona-airport-to-city-travel-options",
+      "snippet": "# Barcelona Airport to City Travel Options. Our guide for getting into the city from Barcelona Airport. Here are a few helpful options for the best way to get to Barcelona from the airport. Remember however that there are two terminals, T1 and T2, with different departure points depending on which way you choose to travel. But don\u2019t panic - we\u2019ll explain all your airport to Barcelona travel options. ### **Shuttle bus from Barcelona airport**. Aerobus, the Barcelona Airport Shuttle, is a fast and easy way to get to the city, running every ten minutes, all year round. Don\u2019t forget though that there\u2019s an Aerobus for each Terminal - A1 from T1 and A2 from T2 (you\u2019ll need to remember the right one for the return). The train, operated by Renfe, is the cheapest way to get to Barcelona from the airport and can have you in reach of the action in around 25 minutes. ### **Bus from Barcelona airport**.",
+      "score": 0.7593865
+    },
+    {
+      "title": "what's the best cheapest transport and fastest from barcelona airport ...",
+      "url": "https://www.facebook.com/groups/barcelonatraveltips/posts/1336826467748526/",
+      "snippet": "Cheapest way to the city center is city bus 46 to Pla\u00e7a d'Espanya where you change buses to the city center. Bus tickets are \u20ac2,65 each bus or",
+      "score": 0.8742601
+    },
+    {
+      "title": "Airport Transportation to The City : r/AskBarcelona - Reddit",
+      "url": "https://www.reddit.com/r/AskBarcelona/comments/1nu4utl/airport_transportation_to_the_city/",
+      "snippet": "Aerobus service is good. You can then walk to Gothic from Pl Catalunya. On the other hand, you can use Uber and either call whichever of their",
+      "score": 0.6271529
+    },
+    {
+      "title": "How do I get from Barcelona airport to city centre?",
+      "url": "https://www.barcelona.com/transportation/barcelona-airport-bcn/from-barcelona-airport-to-city-centre",
+      "snippet": "Aerobus A1: transfer Terminal 1 Airport to Barcelona city centrer. Travel time: 35 minutes. Price: 10.25 euros, one way and 16.50 euros return. Route : Airport",
+      "score": 0.8747745
+    },
+    {
+      "title": "Barcelona Airport to City Center Transportation Guide - barselona.io",
+      "url": "https://barselona.io/en/airport-transportation/",
+      "snippet": "A one-way ticket costs 7.25 Euros, while a round-trip ticket is 12.65 Euros. You can purchase your ticket online through aerobusbarcelona.es or",
+      "score": 0.61834323
+    },
+    {
+      "title": "Roughly how much is a taxi from Barcelona airport to the city centre ...",
+      "url": "https://www.facebook.com/groups/barcelonatraveltips/posts/1084987589599083/",
+      "snippet": "The cost of a metro ticket from Barcelona Airport to the city centre is \u20ac5.70 for a single ticket. \u2022. \"There is a metro station at the airport;",
+      "score": 0.54710174
+    },
+    {
+      "title": "Airport transport early AM? : r/AskBarcelona - Reddit",
+      "url": "https://www.reddit.com/r/AskBarcelona/comments/1da9tcr/airport_transport_early_am/",
+      "snippet": "Depends on the origin of the transport. Taxis can be quite expensive (they add 4.50\u20ac to whatever your total comes to, so it can easily get to 30",
+      "score": 0.48733237
+    },
+    {
+      "title": "Aerobus Barcelona (2026) - All You SHOULD Know Before Going ...",
+      "url": "https://www.tripadvisor.com/Attraction_Review-g187497-d19678088-Reviews-Aerobus_Barcelona-Barcelona_Catalonia.html",
+      "snippet": "The Aerobus is fast and relatively inexpensive at 7.25Euro one way. Runs every 5 mins in peak times and 30 mins to the airport depending on traffic. The bus I",
+      "score": 0.48689327
+    },
+    {
+      "title": "Barcelona Airport T2 to City Center: Best Transfer Options + Cost ...",
+      "url": "https://taxxilo.com/barcelona-airport-t2-to-city-center-best-transfer-options-cost-breakdown/",
+      "snippet": "Cost Breakdown \u00b7 Often around \u20ac5 to \u20ac6, depending on ticket type and fare rules \u00b7 Some travel cards can lower the cost",
+      "score": 0.44811285
+    },
+    {
+      "title": "How to get form Barcelona Airport to City",
+      "url": "https://erasmusbarcelona.com/barcelona-airport-to-city/",
+      "snippet": "Tickets cost \u20ac6.75 for a single journey or \u20ac11.65 for a round trip. 2. Bus 46.",
+      "score": 0.39040667
+    },
+    {
+      "title": "AEROBUS Tickets & Timetable 2026 (Barcelona Airport Bus)",
+      "url": "https://www.barcelona-life.com/barcelona/aerobus",
+      "snippet": "The journey time is quick at just 25 to 35 minutes, and the bus leaves you right in the heart of the city at Pla\u00e7a Catalunya \u2013 although you can also alight earlier at Pla\u00e7a Espanya, Gran Via or Pla\u00e7a Universitat (see Aerobus route later on this page). If you\u2019re arriving at Barcelona El Prat airport (BCN), you can catch the Aerobus from either terminal (T1 or T2). The A1 Aerobus starts at Terminal 1, and the A2 Aerobus starts at Terminal 2, but after that both bus routes are the same. **Wrong Terminal?** If you mistakenly catch the wrong Aerobus, you can transfer between the two terminals at the airport, using a special free shuttle bus service, but you will likely lose 20 or so minutes. Travel from Pla\u00e7a Catalunya to either airport terminal (T1 or T2) takes about 25-35 minutes, but it\u2019s wise to factor in a bit of extra time just in case there\u2019s a lot of traffic that day.",
+      "score": 0.2636129
+    }
+  ],
+  "proof_points": [
+    {
+      "claim": "Josep Tarradellas Barcelona-El Prat Airport lies approximately 15 kilometers from the city center, with road travel taking about 20 minutes. Travelers can select from six transportation modes: metered taxis, pre-arranged private transfers, the Renfe train service, Metro Line 9, the Aerobus express shuttle, or regular city buses.",
+      "evidence": "You have **six transport options: Barcelona Airport taxi, private transfer, train, metro, airport shuttle bus, or the local bus.** The fastest options are via airport taxi or Barcelona Airport transfe",
+      "confidence": 0.85,
+      "source_url": "https://www.welcomepickups.com/barcelona/airport-to-city/"
+    },
+    {
+      "claim": "Barcelona airport maintains strong connections to the city center through multiple transfer options including taxis, bus services, train lines, and private transfers, with routes designed for affordability and convenience.",
+      "evidence": "The cheapest way to get from Barcelona airport to the city centre is by local bus or train, where you'll pay just a few euros for a one-way trip",
+      "confidence": 0.7,
+      "source_url": "https://wise.com/gb/blog/barcelona-airport-to-city"
+    }
+  ],
+  "errors": [],
+  "config": {
+    "provider": "tavily",
+    "max_results": 10,
+    "timeout_seconds": 30,
+    "max_retries": 1,
+    "max_searches": 3,
+    "search_outcomes": [
+      {
+        "query": "Best way to get from Barcelona airport to the city center with approximate cost?",
+        "ok": true,
+        "attempt": 1,
+        "error": null
+      },
+      {
+        "query": "Barcelona airport transport prices taxi metro train Aerobus 2024",
+        "ok": true,
+        "attempt": 1,
+        "error": null
+      }
+    ],
+    "search_depth": "basic",
+    "include_answer": true,
+    "answer_model_name": "openrouter:minimax/minimax-m2.5",
+    "extract_max_sources": 3,
+    "extract_timeout": 15
+  }
+}

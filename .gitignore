@@ -27,6 +27,7 @@ dist/
 .env.*
 *.local
 !.env.example
+local.config.yaml
 
 # Notebook checkpoints
 .ipynb_checkpoints/
@@ -35,6 +36,8 @@ dist/
 .DS_Store
 .idea/
 .vscode/
+.sisyphus/
+.ada/ 
 
 # Project-generated outputs
 /scripts/output/

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+from datetime import date
 from typing import Any, Literal
 
 from langgraph.checkpoint.memory import MemorySaver
@@ -61,6 +62,8 @@ Rules:
 - Extract only what the user explicitly states or strongly implies.
 - For missing_categories, list only those from the provided category list that you could NOT find in the request.
 - Do not invent destinations, dates, budgets, or preferences not present in the request.
+- If the user has provided corrections, the corrections are the authoritative source and OVERRIDE any conflicting information from the original request.
+- Always use the current date provided in the prompt to assess temporal constraints.
 """
 
 VIOLATION_CHECK_SYSTEM_PROMPT = """You are the TravelPlanner constraint validation agent.
@@ -73,6 +76,8 @@ Rules:
 - For each violation, provide a short explanation and exactly two concrete suggestions to resolve it.
 - If no violations are found, return an empty violations list.
 - Do not invent violations that are not directly supported by the given constraints.
+- Always use the current date provided in the prompt to assess whether dates are in the past or future.
+- Base your assessment solely on the constraints as they are currently listed — ignore any previously invalid values that the user has already corrected.
 """
 
 _SKIP_TOKENS: frozenset[str] = frozenset({
@@ -132,22 +137,29 @@ class ConstraintViolationCheckResponse(BaseModel):
 # ── Prompt helpers ───────────────────────────────────────────────────────────
 
 def _build_extraction_prompt(query: str, query_context: str) -> str:
-    full_query = (
-        f"{query}\n\nAdditional context / corrections: {query_context}"
-        if query_context
-        else query
-    )
-    return "\n".join([
+    lines = [
         "Extract hard constraints from the travel request below.",
         "",
-        f"User request: {full_query.strip()}",
+        f"Today's date: {date.today().isoformat()}",
+        "",
+        f"Original user request: {query.strip()}",
+    ]
+    if query_context:
+        lines += [
+            "",
+            "User corrections (these are the authoritative, up-to-date values — "
+            "they override any conflicting information in the original request):",
+            query_context.strip(),
+        ]
+    lines += [
         "",
         f"Category list to check: {json.dumps(HARD_CONSTRAINT_CATEGORIES)}",
         "",
         "Return strictly valid JSON with this shape:",
         '{"constraints": [{"type": "hard", "text": "...", "user_skipped": false}], '
         '"missing_categories": ["destination", "travel_dates"]}',
-    ])
+    ]
+    return "\n".join(lines)
 
 
 def _format_hard_constraints_message(constraints: list[ConstraintModel]) -> str:
@@ -169,17 +181,22 @@ def _build_violation_check_prompt(
     hard_constraints: list[ConstraintModel],
     commonsense_constraints: list[ConstraintModel],
 ) -> str:
-    full_query = (
-        f"{query}\n\nAdditional context / corrections: {query_context}"
-        if query_context
-        else query
-    )
-    return "\n".join([
+    lines = [
         "Check the extracted hard constraints for commonsense violations.",
         "",
-        f"User request: {full_query.strip()}",
+        f"Today's date: {date.today().isoformat()}",
         "",
-        "Extracted hard constraints:",
+        f"Original user request: {query.strip()}",
+    ]
+    if query_context:
+        lines += [
+            "",
+            "User corrections (authoritative — override the original request):",
+            query_context.strip(),
+        ]
+    lines += [
+        "",
+        "Currently extracted hard constraints (already reflect the latest corrections):",
         json.dumps([c.model_dump() for c in hard_constraints], indent=2, ensure_ascii=True),
         "",
         "Commonsense constraints to check against:",
@@ -188,7 +205,8 @@ def _build_violation_check_prompt(
         "Return strictly valid JSON with this shape:",
         '{"violations": [{"violated_constraint": "...", "explanation": "...", '
         '"suggestions": ["suggestion 1", "suggestion 2"]}]}',
-    ])
+    ]
+    return "\n".join(lines)
 
 
 def _format_violation_message(violations: list[ViolationModel]) -> str:

@@ -9,6 +9,8 @@ from langgraph.graph import END, StateGraph
 from langgraph.types import interrupt
 from pydantic import BaseModel, Field
 
+from spellchecker import SpellChecker
+
 from travelplanner.schema.commonsense_constraints import COMMONSENSE_CONSTRAINTS
 from travelplanner.schema.system_state import ConstraintModel, MessageHistoryModel
 from travelplanner.utils.llm import invoke_structured_model
@@ -38,19 +40,35 @@ CATEGORY_QUESTIONS: dict[str, str] = {
         "No budget was mentioned. Do you have a maximum budget in mind? "
         "(or 'skip' if you don't)"
     ),
-    "accommodation": (
-        "No accommodation preference was found. Any preference for accommodation type "
-        "(hotel, hostel, Airbnb, etc.)? (or 'skip')"
-    ),
-    "transport": (
-        "No transport preference was found. How would you prefer to travel "
-        "(flight, train, car, etc.)? (or 'skip')"
-    ),
-    "purpose": (
-        "What is the purpose of this trip (leisure, business, honeymoon, family, etc.)? "
-        "(or 'skip')"
-    ),
 }
+
+STRUCTURED_OPTIONS: dict[str, dict[str, str]] = {
+    "accommodation": {
+        "a": "Hotel",
+        "b": "Airbnb / Vacation rental",
+        "c": "Hostel",
+        "d": "Apartment",
+        "e": "Resort",
+        "f": "Other / No preference",
+    },
+    "transport": {
+        "a": "Flight",
+        "b": "Train",
+        "c": "Car / Road trip",
+        "d": "Bus / Coach",
+        "e": "Other / No preference",
+    },
+    "purpose": {
+        "a": "Leisure / Vacation",
+        "b": "Business",
+        "c": "Honeymoon / Romance",
+        "d": "Family trip",
+        "e": "Adventure / Backpacking",
+        "f": "Other",
+    },
+}
+
+_SPELL_CHECKER = SpellChecker()
 
 EXTRACTION_SYSTEM_PROMPT = """You are the TravelPlanner constraint extraction agent.
 
@@ -233,6 +251,46 @@ def _format_violation_message(violations: list[ViolationModel]) -> str:
     return "\n".join(lines)
 
 
+def _format_options_question(category: str, options: dict[str, str], error: str = "") -> str:
+    label = category.replace("_", " ").capitalize()
+    lines = []
+    if error:
+        lines += [f"⚠ {error}", ""]
+    lines.append(f"{label} — please choose an option:")
+    lines.append("")
+    for letter, text in options.items():
+        lines.append(f"  {letter}) {text}")
+    lines.append("")
+    lines.append("Enter a letter, or type 'skip' to leave this open.")
+    return "\n".join(lines)
+
+
+def _spell_check_text(text: str) -> tuple[str, str | None]:
+    """Returns (corrected_text, message_or_None). Only flags clear single-word corrections."""
+    words = text.split()
+    misspelled = _SPELL_CHECKER.unknown(words)
+    corrections: dict[str, str] = {}
+    for word in misspelled:
+        suggestion = _SPELL_CHECKER.correction(word)
+        if suggestion and suggestion.lower() != word.lower() and len(word) > 3:
+            corrections[word] = suggestion
+
+    if not corrections:
+        return text, None
+
+    corrected = text
+    for original, fix in corrections.items():
+        corrected = corrected.replace(original, fix)
+
+    summary = ", ".join(f"'{k}' → '{v}'" for k, v in corrections.items())
+    msg = (
+        f"Possible typo(s) detected: {summary}\n"
+        f"Corrected text: \"{corrected}\"\n"
+        "Accept correction? (ok / skip)"
+    )
+    return corrected, msg
+
+
 def _build_message_history(messages: list[dict]) -> MessageHistoryModel:
     return MessageHistoryModel(
         user_agent="constraint_iteration_agent",
@@ -318,23 +376,80 @@ def make_graph():
 
     def ask_missing_category(state: ConstraintIterationState) -> dict[str, Any]:
         category = state.missing_categories[state.category_index]
+        new_hard_constraints = list(state.hard_constraints)
+
+        # ── Structured options (accommodation / transport / purpose) ──────────
+        if category in STRUCTURED_OPTIONS:
+            options = STRUCTURED_OPTIONS[category]
+            valid_letters = set(options.keys())
+
+            # Detect retry: last assistant message was an options question for this category
+            last_assistant = next(
+                (m["content"] for m in reversed(state.messages) if m["role"] == "assistant"),
+                "",
+            )
+            error_prefix = ""
+            if category.replace("_", " ").capitalize() in last_assistant and "please choose" in last_assistant:
+                error_prefix = "Invalid input. Please enter one of: " + ", ".join(valid_letters) + "."
+
+            question = _format_options_question(category, options, error=error_prefix)
+            messages = [*state.messages, {"role": "assistant", "content": question}]
+
+            letter_input: str = interrupt(question)
+            messages = [*messages, {"role": "user", "content": letter_input}]
+
+            if _is_skip(letter_input):
+                return {"messages": messages, "category_index": state.category_index + 1}
+
+            letter = letter_input.strip().lower().rstrip(")")
+            if letter not in valid_letters:
+                # Invalid — return without incrementing so routing re-asks
+                return {"messages": messages}
+
+            selected_text = options[letter]
+
+            # ── Optional free-text follow-up ──────────────────────────────────
+            followup_q = (
+                f"Selected: {selected_text}.\n"
+                "Any additional notes or preferences? (press Enter to skip)"
+            )
+            messages = [*messages, {"role": "assistant", "content": followup_q}]
+            free_text: str = interrupt(followup_q)
+            messages = [*messages, {"role": "user", "content": free_text}]
+
+            if free_text.strip() and not _is_skip(free_text):
+                # ── Spell check ───────────────────────────────────────────────
+                corrected, spell_msg = _spell_check_text(free_text)
+                if spell_msg:
+                    messages = [*messages, {"role": "assistant", "content": spell_msg}]
+                    accept: str = interrupt(spell_msg)
+                    messages = [*messages, {"role": "user", "content": accept}]
+                    if _is_confirm(accept):
+                        free_text = corrected
+
+                selected_text = f"{selected_text} ({free_text.strip()})"
+
+            new_hard_constraints.append(
+                ConstraintModel(type="hard", text=selected_text, user_skipped=False)
+            )
+            return {
+                "messages": messages,
+                "hard_constraints": new_hard_constraints,
+                "category_index": state.category_index + 1,
+            }
+
+        # ── Free-text categories (destination / travel_dates / budget) ────────
         question = CATEGORY_QUESTIONS.get(
             category,
             f"No '{category}' was specified. Please provide details, or type 'skip'.",
         )
         messages = [*state.messages, {"role": "assistant", "content": question}]
-
         user_input: str = interrupt(question)
         messages = [*messages, {"role": "user", "content": user_input}]
 
-        new_hard_constraints = list(state.hard_constraints)
         if not _is_skip(user_input):
             new_hard_constraints.append(
-                ConstraintModel(
-                    type="hard",
-                    text=user_input.strip(),
-                    user_skipped=False,
-                )
+                ConstraintModel(type="hard", text=user_input.strip(), user_skipped=False)
             )
 
         return {

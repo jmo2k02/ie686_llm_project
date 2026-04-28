@@ -3,19 +3,19 @@ Quick interactive test for the constraint iteration agent.
 Run from the travelplanner/ directory:
 
     uv run python test_constraint_iteration.py
+
+Requires a .env file in the repo root with OPENAI_API_KEY set.
+See .env.example for the expected format.
 """
 from __future__ import annotations
 
-import os
 import uuid
+from pathlib import Path
 
-# führe folgendes aus um den Test zu starten: 
-# cd "c:\Users\nava2\Documents\LLM & Agents\ie686_llm_project\travelplanner"
-# uv run python test_constraint_iteration.py
+from dotenv import load_dotenv
 
-
-# ── Trage deinen API-Key hier ein (nur für lokales Testen, nicht committen!) ──
-os.environ.setdefault("OPENAI_API_KEY", "ADD YOUR KEY HERE")
+# load .env from repo root (two levels up from travelplanner/)
+load_dotenv(Path(__file__).parent.parent / ".env")
 
 from langgraph.types import Command
 

@@ -1,0 +1,14 @@
+# Copy this file to local.config.yaml to override config.yaml on your machine.
+models:
+  workflows:
+    task_planning:
+      model_name: "openai:gpt-4o-mini"
+      temperature: 0.0
+
+agents:
+  general_web_search:
+    max_results: 3
+    timeout_seconds: 20
+    max_retries: 2
+    max_subqueries: 2
+    answer_model_name: "none"

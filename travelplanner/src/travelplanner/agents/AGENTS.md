@@ -7,7 +7,7 @@ This file applies to `src/travelplanner/agents` and its children.
 ## Architecture
 
 - `task_planning_workflow.py` wires the high-level sequence:
-  `constraint_agent -> planner_agent -> reviewer_agent`
+  `constraint_agent -> planner_agent -> reviewer_agent -> general_web_search_agent`
 - `llm_utils.py` owns shared LLM client construction and structured invocation
 - `minimal_agent.py` is a simpler single-node planner path
 
@@ -23,6 +23,7 @@ This file applies to `src/travelplanner/agents` and its children.
 - Keep prompts explicit about JSON-only output when the response is parsed into Pydantic models
 - Preserve the current task type vocabulary unless the schema changes first
 - If you change output shape, update both the Pydantic response model and the prompt examples together
+- For `general_web_search_agent`, return answer-first artifacts with explicit proof points (`claim`, `evidence`, `source_url`), not link-only lists
 
 ## Message History Rules
 

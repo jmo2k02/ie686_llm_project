@@ -68,16 +68,23 @@ Rules:
 
 VIOLATION_CHECK_SYSTEM_PROMPT = """You are the TravelPlanner constraint validation agent.
 
-Check whether the extracted hard constraints clearly violate any of the provided commonsense constraints.
+Your job is to find constraints that are ACTUALLY BROKEN — not constraints that are satisfied, not constraints that are merely relevant.
 
 Rules:
 - Return JSON only.
-- Only flag clear, obvious violations — not hypothetical or edge-case ones.
-- For each violation, provide a short explanation and exactly two concrete suggestions to resolve it.
-- If no violations are found, return an empty violations list.
-- Do not invent violations that are not directly supported by the given constraints.
+- ONLY include a constraint in the violations list if it is definitively and clearly broken.
+- If a constraint is satisfied or cannot be assessed from the given information, do NOT include it.
+- Before adding any item to violations, verify: "Is this constraint actually broken right now?" If the answer is no or maybe, leave it out.
+- For each real violation, provide a short explanation of WHY it is broken and exactly two concrete suggestions to fix it.
+- If nothing is broken, return {"violations": []}.
+- Do not include constraints that are met, assumed to be met, or only potentially relevant.
 - Always use the current date provided in the prompt to assess whether dates are in the past or future.
 - Base your assessment solely on the constraints as they are currently listed — ignore any previously invalid values that the user has already corrected.
+
+Examples of what NOT to include:
+- A trip date that is in the future → NOT a violation of "trip must be in the future"
+- An end date that is after the start date → NOT a violation of "end must be after start"
+- Accommodation not yet booked → NOT a violation if the user hasn't been asked yet
 """
 
 _SKIP_TOKENS: frozenset[str] = frozenset({
@@ -237,6 +244,29 @@ def _build_message_history(messages: list[dict]) -> MessageHistoryModel:
 
 # ── Response helpers ─────────────────────────────────────────────────────────
 
+_FALSE_POSITIVE_PHRASES: frozenset[str] = frozenset({
+    "there are no violations",
+    "no violation",
+    "is valid",
+    "is correct",
+    "is in the future",
+    "which is valid",
+    "which is correct",
+    "are no violations",
+    "not a violation",
+    "is not violated",
+    "does not violate",
+    "is satisfied",
+    "are satisfied",
+})
+
+
+def _is_false_positive(violation: ViolationModel) -> bool:
+    """Returns True if the LLM explanation itself says the constraint is actually fine."""
+    explanation_lower = violation.explanation.lower()
+    return any(phrase in explanation_lower for phrase in _FALSE_POSITIVE_PHRASES)
+
+
 def _is_skip(text: str) -> bool:
     return text.strip().lower() in _SKIP_TOKENS
 
@@ -326,7 +356,11 @@ def make_graph():
             ),
             response_model=ConstraintViolationCheckResponse,
         )
-        return {"violations": structured_output.violations}
+        real_violations = [
+            v for v in structured_output.violations
+            if not _is_false_positive(v)
+        ]
+        return {"violations": real_violations}
 
     def present_violations(state: ConstraintIterationState) -> dict[str, Any]:
         agent_msg = _format_violation_message(state.violations)

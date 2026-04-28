@@ -1,12 +1,15 @@
 from __future__ import annotations
 
 import json
+from datetime import date
 from typing import Any, Literal
 
 from langgraph.checkpoint.memory import MemorySaver
 from langgraph.graph import END, StateGraph
 from langgraph.types import interrupt
 from pydantic import BaseModel, Field
+
+from spellchecker import SpellChecker
 
 from travelplanner.schema.commonsense_constraints import COMMONSENSE_CONSTRAINTS
 from travelplanner.schema.system_state import ConstraintModel, MessageHistoryModel
@@ -37,19 +40,35 @@ CATEGORY_QUESTIONS: dict[str, str] = {
         "No budget was mentioned. Do you have a maximum budget in mind? "
         "(or 'skip' if you don't)"
     ),
-    "accommodation": (
-        "No accommodation preference was found. Any preference for accommodation type "
-        "(hotel, hostel, Airbnb, etc.)? (or 'skip')"
-    ),
-    "transport": (
-        "No transport preference was found. How would you prefer to travel "
-        "(flight, train, car, etc.)? (or 'skip')"
-    ),
-    "purpose": (
-        "What is the purpose of this trip (leisure, business, honeymoon, family, etc.)? "
-        "(or 'skip')"
-    ),
 }
+
+STRUCTURED_OPTIONS: dict[str, dict[str, str]] = {
+    "accommodation": {
+        "a": "Hotel",
+        "b": "Airbnb / Vacation rental",
+        "c": "Hostel",
+        "d": "Apartment",
+        "e": "Resort",
+        "f": "Other / No preference",
+    },
+    "transport": {
+        "a": "Flight",
+        "b": "Train",
+        "c": "Car / Road trip",
+        "d": "Bus / Coach",
+        "e": "Other / No preference",
+    },
+    "purpose": {
+        "a": "Leisure / Vacation",
+        "b": "Business",
+        "c": "Honeymoon / Romance",
+        "d": "Family trip",
+        "e": "Adventure / Backpacking",
+        "f": "Other",
+    },
+}
+
+_SPELL_CHECKER = SpellChecker()
 
 EXTRACTION_SYSTEM_PROMPT = """You are the TravelPlanner constraint extraction agent.
 
@@ -61,6 +80,29 @@ Rules:
 - Extract only what the user explicitly states or strongly implies.
 - For missing_categories, list only those from the provided category list that you could NOT find in the request.
 - Do not invent destinations, dates, budgets, or preferences not present in the request.
+- If the user has provided corrections, the corrections are the authoritative source and OVERRIDE any conflicting information from the original request.
+- Always use the current date provided in the prompt to assess temporal constraints.
+"""
+
+VIOLATION_CHECK_SYSTEM_PROMPT = """You are the TravelPlanner constraint validation agent.
+
+Your job is to find constraints that are ACTUALLY BROKEN — not constraints that are satisfied, not constraints that are merely relevant.
+
+Rules:
+- Return JSON only.
+- ONLY include a constraint in the violations list if it is definitively and clearly broken.
+- If a constraint is satisfied or cannot be assessed from the given information, do NOT include it.
+- Before adding any item to violations, verify: "Is this constraint actually broken right now?" If the answer is no or maybe, leave it out.
+- For each real violation, provide a short explanation of WHY it is broken and exactly two concrete suggestions to fix it.
+- If nothing is broken, return {"violations": []}.
+- Do not include constraints that are met, assumed to be met, or only potentially relevant.
+- Always use the current date provided in the prompt to assess whether dates are in the past or future.
+- Base your assessment solely on the constraints as they are currently listed — ignore any previously invalid values that the user has already corrected.
+
+Examples of what NOT to include:
+- A trip date that is in the future → NOT a violation of "trip must be in the future"
+- An end date that is after the start date → NOT a violation of "end must be after start"
+- Accommodation not yet booked → NOT a violation if the user hasn't been asked yet
 """
 
 _SKIP_TOKENS: frozenset[str] = frozenset({
@@ -78,13 +120,19 @@ _CONFIRM_TOKENS: frozenset[str] = frozenset({
 
 # ── State ────────────────────────────────────────────────────────────────────
 
+class ViolationModel(BaseModel):
+    violated_constraint: str
+    explanation: str
+    suggestions: list[str] = Field(default_factory=list)
+
+
 class ConstraintIterationState(BaseModel):
     query: str
     model_name: str
     temperature: float = 0.0
 
     query_context: str = ""
-    phase: Literal["extract", "missing", "commonsense"] = "extract"
+    phase: Literal["extract", "missing"] = "extract"
 
     hard_constraints: list[ConstraintModel] = Field(default_factory=list)
     missing_categories: list[str] = Field(default_factory=list)
@@ -95,35 +143,48 @@ class ConstraintIterationState(BaseModel):
     )
     constraint_index: int = 0
 
+    violations: list[ViolationModel] = Field(default_factory=list)
+
     messages: list[dict] = Field(default_factory=list)
 
 
-# ── LLM response model ───────────────────────────────────────────────────────
+# ── LLM response models ──────────────────────────────────────────────────────
 
 class HardConstraintExtractionResponse(BaseModel):
     constraints: list[ConstraintModel] = Field(default_factory=list)
     missing_categories: list[str] = Field(default_factory=list)
 
 
+class ConstraintViolationCheckResponse(BaseModel):
+    violations: list[ViolationModel] = Field(default_factory=list)
+
+
 # ── Prompt helpers ───────────────────────────────────────────────────────────
 
 def _build_extraction_prompt(query: str, query_context: str) -> str:
-    full_query = (
-        f"{query}\n\nAdditional context / corrections: {query_context}"
-        if query_context
-        else query
-    )
-    return "\n".join([
+    lines = [
         "Extract hard constraints from the travel request below.",
         "",
-        f"User request: {full_query.strip()}",
+        f"Today's date: {date.today().isoformat()}",
+        "",
+        f"Original user request: {query.strip()}",
+    ]
+    if query_context:
+        lines += [
+            "",
+            "User corrections (these are the authoritative, up-to-date values — "
+            "they override any conflicting information in the original request):",
+            query_context.strip(),
+        ]
+    lines += [
         "",
         f"Category list to check: {json.dumps(HARD_CONSTRAINT_CATEGORIES)}",
         "",
         "Return strictly valid JSON with this shape:",
         '{"constraints": [{"type": "hard", "text": "...", "user_skipped": false}], '
         '"missing_categories": ["destination", "travel_dates"]}',
-    ])
+    ]
+    return "\n".join(lines)
 
 
 def _format_hard_constraints_message(constraints: list[ConstraintModel]) -> str:
@@ -139,19 +200,95 @@ def _format_hard_constraints_message(constraints: list[ConstraintModel]) -> str:
     return "\n".join(lines)
 
 
-def _format_all_commonsense_message(constraints: list[ConstraintModel]) -> str:
+def _build_violation_check_prompt(
+    query: str,
+    query_context: str,
+    hard_constraints: list[ConstraintModel],
+    commonsense_constraints: list[ConstraintModel],
+) -> str:
     lines = [
-        "Here are the commonsense constraints that apply to all trips:",
+        "Check the extracted hard constraints for commonsense violations.",
         "",
+        f"Today's date: {date.today().isoformat()}",
+        "",
+        f"Original user request: {query.strip()}",
     ]
-    for i, c in enumerate(constraints, 1):
-        lines.append(f"  {i:2d}. {c.text}")
+    if query_context:
+        lines += [
+            "",
+            "User corrections (authoritative — override the original request):",
+            query_context.strip(),
+        ]
     lines += [
         "",
-        "Type 'all ok' to confirm all of them.",
-        "Or list the numbers you want to skip, separated by spaces (e.g. '3 7 15').",
+        "Currently extracted hard constraints (already reflect the latest corrections):",
+        json.dumps([c.model_dump() for c in hard_constraints], indent=2, ensure_ascii=True),
+        "",
+        "Commonsense constraints to check against:",
+        json.dumps([c.text for c in commonsense_constraints], indent=2, ensure_ascii=True),
+        "",
+        "Return strictly valid JSON with this shape:",
+        '{"violations": [{"violated_constraint": "...", "explanation": "...", '
+        '"suggestions": ["suggestion 1", "suggestion 2"]}]}',
     ]
     return "\n".join(lines)
+
+
+def _format_violation_message(violations: list[ViolationModel]) -> str:
+    lines = [
+        "⚠ I found the following conflict(s) in your travel request:",
+        "",
+    ]
+    for i, v in enumerate(violations, 1):
+        lines.append(f"Conflict {i}: {v.violated_constraint}")
+        lines.append(f"  → {v.explanation}")
+        lines.append("")
+        lines.append("  To resolve this, you could:")
+        for j, suggestion in enumerate(v.suggestions, 1):
+            lines.append(f"    {j}. {suggestion}")
+        lines.append("")
+    lines.append("Please describe how you'd like to resolve this:")
+    return "\n".join(lines)
+
+
+def _format_options_question(category: str, options: dict[str, str], error: str = "") -> str:
+    label = category.replace("_", " ").capitalize()
+    lines = []
+    if error:
+        lines += [f"⚠ {error}", ""]
+    lines.append(f"{label} — please choose an option:")
+    lines.append("")
+    for letter, text in options.items():
+        lines.append(f"  {letter}) {text}")
+    lines.append("")
+    lines.append("Enter a letter, or type 'skip' to leave this open.")
+    return "\n".join(lines)
+
+
+def _spell_check_text(text: str) -> tuple[str, str | None]:
+    """Returns (corrected_text, message_or_None). Only flags clear single-word corrections."""
+    words = text.split()
+    misspelled = _SPELL_CHECKER.unknown(words)
+    corrections: dict[str, str] = {}
+    for word in misspelled:
+        suggestion = _SPELL_CHECKER.correction(word)
+        if suggestion and suggestion.lower() != word.lower() and len(word) > 3:
+            corrections[word] = suggestion
+
+    if not corrections:
+        return text, None
+
+    corrected = text
+    for original, fix in corrections.items():
+        corrected = corrected.replace(original, fix)
+
+    summary = ", ".join(f"'{k}' → '{v}'" for k, v in corrections.items())
+    msg = (
+        f"Possible typo(s) detected: {summary}\n"
+        f"Corrected text: \"{corrected}\"\n"
+        "Accept correction? (ok / skip)"
+    )
+    return corrected, msg
 
 
 def _build_message_history(messages: list[dict]) -> MessageHistoryModel:
@@ -164,6 +301,29 @@ def _build_message_history(messages: list[dict]) -> MessageHistoryModel:
 
 
 # ── Response helpers ─────────────────────────────────────────────────────────
+
+_FALSE_POSITIVE_PHRASES: frozenset[str] = frozenset({
+    "there are no violations",
+    "no violation",
+    "is valid",
+    "is correct",
+    "is in the future",
+    "which is valid",
+    "which is correct",
+    "are no violations",
+    "not a violation",
+    "is not violated",
+    "does not violate",
+    "is satisfied",
+    "are satisfied",
+})
+
+
+def _is_false_positive(violation: ViolationModel) -> bool:
+    """Returns True if the LLM explanation itself says the constraint is actually fine."""
+    explanation_lower = violation.explanation.lower()
+    return any(phrase in explanation_lower for phrase in _FALSE_POSITIVE_PHRASES)
+
 
 def _is_skip(text: str) -> bool:
     return text.strip().lower() in _SKIP_TOKENS
@@ -202,8 +362,8 @@ def make_graph():
         messages = [*messages, {"role": "user", "content": user_input}]
 
         if _is_confirm(user_input):
-            next_phase: Literal["missing", "commonsense"] = (
-                "missing" if state.missing_categories else "commonsense"
+            next_phase: Literal["missing", "extract"] = (
+                "missing" if state.missing_categories else "extract"
             )
             return {"messages": messages, "phase": next_phase}
 
@@ -216,23 +376,80 @@ def make_graph():
 
     def ask_missing_category(state: ConstraintIterationState) -> dict[str, Any]:
         category = state.missing_categories[state.category_index]
+        new_hard_constraints = list(state.hard_constraints)
+
+        # ── Structured options (accommodation / transport / purpose) ──────────
+        if category in STRUCTURED_OPTIONS:
+            options = STRUCTURED_OPTIONS[category]
+            valid_letters = set(options.keys())
+
+            # Detect retry: last assistant message was an options question for this category
+            last_assistant = next(
+                (m["content"] for m in reversed(state.messages) if m["role"] == "assistant"),
+                "",
+            )
+            error_prefix = ""
+            if category.replace("_", " ").capitalize() in last_assistant and "please choose" in last_assistant:
+                error_prefix = "Invalid input. Please enter one of: " + ", ".join(valid_letters) + "."
+
+            question = _format_options_question(category, options, error=error_prefix)
+            messages = [*state.messages, {"role": "assistant", "content": question}]
+
+            letter_input: str = interrupt(question)
+            messages = [*messages, {"role": "user", "content": letter_input}]
+
+            if _is_skip(letter_input):
+                return {"messages": messages, "category_index": state.category_index + 1}
+
+            letter = letter_input.strip().lower().rstrip(")")
+            if letter not in valid_letters:
+                # Invalid — return without incrementing so routing re-asks
+                return {"messages": messages}
+
+            selected_text = options[letter]
+
+            # ── Optional free-text follow-up ──────────────────────────────────
+            followup_q = (
+                f"Selected: {selected_text}.\n"
+                "Any additional notes or preferences? (press Enter to skip)"
+            )
+            messages = [*messages, {"role": "assistant", "content": followup_q}]
+            free_text: str = interrupt(followup_q)
+            messages = [*messages, {"role": "user", "content": free_text}]
+
+            if free_text.strip() and not _is_skip(free_text):
+                # ── Spell check ───────────────────────────────────────────────
+                corrected, spell_msg = _spell_check_text(free_text)
+                if spell_msg:
+                    messages = [*messages, {"role": "assistant", "content": spell_msg}]
+                    accept: str = interrupt(spell_msg)
+                    messages = [*messages, {"role": "user", "content": accept}]
+                    if _is_confirm(accept):
+                        free_text = corrected
+
+                selected_text = f"{selected_text} ({free_text.strip()})"
+
+            new_hard_constraints.append(
+                ConstraintModel(type="hard", text=selected_text, user_skipped=False)
+            )
+            return {
+                "messages": messages,
+                "hard_constraints": new_hard_constraints,
+                "category_index": state.category_index + 1,
+            }
+
+        # ── Free-text categories (destination / travel_dates / budget) ────────
         question = CATEGORY_QUESTIONS.get(
             category,
             f"No '{category}' was specified. Please provide details, or type 'skip'.",
         )
         messages = [*state.messages, {"role": "assistant", "content": question}]
-
         user_input: str = interrupt(question)
         messages = [*messages, {"role": "user", "content": user_input}]
 
-        new_hard_constraints = list(state.hard_constraints)
         if not _is_skip(user_input):
             new_hard_constraints.append(
-                ConstraintModel(
-                    type="hard",
-                    text=user_input.strip(),
-                    user_skipped=False,
-                )
+                ConstraintModel(type="hard", text=user_input.strip(), user_skipped=False)
             )
 
         return {
@@ -241,50 +458,73 @@ def make_graph():
             "category_index": state.category_index + 1,
         }
 
-    def present_all_commonsense_constraints(state: ConstraintIterationState) -> dict[str, Any]:
-        constraints = state.commonsense_constraints
-        message = _format_all_commonsense_message(constraints)
-        messages = [*state.messages, {"role": "assistant", "content": message}]
+    def check_commonsense_violations(state: ConstraintIterationState) -> dict[str, Any]:
+        structured_output, _, _ = invoke_structured_model(
+            model_name=state.model_name,
+            temperature=state.temperature,
+            system_prompt=VIOLATION_CHECK_SYSTEM_PROMPT,
+            user_prompt=_build_violation_check_prompt(
+                state.query,
+                state.query_context,
+                state.hard_constraints,
+                state.commonsense_constraints,
+            ),
+            response_model=ConstraintViolationCheckResponse,
+        )
+        real_violations = [
+            v for v in structured_output.violations
+            if not _is_false_positive(v)
+        ]
+        return {"violations": real_violations}
 
-        user_input: str = interrupt(message)
+    def present_violations(state: ConstraintIterationState) -> dict[str, Any]:
+        agent_msg = _format_violation_message(state.violations)
+        messages = [*state.messages, {"role": "assistant", "content": agent_msg}]
+
+        user_input: str = interrupt(agent_msg)
         messages = [*messages, {"role": "user", "content": user_input}]
 
-        updated = list(constraints)
-        if user_input.strip().lower() not in {"all ok", "alles ok", "ok all", "all"}:
-            for token in user_input.replace(",", " ").split():
-                if token.isdigit():
-                    idx = int(token) - 1
-                    if 0 <= idx < len(updated):
-                        updated[idx] = updated[idx].model_copy(update={"user_skipped": True})
-
+        context = (
+            f"{state.query_context}\n{user_input}".strip()
+            if state.query_context
+            else user_input
+        )
         return {
             "messages": messages,
-            "commonsense_constraints": updated,
+            "query_context": context,
+            "violations": [],
         }
+
+    def _route_after_check(state: ConstraintIterationState) -> str:
+        if state.violations:
+            return "present_violations"
+        return "present_hard_constraints"
 
     def _route_after_present_hard(state: ConstraintIterationState) -> str:
         if state.phase == "extract":
             return "extract_hard_constraints"
-        if state.phase == "missing" and state.category_index < len(state.missing_categories):
+        if state.missing_categories and state.category_index < len(state.missing_categories):
             return "ask_missing_category"
-        return "present_all_commonsense_constraints"
+        return END
 
     def _route_after_missing(state: ConstraintIterationState) -> str:
         if state.category_index < len(state.missing_categories):
             return "ask_missing_category"
-        return "present_all_commonsense_constraints"
+        return END
 
     graph = StateGraph(ConstraintIterationState)
     graph.add_node("extract_hard_constraints", extract_hard_constraints)
+    graph.add_node("check_commonsense_violations", check_commonsense_violations)
+    graph.add_node("present_violations", present_violations)
     graph.add_node("present_hard_constraints", present_hard_constraints)
     graph.add_node("ask_missing_category", ask_missing_category)
-    graph.add_node("present_all_commonsense_constraints", present_all_commonsense_constraints)
 
     graph.set_entry_point("extract_hard_constraints")
-    graph.add_edge("extract_hard_constraints", "present_hard_constraints")
+    graph.add_edge("extract_hard_constraints", "check_commonsense_violations")
+    graph.add_conditional_edges("check_commonsense_violations", _route_after_check)
+    graph.add_edge("present_violations", "extract_hard_constraints")
     graph.add_conditional_edges("present_hard_constraints", _route_after_present_hard)
     graph.add_conditional_edges("ask_missing_category", _route_after_missing)
-    graph.add_edge("present_all_commonsense_constraints", END)
 
     return graph.compile(checkpointer=MemorySaver())
 

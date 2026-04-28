@@ -3,19 +3,19 @@ Quick interactive test for the constraint iteration agent.
 Run from the travelplanner/ directory:
 
     uv run python test_constraint_iteration.py
+
+Requires a .env file in the repo root with OPENAI_API_KEY set.
+See .env.example for the expected format.
 """
 from __future__ import annotations
 
-import os
 import uuid
+from pathlib import Path
 
-# führe folgendes aus um den Test zu starten: 
-# cd "c:\Users\nava2\Documents\LLM & Agents\ie686_llm_project\travelplanner"
-# uv run python test_constraint_iteration.py
+from dotenv import load_dotenv
 
-
-# ── Trage deinen API-Key hier ein (nur für lokales Testen, nicht committen!) ──
-os.environ.setdefault("OPENAI_API_KEY", "ADD YOUR KEY HERE")
+# load .env from repo root (two levels up from travelplanner/)
+load_dotenv(Path(__file__).parent.parent / ".env")
 
 from langgraph.types import Command
 
@@ -67,11 +67,20 @@ def run_interactive(query: str, model_name: str = "openai:gpt-4o-mini") -> None:
 
 
 if __name__ == "__main__":
-    import sys
+    print("\n" + "=" * 60)
+    print("TravelPlanner — Constraint Iteration Agent")
+    print("=" * 60)
+    print("Describe your trip (press Enter twice when done):\n")
 
-    query = (
-        " ".join(sys.argv[1:])
-        if len(sys.argv) > 1
-        else "I want to go to Barcelona from June 15 to June 22."
-    )
-    run_interactive(query)
+    lines = []
+    while True:
+        line = input()
+        if line == "" and lines:
+            break
+        lines.append(line)
+
+    query = " ".join(lines).strip()
+    if not query:
+        print("No input provided. Exiting.")
+    else:
+        run_interactive(query)

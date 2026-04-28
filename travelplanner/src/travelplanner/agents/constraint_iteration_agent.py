@@ -63,6 +63,18 @@ Rules:
 - Do not invent destinations, dates, budgets, or preferences not present in the request.
 """
 
+VIOLATION_CHECK_SYSTEM_PROMPT = """You are the TravelPlanner constraint validation agent.
+
+Check whether the extracted hard constraints clearly violate any of the provided commonsense constraints.
+
+Rules:
+- Return JSON only.
+- Only flag clear, obvious violations — not hypothetical or edge-case ones.
+- For each violation, provide a short explanation and exactly two concrete suggestions to resolve it.
+- If no violations are found, return an empty violations list.
+- Do not invent violations that are not directly supported by the given constraints.
+"""
+
 _SKIP_TOKENS: frozenset[str] = frozenset({
     "", "skip", "s", "no", "nein", "n", "nope", "egal",
     "doesn't matter", "doesnt matter", "don't care", "dont care",
@@ -77,6 +89,12 @@ _CONFIRM_TOKENS: frozenset[str] = frozenset({
 
 
 # ── State ────────────────────────────────────────────────────────────────────
+
+class ViolationModel(BaseModel):
+    violated_constraint: str
+    explanation: str
+    suggestions: list[str] = Field(default_factory=list)
+
 
 class ConstraintIterationState(BaseModel):
     query: str
@@ -95,14 +113,20 @@ class ConstraintIterationState(BaseModel):
     )
     constraint_index: int = 0
 
+    violations: list[ViolationModel] = Field(default_factory=list)
+
     messages: list[dict] = Field(default_factory=list)
 
 
-# ── LLM response model ───────────────────────────────────────────────────────
+# ── LLM response models ──────────────────────────────────────────────────────
 
 class HardConstraintExtractionResponse(BaseModel):
     constraints: list[ConstraintModel] = Field(default_factory=list)
     missing_categories: list[str] = Field(default_factory=list)
+
+
+class ConstraintViolationCheckResponse(BaseModel):
+    violations: list[ViolationModel] = Field(default_factory=list)
 
 
 # ── Prompt helpers ───────────────────────────────────────────────────────────
@@ -136,6 +160,51 @@ def _format_hard_constraints_message(constraints: list[ConstraintModel]) -> str:
     for i, c in enumerate(constraints, 1):
         lines.append(f"  {i}. {c.text}")
     lines += ["", "Is this correct? Type 'ok' to confirm, or describe any corrections."]
+    return "\n".join(lines)
+
+
+def _build_violation_check_prompt(
+    query: str,
+    query_context: str,
+    hard_constraints: list[ConstraintModel],
+    commonsense_constraints: list[ConstraintModel],
+) -> str:
+    full_query = (
+        f"{query}\n\nAdditional context / corrections: {query_context}"
+        if query_context
+        else query
+    )
+    return "\n".join([
+        "Check the extracted hard constraints for commonsense violations.",
+        "",
+        f"User request: {full_query.strip()}",
+        "",
+        "Extracted hard constraints:",
+        json.dumps([c.model_dump() for c in hard_constraints], indent=2, ensure_ascii=True),
+        "",
+        "Commonsense constraints to check against:",
+        json.dumps([c.text for c in commonsense_constraints], indent=2, ensure_ascii=True),
+        "",
+        "Return strictly valid JSON with this shape:",
+        '{"violations": [{"violated_constraint": "...", "explanation": "...", '
+        '"suggestions": ["suggestion 1", "suggestion 2"]}]}',
+    ])
+
+
+def _format_violation_message(violations: list[ViolationModel]) -> str:
+    lines = [
+        "⚠ I found the following conflict(s) in your travel request:",
+        "",
+    ]
+    for i, v in enumerate(violations, 1):
+        lines.append(f"Conflict {i}: {v.violated_constraint}")
+        lines.append(f"  → {v.explanation}")
+        lines.append("")
+        lines.append("  To resolve this, you could:")
+        for j, suggestion in enumerate(v.suggestions, 1):
+            lines.append(f"    {j}. {suggestion}")
+        lines.append("")
+    lines.append("Please describe how you'd like to resolve this:")
     return "\n".join(lines)
 
 
@@ -226,6 +295,44 @@ def make_graph():
             "category_index": state.category_index + 1,
         }
 
+    def check_commonsense_violations(state: ConstraintIterationState) -> dict[str, Any]:
+        structured_output, _, _ = invoke_structured_model(
+            model_name=state.model_name,
+            temperature=state.temperature,
+            system_prompt=VIOLATION_CHECK_SYSTEM_PROMPT,
+            user_prompt=_build_violation_check_prompt(
+                state.query,
+                state.query_context,
+                state.hard_constraints,
+                state.commonsense_constraints,
+            ),
+            response_model=ConstraintViolationCheckResponse,
+        )
+        return {"violations": structured_output.violations}
+
+    def present_violations(state: ConstraintIterationState) -> dict[str, Any]:
+        agent_msg = _format_violation_message(state.violations)
+        messages = [*state.messages, {"role": "assistant", "content": agent_msg}]
+
+        user_input: str = interrupt(agent_msg)
+        messages = [*messages, {"role": "user", "content": user_input}]
+
+        context = (
+            f"{state.query_context}\n{user_input}".strip()
+            if state.query_context
+            else user_input
+        )
+        return {
+            "messages": messages,
+            "query_context": context,
+            "violations": [],
+        }
+
+    def _route_after_check(state: ConstraintIterationState) -> str:
+        if state.violations:
+            return "present_violations"
+        return "present_hard_constraints"
+
     def _route_after_present_hard(state: ConstraintIterationState) -> str:
         if state.phase == "extract":
             return "extract_hard_constraints"
@@ -240,11 +347,15 @@ def make_graph():
 
     graph = StateGraph(ConstraintIterationState)
     graph.add_node("extract_hard_constraints", extract_hard_constraints)
+    graph.add_node("check_commonsense_violations", check_commonsense_violations)
+    graph.add_node("present_violations", present_violations)
     graph.add_node("present_hard_constraints", present_hard_constraints)
     graph.add_node("ask_missing_category", ask_missing_category)
 
     graph.set_entry_point("extract_hard_constraints")
-    graph.add_edge("extract_hard_constraints", "present_hard_constraints")
+    graph.add_edge("extract_hard_constraints", "check_commonsense_violations")
+    graph.add_conditional_edges("check_commonsense_violations", _route_after_check)
+    graph.add_edge("present_violations", "extract_hard_constraints")
     graph.add_conditional_edges("present_hard_constraints", _route_after_present_hard)
     graph.add_conditional_edges("ask_missing_category", _route_after_missing)
 

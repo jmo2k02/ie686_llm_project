@@ -1,32 +1,15 @@
-"""Hotel Search Agent using LiteAPI REST API.
+"""Intelligent Hotel Search Agent with LLM-based query parsing.
 
-This agent searches for accommodation using the LiteAPI direct REST API and returns
-a typed hotel_shortlist artifact. It follows the LangGraph StateGraph pattern
-and system architecture established in travelplanner.agents.
+This agent combines:
+1. Deterministic hotel search functions (geocoding, API calls, filtering)
+2. LLM-based natural language query parsing
+3. LLM-based recommendation synthesis
 
 Architecture:
-- Uses Pydantic models for state and artifacts
-- Returns AgentArtifactModel with HotelSearchArtifactContentModel payload
-- Follows spawn-on-demand pattern (no LLM calls, pure API integration)
-- Implements typed artifact schema with alternatives (3-10 hotel options)
+    User Query (NL) → [LLM Parse] → Structured Params → [Search] → Hotels → [LLM Synthesize] → Output
 
-Usage:
-    from travelplanner.agents.hotel_search_agent import make_graph
-
-    graph = make_graph()
-    result = graph.invoke({
-        "query": "Find hotels in Barcelona",
-        "search_parameters": {
-            "location": "Barcelona, Spain",
-            "dates": "2026-06-01 to 2026-06-07",
-            "budget_max": 150.0,
-            "guest_count": 2
-        },
-        "task_id": 1
-    })
-    artifact = result["hotel_artifact"]
+The search functions are provider-agnostic and can be reused by other agents.
 """
-
 from __future__ import annotations
 
 import json
@@ -34,12 +17,13 @@ import os
 import time
 from datetime import datetime, timedelta
 from typing import Any, Dict, List, Optional, Tuple
-import threading
 
 import pycountry
 import requests
 from dotenv import load_dotenv
+from langchain_core.messages import HumanMessage, SystemMessage
 from langgraph.graph import END, StateGraph
+from ollama import Client as OllamaClient
 from pydantic import BaseModel, Field
 
 from travelplanner.schema.hotel_search_artifact import (
@@ -51,6 +35,7 @@ from travelplanner.schema.hotel_search_artifact import (
     HotelOptionModel,
 )
 from travelplanner.schema.system_state import AgentArtifactModel
+from travelplanner.utils.llm import make_chat_model
 
 # Load environment variables from .env file at module initialization
 _project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..', '..'))
@@ -66,48 +51,23 @@ LITEAPI_BASE_URL = "https://api.liteapi.travel/v3.0"
 LITEAPI_BOOKING_URL = "https://book.liteapi.travel/v3.0"
 NOMINATIM_BASE = "https://nominatim.openstreetmap.org"
 
-# Geocoding cache to avoid repeated calls (with max size limit)
-_GEOCODING_CACHE_MAX_SIZE = 1000
+# Geocoding cache (simple dict - thread-safe enough for this use case)
 _geocoding_cache: Dict[str, Tuple[float, float]] = {}
 _last_nominatim_request: float = 0.0
-_geocoding_lock = threading.Lock()
 
-
-# ============================================================================
-# State Models
-# ============================================================================
-
-
-class HotelSearchAgentState(BaseModel):
-    """State model for hotel search agent following travelplanner conventions."""
-
-    query: str = Field(description="User's original travel query")
-    search_parameters: Dict[str, Any] = Field(
-        description="Hotel search parameters (location, dates, budget, guests, amenities, etc.)"
-    )
-    task_id: Optional[int] = Field(
-        default=None, description="Task ID if spawned by planner"
-    )
-    hotel_artifact: Optional[AgentArtifactModel] = Field(
-        default=None, description="Output artifact with hotel shortlist"
-    )
-
-    class Config:
-        """Pydantic config."""
-        arbitrary_types_allowed = True
-
-
-# Expected search_parameters structure:
-# {
-#     "location": str,              # Required: "Barcelona, Spain"
-#     "dates": str,                 # Required: "2026-06-01 to YYYY-MM-DD"
-#     "budget_max": float,          # Required: Maximum per night
-#     "guest_count": int,           # Required: Number of guests
-#     "required_amenities": list[str],  # Optional: ["wifi", "pool", "parking"]
-#     "preferred_amenities": list[str], # Optional: ["gym", "breakfast"]
-#     "exclude_over_budget": bool,  # Optional: Default False (show alternatives)
-#     "min_rating": float,          # Optional: Minimum rating (0-10)
-# }
+# Amenity matching keywords for fuzzy matching
+AMENITY_KEYWORDS = {
+    "wifi": ["wifi", "wi-fi", "internet", "wireless"],
+    "pool": ["pool", "swimming"],
+    "gym": ["gym", "fitness", "workout", "exercise"],
+    "parking": ["parking", "garage"],
+    "breakfast": ["breakfast", "morning meal"],
+    "spa": ["spa", "wellness", "massage"],
+    "restaurant": ["restaurant", "dining"],
+    "bar": ["bar", "lounge", "pub"],
+    "pets": ["pet", "dog", "cat", "animal"],
+    "kitchen": ["kitchen", "kitchenette", "cooking"],
+}
 
 
 # ============================================================================
@@ -124,133 +84,52 @@ def geocode_location(location: str) -> Tuple[Optional[float], Optional[float]]:
     Returns:
         Tuple of (latitude, longitude) or (None, None) if geocoding fails
     """
+    global _last_nominatim_request
+
+    # Check cache
+    if location in _geocoding_cache:
+        print(f"[geocode_location] Using cached coordinates for {location}")
+        return _geocoding_cache[location]
+
     print(f"[geocode_location] Geocoding location: {location}")
 
-    with _geocoding_lock:
-        if location in _geocoding_cache:
-            print(f"[geocode_location] Using cached coordinates")
-            return _geocoding_cache[location]
+    # Rate limiting (Nominatim requires 1 request per second)
+    time_since_last = time.time() - _last_nominatim_request
+    if time_since_last < 1.0:
+        sleep_time = 1.0 - time_since_last
+        print(f"[geocode_location] Rate limiting: sleeping {sleep_time:.2f}s")
+        time.sleep(sleep_time)
 
-        global _last_nominatim_request
-        time_since_last = time.time() - _last_nominatim_request
-        if time_since_last < 1.0:
-            sleep_time = 1.0 - time_since_last
-            print(f"[geocode_location] Rate limiting: sleeping {sleep_time:.2f}s")
-            time.sleep(sleep_time)
-
-        _last_nominatim_request = time.time()
-
-        try:
-            headers = {
-                "User-Agent": "TravelPlannerAgent/1.0 (educational project)"
-            }
-            params = {
-                "q": location,
-                "format": "json",
-                "limit": 1
-            }
-
-            response = requests.get(
-                f"{NOMINATIM_BASE}/search",
-                headers=headers,
-                params=params,
-                timeout=10
-            )
-            response.raise_for_status()
-
-            results = response.json()
-            if not results:
-                print(f"[geocode_location] No results found for location: {location}")
-                return None, None
-
-            lat = float(results[0]["lat"])
-            lon = float(results[0]["lon"])
-
-            if len(_geocoding_cache) >= _GEOCODING_CACHE_MAX_SIZE:
-                first_key = next(iter(_geocoding_cache))
-                del _geocoding_cache[first_key]
-                print(f"[geocode_location] Cache evicted: {first_key}")
-
-            _geocoding_cache[location] = (lat, lon)
-
-            print(f"[geocode_location] Found coordinates: ({lat}, {lon})")
-            return lat, lon
-
-        except requests.exceptions.Timeout:
-            print(f"[geocode_location] Request timeout for location: {location}")
-            return None, None
-        except requests.exceptions.RequestException as e:
-            print(f"[geocode_location] Request error: {e}")
-            return None, None
-        except (KeyError, ValueError, IndexError) as e:
-            print(f"[geocode_location] Failed to parse response: {e}")
-            return None, None
-        except Exception as e:
-            print(f"[geocode_location] Unexpected error: {e}")
-            return None, None
-
-
-def parse_date_range(date_string: str) -> Tuple[Optional[str], Optional[str]]:
-    """Parse date range string into check-in and check-out dates.
-
-    Args:
-        date_string: Date string in format "YYYY-MM-DD to YYYY-MM-DD"
-                     or "YYYY-MM-DD - YYYY-MM-DD"
-
-    Returns:
-        Tuple of (check_in_date, check_out_date) or (None, None) if parsing fails
-    """
-    print(f"[parse_date_range] Parsing date string: {date_string}")
+    _last_nominatim_request = time.time()
 
     try:
-        if " to " in date_string:
-            parts = date_string.split(" to ", maxsplit=1)
-        elif " - " in date_string:
-            parts = date_string.split(" - ", maxsplit=1)
-        else:
-            print(f"[parse_date_range] Invalid date format: {date_string}")
+        headers = {"User-Agent": "TravelPlannerAgent/1.0 (educational project)"}
+        params = {"q": location, "format": "json", "limit": 1}
+
+        response = requests.get(
+            f"{NOMINATIM_BASE}/search",
+            headers=headers,
+            params=params,
+            timeout=10
+        )
+        response.raise_for_status()
+
+        results = response.json()
+        if not results:
+            print(f"[geocode_location] No results found")
             return None, None
 
-        if len(parts) != 2:
-            print(f"[parse_date_range] Expected 2 parts, got {len(parts)}")
-            return None, None
+        lat = float(results[0]["lat"])
+        lon = float(results[0]["lon"])
 
-        check_in = parts[0].strip()
-        check_out = parts[1].strip()
+        # Cache result
+        _geocoding_cache[location] = (lat, lon)
 
-        check_in_dt = datetime.strptime(check_in, "%Y-%m-%d")
-        check_out_dt = datetime.strptime(check_out, "%Y-%m-%d")
+        print(f"[geocode_location] Found coordinates: ({lat}, {lon})")
+        return lat, lon
 
-        today = datetime.now().date()
-        check_in_date = check_in_dt.date()
-        check_out_date = check_out_dt.date()
-
-        if check_in_date < today:
-            print(f"[parse_date_range] Check-in date cannot be in the past")
-            return None, None
-
-        if check_out_date <= check_in_date:
-            print(f"[parse_date_range] Check-out date must be after check-in date")
-            return None, None
-
-        nights = (check_out_date - check_in_date).days
-        if nights > 365:
-            print(f"[parse_date_range] Stay duration exceeds maximum (365 nights)")
-            return None, None
-
-        max_future = today + timedelta(days=730)
-        if check_in_date > max_future:
-            print(f"[parse_date_range] Check-in date too far in future (max 2 years)")
-            return None, None
-
-        print(f"[parse_date_range] Parsed dates: {check_in} to {check_out}")
-        return check_in, check_out
-
-    except ValueError as e:
-        print(f"[parse_date_range] Date format error: {e}")
-        return None, None
-    except Exception as e:
-        print(f"[parse_date_range] Unexpected error: {e}")
+    except (requests.exceptions.RequestException, KeyError, ValueError, IndexError) as e:
+        print(f"[geocode_location] Error: {e}")
         return None, None
 
 
@@ -404,220 +283,209 @@ def search_places(text_query: str) -> Dict[str, Any]:
         data = response.json()
         places = data.get("data", [])
 
-        if places:
-            place = places[0]
-            print(f"[search_places] Found: {place.get('displayName')} (placeId: {place.get('placeId')})")
-            return {
-                "placeId": place.get("placeId"),
-                "displayName": place.get("displayName"),
-                "formattedAddress": place.get("formattedAddress")
-            }
+        if not places:
+            print(f"[search_places] No places found for: {text_query}")
+            return {"status": "failed", "error": "no_results"}
 
-        return {}
+        first_place = places[0]
+        place_id = first_place.get("placeId", "")
+        display_name = first_place.get("displayName", "")
 
+        print(f"[search_places] Found place: {display_name} (ID: {place_id})")
+
+        return {
+            "status": "success",
+            "placeId": place_id,
+            "displayName": display_name
+        }
+
+    except requests.exceptions.Timeout:
+        print(f"[search_places] Request timeout")
+        return {"status": "failed", "error": "timeout"}
+    except requests.exceptions.RequestException as e:
+        print(f"[search_places] Request error: {e}")
+        return {"status": "failed", "error": str(e)}
     except Exception as e:
-        print(f"[search_places] Error: {e}")
-        return {}
+        print(f"[search_places] Unexpected error: {e}")
+        return {"status": "failed", "error": str(e)}
 
 
 def search_hotels_via_api(
     place_id: Optional[str],
     city_name: Optional[str],
-    country_code: str,
+    country_code: Optional[str],
     check_in_date: str,
     check_out_date: str,
     guest_count: int,
-    currency: str = "EUR",
-    guest_nationality: str = "US",
+    timeout: int = 8
 ) -> Dict[str, Any]:
-    """Search for hotel rates using LiteAPI REST API.
-
-    Uses LiteAPI endpoint: POST /hotels/rates
+    """Search for hotels using LiteAPI /data/hotels endpoint.
 
     Args:
-        place_id: Optional place ID from search_places
-        city_name: City name (used if no place_id)
-        country_code: ISO 3166-1 alpha-2 country code
-        check_in_date: Check-in date in ISO format (YYYY-MM-DD)
-        check_out_date: Check-out date in ISO format (YYYY-MM-DD)
-        guest_count: Number of adult guests
-        currency: Currency code (default: EUR)
-        guest_nationality: Guest nationality ISO code (default: US)
+        place_id: LiteAPI place ID from search_places()
+        city_name: City name (fallback if place_id is None)
+        country_code: Country code (fallback)
+        check_in_date: Check-in date (YYYY-MM-DD)
+        check_out_date: Check-out date (YYYY-MM-DD)
+        guest_count: Number of guests
+        timeout: Request timeout in seconds
 
     Returns:
-        Dict with 'status', 'data' (list of rate results), 'hotels' (hotel info), and optional 'error'
+        Dict with search results including hotels and rates
     """
-    print(f"[search_hotels_via_api] Searching hotels in {city_name or place_id}, {country_code}")
-    print(f"[search_hotels_via_api] Dates: {check_in_date} to {check_out_date}")
-    print(f"[search_hotels_via_api] Guests: {guest_count}")
-
-    start_time = time.time()
+    print(f"[search_hotels_via_api] Searching hotels in {city_name}, {country_code}")
 
     try:
-        body = {
-            "occupancies": [{"adults": guest_count}],
-            "currency": currency,
-            "guestNationality": guest_nationality,
+        if not place_id and city_name and country_code:
+            place_result = search_places(f"{city_name}, {country_code}")
+            if place_result.get("status") == "success":
+                place_id = place_result.get("placeId")
+
+        if not place_id:
+            return {
+                "status": "failed",
+                "error": "Could not determine place_id for location"
+            }
+
+        occupancies = [
+            {
+                "rooms": 1,
+                "adults": guest_count,
+                "children": []
+            }
+        ]
+
+        payload = {
+            "placeId": place_id,
             "checkin": check_in_date,
             "checkout": check_out_date,
-            "roomMapping": True,
-            "maxRatesPerHotel": 1,
-            "includeHotelData": True
+            "occupancies": occupancies,
+            "currency": "EUR",
+            "guestNationality": "US",
+            "timeout": timeout
         }
 
-        if place_id:
-            body["placeId"] = place_id
-        else:
-            body["cityName"] = city_name
-            body["countryCode"] = country_code
+        print(f"[search_hotels_via_api] Request payload: {json.dumps(payload, indent=2)}")
 
+        start_time = time.time()
         response = requests.post(
-            f"{LITEAPI_BASE_URL}/hotels/rates",
+            f"{LITEAPI_BASE_URL}/data/hotels",
             headers=_get_api_headers(),
-            json=body,
-            timeout=30
+            json=payload,
+            timeout=timeout + 2
         )
-        response.raise_for_status()
-
         elapsed_ms = int((time.time() - start_time) * 1000)
-        print(f"[search_hotels_via_api] API response time: {elapsed_ms}ms")
+
+        response.raise_for_status()
 
         data = response.json()
 
-        if data.get("error"):
-            error = data.get("error", {})
-            return {
-                "status": "failed",
-                "data": [],
-                "hotels": [],
-                "error": f"API error {error.get('code')}: {error.get('description', 'Unknown error')}"
-            }
-
-        rate_data = data.get("data", [])
-        hotel_data = data.get("hotels", [])
+        hotels = data.get("data", [])
+        print(f"[search_hotels_via_api] Found {len(hotels)} hotels in {elapsed_ms}ms")
 
         return {
             "status": "success",
-            "data": rate_data,
-            "hotels": hotel_data,
-            "meta": {"total": len(rate_data)},
+            "data": hotels,
             "api_response_time_ms": elapsed_ms
         }
 
     except requests.exceptions.Timeout:
         print(f"[search_hotels_via_api] Request timeout")
-        return {
-            "status": "failed",
-            "data": [],
-            "hotels": [],
-            "error": "Request timed out"
-        }
+        return {"status": "failed", "error": "timeout"}
+    except requests.exceptions.HTTPError as e:
+        print(f"[search_hotels_via_api] HTTP error: {e}")
+        return {"status": "failed", "error": f"http_error: {e}"}
     except requests.exceptions.RequestException as e:
         print(f"[search_hotels_via_api] Request error: {e}")
-        return {
-            "status": "failed",
-            "data": [],
-            "hotels": [],
-            "error": str(e)
-        }
+        return {"status": "failed", "error": str(e)}
     except Exception as e:
         print(f"[search_hotels_via_api] Unexpected error: {e}")
-        return {
-            "status": "failed",
-            "data": [],
-            "hotels": [],
-            "error": str(e)
-        }
+        return {"status": "failed", "error": str(e)}
+
+
+# ============================================================================
+# Hotel Filtering and Ranking
+# ============================================================================
+
+
+def _amenity_match(hotel_amenities: List[str], required_amenity: str) -> bool:
+    """Check if hotel has required amenity using fuzzy keyword matching.
+
+    Args:
+        hotel_amenities: List of hotel amenities (lowercase)
+        required_amenity: Required amenity (e.g., "wifi", "pool")
+
+    Returns:
+        True if hotel has amenity
+    """
+    keywords = AMENITY_KEYWORDS.get(required_amenity.lower(), [required_amenity.lower()])
+
+    all_amenities_text = " ".join(hotel_amenities)
+
+    for keyword in keywords:
+        if keyword in all_amenities_text:
+            return True
+
+    return False
 
 
 def filter_hotels_by_constraints(
     hotels: List[HotelOptionModel],
     required_amenities: Optional[List[str]] = None,
     preferred_amenities: Optional[List[str]] = None,
-    min_rating: Optional[float] = None,
+    min_rating: Optional[float] = None
 ) -> Tuple[List[HotelOptionModel], Dict[str, int]]:
-    """Filter hotels by user constraints.
+    """Filter hotels by amenities and rating.
 
     Args:
-        hotels: List of hotel models
-        required_amenities: Must-have amenities (case-insensitive)
-        preferred_amenities: Nice-to-have amenities (used for scoring)
-        min_rating: Minimum rating threshold (0-10)
+        hotels: List of hotel options
+        required_amenities: Must-have amenities (AND logic)
+        preferred_amenities: Nice-to-have amenities (for scoring)
+        min_rating: Minimum rating threshold
 
     Returns:
-        Tuple of (filtered list of hotels, dict mapping hotel_id to preferred_amenity_count)
+        Tuple of (filtered_hotels, preferred_amenity_counts)
     """
+    print(f"[filter_hotels_by_constraints] Filtering {len(hotels)} hotels")
+    print(f"  Required amenities: {required_amenities}")
+    print(f"  Preferred amenities: {preferred_amenities}")
+    print(f"  Min rating: {min_rating}")
+
     filtered = []
     preferred_counts = {}
 
-    # Amenity keyword mapping for better fuzzy matching
-    AMENITY_KEYWORDS = {
-        "wifi": ["wifi", "wi-fi", "internet", "wireless"],
-        "pool": ["pool", "swimming"],
-        "parking": ["parking", "garage", "valet"],
-        "gym": ["gym", "fitness", "workout", "exercise"],
-        "breakfast": ["breakfast", "morning meal"],
-        "spa": ["spa", "wellness", "massage"],
-        "restaurant": ["restaurant", "dining"],
-        "bar": ["bar", "lounge", "pub"],
-        "ac": ["air conditioning", "aircon", "a/c"],
-        "pets": ["pet", "dog", "cat", "animal"],
-    }
-
-    def normalize_amenity(amenity: str) -> str:
-        return amenity.lower().strip().replace("-", "").replace("_", "")
-
-    def amenity_matches(required: str, hotel_amenity: str) -> bool:
-        """Check if hotel amenity satisfies required amenity using keyword matching."""
-        required_norm = normalize_amenity(required)
-        hotel_norm = normalize_amenity(hotel_amenity)
-
-        # Direct substring match
-        if required_norm in hotel_norm:
-            return True
-
-        # Keyword-based fuzzy match
-        if required in AMENITY_KEYWORDS:
-            keywords = AMENITY_KEYWORDS[required]
-            for keyword in keywords:
-                keyword_norm = normalize_amenity(keyword)
-                if keyword_norm in hotel_norm:
-                    return True
-
-        return False
-
-    required_normalized = [normalize_amenity(a) for a in (required_amenities or [])]
-    preferred_normalized = [normalize_amenity(a) for a in (preferred_amenities or [])]
-
     for hotel in hotels:
+        # Apply min rating filter
         if min_rating is not None and hotel.rating < min_rating:
-            print(f"[filter_hotels] {hotel.name} filtered: rating {hotel.rating} < {min_rating}")
+            print(f"[filter] {hotel.name} excluded: rating {hotel.rating} < {min_rating}")
             continue
 
-        hotel_amenities_normalized = [normalize_amenity(a) for a in hotel.amenities]
-
-        has_all_required = True
+        # Apply required amenities filter (ALL must be present)
         if required_amenities:
-            for req_amenity in required_amenities:
-                if not any(amenity_matches(req_amenity, hotel_amenity) for hotel_amenity in hotel.amenities):
-                    print(f"[filter_hotels] {hotel.name} filtered: missing required amenity '{req_amenity}'")
+            hotel_amenities_lower = [a.lower() for a in hotel.amenities]
+            has_all_required = True
+
+            for req in required_amenities:
+                if not _amenity_match(hotel_amenities_lower, req):
+                    print(f"[filter] {hotel.name} excluded: missing required amenity '{req}'")
                     has_all_required = False
                     break
 
-        if not has_all_required:
-            continue
+            if not has_all_required:
+                continue
 
+        # Count preferred amenities (for ranking)
         preferred_count = 0
         if preferred_amenities:
-            for pref_amenity in preferred_amenities:
-                if any(amenity_matches(pref_amenity, hotel_amenity) for hotel_amenity in hotel.amenities):
+            hotel_amenities_lower = [a.lower() for a in hotel.amenities]
+            for pref in preferred_amenities:
+                if _amenity_match(hotel_amenities_lower, pref):
                     preferred_count += 1
 
         preferred_counts[hotel.accommodation_id] = preferred_count
-
         filtered.append(hotel)
 
-    print(f"[filter_hotels] Filtered {len(hotels)} → {len(filtered)} hotels")
+    print(f"[filter_hotels_by_constraints] Filtered to {len(filtered)} hotels")
     return filtered, preferred_counts
 
 
@@ -625,76 +493,58 @@ def rank_hotels(
     hotels: List[HotelOptionModel],
     budget_max: float,
     preferred_counts: Optional[Dict[str, int]] = None,
-    exclude_over_budget: bool = False,
-    min_results: int = 3,
-    max_results: int = 10
+    exclude_over_budget: bool = False
 ) -> List[HotelOptionModel]:
-    """Rank hotels by preference: budget fit, rating, preferred amenities, then price.
+    """Rank hotels by criteria and return top 10.
+
+    Ranking criteria (in order):
+    1. Preferred amenity count (descending)
+    2. Within budget status (within budget first)
+    3. Rating (descending)
+    4. Price (ascending)
 
     Args:
-        hotels: List of hotel models
+        hotels: List of filtered hotels
         budget_max: Maximum budget per night
-        preferred_counts: Dict mapping hotel_id to preferred amenity count
-        exclude_over_budget: If True, completely exclude over-budget hotels
-        min_results: Minimum number of results to return (default: 3)
-        max_results: Maximum number of results to return (default: 10)
+        preferred_counts: Dict mapping hotel ID to preferred amenity count
+        exclude_over_budget: If True, exclude over-budget hotels
 
     Returns:
-        List of ranked hotels (up to max_results, may be less if not enough hotels)
+        List of top 10 ranked hotels with rank field set
     """
-    print(f"[rank_hotels] Ranking {len(hotels)} hotels with budget_max={budget_max}, exclude_over_budget={exclude_over_budget}")
+    print(f"[rank_hotels] Ranking {len(hotels)} hotels")
+
+    if exclude_over_budget:
+        hotels = [h for h in hotels if not h.over_budget]
+        print(f"[rank_hotels] After budget filter: {len(hotels)} hotels")
 
     if not hotels:
-        print(f"[rank_hotels] No hotels to rank")
         return []
 
     if preferred_counts is None:
         preferred_counts = {}
 
-    within_budget = [h for h in hotels if h.nightly_rate <= budget_max]
-    over_budget = [h for h in hotels if h.nightly_rate > budget_max]
+    def sort_key(hotel: HotelOptionModel):
+        pref_count = preferred_counts.get(hotel.accommodation_id, 0)
+        within_budget = not hotel.over_budget
+        return (-pref_count, not within_budget, -hotel.rating, hotel.nightly_rate)
 
-    print(f"[rank_hotels] Within budget: {len(within_budget)}, Over budget: {len(over_budget)}")
+    sorted_hotels = sorted(hotels, key=sort_key)
 
-    def sort_key_within_budget(h):
-        preferred_count = preferred_counts.get(h.accommodation_id, 0)
-        return (-preferred_count, -h.rating, h.nightly_rate)
+    top_hotels = sorted_hotels[:10]
 
-    within_budget.sort(key=sort_key_within_budget)
+    for i, hotel in enumerate(top_hotels, start=1):
+        hotel.rank = i
 
-    over_budget.sort(key=lambda h: h.nightly_rate)
-
-    if exclude_over_budget:
-        ranked = within_budget
-        print(f"[rank_hotels] Excluding over-budget hotels")
-    else:
-        ranked = within_budget + over_budget
-
-    count = min(max_results, len(ranked))
-    result = ranked[:count]
-
-    for i, hotel in enumerate(result):
-        hotel.rank = i + 1
-
-    print(f"[rank_hotels] Returning top {len(result)} hotels")
-    return result
-
-
-# ============================================================================
-# Artifact Construction
-# ============================================================================
+    print(f"[rank_hotels] Ranked top {len(top_hotels)} hotels")
+    return top_hotels
 
 
 def _extract_price_from_rate(rate: Dict[str, Any]) -> Tuple[float, str]:
-    """Extract price and currency from a rate object.
+    """Extract price from LiteAPI rate structure.
 
-    LiteAPI rate structure:
-    {
-        "retailRate": {
-            "total": [{"amount": 131.54, "currency": "USD"}],
-            "taxesAndFees": [{"included": true}]
-        }
-    }
+    Args:
+        rate: Rate dict from LiteAPI
 
     Returns:
         Tuple of (price, currency)
@@ -824,6 +674,83 @@ def _build_hotel_option_from_data(
     return hotel_option
 
 
+def _create_failed_artifact(
+    error_msg: str,
+    search_params: Dict[str, Any],
+    check_in_date: str,
+    check_out_date: str,
+    nights: int,
+    latitude: Optional[float],
+    longitude: Optional[float],
+    task_id: Optional[int]
+) -> AgentArtifactModel:
+    """Create a failed artifact for error cases."""
+    error_code = "unknown_error"
+    if "api_key" in error_msg.lower():
+        error_code = "missing_api_key"
+    elif "timeout" in error_msg.lower():
+        error_code = "timeout_error"
+    elif "http" in error_msg.lower():
+        error_code = "http_error"
+
+    location = search_params.get("location", "")
+    budget_max = float(search_params.get("budget_max", 0.0))
+    guest_count = int(search_params.get("guest_count", 1))
+
+    content = HotelSearchArtifactContentModel(
+        task_ref=str(task_id) if task_id else "",
+        status="failed",
+        attempt=1,
+        search_parameters=HotelSearchParametersModel(
+            location=location,
+            coordinates=HotelSearchCoordinatesModel(latitude=latitude, longitude=longitude) if latitude and longitude else None,
+            check_in_date=check_in_date,
+            check_out_date=check_out_date,
+            nights=nights,
+            budget_max=budget_max,
+            guest_count=guest_count,
+            rooms=1
+        ),
+        options=[],
+        metadata=HotelSearchMetadataModel(total_results=0, returned_results=0),
+        errors=[HotelSearchErrorModel(code=error_code, message=error_msg)]
+    )
+    return AgentArtifactModel(
+        name="hotel_shortlist",
+        type="hotel_search",
+        content=content.model_dump(),
+        description=f"Hotel search failed: {error_msg}"
+    )
+
+
+def _enrich_hotels_with_amenities(
+    hotels: List[HotelOptionModel],
+    required_amenities: List[str],
+    preferred_amenities: List[str]
+) -> List[HotelOptionModel]:
+    """Enrich top hotels with full amenity details from hotel details API."""
+    if not (required_amenities or preferred_amenities) or not hotels:
+        return hotels
+
+    print(f"[_enrich_hotels_with_amenities] Fetching details for top {min(20, len(hotels))} hotels")
+
+    # Fetch details for top 20 candidates
+    top_candidates = sorted(hotels, key=lambda h: (-h.rating, h.nightly_rate))[:20]
+
+    for hotel in top_candidates:
+        details_response = get_hotel_details(hotel.accommodation_id, timeout=4)
+
+        if details_response.get("status") == "success":
+            hotel_data = details_response.get("hotel", {})
+            facilities = hotel_data.get("hotelFacilities", [])
+
+            if facilities:
+                hotel.amenities = list(set(hotel.amenities + facilities))
+                print(f"[_enrich_hotels_with_amenities] Enriched {hotel.name} with {len(facilities)} facilities")
+
+    return hotels
+
+
 def build_hotel_artifact(
     api_response: Dict[str, Any],
     search_params: Dict[str, Any],
@@ -853,70 +780,49 @@ def build_hotel_artifact(
     """
     print(f"[build_hotel_artifact] Building artifact from API search results")
 
+    # Extract parameters
     location = search_params.get("location", "")
     budget_max = float(search_params.get("budget_max", 0.0))
     guest_count = int(search_params.get("guest_count", 1))
-
     required_amenities = search_params.get("required_amenities", [])
     preferred_amenities = search_params.get("preferred_amenities", [])
     min_rating = search_params.get("min_rating")
     exclude_over_budget = search_params.get("exclude_over_budget", False)
 
-    print(f"[build_hotel_artifact] Constraints: required_amenities={required_amenities}, "
+    print(f"[build_hotel_artifact] Constraints: required={required_amenities}, "
           f"min_rating={min_rating}, exclude_over_budget={exclude_over_budget}")
 
+    # Handle API failures
     if api_response.get("status") == "failed":
         error_msg = api_response.get("error", "unknown_error")
-        error_code = "unknown_error"
-        if "api_key" in error_msg.lower():
-            error_code = "missing_api_key"
-        elif "timeout" in error_msg.lower():
-            error_code = "timeout_error"
-        elif "http" in error_msg.lower():
-            error_code = "http_error"
-
-        content = HotelSearchArtifactContentModel(
-            task_ref=str(task_id) if task_id else "",
-            status="failed",
-            attempt=1,
-            search_parameters=HotelSearchParametersModel(
-                location=location,
-                coordinates=HotelSearchCoordinatesModel(latitude=latitude, longitude=longitude) if latitude and longitude else None,
-                check_in_date=check_in_date,
-                check_out_date=check_out_date,
-                nights=nights,
-                budget_max=budget_max,
-                guest_count=guest_count,
-                rooms=1
-            ),
-            options=[],
-            metadata=HotelSearchMetadataModel(total_results=0, returned_results=0),
-            errors=[HotelSearchErrorModel(code=error_code, message=error_msg)]
-        )
-        return AgentArtifactModel(
-            name="hotel_shortlist",
-            type="hotel_search",
-            content=content.model_dump(),
-            description=f"Hotel search failed: {error_msg}"
+        return _create_failed_artifact(
+            error_msg, search_params, check_in_date, check_out_date,
+            nights, latitude, longitude, task_id
         )
 
-    hotels = []
-
+    # Extract hotel data from API response
     rate_data = api_response.get("data", [])
-    hotel_info_list = api_response.get("hotels", [])
+    hotel_info_map = {}
 
-    hotel_info_map = {h.get("id"): h for h in hotel_info_list if h.get("id")}
+    for rate_item in rate_data:
+        hotel_id = rate_item.get("hotelId", "")
+        if hotel_id:
+            hotel_info_map[hotel_id] = {
+                "id": hotel_id,
+                "name": rate_item.get("hotelName", f"Hotel {hotel_id}"),
+                "rating": rate_item.get("rating", 0),
+                "location": rate_item.get("location", {}),
+                "address": rate_item.get("address", ""),
+            }
 
-    # Step 1: Build initial hotel list from rate data
+    # Build hotel list
+    hotels = []
     for rate_item in rate_data:
         hotel_id = rate_item.get("hotelId", "")
         if not hotel_id:
             continue
 
-        hotel_info = hotel_info_map.get(hotel_id, {})
-        if not hotel_info:
-            hotel_info = {"id": hotel_id, "name": f"Hotel {hotel_id}"}
-
+        hotel_info = hotel_info_map.get(hotel_id, {"id": hotel_id, "name": f"Hotel {hotel_id}"})
         hotel_option = _build_hotel_option_from_data(
             hotel_info=hotel_info,
             rate_data=rate_item,
@@ -924,30 +830,13 @@ def build_hotel_artifact(
             budget_max=budget_max
         )
 
-        if hotel_option is not None:
+        if hotel_option:
             hotels.append(hotel_option)
 
-    # Step 2: Enrich top hotels with full details (amenities) if needed
-    fetch_details = bool(required_amenities or preferred_amenities)
+    # Enrich with amenity details if needed
+    hotels = _enrich_hotels_with_amenities(hotels, required_amenities, preferred_amenities)
 
-    if fetch_details and hotels:
-        print(f"[build_hotel_artifact] Fetching details for top {min(20, len(hotels))} hotels to get amenities")
-
-        # Fetch details for top 20 candidates (before filtering)
-        top_candidates = sorted(hotels, key=lambda h: (-h.rating, h.nightly_rate))[:20]
-
-        for hotel in top_candidates:
-            details_response = get_hotel_details(hotel.accommodation_id, timeout=4)
-
-            if details_response.get("status") == "success":
-                hotel_data = details_response.get("hotel", {})
-                facilities = hotel_data.get("hotelFacilities", [])
-
-                if facilities:
-                    # Update amenities with full details
-                    hotel.amenities = list(set(hotel.amenities + facilities))
-                    print(f"[build_hotel_artifact] Enriched {hotel.name} with {len(facilities)} facilities")
-
+    # Filter and rank
     filtered_hotels, preferred_counts = filter_hotels_by_constraints(
         hotels,
         required_amenities=required_amenities,
@@ -962,6 +851,7 @@ def build_hotel_artifact(
         exclude_over_budget=exclude_over_budget
     )
 
+    # Build final artifact
     status = "failed" if not ranked_hotels else "success"
     content = HotelSearchArtifactContentModel(
         task_ref=str(task_id) if task_id else "",
@@ -996,63 +886,352 @@ def build_hotel_artifact(
 
 
 # ============================================================================
-# LangGraph Node
+# Intelligent Hotel Search Agent (LLM-based)
 # ============================================================================
 
 
-def hotel_search_node(state: HotelSearchAgentState) -> dict[str, Any]:
-    """LangGraph node that performs hotel search via LiteAPI REST API.
+class IntelligentHotelSearchState(BaseModel):
+    """State for intelligent hotel search agent."""
+
+    query: str = Field(description="Natural language user query")
+    task_id: Optional[int] = Field(default=None, description="Task ID")
+    model_name: str = Field(
+        default="openrouter:anthropic/claude-3.5-sonnet",
+        description="LLM model to use (openrouter or ollama)"
+    )
+
+    # Intermediate state
+    parsed_parameters: Optional[Dict[str, Any]] = Field(
+        default=None, description="LLM-parsed search parameters"
+    )
+    raw_search_results: Optional[Dict[str, Any]] = Field(
+        default=None, description="Raw hotel search results"
+    )
+
+    # Output
+    hotel_artifact: Optional[AgentArtifactModel] = Field(
+        default=None, description="Final artifact with recommendations"
+    )
+
+    class Config:
+        arbitrary_types_allowed = True
+
+
+# ============================================================================
+# LLM Helper Functions
+# ============================================================================
+
+
+def _call_llm(system_prompt: str, user_prompt: str, model_name: str, temperature: float = 0.0) -> str:
+    """Call LLM with proper provider handling.
 
     Args:
-        state: HotelSearchAgentState with search parameters
+        system_prompt: System message
+        user_prompt: User message
+        model_name: Model identifier (e.g., "openrouter:...", "ollama:...")
+        temperature: Sampling temperature
 
     Returns:
-        Updated state dict with hotel_artifact
+        Response content as string
     """
-    print("\n[hotel_search_node] Starting hotel search node execution...")
+    provider, model = model_name.split(":", 1) if ":" in model_name else ("openrouter", model_name)
 
-    search_params = state.search_parameters
-    task_id = state.task_id
+    if provider == "ollama":
+        # Use Ollama Cloud API
+        api_key = os.environ.get("OLLAMA_API_KEY")
+        if not api_key:
+            raise ValueError("OLLAMA_API_KEY not found in environment")
 
-    location = search_params.get("location", "")
-    dates = search_params.get("dates", "")
-    budget_max = float(search_params.get("budget_max", 0.0))
-    guest_count = int(search_params.get("guest_count", 1))
-
-    print(f"[hotel_search_node] Location: {location}")
-    print(f"[hotel_search_node] Dates: {dates}")
-    print(f"[hotel_search_node] Budget: {budget_max} per night")
-    print(f"[hotel_search_node] Guests: {guest_count}")
-
-    check_in_date, check_out_date = parse_date_range(dates)
-    if not check_in_date or not check_out_date:
-        error_content = HotelSearchArtifactContentModel(
-            task_ref=str(task_id) if task_id else "",
-            status="failed",
-            attempt=1,
-            search_parameters=HotelSearchParametersModel(
-                location=location,
-                check_in_date="",
-                check_out_date="",
-                nights=1,  # Use 1 as placeholder for invalid dates
-                budget_max=budget_max,
-                guest_count=guest_count,
-            ),
-            options=[],
-            metadata=HotelSearchMetadataModel(total_results=0, returned_results=0),
-            errors=[HotelSearchErrorModel(code="parse_error", message=f"Invalid date format: {dates}")]
+        client = OllamaClient(
+            host="https://ollama.com",
+            headers={'Authorization': f'Bearer {api_key}'}
         )
-        return {"hotel_artifact": AgentArtifactModel(
-            name="hotel_shortlist",
-            type="hotel_search",
-            content=error_content.model_dump(),
-            description=f"Hotel search failed: Invalid date format"
-        )}
 
-    nights = calculate_nights(check_in_date, check_out_date)
+        messages = [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_prompt}
+        ]
 
+        # Non-streaming call
+        response = client.chat(model=model, messages=messages, stream=False)
+        return response['message']['content']
+
+    else:
+        # Use OpenRouter or other OpenAI-compatible provider
+        llm = make_chat_model(model_name=model_name, temperature=temperature)
+        messages = [
+            SystemMessage(content=system_prompt),
+            HumanMessage(content=user_prompt),
+        ]
+        response = llm.invoke(messages)
+        return response.content
+
+
+# ============================================================================
+# LLM Parsing
+# ============================================================================
+
+QUERY_PARSER_SYSTEM_PROMPT = """You are a hotel search parameter extractor.
+
+Your task: Parse natural language hotel queries into structured JSON parameters.
+
+Today's date: {{today}}
+
+Output JSON format:
+{{
+  "location": "City, Country",
+  "dates": "YYYY-MM-DD to YYYY-MM-DD",
+  "budget_max": float,
+  "guest_count": int,
+  "required_amenities": ["wifi", "pool"],
+  "preferred_amenities": ["gym", "spa"],
+  "min_rating": float,
+  "purpose": "business|vacation|honeymoon|family",
+  "special_requirements": "string or null"
+}}
+
+Rules:
+1. **Location**: Extract city and country. If country is missing, infer from context.
+2. **Dates**: Convert relative dates ("next month", "in 2 weeks") to absolute YYYY-MM-DD.
+3. **Budget**: Extract max per night. If "total budget", divide by nights.
+4. **Amenities**: Map natural language to standardized terms:
+   - "wifi/internet" → "wifi"
+   - "swimming/pool" → "pool"
+   - "gym/fitness" → "gym"
+   - "parking/garage" → "parking"
+   - "breakfast" → "breakfast"
+5. **Purpose**: Infer from context (honeymoon, business trip, family vacation).
+6. **Guest count**: Default to 2 if not specified.
+7. **Required vs Preferred**: "need/must have" = required, "would like/prefer" = preferred.
+
+Examples:
+
+Query: "Find a hotel in Paris for next week, need wifi and pool, max 200 per night"
+Output: {{
+  "location": "Paris, France",
+  "dates": "2026-05-06 to 2026-05-13",
+  "budget_max": 200.0,
+  "guest_count": 2,
+  "required_amenities": ["wifi", "pool"],
+  "preferred_amenities": [],
+  "purpose": "vacation"
+}}
+
+Query: "Business trip to Munich, June 15-18, hotel near airport with parking"
+Output: {{
+  "location": "Munich, Germany",
+  "dates": "2026-06-15 to 2026-06-18",
+  "budget_max": 300.0,
+  "guest_count": 1,
+  "required_amenities": ["parking"],
+  "preferred_amenities": ["wifi"],
+  "purpose": "business",
+  "special_requirements": "near airport"
+}}
+
+Output ONLY the JSON object, no explanation."""
+
+
+def parse_query_with_llm(
+    query: str, model_name: str = "openrouter:anthropic/claude-3.5-sonnet"
+) -> Dict[str, Any]:
+    """Parse natural language query into structured search parameters.
+
+    Args:
+        query: Natural language hotel search query
+        model_name: LLM model to use. Options:
+            - "openrouter:anthropic/claude-3.5-sonnet" (default, team credits)
+            - "ollama:gpt-oss:120b" (personal testing with Ollama Cloud)
+    """
+    print(f"[parse_query_with_llm] Parsing query with LLM: {model_name}")
+
+    today = datetime.now().date().isoformat()
+    system_prompt = QUERY_PARSER_SYSTEM_PROMPT.replace("{{today}}", today)
+
+    try:
+        content = _call_llm(
+            system_prompt=system_prompt,
+            user_prompt=f"Query: {query}",
+            model_name=model_name,
+            temperature=0.0
+        )
+
+        # Parse JSON from response
+        if "```json" in content:
+            content = content.split("```json")[1].split("```")[0].strip()
+        elif "```" in content:
+            content = content.split("```")[1].split("```")[0].strip()
+
+        params = json.loads(content)
+        print(f"[parse_query_with_llm] Parsed: {params}")
+        return params
+
+    except json.JSONDecodeError as e:
+        print(f"[parse_query_with_llm] JSON parse error: {e}")
+        print(f"[parse_query_with_llm] Raw response: {content}")
+        return {}
+    except Exception as e:
+        print(f"[parse_query_with_llm] Error: {e}")
+        return {}
+
+
+# ============================================================================
+# Recommendation Synthesis
+# ============================================================================
+
+RECOMMENDATION_SYSTEM_PROMPT = """You are a hotel recommendation expert.
+
+Given search results, generate personalized recommendations that help the user choose.
+
+Format:
+**Recommended Hotels**
+
+1. **[Hotel Name]** (€[price]/night, [rating]/10)
+   - **Why it fits**: [Specific reason based on user's purpose/requirements]
+   - **Location**: [Address + transit info if available]
+   - **Highlights**: [Top 3 amenities/features]
+   - **Note**: [Any caveats, e.g. "over budget but exceptional value"]
+
+2. [Repeat for top 3-5 hotels]
+
+**Key Considerations**:
+- [Any trade-offs the user should know about]
+- [Alternative suggestions if criteria are too restrictive]
+
+Rules:
+- Focus on WHY each hotel matches the user's purpose (business, honeymoon, etc.)
+- Mention over-budget options if they offer exceptional value
+- Be concise - 2-3 sentences per hotel
+- NO generic descriptions - be specific based on actual amenities/location"""
+
+
+def synthesize_recommendations(
+    query: str,
+    parsed_params: Dict[str, Any],
+    artifact_content: Dict[str, Any],
+    model_name: str = "openrouter:anthropic/claude-3.5-sonnet",
+) -> str:
+    """Generate LLM-based recommendations from search results.
+
+    Args:
+        query: Original user query
+        parsed_params: Parsed search parameters
+        artifact_content: Hotel search results
+        model_name: LLM model to use. Options:
+            - "openrouter:anthropic/claude-3.5-sonnet" (default, team credits)
+            - "ollama:gpt-oss:120b" (personal testing with Ollama Cloud)
+    """
+    print(f"[synthesize_recommendations] Generating recommendations with {model_name}")
+
+    options = artifact_content.get("options", [])
+    if not options:
+        return "No hotels found matching your criteria. Try widening your search parameters."
+
+    # Prepare hotel summaries for LLM
+    hotel_summaries = []
+    for hotel in options[:5]:  # Top 5
+        summary = {
+            "name": hotel["name"],
+            "price": f"{hotel['currency']} {hotel['nightly_rate']:.0f}",
+            "rating": hotel["rating"],
+            "amenities": hotel["amenities"][:10],
+            "over_budget": hotel["over_budget"],
+            "address": hotel.get("address", ""),
+        }
+        hotel_summaries.append(summary)
+
+    user_context = f"""
+User Query: {query}
+
+Parsed Requirements:
+- Location: {parsed_params.get('location')}
+- Dates: {parsed_params.get('dates')}
+- Budget: {parsed_params.get('budget_max')}/night
+- Purpose: {parsed_params.get('purpose', 'unspecified')}
+- Required: {', '.join(parsed_params.get('required_amenities', []))}
+- Preferred: {', '.join(parsed_params.get('preferred_amenities', []))}
+
+Search Results ({len(options)} hotels):
+{json.dumps(hotel_summaries, indent=2)}
+"""
+
+    try:
+        recommendations = _call_llm(
+            system_prompt=RECOMMENDATION_SYSTEM_PROMPT,
+            user_prompt=user_context,
+            model_name=model_name,
+            temperature=0.3
+        )
+
+        print(f"[synthesize_recommendations] Generated {len(recommendations)} chars")
+        return recommendations
+
+    except Exception as e:
+        print(f"[synthesize_recommendations] Error: {e}")
+        return f"Error generating recommendations: {str(e)}"
+
+
+# ============================================================================
+# LangGraph Nodes
+# ============================================================================
+
+
+def parse_node(state: IntelligentHotelSearchState) -> Dict[str, Any]:
+    """Node 1: Parse natural language query into structured parameters."""
+    print("\n[parse_node] Parsing user query with LLM")
+
+    parsed = parse_query_with_llm(state.query, model_name=state.model_name)
+
+    if not parsed:
+        # Fallback: return error artifact
+        return {
+            "parsed_parameters": None,
+            "hotel_artifact": AgentArtifactModel(
+                name="hotel_shortlist",
+                type="hotel_search",
+                content={
+                    "status": "failed",
+                    "errors": [{"code": "parse_error", "message": "Could not parse query"}],
+                },
+                description="Failed to parse hotel search query",
+            ),
+        }
+
+    return {"parsed_parameters": parsed}
+
+
+def search_node(state: IntelligentHotelSearchState) -> Dict[str, Any]:
+    """Node 2: Execute deterministic hotel search."""
+    print("\n[search_node] Executing hotel search")
+
+    params = state.parsed_parameters
+    if not params:
+        return {"raw_search_results": None}
+
+    # Extract parameters
+    location = params.get("location", "")
+    dates = params.get("dates", "")
+    budget_max = float(params.get("budget_max", 150.0))
+    guest_count = int(params.get("guest_count", 2))
+    required_amenities = params.get("required_amenities", [])
+    preferred_amenities = params.get("preferred_amenities", [])
+    min_rating = params.get("min_rating")
+
+    # Parse dates
+    if " to " in dates:
+        check_in, check_out = dates.split(" to ")
+        check_in = check_in.strip()
+        check_out = check_out.strip()
+    else:
+        # Fallback
+        today = datetime.now().date()
+        check_in = (today + timedelta(days=7)).isoformat()
+        check_out = (today + timedelta(days=14)).isoformat()
+
+    nights = calculate_nights(check_in, check_out)
+
+    # Geocode + search
     city_name, country_code = parse_location(location)
-
     latitude, longitude = geocode_location(location)
 
     place_id = None
@@ -1060,80 +1239,74 @@ def hotel_search_node(state: HotelSearchAgentState) -> dict[str, Any]:
         place_result = search_places(f"{city_name}, {country_code}")
         place_id = place_result.get("placeId")
 
-    if not city_name or not country_code:
-        if latitude is None or longitude is None:
-            error_content = HotelSearchArtifactContentModel(
-                task_ref=str(task_id) if task_id else "",
-                status="failed",
-                attempt=1,
-                search_parameters=HotelSearchParametersModel(
-                    location=location,
-                    check_in_date=check_in_date,
-                    check_out_date=check_out_date,
-                    nights=nights,
-                    budget_max=budget_max,
-                    guest_count=guest_count,
-                ),
-                options=[],
-                metadata=HotelSearchMetadataModel(total_results=0, returned_results=0),
-                errors=[HotelSearchErrorModel(code="geocoding_error", message=f"Could not parse location: {location}")]
-            )
-            return {"hotel_artifact": AgentArtifactModel(
-                name="hotel_shortlist",
-                type="hotel_search",
-                content=error_content.model_dump(),
-                description=f"Hotel search failed: Could not parse location"
-            )}
-
+    # API search
     api_response = search_hotels_via_api(
         place_id=place_id,
         city_name=city_name,
         country_code=country_code,
-        check_in_date=check_in_date,
-        check_out_date=check_out_date,
-        guest_count=guest_count
+        check_in_date=check_in,
+        check_out_date=check_out,
+        guest_count=guest_count,
     )
 
-    if api_response.get("status") == "failed":
-        error_content = HotelSearchArtifactContentModel(
-            task_ref=str(task_id) if task_id else "",
-            status="failed",
-            attempt=1,
-            search_parameters=HotelSearchParametersModel(
-                location=location,
-                check_in_date=check_in_date,
-                check_out_date=check_out_date,
-                nights=nights,
-                budget_max=budget_max,
-                guest_count=guest_count,
-            ),
-            options=[],
-            metadata=HotelSearchMetadataModel(total_results=0, returned_results=0),
-            errors=[HotelSearchErrorModel(code="http_error", message=api_response.get("error", "unknown_error"))]
-        )
-        return {"hotel_artifact": AgentArtifactModel(
-            name="hotel_shortlist",
-            type="hotel_search",
-            content=error_content.model_dump(),
-            description=f"Hotel search failed: {api_response.get('error')}"
-        )}
-
-    elapsed_ms = api_response.get("api_response_time_ms")
-
+    # Build artifact with enrichment
     artifact = build_hotel_artifact(
         api_response=api_response,
-        search_params=search_params,
-        check_in_date=check_in_date,
-        check_out_date=check_out_date,
+        search_params={
+            "location": location,
+            "budget_max": budget_max,
+            "guest_count": guest_count,
+            "required_amenities": required_amenities,
+            "preferred_amenities": preferred_amenities,
+            "min_rating": min_rating,
+        },
+        check_in_date=check_in,
+        check_out_date=check_out,
         nights=nights,
         latitude=latitude,
         longitude=longitude,
-        task_id=task_id,
-        elapsed_ms=elapsed_ms
+        task_id=state.task_id,
+        elapsed_ms=api_response.get("api_response_time_ms"),
     )
 
-    print(f"[hotel_search_node] Hotel search node execution complete")
-    return {"hotel_artifact": artifact}
+    return {
+        "raw_search_results": api_response,
+        "hotel_artifact": artifact,
+    }
+
+
+def synthesize_node(state: IntelligentHotelSearchState) -> Dict[str, Any]:
+    """Node 3: Generate LLM-based recommendations."""
+    print("\n[synthesize_node] Generating recommendations")
+
+    if not state.hotel_artifact:
+        return {}
+
+    content = state.hotel_artifact.content
+
+    if content.get("status") == "failed":
+        # Don't synthesize for failed searches
+        return {}
+
+    # Generate recommendations
+    recommendations = synthesize_recommendations(
+        query=state.query,
+        parsed_params=state.parsed_parameters,
+        artifact_content=content,
+        model_name=state.model_name,
+    )
+
+    # Add recommendations to artifact
+    content["recommendations"] = recommendations
+
+    updated_artifact = AgentArtifactModel(
+        name="hotel_shortlist",
+        type="hotel_search",
+        content=content,
+        description=f"Found {len(content.get('options', []))} hotels with AI recommendations",
+    )
+
+    return {"hotel_artifact": updated_artifact}
 
 
 # ============================================================================
@@ -1141,18 +1314,80 @@ def hotel_search_node(state: HotelSearchAgentState) -> dict[str, Any]:
 # ============================================================================
 
 
-def make_graph():
-    """Build hotel search agent graph following travelplanner conventions.
+def make_intelligent_hotel_graph():
+    """Build intelligent hotel search graph with LLM integration."""
+    print("[make_intelligent_hotel_graph] Building graph")
+
+    graph = StateGraph(IntelligentHotelSearchState)
+
+    # Add nodes
+    graph.add_node("parse", parse_node)
+    graph.add_node("search", search_node)
+    graph.add_node("synthesize", synthesize_node)
+
+    # Linear flow
+    graph.set_entry_point("parse")
+    graph.add_edge("parse", "search")
+    graph.add_edge("search", "synthesize")
+    graph.add_edge("synthesize", END)
+
+    return graph.compile()
+
+
+# ============================================================================
+# Convenience Function
+# ============================================================================
+
+
+def intelligent_hotel_search(
+    query: str,
+    task_id: Optional[int] = None,
+    model_name: str = "openrouter:anthropic/claude-3.5-sonnet"
+) -> AgentArtifactModel:
+    """Execute intelligent hotel search from natural language query.
+
+    Args:
+        query: Natural language hotel search query
+        task_id: Optional task ID
+        model_name: LLM model to use. Options:
+            - "openrouter:anthropic/claude-3.5-sonnet" (default, team credits)
+            - "ollama:gpt-oss:120b" (personal testing with Ollama Cloud)
 
     Returns:
-        Compiled LangGraph Pregel object
+        AgentArtifactModel with hotel recommendations
+
+    Examples:
+        >>> # Team usage with OpenRouter (default)
+        >>> result = intelligent_hotel_search(
+        ...     "Find romantic hotel in Barcelona for honeymoon next month, need pool and wifi"
+        ... )
+
+        >>> # Personal testing with Ollama Cloud
+        >>> result = intelligent_hotel_search(
+        ...     "Find hotel in Munich with parking",
+        ...     model_name="ollama:gpt-oss:120b"
+        ... )
+        >>> print(result.content["recommendations"])
     """
-    print(f"[make_graph] Initializing hotel search graph")
+    graph = make_intelligent_hotel_graph()
 
-    graph = StateGraph(HotelSearchAgentState)
-    graph.add_node("hotel_search", hotel_search_node)
-    graph.set_entry_point("hotel_search")
-    graph.add_edge("hotel_search", END)
+    state = IntelligentHotelSearchState(
+        query=query,
+        task_id=task_id,
+        model_name=model_name
+    )
 
-    print("[make_graph] Graph compilation complete")
-    return graph.compile()
+    result = graph.invoke(state)
+    return result["hotel_artifact"]
+
+
+if __name__ == "__main__":
+    # Example usage
+    result = intelligent_hotel_search(
+        "Find me a nice hotel in Barcelona for next week, we love swimming and need wifi, max 150 per night"
+    )
+
+    print("\n" + "=" * 60)
+    print("RECOMMENDATIONS:")
+    print("=" * 60)
+    print(result.content.get("recommendations", "No recommendations generated"))

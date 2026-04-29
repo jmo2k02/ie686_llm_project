@@ -81,7 +81,8 @@ def run_interactive_shell(travel_query: str, workflow: dict) -> None:
             f"Original Query: '{travel_query}'\n"
         )
         if len(state["hard_constraints"]) > 0:
-            output += state["hard_constraints"]
+            output += f"Hardconstraint count: {len(state["hard_constraints"])}\n"
+            output += str([constraint.text for constraint in state["hard_constraints"]])
         return output
 
     def render_status() -> str:
@@ -121,7 +122,6 @@ def run_interactive_shell(travel_query: str, workflow: dict) -> None:
             )
         if "__interrupt__" in result:
             snapshot = await compiled_workflow.aget_state(config, subgraphs=True)
-            hard_constraints = _get_snapshot_hard_constraints(snapshot)
             agent_message = result["__interrupt__"][0].value
             state["is_interrupted"] = True
             state["current_state_index"] = 2
@@ -129,8 +129,8 @@ def run_interactive_shell(travel_query: str, workflow: dict) -> None:
             state["status"] = f"The Agent has a question.\n\n{agent_message}"
             state["is_loading"] = False
             invalidate()
-            if "hard_constraints" in result:
-                state["hard_constraints"] = result["hard_constraints"]
+            if _snapshot_has_hard_constraints(snapshot):
+                state["hard_constraints"] = _get_snapshot_hard_constraints(snapshot)
             return
         else:
             state["status"] = f"TravelPlanning is finished :)"

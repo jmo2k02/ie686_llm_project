@@ -43,8 +43,8 @@ class HotelOptionModel(BaseModel):
         str | None, Field(default=None, description="Neighborhood/district")
     ]
     address: Annotated[str | None, Field(default=None, description="Full address")]
-    amenities: Annotated[
-        list[str], Field(default_factory=list, description="List of amenities")
+    facilities: Annotated[
+        list[str], Field(default_factory=list, description="List of hotel facilities (from hotelFacilities)")
     ]
     rating: Annotated[float, Field(description="Star or review rating (0-10)", ge=0, le=10)]
     reviews: Annotated[int, Field(default=0, description="Number of reviews", ge=0)]

@@ -87,7 +87,7 @@ def test_natural_language_query():
             print(f"   Price: {hotel['currency']} {hotel['nightly_rate']:.2f}/night")
             print(f"   Rating: {hotel['rating']}/10")
             print(f"   Over Budget: {hotel['over_budget']}")
-            print(f"   Amenities: {', '.join(hotel['amenities'][:5])}...")
+            print(f"   Amenities: {', '.join(hotel['facilities'][:5])}...")
 
 
 def test_business_trip_query():

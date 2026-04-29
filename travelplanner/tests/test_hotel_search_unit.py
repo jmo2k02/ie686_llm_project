@@ -23,7 +23,7 @@ from travelplanner.schema.hotel_search_artifact import HotelOptionModel
 
 def _make_hotel(
     name: str,
-    amenities: list[str],
+    facilities: list[str],
     rating: float = 8.0,
     nightly_rate: float = 100.0,
     over_budget: bool = False
@@ -36,7 +36,7 @@ def _make_hotel(
         nightly_rate=nightly_rate,
         total_cost=nightly_rate * 7,
         currency="EUR",
-        amenities=amenities,
+        facilities=facilities,
         rating=rating,
         latitude=41.38,
         longitude=2.17,
@@ -87,7 +87,7 @@ class TestAmenityMatching(unittest.TestCase):
 
     def test_case_insensitive(self):
         """Test case-insensitive matching."""
-        # Note: amenities are already lowercased in _amenity_match
+        # Note: facilities are already lowercased in _amenity_match
         self.assertTrue(_amenity_match(["wifi", "parking"], "wifi"))
         self.assertTrue(_amenity_match(["WIFI".lower(), "Parking".lower()], "wifi"))
 
@@ -100,9 +100,9 @@ class TestAmenityMatching(unittest.TestCase):
             (["parking"], False),
         ]
 
-        for amenities, should_match in test_cases:
-            result = _amenity_match(amenities, "wifi")
-            self.assertEqual(result, should_match, f"Failed for {amenities}")
+        for facilities, should_match in test_cases:
+            result = _amenity_match(facilities, "wifi")
+            self.assertEqual(result, should_match, f"Failed for {facilities}")
 
     def test_fuzzy_pool_variants(self):
         """Test fuzzy matching for pool variants."""
@@ -112,8 +112,8 @@ class TestAmenityMatching(unittest.TestCase):
             ["indoor pool"],
         ]
 
-        for amenities in test_cases:
-            self.assertTrue(_amenity_match(amenities, "pool"))
+        for facilities in test_cases:
+            self.assertTrue(_amenity_match(facilities, "pool"))
 
     def test_fuzzy_gym_variants(self):
         """Test fuzzy matching for gym variants."""
@@ -123,8 +123,8 @@ class TestAmenityMatching(unittest.TestCase):
             ["exercise facilities"],
         ]
 
-        for amenities in test_cases:
-            self.assertTrue(_amenity_match(amenities, "gym"))
+        for facilities in test_cases:
+            self.assertTrue(_amenity_match(facilities, "gym"))
 
 
 class TestHotelFiltering(unittest.TestCase):

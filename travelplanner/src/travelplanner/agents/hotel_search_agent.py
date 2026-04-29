@@ -462,7 +462,7 @@ def filter_hotels_by_constraints(
 
         # Apply required amenities filter (ALL must be present)
         if required_amenities:
-            hotel_amenities_lower = [a.lower() for a in hotel.amenities]
+            hotel_amenities_lower = [a.lower() for a in hotel.facilities]
             has_all_required = True
 
             for req in required_amenities:
@@ -477,7 +477,7 @@ def filter_hotels_by_constraints(
         # Count preferred amenities (for ranking)
         preferred_count = 0
         if preferred_amenities:
-            hotel_amenities_lower = [a.lower() for a in hotel.amenities]
+            hotel_amenities_lower = [a.lower() for a in hotel.facilities]
             for pref in preferred_amenities:
                 if _amenity_match(hotel_amenities_lower, pref):
                     preferred_count += 1
@@ -626,11 +626,11 @@ def _build_hotel_option_from_data(
 
     address = hotel_info.get("address", "")
 
-    amenities = hotel_info.get("hotelFacilities", [])
-    if isinstance(amenities, list):
-        amenities = [str(a) for a in amenities]
+    facilities = hotel_info.get("hotelFacilities", [])
+    if isinstance(facilities, list):
+        facilities = [str(f) for f in facilities]
     else:
-        amenities = []
+        facilities = []
 
     main_photo = hotel_info.get("main_photo", "")
     if not main_photo:
@@ -647,7 +647,7 @@ def _build_hotel_option_from_data(
 
     tags = hotel_info.get("tags", [])
     if isinstance(tags, list):
-        amenities.extend([str(t) for t in tags[:5]])
+        facilities.extend([str(t) for t in tags[:5]])
 
     hotel_option = HotelOptionModel(
         search_result_id=cheapest_room.get("offerId", ""),
@@ -658,7 +658,7 @@ def _build_hotel_option_from_data(
         currency=cheapest_currency,
         area=hotel_info.get("location_type"),
         address=address if address else None,
-        amenities=list(set(amenities)),
+        facilities=list(set(facilities)),
         rating=star_rating,
         reviews=0,
         check_in_time="15:00",
@@ -745,7 +745,7 @@ def _enrich_hotels_with_amenities(
             facilities = hotel_data.get("hotelFacilities", [])
 
             if facilities:
-                hotel.amenities = list(set(hotel.amenities + facilities))
+                hotel.facilities = list(set(hotel.facilities + facilities))
                 print(f"[_enrich_hotels_with_amenities] Enriched {hotel.name} with {len(facilities)} facilities")
 
     return hotels
@@ -994,7 +994,7 @@ Rules:
 1. **Location**: Extract city and country. If country is missing, infer from context.
 2. **Dates**: Convert relative dates ("next month", "in 2 weeks") to absolute YYYY-MM-DD.
 3. **Budget**: Extract max per night. If "total budget", divide by nights.
-4. **Amenities**: Map natural language to standardized terms:
+4. **Facilities**: Map natural language to standardized terms:
    - "wifi/internet" → "wifi"
    - "swimming/pool" → "pool"
    - "gym/fitness" → "gym"
@@ -1134,7 +1134,7 @@ def synthesize_recommendations(
             "name": hotel["name"],
             "price": f"{hotel['currency']} {hotel['nightly_rate']:.0f}",
             "rating": hotel["rating"],
-            "amenities": hotel["amenities"][:10],
+            "facilities": hotel["facilities"][:10],
             "over_budget": hotel["over_budget"],
             "address": hotel.get("address", ""),
         }

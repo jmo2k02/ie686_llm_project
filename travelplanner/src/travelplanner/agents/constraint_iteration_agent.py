@@ -10,11 +10,11 @@ from pydantic import BaseModel, Field
 
 from spellchecker import SpellChecker
 
+from travelplanner.config import get_setting
 from travelplanner.schema.commonsense_constraints import COMMONSENSE_CONSTRAINTS
 from travelplanner.schema.system_state import ConstraintModel, MessageHistoryModel
 from travelplanner.utils.checkpoint import make_memory_checkpointer
 from travelplanner.utils.llm import invoke_structured_model
-
 
 # ── Constants ────────────────────────────────────────────────────────────────
 
@@ -160,8 +160,8 @@ class ViolationModel(BaseModel):
 
 class ConstraintIterationState(BaseModel):
     query: str
-    message_histories: dict[str, dict]
-    model_name: str
+    message_histories: dict[str, dict] = {}
+    model_name: str = get_setting("models.workflows.task_planning.model_name")
     temperature: float = 0.0
 
     query_context: str = ""
@@ -567,22 +567,22 @@ def make_graph() -> StateGraph:
             state.missing_categories
         ):
             return "ask_missing_category"
-        return END
+        return "finalize_constraint_output"
 
     def _route_after_missing(state: ConstraintIterationState) -> str:
         if state.category_index < len(state.missing_categories):
             return "ask_missing_category"
-        return END
-    
+        return "finalize_constraint_output"
+
     def finalize_constraint_output(state: ConstraintIterationState) -> dict[str, Any]:
         return {
             "constraint_list": [
                 *state.hard_constraints,
-                *state.commonsense_constraints
+                *state.commonsense_constraints,
             ],
             "message_histories": {
                 **state.message_histories,
-
+                "key": _build_message_history(state.messages),
             }
         }
 
@@ -592,6 +592,7 @@ def make_graph() -> StateGraph:
     graph.add_node("present_violations", present_violations)
     graph.add_node("present_hard_constraints", present_hard_constraints)
     graph.add_node("ask_missing_category", ask_missing_category)
+    graph.add_node("finalize_constraint_output", finalize_constraint_output)
 
     graph.set_entry_point("extract_hard_constraints")
     graph.add_edge("extract_hard_constraints", "check_commonsense_violations")
@@ -599,6 +600,7 @@ def make_graph() -> StateGraph:
     graph.add_edge("present_violations", "extract_hard_constraints")
     graph.add_conditional_edges("present_hard_constraints", _route_after_present_hard)
     graph.add_conditional_edges("ask_missing_category", _route_after_missing)
+    graph.add_edge("finalize_constraint_output", END)
 
     return graph
 

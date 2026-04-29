@@ -51,27 +51,9 @@ def make_graph(
     reviewer_graph = make_reviewer_graph().compile()
     web_search_graph = make_general_web_search_graph().compile()
 
-    graph = StateGraph(StateContractModel)
-    graph.add_node("constraint_agent", constraint_graph)
-    graph.add_node("planner_agent", planner_graph)
+    
 
-    def constraint_node(state: StateContractModel) -> dict[str, Any]:
-        agent_state = ConstraintIterationState(
-            query=state.query,
-            model_name=effective_model_name,
-            temperature=effective_temperature,
-        )
-        result = constraint_graph.invoke(agent_state)
-
-        message_histories = dict(state.message_histories)
-        if "message_history" in result:
-          message_histories[CONSTRAINT_HISTORY_KEY] = result["message_history"]
-        if "messages" in result:
-            message_histories[CONSTRAINT_HISTORY_KEY] = result["messages"]
-        return {
-            "constraint_list": result["constraint_list"],
-            "message_histories": message_histories,
-        }
+    
 
     def planner_node(state: StateContractModel) -> dict[str, Any]:
         agent_state = PlannerAgentState(
@@ -121,11 +103,13 @@ def make_graph(
             "message_histories": message_histories,
         }
 
+    
     graph = StateGraph(StateContractModel)
-    graph.add_node("constraint_agent", constraint_node)
-    graph.add_node("planner_agent", planner_node)
+    graph.add_node("constraint_agent", constraint_graph)
+    graph.add_node("planner_agent", planner_graph)
     graph.add_node("reviewer_agent", reviewer_node)
     graph.add_node("general_web_search_agent", general_web_search_node)
+    
     graph.set_entry_point("constraint_agent")
     graph.add_edge("constraint_agent", "planner_agent")
     graph.add_edge("planner_agent", "reviewer_agent")

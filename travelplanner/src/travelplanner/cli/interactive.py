@@ -31,6 +31,21 @@ def _progress_bar(current_step: int, total_steps: int, width: int = 24) -> str:
     filled = int(width * current_step / total_steps)
     return f"[{'#' * filled}{'-' * (width - filled)}]"
 
+def _snapshot_has_hard_constraints(snapshot):
+  return any(
+    getattr(t, "state", None) and t.state.values.get("hard_constraints")
+    for t in snapshot.tasks
+    if t.name == "constraint_agent"
+  )
+
+def _get_snapshot_hard_constraints(snapshot):
+    return next(
+        (
+            t.state.values.get("hard_constraints")
+            for t in snapshot.tasks
+            if t.name == "constraint_agent" and getattr(t, "state", None)
+        )
+    )
 
 def run_interactive_shell(travel_query: str, workflow: dict) -> None:
     compiled_workflow: CompiledStateGraph = workflow["workflow_builder"]().compile(
@@ -106,6 +121,7 @@ def run_interactive_shell(travel_query: str, workflow: dict) -> None:
             )
         if "__interrupt__" in result:
             snapshot = await compiled_workflow.aget_state(config, subgraphs=True)
+            hard_constraints = _get_snapshot_hard_constraints(snapshot)
             agent_message = result["__interrupt__"][0].value
             state["is_interrupted"] = True
             state["current_state_index"] = 2

@@ -5,7 +5,7 @@ from typing import Any
 from langgraph.graph import END, StateGraph
 
 from travelplanner.config import get_setting
-from travelplanner.agents.constraint_agent import (
+from travelplanner.agents.mock_constraint_agent import (
     ConstraintAgentState,
     make_graph as make_constraint_graph,
 )

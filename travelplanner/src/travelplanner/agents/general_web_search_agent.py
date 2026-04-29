@@ -1129,7 +1129,7 @@ Output as JSON list:
         return []
 
 
-def make_graph():
+def make_graph() -> StateGraph:
     config = load_config_from_env()
     model_ref = (
         f"tavily+{config.answer_model_name}" if config.answer_model_name else "tavily"
@@ -1487,4 +1487,4 @@ def make_graph():
     graph.add_node("general_web_search_agent", search_node)
     graph.set_entry_point("general_web_search_agent")
     graph.add_edge("general_web_search_agent", END)
-    return graph.compile()
+    return graph

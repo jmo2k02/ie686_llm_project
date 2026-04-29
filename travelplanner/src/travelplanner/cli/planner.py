@@ -13,6 +13,7 @@ from rich.json import JSON
 import json
 
 from travelplanner.utils.imports import load_callable
+from .interactive import run_interactive_shell
 
 app = typer.Typer(
     help="Run the travel planner app.",
@@ -79,7 +80,7 @@ def run() -> None:
         ],
     ).execute()
     workflow_builder = load_callable(f"{selected_workflow["module"]}:make_graph")
-    compiled_workflow = workflow_builder()
+    
     
     console.print("[bold green]Successfully loaded workflow[/bold green]")
     console.print(
@@ -89,12 +90,15 @@ def run() -> None:
           border_style="cyan",
       )
     )
+    selected_workflow["workflow_builder"] = workflow_builder
 
     query = inquirer.text(
         message="Please tell me what you want help with:",
         validate=lambda value: bool(value.strip()),
         invalid_message="Please enter a travel query.",
     ).execute()
+
+    run_interactive_shell(query, selected_workflow)
 
     
 

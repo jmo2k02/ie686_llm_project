@@ -30,7 +30,7 @@ def make_memory_checkpointer(
     *,
     extra_allowed_types: Iterable[type[Any]] = (),
 ) -> MemorySaver:
-    serde = JsonPlusSerializer().with_msgpack_allowlist(
+    serde = JsonPlusSerializer(allowed_msgpack_modules=None).with_msgpack_allowlist(
         [*_DEFAULT_MSGPACK_TYPES, *extra_allowed_types]
     )
     return MemorySaver(serde=serde)

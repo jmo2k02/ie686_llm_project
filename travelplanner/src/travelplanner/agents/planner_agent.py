@@ -77,7 +77,7 @@ def _build_message_history(
     )
 
 
-def make_graph():
+def make_graph() -> StateGraph:
     def planner_node(state: PlannerAgentState) -> dict[str, Any]:
         structured_output, user_prompt, raw_response = invoke_structured_model(
             model_name=state.model_name,
@@ -96,4 +96,4 @@ def make_graph():
     graph.add_node("planner_agent", planner_node)
     graph.set_entry_point("planner_agent")
     graph.add_edge("planner_agent", END)
-    return graph.compile()
+    return graph

@@ -91,7 +91,7 @@ def _build_message_history(
     )
 
 
-def make_graph():
+def make_graph() -> StateGraph:
     def reviewer_node(state: ReviewerAgentState) -> dict[str, Any]:
         structured_output, user_prompt, raw_response = invoke_structured_model(
             model_name=state.model_name,
@@ -114,4 +114,4 @@ def make_graph():
     graph.add_node("reviewer_agent", reviewer_node)
     graph.set_entry_point("reviewer_agent")
     graph.add_edge("reviewer_agent", END)
-    return graph.compile()
+    return graph

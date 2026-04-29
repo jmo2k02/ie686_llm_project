@@ -5,6 +5,10 @@ from typing import Any
 from langgraph.graph import END, StateGraph
 
 from travelplanner.config import get_setting
+from travelplanner.agents.constraint_iteration_agent import (
+    ConstraintIterationState,
+    make_graph as make_constraint_iteration_graph
+)
 from travelplanner.agents.mock_constraint_agent import (
     ConstraintAgentState,
     make_graph as make_constraint_graph,
@@ -33,7 +37,7 @@ GENERAL_WEB_SEARCH_HISTORY_KEY = "general_web_search_agent"
 def make_graph(
     model_name: str | None = None,
     temperature: float | None = None,
-):
+) -> StateGraph:
     effective_model_name = model_name or str(
         get_setting("models.workflows.task_planning.model_name", "gpt-5.4-nano-2026-03-17")
     )
@@ -42,13 +46,17 @@ def make_graph(
         if temperature is not None
         else float(get_setting("models.workflows.task_planning.temperature", 0.0))
     )
-    constraint_graph = make_constraint_graph()
-    planner_graph = make_planner_graph()
-    reviewer_graph = make_reviewer_graph()
-    web_search_graph = make_general_web_search_graph()
+    constraint_graph = make_constraint_iteration_graph().compile()
+    planner_graph = make_planner_graph().compile()
+    reviewer_graph = make_reviewer_graph().compile()
+    web_search_graph = make_general_web_search_graph().compile()
+
+    graph = StateGraph(StateContractModel)
+    graph.add_node("constraint_agent", constraint_graph)
+    graph.add_node("planner_agent", planner_graph)
 
     def constraint_node(state: StateContractModel) -> dict[str, Any]:
-        agent_state = ConstraintAgentState(
+        agent_state = ConstraintIterationState(
             query=state.query,
             model_name=effective_model_name,
             temperature=effective_temperature,
@@ -56,7 +64,10 @@ def make_graph(
         result = constraint_graph.invoke(agent_state)
 
         message_histories = dict(state.message_histories)
-        message_histories[CONSTRAINT_HISTORY_KEY] = result["message_history"]
+        if "message_history" in result:
+          message_histories[CONSTRAINT_HISTORY_KEY] = result["message_history"]
+        if "messages" in result:
+            message_histories[CONSTRAINT_HISTORY_KEY] = result["messages"]
         return {
             "constraint_list": result["constraint_list"],
             "message_histories": message_histories,
@@ -120,7 +131,7 @@ def make_graph(
     graph.add_edge("planner_agent", "reviewer_agent")
     graph.add_edge("reviewer_agent", "general_web_search_agent")
     graph.add_edge("general_web_search_agent", END)
-    return graph.compile()
+    return graph
 
 
 def run(query: str, model_name: str, temperature: float = 0.0) -> StateContractModel:

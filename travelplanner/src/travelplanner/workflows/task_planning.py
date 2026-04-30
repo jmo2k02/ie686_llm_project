@@ -5,9 +5,11 @@ from typing import Any
 from langgraph.graph import END, StateGraph
 
 from travelplanner.config import get_setting
-from travelplanner.agents.constraint_agent import (
-    ConstraintAgentState,
-    make_graph as make_constraint_graph,
+from travelplanner.agents.constraint_iteration_agent import (
+    ConstraintIterationState,
+    get_constraint_list,
+    get_message_history,
+    make_pipeline_graph as make_constraint_graph,
 )
 from travelplanner.agents.planner_agent import (
     PlannerAgentState,
@@ -48,17 +50,19 @@ def make_graph(
     web_search_graph = make_general_web_search_graph()
 
     def constraint_node(state: StateContractModel) -> dict[str, Any]:
-        agent_state = ConstraintAgentState(
+        agent_state = ConstraintIterationState(
             query=state.query,
             model_name=effective_model_name,
             temperature=effective_temperature,
+            agent_artifacts=dict(state.agent_artifacts),
         )
         result = constraint_graph.invoke(agent_state)
 
         message_histories = dict(state.message_histories)
-        message_histories[CONSTRAINT_HISTORY_KEY] = result["message_history"]
+        message_histories[CONSTRAINT_HISTORY_KEY] = get_message_history(result)
         return {
-            "constraint_list": result["constraint_list"],
+            "constraint_list": get_constraint_list(result),
+            "agent_artifacts": result["agent_artifacts"],
             "message_histories": message_histories,
         }
 

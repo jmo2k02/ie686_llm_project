@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import json
+import os
+from dataclasses import dataclass
 from datetime import date
 from typing import Any, Literal
 
@@ -11,8 +13,10 @@ from pydantic import BaseModel, Field
 
 from spellchecker import SpellChecker
 
+from travelplanner.config import get_setting
 from travelplanner.schema.commonsense_constraints import COMMONSENSE_CONSTRAINTS
-from travelplanner.schema.system_state import ConstraintModel, MessageHistoryModel
+from travelplanner.schema.constraint_artifact import ConstraintArtifactContentModel
+from travelplanner.schema.system_state import AgentArtifactModel, ConstraintModel, MessageHistoryModel
 from travelplanner.utils.llm import invoke_structured_model
 
 
@@ -105,6 +109,34 @@ Examples of what NOT to include:
 - Accommodation not yet booked → NOT a violation if the user hasn't been asked yet
 """
 
+_DEFAULT_MODEL_NAME = "gpt-5.4-nano-2026-03-17"
+_DEFAULT_TEMPERATURE = 0.0
+
+
+@dataclass(frozen=True)
+class ConstraintAgentConfig:
+    model_name: str = _DEFAULT_MODEL_NAME
+    temperature: float = _DEFAULT_TEMPERATURE
+
+
+def load_config_from_env() -> ConstraintAgentConfig:
+    cfg_prefix = "agents.constraint"
+    return ConstraintAgentConfig(
+        model_name=str(
+            os.getenv(
+                "TRAVELPLANNER_CONSTRAINT_MODEL_NAME",
+                get_setting(f"{cfg_prefix}.model_name", _DEFAULT_MODEL_NAME),
+            )
+        ),
+        temperature=float(
+            os.getenv(
+                "TRAVELPLANNER_CONSTRAINT_TEMPERATURE",
+                str(get_setting(f"{cfg_prefix}.temperature", _DEFAULT_TEMPERATURE)),
+            )
+        ),
+    )
+
+
 _SKIP_TOKENS: frozenset[str] = frozenset({
     "", "skip", "s", "no", "nein", "n", "nope", "egal",
     "doesn't matter", "doesnt matter", "don't care", "dont care",
@@ -136,6 +168,7 @@ class ConstraintIterationState(BaseModel):
 
     hard_constraints: list[ConstraintModel] = Field(default_factory=list)
     missing_categories: list[str] = Field(default_factory=list)
+    categories_skipped: list[str] = Field(default_factory=list)
     category_index: int = 0
 
     commonsense_constraints: list[ConstraintModel] = Field(
@@ -146,6 +179,7 @@ class ConstraintIterationState(BaseModel):
     violations: list[ViolationModel] = Field(default_factory=list)
 
     messages: list[dict] = Field(default_factory=list)
+    agent_artifacts: dict[str, list[AgentArtifactModel]] = Field(default_factory=dict)
 
 
 # ── LLM response models ──────────────────────────────────────────────────────
@@ -333,6 +367,31 @@ def _is_confirm(text: str) -> bool:
     return text.strip().lower() in _CONFIRM_TOKENS
 
 
+# ── Artifact ─────────────────────────────────────────────────────────────────
+
+def _build_artifact_node(state: ConstraintIterationState) -> dict[str, Any]:
+    hard = state.hard_constraints
+    content = ConstraintArtifactContentModel(
+        query=state.query,
+        status="success" if hard else "partial",
+        hard_constraints=[c.model_dump() for c in hard],
+        commonsense_constraints=[c.model_dump() for c in state.commonsense_constraints],
+        categories_missing=state.missing_categories,
+        categories_skipped_by_user=state.categories_skipped,
+        interaction_turns=len([m for m in state.messages if m["role"] == "user"]),
+        model=state.model_name,
+    )
+    artifact = AgentArtifactModel(
+        name="constraint_agent",
+        type="constraint-extraction-result",
+        content=content.model_dump(mode="json"),
+        description=f"Constraint extraction for: {state.query[:80]}",
+    )
+    artifacts = dict(state.agent_artifacts)
+    artifacts["constraint_agent"] = [artifact]
+    return {"agent_artifacts": artifacts}
+
+
 # ── Graph ────────────────────────────────────────────────────────────────────
 
 def make_graph():
@@ -399,7 +458,11 @@ def make_graph():
             messages = [*messages, {"role": "user", "content": letter_input}]
 
             if _is_skip(letter_input):
-                return {"messages": messages, "category_index": state.category_index + 1}
+                return {
+                    "messages": messages,
+                    "category_index": state.category_index + 1,
+                    "categories_skipped": [*state.categories_skipped, category],
+                }
 
             letter = letter_input.strip().lower().rstrip(")")
             if letter not in valid_letters:
@@ -451,11 +514,17 @@ def make_graph():
             new_hard_constraints.append(
                 ConstraintModel(type="hard", text=user_input.strip(), user_skipped=False)
             )
+            return {
+                "messages": messages,
+                "hard_constraints": new_hard_constraints,
+                "category_index": state.category_index + 1,
+            }
 
         return {
             "messages": messages,
             "hard_constraints": new_hard_constraints,
             "category_index": state.category_index + 1,
+            "categories_skipped": [*state.categories_skipped, category],
         }
 
     def check_commonsense_violations(state: ConstraintIterationState) -> dict[str, Any]:
@@ -505,12 +574,12 @@ def make_graph():
             return "extract_hard_constraints"
         if state.missing_categories and state.category_index < len(state.missing_categories):
             return "ask_missing_category"
-        return END
+        return "build_artifact"
 
     def _route_after_missing(state: ConstraintIterationState) -> str:
         if state.category_index < len(state.missing_categories):
             return "ask_missing_category"
-        return END
+        return "build_artifact"
 
     graph = StateGraph(ConstraintIterationState)
     graph.add_node("extract_hard_constraints", extract_hard_constraints)
@@ -518,6 +587,7 @@ def make_graph():
     graph.add_node("present_violations", present_violations)
     graph.add_node("present_hard_constraints", present_hard_constraints)
     graph.add_node("ask_missing_category", ask_missing_category)
+    graph.add_node("build_artifact", _build_artifact_node)
 
     graph.set_entry_point("extract_hard_constraints")
     graph.add_edge("extract_hard_constraints", "check_commonsense_violations")
@@ -525,8 +595,61 @@ def make_graph():
     graph.add_edge("present_violations", "extract_hard_constraints")
     graph.add_conditional_edges("present_hard_constraints", _route_after_present_hard)
     graph.add_conditional_edges("ask_missing_category", _route_after_missing)
+    graph.add_edge("build_artifact", END)
 
     return graph.compile(checkpointer=MemorySaver())
+
+
+def make_pipeline_graph():
+    """Non-interactive graph for automated pipelines.
+
+    Runs extraction and violation check without any LangGraph interrupts.
+    Use get_constraint_list() and get_message_history() to read results.
+    """
+    def extract_hard_constraints(state: ConstraintIterationState) -> dict[str, Any]:
+        structured_output, _, _ = invoke_structured_model(
+            model_name=state.model_name,
+            temperature=state.temperature,
+            system_prompt=EXTRACTION_SYSTEM_PROMPT,
+            user_prompt=_build_extraction_prompt(state.query, state.query_context),
+            response_model=HardConstraintExtractionResponse,
+        )
+        return {
+            "hard_constraints": structured_output.constraints,
+            "missing_categories": [
+                c for c in structured_output.missing_categories
+                if c in HARD_CONSTRAINT_CATEGORIES
+            ],
+        }
+
+    def check_commonsense_violations(state: ConstraintIterationState) -> dict[str, Any]:
+        structured_output, _, _ = invoke_structured_model(
+            model_name=state.model_name,
+            temperature=state.temperature,
+            system_prompt=VIOLATION_CHECK_SYSTEM_PROMPT,
+            user_prompt=_build_violation_check_prompt(
+                state.query,
+                state.query_context,
+                state.hard_constraints,
+                state.commonsense_constraints,
+            ),
+            response_model=ConstraintViolationCheckResponse,
+        )
+        real_violations = [
+            v for v in structured_output.violations
+            if not _is_false_positive(v)
+        ]
+        return {"violations": real_violations}
+
+    graph = StateGraph(ConstraintIterationState)
+    graph.add_node("extract_hard_constraints", extract_hard_constraints)
+    graph.add_node("check_commonsense_violations", check_commonsense_violations)
+    graph.add_node("build_artifact", _build_artifact_node)
+    graph.set_entry_point("extract_hard_constraints")
+    graph.add_edge("extract_hard_constraints", "check_commonsense_violations")
+    graph.add_edge("check_commonsense_violations", "build_artifact")
+    graph.add_edge("build_artifact", END)
+    return graph.compile()
 
 
 def get_constraint_list(state: dict[str, Any]) -> list[ConstraintModel]:

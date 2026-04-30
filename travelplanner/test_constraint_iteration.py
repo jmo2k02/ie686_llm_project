@@ -41,7 +41,7 @@ def _print_summary(result: dict) -> None:
         content = msg.get("content", "")
         label = "[Agent]" if role == "assistant" else "[You]  "
         # indent continuation lines
-        lines = content.splitlines()
+        lines = content.splitlines() or [""]
         print(f"\n{label} {lines[0]}")
         for line in lines[1:]:
             print(f"         {line}")

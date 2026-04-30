@@ -11,8 +11,6 @@ from langgraph.graph import END, StateGraph
 from langgraph.types import interrupt
 from pydantic import BaseModel, Field
 
-from spellchecker import SpellChecker
-
 from travelplanner.config import get_setting
 from travelplanner.schema.commonsense_constraints import COMMONSENSE_CONSTRAINTS
 from travelplanner.schema.constraint_artifact import ConstraintArtifactContentModel
@@ -71,8 +69,6 @@ STRUCTURED_OPTIONS: dict[str, dict[str, str]] = {
         "f": "Other",
     },
 }
-
-_SPELL_CHECKER = SpellChecker()
 
 EXTRACTION_SYSTEM_PROMPT = """You are the TravelPlanner constraint extraction agent.
 
@@ -182,7 +178,32 @@ class ConstraintIterationState(BaseModel):
     agent_artifacts: dict[str, list[AgentArtifactModel]] = Field(default_factory=dict)
 
 
+SPELL_CHECK_SYSTEM_PROMPT = """You are a spell-check assistant for a travel planning application.
+
+Fix ONLY clear typos and misspellings in the user's input. Nothing else.
+
+Rules:
+- Fix only typos (transposed, missing, or wrong letters)
+- Do NOT rephrase, restructure, or change meaning in any way
+- Do NOT alter numbers, dates, amounts, currencies, or punctuation
+- Use travel planning context to resolve ambiguous cases
+  (e.g. "barelona" → "Barcelona", "apirl" → "April", "flgiht" → "flight")
+- If the text has no typos, return it unchanged with an empty corrections list
+- Return JSON only
+"""
+
+
 # ── LLM response models ──────────────────────────────────────────────────────
+
+class SpellCorrectionItem(BaseModel):
+    original: str
+    corrected: str
+
+
+class SpellCheckResponse(BaseModel):
+    corrections: list[SpellCorrectionItem] = Field(default_factory=list)
+    corrected_text: str
+
 
 class HardConstraintExtractionResponse(BaseModel):
     constraints: list[ConstraintModel] = Field(default_factory=list)
@@ -299,24 +320,58 @@ def _format_options_question(category: str, options: dict[str, str], error: str 
     return "\n".join(lines)
 
 
-def _spell_check_text(text: str) -> tuple[str, str | None]:
-    """Returns (corrected_text, message_or_None). Only flags clear single-word corrections."""
-    words = text.split()
-    misspelled = _SPELL_CHECKER.unknown(words)
-    corrections: dict[str, str] = {}
-    for word in misspelled:
-        suggestion = _SPELL_CHECKER.correction(word)
-        if suggestion and suggestion.lower() != word.lower() and len(word) > 3:
-            corrections[word] = suggestion
+def _should_spell_check(text: str) -> bool:
+    """Return True for substantive free-text worth checking (not a control token)."""
+    stripped = text.strip()
+    return len(stripped) >= 4 and not _is_confirm(stripped) and not _is_skip(stripped)
 
-    if not corrections:
+
+def _spell_check_with_context(
+    text: str,
+    query: str,
+    recent_messages: list[dict],
+    model_name: str,
+    temperature: float = 0.0,
+) -> tuple[str, str | None]:
+    """LLM-based context-aware spell check.
+
+    Returns (corrected_text, prompt_message) if typos were found,
+    or (original_text, None) if the text is clean or the check fails.
+    """
+    context_lines = [f"Original trip query: {query.strip()}"]
+    relevant = [m for m in recent_messages if m.get("role") in ("user", "assistant")][-6:]
+    if relevant:
+        context_lines.append("Recent conversation:")
+        for m in relevant:
+            label = "Agent" if m["role"] == "assistant" else "User"
+            context_lines.append(f"  {label}: {str(m.get('content', ''))[:120]}")
+
+    user_prompt = "\n".join([
+        *context_lines,
+        "",
+        f'Text to spell-check: "{text}"',
+        "",
+        "Return strictly valid JSON:",
+        '{"corrections": [{"original": "...", "corrected": "..."}], "corrected_text": "..."}',
+        'If no typos: {"corrections": [], "corrected_text": "<original text unchanged>"}',
+    ])
+
+    try:
+        result, _, _ = invoke_structured_model(
+            model_name=model_name,
+            temperature=temperature,
+            system_prompt=SPELL_CHECK_SYSTEM_PROMPT,
+            user_prompt=user_prompt,
+            response_model=SpellCheckResponse,
+        )
+    except Exception:
         return text, None
 
-    corrected = text
-    for original, fix in corrections.items():
-        corrected = corrected.replace(original, fix)
+    if not result.corrections:
+        return text, None
 
-    summary = ", ".join(f"'{k}' → '{v}'" for k, v in corrections.items())
+    corrected = result.corrected_text.strip() or text
+    summary = ", ".join(f"'{c.original}' → '{c.corrected}'" for c in result.corrections)
     msg = (
         f"Possible typo(s) detected: {summary}\n"
         f"Corrected text: \"{corrected}\"\n"
@@ -418,6 +473,18 @@ def make_graph():
         messages = [*state.messages, {"role": "assistant", "content": agent_msg}]
 
         user_input: str = interrupt(agent_msg)
+
+        if _should_spell_check(user_input):
+            corrected, spell_msg = _spell_check_with_context(
+                user_input, state.query, messages, state.model_name, state.temperature
+            )
+            if spell_msg:
+                messages = [*messages, {"role": "assistant", "content": spell_msg}]
+                accept: str = interrupt(spell_msg)
+                messages = [*messages, {"role": "user", "content": accept}]
+                if _is_confirm(accept):
+                    user_input = corrected
+
         messages = [*messages, {"role": "user", "content": user_input}]
 
         if _is_confirm(user_input):
@@ -478,19 +545,23 @@ def make_graph():
             )
             messages = [*messages, {"role": "assistant", "content": followup_q}]
             free_text: str = interrupt(followup_q)
-            messages = [*messages, {"role": "user", "content": free_text}]
 
             if free_text.strip() and not _is_skip(free_text):
-                # ── Spell check ───────────────────────────────────────────────
-                corrected, spell_msg = _spell_check_text(free_text)
-                if spell_msg:
-                    messages = [*messages, {"role": "assistant", "content": spell_msg}]
-                    accept: str = interrupt(spell_msg)
-                    messages = [*messages, {"role": "user", "content": accept}]
-                    if _is_confirm(accept):
-                        free_text = corrected
+                if _should_spell_check(free_text):
+                    corrected, spell_msg = _spell_check_with_context(
+                        free_text, state.query, messages, state.model_name, state.temperature
+                    )
+                    if spell_msg:
+                        messages = [*messages, {"role": "assistant", "content": spell_msg}]
+                        accept: str = interrupt(spell_msg)
+                        messages = [*messages, {"role": "user", "content": accept}]
+                        if _is_confirm(accept):
+                            free_text = corrected
 
+                messages = [*messages, {"role": "user", "content": free_text}]
                 selected_text = f"{selected_text} ({free_text.strip()})"
+            else:
+                messages = [*messages, {"role": "user", "content": free_text}]
 
             new_hard_constraints.append(
                 ConstraintModel(type="hard", text=selected_text, user_skipped=False)
@@ -508,6 +579,18 @@ def make_graph():
         )
         messages = [*state.messages, {"role": "assistant", "content": question}]
         user_input: str = interrupt(question)
+
+        if not _is_skip(user_input) and _should_spell_check(user_input):
+            corrected, spell_msg = _spell_check_with_context(
+                user_input, state.query, messages, state.model_name, state.temperature
+            )
+            if spell_msg:
+                messages = [*messages, {"role": "assistant", "content": spell_msg}]
+                accept: str = interrupt(spell_msg)
+                messages = [*messages, {"role": "user", "content": accept}]
+                if _is_confirm(accept):
+                    user_input = corrected
+
         messages = [*messages, {"role": "user", "content": user_input}]
 
         if not _is_skip(user_input):
@@ -551,6 +634,18 @@ def make_graph():
         messages = [*state.messages, {"role": "assistant", "content": agent_msg}]
 
         user_input: str = interrupt(agent_msg)
+
+        if _should_spell_check(user_input):
+            corrected, spell_msg = _spell_check_with_context(
+                user_input, state.query, messages, state.model_name, state.temperature
+            )
+            if spell_msg:
+                messages = [*messages, {"role": "assistant", "content": spell_msg}]
+                accept: str = interrupt(spell_msg)
+                messages = [*messages, {"role": "user", "content": accept}]
+                if _is_confirm(accept):
+                    user_input = corrected
+
         messages = [*messages, {"role": "user", "content": user_input}]
 
         context = (

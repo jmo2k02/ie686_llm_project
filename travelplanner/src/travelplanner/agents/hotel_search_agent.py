@@ -34,7 +34,7 @@ from travelplanner.schema.hotel_search_artifact import (
     HotelSearchErrorModel,
     HotelOptionModel,
 )
-from travelplanner.schema.system_state import AgentArtifactModel
+from travelplanner.schema.system_state import AgentArtifactModel, StateContractModel
 from travelplanner.utils.llm import make_chat_model
 
 # Load environment variables from .env file at module initialization
@@ -55,8 +55,8 @@ NOMINATIM_BASE = "https://nominatim.openstreetmap.org"
 _geocoding_cache: Dict[str, Tuple[float, float]] = {}
 _last_nominatim_request: float = 0.0
 
-# Amenity matching keywords for fuzzy matching
-AMENITY_KEYWORDS = {
+# Facility matching keywords for fuzzy matching
+FACILITY_KEYWORDS = {
     "wifi": ["wifi", "wi-fi", "internet", "wireless"],
     "pool": ["pool", "swimming"],
     "gym": ["gym", "fitness", "workout", "exercise"],
@@ -210,13 +210,13 @@ def _get_api_headers() -> Dict[str, str]:
         )
     return {
         "X-API-Key": api_key,
-        "accept": "application/json",
-        "content-type": "application/json"
+        "Accept": "application/json",
+        "Content-Type": "application/json"
     }
 
 
 def get_hotel_details(hotel_id: str, timeout: int = 4) -> Dict[str, Any]:
-    """Fetch full hotel details including amenities.
+    """Fetch full hotel details including facilities.
 
     Args:
         hotel_id: LiteAPI hotel ID
@@ -319,57 +319,54 @@ def search_hotels_via_api(
     guest_count: int,
     timeout: int = 8
 ) -> Dict[str, Any]:
-    """Search for hotels using LiteAPI /data/hotels endpoint.
+    """Search for hotels with live availability using LiteAPI /v3.0/hotels/rates endpoint.
 
     Args:
-        place_id: LiteAPI place ID from search_places()
-        city_name: City name (fallback if place_id is None)
-        country_code: Country code (fallback)
+        place_id: LiteAPI place ID (not used for rates endpoint, kept for compatibility)
+        city_name: City name for search
+        country_code: Country code (ISO 2-letter)
         check_in_date: Check-in date (YYYY-MM-DD)
         check_out_date: Check-out date (YYYY-MM-DD)
         guest_count: Number of guests
         timeout: Request timeout in seconds
 
     Returns:
-        Dict with search results including hotels and rates
+        Dict with search results including hotels with rates and availability
     """
     print(f"[search_hotels_via_api] Searching hotels in {city_name}, {country_code}")
 
     try:
-        if not place_id and city_name and country_code:
-            place_result = search_places(f"{city_name}, {country_code}")
-            if place_result.get("status") == "success":
-                place_id = place_result.get("placeId")
-
-        if not place_id:
+        # Use countryCode and cityName with POST to /hotels/rates
+        if not city_name or not country_code:
             return {
                 "status": "failed",
-                "error": "Could not determine place_id for location"
+                "error": "city_name and country_code are required"
             }
 
-        occupancies = [
-            {
-                "rooms": 1,
-                "adults": guest_count,
-                "children": []
-            }
-        ]
-
+        # Build request payload for rates endpoint
         payload = {
-            "placeId": place_id,
+            "countryCode": country_code,
+            "cityName": city_name,
             "checkin": check_in_date,
             "checkout": check_out_date,
-            "occupancies": occupancies,
             "currency": "EUR",
             "guestNationality": "US",
-            "timeout": timeout
+            "occupancies": [
+                {
+                    "adults": guest_count
+                }
+            ],
+            "timeout": timeout,
+            "limit": 200,
+            "maxRatesPerHotel": 1,  # Get cheapest rate per hotel
+            "includeHotelData": True  # Include hotel names and details in response
         }
 
         print(f"[search_hotels_via_api] Request payload: {json.dumps(payload, indent=2)}")
 
         start_time = time.time()
         response = requests.post(
-            f"{LITEAPI_BASE_URL}/data/hotels",
+            f"{LITEAPI_BASE_URL}/hotels/rates",
             headers=_get_api_headers(),
             json=payload,
             timeout=timeout + 2
@@ -381,7 +378,7 @@ def search_hotels_via_api(
         data = response.json()
 
         hotels = data.get("data", [])
-        print(f"[search_hotels_via_api] Found {len(hotels)} hotels in {elapsed_ms}ms")
+        print(f"[search_hotels_via_api] Found {len(hotels)} hotels with rates in {elapsed_ms}ms")
 
         return {
             "status": "success",
@@ -408,22 +405,22 @@ def search_hotels_via_api(
 # ============================================================================
 
 
-def _amenity_match(hotel_amenities: List[str], required_amenity: str) -> bool:
-    """Check if hotel has required amenity using fuzzy keyword matching.
+def _facility_match(hotel_facilities: List[str], required_facility: str) -> bool:
+    """Check if hotel has required facility using fuzzy keyword matching.
 
     Args:
-        hotel_amenities: List of hotel amenities (lowercase)
-        required_amenity: Required amenity (e.g., "wifi", "pool")
+        hotel_facilities: List of hotel facilities (lowercase)
+        required_facility: Required facility (e.g., "wifi", "pool")
 
     Returns:
-        True if hotel has amenity
+        True if hotel has facility
     """
-    keywords = AMENITY_KEYWORDS.get(required_amenity.lower(), [required_amenity.lower()])
+    keywords = FACILITY_KEYWORDS.get(required_facility.lower(), [required_facility.lower()])
 
-    all_amenities_text = " ".join(hotel_amenities)
+    all_facilities_text = " ".join(hotel_facilities)
 
     for keyword in keywords:
-        if keyword in all_amenities_text:
+        if keyword in all_facilities_text:
             return True
 
     return False
@@ -431,24 +428,24 @@ def _amenity_match(hotel_amenities: List[str], required_amenity: str) -> bool:
 
 def filter_hotels_by_constraints(
     hotels: List[HotelOptionModel],
-    required_amenities: Optional[List[str]] = None,
-    preferred_amenities: Optional[List[str]] = None,
+    required_facilities: Optional[List[str]] = None,
+    preferred_facilities: Optional[List[str]] = None,
     min_rating: Optional[float] = None
 ) -> Tuple[List[HotelOptionModel], Dict[str, int]]:
-    """Filter hotels by amenities and rating.
+    """Filter hotels by facilities and rating.
 
     Args:
         hotels: List of hotel options
-        required_amenities: Must-have amenities (AND logic)
-        preferred_amenities: Nice-to-have amenities (for scoring)
+        required_facilities: Must-have facilities (AND logic)
+        preferred_facilities: Nice-to-have facilities (for scoring)
         min_rating: Minimum rating threshold
 
     Returns:
-        Tuple of (filtered_hotels, preferred_amenity_counts)
+        Tuple of (filtered_hotels, preferred_facility_counts)
     """
     print(f"[filter_hotels_by_constraints] Filtering {len(hotels)} hotels")
-    print(f"  Required amenities: {required_amenities}")
-    print(f"  Preferred amenities: {preferred_amenities}")
+    print(f"  Required facilities: {required_facilities}")
+    print(f"  Preferred facilities: {preferred_facilities}")
     print(f"  Min rating: {min_rating}")
 
     filtered = []
@@ -460,26 +457,26 @@ def filter_hotels_by_constraints(
             print(f"[filter] {hotel.name} excluded: rating {hotel.rating} < {min_rating}")
             continue
 
-        # Apply required amenities filter (ALL must be present)
-        if required_amenities:
-            hotel_amenities_lower = [a.lower() for a in hotel.facilities]
+        # Apply required facilities filter (ALL must be present)
+        if required_facilities:
+            hotel_facilities_lower = [f.lower() for f in hotel.facilities]
             has_all_required = True
 
-            for req in required_amenities:
-                if not _amenity_match(hotel_amenities_lower, req):
-                    print(f"[filter] {hotel.name} excluded: missing required amenity '{req}'")
+            for req in required_facilities:
+                if not _facility_match(hotel_facilities_lower, req):
+                    print(f"[filter] {hotel.name} excluded: missing required facility '{req}'")
                     has_all_required = False
                     break
 
             if not has_all_required:
                 continue
 
-        # Count preferred amenities (for ranking)
+        # Count preferred facilities (for ranking)
         preferred_count = 0
-        if preferred_amenities:
-            hotel_amenities_lower = [a.lower() for a in hotel.facilities]
-            for pref in preferred_amenities:
-                if _amenity_match(hotel_amenities_lower, pref):
+        if preferred_facilities:
+            hotel_facilities_lower = [f.lower() for f in hotel.facilities]
+            for pref in preferred_facilities:
+                if _facility_match(hotel_facilities_lower, pref):
                     preferred_count += 1
 
         preferred_counts[hotel.accommodation_id] = preferred_count
@@ -498,7 +495,7 @@ def rank_hotels(
     """Rank hotels by criteria and return top 10.
 
     Ranking criteria (in order):
-    1. Preferred amenity count (descending)
+    1. Preferred facility count (descending)
     2. Within budget status (within budget first)
     3. Rating (descending)
     4. Price (ascending)
@@ -506,7 +503,7 @@ def rank_hotels(
     Args:
         hotels: List of filtered hotels
         budget_max: Maximum budget per night
-        preferred_counts: Dict mapping hotel ID to preferred amenity count
+        preferred_counts: Dict mapping hotel ID to preferred facility count
         exclude_over_budget: If True, exclude over-budget hotels
 
     Returns:
@@ -723,16 +720,16 @@ def _create_failed_artifact(
     )
 
 
-def _enrich_hotels_with_amenities(
+def _enrich_hotels_with_facilities(
     hotels: List[HotelOptionModel],
-    required_amenities: List[str],
-    preferred_amenities: List[str]
+    required_facilities: List[str],
+    preferred_facilities: List[str]
 ) -> List[HotelOptionModel]:
-    """Enrich top hotels with full amenity details from hotel details API."""
-    if not (required_amenities or preferred_amenities) or not hotels:
+    """Enrich top hotels with full facility details from hotel details API."""
+    if not (required_facilities or preferred_facilities) or not hotels:
         return hotels
 
-    print(f"[_enrich_hotels_with_amenities] Fetching details for top {min(20, len(hotels))} hotels")
+    print(f"[_enrich_hotels_with_facilities] Fetching details for top {min(20, len(hotels))} hotels")
 
     # Fetch details for top 20 candidates
     top_candidates = sorted(hotels, key=lambda h: (-h.rating, h.nightly_rate))[:20]
@@ -746,7 +743,7 @@ def _enrich_hotels_with_amenities(
 
             if facilities:
                 hotel.facilities = list(set(hotel.facilities + facilities))
-                print(f"[_enrich_hotels_with_amenities] Enriched {hotel.name} with {len(facilities)} facilities")
+                print(f"[_enrich_hotels_with_facilities] Enriched {hotel.name} with {len(facilities)} facilities")
 
     return hotels
 
@@ -784,12 +781,12 @@ def build_hotel_artifact(
     location = search_params.get("location", "")
     budget_max = float(search_params.get("budget_max", 0.0))
     guest_count = int(search_params.get("guest_count", 1))
-    required_amenities = search_params.get("required_amenities", [])
-    preferred_amenities = search_params.get("preferred_amenities", [])
+    required_facilities = search_params.get("required_facilities", [])
+    preferred_facilities = search_params.get("preferred_facilities", [])
     min_rating = search_params.get("min_rating")
     exclude_over_budget = search_params.get("exclude_over_budget", False)
 
-    print(f"[build_hotel_artifact] Constraints: required={required_amenities}, "
+    print(f"[build_hotel_artifact] Constraints: required={required_facilities}, "
           f"min_rating={min_rating}, exclude_over_budget={exclude_over_budget}")
 
     # Handle API failures
@@ -804,15 +801,57 @@ def build_hotel_artifact(
     rate_data = api_response.get("data", [])
     hotel_info_map = {}
 
+    # Collect all hotel IDs
+    hotel_ids = [item.get("hotelId", "") for item in rate_data if item.get("hotelId")]
+
+    # Fetch hotel details in batch using /data/hotels?hotelIds=...
+    if hotel_ids:
+        # LiteAPI supports multiple IDs, batch them for efficiency
+        batch_size = 50  # Process in batches of 50
+        for i in range(0, len(hotel_ids), batch_size):
+            batch_ids = hotel_ids[i:i+batch_size]
+            hotel_ids_param = ",".join(batch_ids)
+
+            print(f"[build_hotel_artifact] Fetching details for {len(batch_ids)} hotels (batch {i//batch_size + 1})")
+
+            try:
+                response = requests.get(
+                    f"{LITEAPI_BASE_URL}/data/hotels",
+                    headers=_get_api_headers(),
+                    params={"hotelIds": hotel_ids_param},
+                    timeout=10
+                )
+                response.raise_for_status()
+                details_data = response.json()
+
+                # Extract hotel info from batch response
+                for hotel_data in details_data.get("data", []):
+                    hotel_id = hotel_data.get("id", "")
+                    if hotel_id:
+                        hotel_info_map[hotel_id] = {
+                            "id": hotel_id,
+                            "name": hotel_data.get("name", f"Hotel {hotel_id}"),
+                            "rating": hotel_data.get("rating", 0),
+                            "location": {"latitude": hotel_data.get("latitude"), "longitude": hotel_data.get("longitude")},
+                            "address": hotel_data.get("address", ""),
+                            "stars": hotel_data.get("stars", 0),
+                            "description": hotel_data.get("hotelDescription", ""),
+                        }
+
+            except Exception as e:
+                print(f"[build_hotel_artifact] Error fetching hotel details batch: {e}")
+                # Continue with fallback names for this batch
+
+    # For any hotels without details (API errors), use fallback
     for rate_item in rate_data:
         hotel_id = rate_item.get("hotelId", "")
-        if hotel_id:
+        if hotel_id and hotel_id not in hotel_info_map:
             hotel_info_map[hotel_id] = {
                 "id": hotel_id,
-                "name": rate_item.get("hotelName", f"Hotel {hotel_id}"),
-                "rating": rate_item.get("rating", 0),
-                "location": rate_item.get("location", {}),
-                "address": rate_item.get("address", ""),
+                "name": f"Hotel {hotel_id}",
+                "rating": 0,
+                "location": {},
+                "address": "",
             }
 
     # Build hotel list
@@ -833,14 +872,14 @@ def build_hotel_artifact(
         if hotel_option:
             hotels.append(hotel_option)
 
-    # Enrich with amenity details if needed
-    hotels = _enrich_hotels_with_amenities(hotels, required_amenities, preferred_amenities)
+    # Enrich with facility details if needed
+    hotels = _enrich_hotels_with_facilities(hotels, required_facilities, preferred_facilities)
 
     # Filter and rank
     filtered_hotels, preferred_counts = filter_hotels_by_constraints(
         hotels,
-        required_amenities=required_amenities,
-        preferred_amenities=preferred_amenities,
+        required_facilities=required_facilities,
+        preferred_facilities=preferred_facilities,
         min_rating=min_rating
     )
 
@@ -894,6 +933,13 @@ class IntelligentHotelSearchState(BaseModel):
     """State for intelligent hotel search agent."""
 
     query: str = Field(description="Natural language user query")
+    system_state: StateContractModel = Field(
+        description="Reference to global system state"
+    )
+    agent_key: str = Field(
+        default="hotel_search",
+        description="Key for storing artifacts in SystemState"
+    )
     task_id: Optional[int] = Field(default=None, description="Task ID")
     model_name: str = Field(
         default="openrouter:anthropic/claude-3.5-sonnet",
@@ -928,19 +974,33 @@ def _call_llm(system_prompt: str, user_prompt: str, model_name: str, temperature
     Args:
         system_prompt: System message
         user_prompt: User message
-        model_name: Model identifier (e.g., "openrouter:...", "ollama:...")
+        model_name: Model identifier
+            - "openrouter:model/name" for OpenRouter
+            - "model-name" or "model:variant" for Ollama (e.g., "nemotron-3-super", "kimi-k2.6:cloud")
         temperature: Sampling temperature
 
     Returns:
         Response content as string
     """
-    provider, model = model_name.split(":", 1) if ":" in model_name else ("openrouter", model_name)
-
-    if provider == "ollama":
-        # Use Ollama Cloud API
+    # Check for OpenRouter prefix
+    if model_name.startswith("openrouter:"):
+        # Use OpenRouter via LangChain
+        llm = make_chat_model(model_name=model_name, temperature=temperature)
+        messages = [
+            SystemMessage(content=system_prompt),
+            HumanMessage(content=user_prompt),
+        ]
+        response = llm.invoke(messages)
+        return response.content
+    else:
+        # Default to Ollama for any other format
+        # Handles: "minimax-m2.7:cloud", "llama3.2", "nemotron-3-super", etc.
         api_key = os.environ.get("OLLAMA_API_KEY")
         if not api_key:
-            raise ValueError("OLLAMA_API_KEY not found in environment")
+            raise ValueError(
+                f"OLLAMA_API_KEY not found in environment. "
+                f"Set it for Ollama model '{model_name}' or use 'openrouter:...' format."
+            )
 
         client = OllamaClient(
             host="https://ollama.com",
@@ -952,19 +1012,8 @@ def _call_llm(system_prompt: str, user_prompt: str, model_name: str, temperature
             {"role": "user", "content": user_prompt}
         ]
 
-        # Non-streaming call
-        response = client.chat(model=model, messages=messages, stream=False)
+        response = client.chat(model=model_name, messages=messages, stream=False)
         return response['message']['content']
-
-    else:
-        # Use OpenRouter or other OpenAI-compatible provider
-        llm = make_chat_model(model_name=model_name, temperature=temperature)
-        messages = [
-            SystemMessage(content=system_prompt),
-            HumanMessage(content=user_prompt),
-        ]
-        response = llm.invoke(messages)
-        return response.content
 
 
 # ============================================================================
@@ -983,8 +1032,8 @@ Output JSON format:
   "dates": "YYYY-MM-DD to YYYY-MM-DD",
   "budget_max": float,
   "guest_count": int,
-  "required_amenities": ["wifi", "pool"],
-  "preferred_amenities": ["gym", "spa"],
+  "required_facilities": ["wifi", "pool"],
+  "preferred_facilities": ["gym", "spa"],
   "min_rating": float,
   "purpose": "business|vacation|honeymoon|family",
   "special_requirements": "string or null"
@@ -1012,8 +1061,8 @@ Output: {{
   "dates": "2026-05-06 to 2026-05-13",
   "budget_max": 200.0,
   "guest_count": 2,
-  "required_amenities": ["wifi", "pool"],
-  "preferred_amenities": [],
+  "required_facilities": ["wifi", "pool"],
+  "preferred_facilities": [],
   "purpose": "vacation"
 }}
 
@@ -1023,8 +1072,8 @@ Output: {{
   "dates": "2026-06-15 to 2026-06-18",
   "budget_max": 300.0,
   "guest_count": 1,
-  "required_amenities": ["parking"],
-  "preferred_amenities": ["wifi"],
+  "required_facilities": ["parking"],
+  "preferred_facilities": ["wifi"],
   "purpose": "business",
   "special_requirements": "near airport"
 }}
@@ -1089,7 +1138,7 @@ Format:
 1. **[Hotel Name]** (€[price]/night, [rating]/10)
    - **Why it fits**: [Specific reason based on user's purpose/requirements]
    - **Location**: [Address + transit info if available]
-   - **Highlights**: [Top 3 amenities/features]
+   - **Highlights**: [Top 3 facilities/features]
    - **Note**: [Any caveats, e.g. "over budget but exceptional value"]
 
 2. [Repeat for top 3-5 hotels]
@@ -1102,7 +1151,7 @@ Rules:
 - Focus on WHY each hotel matches the user's purpose (business, honeymoon, etc.)
 - Mention over-budget options if they offer exceptional value
 - Be concise - 2-3 sentences per hotel
-- NO generic descriptions - be specific based on actual amenities/location"""
+- NO generic descriptions - be specific based on actual facilities/location"""
 
 
 def synthesize_recommendations(
@@ -1148,8 +1197,8 @@ Parsed Requirements:
 - Dates: {parsed_params.get('dates')}
 - Budget: {parsed_params.get('budget_max')}/night
 - Purpose: {parsed_params.get('purpose', 'unspecified')}
-- Required: {', '.join(parsed_params.get('required_amenities', []))}
-- Preferred: {', '.join(parsed_params.get('preferred_amenities', []))}
+- Required: {', '.join(parsed_params.get('required_facilities', []))}
+- Preferred: {', '.join(parsed_params.get('preferred_facilities', []))}
 
 Search Results ({len(options)} hotels):
 {json.dumps(hotel_summaries, indent=2)}
@@ -1206,15 +1255,17 @@ def search_node(state: IntelligentHotelSearchState) -> Dict[str, Any]:
 
     params = state.parsed_parameters
     if not params:
-        return {"raw_search_results": None}
+        print("[search_node] No parsed parameters, skipping search")
+        # Artifact was already created in parse_node
+        return {}
 
-    # Extract parameters
+    # Extract parameters with safe defaults
     location = params.get("location", "")
     dates = params.get("dates", "")
-    budget_max = float(params.get("budget_max", 150.0))
-    guest_count = int(params.get("guest_count", 2))
-    required_amenities = params.get("required_amenities", [])
-    preferred_amenities = params.get("preferred_amenities", [])
+    budget_max = float(params.get("budget_max") or 150.0)
+    guest_count = int(params.get("guest_count") or 2)
+    required_facilities = params.get("required_facilities", [])
+    preferred_facilities = params.get("preferred_facilities", [])
     min_rating = params.get("min_rating")
 
     # Parse dates
@@ -1256,8 +1307,8 @@ def search_node(state: IntelligentHotelSearchState) -> Dict[str, Any]:
             "location": location,
             "budget_max": budget_max,
             "guest_count": guest_count,
-            "required_amenities": required_amenities,
-            "preferred_amenities": preferred_amenities,
+            "required_facilities": required_facilities,
+            "preferred_facilities": preferred_facilities,
             "min_rating": min_rating,
         },
         check_in_date=check_in,
@@ -1285,7 +1336,7 @@ def synthesize_node(state: IntelligentHotelSearchState) -> Dict[str, Any]:
     content = state.hotel_artifact.content
 
     if content.get("status") == "failed":
-        # Don't synthesize for failed searches
+        print("[synthesize_node] Artifact has failed status, skipping recommendations")
         return {}
 
     # Generate recommendations
@@ -1309,6 +1360,29 @@ def synthesize_node(state: IntelligentHotelSearchState) -> Dict[str, Any]:
     return {"hotel_artifact": updated_artifact}
 
 
+def store_artifact_node(state: IntelligentHotelSearchState) -> Dict[str, Any]:
+    """Node 4: Store artifact in SystemState."""
+    print("\n[store_artifact_node] Storing artifact in SystemState")
+
+    if not state.hotel_artifact:
+        print("[store_artifact_node] No artifact to store")
+        return {}
+
+    # Add artifact to SystemState
+    updated_system_state = state.system_state.model_copy(deep=True)
+
+    if state.agent_key not in updated_system_state.agent_artifacts:
+        updated_system_state.agent_artifacts[state.agent_key] = []
+
+    updated_system_state.agent_artifacts[state.agent_key].append(state.hotel_artifact)
+
+    print(f"[store_artifact_node] Stored artifact under key '{state.agent_key}'")
+    print(f"[store_artifact_node] Total artifacts for {state.agent_key}: "
+          f"{len(updated_system_state.agent_artifacts[state.agent_key])}")
+
+    return {"system_state": updated_system_state}
+
+
 # ============================================================================
 # Graph Factory
 # ============================================================================
@@ -1324,12 +1398,14 @@ def make_intelligent_hotel_graph():
     graph.add_node("parse", parse_node)
     graph.add_node("search", search_node)
     graph.add_node("synthesize", synthesize_node)
+    graph.add_node("store_artifact", store_artifact_node)
 
     # Linear flow
     graph.set_entry_point("parse")
     graph.add_edge("parse", "search")
     graph.add_edge("search", "synthesize")
-    graph.add_edge("synthesize", END)
+    graph.add_edge("synthesize", "store_artifact")
+    graph.add_edge("store_artifact", END)
 
     return graph.compile()
 
@@ -1341,44 +1417,60 @@ def make_intelligent_hotel_graph():
 
 def intelligent_hotel_search(
     query: str,
+    system_state: StateContractModel,
     task_id: Optional[int] = None,
-    model_name: str = "openrouter:anthropic/claude-3.5-sonnet"
-) -> AgentArtifactModel:
+    model_name: str = "openrouter:anthropic/claude-3.5-sonnet",
+    agent_key: str = "hotel_search"
+) -> StateContractModel:
     """Execute intelligent hotel search from natural language query.
 
     Args:
         query: Natural language hotel search query
+        system_state: Global system state (required)
         task_id: Optional task ID
         model_name: LLM model to use. Options:
             - "openrouter:anthropic/claude-3.5-sonnet" (default, team credits)
-            - "ollama:gpt-oss:120b" (personal testing with Ollama Cloud)
+            - Model name for Ollama (e.g., "nemotron-3-super", "kimi-k2.6:cloud")
+        agent_key: Key for storing artifacts in SystemState (default: "hotel_search")
 
     Returns:
-        AgentArtifactModel with hotel recommendations
+        Updated StateContractModel with hotel search artifact added
 
     Examples:
+        >>> from travelplanner.schema.system_state import StateContractModel
+        >>>
+        >>> # Initialize SystemState
+        >>> system_state = StateContractModel(query="Plan Barcelona trip")
+        >>>
         >>> # Team usage with OpenRouter (default)
-        >>> result = intelligent_hotel_search(
-        ...     "Find romantic hotel in Barcelona for honeymoon next month, need pool and wifi"
+        >>> updated_state = intelligent_hotel_search(
+        ...     query="Find romantic hotel in Barcelona for honeymoon next month, need pool and wifi",
+        ...     system_state=system_state
         ... )
-
-        >>> # Personal testing with Ollama Cloud
-        >>> result = intelligent_hotel_search(
-        ...     "Find hotel in Munich with parking",
-        ...     model_name="ollama:gpt-oss:120b"
+        >>>
+        >>> # Personal testing with Ollama
+        >>> updated_state = intelligent_hotel_search(
+        ...     query="Find hotel in Munich with parking",
+        ...     system_state=system_state,
+        ...     model_name="nemotron-3-super"
         ... )
-        >>> print(result.content["recommendations"])
+        >>>
+        >>> # Get artifacts
+        >>> artifacts = updated_state.agent_artifacts.get("hotel_search", [])
+        >>> print(artifacts[0].content["recommendations"])
     """
     graph = make_intelligent_hotel_graph()
 
     state = IntelligentHotelSearchState(
         query=query,
+        system_state=system_state,
+        agent_key=agent_key,
         task_id=task_id,
         model_name=model_name
     )
 
     result = graph.invoke(state)
-    return result["hotel_artifact"]
+    return result["system_state"]
 
 
 if __name__ == "__main__":

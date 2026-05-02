@@ -14,7 +14,7 @@ from unittest.mock import patch
 from travelplanner.agents.hotel_search_agent import (
     calculate_nights,
     parse_location,
-    _amenity_match,
+    _facility_match,
     filter_hotels_by_constraints,
     rank_hotels,
 )
@@ -77,19 +77,19 @@ class TestUtilityFunctions(unittest.TestCase):
         self.assertEqual(country, "GB")
 
 
-class TestAmenityMatching(unittest.TestCase):
-    """Test amenity fuzzy matching logic."""
+class TestFacilityMatching(unittest.TestCase):
+    """Test facility fuzzy matching logic."""
 
     def test_exact_match(self):
-        """Test exact amenity matching."""
-        self.assertTrue(_amenity_match(["wifi", "parking"], "wifi"))
-        self.assertFalse(_amenity_match(["parking", "breakfast"], "wifi"))
+        """Test exact facility matching."""
+        self.assertTrue(_facility_match(["wifi", "parking"], "wifi"))
+        self.assertFalse(_facility_match(["parking", "breakfast"], "wifi"))
 
     def test_case_insensitive(self):
         """Test case-insensitive matching."""
-        # Note: facilities are already lowercased in _amenity_match
-        self.assertTrue(_amenity_match(["wifi", "parking"], "wifi"))
-        self.assertTrue(_amenity_match(["WIFI".lower(), "Parking".lower()], "wifi"))
+        # Note: facilities are already lowercased in _facility_match
+        self.assertTrue(_facility_match(["wifi", "parking"], "wifi"))
+        self.assertTrue(_facility_match(["WIFI".lower(), "Parking".lower()], "wifi"))
 
     def test_fuzzy_wifi_variants(self):
         """Test fuzzy matching for wifi variants."""
@@ -101,7 +101,7 @@ class TestAmenityMatching(unittest.TestCase):
         ]
 
         for facilities, should_match in test_cases:
-            result = _amenity_match(facilities, "wifi")
+            result = _facility_match(facilities, "wifi")
             self.assertEqual(result, should_match, f"Failed for {facilities}")
 
     def test_fuzzy_pool_variants(self):
@@ -113,7 +113,7 @@ class TestAmenityMatching(unittest.TestCase):
         ]
 
         for facilities in test_cases:
-            self.assertTrue(_amenity_match(facilities, "pool"))
+            self.assertTrue(_facility_match(facilities, "pool"))
 
     def test_fuzzy_gym_variants(self):
         """Test fuzzy matching for gym variants."""
@@ -124,14 +124,14 @@ class TestAmenityMatching(unittest.TestCase):
         ]
 
         for facilities in test_cases:
-            self.assertTrue(_amenity_match(facilities, "gym"))
+            self.assertTrue(_facility_match(facilities, "gym"))
 
 
 class TestHotelFiltering(unittest.TestCase):
     """Test hotel filtering logic."""
 
-    def test_filter_by_required_amenities(self):
-        """Test filtering by required amenities."""
+    def test_filter_by_required_facilities(self):
+        """Test filtering by required facilities."""
         hotels = [
             _make_hotel("with-wifi", ["wifi", "parking"]),
             _make_hotel("without-wifi", ["parking", "breakfast"]),
@@ -139,14 +139,14 @@ class TestHotelFiltering(unittest.TestCase):
 
         filtered, _ = filter_hotels_by_constraints(
             hotels=hotels,
-            required_amenities=["wifi"]
+            required_facilities=["wifi"]
         )
 
         self.assertEqual(len(filtered), 1)
         self.assertEqual(filtered[0].name, "with-wifi")
 
-    def test_filter_multiple_required_amenities(self):
-        """Test AND logic for multiple required amenities."""
+    def test_filter_multiple_required_facilities(self):
+        """Test AND logic for multiple required facilities."""
         hotels = [
             _make_hotel("both", ["wifi", "pool", "parking"]),
             _make_hotel("wifi-only", ["wifi", "parking"]),
@@ -155,7 +155,7 @@ class TestHotelFiltering(unittest.TestCase):
 
         filtered, _ = filter_hotels_by_constraints(
             hotels=hotels,
-            required_amenities=["wifi", "pool"]
+            required_facilities=["wifi", "pool"]
         )
 
         self.assertEqual(len(filtered), 1)
@@ -170,15 +170,15 @@ class TestHotelFiltering(unittest.TestCase):
 
         filtered, _ = filter_hotels_by_constraints(
             hotels=hotels,
-            required_amenities=["wifi"],
+            required_facilities=["wifi"],
             min_rating=7.0
         )
 
         self.assertEqual(len(filtered), 1)
         self.assertEqual(filtered[0].name, "high-rated")
 
-    def test_preferred_amenities_counting(self):
-        """Test that preferred amenities are counted correctly."""
+    def test_preferred_facilities_counting(self):
+        """Test that preferred facilities are counted correctly."""
         hotels = [
             _make_hotel("two-preferred", ["wifi", "gym", "breakfast"]),
             _make_hotel("one-preferred", ["wifi", "gym"]),
@@ -187,8 +187,8 @@ class TestHotelFiltering(unittest.TestCase):
 
         filtered, preferred_counts = filter_hotels_by_constraints(
             hotels=hotels,
-            required_amenities=["wifi"],
-            preferred_amenities=["gym", "breakfast"]
+            required_facilities=["wifi"],
+            preferred_facilities=["gym", "breakfast"]
         )
 
         self.assertEqual(len(filtered), 3)
@@ -217,8 +217,8 @@ class TestHotelRanking(unittest.TestCase):
         self.assertEqual(ranked[1].rank, 2)
         self.assertEqual(ranked[2].rank, 3)
 
-    def test_rank_preferred_amenities_first(self):
-        """Test that preferred amenities boost ranking."""
+    def test_rank_preferred_facilities_first(self):
+        """Test that preferred facilities boost ranking."""
         hotels = [
             _make_hotel("no-preferred", ["wifi"], rating=9.0),
             _make_hotel("one-preferred", ["wifi", "gym"], rating=8.5),

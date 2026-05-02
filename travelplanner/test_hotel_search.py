@@ -4,13 +4,13 @@ Full end-to-end tests with live API calls to LiteAPI and LLM providers.
 
 Usage:
     # Team testing with OpenRouter (default):
-    uv run python test_hotel_search_integration.py
+    uv run python test_hotel_search.py
 
     # Personal testing with Ollama:
-    USE_OLLAMA=true uv run python test_hotel_search_integration.py
+    USE_OLLAMA=true uv run python test_hotel_search.py
 
 Run from travelplanner/ directory:
-    uv run python test_hotel_search_integration.py
+    uv run python test_hotel_search.py
 
 Requirements:
     - LITEAPI_API_KEY in .env
@@ -24,10 +24,12 @@ from dotenv import load_dotenv
 load_dotenv(Path(__file__).parent.parent / ".env")
 
 from travelplanner.agents.hotel_search_agent import intelligent_hotel_search
+from travelplanner.schema.system_state import StateContractModel
 
 # Check if user wants to use Ollama for personal testing
 USE_OLLAMA = os.getenv("USE_OLLAMA", "false").lower() == "true"
-MODEL_NAME = "ollama:gpt-oss:120b" if USE_OLLAMA else "openrouter:anthropic/claude-3.5-sonnet"
+# Note: For Ollama, use the model name directly (no "ollama:" prefix)
+MODEL_NAME = "nemotron-3-super" if USE_OLLAMA else "openrouter:anthropic/claude-3.5-sonnet"
 
 print(f"\nUsing LLM: {MODEL_NAME}")
 if USE_OLLAMA:
@@ -55,12 +57,28 @@ def test_natural_language_query():
     print("Processing...")
     print("=" * 60)
 
-    result = intelligent_hotel_search(query, model_name=MODEL_NAME)
+    # Initialize SystemState
+    system_state = StateContractModel(query="Plan Barcelona honeymoon trip")
 
+    # Execute search with SystemState
+    updated_state = intelligent_hotel_search(
+        query=query,
+        system_state=system_state,
+        model_name=MODEL_NAME
+    )
+
+    # Get artifact from SystemState
+    artifacts = updated_state.agent_artifacts.get("hotel_search", [])
+    if not artifacts:
+        print("\n✗ No artifacts found in SystemState!")
+        return
+
+    result = artifacts[0]
     content = result.content
 
     print(f"\nStatus: {content['status']}")
     print(f"Hotels found: {len(content.get('options', []))}")
+    print(f"Artifacts in SystemState: {len(artifacts)}")
 
     print("\n" + "=" * 60)
     print("PARSED PARAMETERS:")
@@ -87,7 +105,7 @@ def test_natural_language_query():
             print(f"   Price: {hotel['currency']} {hotel['nightly_rate']:.2f}/night")
             print(f"   Rating: {hotel['rating']}/10")
             print(f"   Over Budget: {hotel['over_budget']}")
-            print(f"   Amenities: {', '.join(hotel['facilities'][:5])}...")
+            print(f"   Facilities: {', '.join(hotel['facilities'][:5])}...")
 
 
 def test_business_trip_query():
@@ -101,8 +119,23 @@ def test_business_trip_query():
     print(f"\nQuery: {query}")
     print("\nProcessing...")
 
-    result = intelligent_hotel_search(query, model_name=MODEL_NAME)
+    # Initialize SystemState
+    system_state = StateContractModel(query="Plan Barcelona business trip")
 
+    # Execute search with SystemState
+    updated_state = intelligent_hotel_search(
+        query=query,
+        system_state=system_state,
+        model_name=MODEL_NAME
+    )
+
+    # Get artifact from SystemState
+    artifacts = updated_state.agent_artifacts.get("hotel_search", [])
+    if not artifacts:
+        print("\n✗ No artifacts found in SystemState!")
+        return
+
+    result = artifacts[0]
     content = result.content
 
     print(f"\nStatus: {content['status']}")
@@ -115,6 +148,50 @@ def test_business_trip_query():
         print(content["recommendations"])
 
 
+def test_multi_search_scenario():
+    """Test multiple searches accumulating in SystemState."""
+    print("\n" + "=" * 60)
+    print("TEST: Multiple Searches (Multi-City Trip)")
+    print("=" * 60)
+
+    # Initialize SystemState for multi-city trip
+    system_state = StateContractModel(query="Plan Barcelona → Madrid trip")
+
+    # Search 1: Barcelona
+    print("\n[Search 1] Barcelona hotels...")
+    system_state = intelligent_hotel_search(
+        query="Find hotel in Barcelona Eixample, June 15-18, max 150/night",
+        system_state=system_state,
+        agent_key="hotel_search_barcelona",
+        model_name=MODEL_NAME
+    )
+
+    # Search 2: Madrid
+    print("\n[Search 2] Madrid hotels...")
+    system_state = intelligent_hotel_search(
+        query="Find hotel in Madrid city center, June 18-22, max 120/night",
+        system_state=system_state,
+        agent_key="hotel_search_madrid",
+        model_name=MODEL_NAME
+    )
+
+    # Verify both artifacts stored
+    print("\n" + "=" * 60)
+    print("SYSTEMSTATE SUMMARY:")
+    print("=" * 60)
+    print(f"Total artifact keys: {len(system_state.agent_artifacts)}")
+
+    for key, artifacts in system_state.agent_artifacts.items():
+        print(f"\n{key}:")
+        for i, artifact in enumerate(artifacts, 1):
+            content = artifact.content
+            print(f"  {i}. Status: {content.get('status')}, "
+                  f"Hotels: {len(content.get('options', []))}")
+            if content.get('options'):
+                top_hotel = content['options'][0]
+                print(f"     Top: {top_hotel['name']} @ {top_hotel['currency']} {top_hotel['nightly_rate']:.0f}/night")
+
+
 if __name__ == "__main__":
     print("\n" + "=" * 60)
     print("Hotel Search Agent - Integration Tests")
@@ -122,6 +199,7 @@ if __name__ == "__main__":
 
     test_natural_language_query()
     # test_business_trip_query()  # Uncomment to test
+    # test_multi_search_scenario()  # Uncomment to test
 
     print("\n" + "=" * 60)
     print("Integration Tests Complete!")

@@ -1268,6 +1268,14 @@ def search_node(state: IntelligentHotelSearchState) -> Dict[str, Any]:
     preferred_facilities = params.get("preferred_facilities", [])
     min_rating = params.get("min_rating")
 
+    # Remove "wifi" from required facilities (it's standard nowadays and often not listed)
+    # Move it to preferred instead
+    if "wifi" in required_facilities:
+        required_facilities = [f for f in required_facilities if f != "wifi"]
+        if "wifi" not in preferred_facilities:
+            preferred_facilities = preferred_facilities + ["wifi"]
+        print("[search_node] Moved 'wifi' from required to preferred (assumed standard)")
+
     # Parse dates
     if " to " in dates:
         check_in, check_out = dates.split(" to ")

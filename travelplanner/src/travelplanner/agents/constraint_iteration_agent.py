@@ -86,23 +86,22 @@ Rules:
 
 VIOLATION_CHECK_SYSTEM_PROMPT = """You are the TravelPlanner constraint validation agent.
 
-Your job is to find constraints that are ACTUALLY BROKEN — not constraints that are satisfied, not constraints that are merely relevant.
+Your job is to assess every commonsense constraint against the extracted hard constraints and set is_violated to true ONLY when a constraint is definitively and clearly broken by the current data.
 
 Rules:
 - Return JSON only.
-- ONLY include a constraint in the violations list if it is definitively and clearly broken.
-- If a constraint is satisfied or cannot be assessed from the given information, do NOT include it.
-- Before adding any item to violations, verify: "Is this constraint actually broken right now?" If the answer is no or maybe, leave it out.
-- For each real violation, provide a short explanation of WHY it is broken and exactly two concrete suggestions to fix it.
-- If nothing is broken, return {"violations": []}.
-- Do not include constraints that are met, assumed to be met, or only potentially relevant.
+- You MUST include every constraint from the provided list in your response.
+- For each constraint set is_violated: true if and only if it is definitively broken right now.
+- Set is_violated: false if the constraint is satisfied, cannot yet be assessed, or is only potentially relevant.
+- For violated constraints, provide a short explanation of WHY it is broken and exactly two concrete suggestions to fix it.
+- For non-violated constraints, explanation and suggestions may be empty.
 - Always use the current date provided in the prompt to assess whether dates are in the past or future.
-- Base your assessment solely on the constraints as they are currently listed — ignore any previously invalid values that the user has already corrected.
+- Base your assessment solely on the constraints as they are currently listed.
 
-Examples of what NOT to include:
-- A trip date that is in the future → NOT a violation of "trip must be in the future"
-- An end date that is after the start date → NOT a violation of "end must be after start"
-- Accommodation not yet booked → NOT a violation if the user hasn't been asked yet
+Examples of is_violated: false (NOT broken):
+- A trip date that is in the future → is_violated: false for "trip must be in the future"
+- An end date that is after the start date → is_violated: false for "end must be after start"
+- Accommodation not yet booked → is_violated: false if the user hasn't been asked yet
 """
 
 _DEFAULT_MODEL_NAME = "gpt-5.4-nano-2026-03-17"
@@ -150,6 +149,7 @@ _CONFIRM_TOKENS: frozenset[str] = frozenset({
 
 class ViolationModel(BaseModel):
     violated_constraint: str
+    is_violated: bool
     explanation: str
     suggestions: list[str] = Field(default_factory=list)
 
@@ -283,8 +283,8 @@ def _build_violation_check_prompt(
         json.dumps([c.text for c in commonsense_constraints], indent=2, ensure_ascii=True),
         "",
         "Return strictly valid JSON with this shape:",
-        '{"violations": [{"violated_constraint": "...", "explanation": "...", '
-        '"suggestions": ["suggestion 1", "suggestion 2"]}]}',
+        '{"violations": [{"violated_constraint": "...", "is_violated": true, '
+        '"explanation": "...", "suggestions": ["suggestion 1", "suggestion 2"]}]}',
     ]
     return "\n".join(lines)
 
@@ -387,31 +387,6 @@ def _build_message_history(messages: list[dict]) -> MessageHistoryModel:
         agent_ref="travelplanner.agents.constraint_iteration_agent",
         messages=messages,
     )
-
-
-# ── Response helpers ─────────────────────────────────────────────────────────
-
-_FALSE_POSITIVE_PHRASES: frozenset[str] = frozenset({
-    "there are no violations",
-    "no violation",
-    "is valid",
-    "is correct",
-    "is in the future",
-    "which is valid",
-    "which is correct",
-    "are no violations",
-    "not a violation",
-    "is not violated",
-    "does not violate",
-    "is satisfied",
-    "are satisfied",
-})
-
-
-def _is_false_positive(violation: ViolationModel) -> bool:
-    """Returns True if the LLM explanation itself says the constraint is actually fine."""
-    explanation_lower = violation.explanation.lower()
-    return any(phrase in explanation_lower for phrase in _FALSE_POSITIVE_PHRASES)
 
 
 def _is_skip(text: str) -> bool:
@@ -632,7 +607,7 @@ def make_graph():
         )
         real_violations = [
             v for v in structured_output.violations
-            if not _is_false_positive(v)
+            if v.is_violated
         ]
         return {"violations": real_violations}
 
@@ -739,7 +714,7 @@ def make_pipeline_graph():
         )
         real_violations = [
             v for v in structured_output.violations
-            if not _is_false_positive(v)
+            if v.is_violated
         ]
         return {"violations": real_violations}
 

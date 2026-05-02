@@ -431,7 +431,7 @@ def _build_artifact_node(state: ConstraintIterationState) -> dict[str, Any]:
         status="success" if hard else "partial",
         hard_constraints=[c.model_dump() for c in hard],
         commonsense_constraints=[c.model_dump() for c in state.commonsense_constraints],
-        categories_missing=state.missing_categories,
+        categories_missing=state.categories_skipped,
         categories_skipped_by_user=state.categories_skipped,
         interaction_turns=len([m for m in state.messages if m["role"] == "user"]),
         model=state.model_name,
@@ -525,8 +525,12 @@ def make_graph():
             messages = [*messages, {"role": "user", "content": letter_input}]
 
             if _is_skip(letter_input):
+                new_hard_constraints.append(
+                    ConstraintModel(type="hard", text=f"{category}: not specified", user_skipped=True)
+                )
                 return {
                     "messages": messages,
+                    "hard_constraints": new_hard_constraints,
                     "category_index": state.category_index + 1,
                     "categories_skipped": [*state.categories_skipped, category],
                 }
@@ -564,7 +568,7 @@ def make_graph():
                 messages = [*messages, {"role": "user", "content": free_text}]
 
             new_hard_constraints.append(
-                ConstraintModel(type="hard", text=selected_text, user_skipped=False)
+                ConstraintModel(type="hard", text=f"{category}: {selected_text}", user_skipped=False)
             )
             return {
                 "messages": messages,
@@ -595,7 +599,7 @@ def make_graph():
 
         if not _is_skip(user_input):
             new_hard_constraints.append(
-                ConstraintModel(type="hard", text=user_input.strip(), user_skipped=False)
+                ConstraintModel(type="hard", text=f"{category}: {user_input.strip()}", user_skipped=False)
             )
             return {
                 "messages": messages,
@@ -603,6 +607,9 @@ def make_graph():
                 "category_index": state.category_index + 1,
             }
 
+        new_hard_constraints.append(
+            ConstraintModel(type="hard", text=f"{category}: not specified", user_skipped=True)
+        )
         return {
             "messages": messages,
             "hard_constraints": new_hard_constraints,

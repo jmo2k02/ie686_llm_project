@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import json
+import os
+from dataclasses import dataclass
 from datetime import date
 from typing import Any, Literal
 
@@ -8,11 +10,10 @@ from langgraph.graph import END, StateGraph
 from langgraph.types import interrupt
 from pydantic import BaseModel, Field
 
-from spellchecker import SpellChecker
-
 from travelplanner.config import get_setting
-from travelplanner.schema.commonsense_constraints import COMMONSENSE_CONSTRAINTS
-from travelplanner.schema.system_state import ConstraintModel, MessageHistoryModel
+from travelplanner.schema.commonsense_constraints import COMMONSENSE_CONSTRAINTS, get_constraints_for
+from travelplanner.schema.constraint_artifact import ConstraintArtifactContentModel
+from travelplanner.schema.system_state import AgentArtifactModel, ConstraintModel, MessageHistoryModel
 from travelplanner.utils.llm import invoke_structured_model
 
 # ── Constants ────────────────────────────────────────────────────────────────
@@ -67,8 +68,6 @@ STRUCTURED_OPTIONS: dict[str, dict[str, str]] = {
     },
 }
 
-_SPELL_CHECKER = SpellChecker()
-
 EXTRACTION_SYSTEM_PROMPT = """You are the TravelPlanner constraint extraction agent.
 
 Extract hard constraints directly from the user's travel request.
@@ -85,24 +84,56 @@ Rules:
 
 VIOLATION_CHECK_SYSTEM_PROMPT = """You are the TravelPlanner constraint validation agent.
 
-Your job is to find constraints that are ACTUALLY BROKEN — not constraints that are satisfied, not constraints that are merely relevant.
+Your job is to identify commonsense constraints that are DEFINITIVELY AND CLEARLY BROKEN by the extracted hard constraints.
 
 Rules:
 - Return JSON only.
-- ONLY include a constraint in the violations list if it is definitively and clearly broken.
-- If a constraint is satisfied or cannot be assessed from the given information, do NOT include it.
-- Before adding any item to violations, verify: "Is this constraint actually broken right now?" If the answer is no or maybe, leave it out.
-- For each real violation, provide a short explanation of WHY it is broken and exactly two concrete suggestions to fix it.
-- If nothing is broken, return {"violations": []}.
-- Do not include constraints that are met, assumed to be met, or only potentially relevant.
-- Always use the current date provided in the prompt to assess whether dates are in the past or future.
-- Base your assessment solely on the constraints as they are currently listed — ignore any previously invalid values that the user has already corrected.
+- Include ONLY constraints that are unambiguously broken. If a constraint is satisfied, uncertain, or cannot be assessed with the available data — do NOT include it.
+- For each violated constraint, give a short explanation of WHY it is broken and exactly two concrete suggestions to fix it.
+- Always use the current date provided in the prompt to assess temporal constraints.
+- If nothing is violated, return {"violations": []}.
 
-Examples of what NOT to include:
-- A trip date that is in the future → NOT a violation of "trip must be in the future"
-- An end date that is after the start date → NOT a violation of "end must be after start"
-- Accommodation not yet booked → NOT a violation if the user hasn't been asked yet
+Do NOT include a constraint if:
+- The data satisfies it (e.g. a future start date satisfies "start date must be in the future")
+- You are unsure whether it is broken
+- It cannot be evaluated with the available information
+
+Examples that are NOT violations and must NOT appear in the output:
+- Trip start date is in the future → not a violation of "start date must be in the future"
+- Trip end date is after start date → not a violation of "end date must be after start date"
+- Budget is a positive number → not a violation of "budget must be positive"
 """
+
+_DEFAULT_MODEL_NAME = "gpt-5.4-nano-2026-03-17"
+_DEFAULT_TEMPERATURE = 0.0
+
+
+@dataclass(frozen=True)
+class ConstraintAgentConfig:
+    model_name: str = _DEFAULT_MODEL_NAME
+    temperature: float = _DEFAULT_TEMPERATURE
+
+
+def load_config_from_env() -> ConstraintAgentConfig:
+    cfg_prefix = "agents.constraint"
+    return ConstraintAgentConfig(
+        model_name=str(
+            os.getenv(
+                "TRAVELPLANNER_CONSTRAINT_MODEL_NAME",
+                get_setting(f"{cfg_prefix}.model_name", _DEFAULT_MODEL_NAME),
+            )
+        ),
+        temperature=float(
+            os.getenv(
+                "TRAVELPLANNER_CONSTRAINT_TEMPERATURE",
+                str(get_setting(f"{cfg_prefix}.temperature", _DEFAULT_TEMPERATURE)),
+            )
+        ),
+    )
+
+
+_CONSTRAINT_AGENT_DEFS = get_constraints_for("constraint_agent")
+_HEURISTIC_CONSTRAINT_DEFS = [c for c in _CONSTRAINT_AGENT_DEFS if c.check_type == "heuristic"]
 
 _SKIP_TOKENS: frozenset[str] = frozenset(
     {
@@ -168,6 +199,7 @@ class ConstraintIterationState(BaseModel):
 
     hard_constraints: list[ConstraintModel] = Field(default_factory=list)
     missing_categories: list[str] = Field(default_factory=list)
+    categories_skipped: list[str] = Field(default_factory=list)
     category_index: int = 0
 
     commonsense_constraints: list[ConstraintModel] = Field(
@@ -176,16 +208,55 @@ class ConstraintIterationState(BaseModel):
     constraint_index: int = 0
 
     violations: list[ViolationModel] = Field(default_factory=list)
+    violation_correction_mode: bool = False
 
     messages: list[dict] = Field(default_factory=list)
+    agent_artifacts: dict[str, list[AgentArtifactModel]] = Field(default_factory=dict)
+
+
+TRIP_SUMMARY_SYSTEM_PROMPT = """Extract structured trip data from travel constraints.
+Return only ISO 8601 dates (YYYY-MM-DD), numbers, and plain strings. Use null for any field not present.
+Return JSON only. Do not add explanation."""
+
+SPELL_CHECK_SYSTEM_PROMPT = """You are a spell-check assistant for a travel planning application.
+
+Fix ONLY clear typos and misspellings in the user's input. Nothing else.
+
+Rules:
+- Fix only typos (transposed, missing, or wrong letters)
+- Do NOT rephrase, restructure, or change meaning in any way
+- Do NOT alter numbers, dates, amounts, currencies, or punctuation
+- Use travel planning context to resolve ambiguous cases
+  (e.g. "barelona" → "Barcelona", "apirl" → "April", "flgiht" → "flight")
+- If the text has no typos, return it unchanged with an empty corrections list
+- Return JSON only
+"""
 
 
 # ── LLM response models ──────────────────────────────────────────────────────
 
 
+class SpellCorrectionItem(BaseModel):
+    original: str
+    corrected: str
+
+
+class SpellCheckResponse(BaseModel):
+    corrections: list[SpellCorrectionItem] = Field(default_factory=list)
+    corrected_text: str
+
+
 class HardConstraintExtractionResponse(BaseModel):
     constraints: list[ConstraintModel] = Field(default_factory=list)
     missing_categories: list[str] = Field(default_factory=list)
+
+
+class TripSummary(BaseModel):
+    start_date: str | None = None
+    end_date: str | None = None
+    budget: float | None = None
+    destination: str | None = None
+    transport_mode: str | None = None
 
 
 class ConstraintViolationCheckResponse(BaseModel):
@@ -265,9 +336,9 @@ def _build_violation_check_prompt(
             [c.text for c in commonsense_constraints], indent=2, ensure_ascii=True
         ),
         "",
-        "Return strictly valid JSON with this shape:",
-        '{"violations": [{"violated_constraint": "...", "explanation": "...", '
-        '"suggestions": ["suggestion 1", "suggestion 2"]}]}',
+        "Return strictly valid JSON with this shape (include ONLY violated constraints):",
+        '{"violations": [{"violated_constraint": "...", '
+        '"explanation": "...", "suggestions": ["suggestion 1", "suggestion 2"]}]}',
     ]
     return "\n".join(lines)
 
@@ -305,30 +376,202 @@ def _format_options_question(
     return "\n".join(lines)
 
 
-def _spell_check_text(text: str) -> tuple[str, str | None]:
-    """Returns (corrected_text, message_or_None). Only flags clear single-word corrections."""
-    words = text.split()
-    misspelled = _SPELL_CHECKER.unknown(words)
-    corrections: dict[str, str] = {}
-    for word in misspelled:
-        suggestion = _SPELL_CHECKER.correction(word)
-        if suggestion and suggestion.lower() != word.lower() and len(word) > 3:
-            corrections[word] = suggestion
+def _should_spell_check(text: str) -> bool:
+    """Return True for substantive free-text worth checking (not a control token)."""
+    stripped = text.strip()
+    return len(stripped) >= 4 and not _is_confirm(stripped) and not _is_skip(stripped)
 
-    if not corrections:
+
+def _spell_check_with_context(
+    text: str,
+    query: str,
+    recent_messages: list[dict],
+    model_name: str,
+    temperature: float = 0.0,
+) -> tuple[str, str | None]:
+    """LLM-based context-aware spell check.
+
+    Returns (corrected_text, prompt_message) if typos were found,
+    or (original_text, None) if the text is clean or the check fails.
+    """
+    context_lines = [f"Original trip query: {query.strip()}"]
+    relevant = [m for m in recent_messages if m.get("role") in ("user", "assistant")][-6:]
+    if relevant:
+        context_lines.append("Recent conversation:")
+        for m in relevant:
+            label = "Agent" if m["role"] == "assistant" else "User"
+            context_lines.append(f"  {label}: {str(m.get('content', ''))[:120]}")
+
+    user_prompt = "\n".join([
+        *context_lines,
+        "",
+        f'Text to spell-check: "{text}"',
+        "",
+        "Return strictly valid JSON:",
+        '{"corrections": [{"original": "...", "corrected": "..."}], "corrected_text": "..."}',
+        'If no typos: {"corrections": [], "corrected_text": "<original text unchanged>"}',
+    ])
+
+    try:
+        result, _, _ = invoke_structured_model(
+            model_name=model_name,
+            temperature=temperature,
+            system_prompt=SPELL_CHECK_SYSTEM_PROMPT,
+            user_prompt=user_prompt,
+            response_model=SpellCheckResponse,
+        )
+    except Exception:
         return text, None
 
-    corrected = text
-    for original, fix in corrections.items():
-        corrected = corrected.replace(original, fix)
+    if not result.corrections:
+        return text, None
 
-    summary = ", ".join(f"'{k}' → '{v}'" for k, v in corrections.items())
+    corrected = result.corrected_text.strip() or text
+    summary = ", ".join(f"'{c.original}' → '{c.corrected}'" for c in result.corrections)
     msg = (
         f"Possible typo(s) detected: {summary}\n"
         f'Corrected text: "{corrected}"\n'
         "Accept correction? (ok / skip)"
     )
     return corrected, msg
+
+
+def _get_available_categories(state: ConstraintIterationState) -> frozenset[str]:
+    """Return categories that have been provided (not skipped, not still missing)."""
+    return frozenset(
+        cat for cat in HARD_CONSTRAINT_CATEGORIES
+        if cat not in state.missing_categories and cat not in state.categories_skipped
+    )
+
+
+def _extract_trip_summary(
+    hard_constraints: list[ConstraintModel],
+    model_name: str,
+    temperature: float,
+) -> TripSummary:
+    """Parse structured trip data out of the current hard constraints list.
+
+    Always called from the current hard_constraints so it reflects answers
+    collected via ask_missing_category, not just the initial extraction.
+    """
+    constraints_text = "\n".join(
+        f"- {c.text}" for c in hard_constraints if not c.user_skipped
+    )
+    user_prompt = "\n".join([
+        f"Today's date: {date.today().isoformat()}",
+        "",
+        "Travel constraints:",
+        constraints_text,
+        "",
+        "Return strictly valid JSON:",
+        '{"start_date": "YYYY-MM-DD or null", "end_date": "YYYY-MM-DD or null",',
+        ' "budget": null_or_number, "destination": "string or null", "transport_mode": "string or null"}',
+    ])
+    try:
+        result, _, _ = invoke_structured_model(
+            model_name=model_name,
+            temperature=temperature,
+            system_prompt=TRIP_SUMMARY_SYSTEM_PROMPT,
+            user_prompt=user_prompt,
+            response_model=TripSummary,
+        )
+        return result
+    except Exception:
+        return TripSummary()
+
+
+def _check_deterministic_violations(ts: TripSummary) -> list[ViolationModel]:
+    """Pure Python checks — no LLM involved, zero false positives."""
+    violations: list[ViolationModel] = []
+    today = date.today()
+
+    start: date | None = None
+    end: date | None = None
+    if ts.start_date:
+        try:
+            start = date.fromisoformat(ts.start_date)
+        except (ValueError, TypeError):
+            pass
+    if ts.end_date:
+        try:
+            end = date.fromisoformat(ts.end_date)
+        except (ValueError, TypeError):
+            pass
+
+    if start is not None and start <= today:
+        violations.append(ViolationModel(
+            violated_constraint="Trip start date must be in the future.",
+            explanation=f"Start date {start} is on or before today ({today}).",
+            suggestions=[
+                f"Change the start date to any date after {today}.",
+                "Reschedule the trip to a future date.",
+            ],
+        ))
+
+    if start is not None and end is not None and end <= start:
+        violations.append(ViolationModel(
+            violated_constraint="Trip end date must be after the trip start date.",
+            explanation=f"End date {end} is not after start date {start}.",
+            suggestions=[
+                "Set the end date to a date after the start date.",
+                "Set the start date to a date before the end date.",
+            ],
+        ))
+
+    if start is not None and end is not None and (end - start).days < 1:
+        violations.append(ViolationModel(
+            violated_constraint="Trip duration must be at least 1 day.",
+            explanation=f"The trip from {start} to {end} is less than one full day.",
+            suggestions=[
+                "Extend the end date by at least one day.",
+                "Move the start date earlier by at least one day.",
+            ],
+        ))
+
+    if ts.budget is not None and ts.budget <= 0:
+        violations.append(ViolationModel(
+            violated_constraint="Budget must be a positive value.",
+            explanation=f"The specified budget ({ts.budget}) is not a positive number.",
+            suggestions=[
+                "Enter a positive budget amount.",
+                "Skip the budget field if you don't have a specific limit in mind.",
+            ],
+        ))
+
+    return violations
+
+
+def _check_heuristic_violations(state: ConstraintIterationState) -> list[ViolationModel]:
+    """LLM check for the two heuristic constraints (feasibility + transport compatibility)."""
+    available = _get_available_categories(state)
+    heuristic = [
+        ConstraintModel(type="commonsense", text=c.text, user_skipped=False)
+        for c in _HEURISTIC_CONSTRAINT_DEFS
+        if c.required_categories <= available
+    ]
+    if not heuristic:
+        return []
+    structured_output, _, _ = invoke_structured_model(
+        model_name=state.model_name,
+        temperature=state.temperature,
+        system_prompt=VIOLATION_CHECK_SYSTEM_PROMPT,
+        user_prompt=_build_violation_check_prompt(
+            state.query,
+            state.query_context,
+            state.hard_constraints,
+            heuristic,
+        ),
+        response_model=ConstraintViolationCheckResponse,
+    )
+    return structured_output.violations
+
+
+def _run_violation_check(state: ConstraintIterationState) -> list[ViolationModel]:
+    """Deterministic Python checks + LLM heuristic checks, combined."""
+    trip_summary = _extract_trip_summary(
+        state.hard_constraints, state.model_name, state.temperature
+    )
+    return _check_deterministic_violations(trip_summary) + _check_heuristic_violations(state)
 
 
 def _build_message_history(messages: list[dict]) -> MessageHistoryModel:
@@ -375,6 +618,31 @@ def _is_confirm(text: str) -> bool:
     return text.strip().lower() in _CONFIRM_TOKENS
 
 
+# ── Artifact ─────────────────────────────────────────────────────────────────
+
+def _build_artifact_node(state: ConstraintIterationState) -> dict[str, Any]:
+    hard = state.hard_constraints
+    content = ConstraintArtifactContentModel(
+        query=state.query,
+        status="success" if hard else "partial",
+        hard_constraints=[c.model_dump() for c in hard],
+        commonsense_constraints=[c.model_dump() for c in state.commonsense_constraints],
+        categories_missing=state.categories_skipped,
+        categories_skipped_by_user=state.categories_skipped,
+        interaction_turns=len([m for m in state.messages if m["role"] == "user"]),
+        model=state.model_name,
+    )
+    artifact = AgentArtifactModel(
+        name="constraint_agent",
+        type="constraint-extraction-result",
+        content=content.model_dump(mode="json"),
+        description=f"Constraint extraction for: {state.query[:80]}",
+    )
+    artifacts = dict(state.agent_artifacts)
+    artifacts["constraint_agent"] = [artifact]
+    return {"agent_artifacts": artifacts}
+
+
 # ── Graph ────────────────────────────────────────────────────────────────────
 
 
@@ -403,13 +671,22 @@ def make_graph() -> StateGraph:
         messages = [*state.messages, {"role": "assistant", "content": agent_msg}]
 
         user_input: str = interrupt(agent_msg)
+
+        if _should_spell_check(user_input):
+            corrected, spell_msg = _spell_check_with_context(
+                user_input, state.query, messages, state.model_name, state.temperature
+            )
+            if spell_msg:
+                messages = [*messages, {"role": "assistant", "content": spell_msg}]
+                accept: str = interrupt(spell_msg)
+                messages = [*messages, {"role": "user", "content": accept}]
+                if _is_confirm(accept):
+                    user_input = corrected
+
         messages = [*messages, {"role": "user", "content": user_input}]
 
         if _is_confirm(user_input):
-            next_phase: Literal["missing", "extract"] = (
-                "missing" if state.missing_categories else "extract"
-            )
-            return {"messages": messages, "phase": next_phase}
+            return {"messages": messages, "phase": "missing"}
 
         context = (
             f"{state.query_context}\n{user_input}".strip()
@@ -454,9 +731,14 @@ def make_graph() -> StateGraph:
             messages = [*messages, {"role": "user", "content": letter_input}]
 
             if _is_skip(letter_input):
+                new_hard_constraints.append(
+                    ConstraintModel(type="hard", text=f"{category}: not specified", user_skipped=True)
+                )
                 return {
                     "messages": messages,
+                    "hard_constraints": new_hard_constraints,
                     "category_index": state.category_index + 1,
+                    "categories_skipped": [*state.categories_skipped, category],
                 }
 
             letter = letter_input.strip().lower().rstrip(")")
@@ -473,22 +755,26 @@ def make_graph() -> StateGraph:
             )
             messages = [*messages, {"role": "assistant", "content": followup_q}]
             free_text: str = interrupt(followup_q)
-            messages = [*messages, {"role": "user", "content": free_text}]
 
             if free_text.strip() and not _is_skip(free_text):
-                # ── Spell check ───────────────────────────────────────────────
-                corrected, spell_msg = _spell_check_text(free_text)
-                if spell_msg:
-                    messages = [*messages, {"role": "assistant", "content": spell_msg}]
-                    accept: str = interrupt(spell_msg)
-                    messages = [*messages, {"role": "user", "content": accept}]
-                    if _is_confirm(accept):
-                        free_text = corrected
+                if _should_spell_check(free_text):
+                    corrected, spell_msg = _spell_check_with_context(
+                        free_text, state.query, messages, state.model_name, state.temperature
+                    )
+                    if spell_msg:
+                        messages = [*messages, {"role": "assistant", "content": spell_msg}]
+                        accept: str = interrupt(spell_msg)
+                        messages = [*messages, {"role": "user", "content": accept}]
+                        if _is_confirm(accept):
+                            free_text = corrected
 
+                messages = [*messages, {"role": "user", "content": free_text}]
                 selected_text = f"{selected_text} ({free_text.strip()})"
+            else:
+                messages = [*messages, {"role": "user", "content": free_text}]
 
             new_hard_constraints.append(
-                ConstraintModel(type="hard", text=selected_text, user_skipped=False)
+                ConstraintModel(type="hard", text=f"{category}: {selected_text}", user_skipped=False)
             )
             return {
                 "messages": messages,
@@ -503,44 +789,63 @@ def make_graph() -> StateGraph:
         )
         messages = [*state.messages, {"role": "assistant", "content": question}]
         user_input: str = interrupt(question)
+
+        if not _is_skip(user_input) and _should_spell_check(user_input):
+            corrected, spell_msg = _spell_check_with_context(
+                user_input, state.query, messages, state.model_name, state.temperature
+            )
+            if spell_msg:
+                messages = [*messages, {"role": "assistant", "content": spell_msg}]
+                accept: str = interrupt(spell_msg)
+                messages = [*messages, {"role": "user", "content": accept}]
+                if _is_confirm(accept):
+                    user_input = corrected
+
         messages = [*messages, {"role": "user", "content": user_input}]
 
         if not _is_skip(user_input):
             new_hard_constraints.append(
-                ConstraintModel(
-                    type="hard", text=user_input.strip(), user_skipped=False
-                )
+                ConstraintModel(type="hard", text=f"{category}: {user_input.strip()}", user_skipped=False)
             )
+            return {
+                "messages": messages,
+                "hard_constraints": new_hard_constraints,
+                "category_index": state.category_index + 1,
+            }
 
+        new_hard_constraints.append(
+            ConstraintModel(type="hard", text=f"{category}: not specified", user_skipped=True)
+        )
         return {
             "messages": messages,
             "hard_constraints": new_hard_constraints,
             "category_index": state.category_index + 1,
+            "categories_skipped": [*state.categories_skipped, category],
         }
 
     def check_commonsense_violations(state: ConstraintIterationState) -> dict[str, Any]:
-        structured_output, _, _ = invoke_structured_model(
-            model_name=state.model_name,
-            temperature=state.temperature,
-            system_prompt=VIOLATION_CHECK_SYSTEM_PROMPT,
-            user_prompt=_build_violation_check_prompt(
-                state.query,
-                state.query_context,
-                state.hard_constraints,
-                state.commonsense_constraints,
-            ),
-            response_model=ConstraintViolationCheckResponse,
-        )
-        real_violations = [
-            v for v in structured_output.violations if not _is_false_positive(v)
-        ]
-        return {"violations": real_violations}
+        return {
+            "violations": _run_violation_check(state),
+            "violation_correction_mode": False,
+        }
 
     def present_violations(state: ConstraintIterationState) -> dict[str, Any]:
         agent_msg = _format_violation_message(state.violations)
         messages = [*state.messages, {"role": "assistant", "content": agent_msg}]
 
         user_input: str = interrupt(agent_msg)
+
+        if _should_spell_check(user_input):
+            corrected, spell_msg = _spell_check_with_context(
+                user_input, state.query, messages, state.model_name, state.temperature
+            )
+            if spell_msg:
+                messages = [*messages, {"role": "assistant", "content": spell_msg}]
+                accept: str = interrupt(spell_msg)
+                messages = [*messages, {"role": "user", "content": accept}]
+                if _is_confirm(accept):
+                    user_input = corrected
+
         messages = [*messages, {"role": "user", "content": user_input}]
 
         context = (
@@ -552,12 +857,19 @@ def make_graph() -> StateGraph:
             "messages": messages,
             "query_context": context,
             "violations": [],
+            "violation_correction_mode": True,
         }
+
+    def _route_after_extract(state: ConstraintIterationState) -> str:
+        # After a violation correction, skip straight to re-checking violations.
+        if state.violation_correction_mode:
+            return "check_commonsense_violations"
+        return "present_hard_constraints"
 
     def _route_after_check(state: ConstraintIterationState) -> str:
         if state.violations:
             return "present_violations"
-        return "present_hard_constraints"
+        return "build_artifact"
 
     def _route_after_present_hard(state: ConstraintIterationState) -> str:
         if state.phase == "extract":
@@ -566,11 +878,12 @@ def make_graph() -> StateGraph:
             state.missing_categories
         ):
             return "ask_missing_category"
-        return "finalize_constraint_output"
+        return "check_commonsense_violations"
 
     def _route_after_missing(state: ConstraintIterationState) -> str:
         if state.category_index < len(state.missing_categories):
             return "ask_missing_category"
+        return "check_commonsense_violations"
         return "finalize_constraint_output"
 
     def finalize_constraint_output(state: ConstraintIterationState) -> dict[str, Any]:
@@ -591,17 +904,55 @@ def make_graph() -> StateGraph:
     graph.add_node("present_violations", present_violations)
     graph.add_node("present_hard_constraints", present_hard_constraints)
     graph.add_node("ask_missing_category", ask_missing_category)
+    graph.add_node("build_artifact", _build_artifact_node)
     graph.add_node("finalize_constraint_output", finalize_constraint_output)
 
     graph.set_entry_point("extract_hard_constraints")
-    graph.add_edge("extract_hard_constraints", "check_commonsense_violations")
+    graph.add_conditional_edges("extract_hard_constraints", _route_after_extract)
     graph.add_conditional_edges("check_commonsense_violations", _route_after_check)
     graph.add_edge("present_violations", "extract_hard_constraints")
     graph.add_conditional_edges("present_hard_constraints", _route_after_present_hard)
     graph.add_conditional_edges("ask_missing_category", _route_after_missing)
+    graph.add_edge("build_artifact", END)
     graph.add_edge("finalize_constraint_output", END)
 
     return graph
+
+
+def make_pipeline_graph():
+    """Non-interactive graph for automated pipelines.
+
+    Runs extraction and violation check without any LangGraph interrupts.
+    Use get_constraint_list() and get_message_history() to read results.
+    """
+    def extract_hard_constraints(state: ConstraintIterationState) -> dict[str, Any]:
+        structured_output, _, _ = invoke_structured_model(
+            model_name=state.model_name,
+            temperature=state.temperature,
+            system_prompt=EXTRACTION_SYSTEM_PROMPT,
+            user_prompt=_build_extraction_prompt(state.query, state.query_context),
+            response_model=HardConstraintExtractionResponse,
+        )
+        return {
+            "hard_constraints": structured_output.constraints,
+            "missing_categories": [
+                c for c in structured_output.missing_categories
+                if c in HARD_CONSTRAINT_CATEGORIES
+            ],
+        }
+
+    def check_commonsense_violations(state: ConstraintIterationState) -> dict[str, Any]:
+        return {"violations": _run_violation_check(state)}
+
+    graph = StateGraph(ConstraintIterationState)
+    graph.add_node("extract_hard_constraints", extract_hard_constraints)
+    graph.add_node("check_commonsense_violations", check_commonsense_violations)
+    graph.add_node("build_artifact", _build_artifact_node)
+    graph.set_entry_point("extract_hard_constraints")
+    graph.add_edge("extract_hard_constraints", "check_commonsense_violations")
+    graph.add_edge("check_commonsense_violations", "build_artifact")
+    graph.add_edge("build_artifact", END)
+    return graph.compile()
 
 
 def get_constraint_list(state: dict[str, Any]) -> list[ConstraintModel]:

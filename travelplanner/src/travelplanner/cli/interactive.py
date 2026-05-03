@@ -249,6 +249,7 @@ def _get_snapshot_hard_constraints(
     )
 
 
+
 def _build_layout(dashboard: DashboardState) -> Layout:
     terminal_height = console.size.height
     reserved_prompt_space = 6
@@ -559,7 +560,7 @@ async def _execute_workflow(
                 dashboard.set_status("Travel planning finished.")
                 dashboard.set_prompt(
                     "Finished",
-                    "Workflow finished. Review the summary above or press Ctrl-C to exit.",
+                    f"Workflow finished. Review the summary above or press Ctrl-C to exit. {dashboard.agent_status}",
                 )
                 dashboard.add_message("System", "Travel planning finished.")
                 for agent in agents:

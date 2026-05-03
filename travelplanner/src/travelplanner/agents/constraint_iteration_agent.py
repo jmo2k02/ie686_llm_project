@@ -191,6 +191,7 @@ class ViolationModel(BaseModel):
 class ConstraintIterationState(BaseModel):
     query: str
     message_histories: dict[str, dict] = {}
+    constraint_list: list[ConstraintModel]
     model_name: str = get_setting("models.workflows.task_planning.model_name")
     temperature: float = 0.0
 
@@ -913,7 +914,7 @@ def make_graph() -> StateGraph:
     graph.add_edge("present_violations", "extract_hard_constraints")
     graph.add_conditional_edges("present_hard_constraints", _route_after_present_hard)
     graph.add_conditional_edges("ask_missing_category", _route_after_missing)
-    graph.add_edge("build_artifact", "finaliz_constraint_output")
+    graph.add_edge("build_artifact", "finalize_constraint_output")
     graph.add_edge("finalize_constraint_output", END)
 
     return graph
@@ -948,6 +949,8 @@ def make_pipeline_graph():
     graph.add_node("extract_hard_constraints", extract_hard_constraints)
     graph.add_node("check_commonsense_violations", check_commonsense_violations)
     graph.add_node("build_artifact", _build_artifact_node)
+    graph.add_node("finalize_constraint_output", finalize_constraint_output)
+
     graph.set_entry_point("extract_hard_constraints")
     graph.add_edge("extract_hard_constraints", "check_commonsense_violations")
     graph.add_edge("check_commonsense_violations", "build_artifact")

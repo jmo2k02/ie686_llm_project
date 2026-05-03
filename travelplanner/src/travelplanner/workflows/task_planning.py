@@ -9,7 +9,7 @@ from travelplanner.agents.constraint_iteration_agent import (
     ConstraintIterationState,
     get_constraint_list,
     get_message_history,
-    make_pipeline_graph as make_constraint_graph,
+    make_graph as make_constraint_graph,
 )
 from travelplanner.agents.planner_agent import (
     PlannerAgentState,
@@ -44,43 +44,10 @@ def make_graph(
         if temperature is not None
         else float(get_setting("models.workflows.task_planning.temperature", 0.0))
     )
-    constraint_graph = make_constraint_graph()#.compile()
+    constraint_graph = make_constraint_graph().compile()
     planner_graph = make_planner_graph().compile()
     reviewer_graph = make_reviewer_graph().compile()
     web_search_graph = make_general_web_search_graph().compile()
-
-    def constraint_node(state: StateContractModel) -> dict[str, Any]:
-        agent_state = ConstraintIterationState(
-            query=state.query,
-            model_name=effective_model_name,
-            temperature=effective_temperature,
-            agent_artifacts=dict(state.agent_artifacts),
-        )
-        result = constraint_graph.invoke(agent_state)
-
-        message_histories = dict(state.message_histories)
-        message_histories[CONSTRAINT_HISTORY_KEY] = get_message_history(result)
-        return {
-            "constraint_list": get_constraint_list(result),
-            "agent_artifacts": result["agent_artifacts"],
-            "message_histories": message_histories,
-        }
-
-    def planner_node(state: StateContractModel) -> dict[str, Any]:
-        agent_state = PlannerAgentState(
-            query=state.query,
-            model_name=effective_model_name,
-            temperature=effective_temperature,
-            constraint_list=state.constraint_list,
-        )
-        result = planner_graph.invoke(agent_state)
-
-        message_histories = dict(state.message_histories)
-        message_histories[PLANNER_HISTORY_KEY] = result["message_history"]
-        return {
-            "task_list": result["task_list"],
-            "message_histories": message_histories,
-        }
 
     def reviewer_node(state: StateContractModel) -> dict[str, Any]:
         agent_state = ReviewerAgentState(

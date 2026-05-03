@@ -25,6 +25,9 @@ Rules:
 - Each task must be grounded in the user request and extracted constraints.
 - Keep the task list small and useful.
 - Do not mark tasks as valid yet. The reviewer does that.
+
+Task list type:
+- TODO add task types
 """
 
 
@@ -32,7 +35,7 @@ class PlannerAgentState(BaseModel):
     query: str
     model_name: str = get_setting("models.workflows.task_planning.model_name")
     temperature: float = 0.0
-    constraint_list: list[ConstraintModel] = Field(default_factory=list)
+    constraint_list: list[ConstraintModel]
     task_list: list[TaskModel] = Field(default_factory=list)
     message_history: MessageHistoryModel | None = None
 

@@ -12,7 +12,7 @@ from langgraph.types import interrupt
 from pydantic import BaseModel, Field
 
 from travelplanner.config import get_setting
-from travelplanner.schema.commonsense_constraints import COMMONSENSE_CONSTRAINTS
+from travelplanner.schema.commonsense_constraints import COMMONSENSE_CONSTRAINTS, get_constraints_for
 from travelplanner.schema.constraint_artifact import ConstraintArtifactContentModel
 from travelplanner.schema.system_state import AgentArtifactModel, ConstraintModel, MessageHistoryModel
 from travelplanner.utils.llm import invoke_structured_model
@@ -86,22 +86,24 @@ Rules:
 
 VIOLATION_CHECK_SYSTEM_PROMPT = """You are the TravelPlanner constraint validation agent.
 
-Your job is to assess every commonsense constraint against the extracted hard constraints and set is_violated to true ONLY when a constraint is definitively and clearly broken by the current data.
+Your job is to identify commonsense constraints that are DEFINITIVELY AND CLEARLY BROKEN by the extracted hard constraints.
 
 Rules:
 - Return JSON only.
-- You MUST include every constraint from the provided list in your response.
-- For each constraint set is_violated: true if and only if it is definitively broken right now.
-- Set is_violated: false if the constraint is satisfied, cannot yet be assessed, or is only potentially relevant.
-- For violated constraints, provide a short explanation of WHY it is broken and exactly two concrete suggestions to fix it.
-- For non-violated constraints, explanation and suggestions may be empty.
-- Always use the current date provided in the prompt to assess whether dates are in the past or future.
-- Base your assessment solely on the constraints as they are currently listed.
+- Include ONLY constraints that are unambiguously broken. If a constraint is satisfied, uncertain, or cannot be assessed with the available data — do NOT include it.
+- For each violated constraint, give a short explanation of WHY it is broken and exactly two concrete suggestions to fix it.
+- Always use the current date provided in the prompt to assess temporal constraints.
+- If nothing is violated, return {"violations": []}.
 
-Examples of is_violated: false (NOT broken):
-- A trip date that is in the future → is_violated: false for "trip must be in the future"
-- An end date that is after the start date → is_violated: false for "end must be after start"
-- Accommodation not yet booked → is_violated: false if the user hasn't been asked yet
+Do NOT include a constraint if:
+- The data satisfies it (e.g. a future start date satisfies "start date must be in the future")
+- You are unsure whether it is broken
+- It cannot be evaluated with the available information
+
+Examples that are NOT violations and must NOT appear in the output:
+- Trip start date is in the future → not a violation of "start date must be in the future"
+- Trip end date is after start date → not a violation of "end date must be after start date"
+- Budget is a positive number → not a violation of "budget must be positive"
 """
 
 _DEFAULT_MODEL_NAME = "gpt-5.4-nano-2026-03-17"
@@ -132,6 +134,9 @@ def load_config_from_env() -> ConstraintAgentConfig:
     )
 
 
+_CONSTRAINT_AGENT_DEFS = get_constraints_for("constraint_agent")
+_HEURISTIC_CONSTRAINT_DEFS = [c for c in _CONSTRAINT_AGENT_DEFS if c.check_type == "heuristic"]
+
 _SKIP_TOKENS: frozenset[str] = frozenset({
     "", "skip", "s", "no", "nein", "n", "nope", "egal",
     "doesn't matter", "doesnt matter", "don't care", "dont care",
@@ -149,7 +154,6 @@ _CONFIRM_TOKENS: frozenset[str] = frozenset({
 
 class ViolationModel(BaseModel):
     violated_constraint: str
-    is_violated: bool
     explanation: str
     suggestions: list[str] = Field(default_factory=list)
 
@@ -173,10 +177,15 @@ class ConstraintIterationState(BaseModel):
     constraint_index: int = 0
 
     violations: list[ViolationModel] = Field(default_factory=list)
+    violation_correction_mode: bool = False
 
     messages: list[dict] = Field(default_factory=list)
     agent_artifacts: dict[str, list[AgentArtifactModel]] = Field(default_factory=dict)
 
+
+TRIP_SUMMARY_SYSTEM_PROMPT = """Extract structured trip data from travel constraints.
+Return only ISO 8601 dates (YYYY-MM-DD), numbers, and plain strings. Use null for any field not present.
+Return JSON only. Do not add explanation."""
 
 SPELL_CHECK_SYSTEM_PROMPT = """You are a spell-check assistant for a travel planning application.
 
@@ -208,6 +217,14 @@ class SpellCheckResponse(BaseModel):
 class HardConstraintExtractionResponse(BaseModel):
     constraints: list[ConstraintModel] = Field(default_factory=list)
     missing_categories: list[str] = Field(default_factory=list)
+
+
+class TripSummary(BaseModel):
+    start_date: str | None = None
+    end_date: str | None = None
+    budget: float | None = None
+    destination: str | None = None
+    transport_mode: str | None = None
 
 
 class ConstraintViolationCheckResponse(BaseModel):
@@ -282,8 +299,8 @@ def _build_violation_check_prompt(
         "Commonsense constraints to check against:",
         json.dumps([c.text for c in commonsense_constraints], indent=2, ensure_ascii=True),
         "",
-        "Return strictly valid JSON with this shape:",
-        '{"violations": [{"violated_constraint": "...", "is_violated": true, '
+        "Return strictly valid JSON with this shape (include ONLY violated constraints):",
+        '{"violations": [{"violated_constraint": "...", '
         '"explanation": "...", "suggestions": ["suggestion 1", "suggestion 2"]}]}',
     ]
     return "\n".join(lines)
@@ -380,6 +397,144 @@ def _spell_check_with_context(
     return corrected, msg
 
 
+def _get_available_categories(state: ConstraintIterationState) -> frozenset[str]:
+    """Return categories that have been provided (not skipped, not still missing)."""
+    return frozenset(
+        cat for cat in HARD_CONSTRAINT_CATEGORIES
+        if cat not in state.missing_categories and cat not in state.categories_skipped
+    )
+
+
+def _extract_trip_summary(
+    hard_constraints: list[ConstraintModel],
+    model_name: str,
+    temperature: float,
+) -> TripSummary:
+    """Parse structured trip data out of the current hard constraints list.
+
+    Always called from the current hard_constraints so it reflects answers
+    collected via ask_missing_category, not just the initial extraction.
+    """
+    constraints_text = "\n".join(
+        f"- {c.text}" for c in hard_constraints if not c.user_skipped
+    )
+    user_prompt = "\n".join([
+        f"Today's date: {date.today().isoformat()}",
+        "",
+        "Travel constraints:",
+        constraints_text,
+        "",
+        "Return strictly valid JSON:",
+        '{"start_date": "YYYY-MM-DD or null", "end_date": "YYYY-MM-DD or null",',
+        ' "budget": null_or_number, "destination": "string or null", "transport_mode": "string or null"}',
+    ])
+    try:
+        result, _, _ = invoke_structured_model(
+            model_name=model_name,
+            temperature=temperature,
+            system_prompt=TRIP_SUMMARY_SYSTEM_PROMPT,
+            user_prompt=user_prompt,
+            response_model=TripSummary,
+        )
+        return result
+    except Exception:
+        return TripSummary()
+
+
+def _check_deterministic_violations(ts: TripSummary) -> list[ViolationModel]:
+    """Pure Python checks — no LLM involved, zero false positives."""
+    violations: list[ViolationModel] = []
+    today = date.today()
+
+    start: date | None = None
+    end: date | None = None
+    if ts.start_date:
+        try:
+            start = date.fromisoformat(ts.start_date)
+        except (ValueError, TypeError):
+            pass
+    if ts.end_date:
+        try:
+            end = date.fromisoformat(ts.end_date)
+        except (ValueError, TypeError):
+            pass
+
+    if start is not None and start <= today:
+        violations.append(ViolationModel(
+            violated_constraint="Trip start date must be in the future.",
+            explanation=f"Start date {start} is on or before today ({today}).",
+            suggestions=[
+                f"Change the start date to any date after {today}.",
+                "Reschedule the trip to a future date.",
+            ],
+        ))
+
+    if start is not None and end is not None and end <= start:
+        violations.append(ViolationModel(
+            violated_constraint="Trip end date must be after the trip start date.",
+            explanation=f"End date {end} is not after start date {start}.",
+            suggestions=[
+                "Set the end date to a date after the start date.",
+                "Set the start date to a date before the end date.",
+            ],
+        ))
+
+    if start is not None and end is not None and (end - start).days < 1:
+        violations.append(ViolationModel(
+            violated_constraint="Trip duration must be at least 1 day.",
+            explanation=f"The trip from {start} to {end} is less than one full day.",
+            suggestions=[
+                "Extend the end date by at least one day.",
+                "Move the start date earlier by at least one day.",
+            ],
+        ))
+
+    if ts.budget is not None and ts.budget <= 0:
+        violations.append(ViolationModel(
+            violated_constraint="Budget must be a positive value.",
+            explanation=f"The specified budget ({ts.budget}) is not a positive number.",
+            suggestions=[
+                "Enter a positive budget amount.",
+                "Skip the budget field if you don't have a specific limit in mind.",
+            ],
+        ))
+
+    return violations
+
+
+def _check_heuristic_violations(state: ConstraintIterationState) -> list[ViolationModel]:
+    """LLM check for the two heuristic constraints (feasibility + transport compatibility)."""
+    available = _get_available_categories(state)
+    heuristic = [
+        ConstraintModel(type="commonsense", text=c.text, user_skipped=False)
+        for c in _HEURISTIC_CONSTRAINT_DEFS
+        if c.required_categories <= available
+    ]
+    if not heuristic:
+        return []
+    structured_output, _, _ = invoke_structured_model(
+        model_name=state.model_name,
+        temperature=state.temperature,
+        system_prompt=VIOLATION_CHECK_SYSTEM_PROMPT,
+        user_prompt=_build_violation_check_prompt(
+            state.query,
+            state.query_context,
+            state.hard_constraints,
+            heuristic,
+        ),
+        response_model=ConstraintViolationCheckResponse,
+    )
+    return structured_output.violations
+
+
+def _run_violation_check(state: ConstraintIterationState) -> list[ViolationModel]:
+    """Deterministic Python checks + LLM heuristic checks, combined."""
+    trip_summary = _extract_trip_summary(
+        state.hard_constraints, state.model_name, state.temperature
+    )
+    return _check_deterministic_violations(trip_summary) + _check_heuristic_violations(state)
+
+
 def _build_message_history(messages: list[dict]) -> MessageHistoryModel:
     return MessageHistoryModel(
         user_agent="constraint_iteration_agent",
@@ -463,10 +618,7 @@ def make_graph():
         messages = [*messages, {"role": "user", "content": user_input}]
 
         if _is_confirm(user_input):
-            next_phase: Literal["missing", "extract"] = (
-                "missing" if state.missing_categories else "extract"
-            )
-            return {"messages": messages, "phase": next_phase}
+            return {"messages": messages, "phase": "missing"}
 
         context = (
             f"{state.query_context}\n{user_input}".strip()
@@ -593,23 +745,10 @@ def make_graph():
         }
 
     def check_commonsense_violations(state: ConstraintIterationState) -> dict[str, Any]:
-        structured_output, _, _ = invoke_structured_model(
-            model_name=state.model_name,
-            temperature=state.temperature,
-            system_prompt=VIOLATION_CHECK_SYSTEM_PROMPT,
-            user_prompt=_build_violation_check_prompt(
-                state.query,
-                state.query_context,
-                state.hard_constraints,
-                state.commonsense_constraints,
-            ),
-            response_model=ConstraintViolationCheckResponse,
-        )
-        real_violations = [
-            v for v in structured_output.violations
-            if v.is_violated
-        ]
-        return {"violations": real_violations}
+        return {
+            "violations": _run_violation_check(state),
+            "violation_correction_mode": False,
+        }
 
     def present_violations(state: ConstraintIterationState) -> dict[str, Any]:
         agent_msg = _format_violation_message(state.violations)
@@ -639,24 +778,31 @@ def make_graph():
             "messages": messages,
             "query_context": context,
             "violations": [],
+            "violation_correction_mode": True,
         }
+
+    def _route_after_extract(state: ConstraintIterationState) -> str:
+        # After a violation correction, skip straight to re-checking violations.
+        if state.violation_correction_mode:
+            return "check_commonsense_violations"
+        return "present_hard_constraints"
 
     def _route_after_check(state: ConstraintIterationState) -> str:
         if state.violations:
             return "present_violations"
-        return "present_hard_constraints"
+        return "build_artifact"
 
     def _route_after_present_hard(state: ConstraintIterationState) -> str:
         if state.phase == "extract":
             return "extract_hard_constraints"
         if state.missing_categories and state.category_index < len(state.missing_categories):
             return "ask_missing_category"
-        return "build_artifact"
+        return "check_commonsense_violations"
 
     def _route_after_missing(state: ConstraintIterationState) -> str:
         if state.category_index < len(state.missing_categories):
             return "ask_missing_category"
-        return "build_artifact"
+        return "check_commonsense_violations"
 
     graph = StateGraph(ConstraintIterationState)
     graph.add_node("extract_hard_constraints", extract_hard_constraints)
@@ -667,7 +813,7 @@ def make_graph():
     graph.add_node("build_artifact", _build_artifact_node)
 
     graph.set_entry_point("extract_hard_constraints")
-    graph.add_edge("extract_hard_constraints", "check_commonsense_violations")
+    graph.add_conditional_edges("extract_hard_constraints", _route_after_extract)
     graph.add_conditional_edges("check_commonsense_violations", _route_after_check)
     graph.add_edge("present_violations", "extract_hard_constraints")
     graph.add_conditional_edges("present_hard_constraints", _route_after_present_hard)
@@ -700,23 +846,7 @@ def make_pipeline_graph():
         }
 
     def check_commonsense_violations(state: ConstraintIterationState) -> dict[str, Any]:
-        structured_output, _, _ = invoke_structured_model(
-            model_name=state.model_name,
-            temperature=state.temperature,
-            system_prompt=VIOLATION_CHECK_SYSTEM_PROMPT,
-            user_prompt=_build_violation_check_prompt(
-                state.query,
-                state.query_context,
-                state.hard_constraints,
-                state.commonsense_constraints,
-            ),
-            response_model=ConstraintViolationCheckResponse,
-        )
-        real_violations = [
-            v for v in structured_output.violations
-            if v.is_violated
-        ]
-        return {"violations": real_violations}
+        return {"violations": _run_violation_check(state)}
 
     graph = StateGraph(ConstraintIterationState)
     graph.add_node("extract_hard_constraints", extract_hard_constraints)

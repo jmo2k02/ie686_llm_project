@@ -1,0 +1,35 @@
+{
+  "description": "Example: family trip to Paris in July with budget",
+  "input": {
+    "query": "I want to travel to Paris for 5 days in July with my family, budget around €3000"
+  },
+  "output": {
+    "name": "constraint_agent",
+    "type": "constraint-extraction-result",
+    "description": "Constraint extraction for: I want to travel to Paris for 5 days in July with my family, budget around €3000",
+    "content": {
+      "query": "I want to travel to Paris for 5 days in July with my family, budget around €3000",
+      "status": "success",
+      "hard_constraints": [
+        { "type": "hard", "text": "Destination: Paris, France", "user_skipped": false },
+        { "type": "hard", "text": "Travel duration: 5 days", "user_skipped": false },
+        { "type": "hard", "text": "Travel month: July", "user_skipped": false },
+        { "type": "hard", "text": "Maximum budget: €3000", "user_skipped": false },
+        { "type": "hard", "text": "Purpose: Family trip", "user_skipped": false },
+        { "type": "hard", "text": "Transport: Flight (added by user when prompted)", "user_skipped": false },
+        { "type": "hard", "text": "Accommodation: Hotel (added by user when prompted)", "user_skipped": false }
+      ],
+      "commonsense_constraints": [
+        { "type": "commonsense", "text": "The trip start date must be in the future.", "user_skipped": false },
+        { "type": "commonsense", "text": "The trip end date must be after the trip start date.", "user_skipped": false },
+        { "type": "commonsense", "text": "The trip must last at least one full day.", "user_skipped": false },
+        { "type": "commonsense", "text": "Hotel check-in must be scheduled after the arrival transport reaches the destination.", "user_skipped": false },
+        { "type": "commonsense", "text": "Hotel check-out must be scheduled before or at the time of the departure transport.", "user_skipped": false }
+      ],
+      "categories_missing": ["travel_dates"],
+      "categories_skipped_by_user": ["travel_dates"],
+      "interaction_turns": 4,
+      "model": "gpt-5.4-nano-2026-03-17"
+    }
+  }
+}

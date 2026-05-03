@@ -66,7 +66,7 @@ class TestWorkflowExecutionMetadata(unittest.TestCase):
                                 "message_history": {"messages": []},
                             }
                         )
-                        graph = make_graph()
+                        graph = make_graph().compile()
                         result = graph.invoke({"query": "q"})
 
         self.assertIn("general_web_search_agent", result["message_histories"])

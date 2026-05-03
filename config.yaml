@@ -5,6 +5,20 @@ models:
       temperature: 0.0
 
 agents:
+  constraint:
+    model_name: "gpt-5.4-nano-2026-03-17"
+    temperature: 0.0
+
+  planner:
+    model_name: "gpt-5.4-nano-2026-03-17"
+    reviewer_model: "gpt-5.4-nano-2026-03-17"
+    # Max number of tasks that can be created
+    max_tasks: 12
+    # Amount of reviews the final task list will be run through
+    max_reviews: 3
+    temperature: 0.0
+    reviewer_temp: 0.0
+
   general_web_search:
     provider: "tavily"
     max_results: 5

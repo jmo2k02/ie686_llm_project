@@ -10,6 +10,8 @@ from langchain_openai import ChatOpenAI
 from ollama import Client as OllamaClient
 from pydantic import BaseModel
 
+from travelplanner.utils.runtime_monitor import record_llm_call
+
 
 ResponseModelT = TypeVar("ResponseModelT", bound=BaseModel)
 
@@ -284,6 +286,34 @@ def _call_llm(system_prompt: str, user_prompt: str, model_name: str, temperature
 
 
 # ─── Main structured-model entrypoint ─────────────────────────────────────────
+
+def extract_token_usage(response: object) -> tuple[int, int]:
+    """Extract `(input_tokens, output_tokens)` from a LangChain response."""
+
+    usage_metadata = getattr(response, "usage_metadata", None)
+    if isinstance(usage_metadata, dict):
+        tokens_in = int(
+            usage_metadata.get("input_tokens")
+            or usage_metadata.get("prompt_tokens")
+            or 0
+        )
+        tokens_out = int(
+            usage_metadata.get("output_tokens")
+            or usage_metadata.get("completion_tokens")
+            or 0
+        )
+        return tokens_in, tokens_out
+
+    response_metadata = getattr(response, "response_metadata", None)
+    if isinstance(response_metadata, dict):
+        token_usage = response_metadata.get("token_usage", {})
+        if isinstance(token_usage, dict):
+            tokens_in = int(token_usage.get("prompt_tokens") or 0)
+            tokens_out = int(token_usage.get("completion_tokens") or 0)
+            return tokens_in, tokens_out
+
+    return 0, 0
+
 
 def invoke_structured_model(
     *,

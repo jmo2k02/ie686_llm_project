@@ -47,7 +47,7 @@ class TestIterativeSearchQualityGating(unittest.TestCase):
                 side_effect=canned_search,
             ):
                 graph = make_graph()
-                result = graph.invoke(
+                result = graph.compile().invoke(
                     {
                         "query": "test query",
                         "task_list": [

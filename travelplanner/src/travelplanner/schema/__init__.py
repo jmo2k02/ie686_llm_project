@@ -13,6 +13,26 @@ from travelplanner.schema.general_web_search_artifact import (
     GeneralWebSearchResultModel,
     GeneralWebSearchSourceModel,
 )
+from travelplanner.schema.attraction_search_artifact import (
+    AttractionArtifactContentModel,
+    AttractionCandidateModel,
+    AttractionItemModel,
+    AttractionSearchErrorModel,
+    CandidateSelectionModel,
+    GeneratedActivitiesResponse,
+    GeneratedActivityModel,
+)
+from travelplanner.schema.flight_search_artifact import (
+    FlightAirportModel,
+    FlightLayoverModel,
+    FlightLegModel,
+    FlightOptionModel,
+    FlightParamsModel,
+    FlightPriceInsightsModel,
+    FlightSearchArtifactContentModel,
+    FlightSearchErrorModel,
+    FlightSegmentParams,
+)
 
 __all__ = [
     "AgentArtifactModel",
@@ -21,9 +41,25 @@ __all__ = [
     "StateContractModel",
     "TaskModel",
     "COMMONSENSE_CONSTRAINTS",
+    "AttractionArtifactContentModel",
+    "AttractionCandidateModel",
+    "AttractionItemModel",
+    "AttractionSearchErrorModel",
+    "CandidateSelectionModel",
+    "GeneratedActivitiesResponse",
+    "GeneratedActivityModel",
     "GeneralWebSearchArtifactContentModel",
     "GeneralWebSearchErrorModel",
     "GeneralWebSearchProofPointModel",
     "GeneralWebSearchResultModel",
     "GeneralWebSearchSourceModel",
+    "FlightAirportModel",
+    "FlightLayoverModel",
+    "FlightLegModel",
+    "FlightOptionModel",
+    "FlightParamsModel",
+    "FlightPriceInsightsModel",
+    "FlightSearchArtifactContentModel",
+    "FlightSearchErrorModel",
+    "FlightSegmentParams",
 ]

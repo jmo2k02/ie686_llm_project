@@ -1,13 +1,26 @@
 """Integration tests for intelligent hotel search agent.
 
 Full end-to-end tests with live API calls to LiteAPI and LLM providers.
+All test cases share the minimum requirements:
+  countryCode=DE, cityName=Berlin, checkin=2026-07-01, checkout=2026-07-02,
+  currency=EUR, guestNationality=DE, occupancies=[{adults: 2}]
+but add different extra constraints/preferences.
 
 Usage:
-    # Team testing with OpenRouter (default):
+    # Run the default test case (case 1)
     uv run python test_hotel_search.py
 
+    # Run a specific test case by number (1, 2, or 3)
+    uv run python test_hotel_search.py --case 2
+
+    # Run all test cases sequentially
+    uv run python test_hotel_search.py --case all
+
+    # Team testing with OpenRouter (default):
+    uv run python test_hotel_search.py --case 3
+
     # Personal testing with Ollama:
-    USE_OLLAMA=true uv run python test_hotel_search.py
+    USE_OLLAMA=true uv run python test_hotel_search.py --case 1
 
 Run from travelplanner/ directory:
     uv run python test_hotel_search.py
@@ -17,6 +30,7 @@ Requirements:
     - OPENROUTER_API_KEY in .env (for team testing)
     - OLLAMA_API_KEY in .env (for personal testing)
 """
+import argparse
 import os
 from pathlib import Path
 from dotenv import load_dotenv
@@ -26,49 +40,43 @@ load_dotenv(Path(__file__).parent.parent / ".env")
 from travelplanner.agents.hotel_search_agent import intelligent_hotel_search
 from travelplanner.schema.system_state import StateContractModel
 
-# Check if user wants to use Ollama for personal testing
-USE_OLLAMA = os.getenv("USE_OLLAMA", "false").lower() == "true"
+# Automatically use Ollama for local/personal testing
 # Note: For Ollama, use the model name directly (no "ollama:" prefix)
-MODEL_NAME = "nemotron-3-super" if USE_OLLAMA else "openrouter:anthropic/claude-3.5-sonnet"
+MODEL_NAME = "nemotron-3-super"
 
-print(f"\nUsing LLM: {MODEL_NAME}")
-if USE_OLLAMA:
-    print("(Personal testing mode with local Ollama)")
-else:
-    print("(Team testing mode with OpenRouter credits)")
-print("=" * 60)
+# Base minimum requirements shared by all test cases
+BASE_MINIMUM = {
+    "countryCode": "DE",
+    "cityName": "Berlin",
+    "checkin": "2026-07-01",
+    "checkout": "2026-07-02",
+    "currency": "EUR",
+    "guestNationality": "DE",
+    "occupancies": [{"adults": 2}],
+}
 
 
-def test_natural_language_query():
-    """Test with a natural language query."""
-    print("\n" + "=" * 60)
-    print("TEST: Natural Language Hotel Search")
-    print("=" * 60)
+def _print_base():
+    print("\n[Base minimum requirements]")
+    for k, v in BASE_MINIMUM.items():
+        print(f"  {k}: {v}")
 
-    query = """
-    I'm planning a romantic honeymoon in Barcelona next month.
-    We love swimming and need good wifi for work.
-    Budget is around 200 euros per night, staying for a week.
-    Would prefer a place with a gym too if possible.
-    """
 
-    print(f"\nQuery: {query.strip()}")
-    print("\n" + "=" * 60)
-    print("Processing...")
-    print("=" * 60)
-
-    # Initialize SystemState
-    system_state = StateContractModel(query="Plan Barcelona honeymoon trip")
-
-    # Execute search with SystemState
+def _run_search(query: str, agent_key: str = "hotel_search"):
+    """Execute search and return updated state."""
+    system_state = StateContractModel(query="Plan Berlin trip")
     updated_state = intelligent_hotel_search(
         query=query,
         system_state=system_state,
-        model_name=MODEL_NAME
+        model_name=MODEL_NAME,
+        agent_key=agent_key,
     )
+    return updated_state
 
-    # Get artifact from SystemState
-    artifacts = updated_state.agent_artifacts.get("hotel_search", [])
+
+def _print_artifacts(updated_state, agent_key: str = "hotel_search"):
+    """Pretty-print the hotel search artifact."""
+    artifacts = updated_state.agent_artifacts.get(agent_key, [])
     if not artifacts:
         print("\n✗ No artifacts found in SystemState!")
         return
@@ -108,99 +116,118 @@ def test_natural_language_query():
             print(f"   Facilities: {', '.join(hotel['facilities'][:5])}...")
 
 
-def test_business_trip_query():
-    """Test with a business trip query."""
+def test_case_1_budget_wifi():
+    """Case 1: Berlin, tight budget, Wi-Fi required, no breakfast needed."""
     print("\n" + "=" * 60)
-    print("TEST: Business Trip Query")
+    print("TEST CASE 1: Budget + Wi-Fi (no breakfast)")
     print("=" * 60)
+    _print_base()
+    print("\n[Extras]")
+    print("  - max budget: 90 EUR/night")
+    print("  - required facility: Wi-Fi")
+    print("  - breakfast not needed")
 
-    query = "Business trip to Barcelona, June 15-18, need parking and wifi, max 150/night"
-
-    print(f"\nQuery: {query}")
+    query = (
+        "Find a hotel in Berlin for July 1–2, 2026. "
+        "We are 2 adults from Germany. "
+        "Must have Wi-Fi. Budget max 90 euros per night. "
+        "No need for breakfast included."
+    )
+    print(f"\nQuery: {query.strip()}")
     print("\nProcessing...")
 
-    # Initialize SystemState
-    system_state = StateContractModel(query="Plan Barcelona business trip")
-
-    # Execute search with SystemState
-    updated_state = intelligent_hotel_search(
-        query=query,
-        system_state=system_state,
-        model_name=MODEL_NAME
-    )
-
-    # Get artifact from SystemState
-    artifacts = updated_state.agent_artifacts.get("hotel_search", [])
-    if not artifacts:
-        print("\n✗ No artifacts found in SystemState!")
-        return
-
-    result = artifacts[0]
-    content = result.content
-
-    print(f"\nStatus: {content['status']}")
-    print(f"Hotels found: {len(content.get('options', []))}")
-
-    if content.get("recommendations"):
-        print("\n" + "=" * 60)
-        print("AI RECOMMENDATIONS:")
-        print("=" * 60)
-        print(content["recommendations"])
+    updated_state = _run_search(query, agent_key="hotel_search")
+    _print_artifacts(updated_state, agent_key="hotel_search")
 
 
-def test_multi_search_scenario():
-    """Test multiple searches accumulating in SystemState."""
+def test_case_2_central_pool_breakfast():
+    """Case 2: Berlin city center, pool + breakfast, higher budget."""
     print("\n" + "=" * 60)
-    print("TEST: Multiple Searches (Multi-City Trip)")
+    print("TEST CASE 2: City Center + Pool + Breakfast")
     print("=" * 60)
+    _print_base()
+    print("\n[Extras]")
+    print("  - preferred area: city center / Mitte")
+    print("  - required facilities: swimming pool, breakfast included")
+    print("  - budget up to 180 EUR/night")
 
-    # Initialize SystemState for multi-city trip
-    system_state = StateContractModel(query="Plan Barcelona → Madrid trip")
-
-    # Search 1: Barcelona
-    print("\n[Search 1] Barcelona hotels...")
-    system_state = intelligent_hotel_search(
-        query="Find hotel in Barcelona Eixample, June 15-18, max 150/night",
-        system_state=system_state,
-        agent_key="hotel_search_barcelona",
-        model_name=MODEL_NAME
+    query = (
+        "Looking for a hotel in central Berlin (Mitte or near Alexanderplatz) "
+        "for July 1–2, 2026. Two German adults. "
+        "Must have a swimming pool and breakfast included. "
+        "Budget up to 180 euros per night."
     )
+    print(f"\nQuery: {query.strip()}")
+    print("\nProcessing...")
 
-    # Search 2: Madrid
-    print("\n[Search 2] Madrid hotels...")
-    system_state = intelligent_hotel_search(
-        query="Find hotel in Madrid city center, June 18-22, max 120/night",
-        system_state=system_state,
-        agent_key="hotel_search_madrid",
-        model_name=MODEL_NAME
-    )
+    updated_state = _run_search(query, agent_key="hotel_search")
+    _print_artifacts(updated_state, agent_key="hotel_search")
 
-    # Verify both artifacts stored
+
+def test_case_3_family_parking_gym():
+    """Case 3: Berlin, family-friendly, parking + gym, flexible dates note."""
     print("\n" + "=" * 60)
-    print("SYSTEMSTATE SUMMARY:")
+    print("TEST CASE 3: Family + Parking + Gym")
     print("=" * 60)
-    print(f"Total artifact keys: {len(system_state.agent_artifacts)}")
+    _print_base()
+    print("\n[Extras]")
+    print("  - traveling with a small child (family-friendly preferred)")
+    print("  - required facilities: parking, gym/fitness center")
+    print("  - budget up to 150 EUR/night")
 
-    for key, artifacts in system_state.agent_artifacts.items():
-        print(f"\n{key}:")
-        for i, artifact in enumerate(artifacts, 1):
-            content = artifact.content
-            print(f"  {i}. Status: {content.get('status')}, "
-                  f"Hotels: {len(content.get('options', []))}")
-            if content.get('options'):
-                top_hotel = content['options'][0]
-                print(f"     Top: {top_hotel['name']} @ {top_hotel['currency']} {top_hotel['nightly_rate']:.0f}/night")
+    query = (
+        "Need a family-friendly hotel in Berlin for July 1–2, 2026. "
+        "Two adults and a small child (German guests). "
+        "Must offer parking and a gym. "
+        "Budget up to 150 euros per night. "
+        "Close to public transport is a plus."
+    )
+    print(f"\nQuery: {query.strip()}")
+    print("\nProcessing...")
+
+    updated_state = _run_search(query, agent_key="hotel_search")
+    _print_artifacts(updated_state, agent_key="hotel_search")
 
 
-if __name__ == "__main__":
+def main():
+    parser = argparse.ArgumentParser(
+        description="Run hotel search integration test cases for Berlin."
+    )
+    parser.add_argument(
+        "--case",
+        type=str,
+        default="1",
+        help="Test case to run: 1, 2, 3, or 'all' (default: 1)",
+    )
+    args = parser.parse_args()
+
     print("\n" + "=" * 60)
     print("Hotel Search Agent - Integration Tests")
     print("=" * 60)
+    print(f"\nUsing LLM: {MODEL_NAME}")
+    print("(Testing mode with local Ollama)")
+    print("=" * 60)
 
-    test_natural_language_query()
-    # test_business_trip_query()  # Uncomment to test
-    # test_multi_search_scenario()  # Uncomment to test
+    case = args.case.strip().lower()
+
+    if case == "1":
+        test_case_1_budget_wifi()
+    elif case == "2":
+        test_case_2_central_pool_breakfast()
+    elif case == "3":
+        test_case_3_family_parking_gym()
+    elif case == "all":
+        test_case_1_budget_wifi()
+        test_case_2_central_pool_breakfast()
+        test_case_3_family_parking_gym()
+    else:
+        print(f"\nUnknown case '{args.case}'. Use 1, 2, 3, or all.")
+        return
 
     print("\n" + "=" * 60)
     print("Integration Tests Complete!")
     print("=" * 60)
+
+
+if __name__ == "__main__":
+    main()

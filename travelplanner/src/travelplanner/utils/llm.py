@@ -50,7 +50,7 @@ OPENAI_COMPATIBLE_PROVIDERS: dict[str, OpenAICompatibleProvider] = {
     ),
     "ollama": OpenAICompatibleProvider(
         api_key_env="OLLAMA_API_KEY",
-        default_base_url="http://localhost:11434/v1",
+        default_base_url="https://api.ollama.ai/v1",  # Ollama Cloud API
         base_url_env="OLLAMA_BASE_URL",
     ),
 }
@@ -137,17 +137,11 @@ def make_chat_model(*, model_name: str, temperature: float) -> ChatOpenAI:
         )
 
     api_key = _get_env_value(provider.api_key_env)
-    if (
-        provider.api_key_env is not None
-        and api_key is None
-        and provider_name != "ollama"
-    ):
+    if provider.api_key_env is not None and api_key is None:
         raise ValueError(
             f"Missing API key for provider '{provider_name}'. "
             f"Set the {provider.api_key_env} environment variable."
         )
-    if provider_name == "ollama" and api_key is None:
-        api_key = "ollama"
 
     base_url = _get_env_value(provider.base_url_env) or provider.default_base_url
     organization = _get_env_value(provider.organization_env)

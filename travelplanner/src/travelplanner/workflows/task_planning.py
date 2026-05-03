@@ -45,32 +45,17 @@ def make_graph(
         model_name=effective_model_name,
         temperature=effective_temperature,
     ).compile()
-    web_search_graph = make_general_web_search_graph().compile()
-
-    def general_web_search_node(state: StateContractModel) -> dict[str, Any]:
-        agent_state = GeneralWebSearchAgentState(
-            query=state.query,
-            task_list=state.task_list,
-            agent_artifacts=state.agent_artifacts,
-        )
-        result = web_search_graph.invoke(agent_state)
-
-        message_histories = dict(state.message_histories)
-        message_histories[GENERAL_WEB_SEARCH_HISTORY_KEY] = result["message_history"]
-        return {
-            "agent_artifacts": result["agent_artifacts"],
-            "message_histories": message_histories,
-        }
+    
 
     graph = StateGraph(StateContractModel)
     graph.add_node("constraint_agent", constraint_graph)
     graph.add_node("planner_agent", planner_graph)
-    graph.add_node("general_web_search_agent", general_web_search_node)
+
 
     graph.set_entry_point("constraint_agent")
     graph.add_edge("constraint_agent", "planner_agent")
-    graph.add_edge("planner_agent", "general_web_search_agent")
-    graph.add_edge("general_web_search_agent", END)
+    graph.add_edge("planner_agent", END)
+    
     return graph
 
 

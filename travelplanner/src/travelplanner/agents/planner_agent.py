@@ -14,13 +14,15 @@ from travelplanner.schema.system_state import (
     MessageHistoryModel,
     TaskModel,
 )
+from travelplanner.schema.commonsense_constraints import ALL_COMMONSENSE_CONSTRAINT_DEFS
 from travelplanner.utils.llm import invoke_structured_model
+from travelplanner.config import get_setting
 
 
 PLANNER_HISTORY_KEY = "planner_agent"
-REVIEWER_HISTORY_KEY = "reviewer_agent"
-MAX_TASKS = 6
-MAX_REVIEW_ATTEMPTS = 3
+REVIEWER_HISTORY_KEY = "planner_reviewer_agent"
+MAX_TASKS = get_setting("agents.planner.max_tasks")
+MAX_REVIEW_ATTEMPTS = get_setting("agents.planner.max_reviews")
 ALLOWED_TASK_TYPES: tuple[str, ...] = (
     "flight",
     "hotel",
@@ -175,6 +177,11 @@ Rules:
 - Each task must be grounded in the user request and extracted constraints.
 - Keep the task list small and useful.
 - Do not mark tasks as valid yet. The reviewer does that.
+- ALWAYS make sure to respect ALL commonsense constraints
+
+Commonsense Constraints:
+TODO add commonsense constraints
+
 """
 
 REVIEWER_SYSTEM_PROMPT = """You are the TravelPlanner reviewer agent.
@@ -204,8 +211,8 @@ class PlannerAgentState(BaseModel):
 
 class ReviewerAgentState(BaseModel):
     query: str
-    model_name: str = get_setting("models.workflows.task_planning.model_name")
-    temperature: float = 0.0
+    model_name: str = get_setting("agents.planner.model_name")
+    temperature: float = get_setting("agents.planner.temperature")
     constraint_list: list[ConstraintModel] = Field(default_factory=list)
     proposed_task_list: list[TaskModel] = Field(default_factory=list)
     approved_task_list: list[TaskModel] = Field(default_factory=list)

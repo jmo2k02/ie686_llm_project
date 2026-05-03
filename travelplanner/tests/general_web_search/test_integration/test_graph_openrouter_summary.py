@@ -38,7 +38,7 @@ class TestGraphOpenRouterSummary(unittest.TestCase):
                     return_value=_FakeChatModel(),
                 ):
                     graph = make_graph()
-                    result = graph.invoke(
+                    result = graph.compile().invoke(
                         {
                             "query": "Plan me a Rome trip",
                             "task_list": [

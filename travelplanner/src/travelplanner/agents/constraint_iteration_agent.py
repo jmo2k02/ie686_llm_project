@@ -913,7 +913,7 @@ def make_graph() -> StateGraph:
     graph.add_edge("present_violations", "extract_hard_constraints")
     graph.add_conditional_edges("present_hard_constraints", _route_after_present_hard)
     graph.add_conditional_edges("ask_missing_category", _route_after_missing)
-    graph.add_edge("build_artifact", END)
+    graph.add_edge("build_artifact", "finaliz_constraint_output")
     graph.add_edge("finalize_constraint_output", END)
 
     return graph

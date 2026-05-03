@@ -17,7 +17,7 @@ from travelplanner.agents.planner_agent import (
     PlannerAgentState,
     make_graph as make_planner_graph,
 )
-from travelplanner.agents.reviewer_agent import (
+from travelplanner.agents.planner_reviewer_agent import (
     ReviewerAgentState,
     make_graph as make_reviewer_graph,
 )

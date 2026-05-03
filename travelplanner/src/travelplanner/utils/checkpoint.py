@@ -16,14 +16,18 @@ from travelplanner.schema.system_state import (
 )
 
 
-_DEFAULT_MSGPACK_TYPES: tuple[type[Any], ...] = (
-    AgentArtifactModel,
-    CalenderModel,
-    ConstraintModel,
-    MessageHistoryModel,
-    StateContractModel,
-    TaskModel,
-)
+def _default_msgpack_types() -> tuple[type[Any], ...]:
+    from travelplanner.agents.constraint_iteration_agent import ViolationModel
+
+    return (
+        AgentArtifactModel,
+        CalenderModel,
+        ConstraintModel,
+        MessageHistoryModel,
+        StateContractModel,
+        TaskModel,
+        ViolationModel,
+    )
 
 
 def make_memory_checkpointer(
@@ -31,6 +35,6 @@ def make_memory_checkpointer(
     extra_allowed_types: Iterable[type[Any]] = (),
 ) -> MemorySaver:
     serde = JsonPlusSerializer(allowed_msgpack_modules=None).with_msgpack_allowlist(
-        [*_DEFAULT_MSGPACK_TYPES, *extra_allowed_types]
+        [*_default_msgpack_types(), *extra_allowed_types]
     )
     return MemorySaver(serde=serde)

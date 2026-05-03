@@ -9,6 +9,8 @@ from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_openai import ChatOpenAI
 from pydantic import BaseModel
 
+from travelplanner.utils.runtime_monitor import record_llm_call
+
 
 ResponseModelT = TypeVar("ResponseModelT", bound=BaseModel)
 
@@ -209,6 +211,34 @@ def _extract_json_payload(text: str) -> str:
     return stripped
 
 
+def extract_token_usage(response: object) -> tuple[int, int]:
+    """Extract `(input_tokens, output_tokens)` from a LangChain response."""
+
+    usage_metadata = getattr(response, "usage_metadata", None)
+    if isinstance(usage_metadata, dict):
+        tokens_in = int(
+            usage_metadata.get("input_tokens")
+            or usage_metadata.get("prompt_tokens")
+            or 0
+        )
+        tokens_out = int(
+            usage_metadata.get("output_tokens")
+            or usage_metadata.get("completion_tokens")
+            or 0
+        )
+        return tokens_in, tokens_out
+
+    response_metadata = getattr(response, "response_metadata", None)
+    if isinstance(response_metadata, dict):
+        token_usage = response_metadata.get("token_usage", {})
+        if isinstance(token_usage, dict):
+            tokens_in = int(token_usage.get("prompt_tokens") or 0)
+            tokens_out = int(token_usage.get("completion_tokens") or 0)
+            return tokens_in, tokens_out
+
+    return 0, 0
+
+
 def invoke_structured_model(
     *,
     model_name: str,
@@ -250,6 +280,12 @@ def invoke_structured_model(
             SystemMessage(content=system_prompt),
             HumanMessage(content=user_prompt),
         ]
+    )
+    tokens_in, tokens_out = extract_token_usage(response)
+    record_llm_call(
+        model_name=model_name,
+        tokens_in=tokens_in,
+        tokens_out=tokens_out,
     )
     raw_content = _coerce_message_content(response.content).strip()
     json_payload = _extract_json_payload(raw_content)

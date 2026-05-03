@@ -6,6 +6,7 @@ from typing import Any
 from langgraph.graph import END, StateGraph
 from pydantic import BaseModel, Field
 
+from travelplanner.config import get_setting
 from travelplanner.utils.llm import invoke_structured_model
 from travelplanner.schema.system_state import (
     ConstraintModel,
@@ -29,7 +30,7 @@ Rules:
 
 class PlannerAgentState(BaseModel):
     query: str
-    model_name: str
+    model_name: str = get_setting("models.workflows.task_planning.model_name")
     temperature: float = 0.0
     constraint_list: list[ConstraintModel] = Field(default_factory=list)
     task_list: list[TaskModel] = Field(default_factory=list)

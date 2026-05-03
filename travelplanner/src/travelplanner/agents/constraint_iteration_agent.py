@@ -13,7 +13,6 @@ from spellchecker import SpellChecker
 from travelplanner.config import get_setting
 from travelplanner.schema.commonsense_constraints import COMMONSENSE_CONSTRAINTS
 from travelplanner.schema.system_state import ConstraintModel, MessageHistoryModel
-from travelplanner.utils.checkpoint import make_memory_checkpointer
 from travelplanner.utils.llm import invoke_structured_model
 
 # ── Constants ────────────────────────────────────────────────────────────────
@@ -583,7 +582,7 @@ def make_graph() -> StateGraph:
             "message_histories": {
                 **state.message_histories,
                 "key": _build_message_history(state.messages),
-            }
+            },
         }
 
     graph = StateGraph(ConstraintIterationState)

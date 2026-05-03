@@ -21,9 +21,7 @@ from typing import Any, Dict, List, Optional, Tuple
 import pycountry
 import requests
 from dotenv import load_dotenv
-from langchain_core.messages import HumanMessage, SystemMessage
 from langgraph.graph import END, StateGraph
-from ollama import Client as OllamaClient
 from pydantic import BaseModel, Field
 
 from travelplanner.schema.hotel_search_artifact import (
@@ -35,7 +33,7 @@ from travelplanner.schema.hotel_search_artifact import (
     HotelOptionModel,
 )
 from travelplanner.schema.system_state import AgentArtifactModel, StateContractModel
-from travelplanner.utils.llm import make_chat_model
+from travelplanner.utils.llm import _call_llm, make_chat_model
 
 # Load environment variables from .env file at module initialization
 _project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..', '..'))
@@ -942,7 +940,7 @@ class IntelligentHotelSearchState(BaseModel):
     )
     task_id: Optional[int] = Field(default=None, description="Task ID")
     model_name: str = Field(
-        default="openrouter:anthropic/claude-3.5-sonnet",
+        default="gpt-5-mini",
         description="LLM model to use (openrouter or ollama)"
     )
 
@@ -969,51 +967,14 @@ class IntelligentHotelSearchState(BaseModel):
 
 
 def _call_llm(system_prompt: str, user_prompt: str, model_name: str, temperature: float = 0.0) -> str:
-    """Call LLM with proper provider handling.
+    """Delegate to shared travelplanner.utils.llm._call_llm.
 
-    Args:
-        system_prompt: System message
-        user_prompt: User message
-        model_name: Model identifier
-            - "openrouter:model/name" for OpenRouter
-            - "model-name" or "model:variant" for Ollama (e.g., "nemotron-3-super", "kimi-k2.6:cloud")
-        temperature: Sampling temperature
-
-    Returns:
-        Response content as string
+    This shim preserves backwards compatibility for existing callers inside
+    this module. New code should import directly from
+    ``travelplanner.utils.llm``.
     """
-    # Check for OpenRouter prefix
-    if model_name.startswith("openrouter:"):
-        # Use OpenRouter via LangChain
-        llm = make_chat_model(model_name=model_name, temperature=temperature)
-        messages = [
-            SystemMessage(content=system_prompt),
-            HumanMessage(content=user_prompt),
-        ]
-        response = llm.invoke(messages)
-        return response.content
-    else:
-        # Default to Ollama for any other format
-        # Handles: "minimax-m2.7:cloud", "llama3.2", "nemotron-3-super", etc.
-        api_key = os.environ.get("OLLAMA_API_KEY")
-        if not api_key:
-            raise ValueError(
-                f"OLLAMA_API_KEY not found in environment. "
-                f"Set it for Ollama model '{model_name}' or use 'openrouter:...' format."
-            )
-
-        client = OllamaClient(
-            host="https://ollama.com",
-            headers={'Authorization': f'Bearer {api_key}'}
-        )
-
-        messages = [
-            {"role": "system", "content": system_prompt},
-            {"role": "user", "content": user_prompt}
-        ]
-
-        response = client.chat(model=model_name, messages=messages, stream=False)
-        return response['message']['content']
+    from travelplanner.utils.llm import _call_llm as _shared_call_llm
+    return _shared_call_llm(system_prompt, user_prompt, model_name, temperature)
 
 
 # ============================================================================
@@ -1082,14 +1043,14 @@ Output ONLY the JSON object, no explanation."""
 
 
 def parse_query_with_llm(
-    query: str, model_name: str = "openrouter:anthropic/claude-3.5-sonnet"
+    query: str, model_name: str = "gpt-5-mini"
 ) -> Dict[str, Any]:
     """Parse natural language query into structured search parameters.
 
     Args:
         query: Natural language hotel search query
         model_name: LLM model to use. Options:
-            - "openrouter:anthropic/claude-3.5-sonnet" (default, team credits)
+            - "gpt-5-mini" (default, team credits)
             - "ollama:gpt-oss:120b" (personal testing with Ollama Cloud)
     """
     print(f"[parse_query_with_llm] Parsing query with LLM: {model_name}")
@@ -1158,7 +1119,7 @@ def synthesize_recommendations(
     query: str,
     parsed_params: Dict[str, Any],
     artifact_content: Dict[str, Any],
-    model_name: str = "openrouter:anthropic/claude-3.5-sonnet",
+    model_name: str = "gpt-5-mini",
 ) -> str:
     """Generate LLM-based recommendations from search results.
 
@@ -1167,7 +1128,7 @@ def synthesize_recommendations(
         parsed_params: Parsed search parameters
         artifact_content: Hotel search results
         model_name: LLM model to use. Options:
-            - "openrouter:anthropic/claude-3.5-sonnet" (default, team credits)
+            - "gpt-5-mini" (default, team credits)
             - "ollama:gpt-oss:120b" (personal testing with Ollama Cloud)
     """
     print(f"[synthesize_recommendations] Generating recommendations with {model_name}")
@@ -1427,7 +1388,7 @@ def intelligent_hotel_search(
     query: str,
     system_state: StateContractModel,
     task_id: Optional[int] = None,
-    model_name: str = "openrouter:anthropic/claude-3.5-sonnet",
+    model_name: str = "gpt-5-mini",
     agent_key: str = "hotel_search"
 ) -> StateContractModel:
     """Execute intelligent hotel search from natural language query.
@@ -1437,7 +1398,7 @@ def intelligent_hotel_search(
         system_state: Global system state (required)
         task_id: Optional task ID
         model_name: LLM model to use. Options:
-            - "openrouter:anthropic/claude-3.5-sonnet" (default, team credits)
+            - "gpt-5-mini" (default, team credits)
             - Model name for Ollama (e.g., "nemotron-3-super", "kimi-k2.6:cloud")
         agent_key: Key for storing artifacts in SystemState (default: "hotel_search")
 

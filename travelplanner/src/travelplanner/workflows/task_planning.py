@@ -12,12 +12,7 @@ from travelplanner.agents.constraint_iteration_agent import (
     make_graph as make_constraint_graph,
 )
 from travelplanner.agents.planner_agent import (
-    PlannerAgentState,
     make_graph as make_planner_graph,
-)
-from travelplanner.agents.planner_reviewer_agent import (
-    ReviewerAgentState,
-    make_graph as make_reviewer_graph,
 )
 from travelplanner.agents.general_web_search_agent import (
     GeneralWebSearchAgentState,
@@ -28,7 +23,6 @@ from travelplanner.schema.system_state import StateContractModel, TaskModel
 
 CONSTRAINT_HISTORY_KEY = "constraint_agent"
 PLANNER_HISTORY_KEY = "planner_agent"
-REVIEWER_HISTORY_KEY = "reviewer_agent"
 GENERAL_WEB_SEARCH_HISTORY_KEY = "general_web_search_agent"
 
 
@@ -37,7 +31,9 @@ def make_graph(
     temperature: float | None = None,
 ) -> StateGraph:
     effective_model_name = model_name or str(
-        get_setting("models.workflows.task_planning.model_name", "gpt-5.4-nano-2026-03-17")
+        get_setting(
+            "models.workflows.task_planning.model_name", "gpt-5.4-nano-2026-03-17"
+        )
     )
     effective_temperature = (
         temperature
@@ -45,26 +41,11 @@ def make_graph(
         else float(get_setting("models.workflows.task_planning.temperature", 0.0))
     )
     constraint_graph = make_constraint_graph().compile()
-    planner_graph = make_planner_graph().compile()
-    reviewer_graph = make_reviewer_graph().compile()
+    planner_graph = make_planner_graph(
+        model_name=effective_model_name,
+        temperature=effective_temperature,
+    ).compile()
     web_search_graph = make_general_web_search_graph().compile()
-
-    def reviewer_node(state: StateContractModel) -> dict[str, Any]:
-        agent_state = ReviewerAgentState(
-            query=state.query,
-            model_name=effective_model_name,
-            temperature=effective_temperature,
-            constraint_list=state.constraint_list,
-            proposed_task_list=state.task_list,
-        )
-        result = reviewer_graph.invoke(agent_state)
-
-        message_histories = dict(state.message_histories)
-        message_histories[REVIEWER_HISTORY_KEY] = result["message_history"]
-        return {
-            "task_list": result["approved_task_list"],
-            "message_histories": message_histories,
-        }
 
     def general_web_search_node(state: StateContractModel) -> dict[str, Any]:
         agent_state = GeneralWebSearchAgentState(
@@ -81,17 +62,14 @@ def make_graph(
             "message_histories": message_histories,
         }
 
-    
     graph = StateGraph(StateContractModel)
     graph.add_node("constraint_agent", constraint_graph)
     graph.add_node("planner_agent", planner_graph)
-    graph.add_node("reviewer_agent", reviewer_node)
     graph.add_node("general_web_search_agent", general_web_search_node)
-    
+
     graph.set_entry_point("constraint_agent")
     graph.add_edge("constraint_agent", "planner_agent")
-    graph.add_edge("planner_agent", "reviewer_agent")
-    graph.add_edge("reviewer_agent", "general_web_search_agent")
+    graph.add_edge("planner_agent", "general_web_search_agent")
     graph.add_edge("general_web_search_agent", END)
     return graph
 

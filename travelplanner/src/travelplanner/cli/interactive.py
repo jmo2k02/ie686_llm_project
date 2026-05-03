@@ -20,7 +20,7 @@ from rich.spinner import Spinner
 from rich.table import Table
 from rich.text import Text
 
-from travelplanner.schema.system_state import ConstraintModel
+from travelplanner.schema.system_state import ConstraintModel, TaskModel
 from travelplanner.utils.checkpoint import make_memory_checkpointer
 from travelplanner.utils.imports import load_callable
 from travelplanner.utils.runtime_monitor import reset_run_monitor, set_run_monitor
@@ -68,6 +68,7 @@ class DashboardState:
         self.prompt_text = "Questions will appear here before each prompt."
         self.last_input = ""
         self.hard_constraints: list[ConstraintModel | dict[str, Any]] = []
+        self.tasks: list[TaskModel | dict[str, Any]] = []
         self.llm_calls = 0
         self.tool_call_count = 0
         self.tokens_in = 0
@@ -114,6 +115,12 @@ class DashboardState:
         constraints: list[ConstraintModel | dict[str, Any]],
     ) -> None:
         self.hard_constraints = constraints
+
+    def set_tasks(
+        self,
+        tasks: list[TaskModel | dict[str, Any]],
+    ) -> None:
+        self.tasks = tasks
 
     def record_llm_call(
         self,
@@ -248,6 +255,27 @@ def _get_snapshot_hard_constraints(
         [],
     )
 
+def _snapshot_has_tasks(snapshot: Any) -> bool:
+    return any(
+        getattr(task, "state", None) and task.state.values.get("task_list")
+        for task in getattr(snapshot, "tasks", [])
+        if getattr(task, "name", None) == "planner_agent"
+    )
+
+
+def _get_snapshot_tasks(
+    snapshot: Any,
+) -> list[TaskModel | dict[str, Any]]:
+    return next(
+        (
+            task.state.values.get("task_list")
+            for task in getattr(snapshot, "tasks", [])
+            if getattr(task, "name", None) == "planner_agent"
+            and getattr(task, "state", None)
+        ),
+        [],
+    )
+
 
 
 def _build_layout(dashboard: DashboardState) -> Layout:
@@ -265,7 +293,7 @@ def _build_layout(dashboard: DashboardState) -> Layout:
     )
     layout["main"].split_column(
         Layout(name="upper", ratio=3),
-        Layout(name="status", ratio=1),
+        Layout(name="status", ratio=2),
         Layout(name="input", ratio=3),
     )
     layout["upper"].split_row(
@@ -364,6 +392,16 @@ def _build_layout(dashboard: DashboardState) -> Layout:
                 ]),
             ]
         )
+    if dashboard.tasks:
+        status_lines.extend(
+              [
+                  f"[bold green]Tasks:[/bold green] {len(dashboard.tasks)}",
+                  "".join([
+                      f"[green]{idx+1}[/green]:<{task.type}: {task.name}/>, "
+                      for idx, task in enumerate(dashboard.tasks)
+                  ]),
+              ]
+          )
     layout["status"].update(
         Panel(
             Text.from_markup("\n".join(status_lines), overflow="fold"),
@@ -553,6 +591,10 @@ async def _execute_workflow(
                         if _snapshot_has_hard_constraints(snapshot):
                             dashboard.set_hard_constraints(
                                 _get_snapshot_hard_constraints(snapshot)
+                            )
+                        if _snapshot_has_tasks(snapshot):
+                            dashboard.set_tasks(
+                                _get_snapshot_tasks(snapshot)
                             )
                         _draw_dashboard(dashboard)
 

@@ -6,8 +6,15 @@ This file applies to `src/travelplanner/agents` and its children.
 
 ## Architecture
 
-- `task_planning_workflow.py` wires the high-level sequence:
-  `constraint_agent -> planner_agent -> reviewer_agent -> general_web_search_agent`
+- `travelplanner.workflows.task_planning` wires the high-level sequence:
+  `constraint_agent -> planner_agent`
+- `planner_agent.py` is a backward-compatible wrapper. The planner implementation
+  lives in `agents/planner/`.
+- `agents/planner/graph.py` exposes one public `make_graph()` that routes
+  internally between `planner_draft` and `reviewer_agent`.
+- `agents/planner/prompts.py`, `heuristics.py`, `validation.py`, `state.py`, and
+  `context.py` split prompt construction, task inference, task validation, state
+  models, and planner-specific request context.
 - `llm_utils.py` owns shared LLM client construction and structured invocation
 - `minimal_agent.py` is a simpler single-node planner path
 

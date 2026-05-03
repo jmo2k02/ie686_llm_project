@@ -11,7 +11,7 @@ from travelplanner.agents.constraint_iteration_agent import (
     get_message_history,
     make_graph as make_constraint_graph,
 )
-from travelplanner.agents.planner_agent import (
+from travelplanner.agents.planner import (
     make_graph as make_planner_graph,
 )
 from travelplanner.agents.general_web_search_agent import (

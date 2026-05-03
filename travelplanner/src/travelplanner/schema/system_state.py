@@ -1,4 +1,4 @@
-from typing import Annotated, Literal
+from typing import Annotated, Literal, get_args, get_origin
 from pydantic import BaseModel, Field
 
 from travelplanner.schema.calender import CalenderModel
@@ -90,6 +90,15 @@ class TaskModel(BaseModel):
     validation_comment: Annotated[
         str | None, Field(description="Comment on why this task is NOT valid")
     ] = None
+
+def get_allowed_task_types() -> tuple[str, ...]:
+    """Return the canonical task type values from TaskModel.type."""
+    annotation = TaskModel.model_fields["type"].annotation
+    if get_origin(annotation) is Annotated:
+        annotation = get_args(annotation)[0]
+    if get_origin(annotation) is not Literal:
+        raise TypeError("TaskModel.type must be annotated as a Literal")
+    return tuple(str(value) for value in get_args(annotation))
 
 
 class StateContractModel(BaseModel):

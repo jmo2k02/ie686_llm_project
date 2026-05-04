@@ -17,9 +17,9 @@ from travelplanner.schema.attraction_search_artifact import (
     AttractionArtifactContentModel,
     AttractionCandidateModel,
     AttractionItemModel,
+    AttractionParamsModel,
     AttractionSearchErrorModel,
     CandidateSelectionModel,
-    GeneratedActivitiesResponse,
     GeneratedActivityModel,
 )
 from travelplanner.schema.flight_search_artifact import (
@@ -44,9 +44,9 @@ __all__ = [
     "AttractionArtifactContentModel",
     "AttractionCandidateModel",
     "AttractionItemModel",
+    "AttractionParamsModel",
     "AttractionSearchErrorModel",
     "CandidateSelectionModel",
-    "GeneratedActivitiesResponse",
     "GeneratedActivityModel",
     "GeneralWebSearchArtifactContentModel",
     "GeneralWebSearchErrorModel",

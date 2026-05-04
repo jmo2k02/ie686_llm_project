@@ -1,40 +1,48 @@
-# scratch_e2e_attraction.py — end-to-end: profile → archetype selection → LLM activities → SERPAPI place resolution
-# Edit the variables below and run: python scratch_e2e_attraction.py
+# scratch_e2e_attraction.py — end-to-end: structured task text → param extraction → archetype → LLM activity → SERPAPI place
+# Edit TASK_TEXT below and run: python scratch_e2e_attraction.py
 
 from dotenv import load_dotenv
 
 from travelplanner.agents.attraction_search_agent import (
+    _extract_attraction_params,
     load_config_from_env,
     run_attraction_search,
 )
 
 load_dotenv()
 
-DESTINATION = "Barcelona"
-DAYS = 3
-BUDGET = "medium"  # "low" | "medium" | "high"
-TRAVELLER_PROFILE = "solo digital nomad interested in the local startup scene, wants to blend remote work with exploration of creative and professional communities, slow pace"
+TASK_TEXT = """\
+Find an activity for a solo digital nomad visiting Barcelona on Day 1 of their trip, 
+with a budget of 80 EUR. They are interested in the local startup scene and want 
+to blend remote work with exploration of creative and professional communities at a 
+slow pace. Previously, they had visited a co-working space in Poblenou. 
+Focus on tech and creative co-working community.
+"""
 MODEL = "openrouter:minimax/minimax-m2.5"
 TEMPERATURE = 0.0
 
-# ── Run ───────────────────────────────────────────────────────────────────────
+# ── Step 1: extract structured params from task text ──────────────────────────
 
 config = load_config_from_env()
 
-print(f"Destination   : {DESTINATION}")
-print(f"Days          : {DAYS}")
-print(f"Budget        : {BUDGET}")
-print(f"Profile       : {TRAVELLER_PROFILE}")
-print(f"Model         : {MODEL}")
+print(f"Task text:\n{TASK_TEXT}\n")
+print("Extracting parameters...")
+params = _extract_attraction_params(TASK_TEXT, MODEL, TEMPERATURE)
+print(f"  Destination : {params.destination}")
+print(f"  Day         : {params.day}")
+print(f"  Budget      : {params.budget} EUR")
+print(f"  Profile     : {params.traveller_profile}")
+print(f"  Previous    : {params.previous_activities or '(none)'}")
+print(f"  Hint        : {params.orchestrator_hint or '(none)'}")
 print()
+
+# ── Step 2: run full pipeline ─────────────────────────────────────────────────
+
 print("Running attraction search (embedding → LLM generation → SERPAPI)...")
 print()
 
 result = run_attraction_search(
-    destination=DESTINATION,
-    days=DAYS,
-    budget=BUDGET,
-    traveller_profile=TRAVELLER_PROFILE,
+    params=params,
     model_name=MODEL,
     temperature=TEMPERATURE,
     config=config,
@@ -44,7 +52,7 @@ result = run_attraction_search(
 # ── Summary header ────────────────────────────────────────────────────────────
 
 print(f"{'━' * 60}")
-print(f"STATUS: {result.status}  |  Archetype: {result.selected_archetype}  |  Items: {len(result.items)}")
+print(f"STATUS: {result.status}  |  Archetype: {result.selected_archetype}")
 print(f"{'━' * 60}")
 
 if result.errors:
@@ -53,14 +61,16 @@ if result.errors:
     for err in result.errors:
         print(f"  [{err.code}] {err.message}")
 
-# ── Items (what the orchestrator receives) ────────────────────────────────────
+# ── Committed item (what the orchestrator receives) ───────────────────────────
 
-for item in result.items:
+if result.item:
+    item = result.item
     print()
-    print(f"Day {item.day} — {item.time_slot.upper()}  |  {item.title}")
-    print(f"  {item.description}")
-    print(f"  Local touchpoint: {item.local_touchpoint}")
-    print(f"  Duration: {item.estimated_duration_hours}h  |  Budget: {item.estimated_price_range}  |  place_found: {item.place_found}")
+    print(f"SELECTED ACTIVITY — Day {item.day} {item.time_slot.upper()}")
+    print(f"  Title       : {item.title}")
+    print(f"  Description : {item.description}")
+    print(f"  Touchpoint  : {item.local_touchpoint}")
+    print(f"  Duration    : {item.estimated_duration_hours}h  |  Budget: {item.estimated_price_range}  |  place_found: {item.place_found}")
     if item.place_found:
         print(f"  ▶ {item.location_name}")
         if item.location_address:
@@ -76,4 +86,16 @@ for item in result.items:
             print(f"    Why: {item.selection_reason}")
     else:
         print(f"  ▶ No specific place found  (location: {item.location_name})")
-    print(f"  Provenance: {item.provenance}")
+    print(f"  Provenance  : {item.provenance}")
+
+# ── Top candidates (for routing agent) ───────────────────────────────────────
+
+if result.top_candidates:
+    print()
+    print(f"TOP CANDIDATES  [{len(result.top_candidates)} available for routing agent]")
+    for i, c in enumerate(result.top_candidates):
+        rating = f"  Rating: {c.rating}" if c.rating else ""
+        reviews = f" ({c.reviews} reviews)" if c.reviews else ""
+        print(f"  [{i}] {c.title}  |  {c.address or 'address unknown'}{rating}{reviews}")
+        if c.gps_coordinates:
+            print(f"      ({c.gps_coordinates['lat']:.4f}, {c.gps_coordinates['lng']:.4f})")

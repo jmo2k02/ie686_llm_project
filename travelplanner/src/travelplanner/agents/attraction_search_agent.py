@@ -4,7 +4,7 @@ import json
 import os
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Literal
+from typing import Any
 
 import numpy as np
 import openai
@@ -16,9 +16,9 @@ from travelplanner.schema.attraction_search_artifact import (
     AttractionArtifactContentModel,
     AttractionCandidateModel,
     AttractionItemModel,
+    AttractionParamsModel,
     AttractionSearchErrorModel,
     CandidateSelectionModel,
-    GeneratedActivitiesResponse,
     GeneratedActivityModel,
 )
 from travelplanner.schema.system_state import (
@@ -38,35 +38,45 @@ _DEFAULT_MAX_CANDIDATES = 5
 _DEFAULT_TOP_REVIEW_CANDIDATES = 3
 _DEFAULT_TIMEOUT_SECONDS = 30
 
-_BUDGET_PRICE_SYMBOL: dict[str, str] = {"low": "$", "medium": "$$", "high": "$$$"}
+_PARAM_EXTRACTION_SYSTEM_PROMPT = """\
+You are an attraction search parameter extractor for a travel planning assistant.
+
+Given a structured task description, extract the search parameters.
+
+Rules:
+- budget is a float representing the per-activity budget in EUR
+- destination is the city or region name
+- traveller_profile is the full free-text description of the traveller's style and interests
+- day is the trip day number (integer, defaults to 1 if not specified)
+- previous_activities is a summary of activities done on prior days (empty string if none)
+- orchestrator_hint is an optional hint about what type of activity is needed (null if absent)
+- Return JSON only — no extra text.
+"""
 
 _GENERATION_SYSTEM_PROMPT = """\
 You are an experience curator for a travel planning assistant generating deeply engaging, culturally immersive activity experiences.
 
 Rules:
 - Activities only — no food, no restaurants, no transport
-- One activity per day, covering a half-day slot (morning, afternoon, or evening)
-- Activities must be realistic given typical opening hours for that type of venue
+- One activity covering a half-day slot (morning, afternoon, or evening)
+- The activity must be realistic given typical opening hours for that type of venue
 - Each activity must name the specific type of local person or community the traveller will interact with, and explain why this interaction falls outside the tourist bubble
+- Consider previous activities to avoid repetition and ensure variety across days
 - Output strict JSON only — no markdown fences, no preamble
 
-Output format: a single JSON object with an "activities" key containing an array, one object per day:
+Output format: a single JSON object:
 {
-  "activities": [
-    {
-      "day": int,
-      "time_slot": "morning" | "afternoon" | "evening",
-      "title": "string (max 8 words, evocative)",
-      "description": "string (3-5 sentences, destination-specific and textured)",
-      "local_touchpoint": "string (1-2 sentences: who the traveller meets and why it is not tourist-facing)",
-      "search_keywords": ["keyword1", "keyword2"],
-      "estimated_duration_hours": float,
-      "has_specific_location": bool
-    }
-  ]
+  "day": int,
+  "time_slot": "morning" | "afternoon" | "evening",
+  "title": "string (max 8 words, evocative)",
+  "description": "string (3-5 sentences, destination-specific and textured)",
+  "local_touchpoint": "string (1-2 sentences: who the traveller meets and why it is not tourist-facing)",
+  "search_keywords": ["keyword1", "keyword2"],
+  "estimated_duration_hours": float,
+  "has_specific_location": bool
 }
 
-The following are examples of the expected style — narrative specificity, local touchpoint depth, cultural engagement register. Generate activities in this exact register for the actual destination:
+The following are examples of the expected style — narrative specificity, local touchpoint depth, cultural engagement register. Generate an activity in this exact register for the actual destination:
 
 {few_shot_examples}
 """
@@ -74,6 +84,10 @@ The following are examples of the expected style — narrative specificity, loca
 _SELECTION_SYSTEM_PROMPT = """\
 You are a travel experience selector. Choose the venue that best fits the traveller profile.
 Prefer locally-embedded venues over tourist-facing operators, even if the tourist operator has a higher rating.
+Secondly, put more weight on recent reviews than old reviews, and prefer
+venues with many reviews rather than few reviews even if the rating is slightly lower.
+Make an estimation of how much it will cost based on the price level and the traveller's budget, 
+but do not exclude venues that are above the traveller's stated budget as long as they have other strong signals.
 Return JSON only: {"selected_index": int, "selection_reason": "one sentence"}
 """
 
@@ -110,16 +124,41 @@ class AttractionSearchAgentState(BaseModel):
     query: str
     model_name: str
     temperature: float = 0.0
-    destination: str = ""
-    days: int = 3
-    budget: Literal["low", "medium", "high"] = "medium"
-    traveller_profile: str = ""
     task_list: list[TaskModel] = Field(default_factory=list)
     agent_artifacts: dict[str, list[AgentArtifactModel]] = Field(default_factory=dict)
     message_history: MessageHistoryModel | None = None
 
 
-# ── Archetype / embedding helpers ────────────────────────────────────────────
+# ── Param extraction ──────────────────────────────────────────────────────────
+
+def _build_param_extraction_prompt(task_text: str) -> str:
+    return "\n".join([
+        "Extract attraction search parameters from the following task.",
+        "",
+        f"Task: {task_text.strip()}",
+        "",
+        "Return strictly valid JSON with this shape:",
+        '{"budget": 80.0, "destination": "city name", "traveller_profile": "free text", "day": 1, "previous_activities": "summary or empty string", "orchestrator_hint": "string or null"}',
+    ])
+
+
+def _extract_attraction_params(
+    task_text: str,
+    model_name: str,
+    temperature: float,
+) -> AttractionParamsModel:
+    user_prompt = _build_param_extraction_prompt(task_text)
+    structured_output, _, _ = invoke_structured_model(
+        model_name=model_name,
+        temperature=temperature,
+        system_prompt=_PARAM_EXTRACTION_SYSTEM_PROMPT,
+        user_prompt=user_prompt,
+        response_model=AttractionParamsModel,
+    )
+    return structured_output
+
+
+# ── Archetype / embedding helpers ─────────────────────────────────────────────
 
 def _serialize_profile(profile: dict[str, Any]) -> str:
     interests = ", ".join(profile.get("interests", []))
@@ -178,27 +217,28 @@ def _build_generation_system_prompt(archetype: dict[str, Any]) -> str:
     return _GENERATION_SYSTEM_PROMPT.replace("{few_shot_examples}", few_shot)
 
 
-def _build_generation_user_prompt(destination: str, days: int, budget: str, traveller_profile: str) -> str:
-    return (
-        f"Destination: {destination}\n"
-        f"Number of days: {days}\n"
-        f"Budget: {budget}\n"
-        f"Traveller profile: {traveller_profile}\n\n"
-        f"Generate exactly {days} activities for {destination} as a JSON object."
-    )
+def _build_generation_user_prompt(params: AttractionParamsModel) -> str:
+    lines = [
+        f"Destination: {params.destination}",
+        f"Day: {params.day}",
+        f"Budget: {params.budget:.0f} EUR per activity",
+        f"Traveller profile: {params.traveller_profile}",
+        f"Previous activities: {params.previous_activities or 'None — this is the first activity'}",
+    ]
+    if params.orchestrator_hint:
+        lines.append(f"Orchestrator hint: {params.orchestrator_hint}")
+    lines.append(f"\nGenerate exactly one activity for day {params.day} in {params.destination} as a JSON object.")
+    return "\n".join(lines)
 
 
-def _generate_activities(
-    destination: str,
-    days: int,
-    budget: str,
-    traveller_profile: str,
+def _generate_activity(
+    params: AttractionParamsModel,
     archetype: dict[str, Any],
     model_name: str,
     temperature: float,
-) -> list[GeneratedActivityModel]:
+) -> GeneratedActivityModel:
     system_prompt = _build_generation_system_prompt(archetype)
-    user_prompt = _build_generation_user_prompt(destination, days, budget, traveller_profile)
+    user_prompt = _build_generation_user_prompt(params)
 
     try:
         result, _, _ = invoke_structured_model(
@@ -206,20 +246,19 @@ def _generate_activities(
             temperature=temperature,
             system_prompt=system_prompt,
             user_prompt=user_prompt,
-            response_model=GeneratedActivitiesResponse,
+            response_model=GeneratedActivityModel,
         )
-        return result.activities
+        return result
     except (json.JSONDecodeError, ValidationError):
-        # Retry once with explicit correction
         retry_prompt = user_prompt + "\n\nThe previous response was not valid JSON. Return ONLY a valid JSON object, no other text."
         result, _, _ = invoke_structured_model(
             model_name=model_name,
             temperature=temperature,
             system_prompt=system_prompt,
             user_prompt=retry_prompt,
-            response_model=GeneratedActivitiesResponse,
+            response_model=GeneratedActivityModel,
         )
-        return result.activities
+        return result
 
 
 # ── SERPAPI helpers ───────────────────────────────────────────────────────────
@@ -305,7 +344,6 @@ def _find_candidates(
     if not candidates:
         return []
 
-    # Enrich top candidates with reviews
     sorted_candidates = sorted(
         candidates, key=lambda c: c.rating or 0.0, reverse=True
     )
@@ -361,23 +399,29 @@ def _select_candidate(
         idx = max(0, min(result.selected_index, len(candidates) - 1))
         return candidates[idx], result.selection_reason
     except Exception:
-        # Fallback: highest-rated candidate (already first after sort)
         return candidates[0], "Fallback to highest-rated candidate."
 
 
 # ── Item construction ─────────────────────────────────────────────────────────
 
+def _budget_to_price_symbol(budget: float) -> str:
+    if budget < 30:
+        return "$"
+    elif budget < 80:
+        return "$$"
+    return "$$$"
+
+
 def _build_item(
     activity: GeneratedActivityModel,
-    candidates: list[AttractionCandidateModel],
     selected: AttractionCandidateModel | None,
     selection_reason: str | None,
     destination: str,
-    budget: str,
+    budget: float,
     archetype_name: str,
 ) -> AttractionItemModel:
+    price_symbol = _budget_to_price_symbol(budget)
     if selected is not None:
-        price_range = selected.price or _BUDGET_PRICE_SYMBOL.get(budget, "$$")
         return AttractionItemModel(
             day=activity.day,
             time_slot=activity.time_slot,
@@ -397,7 +441,7 @@ def _build_item(
             place_hours=selected.hours,
             selection_reason=selection_reason,
             place_found=True,
-            estimated_price_range=price_range,
+            estimated_price_range=selected.price or price_symbol,
             selected_archetype=archetype_name,
             provenance="LLM activity | SERPAPI google_maps",
         )
@@ -412,7 +456,7 @@ def _build_item(
             has_specific_location=activity.has_specific_location,
             location_name=destination,
             place_found=False,
-            estimated_price_range=_BUDGET_PRICE_SYMBOL.get(budget, "$$"),
+            estimated_price_range=price_symbol,
             selected_archetype=archetype_name,
             provenance="LLM activity | no place found",
         )
@@ -426,39 +470,34 @@ def _normalize_error(code: str, message: str) -> AttractionSearchErrorModel:
     )
 
 
-def _compute_status(items: list[AttractionItemModel], errors: list[AttractionSearchErrorModel]) -> str:
-    if not items:
+def _compute_status(item: AttractionItemModel | None, errors: list[AttractionSearchErrorModel]) -> str:
+    if item is None:
         return "failed"
-    location_items = [it for it in items if it.has_specific_location]
-    all_found = all(it.place_found for it in location_items)
-    if all_found and not errors:
-        return "success"
-    return "partial"
+    if item.has_specific_location and not item.place_found:
+        return "partial"
+    if errors:
+        return "partial"
+    return "success"
 
 
 # ── Public run function ───────────────────────────────────────────────────────
 
 def run_attraction_search(
-    destination: str,
-    days: int,
-    budget: str,
-    traveller_profile: str,
+    params: AttractionParamsModel,
     model_name: str,
     temperature: float,
     config: AttractionSearchConfig,
     task_ref: str = "scratch",
 ) -> AttractionArtifactContentModel:
     errors: list[AttractionSearchErrorModel] = []
-    items: list[AttractionItemModel] = []
 
     if not config.openai_api_key:
         return AttractionArtifactContentModel(
             task_ref=task_ref,
             status="failed",
             provider="openai_embeddings+llm+serpapi_google_maps",
-            destination=destination,
-            days=days,
-            budget=budget,
+            destination=params.destination,
+            budget=params.budget,
             selected_archetype="",
             errors=[_normalize_error("missing_api_key", "OPENAI_API_KEY is not set")],
             config={"openai_api_key_set": False, "serpapi_api_key_set": bool(config.serpapi_api_key)},
@@ -466,73 +505,68 @@ def run_attraction_search(
 
     # Step 1: Select archetype
     try:
-        archetype_name, archetype = _select_archetype(traveller_profile, config)
+        archetype_name, archetype = _select_archetype(params.traveller_profile, config)
     except Exception as exc:
         return AttractionArtifactContentModel(
             task_ref=task_ref,
             status="failed",
             provider="openai_embeddings+llm+serpapi_google_maps",
-            destination=destination,
-            days=days,
-            budget=budget,
+            destination=params.destination,
+            budget=params.budget,
             selected_archetype="",
             errors=[_normalize_error("llm_error", f"Archetype embedding failed: {exc}")],
             config={"openai_api_key_set": bool(config.openai_api_key)},
         )
 
-    # Step 2: Generate activities
+    # Step 2: Generate one activity
     try:
-        activities = _generate_activities(
-            destination, days, budget, traveller_profile, archetype, model_name, temperature
-        )
+        activity = _generate_activity(params, archetype, model_name, temperature)
     except Exception as exc:
         return AttractionArtifactContentModel(
             task_ref=task_ref,
             status="failed",
             provider="openai_embeddings+llm+serpapi_google_maps",
-            destination=destination,
-            days=days,
-            budget=budget,
+            destination=params.destination,
+            budget=params.budget,
             selected_archetype=archetype_name,
             errors=[_normalize_error("llm_error", f"Activity generation failed: {exc}")],
             config={"openai_api_key_set": bool(config.openai_api_key)},
         )
 
-    # Step 3: Resolve each activity to a place
+    # Step 3: Resolve to a place via SERPAPI
+    top_candidates: list[AttractionCandidateModel] = []
+
     if not config.serpapi_api_key:
         errors.append(_normalize_error("missing_api_key", "SERPAPI_API_KEY is not set — place search skipped"))
 
-    for activity in activities:
-        if not activity.has_specific_location or not config.serpapi_api_key:
-            items.append(_build_item(activity, [], None, None, destination, budget, archetype_name))
-            continue
-
+    if activity.has_specific_location and config.serpapi_api_key:
         try:
-            candidates = _find_candidates(activity, destination, config)
+            top_candidates = _find_candidates(activity, params.destination, config)
         except Exception as exc:
-            errors.append(_normalize_error("http_error", f"Candidate search failed for '{activity.title}': {exc}"))
-            items.append(_build_item(activity, [], None, None, destination, budget, archetype_name))
-            continue
+            errors.append(_normalize_error("http_error", f"Candidate search failed: {exc}"))
 
-        if not candidates:
-            items.append(_build_item(activity, [], None, None, destination, budget, archetype_name))
-            continue
-
+    if top_candidates:
         selected, reason = _select_candidate(
-            activity, candidates, traveller_profile, model_name, temperature
+            activity,
+            top_candidates[: config.top_review_candidates],
+            params.traveller_profile,
+            model_name,
+            temperature,
         )
-        items.append(_build_item(activity, candidates, selected, reason, destination, budget, archetype_name))
+        item = _build_item(activity, selected, reason, params.destination, params.budget, archetype_name)
+    else:
+        item = _build_item(activity, None, None, params.destination, params.budget, archetype_name)
 
-    status = _compute_status(items, errors)
+    status = _compute_status(item, errors)
     return AttractionArtifactContentModel(
         task_ref=task_ref,
         status=status,  # type: ignore[arg-type]
         provider="openai_embeddings+llm+serpapi_google_maps",
-        destination=destination,
-        days=days,
-        budget=budget,
+        destination=params.destination,
+        budget=params.budget,
         selected_archetype=archetype_name,
-        items=items,
+        item=item,
+        top_candidates=top_candidates[: config.top_review_candidates],
         errors=errors,
         config={
             "openai_api_key_set": bool(config.openai_api_key),
@@ -552,54 +586,54 @@ def make_graph():
         config = load_config_from_env()
         attraction_tasks = [t for t in state.task_list if t.type == "attraction" and t.is_valid]
 
-        if not attraction_tasks and not state.destination:
+        if not attraction_tasks:
             existing = state.agent_artifacts.get("attraction_search_agent", [])
             return {"agent_artifacts": {**state.agent_artifacts, "attraction_search_agent": existing}}
 
         artifacts: list[AgentArtifactModel] = []
 
-        # If tasks are present, use task metadata; otherwise run directly from state fields
-        if attraction_tasks:
-            for task in attraction_tasks:
-                content = run_attraction_search(
-                    destination=state.destination,
-                    days=state.days,
-                    budget=state.budget,
-                    traveller_profile=state.traveller_profile,
-                    model_name=state.model_name,
-                    temperature=state.temperature,
-                    config=config,
+        for task in attraction_tasks:
+            try:
+                params = _extract_attraction_params(
+                    task.text, state.model_name, state.temperature
+                )
+            except Exception as exc:
+                err_content = AttractionArtifactContentModel(
                     task_ref=task.name,
+                    status="failed",
+                    provider="openai_embeddings+llm+serpapi_google_maps",
+                    destination="",
+                    budget=0.0,
+                    selected_archetype="",
+                    errors=[_normalize_error("parse_error", f"Parameter extraction failed: {exc}")],
+                    config={"openai_api_key_set": bool(config.openai_api_key)},
                 )
                 artifacts.append(
                     AgentArtifactModel(
                         name=task.name,
                         type="attraction-search-result",
-                        content=content.model_dump(mode="json"),
-                        description=(
-                            f"{state.destination} — {len(content.items)} activity/activities, "
-                            f"archetype: {content.selected_archetype}, status: {content.status}"
-                        ),
+                        content=err_content.model_dump(mode="json"),
+                        description=f"Attraction search failed for task '{task.name}': parameter extraction error",
                     )
                 )
-        else:
+                continue
+
             content = run_attraction_search(
-                destination=state.destination,
-                days=state.days,
-                budget=state.budget,
-                traveller_profile=state.traveller_profile,
+                params=params,
                 model_name=state.model_name,
                 temperature=state.temperature,
                 config=config,
+                task_ref=task.name,
             )
+            place_info = f"place: {content.item.location_name}" if content.item else "no item"
             artifacts.append(
                 AgentArtifactModel(
-                    name="attraction_search",
+                    name=task.name,
                     type="attraction-search-result",
                     content=content.model_dump(mode="json"),
                     description=(
-                        f"{state.destination} — {len(content.items)} activity/activities, "
-                        f"archetype: {content.selected_archetype}, status: {content.status}"
+                        f"{params.destination} day {params.day} — "
+                        f"archetype: {content.selected_archetype}, {place_info}, status: {content.status}"
                     ),
                 )
             )
@@ -624,11 +658,16 @@ if __name__ == "__main__":
     load_dotenv()
 
     config = load_config_from_env()
-    result = run_attraction_search(
+    params = AttractionParamsModel(
+        budget=80.0,
         destination="Barcelona",
-        days=3,
-        budget="medium",
         traveller_profile="solo digital nomad interested in the local startup scene, wants to blend remote work with exploration of creative and professional communities, slow pace",
+        day=1,
+        previous_activities="",
+        orchestrator_hint=None,
+    )
+    result = run_attraction_search(
+        params=params,
         model_name=config.answer_model_name,
         temperature=0.0,
         config=config,

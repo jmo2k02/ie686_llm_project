@@ -5,6 +5,15 @@ from typing import Annotated, Any, Literal
 from pydantic import BaseModel, Field
 
 
+class AttractionParamsModel(BaseModel):
+    budget: float
+    destination: str
+    traveller_profile: str
+    day: int = 1
+    previous_activities: str = ""
+    orchestrator_hint: str | None = None
+
+
 class GeneratedActivityModel(BaseModel):
     day: int
     time_slot: Annotated[Literal["morning", "afternoon", "evening"], Field(description="Half-day slot")]
@@ -17,10 +26,6 @@ class GeneratedActivityModel(BaseModel):
         bool,
         Field(description="False if the activity is inherently location-agnostic"),
     ]
-
-
-class GeneratedActivitiesResponse(BaseModel):
-    activities: list[GeneratedActivityModel]
 
 
 class AttractionCandidateModel(BaseModel):
@@ -68,7 +73,7 @@ class AttractionItemModel(BaseModel):
     # Budget + provenance
     estimated_price_range: Annotated[
         str,
-        Field(description='Price symbol from SERPAPI or budget fallback ("$"/"$$"/"$$$")'),
+        Field(description='should return a price estimation from the LLM like "20-50 EUR" based on the SERPAPI price level and the traveller budget, but can be "N/A" if no estimation possible'),
     ]
     selected_archetype: Annotated[str, Field(description="Matched archetype name, e.g. 'digital_nomad'")]
     provenance: Annotated[
@@ -94,9 +99,12 @@ class AttractionArtifactContentModel(BaseModel):
     status: Literal["success", "partial", "failed", "skipped"]
     provider: Literal["openai_embeddings+llm+serpapi_google_maps"]
     destination: str
-    days: int
-    budget: str
+    budget: float
     selected_archetype: str
-    items: list[AttractionItemModel] = Field(default_factory=list)
+    item: AttractionItemModel | None = None
+    top_candidates: list[AttractionCandidateModel] = Field(
+        default_factory=list,
+        description="Up to 3 SERPAPI candidates — routing agent may swap the committed place",
+    )
     errors: list[AttractionSearchErrorModel] = Field(default_factory=list)
     config: dict[str, Any] = Field(default_factory=dict)

@@ -29,7 +29,7 @@ from travelplanner.schema.system_state import (
 )
 from travelplanner.utils.llm import invoke_structured_model
 
-_SEARCH_URL = "https://serpapi.com/search"get_setting("agents.attraction_search.model_name")
+_SEARCH_URL = "https://serpapi.com/search"
 _EXPERIENCE_POOL_PATH = Path(__file__).parent / "experience_pool.json"
 _EXPERIENCE_POOL: list[dict[str, Any]] = json.loads(_EXPERIENCE_POOL_PATH.read_text(encoding="utf-8"))
 

@@ -1067,13 +1067,13 @@ def make_graph() -> StateGraph:
         return "finalize_constraint_output"
 
     def finalize_constraint_output(state: ConstraintIterationState) -> dict[str, Any]:
-        normalized = state.normalized_constraints
-        if not normalized:
-            normalized = []
+        # TODO Im paper prüfen ob normalized constraints besser als constraint_list ist.
         return {
             "constraint_list": [
-                *normalized
+                *state.hard_constraints,
+                *state.commonsense_constraints,
             ],
+            "normalized_constraints": state.normalized_constraints,
             "message_histories": {
                 **state.message_histories,
                 "key": _build_message_history(state.messages),
@@ -1101,6 +1101,60 @@ def make_graph() -> StateGraph:
     graph.add_edge("finalize_constraint_output", END)
 
     return graph
+
+
+def make_pipeline_graph():
+    """Non-interactive graph for automated pipelines.
+
+    Runs extraction and violation check without any LangGraph interrupts.
+    Use get_constraint_list() and get_message_history() to read results.
+    """
+    def extract_hard_constraints(state: ConstraintIterationState) -> dict[str, Any]:
+        structured_output, _, _ = invoke_structured_model(
+            model_name=state.model_name,
+            temperature=state.temperature,
+            system_prompt=EXTRACTION_SYSTEM_PROMPT,
+            user_prompt=_build_extraction_prompt(state.query, state.query_context),
+            response_model=HardConstraintExtractionResponse,
+        )
+        by_category = {ec.category: ec.value for ec in structured_output.categories}
+        hard_constraints: list[ConstraintModel] = []
+        missing_categories: list[str] = []
+        for cat in HARD_CONSTRAINT_CATEGORIES:
+            value = by_category.get(cat)
+            if value and value.strip():
+                hard_constraints.append(
+                    ConstraintModel(type="hard", text=f"{cat}: {value.strip()}", user_skipped=False)
+                )
+            else:
+                missing_categories.append(cat)
+        return {
+            "hard_constraints": hard_constraints,
+            "missing_categories": missing_categories,
+        }
+
+    def check_commonsense_violations(state: ConstraintIterationState) -> dict[str, Any]:
+        return {"violations": _run_violation_check(state)}
+
+    def enrich_hard_constraints_pipeline(state: ConstraintIterationState) -> dict[str, Any]:
+        normalized = _normalize_constraints(
+            state.hard_constraints, state.model_name, state.temperature
+        )
+        return {"normalized_constraints": normalized}
+
+    graph = StateGraph(ConstraintIterationState)
+    graph.add_node("extract_hard_constraints", extract_hard_constraints)
+    graph.add_node("check_commonsense_violations", check_commonsense_violations)
+    graph.add_node("enrich_hard_constraints", enrich_hard_constraints_pipeline)
+    graph.add_node("build_artifact", _build_artifact_node)
+    graph.add_node("finalize_constraint_output", finalize_constraint_output)
+
+    graph.set_entry_point("extract_hard_constraints")
+    graph.add_edge("extract_hard_constraints", "check_commonsense_violations")
+    graph.add_edge("check_commonsense_violations", "enrich_hard_constraints")
+    graph.add_edge("enrich_hard_constraints", "build_artifact")
+    graph.add_edge("build_artifact", END)
+    return graph.compile()
 
 
 def get_constraint_list(state: dict[str, Any]) -> list[ConstraintModel]:

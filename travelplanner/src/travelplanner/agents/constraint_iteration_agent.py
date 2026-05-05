@@ -6,7 +6,6 @@ from dataclasses import dataclass
 from datetime import date
 from typing import Any, Literal
 
-from langgraph.checkpoint.memory import MemorySaver
 from langgraph.graph import END, StateGraph
 from langgraph.types import interrupt
 from pydantic import BaseModel, Field, field_validator
@@ -17,7 +16,6 @@ from travelplanner.schema.constraint_artifact import ConstraintArtifactContentMo
 from travelplanner.schema.normalized_constraints import NormalizedConstraints, TravelersNormalized
 from travelplanner.schema.system_state import AgentArtifactModel, ConstraintModel, MessageHistoryModel
 from travelplanner.utils.llm import invoke_structured_model
-
 
 # ── Constants ────────────────────────────────────────────────────────────────
 
@@ -148,20 +146,52 @@ def load_config_from_env() -> ConstraintAgentConfig:
 _CONSTRAINT_AGENT_DEFS = get_constraints_for("constraint_agent")
 _HEURISTIC_CONSTRAINT_DEFS = [c for c in _CONSTRAINT_AGENT_DEFS if c.check_type == "heuristic"]
 
-_SKIP_TOKENS: frozenset[str] = frozenset({
-    "", "skip", "s", "no", "nein", "n", "nope", "egal",
-    "doesn't matter", "doesnt matter", "don't care", "dont care",
-    "not applicable", "na", "n/a", "none", "nothing",
-})
+_SKIP_TOKENS: frozenset[str] = frozenset(
+    {
+        "",
+        "skip",
+        "s",
+        "no",
+        "nein",
+        "n",
+        "nope",
+        "egal",
+        "doesn't matter",
+        "doesnt matter",
+        "don't care",
+        "dont care",
+        "not applicable",
+        "na",
+        "n/a",
+        "none",
+        "nothing",
+    }
+)
 
-_CONFIRM_TOKENS: frozenset[str] = frozenset({
-    "ok", "yes", "ja", "y", "correct", "fine", "sure",
-    "sounds good", "confirmed", "confirm", "good", "great",
-    "looks good", "looks correct", "that's right", "thats right",
-})
+_CONFIRM_TOKENS: frozenset[str] = frozenset(
+    {
+        "ok",
+        "yes",
+        "ja",
+        "y",
+        "correct",
+        "fine",
+        "sure",
+        "sounds good",
+        "confirmed",
+        "confirm",
+        "good",
+        "great",
+        "looks good",
+        "looks correct",
+        "that's right",
+        "thats right",
+    }
+)
 
 
 # ── State ────────────────────────────────────────────────────────────────────
+
 
 class ViolationModel(BaseModel):
     violated_constraint: str
@@ -171,7 +201,9 @@ class ViolationModel(BaseModel):
 
 class ConstraintIterationState(BaseModel):
     query: str
-    model_name: str
+    message_histories: dict[str, dict] = {}
+    constraint_list: list[ConstraintModel]
+    model_name: str = get_setting("models.workflows.task_planning.model_name")
     temperature: float = 0.0
 
     query_context: str = ""
@@ -237,6 +269,7 @@ Rules:
 
 # ── LLM response models ──────────────────────────────────────────────────────
 
+
 class SpellCorrectionItem(BaseModel):
     original: str
     corrected: str
@@ -294,6 +327,7 @@ class ConstraintViolationCheckResponse(BaseModel):
 
 
 # ── Prompt helpers ───────────────────────────────────────────────────────────
+
 
 def _build_extraction_prompt(query: str, query_context: str) -> str:
     category_schema = json.dumps(
@@ -359,10 +393,14 @@ def _build_violation_check_prompt(
     lines += [
         "",
         "Currently extracted hard constraints (already reflect the latest corrections):",
-        json.dumps([c.model_dump() for c in hard_constraints], indent=2, ensure_ascii=True),
+        json.dumps(
+            [c.model_dump() for c in hard_constraints], indent=2, ensure_ascii=True
+        ),
         "",
         "Commonsense constraints to check against:",
-        json.dumps([c.text for c in commonsense_constraints], indent=2, ensure_ascii=True),
+        json.dumps(
+            [c.text for c in commonsense_constraints], indent=2, ensure_ascii=True
+        ),
         "",
         "Return strictly valid JSON with this shape (include ONLY violated constraints):",
         '{"violations": [{"violated_constraint": "...", '
@@ -388,7 +426,9 @@ def _format_violation_message(violations: list[ViolationModel]) -> str:
     return "\n".join(lines)
 
 
-def _format_options_question(category: str, options: dict[str, str], error: str = "") -> str:
+def _format_options_question(
+    category: str, options: dict[str, str], error: str = ""
+) -> str:
     label = category.replace("_", " ").capitalize()
     lines = []
     if error:
@@ -456,7 +496,7 @@ def _spell_check_with_context(
     summary = ", ".join(f"'{c.original}' → '{c.corrected}'" for c in result.corrections)
     msg = (
         f"Possible typo(s) detected: {summary}\n"
-        f"Corrected text: \"{corrected}\"\n"
+        f'Corrected text: "{corrected}"\n'
         "Accept correction? (ok / skip)"
     )
     return corrected, msg
@@ -667,6 +707,33 @@ def _build_message_history(messages: list[dict]) -> MessageHistoryModel:
     )
 
 
+# ── Response helpers ─────────────────────────────────────────────────────────
+
+_FALSE_POSITIVE_PHRASES: frozenset[str] = frozenset(
+    {
+        "there are no violations",
+        "no violation",
+        "is valid",
+        "is correct",
+        "is in the future",
+        "which is valid",
+        "which is correct",
+        "are no violations",
+        "not a violation",
+        "is not violated",
+        "does not violate",
+        "is satisfied",
+        "are satisfied",
+    }
+)
+
+
+def _is_false_positive(violation: ViolationModel) -> bool:
+    """Returns True if the LLM explanation itself says the constraint is actually fine."""
+    explanation_lower = violation.explanation.lower()
+    return any(phrase in explanation_lower for phrase in _FALSE_POSITIVE_PHRASES)
+
+
 def _is_skip(text: str) -> bool:
     return text.strip().lower() in _SKIP_TOKENS
 
@@ -704,7 +771,8 @@ def _build_artifact_node(state: ConstraintIterationState) -> dict[str, Any]:
 
 # ── Graph ────────────────────────────────────────────────────────────────────
 
-def make_graph():
+
+def make_graph() -> StateGraph:
     def extract_hard_constraints(state: ConstraintIterationState) -> dict[str, Any]:
         updates: dict[str, Any] = {}
 
@@ -797,12 +865,23 @@ def make_graph():
 
             # Detect retry: last assistant message was an options question for this category
             last_assistant = next(
-                (m["content"] for m in reversed(state.messages) if m["role"] == "assistant"),
+                (
+                    m["content"]
+                    for m in reversed(state.messages)
+                    if m["role"] == "assistant"
+                ),
                 "",
             )
             error_prefix = ""
-            if category.replace("_", " ").capitalize() in last_assistant and "please choose" in last_assistant:
-                error_prefix = "Invalid input. Please enter one of: " + ", ".join(valid_letters) + "."
+            if (
+                category.replace("_", " ").capitalize() in last_assistant
+                and "please choose" in last_assistant
+            ):
+                error_prefix = (
+                    "Invalid input. Please enter one of: "
+                    + ", ".join(valid_letters)
+                    + "."
+                )
 
             question = _format_options_question(category, options, error=error_prefix)
             messages = [*state.messages, {"role": "assistant", "content": question}]
@@ -975,7 +1054,9 @@ def make_graph():
     def _route_after_present_hard(state: ConstraintIterationState) -> str:
         if state.phase == "extract":
             return "extract_hard_constraints"
-        if state.missing_categories and state.category_index < len(state.missing_categories):
+        if state.missing_categories and state.category_index < len(
+            state.missing_categories
+        ):
             return "ask_missing_category"
         return "check_commonsense_violations"
 
@@ -983,6 +1064,19 @@ def make_graph():
         if state.category_index < len(state.missing_categories):
             return "ask_missing_category"
         return "check_commonsense_violations"
+        return "finalize_constraint_output"
+
+    def finalize_constraint_output(state: ConstraintIterationState) -> dict[str, Any]:
+        return {
+            "constraint_list": [
+                *state.hard_constraints,
+                *state.commonsense_constraints,
+            ],
+            "message_histories": {
+                **state.message_histories,
+                "key": _build_message_history(state.messages),
+            },
+        }
 
     graph = StateGraph(ConstraintIterationState)
     graph.add_node("extract_hard_constraints", extract_hard_constraints)
@@ -992,6 +1086,7 @@ def make_graph():
     graph.add_node("ask_missing_category", ask_missing_category)
     graph.add_node("enrich_hard_constraints", enrich_hard_constraints)
     graph.add_node("build_artifact", _build_artifact_node)
+    graph.add_node("finalize_constraint_output", finalize_constraint_output)
 
     graph.set_entry_point("extract_hard_constraints")
     graph.add_conditional_edges("extract_hard_constraints", _route_after_extract)
@@ -1000,9 +1095,10 @@ def make_graph():
     graph.add_conditional_edges("present_hard_constraints", _route_after_present_hard)
     graph.add_conditional_edges("ask_missing_category", _route_after_missing)
     graph.add_edge("enrich_hard_constraints", "build_artifact")
-    graph.add_edge("build_artifact", END)
+    graph.add_edge("build_artifact", "finalize_constraint_output")
+    graph.add_edge("finalize_constraint_output", END)
 
-    return graph.compile(checkpointer=MemorySaver())
+    return graph
 
 
 def make_pipeline_graph():
@@ -1049,6 +1145,8 @@ def make_pipeline_graph():
     graph.add_node("check_commonsense_violations", check_commonsense_violations)
     graph.add_node("enrich_hard_constraints", enrich_hard_constraints_pipeline)
     graph.add_node("build_artifact", _build_artifact_node)
+    graph.add_node("finalize_constraint_output", finalize_constraint_output)
+
     graph.set_entry_point("extract_hard_constraints")
     graph.add_edge("extract_hard_constraints", "check_commonsense_violations")
     graph.add_edge("check_commonsense_violations", "enrich_hard_constraints")

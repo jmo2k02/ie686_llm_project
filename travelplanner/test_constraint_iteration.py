@@ -19,8 +19,10 @@ load_dotenv(Path(__file__).parent.parent / ".env")
 
 from langgraph.types import Command
 
+from travelplanner.utils.checkpoint import make_memory_checkpointer
 from travelplanner.agents.constraint_iteration_agent import (
     ConstraintIterationState,
+    ViolationModel,
     get_constraint_list,
     get_message_history,
     make_graph,
@@ -138,7 +140,9 @@ def _print_summary(result: dict) -> None:
 
 
 def run_interactive(query: str, model_name: str = "openai:gpt-4o-mini") -> None:
-    graph = make_graph()
+    graph = make_graph().compile(
+        checkpointer=make_memory_checkpointer(extra_allowed_types=[ViolationModel])
+    )
     config = {"configurable": {"thread_id": str(uuid.uuid4())}}
 
     print("\n" + "=" * 60)

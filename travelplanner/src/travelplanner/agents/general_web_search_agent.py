@@ -24,7 +24,8 @@ from travelplanner.schema.system_state import (
     MessageHistoryModel,
     TaskModel,
 )
-from travelplanner.utils.llm import make_chat_model
+from travelplanner.utils.llm import extract_token_usage, make_chat_model
+from travelplanner.utils.runtime_monitor import record_llm_call, record_tool_call
 
 
 SearchDepth = Literal["basic", "advanced", "fast", "ultra-fast"]
@@ -537,6 +538,15 @@ def _search_tavily(
     search_depth: SearchDepth,
     include_answer: bool,
 ) -> dict[str, Any]:
+    record_tool_call(
+        tool_name="tavily_search",
+        args={
+            "query": query,
+            "max_results": max_results,
+            "search_depth": search_depth,
+            "include_answer": include_answer,
+        },
+    )
     try:
         api_key = os.getenv("TAVILY_API_KEY", "").strip()
         if not api_key:
@@ -590,6 +600,13 @@ def _extract_full_content(
     """
     if not urls:
         return []
+    record_tool_call(
+        tool_name="tavily_extract",
+        args={
+            "url_count": len(urls),
+            "extract_depth": extract_depth,
+        },
+    )
     try:
         api_key = os.getenv("TAVILY_API_KEY", "").strip()
         if not api_key:
@@ -650,6 +667,12 @@ def _synthesize_answer_with_model(
                 SystemMessage(content=system_prompt),
                 HumanMessage(content=_build_answer_prompt(query, result, instruction)),
             ]
+        )
+        tokens_in, tokens_out = extract_token_usage(response)
+        record_llm_call(
+            model_name=model_name,
+            tokens_in=tokens_in,
+            tokens_out=tokens_out,
         )
         return {
             "ok": True,
@@ -856,6 +879,12 @@ Return ONLY the JSON array, no markdown, no code fences, no preamble."""
                 SystemMessage(content=system_prompt),
                 HumanMessage(content=user_prompt),
             ]
+        )
+        tokens_in, tokens_out = extract_token_usage(response)
+        record_llm_call(
+            model_name=model_name,
+            tokens_in=tokens_in,
+            tokens_out=tokens_out,
         )
         raw = str(response.content).strip()
         if raw.startswith("```"):
@@ -1097,6 +1126,12 @@ Output as JSON list:
             temperature=temperature,
         )
         response = model.invoke([HumanMessage(content=analysis_prompt)])
+        tokens_in, tokens_out = extract_token_usage(response)
+        record_llm_call(
+            model_name=model_name,
+            tokens_in=tokens_in,
+            tokens_out=tokens_out,
+        )
         content = str(response.content).strip()
 
         # Try to extract JSON from response
@@ -1129,7 +1164,7 @@ Output as JSON list:
         return []
 
 
-def make_graph():
+def make_graph() -> StateGraph:
     config = load_config_from_env()
     model_ref = (
         f"tavily+{config.answer_model_name}" if config.answer_model_name else "tavily"
@@ -1487,4 +1522,4 @@ def make_graph():
     graph.add_node("general_web_search_agent", search_node)
     graph.set_entry_point("general_web_search_agent")
     graph.add_edge("general_web_search_agent", END)
-    return graph.compile()
+    return graph

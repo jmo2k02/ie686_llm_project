@@ -28,7 +28,7 @@ class TestRetryAndStatus(unittest.TestCase):
                 },
             ) as mock_search:
                 graph = make_graph()
-                result = graph.invoke(
+                result = graph.compile().invoke(
                     {
                         "query": "Plan me a trip",
                         "task_list": [
@@ -77,7 +77,7 @@ class TestRetryAndStatus(unittest.TestCase):
                     return_value={"ok": True, "model": "m", "text": "- x"},
                 ):
                     graph = make_graph()
-                    result = graph.invoke(
+                    result = graph.compile().invoke(
                         {
                             "query": "Plan me a trip",
                             "task_list": [

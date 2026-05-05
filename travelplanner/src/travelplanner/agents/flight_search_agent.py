@@ -26,14 +26,15 @@ from travelplanner.schema.system_state import (
     TaskModel,
 )
 from travelplanner.utils.llm import invoke_structured_model
+from travelplanner.config import get_setting
 
 # search URL specified downstream in def_search_flights() as "https://serpapi.com/search"
-_SEARCH_URL = "https://serpapi.com/search"
-_DEFAULT_CURRENCY = "EUR"
-_DEFAULT_LANGUAGE = "en"
-_DEFAULT_ADULTS = 1
-_DEFAULT_TIMEOUT_SECONDS = 30
-_DEFAULT_MAX_RESULTS = 3
+_SEARCH_URL = get_setting("agents.flight_search.search_url")
+_DEFAULT_CURRENCY = get_setting("agents.flight_search.currency")
+_DEFAULT_LANGUAGE = get_setting("agents.flight_search.language")
+_DEFAULT_ADULTS = get_setting("agents.flight_search.default_adults")
+_DEFAULT_TIMEOUT_SECONDS = get_setting("agents.flight_search.timeout_seconds")
+_DEFAULT_MAX_RESULTS = get_setting("agents.flight_search.max_results")
 
 _PARAM_EXTRACTION_SYSTEM_PROMPT = """You are a flight parameter extractor for a travel planning assistant.
 

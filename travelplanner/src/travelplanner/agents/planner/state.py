@@ -6,6 +6,7 @@ shapes parsed from planner and reviewer prompts.
 
 from pydantic import BaseModel, Field
 
+from travelplanner.schema.normalized_constraints import NormalizedConstraints
 from travelplanner.schema.system_state import (
     ConstraintModel,
     TaskModel,
@@ -16,6 +17,8 @@ from travelplanner.schema.system_state import (
 class PlannerAgentState(BaseModel):
     query: str
     constraint_list: list[ConstraintModel] = Field(default_factory=list)
+    # TODO integrate this new attribute into task generation
+    normalized_constraints: NormalizedConstraints | None = None
     task_list: list[TaskModel] = Field(default_factory=list)
     message_histories: dict[str, MessageHistoryModel] = Field(default_factory=dict)
     planner_review_feedback: str | None = None

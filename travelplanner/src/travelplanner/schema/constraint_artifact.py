@@ -4,9 +4,15 @@ from typing import Annotated, Literal
 
 from pydantic import BaseModel, Field
 
+from travelplanner.schema.normalized_constraints import NormalizedConstraints
+
 
 class ConstraintArtifactContentModel(BaseModel):
     query: Annotated[str, Field(description="Original user query")]
+    corrected_query: Annotated[
+        str,
+        Field(default="", description="Spell-corrected version of the user query (same as query if no corrections)"),
+    ]
     status: Literal["success", "partial"]
     hard_constraints: Annotated[
         list[dict],
@@ -40,4 +46,5 @@ class ConstraintArtifactContentModel(BaseModel):
             description="Number of user input turns in the interactive flow",
         ),
     ]
+    normalized_constraints: NormalizedConstraints | None = None
     model: str | None = None

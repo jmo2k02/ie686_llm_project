@@ -54,9 +54,16 @@ def _print_summary(result: dict) -> None:
         print(f"\n{SEP}")
         print("ARTIFACT — constraint-extraction-result")
         print(SEP)
-        print(f"  Status   : {content_raw['status']}")
-        print(f"  Model    : {content_raw.get('model') or '—'}")
-        print(f"  Turns    : {content_raw.get('interaction_turns', 0)}")
+        print(f"  Status         : {content_raw['status']}")
+        print(f"  Model          : {content_raw.get('model') or '—'}")
+        print(f"  Turns          : {content_raw.get('interaction_turns', 0)}")
+        original_q = content_raw.get("query", "")
+        corrected_q = content_raw.get("corrected_query", "")
+        if corrected_q and corrected_q != original_q:
+            print(f"  Original query : {original_q}")
+            print(f"  Corrected query: {corrected_q}")
+        else:
+            print(f"  Query          : {original_q}")
 
         print(f"\n{THIN}")
         print("  Hard constraints")
@@ -77,6 +84,43 @@ def _print_summary(result: dict) -> None:
             print(f"\n  Categories missing    : {', '.join(missing)}")
         if skipped_cats:
             print(f"  Skipped by user       : {', '.join(skipped_cats)}")
+
+        nc = content_raw.get("normalized_constraints")
+        if nc:
+            print(f"\n{THIN}")
+            print("  Normalized constraints")
+            print(THIN)
+            t = nc.get("travelers", {})
+            travelers_str = (
+                f"Adults: {t.get('adults', 1)}"
+                f", Children <6: {t.get('children_under_6', 0)}"
+                f", Children 6-16: {t.get('children_6_to_16', 0)}"
+            )
+            budget_str = (
+                f"{nc.get('budget_amount')} {nc.get('budget_currency') or ''}".strip()
+                if nc.get("budget_amount") is not None else "—"
+            )
+            rows = [
+                ("Destination",          nc.get("destination")),
+                ("Origin",               nc.get("origin")),
+                ("Dates",                f"{nc.get('date_from')} → {nc.get('date_to')}" if nc.get("date_from") else None),
+                ("Travelers",            travelers_str),
+                ("Budget",               budget_str),
+                ("Accommodation",        nc.get("accommodation")),
+                ("Transport",            nc.get("transport")),
+                ("Interests",            nc.get("interests")),
+                ("Dest. country",        nc.get("destination_country")),
+                ("Dest. country code",   nc.get("destination_country_code")),
+                ("Dest. currency",       nc.get("destination_currency")),
+                ("Dest. timezone",       nc.get("destination_timezone")),
+                ("Dest. language",       nc.get("destination_language")),
+                ("Origin country",       nc.get("origin_country")),
+                ("Origin country code",  nc.get("origin_country_code")),
+                ("Origin currency",      nc.get("origin_currency")),
+            ]
+            for label, value in rows:
+                if value is not None:
+                    print(f"  {label:<22}: {value}")
 
     # ── Final constraint list ─────────────────────────────────────
     constraints = get_constraint_list(result)
@@ -122,7 +166,19 @@ if __name__ == "__main__":
     print("\n" + "=" * 60)
     print("TravelPlanner — Constraint Iteration Agent")
     print("=" * 60)
-    print("Describe your trip (press Enter twice when done):\n")
+    print("Describe your trip (press Enter twice when done).")
+    print()
+    print("Tips — the more you share, the better:")
+    print("  • Where are you going?")
+    print("  • Where are you traveling from?")
+    print("  • When? (start and end date)")
+    print("  • How many people are traveling?")
+    print("  • What's your budget?")
+    print("  • How do you plan to get there? (flight, train, car...)")
+    print("  • Where will you stay? (hotel, Airbnb, hostel...)")
+    print("  • What are your interests? (beach, museums, hiking, food, nightlife...)")
+    print("  • Preferred pace? (relaxed, moderate, intensive)")
+    print()
 
     lines = []
     while True:

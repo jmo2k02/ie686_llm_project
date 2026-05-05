@@ -9,6 +9,9 @@ agents:
     model_name: "gpt-5.4-nano-2026-03-17"
     temperature: 0.0
 
+  attraction_search:
+    model_name: xx
+
   planner:
     model_name: "gpt-5.4-nano-2026-03-17"
     reviewer_model: "gpt-5.4-nano-2026-03-17"
@@ -18,6 +21,10 @@ agents:
     max_reviews: 3
     temperature: 0.0
     reviewer_temp: 0.0
+
+  execution:
+    model_name: "gpt-5.4-nano-2026-03-17"
+    
 
   general_web_search:
     provider: "tavily"

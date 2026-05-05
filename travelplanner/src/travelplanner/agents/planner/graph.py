@@ -11,8 +11,9 @@ from typing import Any
 
 from langgraph.graph import END, StateGraph
 from langgraph.types import interrupt
+from pydantic import BaseModel, Field
 
-from travelplanner.agents.planner.config import MAX_REVIEW_ATTEMPTS
+from travelplanner.agents.planner import config
 from travelplanner.agents.planner.constants import (
     PLANNER_HISTORY_KEY,
     PLANNER_REVIEWER_HISTORY_KEY,
@@ -24,18 +25,39 @@ from travelplanner.agents.planner.prompts import (
     build_planner_prompt,
     build_reviewer_prompt,
 )
-from travelplanner.agents.planner.state import (
-    PlannerAgentState,
-    PlanningResponse,
-    ReviewResponse,
-)
 from travelplanner.agents.planner.validation import (
     normalize_tasks,
     review_feedback_text,
     validate_task_list,
 )
+from travelplanner.schema.system_state import (
+    ConstraintModel,
+    TaskModel,
+    MessageHistoryModel,
+)
 from travelplanner.config import get_setting
 from travelplanner.utils.llm import invoke_structured_model
+
+
+class PlannerAgentState(BaseModel):
+    query: str
+    constraint_list: list[ConstraintModel] = Field(default_factory=list)
+    task_list: list[TaskModel] = Field(default_factory=list)
+    message_histories: dict[str, MessageHistoryModel] = Field(default_factory=dict)
+    planner_review_feedback: str | None = None
+    planner_review_attempts: int = 0
+    planner_approved: bool = False
+    review_summary: str | None = None
+
+
+class PlanningResponse(BaseModel):
+    tasks: list[TaskModel] = Field(default_factory=list)
+
+
+class ReviewResponse(BaseModel):
+    approved_task_list: list[TaskModel] = Field(default_factory=list)
+    review_summary: str | None = None
+
 
 
 def planner_node(
@@ -138,7 +160,7 @@ def reviewer_node(
 
 
 def route_after_review(state: PlannerAgentState) -> str:
-    if state.planner_approved or state.planner_review_attempts >= MAX_REVIEW_ATTEMPTS:
+    if state.planner_approved or state.planner_review_attempts >= config.MAX_REVIEW_ATTEMPTS:
         return "finalize_planner_output"
     return "planner_draft"
 
@@ -172,16 +194,16 @@ def make_graph(
         "planner_draft",
         lambda state: planner_node(
             state,
-            model_name=effective_model_name,
-            temperature=effective_temperature,
+            model_name=config.MODEL_NAME,
+            temperature=config.TEMPERATURE,
         ),
     )
     graph.add_node(
         "reviewer_agent",
         lambda state: reviewer_node(
             state,
-            model_name=effective_model_name,
-            temperature=effective_temperature,
+            model_name=config.REVIEWER_MODEL_NAME,
+            temperature=config.REVIEWER_TEMP,
         ),
     )
     graph.add_node("finalize_planner_output", finalize_output)

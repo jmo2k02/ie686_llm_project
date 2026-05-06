@@ -46,7 +46,7 @@ ALL_COMMONSENSE_CONSTRAINT_DEFS: list[CommonsenseConstraintDef] = [
         check_type="deterministic",
     ),
     CommonsenseConstraintDef(
-        text="Transport mode must be compatible with the destination (e.g. no driving to an island or overseas destination).",
+        text="Car or road trip transport is not feasible for island or overseas destinations — a flight or ferry is required.",
         checked_by="constraint_agent",
         required_categories=frozenset({"transport", "destination"}),
         check_type="heuristic",

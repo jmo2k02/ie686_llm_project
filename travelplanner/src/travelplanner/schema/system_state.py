@@ -2,7 +2,7 @@ from typing import Annotated, Literal, get_args, get_origin
 from pydantic import BaseModel, Field
 
 from travelplanner.schema.calender import CalenderModel
-
+from travelplanner.schema.normalized_constraints import NormalizedConstraints
 
 class MessageHistoryModel(BaseModel):
     """"""
@@ -115,6 +115,7 @@ class StateContractModel(BaseModel):
         ),
     ]
     constraint_list: Annotated[list[ConstraintModel], Field(default_factory=list)]
+    normalized_constraints: NormalizedConstraints | None = None
     task_list: Annotated[list[TaskModel], Field(default_factory=list)]
     timetable: Annotated[
         CalenderModel | None,

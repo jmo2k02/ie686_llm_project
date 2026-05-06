@@ -8,11 +8,12 @@ from typing import Any, Literal
 
 from langgraph.graph import END, StateGraph
 from langgraph.types import interrupt
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 from travelplanner.config import get_setting
 from travelplanner.schema.commonsense_constraints import COMMONSENSE_CONSTRAINTS, get_constraints_for
 from travelplanner.schema.constraint_artifact import ConstraintArtifactContentModel
+from travelplanner.schema.normalized_constraints import NormalizedConstraints, TravelersNormalized
 from travelplanner.schema.system_state import AgentArtifactModel, ConstraintModel, MessageHistoryModel
 from travelplanner.utils.llm import invoke_structured_model
 
@@ -20,11 +21,13 @@ from travelplanner.utils.llm import invoke_structured_model
 
 HARD_CONSTRAINT_CATEGORIES: list[str] = [
     "destination",
+    "origin",
     "travel_dates",
+    "travelers",
     "budget",
     "accommodation",
     "transport",
-    "purpose",
+    "interests",
 ]
 
 CATEGORY_QUESTIONS: dict[str, str] = {
@@ -32,54 +35,62 @@ CATEGORY_QUESTIONS: dict[str, str] = {
         "You didn't mention a destination. Where would you like to travel? "
         "(or type 'skip' if not yet decided)"
     ),
+    "origin": (
+        "Where are you traveling from? (city or country, e.g. 'Munich', 'Netherlands') "
+        "(or 'skip')"
+    ),
     "travel_dates": (
         "No travel dates were specified. When do you plan to travel? "
         "Please provide a start and end date. (or 'skip')"
+    ),
+    "travelers": (
+        "How many people are traveling? Include ages for children if applicable, "
+        "e.g. '2 adults' or '2 adults, 1 child age 6'. (or 'skip', default is 1 adult)"
     ),
     "budget": (
         "No budget was mentioned. Do you have a maximum budget in mind? "
         "(or 'skip' if you don't)"
     ),
+    "interests": (
+        "What are your travel interests and style? "
+        "Feel free to mention things like: sporty, art & culture, nature, relaxation, "
+        "nightlife, food, adventurous, competitive activities... "
+        "Also mention your preferred pace (relaxed / moderate / intensive) "
+        "and whether you like engaging deeply with locals or prefer a more independent experience. "
+        "(or 'skip')"
+    ),
+    "accommodation": (
+        "Any specific hotel preferences? E.g. city centre location, near the beach, "
+        "with pool, luxury, budget-friendly, family-friendly. "
+        "(or 'skip' — we'll book a standard hotel)"
+    ),
 }
 
 STRUCTURED_OPTIONS: dict[str, dict[str, str]] = {
-    "accommodation": {
-        "a": "Hotel",
-        "b": "Airbnb / Vacation rental",
-        "c": "Hostel",
-        "d": "Apartment",
-        "e": "Resort",
-        "f": "Other / No preference",
-    },
     "transport": {
         "a": "Flight",
-        "b": "Train",
-        "c": "Car / Road trip",
-        "d": "Bus / Coach",
-        "e": "Other / No preference",
-    },
-    "purpose": {
-        "a": "Leisure / Vacation",
-        "b": "Business",
-        "c": "Honeymoon / Romance",
-        "d": "Family trip",
-        "e": "Adventure / Backpacking",
-        "f": "Other",
+        "b": "Car / Road trip",
+        "c": "Other / No preference",
     },
 }
 
 EXTRACTION_SYSTEM_PROMPT = """You are the TravelPlanner constraint extraction agent.
 
-Extract hard constraints directly from the user's travel request.
+For EACH of the 8 travel categories listed in the prompt, extract the relevant constraint
+value from the user's request. Return null for any category that is genuinely not
+mentioned or implied.
 
 Rules:
-- Return JSON only.
-- Use the schema exactly.
-- Extract only what the user explicitly states or strongly implies.
-- For missing_categories, list only those from the provided category list that you could NOT find in the request.
-- Do not invent destinations, dates, budgets, or preferences not present in the request.
-- If the user has provided corrections, the corrections are the authoritative source and OVERRIDE any conflicting information from the original request.
-- Always use the current date provided in the prompt to assess temporal constraints.
+- Return JSON only. Use the schema exactly.
+- Evaluate ALL 8 categories — never omit a category from the response.
+- Extract only what the user explicitly states or strongly implies. Do not invent values.
+- If the user has provided corrections, those are authoritative and override the original request.
+- Always use the current date provided in the prompt for temporal context.
+- For 'interests': include travel interests, activities, and pace preference.
+- For 'travelers': include count and relevant details (ages, relationships).
+- For 'accommodation': include type and any specific preferences mentioned.
+- For 'transport': include mode and details (direct, class, etc.).
+- The 'value' field MUST always be a plain string or null. Never use nested objects or arrays.
 """
 
 VIOLATION_CHECK_SYSTEM_PROMPT = """You are the TravelPlanner constraint validation agent.
@@ -196,6 +207,7 @@ class ConstraintIterationState(BaseModel):
     temperature: float = 0.0
 
     query_context: str = ""
+    corrected_query: str = ""
     phase: Literal["extract", "missing"] = "extract"
 
     hard_constraints: list[ConstraintModel] = Field(default_factory=list)
@@ -211,6 +223,8 @@ class ConstraintIterationState(BaseModel):
     violations: list[ViolationModel] = Field(default_factory=list)
     violation_correction_mode: bool = False
 
+    normalized_constraints: NormalizedConstraints | None = None
+
     messages: list[dict] = Field(default_factory=list)
     agent_artifacts: dict[str, list[AgentArtifactModel]] = Field(default_factory=dict)
 
@@ -218,6 +232,25 @@ class ConstraintIterationState(BaseModel):
 TRIP_SUMMARY_SYSTEM_PROMPT = """Extract structured trip data from travel constraints.
 Return only ISO 8601 dates (YYYY-MM-DD), numbers, and plain strings. Use null for any field not present.
 Return JSON only. Do not add explanation."""
+
+NORMALIZATION_SYSTEM_PROMPT = """You are a travel constraint normalization agent.
+
+Given a list of collected travel constraints, normalize them into a strict structured format.
+
+Rules:
+- Return JSON only. Use the schema exactly.
+- Dates: YYYY.MM.DD format (use dots, not dashes).
+- Travelers: break down into adults, children_under_6, children_6_to_16. Default 1 adult if unspecified.
+- Transport: normalize to exactly one of "Flight", "Car", or "No Preference".
+- Budget: split into budget_amount (number) and budget_currency (ISO 4217 code).
+  Infer currency from origin country if not stated (e.g. Germany → EUR, UK → GBP, US → USD).
+- Destination/origin derived fields: infer from the place names with confidence.
+  destination_country_code: ISO 3166-1 alpha-2. destination_currency: ISO 4217.
+  destination_timezone: IANA identifier (e.g. "Europe/Madrid").
+  destination_language: primary official language.
+  origin_country_code: ISO 3166-1 alpha-2. origin_currency: ISO 4217.
+- Use null for any field that cannot be determined with confidence.
+"""
 
 SPELL_CHECK_SYSTEM_PROMPT = """You are a spell-check assistant for a travel planning application.
 
@@ -247,9 +280,36 @@ class SpellCheckResponse(BaseModel):
     corrected_text: str
 
 
+def _flatten_to_str(obj: object) -> str | None:
+    """Recursively flatten any LLM value (str, dict, list, scalar) to a plain string."""
+    if obj is None:
+        return None
+    if isinstance(obj, str):
+        return obj.strip() or None
+    parts: list[str] = []
+    if isinstance(obj, (int, float, bool)):
+        parts = [str(obj)]
+    elif isinstance(obj, list):
+        parts = [s for item in obj for s in [_flatten_to_str(item)] if s]
+    elif isinstance(obj, dict):
+        parts = [s for v in obj.values() for s in [_flatten_to_str(v)] if s]
+    else:
+        parts = [str(obj)]
+    return ", ".join(parts) or None
+
+
+class ExtractedCategory(BaseModel):
+    category: str
+    value: str | None = None
+
+    @field_validator("value", mode="before")
+    @classmethod
+    def coerce_value_to_str(cls, v: object) -> str | None:
+        return _flatten_to_str(v)
+
+
 class HardConstraintExtractionResponse(BaseModel):
-    constraints: list[ConstraintModel] = Field(default_factory=list)
-    missing_categories: list[str] = Field(default_factory=list)
+    categories: list[ExtractedCategory] = Field(default_factory=list)
 
 
 class TripSummary(BaseModel):
@@ -264,12 +324,18 @@ class ConstraintViolationCheckResponse(BaseModel):
     violations: list[ViolationModel] = Field(default_factory=list)
 
 
+
+
 # ── Prompt helpers ───────────────────────────────────────────────────────────
 
 
 def _build_extraction_prompt(query: str, query_context: str) -> str:
+    category_schema = json.dumps(
+        [{"category": c, "value": "<extracted text or null>"} for c in HARD_CONSTRAINT_CATEGORIES],
+        indent=2,
+    )
     lines = [
-        "Extract hard constraints from the travel request below.",
+        "Extract travel constraints from the request below.",
         "",
         f"Today's date: {date.today().isoformat()}",
         "",
@@ -278,17 +344,16 @@ def _build_extraction_prompt(query: str, query_context: str) -> str:
     if query_context:
         lines += [
             "",
-            "User corrections (these are the authoritative, up-to-date values — "
-            "they override any conflicting information in the original request):",
+            "User corrections (authoritative — override the original request):",
             query_context.strip(),
         ]
     lines += [
         "",
-        f"Category list to check: {json.dumps(HARD_CONSTRAINT_CATEGORIES)}",
+        "For EACH of the 8 categories below, provide the extracted value or null.",
+        "You MUST include all 8 categories in the response.",
         "",
-        "Return strictly valid JSON with this shape:",
-        '{"constraints": [{"type": "hard", "text": "...", "user_skipped": false}], '
-        '"missing_categories": ["destination", "travel_dates"]}',
+        "Return strictly valid JSON:",
+        f'{{"categories": {category_schema}}}',
     ]
     return "\n".join(lines)
 
@@ -543,12 +608,22 @@ def _check_deterministic_violations(ts: TripSummary) -> list[ViolationModel]:
 
 
 def _check_heuristic_violations(state: ConstraintIterationState) -> list[ViolationModel]:
-    """LLM check for the two heuristic constraints (feasibility + transport compatibility)."""
+    """LLM check for heuristic constraints (transport/destination compatibility)."""
     available = _get_available_categories(state)
+
+    # If transport is a flight, the destination is always reachable — skip the
+    # transport/destination compatibility check to avoid false positives.
+    transport_text = next(
+        (c.text.lower() for c in state.hard_constraints if c.text.lower().startswith("transport:")),
+        "",
+    )
+    is_flight = any(w in transport_text for w in ("flight", "fly", "plane", "air", "airline"))
+
     heuristic = [
         ConstraintModel(type="commonsense", text=c.text, user_skipped=False)
         for c in _HEURISTIC_CONSTRAINT_DEFS
         if c.required_categories <= available
+        and not (is_flight and "transport" in c.required_categories)
     ]
     if not heuristic:
         return []
@@ -573,6 +648,54 @@ def _run_violation_check(state: ConstraintIterationState) -> list[ViolationModel
         state.hard_constraints, state.model_name, state.temperature
     )
     return _check_deterministic_violations(trip_summary) + _check_heuristic_violations(state)
+
+
+def _normalize_constraints(
+    hard_constraints: list[ConstraintModel],
+    model_name: str,
+    temperature: float,
+) -> NormalizedConstraints:
+    """Normalize and enrich all collected hard constraints into a structured object."""
+    constraints_text = "\n".join(f"- {c.text}" for c in hard_constraints if not c.user_skipped)
+    user_prompt = "\n".join([
+        f"Today's date: {date.today().isoformat()}",
+        "",
+        "Collected travel constraints:",
+        constraints_text,
+        "",
+        "Return strictly valid JSON matching this schema exactly:",
+        """{
+  "destination": "free string or null",
+  "origin": "city string or null",
+  "date_from": "YYYY.MM.DD or null",
+  "date_to": "YYYY.MM.DD or null",
+  "travelers": {"adults": 1, "children_under_6": 0, "children_6_to_16": 0},
+  "budget_amount": null,
+  "budget_currency": "ISO 4217 or null",
+  "accommodation": "free string or null",
+  "transport": "Flight | Car | No Preference | null",
+  "interests": "free string or null",
+  "destination_country": "full country name or null",
+  "destination_country_code": "ISO 3166-1 alpha-2 or null",
+  "destination_currency": "ISO 4217 or null",
+  "destination_timezone": "IANA timezone or null",
+  "destination_language": "language name or null",
+  "origin_country": "full country name or null",
+  "origin_country_code": "ISO 3166-1 alpha-2 or null",
+  "origin_currency": "ISO 4217 or null"
+}""",
+    ])
+    try:
+        result, _, _ = invoke_structured_model(
+            model_name=model_name,
+            temperature=temperature,
+            system_prompt=NORMALIZATION_SYSTEM_PROMPT,
+            user_prompt=user_prompt,
+            response_model=NormalizedConstraints,
+        )
+        return result
+    except Exception:
+        return NormalizedConstraints()
 
 
 def _build_message_history(messages: list[dict]) -> MessageHistoryModel:
@@ -625,12 +748,14 @@ def _build_artifact_node(state: ConstraintIterationState) -> dict[str, Any]:
     hard = state.hard_constraints
     content = ConstraintArtifactContentModel(
         query=state.query,
+        corrected_query=state.corrected_query or state.query,
         status="success" if hard else "partial",
         hard_constraints=[c.model_dump() for c in hard],
         commonsense_constraints=[c.model_dump() for c in state.commonsense_constraints],
         categories_missing=state.categories_skipped,
         categories_skipped_by_user=state.categories_skipped,
         interaction_turns=len([m for m in state.messages if m["role"] == "user"]),
+        normalized_constraints=state.normalized_constraints,
         model=state.model_name,
     )
     artifact = AgentArtifactModel(
@@ -649,20 +774,53 @@ def _build_artifact_node(state: ConstraintIterationState) -> dict[str, Any]:
 
 def make_graph() -> StateGraph:
     def extract_hard_constraints(state: ConstraintIterationState) -> dict[str, Any]:
+        updates: dict[str, Any] = {}
+
+        # On the first extraction run, spell-check the query so the LLM receives
+        # clean text and all extracted constraint strings are based on corrected input.
+        if not state.corrected_query:
+            effective_query = state.query
+            if _should_spell_check(state.query):
+                corrected_q, spell_msg_q = _spell_check_with_context(
+                    state.query, state.query, state.messages, state.model_name, state.temperature
+                )
+                if spell_msg_q:
+                    spell_messages = [*state.messages, {"role": "assistant", "content": spell_msg_q}]
+                    accept_q: str = interrupt(spell_msg_q)
+                    spell_messages = [*spell_messages, {"role": "user", "content": accept_q}]
+                    if _is_confirm(accept_q):
+                        effective_query = corrected_q
+                    updates["messages"] = spell_messages
+            updates["corrected_query"] = effective_query
+
+        effective_query = updates.get("corrected_query") or state.corrected_query or state.query
+
         structured_output, _, _ = invoke_structured_model(
             model_name=state.model_name,
             temperature=state.temperature,
             system_prompt=EXTRACTION_SYSTEM_PROMPT,
-            user_prompt=_build_extraction_prompt(state.query, state.query_context),
+            user_prompt=_build_extraction_prompt(effective_query, state.query_context),
             response_model=HardConstraintExtractionResponse,
         )
+
+        # Build a lookup from the LLM response, then iterate over the canonical
+        # category order so every category is evaluated — none can be silently skipped.
+        by_category = {ec.category: ec.value for ec in structured_output.categories}
+        hard_constraints: list[ConstraintModel] = []
+        missing_categories: list[str] = []
+        for cat in HARD_CONSTRAINT_CATEGORIES:
+            value = by_category.get(cat)
+            if value and value.strip():
+                hard_constraints.append(
+                    ConstraintModel(type="hard", text=f"{cat}: {value.strip()}", user_skipped=False)
+                )
+            else:
+                missing_categories.append(cat)
+
         return {
-            "hard_constraints": structured_output.constraints,
-            "missing_categories": [
-                c
-                for c in structured_output.missing_categories
-                if c in HARD_CONSTRAINT_CATEGORIES
-            ],
+            **updates,
+            "hard_constraints": hard_constraints,
+            "missing_categories": missing_categories,
             "category_index": 0,
             "phase": "extract",
         }
@@ -805,8 +963,23 @@ def make_graph() -> StateGraph:
         messages = [*messages, {"role": "user", "content": user_input}]
 
         if not _is_skip(user_input):
+            if category == "accommodation":
+                constraint_text = f"accommodation: Hotel — {user_input.strip()}"
+            else:
+                constraint_text = f"{category}: {user_input.strip()}"
             new_hard_constraints.append(
-                ConstraintModel(type="hard", text=f"{category}: {user_input.strip()}", user_skipped=False)
+                ConstraintModel(type="hard", text=constraint_text, user_skipped=False)
+            )
+            return {
+                "messages": messages,
+                "hard_constraints": new_hard_constraints,
+                "category_index": state.category_index + 1,
+            }
+
+        if category == "accommodation":
+            # Default to Hotel even when user skips preferences
+            new_hard_constraints.append(
+                ConstraintModel(type="hard", text="accommodation: Hotel", user_skipped=False)
             )
             return {
                 "messages": messages,
@@ -867,10 +1040,16 @@ def make_graph() -> StateGraph:
             return "check_commonsense_violations"
         return "present_hard_constraints"
 
+    def enrich_hard_constraints(state: ConstraintIterationState) -> dict[str, Any]:
+        normalized = _normalize_constraints(
+            state.hard_constraints, state.model_name, state.temperature
+        )
+        return {"normalized_constraints": normalized}
+
     def _route_after_check(state: ConstraintIterationState) -> str:
         if state.violations:
             return "present_violations"
-        return "build_artifact"
+        return "enrich_hard_constraints"
 
     def _route_after_present_hard(state: ConstraintIterationState) -> str:
         if state.phase == "extract":
@@ -888,11 +1067,13 @@ def make_graph() -> StateGraph:
         return "finalize_constraint_output"
 
     def finalize_constraint_output(state: ConstraintIterationState) -> dict[str, Any]:
+        # TODO Im paper prüfen ob normalized constraints besser als constraint_list ist.
         return {
             "constraint_list": [
                 *state.hard_constraints,
                 *state.commonsense_constraints,
             ],
+            "normalized_constraints": state.normalized_constraints,
             "message_histories": {
                 **state.message_histories,
                 "key": _build_message_history(state.messages),
@@ -905,6 +1086,7 @@ def make_graph() -> StateGraph:
     graph.add_node("present_violations", present_violations)
     graph.add_node("present_hard_constraints", present_hard_constraints)
     graph.add_node("ask_missing_category", ask_missing_category)
+    graph.add_node("enrich_hard_constraints", enrich_hard_constraints)
     graph.add_node("build_artifact", _build_artifact_node)
     graph.add_node("finalize_constraint_output", finalize_constraint_output)
 
@@ -914,6 +1096,7 @@ def make_graph() -> StateGraph:
     graph.add_edge("present_violations", "extract_hard_constraints")
     graph.add_conditional_edges("present_hard_constraints", _route_after_present_hard)
     graph.add_conditional_edges("ask_missing_category", _route_after_missing)
+    graph.add_edge("enrich_hard_constraints", "build_artifact")
     graph.add_edge("build_artifact", "finalize_constraint_output")
     graph.add_edge("finalize_constraint_output", END)
 
@@ -934,26 +1117,42 @@ def make_pipeline_graph():
             user_prompt=_build_extraction_prompt(state.query, state.query_context),
             response_model=HardConstraintExtractionResponse,
         )
+        by_category = {ec.category: ec.value for ec in structured_output.categories}
+        hard_constraints: list[ConstraintModel] = []
+        missing_categories: list[str] = []
+        for cat in HARD_CONSTRAINT_CATEGORIES:
+            value = by_category.get(cat)
+            if value and value.strip():
+                hard_constraints.append(
+                    ConstraintModel(type="hard", text=f"{cat}: {value.strip()}", user_skipped=False)
+                )
+            else:
+                missing_categories.append(cat)
         return {
-            "hard_constraints": structured_output.constraints,
-            "missing_categories": [
-                c for c in structured_output.missing_categories
-                if c in HARD_CONSTRAINT_CATEGORIES
-            ],
+            "hard_constraints": hard_constraints,
+            "missing_categories": missing_categories,
         }
 
     def check_commonsense_violations(state: ConstraintIterationState) -> dict[str, Any]:
         return {"violations": _run_violation_check(state)}
 
+    def enrich_hard_constraints_pipeline(state: ConstraintIterationState) -> dict[str, Any]:
+        normalized = _normalize_constraints(
+            state.hard_constraints, state.model_name, state.temperature
+        )
+        return {"normalized_constraints": normalized}
+
     graph = StateGraph(ConstraintIterationState)
     graph.add_node("extract_hard_constraints", extract_hard_constraints)
     graph.add_node("check_commonsense_violations", check_commonsense_violations)
+    graph.add_node("enrich_hard_constraints", enrich_hard_constraints_pipeline)
     graph.add_node("build_artifact", _build_artifact_node)
     graph.add_node("finalize_constraint_output", finalize_constraint_output)
 
     graph.set_entry_point("extract_hard_constraints")
     graph.add_edge("extract_hard_constraints", "check_commonsense_violations")
-    graph.add_edge("check_commonsense_violations", "build_artifact")
+    graph.add_edge("check_commonsense_violations", "enrich_hard_constraints")
+    graph.add_edge("enrich_hard_constraints", "build_artifact")
     graph.add_edge("build_artifact", END)
     return graph.compile()
 

@@ -12,6 +12,7 @@ import requests
 from langgraph.graph import END, StateGraph
 from pydantic import BaseModel, Field, ValidationError
 
+from travelplanner.config import get_setting
 from travelplanner.schema.attraction_search_artifact import (
     AttractionArtifactContentModel,
     AttractionCandidateModel,

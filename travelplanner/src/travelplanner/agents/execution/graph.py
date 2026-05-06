@@ -139,9 +139,10 @@ def make_node(
                 latest_todos = _to_todo_items(event.get("todos"))
             update_travelplan(plan)
             update_todos(latest_todos)
-        with open("tp.json", "w") as f_json, open("tp.md", "w") as f_md:
+        with open("tp.json", "w") as f_json, open("tp.md", "w") as f_md, open("tp.ics", "w", encoding="utf-8") as f_ics:
             f_json.write(plan.model_dump_json(indent=2))
             f_md.write(plan.to_markdown())
+            f_ics.write(plan.to_ical())
             
         return {"travelplan": plan, "todos": latest_todos}
 

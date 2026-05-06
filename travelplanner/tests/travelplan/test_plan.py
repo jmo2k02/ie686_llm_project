@@ -196,5 +196,84 @@ class TestTravelPlanMarkdown(unittest.TestCase):
         self.assertIn("_No days yet._", md)
 
 
+class TestTravelPlanIcal(unittest.TestCase):
+    def test_empty_plan_renders_calendar_envelope(self):
+        ics = TravelPlan().to_ical()
+        self.assertIn("BEGIN:VCALENDAR", ics)
+        self.assertIn("END:VCALENDAR", ics)
+        self.assertIn("VERSION:2.0", ics)
+        self.assertIn("PRODID:-//TravelPlanner//TravelPlan//EN", ics)
+        self.assertNotIn("BEGIN:VEVENT", ics)
+
+    def test_populated_plan_emits_vevents(self):
+        plan = TravelPlan(title="Rome demo")
+        plan.add_day(label="Arrival", calendar_date=date(2026, 6, 1))
+        plan.add_slot(
+            1,
+            _slot(
+                "Breakfast",
+                "2026-06-01T08:00",
+                "2026-06-01T10:00",
+                cost=15.0,
+                category="meal",
+                location="Cafe Roma",
+            ),
+        )
+        plan.add_slot(
+            1,
+            _slot("Museum", "2026-06-01T11:00", "2026-06-01T14:00", category="attraction"),
+        )
+
+        ics = plan.to_ical()
+        self.assertEqual(ics.count("BEGIN:VEVENT"), 2)
+        self.assertEqual(ics.count("END:VEVENT"), 2)
+        self.assertIn("X-WR-CALNAME:Rome demo", ics)
+        self.assertIn("SUMMARY:Breakfast", ics)
+        self.assertIn("SUMMARY:Museum", ics)
+        self.assertIn("DTSTART:20260601T080000", ics)
+        self.assertIn("DTEND:20260601T100000", ics)
+        self.assertIn("LOCATION:Cafe Roma", ics)
+        self.assertIn("Category: meal", ics)
+        # Cost should be formatted with EUR prefix.
+        self.assertIn(r"Cost: €15.00", ics)
+
+    def test_uid_is_deterministic(self):
+        def build():
+            plan = TravelPlan(title="UID stability")
+            plan.add_day()
+            plan.add_slot(
+                1,
+                _slot("Breakfast", "2026-06-01T08:00", "2026-06-01T10:00"),
+            )
+            return plan
+
+        ics_a = build().to_ical()
+        ics_b = build().to_ical()
+        # DTSTAMP differs (file generation time), but UID lines must be identical.
+        uids_a = [line for line in ics_a.splitlines() if line.startswith("UID:")]
+        uids_b = [line for line in ics_b.splitlines() if line.startswith("UID:")]
+        self.assertEqual(uids_a, uids_b)
+        self.assertEqual(len(uids_a), 1)
+
+    def test_special_characters_are_escaped(self):
+        plan = TravelPlan()
+        plan.add_day()
+        plan.add_slot(
+            1,
+            _slot(
+                "Dinner, with friends",
+                "2026-06-01T19:00",
+                "2026-06-01T21:00",
+                description="line one\nline two; with semi",
+            ),
+        )
+        ics = plan.to_ical()
+        # Comma and semicolon in TEXT must be backslash-escaped.
+        self.assertIn(r"SUMMARY:Dinner\, with friends", ics)
+        self.assertIn(r"semi", ics)
+        # Newline becomes literal backslash-n.
+        self.assertIn(r"line one\nline two", ics)
+
+
 if __name__ == "__main__":
     unittest.main()

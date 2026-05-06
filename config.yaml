@@ -18,12 +18,12 @@ agents:
     # Max number of tasks that can be created
     max_tasks: 12
     # Amount of reviews the final task list will be run through
-    max_reviews: 3
+    max_reviews: 1
     temperature: 0.0
     reviewer_temp: 0.0
 
   execution:
-    model_name: "gpt-5.4-nano-2026-03-17"
+    model_name: "gpt-5-mini-2025-08-07"
     
 
   general_web_search:

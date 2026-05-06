@@ -1,13 +1,20 @@
 from __future__ import annotations
 
+import hashlib
 from datetime import date as _date
+from datetime import datetime, timezone
 from typing import Callable
 
+from icalendar import Calendar, Event
 from pydantic import BaseModel, Field
 
 from travelplanner.travelplan.day import Day
 from travelplanner.travelplan.errors import DayNotFoundError
 from travelplanner.travelplan.slot import Slot
+
+
+_ICAL_PRODID = "-//TravelPlanner//TravelPlan//EN"
+_ICAL_UID_DOMAIN = "travelplanner.local"
 
 
 class CostSummary(BaseModel):
@@ -102,6 +109,34 @@ class TravelPlan(BaseModel):
         """
         return self._render_table(_render_slot_cell_compact, include_cost_summary=False)
 
+    def to_ical(self) -> str:
+        """Render the plan as an RFC 5545 iCalendar (``.ics``) string.
+
+        Each slot becomes one ``VEVENT`` with ``SUMMARY``, ``DTSTART``,
+        ``DTEND``, ``DESCRIPTION``, and ``LOCATION``. Naive datetimes are
+        passed through as floating times (recommended for travel plans —
+        users typically mean local-at-destination); tz-aware datetimes are
+        preserved.
+
+        UIDs are deterministic per (plan title, day index, slot name,
+        start, end), so re-importing the same plan replaces previous
+        events instead of duplicating them.
+        """
+        dtstamp = datetime.now(timezone.utc)
+        cal = Calendar()
+        cal.add("version", "2.0")
+        cal.add("prodid", _ICAL_PRODID)
+        cal.add("calscale", "GREGORIAN")
+        cal.add("method", "PUBLISH")
+        if self.title:
+            cal.add("x-wr-calname", self.title)
+
+        for day in self.days:
+            for slot in day.sorted_slots():
+                cal.add_component(_build_vevent(self.title, day.index, slot, dtstamp))
+
+        return cal.to_ical().decode("utf-8")
+
     def _render_table(
         self,
         slot_renderer: "Callable[[int, Slot], str]",
@@ -187,3 +222,51 @@ def _render_slot_cell(position: int, slot: Slot) -> str:
 
 def _render_slot_cell_compact(position: int, slot: Slot) -> str:
     return f"**{position}. {slot.name}** {_format_time_range(slot)}"
+
+
+# ── iCalendar helpers ──────────────────────────────────────────────────────
+
+
+def _slot_uid(plan_title: str | None, day_index: int, slot: Slot) -> str:
+    """Deterministic UID so re-imports update events instead of duplicating."""
+    raw = "|".join(
+        [
+            plan_title or "",
+            str(day_index),
+            slot.name,
+            slot.start_time.isoformat(),
+            slot.end_time.isoformat(),
+        ]
+    )
+    digest = hashlib.sha256(raw.encode("utf-8")).hexdigest()[:16]
+    return f"{digest}@{_ICAL_UID_DOMAIN}"
+
+
+def _build_vevent(
+    plan_title: str | None,
+    day_index: int,
+    slot: Slot,
+    dtstamp: datetime,
+) -> Event:
+    event = Event()
+    event.add("uid", _slot_uid(plan_title, day_index, slot))
+    event.add("dtstamp", dtstamp)
+    event.add("dtstart", slot.start_time)
+    event.add("dtend", slot.end_time)
+    event.add("summary", slot.name)
+
+    description_parts: list[str] = []
+    if slot.description:
+        description_parts.append(slot.description)
+    if slot.cost is not None:
+        description_parts.append(f"Cost: €{slot.cost:.2f}")
+    description_parts.append(f"Category: {slot.category}")
+    if slot.notes:
+        description_parts.append(f"Notes: {slot.notes}")
+    if description_parts:
+        # icalendar handles \n escaping inside TEXT values for us.
+        event.add("description", "\n".join(description_parts))
+
+    if slot.location:
+        event.add("location", slot.location)
+    return event

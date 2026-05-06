@@ -101,6 +101,11 @@ def get_allowed_task_types() -> tuple[str, ...]:
     return tuple(str(value) for value in get_args(annotation))
 
 
+class TodoItem(BaseModel):
+    title: str
+    status: Literal["pending", "in_progress", "completed"]
+    description: str
+
 class StateContractModel(BaseModel):
     """This model defines all important states the system uses"""
 
@@ -124,6 +129,7 @@ class StateContractModel(BaseModel):
             description="The final output travelplan that will be used by the Execution Agent",
         ),
     ]
+    todos: list[TodoItem] = []
     agent_artifacts: Annotated[
         dict[str, list[AgentArtifactModel]],
         Field(

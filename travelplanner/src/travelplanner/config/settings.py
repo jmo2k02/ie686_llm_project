@@ -46,16 +46,29 @@ def _load_yaml(path: Path) -> dict[str, Any]:
     return payload
 
 
+def _config_path_from_env(var: str, default_relative: str) -> Path:
+    """Resolve YAML paths from env; relative paths are rooted at the repo (not process cwd)."""
+    root = _repo_root()
+    raw = os.getenv(var)
+    if raw is None or not str(raw).strip():
+        return (root / default_relative).resolve()
+    p = Path(raw).expanduser()
+    if p.is_absolute():
+        return p.resolve()
+    return (root / p).resolve()
+
+
 def load_settings(*, force_reload: bool = False) -> dict[str, Any]:
     global _CONFIG_CACHE
     global _CONFIG_CACHE_KEY
 
-    root = _repo_root()
-    global_config_path = Path(
-        os.getenv("TRAVELPLANNER_GLOBAL_CONFIG_PATH", str(root / "config.yaml"))
+    global_config_path = _config_path_from_env(
+        "TRAVELPLANNER_GLOBAL_CONFIG_PATH",
+        "config.yaml",
     )
-    local_config_path = Path(
-        os.getenv("TRAVELPLANNER_LOCAL_CONFIG_PATH", str(root / "local.config.yaml"))
+    local_config_path = _config_path_from_env(
+        "TRAVELPLANNER_LOCAL_CONFIG_PATH",
+        "local.config.yaml",
     )
     current_key = (str(global_config_path), str(local_config_path))
     if (

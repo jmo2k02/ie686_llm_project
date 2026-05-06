@@ -1,7 +1,7 @@
 from typing import Annotated, Literal, get_args, get_origin
 from pydantic import BaseModel, Field
 
-from travelplanner.schema.calender import CalenderModel
+from travelplanner.travelplan import TravelPlan
 from travelplanner.schema.normalized_constraints import NormalizedConstraints
 
 class MessageHistoryModel(BaseModel):
@@ -117,13 +117,13 @@ class StateContractModel(BaseModel):
     constraint_list: Annotated[list[ConstraintModel], Field(default_factory=list)]
     normalized_constraints: NormalizedConstraints | None = None
     task_list: Annotated[list[TaskModel], Field(default_factory=list)]
-    timetable: Annotated[
-        CalenderModel | None,
+    travelplan: Annotated[
+        TravelPlan,
         Field(
             default=None,
-            description="The final output calender schema that will be returned by the Execution Agent",
+            description="The final output travelplan that will be used by the Execution Agent",
         ),
-    ] = None
+    ]
     agent_artifacts: Annotated[
         dict[str, list[AgentArtifactModel]],
         Field(

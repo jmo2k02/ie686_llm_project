@@ -43,16 +43,24 @@ def spawn_search_agent_for_task(
     agent_key, make_agent_graph = TASK_AGENT_MAP[task.type]
     agent_graph = make_agent_graph()
 
-    agent_input = {
-        "query": state.query,
-        "model_name": state.model_name,
-        "temperature": state.temperature,
-        "task_list": [task],
-        "agent_artifacts": state.agent_artifacts,
-        "message_history": None,
-    }
+    # agent_input = {
+    #     "query": state.query,
+    #     "model_name": state.model_name,
+    #     "temperature": state.temperature,
+    #     "task_list": [task],
+    #     "agent_artifacts": state.agent_artifacts,
+    #     "message_history": None,
+    # }
+    text_input = ""
 
-    result = agent_graph.invoke(agent_input)
+    result = agent_graph.invoke({"query": text_input})
+
+    # {"description"
+    # [
+    #     {
+    #         "name": "xx",
+    #     }
+    # ]}
 
     return {
         "task": task,

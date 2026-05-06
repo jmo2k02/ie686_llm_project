@@ -146,6 +146,13 @@ def _build_graph_node(state: RoutingAgentState) -> dict[str, Any]:
     try:
         raw = {"stops": state.stops}
         _, places, _ = parse_places_input_payload(raw)
+        if not places:
+            return {
+                "error": (
+                    "No usable places after parsing stops — each stop needs address or "
+                    "latitude/longitude before calling routing APIs."
+                )
+            }
         cfg = place_distance_graph_config_for_context(cluster_ctx)
         graph_model = build_place_distance_graph(places, api_key, config=cfg)
         st = graph_model.stats
@@ -196,9 +203,6 @@ def run_routing_agent(
             temperature=temperature,
         ).model_dump(mode="json")
     )
-    cluster_error = result.get("decide_cluster", {}).get("error")
-    if cluster_error:
-        raise RuntimeError(f"[decide_cluster] {cluster_error}")
     if result.get("error"):
         raise RuntimeError(result["error"])
     art = result.get("artifact")
@@ -207,3 +211,53 @@ def run_routing_agent(
     if isinstance(art, dict):
         return AgentArtifactModel.model_validate(art)
     return art
+
+
+def run_routing_graph_result(
+    stops: list[dict[str, str]],
+    *,
+    cluster_context: ClusterContext | None = None,
+    api_key: str = "",
+    model_name: str = _DEFAULT_MODEL,
+    temperature: float = 0.0,
+) -> dict[str, Any]:
+    """Run the full LangGraph routing agent and return a **JSON-friendly** result (no raise).
+
+    Keys when successful: ``ok`` (True), ``artifact`` (dict), ``decided_cluster_context``,
+    optional ``message_history``. On failure: ``ok`` (False), ``error`` (string), and
+    optional ``artifact`` if a partial build slipped through.
+    """
+    g = build_routing_graph()
+    raw = g.invoke(
+        RoutingAgentState(
+            stops=stops,
+            cluster_context=cluster_context,
+            api_key=api_key,
+            model_name=model_name,
+            temperature=temperature,
+        ).model_dump(mode="json")
+    )
+    err = raw.get("error")
+    msg = raw.get("message_history")
+    out: dict[str, Any] = {
+        "error": err,
+        "decided_cluster_context": raw.get("decided_cluster_context"),
+    }
+    art = raw.get("artifact")
+    if art is not None:
+        if hasattr(art, "model_dump"):
+            out["artifact"] = art.model_dump(mode="json")
+        elif isinstance(art, dict):
+            out["artifact"] = art
+        else:
+            out["artifact"] = art
+    if msg is not None:
+        out["message_history"] = (
+            msg.model_dump(mode="json") if hasattr(msg, "model_dump") else msg
+        )
+
+    ok = bool(out.get("artifact")) and not err
+    out["ok"] = ok
+    if not ok and not err:
+        out["error"] = "routing agent produced no artifact"
+    return out

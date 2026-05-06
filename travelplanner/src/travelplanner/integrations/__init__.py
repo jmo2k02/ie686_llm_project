@@ -1,8 +1,11 @@
 """Public API for routing integrations.
 
-Use case: addresses in → clusters + connection time lookup JSON (for A→B lookups).
+**Orchestrator pattern:** build a graph once with
+``build_place_graph_with_routing_agent``, retain ``result["graph"]``, then answer
+follow-ups with ``distance_between_places`` / ``closest_places_to_target`` (no extra
+Google calls). See ``ORCHESTRATOR_ROUTING_TOOL_SCHEMAS`` for tool JSON.
 
-Example::
+Direct agent API::
 
     from travelplanner.agents.routing_agent import run_routing_agent
 
@@ -45,6 +48,15 @@ from travelplanner.integrations.routing_check_agent import (
     make_graph as make_routing_check_graph,
 )
 from travelplanner.integrations.routing_execution import execute_routing_check_task
+from travelplanner.integrations.routing_agent_tools import (
+    ORCHESTRATOR_ROUTING_TOOL_SCHEMAS,
+    ROUTING_TOOL_SCHEMAS,
+    build_distance_graph_from_stops,
+    build_place_graph_with_routing_agent,
+    closest_places_to_target,
+    distance_between_places,
+    route_one_leg,
+)
 
 __all__ = [
     # Core building blocks
@@ -67,4 +79,12 @@ __all__ = [
     "ROUTING_CHECK_TASK_TYPE",
     "ARTIFACT_TYPE_PLACE_DISTANCE_GRAPH",
     "ARTIFACT_TYPE_ROUTE_TIMING",
+    # Agent-callable routing (structured dict results)
+    "build_place_graph_with_routing_agent",
+    "closest_places_to_target",
+    "route_one_leg",
+    "build_distance_graph_from_stops",
+    "distance_between_places",
+    "ORCHESTRATOR_ROUTING_TOOL_SCHEMAS",
+    "ROUTING_TOOL_SCHEMAS",
 ]

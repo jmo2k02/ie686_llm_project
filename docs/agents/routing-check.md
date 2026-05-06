@@ -140,7 +140,19 @@ After geocoding and a build, `content` looks conceptually like this (values illu
 
 ## 7. Execution Agent usage: actually querying the graph
 
-Per `docs/workflow.md`, the **Execution Agent** must be able to *use* the Route Check artifact during itinerary composition (not just store it). The intended pattern is:
+Per `docs/workflow.md`, the **Execution Agent** must be able to *use* the Route Check artifact during itinerary composition (not just store it).
+
+### 7.0 Orchestrator / main agent: build once, query with tools
+
+For **tool-calling** orchestrators (separate from the `routing-check` task executor), the split is:
+
+1. **Build connections** — call **`build_place_graph_with_routing_agent`** in `travelplanner.integrations.routing_agent_tools` (wraps **`run_routing_graph_result`** / the LangGraph routing agent: optional LLM cluster preset, then Google graph build). Do this **once** per segment that needs a full graph.
+2. **Keep** the returned **`graph`** dict (`place_distance_graph` content) in session / tool context.
+3. **Read on demand** — call **`distance_between_places`**, **`closest_places_to_target`**, or `travelplanner.routing_lookup` helpers on that dict. These are **read-only** (no Google calls).
+
+OpenAI-style tool definitions for the three-step loop live in **`ORCHESTRATOR_ROUTING_TOOL_SCHEMAS`**; a wider set (adds single-leg `route_one_leg` and deterministic **`build_distance_graph_from_stops`**) is **`ROUTING_TOOL_SCHEMAS`**.
+
+The classic workflow path remains:
 
 1. **Spawn Route Check** (from a `routing-check` task) → receive a typed artifact: `type: "place_distance_graph"`.
 2. **Retain the artifact** in `agent_artifacts` (in-memory is fine; durable persistence optional).

@@ -326,19 +326,32 @@ def _execute_routing(state: RoutingCheckAgentState) -> dict[str, Any]:
 
     key = _api_key(state)
     if not key:
-        raise ValueError(
-            "Google Routes API key missing: set GOOGLE_MAPS_API_KEY or pass api_key on state."
-        )
+        return {
+            "error": (
+                "Google Routes API key missing: set GOOGLE_MAPS_API_KEY or pass api_key on state."
+            )
+        }
 
     mode = state.decided_mode
     if mode is None:
-        raise RuntimeError("decided_mode is None; run decide_routing_approach first.")
+        return {
+            "error": "Routing mode was not determined (decided_mode is None); cannot call Google APIs."
+        }
 
     try:
         if mode == "single_od":
+            origin = (state.origin_address or "").strip()
+            dest = (state.destination_address or "").strip()
+            if not origin or not dest:
+                return {
+                    "error": (
+                        "single_od requires non-empty origin_address and destination_address "
+                        "before calling route APIs."
+                    )
+                }
             payload = SingleOdTaskPayload(
-                origin_address=state.origin_address,
-                destination_address=state.destination_address,
+                origin_address=origin,
+                destination_address=dest,
                 travel_mode=state.travel_mode,
                 departure_time_rfc3339=state.departure_time_rfc3339,
                 detail_level=state.detail_level,
@@ -362,12 +375,15 @@ def _execute_routing(state: RoutingCheckAgentState) -> dict[str, Any]:
             return {"artifact": artifact, "message_history": history}
 
         else:  # place_graph_file
-            if not state.places_json_path:
-                raise ValueError(
-                    "places_json_path is required for place_graph_file mode."
-                )
+            path_txt = (state.places_json_path or "").strip()
+            if not path_txt:
+                return {
+                    "error": (
+                        "place_graph_file mode requires places_json_path before calling APIs."
+                    )
+                }
             payload = PlaceGraphFileTaskPayload(
-                places_json_path=state.places_json_path,
+                places_json_path=path_txt,
                 cluster_context=state.decided_cluster_context,
             )
             task = TaskModel(
@@ -424,6 +440,9 @@ def _validate_artifact(state: RoutingCheckAgentState) -> dict[str, Any]:
 
     artifact = state.artifact
     if artifact is None:
+        # Do not clobber a prior execute/decide error with a generic validation message.
+        if state.error:
+            return {}
         return {"error": "No artifact to validate."}
 
     mode = state.decided_mode

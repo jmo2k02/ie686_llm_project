@@ -43,3 +43,10 @@ local.config.yaml
 /scripts/output/
 
 .pdf-enrich-cache/
+
+# Claude Code memory (personal information)
+/memory/
+
+# Ignore scratch files
+*.scratch
+.gitnexus

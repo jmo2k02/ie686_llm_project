@@ -5,6 +5,20 @@ models:
       temperature: 0.0
 
 agents:
+  constraint:
+    model_name: "gpt-5.4-nano-2026-03-17"
+    temperature: 0.0
+
+  planner:
+    model_name: "gpt-5.4-nano-2026-03-17"
+    reviewer_model: "gpt-5.4-nano-2026-03-17"
+    # Max number of tasks that can be created
+    max_tasks: 12
+    # Amount of reviews the final task list will be run through
+    max_reviews: 3
+    temperature: 0.0
+    reviewer_temp: 0.0
+
   general_web_search:
     provider: "tavily"
     max_results: 5
@@ -15,6 +29,23 @@ agents:
     include_answer: true
     answer_model_name: "openrouter:minimax/minimax-m2.5"
     answer_temperature: 0.0
+
+  flight_search:
+    search_url: "https://serpapi.com/search"
+    currency: "EUR"
+    language: "en"
+    default_adults: 1
+    timeout_seconds: 30
+    max_results: 3
+
+  attraction_search:
+    search_url : "https://serpapi.com/search"
+    experience_pool_path : "experience_pool.json"
+    default_embedding_model : "text-embedding-3-small"
+    default_answer_model : "openrouter:minimax/minimax-m2.5"
+    default_max_candidates : 5
+    default_top_review_candidates : 3
+    default_timeout_seconds : 30
 
 testing:
   general_web_search:

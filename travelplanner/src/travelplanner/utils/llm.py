@@ -3,15 +3,20 @@ from __future__ import annotations
 import json
 import os
 from dataclasses import dataclass
-from typing import TypeVar
+from typing import Any, TypeVar
 
 from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_openai import ChatOpenAI
+from ollama import Client as OllamaClient
 from pydantic import BaseModel
+
+from travelplanner.utils.runtime_monitor import record_llm_call
 
 
 ResponseModelT = TypeVar("ResponseModelT", bound=BaseModel)
 
+
+# ─── Provider configuration ──────────────────────────────────────────────────
 
 @dataclass(frozen=True)
 class OpenAICompatibleProvider:
@@ -50,11 +55,13 @@ OPENAI_COMPATIBLE_PROVIDERS: dict[str, OpenAICompatibleProvider] = {
     ),
     "ollama": OpenAICompatibleProvider(
         api_key_env="OLLAMA_API_KEY",
-        default_base_url="http://localhost:11434/v1",
+        default_base_url="https://api.ollama.ai/v1",  # Ollama Cloud API
         base_url_env="OLLAMA_BASE_URL",
     ),
 }
 
+
+# ─── Shared helpers ──────────────────────────────────────────────────────────
 
 def _get_env_value(name: str | None) -> str | None:
     """Returns a normalized environment variable value.
@@ -109,6 +116,8 @@ def _parse_model_name(model_name: str) -> tuple[str, str]:
     return provider_name, provider_model
 
 
+# ─── OpenAI-compatible client builder ──────────────────────────────────────
+
 def make_chat_model(*, model_name: str, temperature: float) -> ChatOpenAI:
     """Builds a chat model client from a provider-aware model name.
 
@@ -137,17 +146,11 @@ def make_chat_model(*, model_name: str, temperature: float) -> ChatOpenAI:
         )
 
     api_key = _get_env_value(provider.api_key_env)
-    if (
-        provider.api_key_env is not None
-        and api_key is None
-        and provider_name != "ollama"
-    ):
+    if provider.api_key_env is not None and api_key is None:
         raise ValueError(
             f"Missing API key for provider '{provider_name}'. "
             f"Set the {provider.api_key_env} environment variable."
         )
-    if provider_name == "ollama" and api_key is None:
-        api_key = "ollama"
 
     base_url = _get_env_value(provider.base_url_env) or provider.default_base_url
     organization = _get_env_value(provider.organization_env)
@@ -209,6 +212,109 @@ def _extract_json_payload(text: str) -> str:
     return stripped
 
 
+# ─── Ollama Cloud helpers (identical to hotel_search_agent) ──────────────────
+
+def _call_llm(system_prompt: str, user_prompt: str, model_name: str, temperature: float = 0.0) -> str:
+    """Call LLM with explicit provider branching.
+
+    Provider dispatch (matches ``_parse_model_name`` / ``make_chat_model``):
+    -  ``openrouter:*``   → LangChain ChatOpenAI (OpenRouter API)
+    -  ``ollama:*``       → native ``ollama.Client`` (cloud or local)
+    -  bare name / ``openai:*`` → LangChain ChatOpenAI (OpenAI API)
+
+    Bare model names (no prefix) default to **OpenAI**, as documented in AGENTS.md.
+    Use the ``ollama:`` prefix when you intend to call an Ollama model.
+
+    Args:
+        system_prompt: System message.
+        user_prompt: User message.
+        model_name: Model identifier. Examples:
+            - ``openrouter:anthropic/claude-3.5-sonnet``
+            - ``ollama:nemotron-3-super``
+            - ``ollama:nemotron-3-super``
+            - ``gpt-5-mini`` (bare → OpenAI)
+        temperature: Sampling temperature.
+
+    Returns:
+        Raw response text from the LLM.
+
+    Raises:
+        ValueError: If required environment variables are missing.
+    """
+    if model_name.startswith("openrouter:"):
+        # ── OpenRouter path (LangChain) ──────────────────────────────────
+        llm = make_chat_model(model_name=model_name, temperature=temperature)
+        messages = [
+            SystemMessage(content=system_prompt),
+            HumanMessage(content=user_prompt),
+        ]
+        response = llm.invoke(messages)
+        return response.content
+
+    if model_name.startswith("ollama:"):
+        # ── Ollama path (native client) ──────────────────────────────────
+        provider_model = model_name[len("ollama:"):].strip()
+        api_key = _get_env_value("OLLAMA_API_KEY")
+        if not api_key:
+            raise ValueError(
+                "OLLAMA_API_KEY environment variable is required for Ollama models. "
+                "Get an API key at https://ollama.com/api_keys"
+            )
+
+        host = _get_env_value("OLLAMA_BASE_URL") or "https://ollama.com"
+        client = OllamaClient(
+            host=host,
+            headers={"Authorization": f"Bearer {api_key}"},
+        )
+
+        messages = [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_prompt},
+        ]
+
+        response = client.chat(model=provider_model, messages=messages, stream=False)
+        return response["message"]["content"]
+
+    # ── Default: OpenAI (or any other OpenAI-compatible provider) ──────
+    llm = make_chat_model(model_name=model_name, temperature=temperature)
+    messages = [
+        SystemMessage(content=system_prompt),
+        HumanMessage(content=user_prompt),
+    ]
+    response = llm.invoke(messages)
+    return response.content
+
+
+# ─── Main structured-model entrypoint ─────────────────────────────────────────
+
+def extract_token_usage(response: object) -> tuple[int, int]:
+    """Extract `(input_tokens, output_tokens)` from a LangChain response."""
+
+    usage_metadata = getattr(response, "usage_metadata", None)
+    if isinstance(usage_metadata, dict):
+        tokens_in = int(
+            usage_metadata.get("input_tokens")
+            or usage_metadata.get("prompt_tokens")
+            or 0
+        )
+        tokens_out = int(
+            usage_metadata.get("output_tokens")
+            or usage_metadata.get("completion_tokens")
+            or 0
+        )
+        return tokens_in, tokens_out
+
+    response_metadata = getattr(response, "response_metadata", None)
+    if isinstance(response_metadata, dict):
+        token_usage = response_metadata.get("token_usage", {})
+        if isinstance(token_usage, dict):
+            tokens_in = int(token_usage.get("prompt_tokens") or 0)
+            tokens_out = int(token_usage.get("completion_tokens") or 0)
+            return tokens_in, tokens_out
+
+    return 0, 0
+
+
 def invoke_structured_model(
     *,
     model_name: str,
@@ -219,9 +325,20 @@ def invoke_structured_model(
 ) -> tuple[ResponseModelT, str, str]:
     """Invokes a chat model and parses its JSON response into a Pydantic model.
 
+    Provider dispatch:
+    * ``openrouter:*``          → LangChain ChatOpenAI (team credits)
+    * ``openai:*``, ``groq:*``  → LangChain ChatOpenAI
+    * everything else           → native ``ollama.Client`` (cloud / local)
+
+    Ollama requires ``OLLAMA_API_KEY`` set in the environment.  If unset, a
+    ``ValueError`` is raised.
+
     Args:
-        model_name: Model identifier in either `<model>` or
-            `<provider>:<model>` format.
+        model_name: Model identifier.  Examples::
+            - ``openrouter:anthropic/claude-3.5-sonnet``
+            - ``openai:gpt-5-mini``
+            - ``nemotron-3-super``
+            - ``mistral``
         temperature: Sampling temperature for the model call.
         system_prompt: System message sent to the model.
         user_prompt: User message sent to the model.
@@ -229,29 +346,23 @@ def invoke_structured_model(
             returned by the model.
 
     Returns:
-        A tuple containing:
-
-        - The validated `response_model` instance.
-        - The exact `user_prompt` string that was sent.
-        - The raw text content returned by the model before JSON parsing.
+        A tuple of (validated model instance, user_prompt sent, raw text from LLM).
 
     Raises:
-        ValueError: If the provider is unsupported or a required API key is
-            missing.
+        ValueError: If required credentials are missing.
         json.JSONDecodeError: If the model response is not valid JSON after
             optional code-fence removal.
         pydantic.ValidationError: If the JSON payload does not match
-            `response_model`.
+            ``response_model``.
     """
 
-    client = make_chat_model(model_name=model_name, temperature=temperature)
-    response = client.invoke(
-        [
-            SystemMessage(content=system_prompt),
-            HumanMessage(content=user_prompt),
-        ]
+    raw_content = _call_llm(
+        system_prompt=system_prompt,
+        user_prompt=user_prompt,
+        model_name=model_name,
+        temperature=temperature,
     )
-    raw_content = _coerce_message_content(response.content).strip()
+
     json_payload = _extract_json_payload(raw_content)
     structured_output = response_model.model_validate_json(json_payload)
     return structured_output, user_prompt, raw_content

@@ -167,6 +167,23 @@ export OLLAMA_BASE_URL="http://localhost:11434/v1"
 uv run python -c "from travelplanner.agents.task_planning_workflow import run; print(run('Plan a 3 day trip to Rome', model_name='ollama:llama3.1'))"
 ```
 
+## Interactive CLI Dashboard
+
+The interactive CLI now uses a Rich live dashboard modeled after the TradingAgents CLI.
+
+- `Progress` table shows all workflow agents and their current status.
+- `Messages & Tools` table shows recent agent messages plus Tavily tool activity.
+- Bottom footer shows run summary stats in the format:
+  `Agents: x/x | LLM: x | Tools: x | Tokens: xk xk | Time elapsed: mm:ss`
+
+You can launch it with the planner entrypoint:
+
+```bash
+uv run tp planner run
+```
+
+Workflow selection, the initial travel query, and any workflow follow-up questions are now asked inside the dashboard instead of dropping back out to a plain terminal prompt.
+
 ## Verification Performed
 
 The changes were validated with:

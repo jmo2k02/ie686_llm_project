@@ -5,17 +5,14 @@ from typing import Any
 from langgraph.graph import END, StateGraph
 
 from travelplanner.config import get_setting
-from travelplanner.agents.constraint_agent import (
-    ConstraintAgentState,
+from travelplanner.agents.constraint_iteration_agent import (
+    ConstraintIterationState,
+    get_constraint_list,
+    get_message_history,
     make_graph as make_constraint_graph,
 )
-from travelplanner.agents.planner_agent import (
-    PlannerAgentState,
+from travelplanner.agents.planner import (
     make_graph as make_planner_graph,
-)
-from travelplanner.agents.reviewer_agent import (
-    ReviewerAgentState,
-    make_graph as make_reviewer_graph,
 )
 from travelplanner.agents.general_web_search_agent import (
     GeneralWebSearchAgentState,
@@ -35,7 +32,6 @@ from travelplanner.schema.system_state import StateContractModel, TaskModel
 
 CONSTRAINT_HISTORY_KEY = "constraint_agent"
 PLANNER_HISTORY_KEY = "planner_agent"
-REVIEWER_HISTORY_KEY = "reviewer_agent"
 GENERAL_WEB_SEARCH_HISTORY_KEY = "general_web_search_agent"
 ROUTING_CHECK_HISTORY_KEY = "routing_check_agent"
 
@@ -43,7 +39,7 @@ ROUTING_CHECK_HISTORY_KEY = "routing_check_agent"
 def make_graph(
     model_name: str | None = None,
     temperature: float | None = None,
-):
+) -> StateGraph:
     effective_model_name = model_name or str(
         get_setting(
             "models.workflows.task_planning.model_name", "gpt-5.4-nano-2026-03-17"
@@ -54,59 +50,13 @@ def make_graph(
         if temperature is not None
         else float(get_setting("models.workflows.task_planning.temperature", 0.0))
     )
-    constraint_graph = make_constraint_graph()
-    planner_graph = make_planner_graph()
-    reviewer_graph = make_reviewer_graph()
-    web_search_graph = make_general_web_search_graph()
+    constraint_graph = make_constraint_graph().compile()
+    planner_graph = make_planner_graph(
+        model_name=effective_model_name,
+        temperature=effective_temperature,
+    ).compile()
+    web_search_graph = make_general_web_search_graph().compile()
     routing_check_graph = make_routing_check_graph()
-
-    def constraint_node(state: StateContractModel) -> dict[str, Any]:
-        agent_state = ConstraintAgentState(
-            query=state.query,
-            model_name=effective_model_name,
-            temperature=effective_temperature,
-        )
-        result = constraint_graph.invoke(agent_state)
-
-        message_histories = dict(state.message_histories)
-        message_histories[CONSTRAINT_HISTORY_KEY] = result["message_history"]
-        return {
-            "constraint_list": result["constraint_list"],
-            "message_histories": message_histories,
-        }
-
-    def planner_node(state: StateContractModel) -> dict[str, Any]:
-        agent_state = PlannerAgentState(
-            query=state.query,
-            model_name=effective_model_name,
-            temperature=effective_temperature,
-            constraint_list=state.constraint_list,
-        )
-        result = planner_graph.invoke(agent_state)
-
-        message_histories = dict(state.message_histories)
-        message_histories[PLANNER_HISTORY_KEY] = result["message_history"]
-        return {
-            "task_list": result["task_list"],
-            "message_histories": message_histories,
-        }
-
-    def reviewer_node(state: StateContractModel) -> dict[str, Any]:
-        agent_state = ReviewerAgentState(
-            query=state.query,
-            model_name=effective_model_name,
-            temperature=effective_temperature,
-            constraint_list=state.constraint_list,
-            proposed_task_list=state.task_list,
-        )
-        result = reviewer_graph.invoke(agent_state)
-
-        message_histories = dict(state.message_histories)
-        message_histories[REVIEWER_HISTORY_KEY] = result["message_history"]
-        return {
-            "task_list": result["approved_task_list"],
-            "message_histories": message_histories,
-        }
 
     def general_web_search_node(state: StateContractModel) -> dict[str, Any]:
         agent_state = GeneralWebSearchAgentState(
@@ -132,14 +82,11 @@ def make_graph(
 
         task = routing_tasks[0]
 
-        # Parse task.text to extract routing parameters
         try:
             parsed = parse_routing_check_task_text(task.text)
         except (ValueError, Exception):
-            # Invalid routing task — skip
             return {"message_histories": dict(state.message_histories)}
 
-        # Build agent state based on task kind
         if isinstance(parsed, SingleOdTaskPayload):
             agent_state = RoutingCheckAgentState(
                 task_ref=task.name,
@@ -173,19 +120,32 @@ def make_graph(
             "message_histories": message_histories,
         }
 
+    def route_after_planner(state: StateContractModel) -> str:
+        """Match main latency when there's nothing to execute after planning.
+
+        On ``main``, the workflow stops at ``planner_agent`` → END. Keep that path
+        when there are no valid general-web-search or routing-check tasks. When
+        both apply, general web search still runs before routing-check.
+        """
+        tasks = state.task_list
+        if any(t.type == "general-web-search" and t.is_valid for t in tasks):
+            return "general_web_search_agent"
+        if any(t.type == "routing-check" and t.is_valid for t in tasks):
+            return "routing_check_agent"
+        return END
+
     graph = StateGraph(StateContractModel)
-    graph.add_node("constraint_agent", constraint_node)
-    graph.add_node("planner_agent", planner_node)
-    graph.add_node("reviewer_agent", reviewer_node)
+    graph.add_node("constraint_agent", constraint_graph)
+    graph.add_node("planner_agent", planner_graph)
     graph.add_node("general_web_search_agent", general_web_search_node)
     graph.add_node("routing_check_agent", routing_check_node)
+
     graph.set_entry_point("constraint_agent")
     graph.add_edge("constraint_agent", "planner_agent")
-    graph.add_edge("planner_agent", "reviewer_agent")
-    graph.add_edge("reviewer_agent", "general_web_search_agent")
+    graph.add_conditional_edges("planner_agent", route_after_planner)
     graph.add_edge("general_web_search_agent", "routing_check_agent")
     graph.add_edge("routing_check_agent", END)
-    return graph.compile()
+    return graph
 
 
 def run(query: str, model_name: str, temperature: float = 0.0) -> StateContractModel:

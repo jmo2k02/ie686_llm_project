@@ -1,0 +1,145 @@
+{
+  "description": "Batch of realistic test queries for the constraint iteration agent. Covers complete, incomplete, oversharing, undersharing, typo-heavy, contradictory, and edge-case inputs.",
+  "queries": [
+
+    {
+      "id": "complete-01",
+      "category": "complete",
+      "notes": "All six categories present. Should extract cleanly, no missing questions, no violations.",
+      "query": "Hey, so me and my girlfriend are thinking about going to Barcelona somewhere around May 20th to May 27th. We're based in Munich so we'd probably fly. Our total budget is around €1500 for both of us. We mainly want to chill on the beach, eat good food, and maybe visit the Sagrada Familia or Park Güell. Neither of us has been to Spain before so any tips would be great. Oh and we'd prefer a nice hotel, nothing too fancy but comfortable."
+    },
+
+    {
+      "id": "complete-02",
+      "category": "complete",
+      "notes": "Long-haul family trip. All categories present. Expect no missing questions.",
+      "query": "We are planning a family trip to Tokyo for two weeks in April 2027, ideally around April 1st to April 15th. There are four of us — me, my wife and two kids aged 7 and 10. We'll fly from Frankfurt. Budget is around €8000 for the whole family. We'd like a family-friendly hotel, preferably somewhere central. Main goal is to experience Japanese culture, cherry blossom season, and some theme parks for the kids."
+    },
+
+    {
+      "id": "complete-03",
+      "category": "complete",
+      "notes": "Honeymoon trip. All categories present. Romantic purpose.",
+      "query": "My partner and I are getting married in early June and we want to plan our honeymoon. We're thinking Santorini, Greece for around 8 days — let's say July 10th to July 18th. We'll fly from Vienna. Budget is about €5000. We definitely want a luxury cave hotel with a caldera view, that's non-negotiable. We're looking for a relaxing, romantic experience — good food, sunsets, maybe a boat trip."
+    },
+
+    {
+      "id": "missing-dates-01",
+      "category": "incomplete-missing-dates",
+      "notes": "Destination, budget, transport, accommodation all present. Travel dates are completely absent. Agent should ask.",
+      "query": "I want to visit Rome with my boyfriend for a long weekend. We'd fly from Berlin and stay somewhere boutique, nothing too big. Budget is around €900 for both of us. We love history and food so the Colosseum and Trastevere are must-dos."
+    },
+
+    {
+      "id": "missing-dates-02",
+      "category": "incomplete-missing-dates",
+      "notes": "Vague time reference ('sometime in autumn'). Agent should ask for specific dates.",
+      "query": "Planning a solo trip to Lisbon sometime in autumn — I keep saying I'll go and never do it. I'd fly from Amsterdam. Budget around €700. Just want to wander around, eat pastel de nata and see the viewpoints. A hostel or cheap guesthouse is fine."
+    },
+
+    {
+      "id": "missing-budget-01",
+      "category": "incomplete-missing-budget",
+      "notes": "No budget mentioned. Agent should ask.",
+      "query": "Me and three friends want to do a road trip through Scotland in August, from the 3rd to the 17th. We'd fly to Edinburgh and rent a car from there. We're thinking a mix of Airbnbs and maybe one or two nights camping. We want to do the NC500 route, visit Glencoe, Isle of Skye — the full thing."
+    },
+
+    {
+      "id": "missing-destination-01",
+      "category": "incomplete-missing-destination",
+      "notes": "No specific destination given. Agent should ask.",
+      "query": "I need a proper beach holiday. Looking at late June, roughly June 21st to July 2nd. Two of us, flying from Zurich. Budget is around €2500 total. We want warm weather, clear water, not too touristy if possible. Either a hotel or a nice apartment. Don't really know where — Mediterranean maybe?"
+    },
+
+    {
+      "id": "undersharing-01",
+      "category": "undersharing",
+      "notes": "Extremely minimal. Almost nothing to extract. Agent should ask about nearly everything.",
+      "query": "Paris next month"
+    },
+
+    {
+      "id": "undersharing-02",
+      "category": "undersharing",
+      "notes": "Minimal but has destination and rough dates. Missing budget, transport, accommodation, purpose.",
+      "query": "I want to go to New York in September for about a week."
+    },
+
+    {
+      "id": "undersharing-03",
+      "category": "undersharing",
+      "notes": "Single word destination only. Maximum incompleteness.",
+      "query": "vacation"
+    },
+
+    {
+      "id": "oversharing-01",
+      "category": "oversharing",
+      "notes": "Extremely detailed, rambling, lots of irrelevant context. Extraction should still find the 6 core categories.",
+      "query": "Okay so here's the thing, my wife has been going on about wanting to go to Mallorca for literally three years now, ever since her colleague Sandra went and wouldn't stop talking about it. We have two kids, Lena who is 6 and Max who just turned 9 last month. The kids are finally at an age where travel is actually manageable. We were thinking of going in the second week of July — so July 12th to July 26th, that's two full weeks. We live in Stuttgart so flying from Stuttgart airport makes the most sense, there are direct flights to Palma I think. In terms of budget we could stretch to about €4500 total for the family, although obviously cheaper is better. The kids need a pool, that's absolutely essential, Lena will cry if there's no pool. We'd prefer an all-inclusive or at least a half-board hotel because dealing with three meals out every day with two kids is exhausting. We want a family hotel obviously, not some adults-only place. Max is really into watersports so something near the beach is important. My wife wants at least one nice dinner out, just the two of us, so we'd need a babysitter option. I'm not fussed about nightlife at all. Oh and ideally not Puerto de Alcúdia because we went there once before and didn't love it."
+    },
+
+    {
+      "id": "oversharing-02",
+      "category": "oversharing",
+      "notes": "Business trip with lots of company context. Agent should extract the core travel details.",
+      "query": "We're organising a team offsite for our engineering department in Prague. There are 8 of us total. We need to be there from September 15th to September 18th — three nights, four days. We'll all fly individually from different cities (Berlin, Hamburg, Munich) but the company is covering costs centrally so total budget is around €12000 including flights, hotel and meals. We need a hotel that has at least one decent meeting room we can book for Monday and Tuesday afternoon. The rest of the time is team dinners, a city walking tour we already have planned, and some free time. Four-star hotel preferred. The team lead already has some restaurant recommendations so we don't need that, but we do need reliable wifi and a nice breakfast."
+    },
+
+    {
+      "id": "typos-01",
+      "category": "typos",
+      "notes": "Multiple typos across destination, transport and month. Spell-check should catch all of these.",
+      "query": "I wanna go to Barcelna with my boyfrend for a wekend in Jule. We'd fly from Munchen. Budget arond 600 euros. Probbably a cheep hostel or somethig."
+    },
+
+    {
+      "id": "typos-02",
+      "category": "typos",
+      "notes": "Typos on destination and accommodation type. Subtle errors.",
+      "query": "Planning a trip to Amstredam in October, October 8th to 13th. Solo traveler, flyng from London. Budget is £500. Want to stay in a hotstel in the city centre."
+    },
+
+    {
+      "id": "contradictory-past-dates",
+      "category": "contradictory",
+      "notes": "Travel dates are clearly in the past (January 2026, already passed). Deterministic check should flag this.",
+      "query": "I want to go to Lisbon from January 5th to January 12th. Flying from Madrid. Budget €600. Looking for a mid-range hotel. Just want to explore the city."
+    },
+
+    {
+      "id": "contradictory-end-before-start",
+      "category": "contradictory",
+      "notes": "End date is before start date. Deterministic check should catch this.",
+      "query": "Trip to Vienna from June 20th to June 18th. Two of us flying from Warsaw. Budget around €800. We'd like a nice central hotel."
+    },
+
+    {
+      "id": "mixed-language-01",
+      "category": "mixed-language",
+      "notes": "German/English mix. Common for German-speaking users. Spell-check and extraction should handle both.",
+      "query": "Ich möchte mit meiner Familie nach Paris fahren, irgendwann im Sommer. Wir sind vier Personen. Budget ungefähr €3000. We'd prefer to take the train because of the kids — they hate flying. Wir suchen ein familienfreundliches Hotel, nicht zu teuer."
+    },
+
+    {
+      "id": "backpacking-01",
+      "category": "complete",
+      "notes": "Long solo backpacking trip. All categories present but loosely stated.",
+      "query": "I'm planning a solo backpacking trip through Southeast Asia, roughly 6 weeks. Thinking of starting in Bangkok around September 14th and flying home from Bali around October 26th. Flying out from London. Total budget including flights is €3000. I'll stay in hostels throughout and use overnight buses and budget airlines to get around. Main goal is just to explore — temples, street food, beaches."
+    },
+
+    {
+      "id": "flexible-dates-01",
+      "category": "incomplete-missing-dates",
+      "notes": "Explicitly flexible on dates. Agent should still ask for a concrete window.",
+      "query": "I'm really flexible — I want to do a city break somewhere in central Europe, maybe Krakow or Budapest or Prague, I haven't decided yet. Sometime in the next two months would be ideal, just whenever flights are cheapest. Budget is around €400 for a weekend trip. I'd fly from Copenhagen. Just a simple hotel or Airbnb."
+    },
+
+    {
+      "id": "domestic-01",
+      "category": "complete",
+      "notes": "Short domestic trip by train, not flight. Tests non-flight transport.",
+      "query": "Quick weekend trip from Munich to Hamburg, June 27th to June 29th — two nights. I'd take the ICE train. Nothing fancy, a decent 3-star hotel near the city centre is fine. Budget max €350 including train. Just want to explore the Speicherstadt and Reeperbahn, maybe catch a football match."
+    }
+  ]
+}

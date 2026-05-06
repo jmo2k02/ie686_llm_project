@@ -1,8 +1,8 @@
 """Deterministic execution of ``routing-check`` tasks → :class:`~travelplanner.schema.system_state.AgentArtifactModel`.
 
-Use this from an **execution** layer or scripts. The task-planning LangGraph
-(``workflows.task_planning``) does **not** invoke routing today — it only produces ``TaskModel`` rows.
-This function is the intended bridge once those tasks are executed.
+Use this from an **execution** layer or scripts. The task-planning LangGraph may also
+invoke ``routing_check_agent`` when the reviewed task list includes valid ``routing-check``
+tasks; this function stays the deterministic single-task entrypoint for CLIs/tests.
 """
 
 from __future__ import annotations

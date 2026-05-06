@@ -37,6 +37,23 @@ agents:
     answer_model_name: "openrouter:minimax/minimax-m2.5"
     answer_temperature: 0.0
 
+  flight_search:
+    search_url: "https://serpapi.com/search"
+    currency: "EUR"
+    language: "en"
+    default_adults: 1
+    timeout_seconds: 30
+    max_results: 3
+
+  attraction_search:
+    search_url : "https://serpapi.com/search"
+    experience_pool_path : "experience_pool.json"
+    default_embedding_model : "text-embedding-3-small"
+    default_answer_model : "openrouter:minimax/minimax-m2.5"
+    default_max_candidates : 5
+    default_top_review_candidates : 3
+    default_timeout_seconds : 30
+
 testing:
   general_web_search:
     expected_artifact_type: "general-web-search-result"

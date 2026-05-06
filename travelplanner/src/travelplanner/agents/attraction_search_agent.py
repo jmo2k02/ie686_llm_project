@@ -12,6 +12,7 @@ import requests
 from langgraph.graph import END, StateGraph
 from pydantic import BaseModel, Field, ValidationError
 
+from travelplanner.config import get_setting
 from travelplanner.schema.attraction_search_artifact import (
     AttractionArtifactContentModel,
     AttractionCandidateModel,
@@ -27,16 +28,17 @@ from travelplanner.schema.system_state import (
     TaskModel,
 )
 from travelplanner.utils.llm import invoke_structured_model
+from travelplanner.config import get_setting
 
-_SEARCH_URL = "https://serpapi.com/search"
-_EXPERIENCE_POOL_PATH = Path(__file__).parent / "experience_pool.json"
+_SEARCH_URL = get_setting("agents.attraction_search.search_url")
+_EXPERIENCE_POOL_PATH: Path = Path(__file__).parent / get_setting("agents.attraction_search.experience_pool_path")
 _EXPERIENCE_POOL: list[dict[str, Any]] = json.loads(_EXPERIENCE_POOL_PATH.read_text(encoding="utf-8"))
 
-_DEFAULT_EMBEDDING_MODEL = "text-embedding-3-small"
-_DEFAULT_ANSWER_MODEL = "openrouter:minimax/minimax-m2.5"
-_DEFAULT_MAX_CANDIDATES = 5
-_DEFAULT_TOP_REVIEW_CANDIDATES = 3
-_DEFAULT_TIMEOUT_SECONDS = 30
+_DEFAULT_EMBEDDING_MODEL = get_setting("agents.attraction_search.default_embedding_model")
+_DEFAULT_ANSWER_MODEL = get_setting("agents.attraction_search.default_answer_model")
+_DEFAULT_MAX_CANDIDATES = get_setting("agents.attraction_search.default_max_candidates")
+_DEFAULT_TOP_REVIEW_CANDIDATES = get_setting("agents.attraction_search.default_top_review_candidates")
+_DEFAULT_TIMEOUT_SECONDS = get_setting("agents.attraction_search.default_timeout_seconds")
 
 _PARAM_EXTRACTION_SYSTEM_PROMPT = """\
 You are an attraction search parameter extractor for a travel planning assistant.

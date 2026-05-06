@@ -7,6 +7,7 @@ from travelplanner.travelplan.errors import (
 )
 from travelplanner.travelplan.plan import CostSummary, TravelPlan
 from travelplanner.travelplan.slot import Slot, SlotCategory
+from travelplanner.travelplan.tools import make_travelplan_tools
 
 __all__ = [
     "CostSummary",
@@ -18,4 +19,5 @@ __all__ = [
     "SlotOverlapError",
     "TravelPlan",
     "TravelPlanError",
+    "make_travelplan_tools",
 ]

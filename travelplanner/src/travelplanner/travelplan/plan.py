@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from datetime import date as _date
-from typing import Annotated
+from typing import Callable
 
 from pydantic import BaseModel, Field
 
@@ -11,11 +11,10 @@ from travelplanner.travelplan.slot import Slot
 
 
 class CostSummary(BaseModel):
-    total: Annotated[float, Field(description="Total estimated cost across all days")]
-    per_day: Annotated[
-        dict[int, float],
-        Field(description="Per-day estimated cost, keyed by 1-based day index"),
-    ]
+    total: float = Field(description="Total estimated cost across all days")
+    per_day: dict[int, float] = Field(
+        description="Per-day estimated cost, keyed by 1-based day index"
+    )
 
 
 class TravelPlan(BaseModel):
@@ -25,14 +24,10 @@ class TravelPlan(BaseModel):
     day are also 1-based.
     """
 
-    title: Annotated[
-        str | None,
-        Field(default=None, description="Optional plan title"),
-    ]
-    days: Annotated[
-        list[Day],
-        Field(default_factory=list, description="Ordered days in the plan"),
-    ]
+    title: str | None = Field(default=None, description="Optional plan title")
+    days: list[Day] = Field(
+        default_factory=list, description="Ordered days in the plan"
+    )
 
     # ── Day operations ────────────────────────────────────────────────────────
 
@@ -92,9 +87,27 @@ class TravelPlan(BaseModel):
     def to_markdown(self) -> str:
         """Render the plan as a markdown table with one column per day.
 
-        Cells render slots sorted by start_time. Empty days/slots render as
-        empty cells. A cost summary line follows the table.
+        Cells render slots sorted by start_time and include category,
+        location, cost, and description. A cost summary line follows the
+        table.
         """
+        return self._render_table(_render_slot_cell, include_cost_summary=True)
+
+    def to_markdown_compact(self) -> str:
+        """Render the plan as a compact markdown table.
+
+        Each slot cell shows ONLY the position, name, and time range — no
+        category, location, cost, or description. Useful when the renderer
+        has limited horizontal space (e.g. the CLI dashboard panel).
+        """
+        return self._render_table(_render_slot_cell_compact, include_cost_summary=False)
+
+    def _render_table(
+        self,
+        slot_renderer: "Callable[[int, Slot], str]",
+        *,
+        include_cost_summary: bool,
+    ) -> str:
         lines: list[str] = []
         if self.title:
             lines.append(f"# TravelPlan: {self.title}")
@@ -107,7 +120,10 @@ class TravelPlan(BaseModel):
             return "\n".join(lines)
 
         headers = [_render_day_header(d) for d in self.days]
-        cells_per_day = [_render_day_cells(d) for d in self.days]
+        cells_per_day = [
+            [slot_renderer(pos, slot) for pos, slot in enumerate(d.sorted_slots(), start=1)]
+            for d in self.days
+        ]
         max_rows = max((len(c) for c in cells_per_day), default=0)
 
         lines.append("| " + " | ".join(headers) + " |")
@@ -123,15 +139,16 @@ class TravelPlan(BaseModel):
                 ]
                 lines.append("| " + " | ".join(row_cells) + " |")
 
-        lines.append("")
-        summary = self.cost_summary()
-        per_day_str = ", ".join(
-            f"Day {idx}: €{cost:.2f}" for idx, cost in summary.per_day.items()
-        )
-        lines.append(
-            f"**Total estimated cost: €{summary.total:.2f}**"
-            + (f" ({per_day_str})" if per_day_str else "")
-        )
+        if include_cost_summary:
+            lines.append("")
+            summary = self.cost_summary()
+            per_day_str = ", ".join(
+                f"Day {idx}: €{cost:.2f}" for idx, cost in summary.per_day.items()
+            )
+            lines.append(
+                f"**Total estimated cost: €{summary.total:.2f}**"
+                + (f" ({per_day_str})" if per_day_str else "")
+            )
         return "\n".join(lines)
 
 
@@ -144,24 +161,20 @@ def _render_day_header(day: Day) -> str:
     return " — ".join(parts)
 
 
-def _render_day_cells(day: Day) -> list[str]:
-    return [
-        _render_slot_cell(position, slot)
-        for position, slot in enumerate(day.sorted_slots(), start=1)
-    ]
-
-
-def _render_slot_cell(position: int, slot: Slot) -> str:
+def _format_time_range(slot: Slot) -> str:
     start = slot.start_time
     end = slot.end_time
     if start.date() == end.date():
-        time_range = f"{start.strftime('%H:%M')}–{end.strftime('%H:%M')}"
-    else:
-        time_range = (
-            f"{start.strftime('%Y-%m-%d %H:%M')}–{end.strftime('%Y-%m-%d %H:%M')}"
-        )
+        return f"{start.strftime('%H:%M')}–{end.strftime('%H:%M')}"
+    return f"{start.strftime('%Y-%m-%d %H:%M')}–{end.strftime('%Y-%m-%d %H:%M')}"
 
-    bits = [f"**{position}. {slot.name}**", f"[{slot.category}]", time_range]
+
+def _render_slot_cell(position: int, slot: Slot) -> str:
+    bits = [
+        f"**{position}. {slot.name}**",
+        f"[{slot.category}]",
+        _format_time_range(slot),
+    ]
     if slot.location:
         bits.append(f"@ {slot.location}")
     if slot.cost is not None:
@@ -170,3 +183,7 @@ def _render_slot_cell(position: int, slot: Slot) -> str:
     if slot.description:
         cell += f" — {slot.description}"
     return cell
+
+
+def _render_slot_cell_compact(position: int, slot: Slot) -> str:
+    return f"**{position}. {slot.name}** {_format_time_range(slot)}"

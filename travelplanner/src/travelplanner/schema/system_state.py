@@ -104,7 +104,7 @@ def get_allowed_task_types() -> tuple[str, ...]:
 class TodoItem(BaseModel):
     title: str
     status: Literal["pending", "in_progress", "completed"]
-    description: str
+    description: str = ""
 
 class StateContractModel(BaseModel):
     """This model defines all important states the system uses"""
@@ -122,14 +122,14 @@ class StateContractModel(BaseModel):
     constraint_list: Annotated[list[ConstraintModel], Field(default_factory=list)]
     normalized_constraints: NormalizedConstraints | None = None
     task_list: Annotated[list[TaskModel], Field(default_factory=list)]
-    travelplan: Annotated[
-        TravelPlan,
-        Field(
-            default=None,
-            description="The final output travelplan that will be used by the Execution Agent",
-        ),
-    ]
-    todos: list[TodoItem] = []
+    travelplan: TravelPlan = Field(
+        default_factory=TravelPlan,
+        description="The final travel plan; mutated in place by the execution agent.",
+    )
+    todos: list[TodoItem] = Field(
+        default_factory=list,
+        description="Live mirror of the execution agent's internal todo list.",
+    )
     agent_artifacts: Annotated[
         dict[str, list[AgentArtifactModel]],
         Field(

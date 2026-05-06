@@ -166,6 +166,35 @@ class TestTravelPlanMarkdown(unittest.TestCase):
         self.assertIn("2026-06-01 18:00", md)
         self.assertIn("2026-06-02 01:00", md)
 
+    def test_compact_render_drops_category_location_cost_description(self):
+        plan = TravelPlan(title="Compact demo")
+        plan.add_day(label="Arrival", calendar_date=date(2026, 6, 1))
+        plan.add_slot(
+            1,
+            _slot(
+                "Breakfast",
+                "2026-06-01T08:00",
+                "2026-06-01T10:00",
+                cost=15.0,
+                category="meal",
+                location="Cafe Roma",
+            ),
+        )
+        md = plan.to_markdown_compact()
+        # Required: position, name, time range
+        self.assertIn("**1. Breakfast** 08:00–10:00", md)
+        self.assertIn("Day 1 — 2026-06-01 — Arrival", md)
+        # Excluded: category, location, cost, cost summary line
+        self.assertNotIn("[meal]", md)
+        self.assertNotIn("Cafe Roma", md)
+        self.assertNotIn("€15.00", md)
+        self.assertNotIn("Total estimated cost", md)
+
+    def test_compact_render_empty_plan(self):
+        md = TravelPlan().to_markdown_compact()
+        self.assertIn("# TravelPlan", md)
+        self.assertIn("_No days yet._", md)
+
 
 if __name__ == "__main__":
     unittest.main()

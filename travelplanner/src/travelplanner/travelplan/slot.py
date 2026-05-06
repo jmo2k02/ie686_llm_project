@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from datetime import datetime
-from typing import Annotated, Literal
+from typing import Literal
 
 from pydantic import BaseModel, Field, model_validator
 
@@ -19,38 +19,20 @@ SlotCategory = Literal[
 class Slot(BaseModel):
     """A single time-bounded entry on a day in a travel plan."""
 
-    name: Annotated[
-        str,
-        Field(min_length=1, description="Short label, e.g. 'Breakfast'"),
-    ]
-    description: Annotated[
-        str,
-        Field(default="", description="Free-text description of the slot"),
-    ]
-    start_time: Annotated[
-        datetime,
-        Field(description="Slot start datetime"),
-    ]
-    end_time: Annotated[
-        datetime,
-        Field(description="Slot end datetime; must be strictly after start_time"),
-    ]
-    category: Annotated[
-        SlotCategory,
-        Field(default="other", description="Slot category"),
-    ]
-    location: Annotated[
-        str | None,
-        Field(default=None, description="Where the slot takes place"),
-    ]
-    cost: Annotated[
-        float | None,
-        Field(default=None, ge=0.0, description="Estimated cost in EUR; None if unknown"),
-    ]
-    notes: Annotated[
-        str | None,
-        Field(default=None, description="Free-form notes for the agent"),
-    ]
+    name: str = Field(min_length=1, description="Short label, e.g. 'Breakfast'")
+    description: str = Field(default="", description="Free-text description of the slot")
+    start_time: datetime = Field(description="Slot start datetime")
+    end_time: datetime = Field(
+        description="Slot end datetime; must be strictly after start_time"
+    )
+    category: SlotCategory = Field(default="other", description="Slot category")
+    location: str | None = Field(
+        default=None, description="Where the slot takes place"
+    )
+    cost: float | None = Field(
+        default=None, ge=0.0, description="Estimated cost in EUR; None if unknown"
+    )
+    notes: str | None = Field(default=None, description="Free-form notes for the agent")
 
     @model_validator(mode="after")
     def _check_time_order(self) -> "Slot":

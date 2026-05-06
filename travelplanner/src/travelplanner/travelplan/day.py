@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from datetime import date as _date
-from typing import Annotated
 
 from pydantic import BaseModel, Field
 
@@ -16,22 +15,16 @@ class Day(BaseModel):
     markdown the agent sees.
     """
 
-    index: Annotated[
-        int,
-        Field(ge=1, description="1-based day index in the plan"),
-    ]
-    calendar_date: Annotated[
-        _date | None,
-        Field(default=None, description="Optional calendar date for this day"),
-    ]
-    label: Annotated[
-        str | None,
-        Field(default=None, description="Optional human label, e.g. 'Arrival day'"),
-    ]
-    slots: Annotated[
-        list[Slot],
-        Field(default_factory=list, description="Ordered slots on this day"),
-    ]
+    index: int = Field(ge=1, description="1-based day index in the plan")
+    calendar_date: _date | None = Field(
+        default=None, description="Optional calendar date for this day"
+    )
+    label: str | None = Field(
+        default=None, description="Optional human label, e.g. 'Arrival day'"
+    )
+    slots: list[Slot] = Field(
+        default_factory=list, description="Ordered slots on this day"
+    )
 
     def _assert_no_overlap(self, candidate: Slot, ignore_zero_index: int | None = None) -> None:
         for i, existing in enumerate(self.slots):

@@ -18,7 +18,7 @@ from travelplanner.agents.general_web_search_agent import (
     GeneralWebSearchAgentState,
     make_graph as make_general_web_search_graph,
 )
-from travelplanner.agents.execution.graph import make_graph as make_execution_graph
+from travelplanner.agents.execution import make_node as make_execution_node
 from travelplanner.schema.system_state import StateContractModel, TaskModel
 
 
@@ -46,18 +46,20 @@ def make_graph(
         model_name=effective_model_name,
         temperature=effective_temperature,
     ).compile()
-    execution_graph = make_execution_graph().compile()
-    
+    execution_node = make_execution_node(
+        model_name=effective_model_name,
+        temperature=effective_temperature,
+    )
 
     graph = StateGraph(StateContractModel)
     graph.add_node("constraint_agent", constraint_graph)
     graph.add_node("planner_agent", planner_graph)
-    graph.add_node("execution_agent", execution_graph)
+    graph.add_node("execution_agent", execution_node)
 
     graph.set_entry_point("constraint_agent")
     graph.add_edge("constraint_agent", "planner_agent")
-    graph.add_edge("planner_agent", "execution_graph")
-    graph.add_edge("execution_graph", END)
+    graph.add_edge("planner_agent", "execution_agent")
+    graph.add_edge("execution_agent", END)
     return graph
 
 

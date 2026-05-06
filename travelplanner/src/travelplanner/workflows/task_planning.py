@@ -80,41 +80,72 @@ def make_graph(
         if not routing_tasks:
             return {"message_histories": dict(state.message_histories)}
 
-        task = routing_tasks[0]
-
-        try:
-            parsed = parse_routing_check_task_text(task.text)
-        except (ValueError, Exception):
-            return {"message_histories": dict(state.message_histories)}
-
-        if isinstance(parsed, SingleOdTaskPayload):
-            agent_state = RoutingCheckAgentState(
-                task_ref=task.name,
-                origin_address=parsed.origin_address,
-                destination_address=parsed.destination_address,
-                travel_mode=parsed.travel_mode,
-                departure_time_rfc3339=parsed.departure_time_rfc3339,
-                detail_level=parsed.detail_level,
-                include_transit_alternatives=parsed.include_transit_alternatives,
-            )
-        elif isinstance(parsed, PlaceGraphFileTaskPayload):
-            agent_state = RoutingCheckAgentState(
-                task_ref=task.name,
-                places_json_path=parsed.places_json_path,
-                cluster_context=parsed.cluster_context,
-            )
-        else:
-            return {"message_histories": dict(state.message_histories)}
-
-        result = routing_check_graph.invoke(agent_state)
-
         message_histories = dict(state.message_histories)
-        message_histories[ROUTING_CHECK_HISTORY_KEY] = result["message_history"]
         existing = dict(state.agent_artifacts)
         key = "routing_check_agent"
-        artifact = result.get("artifact")
-        if artifact is not None:
-            existing[key] = existing.get(key, []) + [artifact]
+        base_mh = message_histories.get(ROUTING_CHECK_HISTORY_KEY)
+        merged_msgs: list[Any] = []
+        if isinstance(base_mh, dict) and isinstance(base_mh.get("messages"), list):
+            merged_msgs = [*base_mh["messages"]]
+        invoked = False
+
+        for task in routing_tasks:
+            try:
+                parsed = parse_routing_check_task_text(task.text)
+            except (ValueError, Exception):
+                continue
+
+            if isinstance(parsed, SingleOdTaskPayload):
+                agent_state = RoutingCheckAgentState(
+                    task_ref=task.name,
+                    origin_address=parsed.origin_address,
+                    destination_address=parsed.destination_address,
+                    travel_mode=parsed.travel_mode,
+                    departure_time_rfc3339=parsed.departure_time_rfc3339,
+                    detail_level=parsed.detail_level,
+                    include_transit_alternatives=parsed.include_transit_alternatives,
+                )
+            elif isinstance(parsed, PlaceGraphFileTaskPayload):
+                agent_state = RoutingCheckAgentState(
+                    task_ref=task.name,
+                    places_json_path=parsed.places_json_path,
+                    cluster_context=parsed.cluster_context,
+                )
+            else:
+                continue
+
+            try:
+                result = routing_check_graph.invoke(agent_state)
+            except Exception as exc:
+                # Keep task planning resilient if routing isn’t configured (e.g. missing API key).
+                invoked = True
+                merged_msgs.append(
+                    {
+                        "role": "assistant",
+                        "content": (
+                            f"routing-check task {task.name!r} failed: "
+                            f"{type(exc).__name__}: {exc}"
+                        ),
+                    },
+                )
+                continue
+
+            invoked = True
+            artifact = result.get("artifact")
+            if artifact is not None:
+                existing[key] = existing.get(key, []) + [artifact]
+
+            mh = result.get("message_history")
+            if isinstance(mh, dict) and isinstance(mh.get("messages"), list):
+                merged_msgs.extend(mh["messages"])
+
+        if not invoked:
+            return {"message_histories": dict(state.message_histories)}
+
+        merged = dict(base_mh) if isinstance(base_mh, dict) else {}
+        merged["messages"] = merged_msgs
+        message_histories[ROUTING_CHECK_HISTORY_KEY] = merged
+
         return {
             "agent_artifacts": existing,
             "message_histories": message_histories,

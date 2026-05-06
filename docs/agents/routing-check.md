@@ -4,7 +4,7 @@
 
 **Who decides walk pockets:** The **planner** picks `cluster_context` on the `routing-check` task (`dense_urban` | `mixed` | `sparse`). The places file stays **addresses only**; clustering thresholds follow that preset. Execution is **deterministic** (code + Google APIs), not an LLM.
 
-**LangGraph:** `travelplanner.agents.routing_check_agent` is **single OD** only. For **many addresses** with an optional **LLM-chosen** `cluster_context` then graph build in one graph, use **`travelplanner.agents.routing_agent`** (`build_routing_graph`). The executor can instead call **`execute_routing_check_task`** with `kind: "place_graph_file"` directly.
+**LangGraph:** **`travelplanner.integrations.routing_check_agent`** chooses between **`single_od`** and **`place_graph_file`** (with a structured LLM decision step when ambiguous), executes via the same deterministic path as **`execute_routing_check_task`**, then validates artifacts. For **many addresses** plus **LLM-selected** `cluster_context` when omitted (via an inner cluster-context step inside that graph), **`travelplanner.agents.routing_agent`** exposes **`build_routing_graph`** for the places-only clustering flow. Scripts can also invoke **`execute_routing_check_task`** directly with **`kind`**: **`single_od`** or **`place_graph_file`** JSON.
 
 ---
 

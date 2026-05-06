@@ -25,8 +25,9 @@ from travelplanner.schema.route_plan import (
     RouteMetricModel,
     RoutePlanModel,
     RouteRequestModel,
-    RouteStepModel,
     RouteStepDetailModel,
+    RouteStepKind,
+    RouteStepModel,
 )
 
 TravelMode = Literal["BICYCLE", "DRIVE", "TRANSIT", "WALK"]
@@ -115,6 +116,36 @@ def _parse_duration_seconds(value: str | None) -> float | None:
         return None
 
 
+def _step_duration_seconds(step: dict[str, Any]) -> float | None:
+    """Normalize step ``duration``: computeRoutes uses a string like ``123s``; some shapes use nested dict."""
+    dur = step.get("duration")
+    if isinstance(dur, str):
+        return _parse_duration_seconds(dur)
+    if isinstance(dur, dict):
+        inner = dur.get("value")
+        if isinstance(inner, str):
+            return _parse_duration_seconds(inner)
+        if isinstance(inner, (int, float)):
+            return float(inner)
+    return None
+
+
+def _travel_mode_upper_to_kind(travel_mode_upper: str) -> RouteStepKind:
+    """Map Google Routes step ``travelMode`` (typically UPPERCASE) to schema :class:`~RouteStepKind`."""
+    m: dict[str, RouteStepKind] = {
+        "WALK": "walking",
+        "WALKING": "walking",
+        "DRIVE": "driving",
+        "DRIVING": "driving",
+        "BICYCLE": "bicycling",
+        "CYCLING": "bicycling",
+        "BICYCLING": "bicycling",
+        "TRANSIT": "transit_step",
+    }
+    key = travel_mode_upper.strip().upper()
+    return m.get(key, "walking")
+
+
 def _build_step_summary(step: dict[str, Any]) -> str:
     html = step.get("htmlInstructions", "") or ""
     import re
@@ -129,19 +160,20 @@ def _parse_steps(legs: list[dict[str, Any]]) -> list[RouteStepModel]:
         for step in leg.get("steps", []):
             si: dict[str, Any] = step
             dist = si.get("distanceMeters")
-            dur = _parse_duration_seconds(si.get("duration", {}).get("value"))
+            dur = _step_duration_seconds(si)
             travel_mode = si.get("travelMode", "").upper()
+            kind = _travel_mode_upper_to_kind(travel_mode)
             detail = RouteStepDetailModel(
                 distance_meters=dist,
                 duration_seconds=dur,
                 start_lat_lng=si.get("startLocation", {}).get("latLng"),
                 end_lat_lng=si.get("endLocation", {}).get("latLng"),
                 html_instructions=si.get("htmlInstructions", ""),
-                travel_mode=travel_mode,
+                travel_mode=travel_mode or None,
             )
             steps_out.append(
                 RouteStepModel(
-                    kind=travel_mode,
+                    kind=kind,
                     summary=_build_step_summary(si),
                     distance_meters=dist,
                     duration_seconds=dur,
@@ -151,7 +183,7 @@ def _parse_steps(legs: list[dict[str, Any]]) -> list[RouteStepModel]:
     return steps_out
 
 
-def _parse_route(route: dict[str, Any]) -> RoutePlanModel:
+def _parse_route(route: dict[str, Any], *, travel_mode: TravelMode) -> RoutePlanModel:
     legs = route.get("legs", [])
     steps = _parse_steps(legs)
 
@@ -192,7 +224,7 @@ def _parse_route(route: dict[str, Any]) -> RoutePlanModel:
         request=RouteRequestModel(
             origin=start_addr,
             destination=end_addr,
-            travel_mode="TRANSIT",
+            travel_mode=travel_mode,
         ),
         metrics=metrics,
         steps=steps,
@@ -262,7 +294,7 @@ def compute_route_plan(
     routes = data.get("routes", [])
     if not routes:
         raise RuntimeError(f"No routes returned for {origin!r} → {destination!r}")
-    return _parse_route(routes[0])
+    return _parse_route(routes[0], travel_mode=travel_mode)
 
 
 def route_plan_to_jsonable(plan: RoutePlanModel) -> dict[str, Any]:

@@ -6,7 +6,7 @@ This module is the stable boundary between **LLM-produced plans** (``TaskModel``
 **Where things live**
 
 * **Deterministic / preferred for data quality:** :func:`travelplanner.integrations.routing_execution.execute_routing_check_task`, :func:`travelplanner.integrations.place_distance_graph.build_place_distance_graph`, CLI ``tp routing-check …``.
-* **Thin LangGraph wrapper (optional):** :mod:`travelplanner.integrations.routing_check_agent` — delegates single-OD runs to the same execution path; it does **not** parse natural language.
+* **LangGraph orchestration:** :mod:`travelplanner.integrations.routing_check_agent` — chooses between ``single_od`` and ``place_graph_file`` (structured LLM decision when ambiguous), prefers caller ``cluster_context`` when set, then calls the same deterministic execution helpers as below.
 
 **Determinism**
 

@@ -292,9 +292,9 @@ def _decide_routing_approach(state: RoutingCheckAgentState) -> dict[str, Any]:
         return {
             "decided_mode": structured_output.mode,
             "decided_cluster_context": (
-                structured_output.cluster_context_suggested
-                if structured_output.cluster_context_suggested
-                else state.cluster_context
+                state.cluster_context
+                if state.cluster_context is not None
+                else structured_output.cluster_context_suggested
             ),
             "decision_confidence": structured_output.confidence,
             "decision_reasoning": structured_output.reasoning,
@@ -474,8 +474,9 @@ def make_graph() -> Any:
 
     # Branch on decided_mode and confidence
     def _route_after_decide(state: RoutingCheckAgentState) -> str:
-        if state.error and state.decided_mode is None:
-            return "execute_routing"  # will surface the error
+        # Do not invoke execute_routing without a mode — preserves error state and avoids RuntimeError.
+        if state.decided_mode is None:
+            return END
         if state.decision_confidence < 0.4:
             return "ask_clarification"
         return "execute_routing"
@@ -486,6 +487,7 @@ def make_graph() -> Any:
         {
             "execute_routing": "execute_routing",
             "ask_clarification": END,  # interrupt pattern — caller must re-invoke with clarification
+            END: END,
         },
     )
 

@@ -903,31 +903,33 @@ class RoutingLookup:
                 if hub_leg is None:
                     continue
 
-                # Reconstruct the composed option with this specific hub mode
-                distance_meters = hub_leg.get("distance_meters") or 0
-                duration_seconds = hub_leg.get("duration_seconds") or 0
-                # Walk legs not stored in hub_leg — use edge's walk estimates as proxy
-                walk_d = 0.0
-                walk_t = 0.0
+                # Reconstruct the composed option with this specific hub mode.
+                # Prefer all walk_approx legs from the composed edge (to-hub + from-hub can differ).
+                dm_mid = hub_leg.get("distance_meters") or 0
+                ds_mid = hub_leg.get("duration_seconds") or 0
+                walk_d_total = 0.0
+                walk_t_total = 0.0
+                legs_ordered: list[dict[str, Any]] = []
                 if edge:
-                    walk_d = next(
-                        (
-                            leg["distance_meters"]
-                            for leg in edge.get("legs", [])
-                            if leg.get("kind") == "walk_approx"
-                        ),
-                        0.0,
-                    )
-                    walk_t = next(
-                        (
-                            leg["duration_seconds"]
-                            for leg in edge.get("legs", [])
-                            if leg.get("kind") == "walk_approx"
-                        ),
-                        0.0,
-                    )
-                    distance_meters += 2 * (walk_d or 0)
-                    duration_seconds += 2 * (walk_t or 0)
+                    for raw in edge.get("legs", []):
+                        if not isinstance(raw, dict):
+                            continue
+                        if raw.get("kind") == "walk_approx":
+                            legs_ordered.append(dict(raw))
+                            walk_d_total += float(raw.get("distance_meters") or 0)
+                            walk_t_total += float(raw.get("duration_seconds") or 0)
+                        elif raw.get("kind") == "matrix":
+                            legs_ordered.append(
+                                {
+                                    "kind": "matrix",
+                                    "travel_mode": mode,
+                                    "distance_meters": hub_leg.get("distance_meters"),
+                                    "duration_seconds": hub_leg.get("duration_seconds"),
+                                }
+                            )
+
+                distance_meters = float(dm_mid or 0) + walk_d_total
+                duration_seconds = float(ds_mid or 0) + walk_t_total
 
                 options.append(
                     RouteOption(
@@ -939,28 +941,7 @@ class RoutingLookup:
                         quality="hub_chain",
                         primary_mode=mode,
                         is_same_cluster=False,
-                        legs=(
-                            {
-                                "kind": "walk_approx",
-                                "travel_mode": "WALK",
-                                "distance_meters": walk_d,
-                                "duration_seconds": walk_t,
-                            },
-                            {
-                                "kind": "matrix",
-                                "travel_mode": mode,
-                                "distance_meters": hub_leg.get("distance_meters"),
-                                "duration_seconds": hub_leg.get("duration_seconds"),
-                            },
-                            {
-                                "kind": "walk_approx",
-                                "travel_mode": "WALK",
-                                "distance_meters": walk_d,
-                                "duration_seconds": walk_t,
-                            },
-                        )
-                        if edge
-                        else (),
+                        legs=tuple(legs_ordered) if edge else (),
                     )
                 )
 

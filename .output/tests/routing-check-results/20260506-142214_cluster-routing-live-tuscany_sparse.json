@@ -1,0 +1,3244 @@
+{
+  "slug": "cluster-routing-live-tuscany_sparse",
+  "places_json_path": "inputs/tuscany_sparse.json",
+  "input": {
+    "description": "Tuscany road trip - vineyards and hill towns far apart",
+    "stops": [
+      {
+        "address": "Piazza del Campo 1, 53100 Siena",
+        "name": "Siena Piazza del Campo"
+      },
+      {
+        "address": "Via Chiantigiana 1, 53011 Castellina in Chianti",
+        "name": "Chianti Wine Region"
+      },
+      {
+        "address": "Piazza del Duomo 1, 50122 Florence",
+        "name": "Florence Duomo"
+      },
+      {
+        "address": "Via San Leonardo 1, 53045 Montepulciano",
+        "name": "Montepulciano"
+      },
+      {
+        "address": "Località Podere Casantontano, 53045 Montepulciano",
+        "name": "Wine Estate"
+      }
+    ]
+  },
+  "artifact_name": "live-cluster-routing-live-tuscany_sparse_place_distance_graph",
+  "artifact_type": "place_distance_graph",
+  "description": "5 places, 5 clusters, 20 directed edges",
+  "inter_cluster_transit_pairs": 0,
+  "content": {
+    "schema_version": "1.5",
+    "strategy": "cluster_medoids_hub_matrix_adaptive",
+    "notes": "effective_cluster_link_m=500.0 (cap 500.0); hub primary-leg bands 3500.0/18000.0 m; full hub matrix (BICYCLE + optional TRANSIT + DRIVE per ordered pair); matrix HTTP=3, matrix elements≈75, matrix_tiles_skipped=0; transit_policy=transit_on; routing API cache iv=1 hits=3 misses=0; edge qualities: google_matrix / haversine_walk / hub_chain / fallback_estimate.",
+    "places": [
+      {
+        "id": "stop_0",
+        "name": "Siena Piazza del Campo",
+        "category": "other",
+        "latitude": 43.318316,
+        "longitude": 11.3321996,
+        "cluster_id": 2,
+        "cluster_hub_id": "stop_0"
+      },
+      {
+        "id": "stop_1",
+        "name": "Chianti Wine Region",
+        "category": "other",
+        "latitude": 43.47156090000001,
+        "longitude": 11.2854092,
+        "cluster_id": 3,
+        "cluster_hub_id": "stop_1"
+      },
+      {
+        "id": "stop_2",
+        "name": "Florence Duomo",
+        "category": "other",
+        "latitude": 43.7735213,
+        "longitude": 11.2562698,
+        "cluster_id": 4,
+        "cluster_hub_id": "stop_2"
+      },
+      {
+        "id": "stop_3",
+        "name": "Montepulciano",
+        "category": "other",
+        "latitude": 43.120283,
+        "longitude": 11.8207566,
+        "cluster_id": 1,
+        "cluster_hub_id": "stop_3"
+      },
+      {
+        "id": "stop_4",
+        "name": "Wine Estate",
+        "category": "other",
+        "latitude": 43.0984902,
+        "longitude": 11.7873736,
+        "cluster_id": 0,
+        "cluster_hub_id": "stop_4"
+      }
+    ],
+    "clusters": [
+      {
+        "cluster_id": 0,
+        "member_place_ids": [
+          "stop_4"
+        ],
+        "hub_place_id": "stop_4",
+        "centroid_latitude": 43.0984902,
+        "centroid_longitude": 11.7873736
+      },
+      {
+        "cluster_id": 1,
+        "member_place_ids": [
+          "stop_3"
+        ],
+        "hub_place_id": "stop_3",
+        "centroid_latitude": 43.120283,
+        "centroid_longitude": 11.8207566
+      },
+      {
+        "cluster_id": 2,
+        "member_place_ids": [
+          "stop_0"
+        ],
+        "hub_place_id": "stop_0",
+        "centroid_latitude": 43.318316,
+        "centroid_longitude": 11.3321996
+      },
+      {
+        "cluster_id": 3,
+        "member_place_ids": [
+          "stop_1"
+        ],
+        "hub_place_id": "stop_1",
+        "centroid_latitude": 43.47156090000001,
+        "centroid_longitude": 11.2854092
+      },
+      {
+        "cluster_id": 4,
+        "member_place_ids": [
+          "stop_2"
+        ],
+        "hub_place_id": "stop_2",
+        "centroid_latitude": 43.7735213,
+        "centroid_longitude": 11.2562698
+      }
+    ],
+    "hub_hub_legs": [
+      {
+        "from_hub_id": "stop_4",
+        "to_hub_id": "stop_3",
+        "travel_mode": "BICYCLE",
+        "matrix_policy_band": "bicycle",
+        "distance_meters": 4945,
+        "duration_seconds": 732.0,
+        "haversine_meters": 3635.3852810620697,
+        "source": "google_route_matrix",
+        "condition": "ROUTE_EXISTS"
+      },
+      {
+        "from_hub_id": "stop_4",
+        "to_hub_id": "stop_3",
+        "travel_mode": "TRANSIT",
+        "matrix_policy_band": "transit",
+        "distance_meters": 5515,
+        "duration_seconds": 993.0,
+        "haversine_meters": 3635.3852810620697,
+        "source": "google_route_matrix",
+        "condition": "ROUTE_EXISTS"
+      },
+      {
+        "from_hub_id": "stop_4",
+        "to_hub_id": "stop_3",
+        "travel_mode": "DRIVE",
+        "matrix_policy_band": "drive",
+        "distance_meters": 4945,
+        "duration_seconds": 382.0,
+        "haversine_meters": 3635.3852810620697,
+        "source": "google_route_matrix",
+        "condition": "ROUTE_EXISTS"
+      },
+      {
+        "from_hub_id": "stop_4",
+        "to_hub_id": "stop_0",
+        "travel_mode": "BICYCLE",
+        "matrix_policy_band": "bicycle",
+        "distance_meters": 69533,
+        "duration_seconds": 14109.0,
+        "haversine_meters": 44253.42296353724,
+        "source": "google_route_matrix",
+        "condition": "ROUTE_EXISTS"
+      },
+      {
+        "from_hub_id": "stop_4",
+        "to_hub_id": "stop_0",
+        "travel_mode": "TRANSIT",
+        "matrix_policy_band": "transit",
+        "distance_meters": 86575,
+        "duration_seconds": 7189.0,
+        "haversine_meters": 44253.42296353724,
+        "source": "google_route_matrix",
+        "condition": "ROUTE_EXISTS"
+      },
+      {
+        "from_hub_id": "stop_4",
+        "to_hub_id": "stop_0",
+        "travel_mode": "DRIVE",
+        "matrix_policy_band": "drive",
+        "distance_meters": 61734,
+        "duration_seconds": 3357.0,
+        "haversine_meters": 44253.42296353724,
+        "source": "google_route_matrix",
+        "condition": "ROUTE_EXISTS"
+      },
+      {
+        "from_hub_id": "stop_4",
+        "to_hub_id": "stop_1",
+        "travel_mode": "BICYCLE",
+        "matrix_policy_band": "bicycle",
+        "distance_meters": 82544,
+        "duration_seconds": 18283.0,
+        "haversine_meters": 58066.87497090598,
+        "source": "google_route_matrix",
+        "condition": "ROUTE_EXISTS"
+      },
+      {
+        "from_hub_id": "stop_4",
+        "to_hub_id": "stop_1",
+        "travel_mode": "TRANSIT",
+        "matrix_policy_band": "transit",
+        "distance_meters": 106008,
+        "duration_seconds": 10707.0,
+        "haversine_meters": 58066.87497090598,
+        "source": "google_route_matrix",
+        "condition": "ROUTE_EXISTS"
+      },
+      {
+        "from_hub_id": "stop_4",
+        "to_hub_id": "stop_1",
+        "travel_mode": "DRIVE",
+        "matrix_policy_band": "drive",
+        "distance_meters": 85606,
+        "duration_seconds": 4342.0,
+        "haversine_meters": 58066.87497090598,
+        "source": "google_route_matrix",
+        "condition": "ROUTE_EXISTS"
+      },
+      {
+        "from_hub_id": "stop_4",
+        "to_hub_id": "stop_2",
+        "travel_mode": "BICYCLE",
+        "matrix_policy_band": "bicycle",
+        "distance_meters": 123021,
+        "duration_seconds": 24280.0,
+        "haversine_meters": 86445.85599448893,
+        "source": "google_route_matrix",
+        "condition": "ROUTE_EXISTS"
+      },
+      {
+        "from_hub_id": "stop_4",
+        "to_hub_id": "stop_2",
+        "travel_mode": "TRANSIT",
+        "matrix_policy_band": "transit",
+        "distance_meters": 178247,
+        "duration_seconds": 13357.0,
+        "haversine_meters": 86445.85599448893,
+        "source": "google_route_matrix",
+        "condition": "ROUTE_EXISTS"
+      },
+      {
+        "from_hub_id": "stop_4",
+        "to_hub_id": "stop_2",
+        "travel_mode": "DRIVE",
+        "matrix_policy_band": "drive",
+        "distance_meters": 115893,
+        "duration_seconds": 5751.0,
+        "haversine_meters": 86445.85599448893,
+        "source": "google_route_matrix",
+        "condition": "ROUTE_EXISTS"
+      },
+      {
+        "from_hub_id": "stop_3",
+        "to_hub_id": "stop_4",
+        "travel_mode": "BICYCLE",
+        "matrix_policy_band": "bicycle",
+        "distance_meters": 4545,
+        "duration_seconds": 1765.0,
+        "haversine_meters": 3635.3852810620697,
+        "source": "google_route_matrix",
+        "condition": "ROUTE_EXISTS"
+      },
+      {
+        "from_hub_id": "stop_3",
+        "to_hub_id": "stop_4",
+        "travel_mode": "TRANSIT",
+        "matrix_policy_band": "transit",
+        "distance_meters": 5578,
+        "duration_seconds": 894.0,
+        "haversine_meters": 3635.3852810620697,
+        "source": "google_route_matrix",
+        "condition": "ROUTE_EXISTS"
+      },
+      {
+        "from_hub_id": "stop_3",
+        "to_hub_id": "stop_4",
+        "travel_mode": "DRIVE",
+        "matrix_policy_band": "drive",
+        "distance_meters": 5013,
+        "duration_seconds": 396.0,
+        "haversine_meters": 3635.3852810620697,
+        "source": "google_route_matrix",
+        "condition": "ROUTE_EXISTS"
+      },
+      {
+        "from_hub_id": "stop_3",
+        "to_hub_id": "stop_0",
+        "travel_mode": "BICYCLE",
+        "matrix_policy_band": "bicycle",
+        "distance_meters": 68366,
+        "duration_seconds": 13719.0,
+        "haversine_meters": 45300.661208273035,
+        "source": "google_route_matrix",
+        "condition": "ROUTE_EXISTS"
+      },
+      {
+        "from_hub_id": "stop_3",
+        "to_hub_id": "stop_0",
+        "travel_mode": "TRANSIT",
+        "matrix_policy_band": "transit",
+        "distance_meters": 81072,
+        "duration_seconds": 6613.0,
+        "haversine_meters": 45300.661208273035,
+        "source": "google_route_matrix",
+        "condition": "ROUTE_EXISTS"
+      },
+      {
+        "from_hub_id": "stop_3",
+        "to_hub_id": "stop_0",
+        "travel_mode": "DRIVE",
+        "matrix_policy_band": "drive",
+        "distance_meters": 60745,
+        "duration_seconds": 3258.0,
+        "haversine_meters": 45300.661208273035,
+        "source": "google_route_matrix",
+        "condition": "ROUTE_EXISTS"
+      },
+      {
+        "from_hub_id": "stop_3",
+        "to_hub_id": "stop_1",
+        "travel_mode": "BICYCLE",
+        "matrix_policy_band": "bicycle",
+        "distance_meters": 81377,
+        "duration_seconds": 17893.0,
+        "haversine_meters": 58333.49790578711,
+        "source": "google_route_matrix",
+        "condition": "ROUTE_EXISTS"
+      },
+      {
+        "from_hub_id": "stop_3",
+        "to_hub_id": "stop_1",
+        "travel_mode": "TRANSIT",
+        "matrix_policy_band": "transit",
+        "distance_meters": 100505,
+        "duration_seconds": 10131.0,
+        "haversine_meters": 58333.49790578711,
+        "source": "google_route_matrix",
+        "condition": "ROUTE_EXISTS"
+      },
+      {
+        "from_hub_id": "stop_3",
+        "to_hub_id": "stop_1",
+        "travel_mode": "DRIVE",
+        "matrix_policy_band": "drive",
+        "distance_meters": 84616,
+        "duration_seconds": 4244.0,
+        "haversine_meters": 58333.49790578711,
+        "source": "google_route_matrix",
+        "condition": "ROUTE_EXISTS"
+      },
+      {
+        "from_hub_id": "stop_3",
+        "to_hub_id": "stop_2",
+        "travel_mode": "BICYCLE",
+        "matrix_policy_band": "bicycle",
+        "distance_meters": 118077,
+        "duration_seconds": 23548.0,
+        "haversine_meters": 85747.71197213323,
+        "source": "google_route_matrix",
+        "condition": "ROUTE_EXISTS"
+      },
+      {
+        "from_hub_id": "stop_3",
+        "to_hub_id": "stop_2",
+        "travel_mode": "TRANSIT",
+        "matrix_policy_band": "transit",
+        "distance_meters": 172744,
+        "duration_seconds": 12781.0,
+        "haversine_meters": 85747.71197213323,
+        "source": "google_route_matrix",
+        "condition": "ROUTE_EXISTS"
+      },
+      {
+        "from_hub_id": "stop_3",
+        "to_hub_id": "stop_2",
+        "travel_mode": "DRIVE",
+        "matrix_policy_band": "drive",
+        "distance_meters": 113906,
+        "duration_seconds": 5589.0,
+        "haversine_meters": 85747.71197213323,
+        "source": "google_route_matrix",
+        "condition": "ROUTE_EXISTS"
+      },
+      {
+        "from_hub_id": "stop_0",
+        "to_hub_id": "stop_4",
+        "travel_mode": "BICYCLE",
+        "matrix_policy_band": "bicycle",
+        "distance_meters": 66121,
+        "duration_seconds": 14577.0,
+        "haversine_meters": 44253.42296353724,
+        "source": "google_route_matrix",
+        "condition": "ROUTE_EXISTS"
+      },
+      {
+        "from_hub_id": "stop_0",
+        "to_hub_id": "stop_4",
+        "travel_mode": "TRANSIT",
+        "matrix_policy_band": "transit",
+        "distance_meters": 68695,
+        "duration_seconds": 6668.0,
+        "haversine_meters": 44253.42296353724,
+        "source": "google_route_matrix",
+        "condition": "ROUTE_EXISTS"
+      },
+      {
+        "from_hub_id": "stop_0",
+        "to_hub_id": "stop_4",
+        "travel_mode": "DRIVE",
+        "matrix_policy_band": "drive",
+        "distance_meters": 60533,
+        "duration_seconds": 3242.0,
+        "haversine_meters": 44253.42296353724,
+        "source": "google_route_matrix",
+        "condition": "ROUTE_EXISTS"
+      },
+      {
+        "from_hub_id": "stop_0",
+        "to_hub_id": "stop_3",
+        "travel_mode": "BICYCLE",
+        "matrix_policy_band": "bicycle",
+        "distance_meters": 64487,
+        "duration_seconds": 13172.0,
+        "haversine_meters": 45300.661208273035,
+        "source": "google_route_matrix",
+        "condition": "ROUTE_EXISTS"
+      },
+      {
+        "from_hub_id": "stop_0",
+        "to_hub_id": "stop_3",
+        "travel_mode": "TRANSIT",
+        "matrix_policy_band": "transit",
+        "distance_meters": 81073,
+        "duration_seconds": 9599.0,
+        "haversine_meters": 45300.661208273035,
+        "source": "google_route_matrix",
+        "condition": "ROUTE_EXISTS"
+      },
+      {
+        "from_hub_id": "stop_0",
+        "to_hub_id": "stop_3",
+        "travel_mode": "DRIVE",
+        "matrix_policy_band": "drive",
+        "distance_meters": 59470,
+        "duration_seconds": 3111.0,
+        "haversine_meters": 45300.661208273035,
+        "source": "google_route_matrix",
+        "condition": "ROUTE_EXISTS"
+      },
+      {
+        "from_hub_id": "stop_0",
+        "to_hub_id": "stop_1",
+        "travel_mode": "BICYCLE",
+        "matrix_policy_band": "bicycle",
+        "distance_meters": 22258,
+        "duration_seconds": 5845.0,
+        "haversine_meters": 17454.404335009083,
+        "source": "google_route_matrix",
+        "condition": "ROUTE_EXISTS"
+      },
+      {
+        "from_hub_id": "stop_0",
+        "to_hub_id": "stop_1",
+        "travel_mode": "TRANSIT",
+        "matrix_policy_band": "transit",
+        "distance_meters": 25374,
+        "duration_seconds": 3435.0,
+        "haversine_meters": 17454.404335009083,
+        "source": "google_route_matrix",
+        "condition": "ROUTE_EXISTS"
+      },
+      {
+        "from_hub_id": "stop_0",
+        "to_hub_id": "stop_1",
+        "travel_mode": "DRIVE",
+        "matrix_policy_band": "drive",
+        "distance_meters": 27893,
+        "duration_seconds": 1772.0,
+        "haversine_meters": 17454.404335009083,
+        "source": "google_route_matrix",
+        "condition": "ROUTE_EXISTS"
+      },
+      {
+        "from_hub_id": "stop_0",
+        "to_hub_id": "stop_2",
+        "travel_mode": "BICYCLE",
+        "matrix_policy_band": "bicycle",
+        "distance_meters": 68502,
+        "duration_seconds": 14957.0,
+        "haversine_meters": 50985.114189566375,
+        "source": "google_route_matrix",
+        "condition": "ROUTE_EXISTS"
+      },
+      {
+        "from_hub_id": "stop_0",
+        "to_hub_id": "stop_2",
+        "travel_mode": "TRANSIT",
+        "matrix_policy_band": "transit",
+        "distance_meters": 71114,
+        "duration_seconds": 5914.0,
+        "haversine_meters": 50985.114189566375,
+        "source": "google_route_matrix",
+        "condition": "ROUTE_EXISTS"
+      },
+      {
+        "from_hub_id": "stop_0",
+        "to_hub_id": "stop_2",
+        "travel_mode": "DRIVE",
+        "matrix_policy_band": "drive",
+        "distance_meters": 74475,
+        "duration_seconds": 4059.0,
+        "haversine_meters": 50985.114189566375,
+        "source": "google_route_matrix",
+        "condition": "ROUTE_EXISTS"
+      },
+      {
+        "from_hub_id": "stop_1",
+        "to_hub_id": "stop_4",
+        "travel_mode": "BICYCLE",
+        "matrix_policy_band": "bicycle",
+        "distance_meters": 80731,
+        "duration_seconds": 17925.0,
+        "haversine_meters": 58066.87497090598,
+        "source": "google_route_matrix",
+        "condition": "ROUTE_EXISTS"
+      },
+      {
+        "from_hub_id": "stop_1",
+        "to_hub_id": "stop_4",
+        "travel_mode": "TRANSIT",
+        "matrix_policy_band": "transit",
+        "distance_meters": 93290,
+        "duration_seconds": 9807.0,
+        "haversine_meters": 58066.87497090598,
+        "source": "google_route_matrix",
+        "condition": "ROUTE_EXISTS"
+      },
+      {
+        "from_hub_id": "stop_1",
+        "to_hub_id": "stop_4",
+        "travel_mode": "DRIVE",
+        "matrix_policy_band": "drive",
+        "distance_meters": 86511,
+        "duration_seconds": 4454.0,
+        "haversine_meters": 58066.87497090598,
+        "source": "google_route_matrix",
+        "condition": "ROUTE_EXISTS"
+      },
+      {
+        "from_hub_id": "stop_1",
+        "to_hub_id": "stop_3",
+        "travel_mode": "BICYCLE",
+        "matrix_policy_band": "bicycle",
+        "distance_meters": 79098,
+        "duration_seconds": 16520.0,
+        "haversine_meters": 58333.49790578711,
+        "source": "google_route_matrix",
+        "condition": "ROUTE_EXISTS"
+      },
+      {
+        "from_hub_id": "stop_1",
+        "to_hub_id": "stop_3",
+        "travel_mode": "TRANSIT",
+        "matrix_policy_band": "transit",
+        "distance_meters": 84067,
+        "duration_seconds": 11772.0,
+        "haversine_meters": 58333.49790578711,
+        "source": "google_route_matrix",
+        "condition": "ROUTE_EXISTS"
+      },
+      {
+        "from_hub_id": "stop_1",
+        "to_hub_id": "stop_3",
+        "travel_mode": "DRIVE",
+        "matrix_policy_band": "drive",
+        "distance_meters": 85448,
+        "duration_seconds": 4324.0,
+        "haversine_meters": 58333.49790578711,
+        "source": "google_route_matrix",
+        "condition": "ROUTE_EXISTS"
+      },
+      {
+        "from_hub_id": "stop_1",
+        "to_hub_id": "stop_0",
+        "travel_mode": "BICYCLE",
+        "matrix_policy_band": "bicycle",
+        "distance_meters": 22094,
+        "duration_seconds": 4608.0,
+        "haversine_meters": 17454.404335009083,
+        "source": "google_route_matrix",
+        "condition": "ROUTE_EXISTS"
+      },
+      {
+        "from_hub_id": "stop_1",
+        "to_hub_id": "stop_0",
+        "travel_mode": "TRANSIT",
+        "matrix_policy_band": "transit",
+        "distance_meters": 22932,
+        "duration_seconds": 3307.0,
+        "haversine_meters": 17454.404335009083,
+        "source": "google_route_matrix",
+        "condition": "ROUTE_EXISTS"
+      },
+      {
+        "from_hub_id": "stop_1",
+        "to_hub_id": "stop_0",
+        "travel_mode": "DRIVE",
+        "matrix_policy_band": "drive",
+        "distance_meters": 24653,
+        "duration_seconds": 2191.0,
+        "haversine_meters": 17454.404335009083,
+        "source": "google_route_matrix",
+        "condition": "ROUTE_EXISTS"
+      },
+      {
+        "from_hub_id": "stop_1",
+        "to_hub_id": "stop_2",
+        "travel_mode": "BICYCLE",
+        "matrix_policy_band": "bicycle",
+        "distance_meters": 46286,
+        "duration_seconds": 9097.0,
+        "haversine_meters": 33658.29052920813,
+        "source": "google_route_matrix",
+        "condition": "ROUTE_EXISTS"
+      },
+      {
+        "from_hub_id": "stop_1",
+        "to_hub_id": "stop_2",
+        "travel_mode": "TRANSIT",
+        "matrix_policy_band": "transit",
+        "distance_meters": 84874,
+        "duration_seconds": 9117.0,
+        "haversine_meters": 33658.29052920813,
+        "source": "google_route_matrix",
+        "condition": "ROUTE_EXISTS"
+      },
+      {
+        "from_hub_id": "stop_1",
+        "to_hub_id": "stop_2",
+        "travel_mode": "DRIVE",
+        "matrix_policy_band": "drive",
+        "distance_meters": 43705,
+        "duration_seconds": 3074.0,
+        "haversine_meters": 33658.29052920813,
+        "source": "google_route_matrix",
+        "condition": "ROUTE_EXISTS"
+      },
+      {
+        "from_hub_id": "stop_2",
+        "to_hub_id": "stop_4",
+        "travel_mode": "BICYCLE",
+        "matrix_policy_band": "bicycle",
+        "distance_meters": 122522,
+        "duration_seconds": 26460.0,
+        "haversine_meters": 86445.85599448893,
+        "source": "google_route_matrix",
+        "condition": "ROUTE_EXISTS"
+      },
+      {
+        "from_hub_id": "stop_2",
+        "to_hub_id": "stop_4",
+        "travel_mode": "TRANSIT",
+        "matrix_policy_band": "transit",
+        "distance_meters": 141301,
+        "duration_seconds": 12963.0,
+        "haversine_meters": 86445.85599448893,
+        "source": "google_route_matrix",
+        "condition": "ROUTE_EXISTS"
+      },
+      {
+        "from_hub_id": "stop_2",
+        "to_hub_id": "stop_4",
+        "travel_mode": "DRIVE",
+        "matrix_policy_band": "drive",
+        "distance_meters": 109009,
+        "duration_seconds": 5340.0,
+        "haversine_meters": 86445.85599448893,
+        "source": "google_route_matrix",
+        "condition": "ROUTE_EXISTS"
+      },
+      {
+        "from_hub_id": "stop_2",
+        "to_hub_id": "stop_3",
+        "travel_mode": "BICYCLE",
+        "matrix_policy_band": "bicycle",
+        "distance_meters": 117976,
+        "duration_seconds": 24695.0,
+        "haversine_meters": 85747.71197213323,
+        "source": "google_route_matrix",
+        "condition": "ROUTE_EXISTS"
+      },
+      {
+        "from_hub_id": "stop_2",
+        "to_hub_id": "stop_3",
+        "travel_mode": "TRANSIT",
+        "matrix_policy_band": "transit",
+        "distance_meters": 138474,
+        "duration_seconds": 12400.0,
+        "haversine_meters": 85747.71197213323,
+        "source": "google_route_matrix",
+        "condition": "ROUTE_EXISTS"
+      },
+      {
+        "from_hub_id": "stop_2",
+        "to_hub_id": "stop_3",
+        "travel_mode": "DRIVE",
+        "matrix_policy_band": "drive",
+        "distance_meters": 107039,
+        "duration_seconds": 5159.0,
+        "haversine_meters": 85747.71197213323,
+        "source": "google_route_matrix",
+        "condition": "ROUTE_EXISTS"
+      },
+      {
+        "from_hub_id": "stop_2",
+        "to_hub_id": "stop_0",
+        "travel_mode": "BICYCLE",
+        "matrix_policy_band": "bicycle",
+        "distance_meters": 71489,
+        "duration_seconds": 16812.0,
+        "haversine_meters": 50985.114189566375,
+        "source": "google_route_matrix",
+        "condition": "ROUTE_EXISTS"
+      },
+      {
+        "from_hub_id": "stop_2",
+        "to_hub_id": "stop_0",
+        "travel_mode": "TRANSIT",
+        "matrix_policy_band": "transit",
+        "distance_meters": 72023,
+        "duration_seconds": 5810.0,
+        "haversine_meters": 50985.114189566375,
+        "source": "google_route_matrix",
+        "condition": "ROUTE_EXISTS"
+      },
+      {
+        "from_hub_id": "stop_2",
+        "to_hub_id": "stop_0",
+        "travel_mode": "DRIVE",
+        "matrix_policy_band": "drive",
+        "distance_meters": 78093,
+        "duration_seconds": 4486.0,
+        "haversine_meters": 50985.114189566375,
+        "source": "google_route_matrix",
+        "condition": "ROUTE_EXISTS"
+      },
+      {
+        "from_hub_id": "stop_2",
+        "to_hub_id": "stop_1",
+        "travel_mode": "BICYCLE",
+        "matrix_policy_band": "bicycle",
+        "distance_meters": 49395,
+        "duration_seconds": 12197.0,
+        "haversine_meters": 33658.29052920813,
+        "source": "google_route_matrix",
+        "condition": "ROUTE_EXISTS"
+      },
+      {
+        "from_hub_id": "stop_2",
+        "to_hub_id": "stop_1",
+        "travel_mode": "TRANSIT",
+        "matrix_policy_band": "transit",
+        "distance_meters": 85549,
+        "duration_seconds": 8503.0,
+        "haversine_meters": 33658.29052920813,
+        "source": "google_route_matrix",
+        "condition": "ROUTE_EXISTS"
+      },
+      {
+        "from_hub_id": "stop_2",
+        "to_hub_id": "stop_1",
+        "travel_mode": "DRIVE",
+        "matrix_policy_band": "drive",
+        "distance_meters": 48188,
+        "duration_seconds": 3087.0,
+        "haversine_meters": 33658.29052920813,
+        "source": "google_route_matrix",
+        "condition": "ROUTE_EXISTS"
+      }
+    ],
+    "edges": [
+      {
+        "from_place_id": "stop_0",
+        "to_place_id": "stop_1",
+        "distance_meters": 25374.0,
+        "duration_seconds": 3435.0,
+        "travel_mode_effective": "COMPOSED",
+        "quality": "hub_chain",
+        "primary_hub_travel_mode": "TRANSIT",
+        "detail": "walk to hub (stop_0) + TRANSIT hub leg + walk from hub (stop_1)",
+        "legs": [
+          {
+            "kind": "walk_approx",
+            "from_place_id": "stop_0",
+            "to_place_id": "stop_0",
+            "travel_mode": "WALK",
+            "distance_meters": 0.0,
+            "duration_seconds": 0.0,
+            "quality": "haversine_walk"
+          },
+          {
+            "kind": "matrix",
+            "from_place_id": "stop_0",
+            "to_place_id": "stop_1",
+            "travel_mode": "TRANSIT",
+            "distance_meters": 25374.0,
+            "duration_seconds": 3435.0,
+            "quality": "google_matrix"
+          },
+          {
+            "kind": "walk_approx",
+            "from_place_id": "stop_1",
+            "to_place_id": "stop_1",
+            "travel_mode": "WALK",
+            "distance_meters": 0.0,
+            "duration_seconds": 0.0,
+            "quality": "haversine_walk"
+          }
+        ]
+      },
+      {
+        "from_place_id": "stop_0",
+        "to_place_id": "stop_2",
+        "distance_meters": 74475.0,
+        "duration_seconds": 4059.0,
+        "travel_mode_effective": "COMPOSED",
+        "quality": "hub_chain",
+        "primary_hub_travel_mode": "DRIVE",
+        "detail": "walk to hub (stop_0) + DRIVE hub leg + walk from hub (stop_2)",
+        "legs": [
+          {
+            "kind": "walk_approx",
+            "from_place_id": "stop_0",
+            "to_place_id": "stop_0",
+            "travel_mode": "WALK",
+            "distance_meters": 0.0,
+            "duration_seconds": 0.0,
+            "quality": "haversine_walk"
+          },
+          {
+            "kind": "matrix",
+            "from_place_id": "stop_0",
+            "to_place_id": "stop_2",
+            "travel_mode": "DRIVE",
+            "distance_meters": 74475.0,
+            "duration_seconds": 4059.0,
+            "quality": "google_matrix"
+          },
+          {
+            "kind": "walk_approx",
+            "from_place_id": "stop_2",
+            "to_place_id": "stop_2",
+            "travel_mode": "WALK",
+            "distance_meters": 0.0,
+            "duration_seconds": 0.0,
+            "quality": "haversine_walk"
+          }
+        ]
+      },
+      {
+        "from_place_id": "stop_0",
+        "to_place_id": "stop_3",
+        "distance_meters": 59470.0,
+        "duration_seconds": 3111.0,
+        "travel_mode_effective": "COMPOSED",
+        "quality": "hub_chain",
+        "primary_hub_travel_mode": "DRIVE",
+        "detail": "walk to hub (stop_0) + DRIVE hub leg + walk from hub (stop_3)",
+        "legs": [
+          {
+            "kind": "walk_approx",
+            "from_place_id": "stop_0",
+            "to_place_id": "stop_0",
+            "travel_mode": "WALK",
+            "distance_meters": 0.0,
+            "duration_seconds": 0.0,
+            "quality": "haversine_walk"
+          },
+          {
+            "kind": "matrix",
+            "from_place_id": "stop_0",
+            "to_place_id": "stop_3",
+            "travel_mode": "DRIVE",
+            "distance_meters": 59470.0,
+            "duration_seconds": 3111.0,
+            "quality": "google_matrix"
+          },
+          {
+            "kind": "walk_approx",
+            "from_place_id": "stop_3",
+            "to_place_id": "stop_3",
+            "travel_mode": "WALK",
+            "distance_meters": 0.0,
+            "duration_seconds": 0.0,
+            "quality": "haversine_walk"
+          }
+        ]
+      },
+      {
+        "from_place_id": "stop_0",
+        "to_place_id": "stop_4",
+        "distance_meters": 60533.0,
+        "duration_seconds": 3242.0,
+        "travel_mode_effective": "COMPOSED",
+        "quality": "hub_chain",
+        "primary_hub_travel_mode": "DRIVE",
+        "detail": "walk to hub (stop_0) + DRIVE hub leg + walk from hub (stop_4)",
+        "legs": [
+          {
+            "kind": "walk_approx",
+            "from_place_id": "stop_0",
+            "to_place_id": "stop_0",
+            "travel_mode": "WALK",
+            "distance_meters": 0.0,
+            "duration_seconds": 0.0,
+            "quality": "haversine_walk"
+          },
+          {
+            "kind": "matrix",
+            "from_place_id": "stop_0",
+            "to_place_id": "stop_4",
+            "travel_mode": "DRIVE",
+            "distance_meters": 60533.0,
+            "duration_seconds": 3242.0,
+            "quality": "google_matrix"
+          },
+          {
+            "kind": "walk_approx",
+            "from_place_id": "stop_4",
+            "to_place_id": "stop_4",
+            "travel_mode": "WALK",
+            "distance_meters": 0.0,
+            "duration_seconds": 0.0,
+            "quality": "haversine_walk"
+          }
+        ]
+      },
+      {
+        "from_place_id": "stop_1",
+        "to_place_id": "stop_0",
+        "distance_meters": 22932.0,
+        "duration_seconds": 3307.0,
+        "travel_mode_effective": "COMPOSED",
+        "quality": "hub_chain",
+        "primary_hub_travel_mode": "TRANSIT",
+        "detail": "walk to hub (stop_1) + TRANSIT hub leg + walk from hub (stop_0)",
+        "legs": [
+          {
+            "kind": "walk_approx",
+            "from_place_id": "stop_1",
+            "to_place_id": "stop_1",
+            "travel_mode": "WALK",
+            "distance_meters": 0.0,
+            "duration_seconds": 0.0,
+            "quality": "haversine_walk"
+          },
+          {
+            "kind": "matrix",
+            "from_place_id": "stop_1",
+            "to_place_id": "stop_0",
+            "travel_mode": "TRANSIT",
+            "distance_meters": 22932.0,
+            "duration_seconds": 3307.0,
+            "quality": "google_matrix"
+          },
+          {
+            "kind": "walk_approx",
+            "from_place_id": "stop_0",
+            "to_place_id": "stop_0",
+            "travel_mode": "WALK",
+            "distance_meters": 0.0,
+            "duration_seconds": 0.0,
+            "quality": "haversine_walk"
+          }
+        ]
+      },
+      {
+        "from_place_id": "stop_1",
+        "to_place_id": "stop_2",
+        "distance_meters": 43705.0,
+        "duration_seconds": 3074.0,
+        "travel_mode_effective": "COMPOSED",
+        "quality": "hub_chain",
+        "primary_hub_travel_mode": "DRIVE",
+        "detail": "walk to hub (stop_1) + DRIVE hub leg + walk from hub (stop_2)",
+        "legs": [
+          {
+            "kind": "walk_approx",
+            "from_place_id": "stop_1",
+            "to_place_id": "stop_1",
+            "travel_mode": "WALK",
+            "distance_meters": 0.0,
+            "duration_seconds": 0.0,
+            "quality": "haversine_walk"
+          },
+          {
+            "kind": "matrix",
+            "from_place_id": "stop_1",
+            "to_place_id": "stop_2",
+            "travel_mode": "DRIVE",
+            "distance_meters": 43705.0,
+            "duration_seconds": 3074.0,
+            "quality": "google_matrix"
+          },
+          {
+            "kind": "walk_approx",
+            "from_place_id": "stop_2",
+            "to_place_id": "stop_2",
+            "travel_mode": "WALK",
+            "distance_meters": 0.0,
+            "duration_seconds": 0.0,
+            "quality": "haversine_walk"
+          }
+        ]
+      },
+      {
+        "from_place_id": "stop_1",
+        "to_place_id": "stop_3",
+        "distance_meters": 85448.0,
+        "duration_seconds": 4324.0,
+        "travel_mode_effective": "COMPOSED",
+        "quality": "hub_chain",
+        "primary_hub_travel_mode": "DRIVE",
+        "detail": "walk to hub (stop_1) + DRIVE hub leg + walk from hub (stop_3)",
+        "legs": [
+          {
+            "kind": "walk_approx",
+            "from_place_id": "stop_1",
+            "to_place_id": "stop_1",
+            "travel_mode": "WALK",
+            "distance_meters": 0.0,
+            "duration_seconds": 0.0,
+            "quality": "haversine_walk"
+          },
+          {
+            "kind": "matrix",
+            "from_place_id": "stop_1",
+            "to_place_id": "stop_3",
+            "travel_mode": "DRIVE",
+            "distance_meters": 85448.0,
+            "duration_seconds": 4324.0,
+            "quality": "google_matrix"
+          },
+          {
+            "kind": "walk_approx",
+            "from_place_id": "stop_3",
+            "to_place_id": "stop_3",
+            "travel_mode": "WALK",
+            "distance_meters": 0.0,
+            "duration_seconds": 0.0,
+            "quality": "haversine_walk"
+          }
+        ]
+      },
+      {
+        "from_place_id": "stop_1",
+        "to_place_id": "stop_4",
+        "distance_meters": 86511.0,
+        "duration_seconds": 4454.0,
+        "travel_mode_effective": "COMPOSED",
+        "quality": "hub_chain",
+        "primary_hub_travel_mode": "DRIVE",
+        "detail": "walk to hub (stop_1) + DRIVE hub leg + walk from hub (stop_4)",
+        "legs": [
+          {
+            "kind": "walk_approx",
+            "from_place_id": "stop_1",
+            "to_place_id": "stop_1",
+            "travel_mode": "WALK",
+            "distance_meters": 0.0,
+            "duration_seconds": 0.0,
+            "quality": "haversine_walk"
+          },
+          {
+            "kind": "matrix",
+            "from_place_id": "stop_1",
+            "to_place_id": "stop_4",
+            "travel_mode": "DRIVE",
+            "distance_meters": 86511.0,
+            "duration_seconds": 4454.0,
+            "quality": "google_matrix"
+          },
+          {
+            "kind": "walk_approx",
+            "from_place_id": "stop_4",
+            "to_place_id": "stop_4",
+            "travel_mode": "WALK",
+            "distance_meters": 0.0,
+            "duration_seconds": 0.0,
+            "quality": "haversine_walk"
+          }
+        ]
+      },
+      {
+        "from_place_id": "stop_2",
+        "to_place_id": "stop_0",
+        "distance_meters": 78093.0,
+        "duration_seconds": 4486.0,
+        "travel_mode_effective": "COMPOSED",
+        "quality": "hub_chain",
+        "primary_hub_travel_mode": "DRIVE",
+        "detail": "walk to hub (stop_2) + DRIVE hub leg + walk from hub (stop_0)",
+        "legs": [
+          {
+            "kind": "walk_approx",
+            "from_place_id": "stop_2",
+            "to_place_id": "stop_2",
+            "travel_mode": "WALK",
+            "distance_meters": 0.0,
+            "duration_seconds": 0.0,
+            "quality": "haversine_walk"
+          },
+          {
+            "kind": "matrix",
+            "from_place_id": "stop_2",
+            "to_place_id": "stop_0",
+            "travel_mode": "DRIVE",
+            "distance_meters": 78093.0,
+            "duration_seconds": 4486.0,
+            "quality": "google_matrix"
+          },
+          {
+            "kind": "walk_approx",
+            "from_place_id": "stop_0",
+            "to_place_id": "stop_0",
+            "travel_mode": "WALK",
+            "distance_meters": 0.0,
+            "duration_seconds": 0.0,
+            "quality": "haversine_walk"
+          }
+        ]
+      },
+      {
+        "from_place_id": "stop_2",
+        "to_place_id": "stop_1",
+        "distance_meters": 48188.0,
+        "duration_seconds": 3087.0,
+        "travel_mode_effective": "COMPOSED",
+        "quality": "hub_chain",
+        "primary_hub_travel_mode": "DRIVE",
+        "detail": "walk to hub (stop_2) + DRIVE hub leg + walk from hub (stop_1)",
+        "legs": [
+          {
+            "kind": "walk_approx",
+            "from_place_id": "stop_2",
+            "to_place_id": "stop_2",
+            "travel_mode": "WALK",
+            "distance_meters": 0.0,
+            "duration_seconds": 0.0,
+            "quality": "haversine_walk"
+          },
+          {
+            "kind": "matrix",
+            "from_place_id": "stop_2",
+            "to_place_id": "stop_1",
+            "travel_mode": "DRIVE",
+            "distance_meters": 48188.0,
+            "duration_seconds": 3087.0,
+            "quality": "google_matrix"
+          },
+          {
+            "kind": "walk_approx",
+            "from_place_id": "stop_1",
+            "to_place_id": "stop_1",
+            "travel_mode": "WALK",
+            "distance_meters": 0.0,
+            "duration_seconds": 0.0,
+            "quality": "haversine_walk"
+          }
+        ]
+      },
+      {
+        "from_place_id": "stop_2",
+        "to_place_id": "stop_3",
+        "distance_meters": 107039.0,
+        "duration_seconds": 5159.0,
+        "travel_mode_effective": "COMPOSED",
+        "quality": "hub_chain",
+        "primary_hub_travel_mode": "DRIVE",
+        "detail": "walk to hub (stop_2) + DRIVE hub leg + walk from hub (stop_3)",
+        "legs": [
+          {
+            "kind": "walk_approx",
+            "from_place_id": "stop_2",
+            "to_place_id": "stop_2",
+            "travel_mode": "WALK",
+            "distance_meters": 0.0,
+            "duration_seconds": 0.0,
+            "quality": "haversine_walk"
+          },
+          {
+            "kind": "matrix",
+            "from_place_id": "stop_2",
+            "to_place_id": "stop_3",
+            "travel_mode": "DRIVE",
+            "distance_meters": 107039.0,
+            "duration_seconds": 5159.0,
+            "quality": "google_matrix"
+          },
+          {
+            "kind": "walk_approx",
+            "from_place_id": "stop_3",
+            "to_place_id": "stop_3",
+            "travel_mode": "WALK",
+            "distance_meters": 0.0,
+            "duration_seconds": 0.0,
+            "quality": "haversine_walk"
+          }
+        ]
+      },
+      {
+        "from_place_id": "stop_2",
+        "to_place_id": "stop_4",
+        "distance_meters": 109009.0,
+        "duration_seconds": 5340.0,
+        "travel_mode_effective": "COMPOSED",
+        "quality": "hub_chain",
+        "primary_hub_travel_mode": "DRIVE",
+        "detail": "walk to hub (stop_2) + DRIVE hub leg + walk from hub (stop_4)",
+        "legs": [
+          {
+            "kind": "walk_approx",
+            "from_place_id": "stop_2",
+            "to_place_id": "stop_2",
+            "travel_mode": "WALK",
+            "distance_meters": 0.0,
+            "duration_seconds": 0.0,
+            "quality": "haversine_walk"
+          },
+          {
+            "kind": "matrix",
+            "from_place_id": "stop_2",
+            "to_place_id": "stop_4",
+            "travel_mode": "DRIVE",
+            "distance_meters": 109009.0,
+            "duration_seconds": 5340.0,
+            "quality": "google_matrix"
+          },
+          {
+            "kind": "walk_approx",
+            "from_place_id": "stop_4",
+            "to_place_id": "stop_4",
+            "travel_mode": "WALK",
+            "distance_meters": 0.0,
+            "duration_seconds": 0.0,
+            "quality": "haversine_walk"
+          }
+        ]
+      },
+      {
+        "from_place_id": "stop_3",
+        "to_place_id": "stop_0",
+        "distance_meters": 60745.0,
+        "duration_seconds": 3258.0,
+        "travel_mode_effective": "COMPOSED",
+        "quality": "hub_chain",
+        "primary_hub_travel_mode": "DRIVE",
+        "detail": "walk to hub (stop_3) + DRIVE hub leg + walk from hub (stop_0)",
+        "legs": [
+          {
+            "kind": "walk_approx",
+            "from_place_id": "stop_3",
+            "to_place_id": "stop_3",
+            "travel_mode": "WALK",
+            "distance_meters": 0.0,
+            "duration_seconds": 0.0,
+            "quality": "haversine_walk"
+          },
+          {
+            "kind": "matrix",
+            "from_place_id": "stop_3",
+            "to_place_id": "stop_0",
+            "travel_mode": "DRIVE",
+            "distance_meters": 60745.0,
+            "duration_seconds": 3258.0,
+            "quality": "google_matrix"
+          },
+          {
+            "kind": "walk_approx",
+            "from_place_id": "stop_0",
+            "to_place_id": "stop_0",
+            "travel_mode": "WALK",
+            "distance_meters": 0.0,
+            "duration_seconds": 0.0,
+            "quality": "haversine_walk"
+          }
+        ]
+      },
+      {
+        "from_place_id": "stop_3",
+        "to_place_id": "stop_1",
+        "distance_meters": 84616.0,
+        "duration_seconds": 4244.0,
+        "travel_mode_effective": "COMPOSED",
+        "quality": "hub_chain",
+        "primary_hub_travel_mode": "DRIVE",
+        "detail": "walk to hub (stop_3) + DRIVE hub leg + walk from hub (stop_1)",
+        "legs": [
+          {
+            "kind": "walk_approx",
+            "from_place_id": "stop_3",
+            "to_place_id": "stop_3",
+            "travel_mode": "WALK",
+            "distance_meters": 0.0,
+            "duration_seconds": 0.0,
+            "quality": "haversine_walk"
+          },
+          {
+            "kind": "matrix",
+            "from_place_id": "stop_3",
+            "to_place_id": "stop_1",
+            "travel_mode": "DRIVE",
+            "distance_meters": 84616.0,
+            "duration_seconds": 4244.0,
+            "quality": "google_matrix"
+          },
+          {
+            "kind": "walk_approx",
+            "from_place_id": "stop_1",
+            "to_place_id": "stop_1",
+            "travel_mode": "WALK",
+            "distance_meters": 0.0,
+            "duration_seconds": 0.0,
+            "quality": "haversine_walk"
+          }
+        ]
+      },
+      {
+        "from_place_id": "stop_3",
+        "to_place_id": "stop_2",
+        "distance_meters": 113906.0,
+        "duration_seconds": 5589.0,
+        "travel_mode_effective": "COMPOSED",
+        "quality": "hub_chain",
+        "primary_hub_travel_mode": "DRIVE",
+        "detail": "walk to hub (stop_3) + DRIVE hub leg + walk from hub (stop_2)",
+        "legs": [
+          {
+            "kind": "walk_approx",
+            "from_place_id": "stop_3",
+            "to_place_id": "stop_3",
+            "travel_mode": "WALK",
+            "distance_meters": 0.0,
+            "duration_seconds": 0.0,
+            "quality": "haversine_walk"
+          },
+          {
+            "kind": "matrix",
+            "from_place_id": "stop_3",
+            "to_place_id": "stop_2",
+            "travel_mode": "DRIVE",
+            "distance_meters": 113906.0,
+            "duration_seconds": 5589.0,
+            "quality": "google_matrix"
+          },
+          {
+            "kind": "walk_approx",
+            "from_place_id": "stop_2",
+            "to_place_id": "stop_2",
+            "travel_mode": "WALK",
+            "distance_meters": 0.0,
+            "duration_seconds": 0.0,
+            "quality": "haversine_walk"
+          }
+        ]
+      },
+      {
+        "from_place_id": "stop_3",
+        "to_place_id": "stop_4",
+        "distance_meters": 5578.0,
+        "duration_seconds": 894.0,
+        "travel_mode_effective": "COMPOSED",
+        "quality": "hub_chain",
+        "primary_hub_travel_mode": "TRANSIT",
+        "detail": "walk to hub (stop_3) + TRANSIT hub leg + walk from hub (stop_4)",
+        "legs": [
+          {
+            "kind": "walk_approx",
+            "from_place_id": "stop_3",
+            "to_place_id": "stop_3",
+            "travel_mode": "WALK",
+            "distance_meters": 0.0,
+            "duration_seconds": 0.0,
+            "quality": "haversine_walk"
+          },
+          {
+            "kind": "matrix",
+            "from_place_id": "stop_3",
+            "to_place_id": "stop_4",
+            "travel_mode": "TRANSIT",
+            "distance_meters": 5578.0,
+            "duration_seconds": 894.0,
+            "quality": "google_matrix"
+          },
+          {
+            "kind": "walk_approx",
+            "from_place_id": "stop_4",
+            "to_place_id": "stop_4",
+            "travel_mode": "WALK",
+            "distance_meters": 0.0,
+            "duration_seconds": 0.0,
+            "quality": "haversine_walk"
+          }
+        ]
+      },
+      {
+        "from_place_id": "stop_4",
+        "to_place_id": "stop_0",
+        "distance_meters": 61734.0,
+        "duration_seconds": 3357.0,
+        "travel_mode_effective": "COMPOSED",
+        "quality": "hub_chain",
+        "primary_hub_travel_mode": "DRIVE",
+        "detail": "walk to hub (stop_4) + DRIVE hub leg + walk from hub (stop_0)",
+        "legs": [
+          {
+            "kind": "walk_approx",
+            "from_place_id": "stop_4",
+            "to_place_id": "stop_4",
+            "travel_mode": "WALK",
+            "distance_meters": 0.0,
+            "duration_seconds": 0.0,
+            "quality": "haversine_walk"
+          },
+          {
+            "kind": "matrix",
+            "from_place_id": "stop_4",
+            "to_place_id": "stop_0",
+            "travel_mode": "DRIVE",
+            "distance_meters": 61734.0,
+            "duration_seconds": 3357.0,
+            "quality": "google_matrix"
+          },
+          {
+            "kind": "walk_approx",
+            "from_place_id": "stop_0",
+            "to_place_id": "stop_0",
+            "travel_mode": "WALK",
+            "distance_meters": 0.0,
+            "duration_seconds": 0.0,
+            "quality": "haversine_walk"
+          }
+        ]
+      },
+      {
+        "from_place_id": "stop_4",
+        "to_place_id": "stop_1",
+        "distance_meters": 85606.0,
+        "duration_seconds": 4342.0,
+        "travel_mode_effective": "COMPOSED",
+        "quality": "hub_chain",
+        "primary_hub_travel_mode": "DRIVE",
+        "detail": "walk to hub (stop_4) + DRIVE hub leg + walk from hub (stop_1)",
+        "legs": [
+          {
+            "kind": "walk_approx",
+            "from_place_id": "stop_4",
+            "to_place_id": "stop_4",
+            "travel_mode": "WALK",
+            "distance_meters": 0.0,
+            "duration_seconds": 0.0,
+            "quality": "haversine_walk"
+          },
+          {
+            "kind": "matrix",
+            "from_place_id": "stop_4",
+            "to_place_id": "stop_1",
+            "travel_mode": "DRIVE",
+            "distance_meters": 85606.0,
+            "duration_seconds": 4342.0,
+            "quality": "google_matrix"
+          },
+          {
+            "kind": "walk_approx",
+            "from_place_id": "stop_1",
+            "to_place_id": "stop_1",
+            "travel_mode": "WALK",
+            "distance_meters": 0.0,
+            "duration_seconds": 0.0,
+            "quality": "haversine_walk"
+          }
+        ]
+      },
+      {
+        "from_place_id": "stop_4",
+        "to_place_id": "stop_2",
+        "distance_meters": 115893.0,
+        "duration_seconds": 5751.0,
+        "travel_mode_effective": "COMPOSED",
+        "quality": "hub_chain",
+        "primary_hub_travel_mode": "DRIVE",
+        "detail": "walk to hub (stop_4) + DRIVE hub leg + walk from hub (stop_2)",
+        "legs": [
+          {
+            "kind": "walk_approx",
+            "from_place_id": "stop_4",
+            "to_place_id": "stop_4",
+            "travel_mode": "WALK",
+            "distance_meters": 0.0,
+            "duration_seconds": 0.0,
+            "quality": "haversine_walk"
+          },
+          {
+            "kind": "matrix",
+            "from_place_id": "stop_4",
+            "to_place_id": "stop_2",
+            "travel_mode": "DRIVE",
+            "distance_meters": 115893.0,
+            "duration_seconds": 5751.0,
+            "quality": "google_matrix"
+          },
+          {
+            "kind": "walk_approx",
+            "from_place_id": "stop_2",
+            "to_place_id": "stop_2",
+            "travel_mode": "WALK",
+            "distance_meters": 0.0,
+            "duration_seconds": 0.0,
+            "quality": "haversine_walk"
+          }
+        ]
+      },
+      {
+        "from_place_id": "stop_4",
+        "to_place_id": "stop_3",
+        "distance_meters": 5515.0,
+        "duration_seconds": 993.0,
+        "travel_mode_effective": "COMPOSED",
+        "quality": "hub_chain",
+        "primary_hub_travel_mode": "TRANSIT",
+        "detail": "walk to hub (stop_4) + TRANSIT hub leg + walk from hub (stop_3)",
+        "legs": [
+          {
+            "kind": "walk_approx",
+            "from_place_id": "stop_4",
+            "to_place_id": "stop_4",
+            "travel_mode": "WALK",
+            "distance_meters": 0.0,
+            "duration_seconds": 0.0,
+            "quality": "haversine_walk"
+          },
+          {
+            "kind": "matrix",
+            "from_place_id": "stop_4",
+            "to_place_id": "stop_3",
+            "travel_mode": "TRANSIT",
+            "distance_meters": 5515.0,
+            "duration_seconds": 993.0,
+            "quality": "google_matrix"
+          },
+          {
+            "kind": "walk_approx",
+            "from_place_id": "stop_3",
+            "to_place_id": "stop_3",
+            "travel_mode": "WALK",
+            "distance_meters": 0.0,
+            "duration_seconds": 0.0,
+            "quality": "haversine_walk"
+          }
+        ]
+      }
+    ],
+    "stats": {
+      "place_count": 5,
+      "cluster_count": 5,
+      "hub_hub_matrix_elements": 75,
+      "matrix_http_requests": 3,
+      "edges_stored": 20,
+      "edges_google_matrix": 20,
+      "edges_haversine_walk": 0,
+      "edges_hub_chain": 20,
+      "edges_fallback": 0,
+      "routing_cache_hits": 3,
+      "routing_cache_misses": 0,
+      "routing_cache_integration_version": "1",
+      "effective_cluster_link_m": 500.0,
+      "matrix_tiles_skipped": 0,
+      "transit_matrix_policy": "transit_on"
+    },
+    "inter_cluster_transit": null,
+    "geojson": {
+      "type": "FeatureCollection",
+      "features": [
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              11.3321996,
+              43.318316
+            ]
+          },
+          "properties": {
+            "id": "stop_0",
+            "name": "Siena Piazza del Campo",
+            "category": "other",
+            "cluster_id": 2,
+            "cluster_hub_id": "stop_0"
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              11.2854092,
+              43.47156090000001
+            ]
+          },
+          "properties": {
+            "id": "stop_1",
+            "name": "Chianti Wine Region",
+            "category": "other",
+            "cluster_id": 3,
+            "cluster_hub_id": "stop_1"
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              11.2562698,
+              43.7735213
+            ]
+          },
+          "properties": {
+            "id": "stop_2",
+            "name": "Florence Duomo",
+            "category": "other",
+            "cluster_id": 4,
+            "cluster_hub_id": "stop_2"
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              11.8207566,
+              43.120283
+            ]
+          },
+          "properties": {
+            "id": "stop_3",
+            "name": "Montepulciano",
+            "category": "other",
+            "cluster_id": 1,
+            "cluster_hub_id": "stop_3"
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              11.7873736,
+              43.0984902
+            ]
+          },
+          "properties": {
+            "id": "stop_4",
+            "name": "Wine Estate",
+            "category": "other",
+            "cluster_id": 0,
+            "cluster_hub_id": "stop_4"
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                11.7873736,
+                43.0984902
+              ],
+              [
+                11.8207566,
+                43.120283
+              ]
+            ]
+          },
+          "properties": {
+            "kind": "hub_leg",
+            "from_hub_id": "stop_4",
+            "to_hub_id": "stop_3",
+            "travel_mode": "BICYCLE",
+            "matrix_policy_band": "bicycle",
+            "distance_meters": 4945,
+            "duration_seconds": 732.0,
+            "haversine_meters": 3635.3852810620697
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                11.7873736,
+                43.0984902
+              ],
+              [
+                11.8207566,
+                43.120283
+              ]
+            ]
+          },
+          "properties": {
+            "kind": "hub_leg",
+            "from_hub_id": "stop_4",
+            "to_hub_id": "stop_3",
+            "travel_mode": "TRANSIT",
+            "matrix_policy_band": "transit",
+            "distance_meters": 5515,
+            "duration_seconds": 993.0,
+            "haversine_meters": 3635.3852810620697
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                11.7873736,
+                43.0984902
+              ],
+              [
+                11.8207566,
+                43.120283
+              ]
+            ]
+          },
+          "properties": {
+            "kind": "hub_leg",
+            "from_hub_id": "stop_4",
+            "to_hub_id": "stop_3",
+            "travel_mode": "DRIVE",
+            "matrix_policy_band": "drive",
+            "distance_meters": 4945,
+            "duration_seconds": 382.0,
+            "haversine_meters": 3635.3852810620697
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                11.7873736,
+                43.0984902
+              ],
+              [
+                11.3321996,
+                43.318316
+              ]
+            ]
+          },
+          "properties": {
+            "kind": "hub_leg",
+            "from_hub_id": "stop_4",
+            "to_hub_id": "stop_0",
+            "travel_mode": "BICYCLE",
+            "matrix_policy_band": "bicycle",
+            "distance_meters": 69533,
+            "duration_seconds": 14109.0,
+            "haversine_meters": 44253.42296353724
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                11.7873736,
+                43.0984902
+              ],
+              [
+                11.3321996,
+                43.318316
+              ]
+            ]
+          },
+          "properties": {
+            "kind": "hub_leg",
+            "from_hub_id": "stop_4",
+            "to_hub_id": "stop_0",
+            "travel_mode": "TRANSIT",
+            "matrix_policy_band": "transit",
+            "distance_meters": 86575,
+            "duration_seconds": 7189.0,
+            "haversine_meters": 44253.42296353724
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                11.7873736,
+                43.0984902
+              ],
+              [
+                11.3321996,
+                43.318316
+              ]
+            ]
+          },
+          "properties": {
+            "kind": "hub_leg",
+            "from_hub_id": "stop_4",
+            "to_hub_id": "stop_0",
+            "travel_mode": "DRIVE",
+            "matrix_policy_band": "drive",
+            "distance_meters": 61734,
+            "duration_seconds": 3357.0,
+            "haversine_meters": 44253.42296353724
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                11.7873736,
+                43.0984902
+              ],
+              [
+                11.2854092,
+                43.47156090000001
+              ]
+            ]
+          },
+          "properties": {
+            "kind": "hub_leg",
+            "from_hub_id": "stop_4",
+            "to_hub_id": "stop_1",
+            "travel_mode": "BICYCLE",
+            "matrix_policy_band": "bicycle",
+            "distance_meters": 82544,
+            "duration_seconds": 18283.0,
+            "haversine_meters": 58066.87497090598
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                11.7873736,
+                43.0984902
+              ],
+              [
+                11.2854092,
+                43.47156090000001
+              ]
+            ]
+          },
+          "properties": {
+            "kind": "hub_leg",
+            "from_hub_id": "stop_4",
+            "to_hub_id": "stop_1",
+            "travel_mode": "TRANSIT",
+            "matrix_policy_band": "transit",
+            "distance_meters": 106008,
+            "duration_seconds": 10707.0,
+            "haversine_meters": 58066.87497090598
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                11.7873736,
+                43.0984902
+              ],
+              [
+                11.2854092,
+                43.47156090000001
+              ]
+            ]
+          },
+          "properties": {
+            "kind": "hub_leg",
+            "from_hub_id": "stop_4",
+            "to_hub_id": "stop_1",
+            "travel_mode": "DRIVE",
+            "matrix_policy_band": "drive",
+            "distance_meters": 85606,
+            "duration_seconds": 4342.0,
+            "haversine_meters": 58066.87497090598
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                11.7873736,
+                43.0984902
+              ],
+              [
+                11.2562698,
+                43.7735213
+              ]
+            ]
+          },
+          "properties": {
+            "kind": "hub_leg",
+            "from_hub_id": "stop_4",
+            "to_hub_id": "stop_2",
+            "travel_mode": "BICYCLE",
+            "matrix_policy_band": "bicycle",
+            "distance_meters": 123021,
+            "duration_seconds": 24280.0,
+            "haversine_meters": 86445.85599448893
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                11.7873736,
+                43.0984902
+              ],
+              [
+                11.2562698,
+                43.7735213
+              ]
+            ]
+          },
+          "properties": {
+            "kind": "hub_leg",
+            "from_hub_id": "stop_4",
+            "to_hub_id": "stop_2",
+            "travel_mode": "TRANSIT",
+            "matrix_policy_band": "transit",
+            "distance_meters": 178247,
+            "duration_seconds": 13357.0,
+            "haversine_meters": 86445.85599448893
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                11.7873736,
+                43.0984902
+              ],
+              [
+                11.2562698,
+                43.7735213
+              ]
+            ]
+          },
+          "properties": {
+            "kind": "hub_leg",
+            "from_hub_id": "stop_4",
+            "to_hub_id": "stop_2",
+            "travel_mode": "DRIVE",
+            "matrix_policy_band": "drive",
+            "distance_meters": 115893,
+            "duration_seconds": 5751.0,
+            "haversine_meters": 86445.85599448893
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                11.8207566,
+                43.120283
+              ],
+              [
+                11.7873736,
+                43.0984902
+              ]
+            ]
+          },
+          "properties": {
+            "kind": "hub_leg",
+            "from_hub_id": "stop_3",
+            "to_hub_id": "stop_4",
+            "travel_mode": "BICYCLE",
+            "matrix_policy_band": "bicycle",
+            "distance_meters": 4545,
+            "duration_seconds": 1765.0,
+            "haversine_meters": 3635.3852810620697
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                11.8207566,
+                43.120283
+              ],
+              [
+                11.7873736,
+                43.0984902
+              ]
+            ]
+          },
+          "properties": {
+            "kind": "hub_leg",
+            "from_hub_id": "stop_3",
+            "to_hub_id": "stop_4",
+            "travel_mode": "TRANSIT",
+            "matrix_policy_band": "transit",
+            "distance_meters": 5578,
+            "duration_seconds": 894.0,
+            "haversine_meters": 3635.3852810620697
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                11.8207566,
+                43.120283
+              ],
+              [
+                11.7873736,
+                43.0984902
+              ]
+            ]
+          },
+          "properties": {
+            "kind": "hub_leg",
+            "from_hub_id": "stop_3",
+            "to_hub_id": "stop_4",
+            "travel_mode": "DRIVE",
+            "matrix_policy_band": "drive",
+            "distance_meters": 5013,
+            "duration_seconds": 396.0,
+            "haversine_meters": 3635.3852810620697
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                11.8207566,
+                43.120283
+              ],
+              [
+                11.3321996,
+                43.318316
+              ]
+            ]
+          },
+          "properties": {
+            "kind": "hub_leg",
+            "from_hub_id": "stop_3",
+            "to_hub_id": "stop_0",
+            "travel_mode": "BICYCLE",
+            "matrix_policy_band": "bicycle",
+            "distance_meters": 68366,
+            "duration_seconds": 13719.0,
+            "haversine_meters": 45300.661208273035
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                11.8207566,
+                43.120283
+              ],
+              [
+                11.3321996,
+                43.318316
+              ]
+            ]
+          },
+          "properties": {
+            "kind": "hub_leg",
+            "from_hub_id": "stop_3",
+            "to_hub_id": "stop_0",
+            "travel_mode": "TRANSIT",
+            "matrix_policy_band": "transit",
+            "distance_meters": 81072,
+            "duration_seconds": 6613.0,
+            "haversine_meters": 45300.661208273035
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                11.8207566,
+                43.120283
+              ],
+              [
+                11.3321996,
+                43.318316
+              ]
+            ]
+          },
+          "properties": {
+            "kind": "hub_leg",
+            "from_hub_id": "stop_3",
+            "to_hub_id": "stop_0",
+            "travel_mode": "DRIVE",
+            "matrix_policy_band": "drive",
+            "distance_meters": 60745,
+            "duration_seconds": 3258.0,
+            "haversine_meters": 45300.661208273035
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                11.8207566,
+                43.120283
+              ],
+              [
+                11.2854092,
+                43.47156090000001
+              ]
+            ]
+          },
+          "properties": {
+            "kind": "hub_leg",
+            "from_hub_id": "stop_3",
+            "to_hub_id": "stop_1",
+            "travel_mode": "BICYCLE",
+            "matrix_policy_band": "bicycle",
+            "distance_meters": 81377,
+            "duration_seconds": 17893.0,
+            "haversine_meters": 58333.49790578711
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                11.8207566,
+                43.120283
+              ],
+              [
+                11.2854092,
+                43.47156090000001
+              ]
+            ]
+          },
+          "properties": {
+            "kind": "hub_leg",
+            "from_hub_id": "stop_3",
+            "to_hub_id": "stop_1",
+            "travel_mode": "TRANSIT",
+            "matrix_policy_band": "transit",
+            "distance_meters": 100505,
+            "duration_seconds": 10131.0,
+            "haversine_meters": 58333.49790578711
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                11.8207566,
+                43.120283
+              ],
+              [
+                11.2854092,
+                43.47156090000001
+              ]
+            ]
+          },
+          "properties": {
+            "kind": "hub_leg",
+            "from_hub_id": "stop_3",
+            "to_hub_id": "stop_1",
+            "travel_mode": "DRIVE",
+            "matrix_policy_band": "drive",
+            "distance_meters": 84616,
+            "duration_seconds": 4244.0,
+            "haversine_meters": 58333.49790578711
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                11.8207566,
+                43.120283
+              ],
+              [
+                11.2562698,
+                43.7735213
+              ]
+            ]
+          },
+          "properties": {
+            "kind": "hub_leg",
+            "from_hub_id": "stop_3",
+            "to_hub_id": "stop_2",
+            "travel_mode": "BICYCLE",
+            "matrix_policy_band": "bicycle",
+            "distance_meters": 118077,
+            "duration_seconds": 23548.0,
+            "haversine_meters": 85747.71197213323
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                11.8207566,
+                43.120283
+              ],
+              [
+                11.2562698,
+                43.7735213
+              ]
+            ]
+          },
+          "properties": {
+            "kind": "hub_leg",
+            "from_hub_id": "stop_3",
+            "to_hub_id": "stop_2",
+            "travel_mode": "TRANSIT",
+            "matrix_policy_band": "transit",
+            "distance_meters": 172744,
+            "duration_seconds": 12781.0,
+            "haversine_meters": 85747.71197213323
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                11.8207566,
+                43.120283
+              ],
+              [
+                11.2562698,
+                43.7735213
+              ]
+            ]
+          },
+          "properties": {
+            "kind": "hub_leg",
+            "from_hub_id": "stop_3",
+            "to_hub_id": "stop_2",
+            "travel_mode": "DRIVE",
+            "matrix_policy_band": "drive",
+            "distance_meters": 113906,
+            "duration_seconds": 5589.0,
+            "haversine_meters": 85747.71197213323
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                11.3321996,
+                43.318316
+              ],
+              [
+                11.7873736,
+                43.0984902
+              ]
+            ]
+          },
+          "properties": {
+            "kind": "hub_leg",
+            "from_hub_id": "stop_0",
+            "to_hub_id": "stop_4",
+            "travel_mode": "BICYCLE",
+            "matrix_policy_band": "bicycle",
+            "distance_meters": 66121,
+            "duration_seconds": 14577.0,
+            "haversine_meters": 44253.42296353724
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                11.3321996,
+                43.318316
+              ],
+              [
+                11.7873736,
+                43.0984902
+              ]
+            ]
+          },
+          "properties": {
+            "kind": "hub_leg",
+            "from_hub_id": "stop_0",
+            "to_hub_id": "stop_4",
+            "travel_mode": "TRANSIT",
+            "matrix_policy_band": "transit",
+            "distance_meters": 68695,
+            "duration_seconds": 6668.0,
+            "haversine_meters": 44253.42296353724
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                11.3321996,
+                43.318316
+              ],
+              [
+                11.7873736,
+                43.0984902
+              ]
+            ]
+          },
+          "properties": {
+            "kind": "hub_leg",
+            "from_hub_id": "stop_0",
+            "to_hub_id": "stop_4",
+            "travel_mode": "DRIVE",
+            "matrix_policy_band": "drive",
+            "distance_meters": 60533,
+            "duration_seconds": 3242.0,
+            "haversine_meters": 44253.42296353724
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                11.3321996,
+                43.318316
+              ],
+              [
+                11.8207566,
+                43.120283
+              ]
+            ]
+          },
+          "properties": {
+            "kind": "hub_leg",
+            "from_hub_id": "stop_0",
+            "to_hub_id": "stop_3",
+            "travel_mode": "BICYCLE",
+            "matrix_policy_band": "bicycle",
+            "distance_meters": 64487,
+            "duration_seconds": 13172.0,
+            "haversine_meters": 45300.661208273035
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                11.3321996,
+                43.318316
+              ],
+              [
+                11.8207566,
+                43.120283
+              ]
+            ]
+          },
+          "properties": {
+            "kind": "hub_leg",
+            "from_hub_id": "stop_0",
+            "to_hub_id": "stop_3",
+            "travel_mode": "TRANSIT",
+            "matrix_policy_band": "transit",
+            "distance_meters": 81073,
+            "duration_seconds": 9599.0,
+            "haversine_meters": 45300.661208273035
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                11.3321996,
+                43.318316
+              ],
+              [
+                11.8207566,
+                43.120283
+              ]
+            ]
+          },
+          "properties": {
+            "kind": "hub_leg",
+            "from_hub_id": "stop_0",
+            "to_hub_id": "stop_3",
+            "travel_mode": "DRIVE",
+            "matrix_policy_band": "drive",
+            "distance_meters": 59470,
+            "duration_seconds": 3111.0,
+            "haversine_meters": 45300.661208273035
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                11.3321996,
+                43.318316
+              ],
+              [
+                11.2854092,
+                43.47156090000001
+              ]
+            ]
+          },
+          "properties": {
+            "kind": "hub_leg",
+            "from_hub_id": "stop_0",
+            "to_hub_id": "stop_1",
+            "travel_mode": "BICYCLE",
+            "matrix_policy_band": "bicycle",
+            "distance_meters": 22258,
+            "duration_seconds": 5845.0,
+            "haversine_meters": 17454.404335009083
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                11.3321996,
+                43.318316
+              ],
+              [
+                11.2854092,
+                43.47156090000001
+              ]
+            ]
+          },
+          "properties": {
+            "kind": "hub_leg",
+            "from_hub_id": "stop_0",
+            "to_hub_id": "stop_1",
+            "travel_mode": "TRANSIT",
+            "matrix_policy_band": "transit",
+            "distance_meters": 25374,
+            "duration_seconds": 3435.0,
+            "haversine_meters": 17454.404335009083
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                11.3321996,
+                43.318316
+              ],
+              [
+                11.2854092,
+                43.47156090000001
+              ]
+            ]
+          },
+          "properties": {
+            "kind": "hub_leg",
+            "from_hub_id": "stop_0",
+            "to_hub_id": "stop_1",
+            "travel_mode": "DRIVE",
+            "matrix_policy_band": "drive",
+            "distance_meters": 27893,
+            "duration_seconds": 1772.0,
+            "haversine_meters": 17454.404335009083
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                11.3321996,
+                43.318316
+              ],
+              [
+                11.2562698,
+                43.7735213
+              ]
+            ]
+          },
+          "properties": {
+            "kind": "hub_leg",
+            "from_hub_id": "stop_0",
+            "to_hub_id": "stop_2",
+            "travel_mode": "BICYCLE",
+            "matrix_policy_band": "bicycle",
+            "distance_meters": 68502,
+            "duration_seconds": 14957.0,
+            "haversine_meters": 50985.114189566375
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                11.3321996,
+                43.318316
+              ],
+              [
+                11.2562698,
+                43.7735213
+              ]
+            ]
+          },
+          "properties": {
+            "kind": "hub_leg",
+            "from_hub_id": "stop_0",
+            "to_hub_id": "stop_2",
+            "travel_mode": "TRANSIT",
+            "matrix_policy_band": "transit",
+            "distance_meters": 71114,
+            "duration_seconds": 5914.0,
+            "haversine_meters": 50985.114189566375
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                11.3321996,
+                43.318316
+              ],
+              [
+                11.2562698,
+                43.7735213
+              ]
+            ]
+          },
+          "properties": {
+            "kind": "hub_leg",
+            "from_hub_id": "stop_0",
+            "to_hub_id": "stop_2",
+            "travel_mode": "DRIVE",
+            "matrix_policy_band": "drive",
+            "distance_meters": 74475,
+            "duration_seconds": 4059.0,
+            "haversine_meters": 50985.114189566375
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                11.2854092,
+                43.47156090000001
+              ],
+              [
+                11.7873736,
+                43.0984902
+              ]
+            ]
+          },
+          "properties": {
+            "kind": "hub_leg",
+            "from_hub_id": "stop_1",
+            "to_hub_id": "stop_4",
+            "travel_mode": "BICYCLE",
+            "matrix_policy_band": "bicycle",
+            "distance_meters": 80731,
+            "duration_seconds": 17925.0,
+            "haversine_meters": 58066.87497090598
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                11.2854092,
+                43.47156090000001
+              ],
+              [
+                11.7873736,
+                43.0984902
+              ]
+            ]
+          },
+          "properties": {
+            "kind": "hub_leg",
+            "from_hub_id": "stop_1",
+            "to_hub_id": "stop_4",
+            "travel_mode": "TRANSIT",
+            "matrix_policy_band": "transit",
+            "distance_meters": 93290,
+            "duration_seconds": 9807.0,
+            "haversine_meters": 58066.87497090598
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                11.2854092,
+                43.47156090000001
+              ],
+              [
+                11.7873736,
+                43.0984902
+              ]
+            ]
+          },
+          "properties": {
+            "kind": "hub_leg",
+            "from_hub_id": "stop_1",
+            "to_hub_id": "stop_4",
+            "travel_mode": "DRIVE",
+            "matrix_policy_band": "drive",
+            "distance_meters": 86511,
+            "duration_seconds": 4454.0,
+            "haversine_meters": 58066.87497090598
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                11.2854092,
+                43.47156090000001
+              ],
+              [
+                11.8207566,
+                43.120283
+              ]
+            ]
+          },
+          "properties": {
+            "kind": "hub_leg",
+            "from_hub_id": "stop_1",
+            "to_hub_id": "stop_3",
+            "travel_mode": "BICYCLE",
+            "matrix_policy_band": "bicycle",
+            "distance_meters": 79098,
+            "duration_seconds": 16520.0,
+            "haversine_meters": 58333.49790578711
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                11.2854092,
+                43.47156090000001
+              ],
+              [
+                11.8207566,
+                43.120283
+              ]
+            ]
+          },
+          "properties": {
+            "kind": "hub_leg",
+            "from_hub_id": "stop_1",
+            "to_hub_id": "stop_3",
+            "travel_mode": "TRANSIT",
+            "matrix_policy_band": "transit",
+            "distance_meters": 84067,
+            "duration_seconds": 11772.0,
+            "haversine_meters": 58333.49790578711
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                11.2854092,
+                43.47156090000001
+              ],
+              [
+                11.8207566,
+                43.120283
+              ]
+            ]
+          },
+          "properties": {
+            "kind": "hub_leg",
+            "from_hub_id": "stop_1",
+            "to_hub_id": "stop_3",
+            "travel_mode": "DRIVE",
+            "matrix_policy_band": "drive",
+            "distance_meters": 85448,
+            "duration_seconds": 4324.0,
+            "haversine_meters": 58333.49790578711
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                11.2854092,
+                43.47156090000001
+              ],
+              [
+                11.3321996,
+                43.318316
+              ]
+            ]
+          },
+          "properties": {
+            "kind": "hub_leg",
+            "from_hub_id": "stop_1",
+            "to_hub_id": "stop_0",
+            "travel_mode": "BICYCLE",
+            "matrix_policy_band": "bicycle",
+            "distance_meters": 22094,
+            "duration_seconds": 4608.0,
+            "haversine_meters": 17454.404335009083
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                11.2854092,
+                43.47156090000001
+              ],
+              [
+                11.3321996,
+                43.318316
+              ]
+            ]
+          },
+          "properties": {
+            "kind": "hub_leg",
+            "from_hub_id": "stop_1",
+            "to_hub_id": "stop_0",
+            "travel_mode": "TRANSIT",
+            "matrix_policy_band": "transit",
+            "distance_meters": 22932,
+            "duration_seconds": 3307.0,
+            "haversine_meters": 17454.404335009083
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                11.2854092,
+                43.47156090000001
+              ],
+              [
+                11.3321996,
+                43.318316
+              ]
+            ]
+          },
+          "properties": {
+            "kind": "hub_leg",
+            "from_hub_id": "stop_1",
+            "to_hub_id": "stop_0",
+            "travel_mode": "DRIVE",
+            "matrix_policy_band": "drive",
+            "distance_meters": 24653,
+            "duration_seconds": 2191.0,
+            "haversine_meters": 17454.404335009083
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                11.2854092,
+                43.47156090000001
+              ],
+              [
+                11.2562698,
+                43.7735213
+              ]
+            ]
+          },
+          "properties": {
+            "kind": "hub_leg",
+            "from_hub_id": "stop_1",
+            "to_hub_id": "stop_2",
+            "travel_mode": "BICYCLE",
+            "matrix_policy_band": "bicycle",
+            "distance_meters": 46286,
+            "duration_seconds": 9097.0,
+            "haversine_meters": 33658.29052920813
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                11.2854092,
+                43.47156090000001
+              ],
+              [
+                11.2562698,
+                43.7735213
+              ]
+            ]
+          },
+          "properties": {
+            "kind": "hub_leg",
+            "from_hub_id": "stop_1",
+            "to_hub_id": "stop_2",
+            "travel_mode": "TRANSIT",
+            "matrix_policy_band": "transit",
+            "distance_meters": 84874,
+            "duration_seconds": 9117.0,
+            "haversine_meters": 33658.29052920813
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                11.2854092,
+                43.47156090000001
+              ],
+              [
+                11.2562698,
+                43.7735213
+              ]
+            ]
+          },
+          "properties": {
+            "kind": "hub_leg",
+            "from_hub_id": "stop_1",
+            "to_hub_id": "stop_2",
+            "travel_mode": "DRIVE",
+            "matrix_policy_band": "drive",
+            "distance_meters": 43705,
+            "duration_seconds": 3074.0,
+            "haversine_meters": 33658.29052920813
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                11.2562698,
+                43.7735213
+              ],
+              [
+                11.7873736,
+                43.0984902
+              ]
+            ]
+          },
+          "properties": {
+            "kind": "hub_leg",
+            "from_hub_id": "stop_2",
+            "to_hub_id": "stop_4",
+            "travel_mode": "BICYCLE",
+            "matrix_policy_band": "bicycle",
+            "distance_meters": 122522,
+            "duration_seconds": 26460.0,
+            "haversine_meters": 86445.85599448893
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                11.2562698,
+                43.7735213
+              ],
+              [
+                11.7873736,
+                43.0984902
+              ]
+            ]
+          },
+          "properties": {
+            "kind": "hub_leg",
+            "from_hub_id": "stop_2",
+            "to_hub_id": "stop_4",
+            "travel_mode": "TRANSIT",
+            "matrix_policy_band": "transit",
+            "distance_meters": 141301,
+            "duration_seconds": 12963.0,
+            "haversine_meters": 86445.85599448893
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                11.2562698,
+                43.7735213
+              ],
+              [
+                11.7873736,
+                43.0984902
+              ]
+            ]
+          },
+          "properties": {
+            "kind": "hub_leg",
+            "from_hub_id": "stop_2",
+            "to_hub_id": "stop_4",
+            "travel_mode": "DRIVE",
+            "matrix_policy_band": "drive",
+            "distance_meters": 109009,
+            "duration_seconds": 5340.0,
+            "haversine_meters": 86445.85599448893
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                11.2562698,
+                43.7735213
+              ],
+              [
+                11.8207566,
+                43.120283
+              ]
+            ]
+          },
+          "properties": {
+            "kind": "hub_leg",
+            "from_hub_id": "stop_2",
+            "to_hub_id": "stop_3",
+            "travel_mode": "BICYCLE",
+            "matrix_policy_band": "bicycle",
+            "distance_meters": 117976,
+            "duration_seconds": 24695.0,
+            "haversine_meters": 85747.71197213323
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                11.2562698,
+                43.7735213
+              ],
+              [
+                11.8207566,
+                43.120283
+              ]
+            ]
+          },
+          "properties": {
+            "kind": "hub_leg",
+            "from_hub_id": "stop_2",
+            "to_hub_id": "stop_3",
+            "travel_mode": "TRANSIT",
+            "matrix_policy_band": "transit",
+            "distance_meters": 138474,
+            "duration_seconds": 12400.0,
+            "haversine_meters": 85747.71197213323
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                11.2562698,
+                43.7735213
+              ],
+              [
+                11.8207566,
+                43.120283
+              ]
+            ]
+          },
+          "properties": {
+            "kind": "hub_leg",
+            "from_hub_id": "stop_2",
+            "to_hub_id": "stop_3",
+            "travel_mode": "DRIVE",
+            "matrix_policy_band": "drive",
+            "distance_meters": 107039,
+            "duration_seconds": 5159.0,
+            "haversine_meters": 85747.71197213323
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                11.2562698,
+                43.7735213
+              ],
+              [
+                11.3321996,
+                43.318316
+              ]
+            ]
+          },
+          "properties": {
+            "kind": "hub_leg",
+            "from_hub_id": "stop_2",
+            "to_hub_id": "stop_0",
+            "travel_mode": "BICYCLE",
+            "matrix_policy_band": "bicycle",
+            "distance_meters": 71489,
+            "duration_seconds": 16812.0,
+            "haversine_meters": 50985.114189566375
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                11.2562698,
+                43.7735213
+              ],
+              [
+                11.3321996,
+                43.318316
+              ]
+            ]
+          },
+          "properties": {
+            "kind": "hub_leg",
+            "from_hub_id": "stop_2",
+            "to_hub_id": "stop_0",
+            "travel_mode": "TRANSIT",
+            "matrix_policy_band": "transit",
+            "distance_meters": 72023,
+            "duration_seconds": 5810.0,
+            "haversine_meters": 50985.114189566375
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                11.2562698,
+                43.7735213
+              ],
+              [
+                11.3321996,
+                43.318316
+              ]
+            ]
+          },
+          "properties": {
+            "kind": "hub_leg",
+            "from_hub_id": "stop_2",
+            "to_hub_id": "stop_0",
+            "travel_mode": "DRIVE",
+            "matrix_policy_band": "drive",
+            "distance_meters": 78093,
+            "duration_seconds": 4486.0,
+            "haversine_meters": 50985.114189566375
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                11.2562698,
+                43.7735213
+              ],
+              [
+                11.2854092,
+                43.47156090000001
+              ]
+            ]
+          },
+          "properties": {
+            "kind": "hub_leg",
+            "from_hub_id": "stop_2",
+            "to_hub_id": "stop_1",
+            "travel_mode": "BICYCLE",
+            "matrix_policy_band": "bicycle",
+            "distance_meters": 49395,
+            "duration_seconds": 12197.0,
+            "haversine_meters": 33658.29052920813
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                11.2562698,
+                43.7735213
+              ],
+              [
+                11.2854092,
+                43.47156090000001
+              ]
+            ]
+          },
+          "properties": {
+            "kind": "hub_leg",
+            "from_hub_id": "stop_2",
+            "to_hub_id": "stop_1",
+            "travel_mode": "TRANSIT",
+            "matrix_policy_band": "transit",
+            "distance_meters": 85549,
+            "duration_seconds": 8503.0,
+            "haversine_meters": 33658.29052920813
+          }
+        },
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "LineString",
+            "coordinates": [
+              [
+                11.2562698,
+                43.7735213
+              ],
+              [
+                11.2854092,
+                43.47156090000001
+              ]
+            ]
+          },
+          "properties": {
+            "kind": "hub_leg",
+            "from_hub_id": "stop_2",
+            "to_hub_id": "stop_1",
+            "travel_mode": "DRIVE",
+            "matrix_policy_band": "drive",
+            "distance_meters": 48188,
+            "duration_seconds": 3087.0,
+            "haversine_meters": 33658.29052920813
+          }
+        }
+      ]
+    }
+  }
+}

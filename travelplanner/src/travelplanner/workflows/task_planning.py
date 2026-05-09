@@ -17,10 +17,15 @@ from travelplanner.agents.general_web_search_agent import (
     make_graph as make_general_web_search_graph,
 )
 from travelplanner.agents.execution_agent import (
-    search_orchestrator_node,
+    search_orchestrator_node,  # backwards compat
     timetable_builder_node,
 )
-from travelplanner.agents.search_orchestrator import run_searches
+from travelplanner.agents.search_orchestrator import (
+    search_flight_node,
+    search_hotel_node,
+    search_restaurant_node,
+    search_attraction_node,
+)
 from travelplanner.agents.itinerary_validator_agent import (
     make_graph as make_validator_graph,
 )
@@ -63,6 +68,7 @@ def make_graph(
     ).compile()
     web_search_graph = make_general_web_search_graph().compile()
     routing_check_graph = make_routing_check_graph()
+    validator_graph = make_validator_graph().compile()
 
     def general_web_search_node(state: StateContractModel) -> dict[str, Any]:
         agent_state = GeneralWebSearchAgentState(
@@ -169,11 +175,29 @@ def make_graph(
             return "general_web_search_agent"
         if any(t.type == "routing-check" and t.is_valid for t in tasks):
             return "routing_check_agent"
-        return "search_orchestrator"
+        return "search_flight"
 
     MAX_VALIDATION_RETRIES: int = int(
         os.getenv("TRAVELPLANNER_MAX_VALIDATION_RETRIES", "3")
     )
+
+    def search_node(state: StateContractModel) -> dict[str, Any]:
+        return search_orchestrator_node(state)
+
+    def search_flight(state: StateContractModel) -> dict[str, Any]:
+        return search_flight_node(state)
+
+    def search_hotel(state: StateContractModel) -> dict[str, Any]:
+        return search_hotel_node(state)
+
+    def search_restaurant(state: StateContractModel) -> dict[str, Any]:
+        return search_restaurant_node(state)
+
+    def search_attraction(state: StateContractModel) -> dict[str, Any]:
+        return search_attraction_node(state)
+
+    def build_node(state: StateContractModel) -> dict[str, Any]:
+        return timetable_builder_node(state)
 
     def validator_node(state: StateContractModel) -> dict[str, Any]:
         result = validator_graph.invoke(state)
@@ -188,24 +212,31 @@ def make_graph(
         if state.validation_passed:
             return END
         if state.validation_attempts >= MAX_VALIDATION_RETRIES:
+            # Force end after max retries, preserving the last feedback
             return END
-        return "search_orchestrator"
+        return "search_flight"
 
     graph = StateGraph(StateContractModel)
     graph.add_node("constraint_agent", constraint_graph)
     graph.add_node("planner_agent", planner_graph)
     graph.add_node("general_web_search_agent", general_web_search_node)
     graph.add_node("routing_check_agent", routing_check_node)
-    graph.add_node("search_orchestrator", search_orchestrator_node)
-    graph.add_node("timetable_builder", timetable_builder_node)
+    graph.add_node("search_flight", search_flight)
+    graph.add_node("search_hotel", search_hotel)
+    graph.add_node("search_restaurant", search_restaurant)
+    graph.add_node("search_attraction", search_attraction)
+    graph.add_node("timetable_builder", build_node)
     graph.add_node("itinerary_validator", validator_node)
 
     graph.set_entry_point("constraint_agent")
     graph.add_edge("constraint_agent", "planner_agent")
     graph.add_conditional_edges("planner_agent", route_after_planner)
     graph.add_edge("general_web_search_agent", "routing_check_agent")
-    graph.add_edge("routing_check_agent", "search_orchestrator")
-    graph.add_edge("search_orchestrator", "timetable_builder")
+    graph.add_edge("routing_check_agent", "search_flight")
+    graph.add_edge("search_flight", "search_hotel")
+    graph.add_edge("search_hotel", "search_restaurant")
+    graph.add_edge("search_restaurant", "search_attraction")
+    graph.add_edge("search_attraction", "timetable_builder")
     graph.add_edge("timetable_builder", "itinerary_validator")
     graph.add_conditional_edges("itinerary_validator", route_after_validator)
     return graph

@@ -15,7 +15,6 @@ from typing import Any
 from langgraph.graph import END, StateGraph
 from pydantic import BaseModel, Field
 
-from travelplanner.agents.search_orchestrator import run_searches
 from travelplanner.config import get_setting
 from travelplanner.schema.calender import (
     ActivityModel,
@@ -96,8 +95,8 @@ def _build_user_prompt(state: StateContractModel) -> str:
 
 
 def search_orchestrator_node(state: StateContractModel) -> dict[str, Any]:
-    """Step 1: dynamically run search agents per task type."""
-    return run_searches(state)
+    """Step 1 placeholder (searches now run in dedicated per-type nodes in main graph)."""
+    return {}
 
 
 def timetable_builder_node(state: StateContractModel) -> dict[str, Any]:

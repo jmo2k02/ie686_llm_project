@@ -22,6 +22,7 @@ from rich.text import Text
 
 from travelplanner.schema.system_state import ConstraintModel, TaskModel
 from travelplanner.utils.checkpoint import make_memory_checkpointer
+from travelplanner.utils.export import save_itinerary_markdown
 from travelplanner.utils.imports import load_callable
 from travelplanner.utils.runtime_monitor import reset_run_monitor, set_run_monitor
 
@@ -36,13 +37,17 @@ app = typer.Typer(
 console = Console()
 
 _AGENT_LABELS: dict[str, tuple[str, str]] = {
-    "constraint_agent": ("Constraints", "Constraint Agent"),
-    "planner_agent": ("Planning", "Planner Agent"),
-    "reviewer_agent": ("Review", "Reviewer Agent"),
-    "general_web_search_agent": ("Search", "General Web Search"),
-    "search_orchestrator": ("Search", "Search Orchestrator"),
-    "timetable_builder": ("Build", "Timetable Builder"),
-    "itinerary_validator": ("Validate", "Itinerary Validator"),
+    "constraint_agent": ("Phase 1", "Constraint Agent"),
+    "planner_agent": ("Phase 2", "Planner Agent"),
+    "reviewer_agent": ("Phase 2", "Reviewer Agent"),
+    "general_web_search_agent": ("Phase 3", "General Web Search"),
+    "routing_check_agent": ("Phase 3", "Routing Check"),
+    "search_flight": ("Phase 4", "Search Flight"),
+    "search_hotel": ("Phase 4", "Search Hotel"),
+    "search_restaurant": ("Phase 4", "Search Restaurant"),
+    "search_attraction": ("Phase 4", "Search Attraction"),
+    "timetable_builder": ("Phase 5", "Timetable Builder"),
+    "itinerary_validator": ("Phase 6", "Itinerary Validator"),
 }
 
 
@@ -146,8 +151,15 @@ class DashboardState:
         self.add_tool_call(tool_name, args)
 
     def mark_started(self, agent_key: str) -> None:
-        if agent_key in self.agent_status and self.agent_status[agent_key] == "pending":
-            self.agent_status[agent_key] = "in_progress"
+        if agent_key in self.agent_status:
+            current = self.agent_status[agent_key]
+            if current in ("pending", "completed", "retrying"):
+                self.agent_status[agent_key] = "in_progress"
+
+    def mark_retry(self, agent_key: str) -> None:
+        """Mark an agent as retrying (e.g. after a validation loop-back)."""
+        if agent_key in self.agent_status:
+            self.agent_status[agent_key] = "retrying"
 
     def mark_completed(self, agent_key: str) -> None:
         if agent_key not in self.agent_status:
@@ -193,16 +205,13 @@ class DashboardState:
             )
             return
 
-        if agent_key == "search_orchestrator":
+        if agent_key in ("search_flight", "search_hotel", "search_restaurant", "search_attraction"):
+            agent_label = agent_key.replace("search_", "").title()
+            artifact_key = f"{agent_key}_agent"
             artifact_groups = update.get("agent_artifacts") or {}
             artifact_count = sum(len(items) for items in artifact_groups.values())
-            self.set_status(
-                f"Search orchestrator dispatched ({artifact_count} artifact(s))."
-            )
-            self.add_message(
-                "Agent",
-                f"Search orchestrator dispatched ({artifact_count} artifact(s)).",
-            )
+            self.set_status(f"{agent_label} search completed ({artifact_count} artifact(s)).")
+            self.add_message("Agent", f"{agent_label} search completed ({artifact_count} artifact(s)).")
             return
 
         if agent_key == "timetable_builder":
@@ -375,6 +384,7 @@ def _build_layout(dashboard: DashboardState) -> Layout:
             status_color = {
                 "pending": "yellow",
                 "completed": "green",
+                "retrying": "magenta",
                 "error": "red",
             }.get(status, "white")
             status_cell = f"[{status_color}]{status}[/{status_color}]"
@@ -542,7 +552,16 @@ def _select_workflow(
         if selection.isdigit():
             selected_index = int(selection)
             if 1 <= selected_index <= len(workflows):
-                selected_workflow = _resolve_workflow(workflows[selected_index - 1])
+                try:
+                    selected_workflow = _resolve_workflow(workflows[selected_index - 1])
+                except (ImportError, AttributeError, TypeError) as exc:
+                    dashboard.add_message(
+                        "System",
+                        f"❌ Workflow {workflows[selected_index - 1]['name']!r} could not be loaded: {exc}",
+                    )
+                    dashboard.set_status("Workflow load failed. Please choose another.")
+                    _draw_dashboard(dashboard)
+                    continue
                 dashboard.set_workflow_name(selected_workflow["name"])
                 dashboard.add_message(
                     "System",
@@ -602,44 +621,79 @@ async def _execute_workflow(
         current_input: dict[str, Any] | Command = {"query": travel_query}
         while True:
             interrupt_message: str | None = None
-            async for mode, data in compiled_workflow.astream(
-                current_input,
-                config=config,
-                stream_mode=["updates", "values"],
-            ):
-                if mode == "updates":
-                    if not isinstance(data, dict):
-                        continue
-                    for node_name, node_update in data.items():
-                        normalized_update = normalize_for_display(node_update)
-                        if node_name in dashboard.agent_status:
-                            dashboard.mark_completed(node_name)
-                            if isinstance(normalized_update, dict):
-                                dashboard.summarize_update(node_name, normalized_update)
-                        _draw_dashboard(dashboard)
-                elif mode == "values":
-                    if isinstance(data, dict) and data.get("__interrupt__"):
-                        interrupt_value = data["__interrupt__"][0]
-                        interrupt_message = str(
-                            getattr(interrupt_value, "value", interrupt_value)
-                        )
-                        dashboard.set_status(interrupt_message)
-                        dashboard.add_message("Agent", interrupt_message)
-                        snapshot = await compiled_workflow.aget_state(
-                            config,
-                            subgraphs=True,
-                        )
-                        if _snapshot_has_hard_constraints(snapshot):
-                            dashboard.set_hard_constraints(
-                                _get_snapshot_hard_constraints(snapshot)
+            try:
+                async for mode, data in compiled_workflow.astream(
+                    current_input,
+                    config=config,
+                    stream_mode=["updates", "values"],
+                ):
+                    if mode == "updates":
+                        if not isinstance(data, dict):
+                            continue
+                        for node_name, node_update in data.items():
+                            normalized_update = normalize_for_display(node_update)
+                            if node_name in dashboard.agent_status:
+                                dashboard.mark_completed(node_name)
+                                if isinstance(normalized_update, dict):
+                                    dashboard.summarize_update(node_name, normalized_update)
+                            _draw_dashboard(dashboard)
+                    elif mode == "values":
+                        if isinstance(data, dict) and data.get("__interrupt__"):
+                            interrupt_value = data["__interrupt__"][0]
+                            interrupt_message = str(
+                                getattr(interrupt_value, "value", interrupt_value)
                             )
-                        if _snapshot_has_tasks(snapshot):
-                            dashboard.set_tasks(
-                                _get_snapshot_tasks(snapshot)
+                            dashboard.set_status(interrupt_message)
+                            dashboard.add_message("Agent", interrupt_message)
+                            snapshot = await compiled_workflow.aget_state(
+                                config,
+                                subgraphs=True,
                             )
-                        _draw_dashboard(dashboard)
+                            if _snapshot_has_hard_constraints(snapshot):
+                                dashboard.set_hard_constraints(
+                                    _get_snapshot_hard_constraints(snapshot)
+                                )
+                            if _snapshot_has_tasks(snapshot):
+                                dashboard.set_tasks(
+                                    _get_snapshot_tasks(snapshot)
+                                )
+                            _draw_dashboard(dashboard)
+            except ValueError as exc:
+                # Handle missing API keys, bad model configs, etc. gracefully
+                error_msg = str(exc)
+                dashboard.set_status(f"❌ Runtime error: {error_msg}")
+                dashboard.add_message("System", f"❌ Workflow halted: {error_msg}")
+                _draw_dashboard(dashboard)
+                return
 
             if interrupt_message is None:
+                # ── Workflow finished — export itinerary to Markdown ──
+                from datetime import datetime
+                from pathlib import Path
+
+                snapshot = await compiled_workflow.aget_state(config)
+                final_state = snapshot.values if snapshot else {}
+                timetable = final_state.get("timetable") if isinstance(final_state, dict) else None
+
+                if timetable is not None:
+                    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                    md_path = Path(f"./itinerary_{timestamp}.md")
+                    try:
+                        # State values are plain dicts — validate back into model
+                        if isinstance(timetable, dict):
+                            from travelplanner.schema.calender import CalenderModel
+                            timetable = CalenderModel.model_validate(timetable)
+                        saved = save_itinerary_markdown(timetable, md_path)
+                        dashboard.add_message(
+                            "System",
+                            f"Itinerary exported to: {saved}",
+                        )
+                    except Exception as exc:
+                        dashboard.add_message(
+                            "System",
+                            f"Could not export itinerary: {exc}",
+                        )
+
                 dashboard.set_status("Travel planning finished.")
                 dashboard.set_prompt(
                     "Finished",
@@ -663,6 +717,9 @@ async def _execute_workflow(
             dashboard.set_status("Resuming workflow execution.")
             _draw_dashboard(dashboard)
             current_input = Command(resume=response)
+            # Mark previous agents that will be re-run as retrying
+            dashboard.mark_retry("execution_agent")
+            dashboard.mark_retry("itinerary_validator")
     finally:
         reset_run_monitor(token)
 

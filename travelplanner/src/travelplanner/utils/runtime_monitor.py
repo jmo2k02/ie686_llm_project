@@ -3,7 +3,11 @@
 from __future__ import annotations
 
 from contextvars import ContextVar, Token
-from typing import Any, Protocol
+from typing import TYPE_CHECKING, Any, Protocol
+
+if TYPE_CHECKING:
+    from travelplanner.schema.system_state import TodoItem
+    from travelplanner.travelplan import TravelPlan
 
 
 class RunMonitor(Protocol):
@@ -17,6 +21,10 @@ class RunMonitor(Protocol):
         tool_name: str,
         args: dict[str, Any] | None = None,
     ) -> None: ...
+
+    def update_travelplan(self, plan: "TravelPlan") -> None: ...
+
+    def update_todos(self, todos: list["TodoItem"]) -> None: ...
 
 
 _RUN_MONITOR: ContextVar[RunMonitor | None] = ContextVar(
@@ -57,3 +65,17 @@ def record_tool_call(
     if monitor is None:
         return
     monitor.record_tool_call(tool_name=tool_name, args=args)
+
+
+def update_travelplan(plan: "TravelPlan") -> None:
+    monitor = get_run_monitor()
+    if monitor is None:
+        return
+    monitor.update_travelplan(plan)
+
+
+def update_todos(todos: list["TodoItem"]) -> None:
+    monitor = get_run_monitor()
+    if monitor is None:
+        return
+    monitor.update_todos(todos)

@@ -15,12 +15,14 @@ from langgraph.types import Command
 from rich import box
 from rich.console import Console
 from rich.layout import Layout
+from rich.markdown import Markdown
 from rich.panel import Panel
 from rich.spinner import Spinner
 from rich.table import Table
 from rich.text import Text
 
-from travelplanner.schema.system_state import ConstraintModel, TaskModel
+from travelplanner.schema.system_state import ConstraintModel, TaskModel, TodoItem
+from travelplanner.travelplan import TravelPlan
 from travelplanner.utils.checkpoint import make_memory_checkpointer
 from travelplanner.utils.imports import load_callable
 from travelplanner.utils.runtime_monitor import reset_run_monitor, set_run_monitor
@@ -40,6 +42,7 @@ _AGENT_LABELS: dict[str, tuple[str, str]] = {
     "planner_agent": ("Planning", "Planner Agent"),
     "reviewer_agent": ("Review", "Reviewer Agent"),
     "general_web_search_agent": ("Search", "General Web Search"),
+    "execution_agent": ("Execution", "Execution Agent"),
     "search_orchestrator": ("Search", "Search Orchestrator"),
     "timetable_builder": ("Build", "Timetable Builder"),
     "itinerary_validator": ("Validate", "Itinerary Validator"),
@@ -66,12 +69,16 @@ class DashboardState:
         self.agent_status = {agent.key: "pending" for agent in self.agents}
         self.messages: deque[tuple[str, str, str]] = deque(maxlen=200)
         self.tool_calls: deque[tuple[str, str, str]] = deque(maxlen=200)
+        self.started_execution: bool = False
         self.status_text = "Waiting to start workflow execution."
         self.prompt_title = "Input"
         self.prompt_text = "Questions will appear here before each prompt."
         self.last_input = ""
         self.hard_constraints: list[ConstraintModel | dict[str, Any]] = []
         self.tasks: list[TaskModel | dict[str, Any]] = []
+        self.travelplan: TravelPlan | None = None
+        self.todos: list[TodoItem] = []
+        self.awaiting_user_input: bool = False
         self.llm_calls = 0
         self.tool_call_count = 0
         self.tokens_in = 0
@@ -144,6 +151,18 @@ class DashboardState:
     ) -> None:
         self.tool_call_count += 1
         self.add_tool_call(tool_name, args)
+
+    def update_travelplan(self, plan: TravelPlan) -> None:
+        # Same instance is closure-bound to the agent; just hold the ref so
+        # the renderer can call plan.to_markdown() each redraw tick.
+        self.travelplan = plan
+        if not self.started_execution:
+            self.started_execution = True
+
+    def update_todos(self, todos: list[TodoItem]) -> None:
+        self.todos = list(todos)
+        if todos and not self.started_execution:
+            self.started_execution = True
 
     def mark_started(self, agent_key: str) -> None:
         if agent_key in self.agent_status and self.agent_status[agent_key] == "pending":
@@ -229,6 +248,59 @@ class DashboardState:
                     "Agent",
                     f"Itinerary validator: FAIL (attempt {attempt})\nFeedback: {feedback}",
                 )
+            return
+
+        if agent_key == "search_orchestrator":
+            artifact_groups = update.get("agent_artifacts") or {}
+            artifact_count = sum(len(items) for items in artifact_groups.values())
+            self.set_status(
+                f"Search orchestrator dispatched ({artifact_count} artifact(s))."
+            )
+            self.add_message(
+                "Agent",
+                f"Search orchestrator dispatched ({artifact_count} artifact(s)).",
+            )
+            return
+
+        if agent_key == "timetable_builder":
+            timetable = update.get("timetable")
+            day_count = 0
+            if timetable and hasattr(timetable, "days"):
+                day_count = len(timetable.days)
+            self.set_status(f"Timetable builder built itinerary ({day_count} days).")
+            self.add_message("Agent", f"Timetable builder built itinerary ({day_count} days).")
+            return
+
+        if agent_key == "itinerary_validator":
+            passed = update.get("validation_passed", False)
+            feedback = update.get("validation_feedback", "")
+            attempt = update.get("validation_attempts", 1)
+            if passed:
+                self.set_status(f"Itinerary validator: PASS (attempt {attempt}).")
+                self.add_message("Agent", f"Itinerary validator: PASS (attempt {attempt}).")
+            else:
+                self.set_status(
+                    f"Itinerary validator: FAIL (attempt {attempt}) — {feedback[:120]}"
+                )
+                self.add_message(
+                    "Agent",
+                    f"Itinerary validator: FAIL (attempt {attempt})\nFeedback: {feedback}",
+                )
+            return
+
+        if agent_key == "execution_agent":
+            plan = update.get("travelplan")
+            if isinstance(plan, TravelPlan):
+                self.travelplan = plan
+            day_count = len(plan.days) if isinstance(plan, TravelPlan) else 0
+            todo_count = len(update.get("todos") or [])
+            self.set_status(
+                f"Execution agent finalised {day_count} day(s); {todo_count} todo(s)."
+            )
+            self.add_message(
+                "Agent",
+                f"Execution agent finalised {day_count} day(s); {todo_count} todo(s).",
+            )
             return
 
         self.set_status(f"Completed {agent_key}.")
@@ -332,11 +404,21 @@ def _build_layout(dashboard: DashboardState) -> Layout:
         Layout(name="main"),
         Layout(name="footer", size=3),
     )
-    layout["main"].split_column(
-        Layout(name="upper", ratio=3),
-        Layout(name="status", ratio=2),
-        Layout(name="input", ratio=3),
-    )
+    if not dashboard.started_execution:
+        layout["main"].split_column(
+            Layout(name="upper", ratio=3),
+            Layout(name="status", ratio=2),
+            Layout(name="input", ratio=3),
+        )
+    else:
+        layout["main"].split_column(
+            Layout(name="upper", ratio=3),
+            Layout(name="travelplan", ratio=5),
+        )
+        layout["travelplan"].split_row(
+            Layout(name="travelplan_view", ratio=3),
+            Layout(name="todos_view", ratio=2),
+        )
     layout["upper"].split_row(
         Layout(name="progress", ratio=2),
         Layout(name="messages", ratio=3),
@@ -443,30 +525,36 @@ def _build_layout(dashboard: DashboardState) -> Layout:
                   ]),
               ]
           )
-    layout["status"].update(
-        Panel(
-            Text.from_markup("\n".join(status_lines), overflow="fold"),
-            title="Status",
-            border_style="green",
-            padding=(1, 2),
+    if not dashboard.started_execution:
+        layout["status"].update(
+            Panel(
+                Text.from_markup("\n".join(status_lines), overflow="fold"),
+                title="Status",
+                border_style="green",
+                padding=(1, 2),
+            )
         )
-    )
 
-    prompt_lines = [
-        dashboard.prompt_text,
-        "",
-        "[cyan]↓↓ The terminal prompt below is where you type. ↓↓[/cyan]",
-    ]
-    if dashboard.last_input:
-        prompt_lines.extend(["", f"[bold cyan]Last input:[/bold cyan] {dashboard.last_input}"])
-    layout["input"].update(
-        Panel(
-            Text.from_markup("\n".join(prompt_lines), overflow="fold"),
-            title=dashboard.prompt_title,
-            border_style="yellow",
-            padding=(1, 2),
+        prompt_lines = [
+            dashboard.prompt_text,
+            "",
+            "[cyan]↓↓ The terminal prompt below is where you type. ↓↓[/cyan]",
+        ]
+        if dashboard.last_input:
+            prompt_lines.extend(
+                ["", f"[bold cyan]Last input:[/bold cyan] {dashboard.last_input}"]
+            )
+        layout["input"].update(
+            Panel(
+                Text.from_markup("\n".join(prompt_lines), overflow="fold"),
+                title=dashboard.prompt_title,
+                border_style="yellow",
+                padding=(1, 2),
+            )
         )
-    )
+    else:
+        layout["travelplan_view"].update(_render_travelplan_panel(dashboard))
+        layout["todos_view"].update(_render_todos_panel(dashboard))
 
     completed_agents = sum(
         1 for status in dashboard.agent_status.values() if status == "completed"
@@ -488,6 +576,58 @@ def _build_layout(dashboard: DashboardState) -> Layout:
     return layout
 
 
+_TODO_STATUS_GLYPHS: dict[str, str] = {
+    "pending": "[yellow]○[/yellow]",
+    "in_progress": "[cyan]▶[/cyan]",
+    "completed": "[green]✓[/green]",
+}
+
+
+def _render_travelplan_panel(dashboard: DashboardState) -> Panel:
+    plan = dashboard.travelplan
+    if plan is None or not plan.days:
+        body: Any = Text.from_markup(
+            "[dim]Execution agent has not produced a plan yet.[/dim]"
+        )
+    else:
+        body = Markdown(plan.to_markdown_compact())
+    return Panel(
+        body,
+        title="Travel Plan",
+        border_style="magenta",
+        padding=(1, 2),
+    )
+
+
+def _render_todos_panel(dashboard: DashboardState) -> Panel:
+    if not dashboard.todos:
+        body: Any = Text.from_markup(
+            "[dim]No agent todos yet — they appear when the agent calls "
+            "write_todos.[/dim]"
+        )
+    else:
+        table = Table(
+            show_header=True,
+            header_style="bold magenta",
+            box=box.MINIMAL,
+            expand=True,
+            padding=(0, 1),
+        )
+        table.add_column("", width=2, justify="center")
+        table.add_column("#", width=3, justify="right", style="dim")
+        table.add_column("Todo", ratio=1)
+        for idx, todo in enumerate(dashboard.todos, start=1):
+            glyph = _TODO_STATUS_GLYPHS.get(todo.status, "?")
+            table.add_row(Text.from_markup(glyph), str(idx), Text(todo.title, overflow="fold"))
+        body = table
+    return Panel(
+        body,
+        title="Agent Todos",
+        border_style="cyan",
+        padding=(1, 2),
+    )
+
+
 def _draw_dashboard(dashboard: DashboardState) -> None:
     console.clear()
     console.print(_build_layout(dashboard))
@@ -507,12 +647,37 @@ def _prompt_user(
     prompt_label = f"[bold cyan]{input_label}[/bold cyan]"
     if default is not None:
         prompt_label += f" [dim](blank = {default})[/dim]"
-    response = console.input(f"{prompt_label}> ").strip()
+    dashboard.awaiting_user_input = True
+    try:
+        response = console.input(f"{prompt_label}> ").strip()
+    finally:
+        dashboard.awaiting_user_input = False
     if not response and default is not None:
         response = default
     dashboard.set_last_input(response)
     dashboard.clear_prompt()
     return response
+
+
+async def _periodic_redraw(
+    dashboard: DashboardState,
+    stop: asyncio.Event,
+    *,
+    interval: float = 5.0,
+) -> None:
+    """Re-render the dashboard at least every ``interval`` seconds.
+
+    Suspended while ``dashboard.awaiting_user_input`` is True so we don't
+    clear the terminal out from under a live prompt. Exits cleanly once
+    ``stop.set()`` is called.
+    """
+    while not stop.is_set():
+        try:
+            await asyncio.wait_for(stop.wait(), timeout=interval)
+            return
+        except asyncio.TimeoutError:
+            if not dashboard.awaiting_user_input:
+                _draw_dashboard(dashboard)
 
 
 def _resolve_workflow(workflow: dict[str, Any]) -> dict[str, Any]:
@@ -598,6 +763,8 @@ async def _execute_workflow(
     _draw_dashboard(dashboard)
 
     token = set_run_monitor(dashboard)
+    redraw_stop = asyncio.Event()
+    redraw_task = asyncio.create_task(_periodic_redraw(dashboard, redraw_stop))
     try:
         current_input: dict[str, Any] | Command = {"query": travel_query}
         while True:
@@ -611,6 +778,11 @@ async def _execute_workflow(
                     if not isinstance(data, dict):
                         continue
                     for node_name, node_update in data.items():
+                        if (
+                            node_name == "execution_agent"
+                            and not dashboard.started_execution
+                        ):
+                            dashboard.started_execution = True
                         normalized_update = normalize_for_display(node_update)
                         if node_name in dashboard.agent_status:
                             dashboard.mark_completed(node_name)
@@ -664,6 +836,11 @@ async def _execute_workflow(
             _draw_dashboard(dashboard)
             current_input = Command(resume=response)
     finally:
+        redraw_stop.set()
+        try:
+            await redraw_task
+        except asyncio.CancelledError:
+            pass
         reset_run_monitor(token)
 
 

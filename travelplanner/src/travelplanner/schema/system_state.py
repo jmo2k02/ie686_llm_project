@@ -1,7 +1,7 @@
 from typing import Annotated, Literal, get_args, get_origin
 from pydantic import BaseModel, Field
 
-from travelplanner.schema.calender import CalenderModel
+from travelplanner.travelplan import TravelPlan
 from travelplanner.schema.normalized_constraints import NormalizedConstraints
 
 class MessageHistoryModel(BaseModel):
@@ -101,6 +101,11 @@ def get_allowed_task_types() -> tuple[str, ...]:
     return tuple(str(value) for value in get_args(annotation))
 
 
+class TodoItem(BaseModel):
+    title: str
+    status: Literal["pending", "in_progress", "completed"]
+    description: str = ""
+
 class StateContractModel(BaseModel):
     """This model defines all important states the system uses"""
 
@@ -117,13 +122,14 @@ class StateContractModel(BaseModel):
     constraint_list: Annotated[list[ConstraintModel], Field(default_factory=list)]
     normalized_constraints: NormalizedConstraints | None = None
     task_list: Annotated[list[TaskModel], Field(default_factory=list)]
-    timetable: Annotated[
-        CalenderModel | None,
-        Field(
-            default=None,
-            description="The final output calender schema that will be returned by the Execution Agent",
-        ),
-    ] = None
+    travelplan: TravelPlan = Field(
+        default_factory=TravelPlan,
+        description="The final travel plan; mutated in place by the execution agent.",
+    )
+    todos: list[TodoItem] = Field(
+        default_factory=list,
+        description="Live mirror of the execution agent's internal todo list.",
+    )
     agent_artifacts: Annotated[
         dict[str, list[AgentArtifactModel]],
         Field(

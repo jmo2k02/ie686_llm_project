@@ -137,3 +137,24 @@ class StateContractModel(BaseModel):
             description="Artifacts produced by agents, grouped by agent key",
         ),
     ]
+    validation_passed: Annotated[
+        bool,
+        Field(
+            default=False,
+            description="Result of the itinerary validator (Pass/Fail)",
+        ),
+    ]
+    validation_feedback: Annotated[
+        str | None,
+        Field(
+            default=None,
+            description="Feedback from the itinerary validator when validation_passed is False",
+        ),
+    ] = None
+    validation_attempts: Annotated[
+        int,
+        Field(
+            default=0,
+            description="Number of times the itinerary has been validated (prevents infinite loops)",
+        ),
+    ]

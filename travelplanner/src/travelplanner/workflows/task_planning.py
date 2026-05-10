@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 from typing import Any
 
 from langgraph.graph import END, StateGraph
@@ -14,6 +15,14 @@ from travelplanner.agents.planner import (
 from travelplanner.agents.general_web_search_agent import (
     GeneralWebSearchAgentState,
     make_graph as make_general_web_search_graph,
+)
+from travelplanner.agents.execution_agent import (
+    search_orchestrator_node,
+    timetable_builder_node,
+)
+from travelplanner.agents.search_orchestrator import run_searches
+from travelplanner.agents.itinerary_validator_agent import (
+    make_graph as make_validator_graph,
 )
 from travelplanner.integrations.routing_check_agent import (
     RoutingCheckAgentState,
@@ -165,7 +174,27 @@ def make_graph(
             return "general_web_search_agent"
         if any(t.type == "routing-check" and t.is_valid for t in tasks):
             return "routing_check_agent"
-        return END
+        return "search_orchestrator"
+
+    MAX_VALIDATION_RETRIES: int = int(
+        os.getenv("TRAVELPLANNER_MAX_VALIDATION_RETRIES", "3")
+    )
+
+    def validator_node(state: StateContractModel) -> dict[str, Any]:
+        result = validator_graph.invoke(state)
+        return {
+            "validation_passed": result.get("validation_passed", False),
+            "validation_feedback": result.get("validation_feedback"),
+            "validation_attempts": state.validation_attempts + 1,
+            "message_histories": result.get("message_histories", {}),
+        }
+
+    def route_after_validator(state: StateContractModel) -> str:
+        if state.validation_passed:
+            return END
+        if state.validation_attempts >= MAX_VALIDATION_RETRIES:
+            return END
+        return "search_orchestrator"
 
     graph = StateGraph(StateContractModel)
     graph.add_node("constraint_agent", constraint_graph)
@@ -173,12 +202,18 @@ def make_graph(
     graph.add_node("general_web_search_agent", general_web_search_node)
     graph.add_node("routing_check_agent", routing_check_node)
     graph.add_node("execution_agent", execution_node)
+    graph.add_node("search_orchestrator", search_orchestrator_node)
+    graph.add_node("timetable_builder", timetable_builder_node)
+    graph.add_node("itinerary_validator", validator_node)
 
     graph.set_entry_point("constraint_agent")
     graph.add_edge("constraint_agent", "planner_agent")
     graph.add_conditional_edges("planner_agent", route_after_planner)
     graph.add_edge("general_web_search_agent", "routing_check_agent")
-    graph.add_edge("routing_check_agent", END)
+    graph.add_edge("routing_check_agent", "search_orchestrator")
+    graph.add_edge("search_orchestrator", "timetable_builder")
+    graph.add_edge("timetable_builder", "itinerary_validator")
+    graph.add_conditional_edges("itinerary_validator", route_after_validator)
     return graph
 
 

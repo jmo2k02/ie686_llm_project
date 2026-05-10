@@ -37,7 +37,6 @@ from travelplanner.integrations.routing_contracts import (
     SingleOdTaskPayload,
 )
 from travelplanner.integrations.routing_execution import execute_routing_check_task
-from travelplanner.agents.routing_agent import run_routing_graph_result
 from travelplanner.routing_lookup.queries import (
     ClosestResult,
     DistanceResult,
@@ -101,6 +100,8 @@ def build_place_graph_with_routing_agent(
     }
     if model_name is not None:
         kwargs["model_name"] = model_name
+
+    from travelplanner.agents.routing_agent import run_routing_graph_result
 
     raw = run_routing_graph_result(**kwargs)
     if not raw.get("ok"):

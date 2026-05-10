@@ -43,6 +43,9 @@ _AGENT_LABELS: dict[str, tuple[str, str]] = {
     "reviewer_agent": ("Review", "Reviewer Agent"),
     "general_web_search_agent": ("Search", "General Web Search"),
     "execution_agent": ("Execution", "Execution Agent"),
+    "search_orchestrator": ("Search", "Search Orchestrator"),
+    "timetable_builder": ("Build", "Timetable Builder"),
+    "itinerary_validator": ("Validate", "Itinerary Validator"),
 }
 
 
@@ -207,6 +210,82 @@ class DashboardState:
                 "Agent",
                 f"General web search completed with {artifact_count} artifact(s).",
             )
+            return
+
+        if agent_key == "search_orchestrator":
+            artifact_groups = update.get("agent_artifacts") or {}
+            artifact_count = sum(len(items) for items in artifact_groups.values())
+            self.set_status(
+                f"Search orchestrator dispatched ({artifact_count} artifact(s))."
+            )
+            self.add_message(
+                "Agent",
+                f"Search orchestrator dispatched ({artifact_count} artifact(s)).",
+            )
+            return
+
+        if agent_key == "timetable_builder":
+            timetable = update.get("timetable")
+            day_count = 0
+            if timetable and hasattr(timetable, "days"):
+                day_count = len(timetable.days)
+            self.set_status(f"Timetable builder built itinerary ({day_count} days).")
+            self.add_message("Agent", f"Timetable builder built itinerary ({day_count} days).")
+            return
+
+        if agent_key == "itinerary_validator":
+            passed = update.get("validation_passed", False)
+            feedback = update.get("validation_feedback", "")
+            attempt = update.get("validation_attempts", 1)
+            if passed:
+                self.set_status(f"Itinerary validator: PASS (attempt {attempt}).")
+                self.add_message("Agent", f"Itinerary validator: PASS (attempt {attempt}).")
+            else:
+                self.set_status(
+                    f"Itinerary validator: FAIL (attempt {attempt}) — {feedback[:120]}"
+                )
+                self.add_message(
+                    "Agent",
+                    f"Itinerary validator: FAIL (attempt {attempt})\nFeedback: {feedback}",
+                )
+            return
+
+        if agent_key == "search_orchestrator":
+            artifact_groups = update.get("agent_artifacts") or {}
+            artifact_count = sum(len(items) for items in artifact_groups.values())
+            self.set_status(
+                f"Search orchestrator dispatched ({artifact_count} artifact(s))."
+            )
+            self.add_message(
+                "Agent",
+                f"Search orchestrator dispatched ({artifact_count} artifact(s)).",
+            )
+            return
+
+        if agent_key == "timetable_builder":
+            timetable = update.get("timetable")
+            day_count = 0
+            if timetable and hasattr(timetable, "days"):
+                day_count = len(timetable.days)
+            self.set_status(f"Timetable builder built itinerary ({day_count} days).")
+            self.add_message("Agent", f"Timetable builder built itinerary ({day_count} days).")
+            return
+
+        if agent_key == "itinerary_validator":
+            passed = update.get("validation_passed", False)
+            feedback = update.get("validation_feedback", "")
+            attempt = update.get("validation_attempts", 1)
+            if passed:
+                self.set_status(f"Itinerary validator: PASS (attempt {attempt}).")
+                self.add_message("Agent", f"Itinerary validator: PASS (attempt {attempt}).")
+            else:
+                self.set_status(
+                    f"Itinerary validator: FAIL (attempt {attempt}) — {feedback[:120]}"
+                )
+                self.add_message(
+                    "Agent",
+                    f"Itinerary validator: FAIL (attempt {attempt})\nFeedback: {feedback}",
+                )
             return
 
         if agent_key == "execution_agent":

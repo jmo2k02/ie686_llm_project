@@ -10,6 +10,7 @@ from langchain_core.messages import HumanMessage
 from langgraph.graph.state import CompiledStateGraph
 
 from travelplanner.agents.execution.prompts import SYSTEM_PROMPT
+from travelplanner.agents.tools import make_subagent_tools
 from travelplanner.config import get_setting
 from travelplanner.schema.system_state import StateContractModel, TodoItem
 from travelplanner.travelplan import TravelPlan, make_travelplan_tools
@@ -55,7 +56,7 @@ def make_graph(
 
     return create_deep_agent(
         model=chat_model,
-        tools=make_travelplan_tools(plan),
+        tools=[*make_subagent_tools(), *make_travelplan_tools(plan)],
         system_prompt=SYSTEM_PROMPT,
     )
 

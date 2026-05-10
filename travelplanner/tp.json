@@ -1,146 +1,156 @@
 {
-  "title": "Berlin → Palma de Mallorca (Port de Sóller) | Jul 15–25, 2026",
+  "title": "Berlin → Port de Sóller (Palma de Mallorca) | 10-day summer break (Jul 15–25, 2026)",
   "days": [
     {
       "index": 1,
       "calendar_date": "2026-07-15",
-      "label": "Arrival & Port de Sóller reset",
+      "label": "Arrival (Port de Sóller) + sunset",
       "slots": [
         {
-          "name": "Breakfast",
-          "description": "Easy start near the hotel.",
-          "start_time": "2026-07-15T08:30:00",
-          "end_time": "2026-07-15T09:30:00",
-          "category": "meal",
-          "location": "Port de Sóller",
-          "cost": 20.0,
-          "notes": ""
-        },
-        {
-          "name": "Transfer: Port de Sóller → hotel check-in",
-          "description": "Light reset after flight; airport→Port de Sóller transfer (taxi/transfer bus).",
-          "start_time": "2026-07-15T09:30:00",
-          "end_time": "2026-07-15T10:30:00",
+          "name": "Arrival / Transfer",
+          "description": "Collect luggage and transfer from Palma Airport to Port de Sóller; check-in assistance if needed.",
+          "start_time": "2026-07-15T15:00:00",
+          "end_time": "2026-07-15T16:30:00",
           "category": "transport",
-          "location": "Port de Sóller",
-          "cost": 60.0,
-          "notes": "If you arrive earlier, adjust this slot later."
+          "location": "Palma de Mallorca → Port de Sóller",
+          "cost": null,
+          "notes": null
         },
         {
-          "name": "Check-in + unpack",
-          "description": "Boutique-hotel check-in, cool down, plan the week.",
-          "start_time": "2026-07-15T10:30:00",
-          "end_time": "2026-07-15T12:00:00",
+          "name": "Check-in & settle",
+          "description": "Boutique hotel check-in; quick unpack and orientation walk to the sea.",
+          "start_time": "2026-07-15T16:30:00",
+          "end_time": "2026-07-15T17:30:00",
           "category": "lodging",
-          "location": "Near Port de Sóller",
-          "cost": 0.0,
-          "notes": ""
+          "location": "Port de Sóller (near beachfront)",
+          "cost": null,
+          "notes": null
         },
         {
-          "name": "Sea lounge (Cala entrance/nearby cove)",
-          "description": "Start with the closest calm swimming spot; keep it relaxed.",
-          "start_time": "2026-07-15T12:30:00",
-          "end_time": "2026-07-15T15:30:00",
+          "name": "Sunset sea lounge",
+          "description": "Easy stroll + drinks with ocean view (no schedule pressure).",
+          "start_time": "2026-07-15T19:00:00",
+          "end_time": "2026-07-15T20:15:00",
           "category": "leisure",
-          "location": "Port de Sóller area",
-          "cost": 0.0,
-          "notes": ""
+          "location": "Port de Sóller waterfront",
+          "cost": null,
+          "notes": null
         },
         {
-          "name": "Lunch (local seafood / tapas)",
-          "description": "Mallorcan-style seafood, ensaimada for later if time.",
-          "start_time": "2026-07-15T15:45:00",
-          "end_time": "2026-07-15T17:00:00",
-          "category": "meal",
-          "location": "Port de Sóller",
-          "cost": 70.0,
-          "notes": "Aim for casual, high-quality local spots."
-        },
-        {
-          "name": "Sunset stroll along the harbor",
-          "description": "Walk off the travel; capture views over the bay.",
-          "start_time": "2026-07-15T18:30:00",
-          "end_time": "2026-07-15T20:00:00",
-          "category": "leisure",
-          "location": "Port de Sóller promenade",
-          "cost": 0.0,
-          "notes": ""
-        },
-        {
-          "name": "Dinner (Focaccia/pa amb oli + seafood)",
-          "description": "Dinner at a local restaurant near the harbor.",
-          "start_time": "2026-07-15T20:15:00",
+          "name": "Local dinner (tapas/seafood)",
+          "description": "First dinner: try local olive oils, seafood, and a house wine/beer.",
+          "start_time": "2026-07-15T20:30:00",
           "end_time": "2026-07-15T22:00:00",
           "category": "meal",
           "location": "Port de Sóller",
-          "cost": 120.0,
-          "notes": "Reserve if possible during peak season."
+          "cost": null,
+          "notes": null
+        },
+        {
+          "name": "Hotel night (cover)",
+          "description": "Lodging overnight stay.",
+          "start_time": "2026-07-15T22:45:00",
+          "end_time": "2026-07-16T06:30:00",
+          "category": "lodging",
+          "location": "Port de Sóller",
+          "cost": null,
+          "notes": null
+        },
+        {
+          "name": "Flight to Mallorca (BER → PMI)",
+          "description": "Direct flight to Palma de Mallorca (timing placeholder—needs confirmation once flight options are available).",
+          "start_time": "2026-07-15T08:30:00",
+          "end_time": "2026-07-15T12:30:00",
+          "category": "transport",
+          "location": "Berlin (BER) → Palma de Mallorca (PMI)",
+          "cost": null,
+          "notes": null
         }
       ]
     },
     {
       "index": 2,
       "calendar_date": "2026-07-16",
-      "label": "Hidden coves (Cala) + sea time",
+      "label": "Hidden beach + Port de Sóller food",
       "slots": [
         {
           "name": "Breakfast",
-          "description": "Coffee + pastries before the beach.",
-          "start_time": "2026-07-16T08:30:00",
-          "end_time": "2026-07-16T09:30:00",
+          "description": "Slow start; coffee + local pastries.",
+          "start_time": "2026-07-16T09:00:00",
+          "end_time": "2026-07-16T10:00:00",
           "category": "meal",
           "location": "Near hotel",
-          "cost": 20.0,
+          "cost": null,
           "notes": null
         },
         {
-          "name": "Hidden beach cove #1 (short walk)",
-          "description": "Choose a quieter cove reachable by short steps/footpath; swim + read.",
-          "start_time": "2026-07-16T10:00:00",
+          "name": "Hidden beach morning",
+          "description": "Go to a quiet cove (short walk/drive from Port de Sóller). Bring water + sun protection.",
+          "start_time": "2026-07-16T10:30:00",
           "end_time": "2026-07-16T13:00:00",
-          "category": "leisure",
-          "location": "Port de Sóller area (hidden cove)",
-          "cost": 0.0,
+          "category": "attraction",
+          "location": "Hidden cove near Port de Sóller",
+          "cost": null,
           "notes": null
         },
         {
-          "name": "Late lunch (fresh fish / grilled prawns)",
-          "description": "Long, slow lunch; order seasonal seafood.",
-          "start_time": "2026-07-16T13:15:00",
+          "name": "Lunch: local food",
+          "description": "Paella or grilled seafood + ensalada mallorquina.",
+          "start_time": "2026-07-16T13:30:00",
           "end_time": "2026-07-16T15:00:00",
           "category": "meal",
           "location": "Port de Sóller",
-          "cost": 90.0,
+          "cost": null,
           "notes": null
         },
         {
-          "name": "Lounge + shade time",
-          "description": "Return to the water for a final swim; minimal walking.",
-          "start_time": "2026-07-16T15:15:00",
-          "end_time": "2026-07-16T18:00:00",
+          "name": "Lounging / swim break",
+          "description": "Return to the sea; long lazy afternoon.",
+          "start_time": "2026-07-16T16:00:00",
+          "end_time": "2026-07-16T18:30:00",
           "category": "leisure",
-          "location": "Port de Sóller waterfront",
-          "cost": 0.0,
+          "location": "Port de Sóller beachfront",
+          "cost": null,
           "notes": null
         },
         {
-          "name": "Dinner (Mallorcan classics)",
-          "description": "Try caldereta de langosta or arroz brut; finish with crema catalana.",
-          "start_time": "2026-07-16T20:15:00",
-          "end_time": "2026-07-16T22:15:00",
+          "name": "Dinner (wine + small plates)",
+          "description": "Try local classics: tumbet, sobrasada (if you like), or grilled octopus.",
+          "start_time": "2026-07-16T20:30:00",
+          "end_time": "2026-07-16T22:00:00",
           "category": "meal",
-          "location": "Port de Sóller / nearby village",
-          "cost": 140.0,
+          "location": "Port de Sóller",
+          "cost": null,
           "notes": null
         },
         {
-          "name": "Optional: drinks at golden hour",
-          "description": "If you still have energy, a low-key drink.",
+          "name": "Optional evening stroll",
+          "description": "Promenade walk to wind down.",
           "start_time": "2026-07-16T22:15:00",
           "end_time": "2026-07-16T22:45:00",
           "category": "leisure",
-          "location": "Harbor bars",
-          "cost": 0.0,
+          "location": "Port de Sóller",
+          "cost": null,
+          "notes": null
+        },
+        {
+          "name": "Hotel night (cover)",
+          "description": "Lodging overnight stay.",
+          "start_time": "2026-07-16T22:45:00",
+          "end_time": "2026-07-17T06:30:00",
+          "category": "lodging",
+          "location": "Port de Sóller",
+          "cost": null,
+          "notes": null
+        },
+        {
+          "name": "Post-beach shower + lounge",
+          "description": "Clean up and reset for a relaxed afternoon.",
+          "start_time": "2026-07-16T15:00:00",
+          "end_time": "2026-07-16T16:00:00",
+          "category": "leisure",
+          "location": "Port de Sóller",
+          "cost": null,
           "notes": null
         }
       ]
@@ -148,56 +158,76 @@
     {
       "index": 3,
       "calendar_date": "2026-07-17",
-      "label": "Soller town + relaxed food day",
+      "label": "Tramuntana light hike + sea swim",
       "slots": [
         {
           "name": "Breakfast",
-          "description": "Slow morning at the terrace.",
-          "start_time": "2026-07-17T08:30:00",
-          "end_time": "2026-07-17T09:30:00",
-          "category": "meal",
-          "location": "Near hotel",
-          "cost": 20.0,
-          "notes": null
-        },
-        {
-          "name": "Train/ride into Sóller + stroll",
-          "description": "Wander the historic center, streets, and small squares; light shopping only.",
-          "start_time": "2026-07-17T10:00:00",
-          "end_time": "2026-07-17T12:30:00",
-          "category": "leisure",
-          "location": "Sóller",
-          "cost": 8.0,
-          "notes": null
-        },
-        {
-          "name": "Lunch (local cuisine focused)",
-          "description": "Order 2–3 sharing plates (sobrasada, tumbet, seafood fideuà).",
-          "start_time": "2026-07-17T13:00:00",
-          "end_time": "2026-07-17T14:30:00",
-          "category": "meal",
-          "location": "Sóller",
-          "cost": 110.0,
-          "notes": null
-        },
-        {
-          "name": "Return to Port de Sóller: sea lounge",
-          "description": "Beach time; minimal commitments.",
-          "start_time": "2026-07-17T15:15:00",
-          "end_time": "2026-07-17T18:30:00",
-          "category": "leisure",
-          "location": "Port de Sóller waterfront",
-          "cost": 0.0,
-          "notes": null
-        },
-        {
-          "name": "Dinner (wine + tapas)",
-          "description": "Quality tapas/wine in Port de Sóller; keep it unhurried.",
-          "start_time": "2026-07-17T20:15:00",
-          "end_time": "2026-07-17T22:15:00",
+          "description": "Coffee + breakfast buffet at hotel or café.",
+          "start_time": "2026-07-17T09:00:00",
+          "end_time": "2026-07-17T10:00:00",
           "category": "meal",
           "location": "Port de Sóller",
-          "cost": 140.0,
+          "cost": null,
+          "notes": null
+        },
+        {
+          "name": "Tramuntana light hike (cooler morning)",
+          "description": "Light hike with scenic views; choose well-marked, shorter route (aim ~2–2.5h including breaks).",
+          "start_time": "2026-07-17T10:30:00",
+          "end_time": "2026-07-17T13:00:00",
+          "category": "attraction",
+          "location": "Tramuntana (near Sóller)",
+          "cost": null,
+          "notes": null
+        },
+        {
+          "name": "Lunch (local seafood / tapas)",
+          "description": "Settle with a relaxed lunch in Sóller/Port de Sóller.",
+          "start_time": "2026-07-17T13:30:00",
+          "end_time": "2026-07-17T15:00:00",
+          "category": "meal",
+          "location": "Port de Sóller / Sóller",
+          "cost": null,
+          "notes": null
+        },
+        {
+          "name": "Beach lounge + swim",
+          "description": "Return to the sea for long lounging and a swim.",
+          "start_time": "2026-07-17T16:00:00",
+          "end_time": "2026-07-17T18:30:00",
+          "category": "leisure",
+          "location": "Port de Sóller beachfront",
+          "cost": null,
+          "notes": null
+        },
+        {
+          "name": "Dinner (Mallorcan specialties)",
+          "description": "Try local favorites; keep it early enough for a restful night.",
+          "start_time": "2026-07-17T20:30:00",
+          "end_time": "2026-07-17T22:00:00",
+          "category": "meal",
+          "location": "Port de Sóller",
+          "cost": null,
+          "notes": null
+        },
+        {
+          "name": "Optional nightcap",
+          "description": "One last drink on the promenade.",
+          "start_time": "2026-07-17T22:15:00",
+          "end_time": "2026-07-17T22:45:00",
+          "category": "leisure",
+          "location": "Port de Sóller",
+          "cost": null,
+          "notes": null
+        },
+        {
+          "name": "Hotel night (cover)",
+          "description": "Lodging overnight stay.",
+          "start_time": "2026-07-17T22:45:00",
+          "end_time": "2026-07-18T06:30:00",
+          "category": "lodging",
+          "location": "Port de Sóller",
+          "cost": null,
           "notes": null
         }
       ]
@@ -205,66 +235,86 @@
     {
       "index": 4,
       "calendar_date": "2026-07-18",
-      "label": "Tramuntana light hike (start with easy path)",
+      "label": "Day trip: Palma old town + evening lounge",
       "slots": [
         {
           "name": "Breakfast",
-          "description": "Early-ish start to beat heat.",
-          "start_time": "2026-07-18T07:45:00",
-          "end_time": "2026-07-18T08:45:00",
+          "description": "Slow breakfast, easy start.",
+          "start_time": "2026-07-18T09:00:00",
+          "end_time": "2026-07-18T10:00:00",
           "category": "meal",
-          "location": "Near hotel",
-          "cost": 20.0,
+          "location": "Port de Sóller",
+          "cost": null,
           "notes": null
         },
         {
-          "name": "Light Tramuntana hike: Sóller → Biniaraix (easy coastal-valley)",
-          "description": "Summer-friendly loop: start near Sóller valley, follow shaded paths; plan a short turn-around if hot. Duration ~2.5–3h, modest elevation.",
-          "start_time": "2026-07-18T09:30:00",
-          "end_time": "2026-07-18T12:30:00",
-          "category": "attraction",
-          "location": "Tramuntana (Sóller valley / Biniaraix area)",
-          "cost": 0.0,
+          "name": "Transport to Palma",
+          "description": "Drive or public transport to Palma; plan buffer for parking.",
+          "start_time": "2026-07-18T10:30:00",
+          "end_time": "2026-07-18T11:30:00",
+          "category": "transport",
+          "location": "Port de Sóller → Palma",
+          "cost": null,
           "notes": null
         },
         {
-          "name": "Cool-down lunch (salads + grilled seafood)",
-          "description": "Hydrate; eat light but satisfying.",
-          "start_time": "2026-07-18T13:00:00",
+          "name": "Palma old town wander",
+          "description": "Cathedral exterior + streets + small plazas; focus on relaxed browsing rather than a checklist.",
+          "start_time": "2026-07-18T11:45:00",
           "end_time": "2026-07-18T14:30:00",
+          "category": "attraction",
+          "location": "Palma de Mallorca (Old Town)",
+          "cost": null,
+          "notes": null
+        },
+        {
+          "name": "Lunch (local Mallorcan)",
+          "description": "Try dishes like pa amb oli, fideuà, or grilled fish (whatever looks freshest).",
+          "start_time": "2026-07-18T14:45:00",
+          "end_time": "2026-07-18T16:15:00",
           "category": "meal",
-          "location": "Port de Sóller or Sóller",
-          "cost": 95.0,
+          "location": "Palma",
+          "cost": null,
           "notes": null
         },
         {
-          "name": "Siesta / hotel downtime",
-          "description": "Rest the legs; shower + recovery.",
-          "start_time": "2026-07-18T15:00:00",
-          "end_time": "2026-07-18T17:30:00",
+          "name": "Return to Port de Sóller",
+          "description": "Back to the sea area.",
+          "start_time": "2026-07-18T17:00:00",
+          "end_time": "2026-07-18T18:00:00",
+          "category": "transport",
+          "location": "Palma → Port de Sóller",
+          "cost": null,
+          "notes": null
+        },
+        {
+          "name": "Sunset sea lounge",
+          "description": "Unwind; optional beach walk.",
+          "start_time": "2026-07-18T19:00:00",
+          "end_time": "2026-07-18T20:00:00",
           "category": "leisure",
-          "location": "Hotel",
-          "cost": 0.0,
+          "location": "Port de Sóller waterfront",
+          "cost": null,
           "notes": null
         },
         {
-          "name": "Beach lounge + swim",
-          "description": "Short walk back to the water; sunset-friendly swimming.",
-          "start_time": "2026-07-18T17:45:00",
-          "end_time": "2026-07-18T19:45:00",
-          "category": "leisure",
-          "location": "Port de Sóller",
-          "cost": 0.0,
-          "notes": null
-        },
-        {
-          "name": "Dinner (local paella/fideuà)",
-          "description": "Pick one house specialty; ask for seasonal fish.",
+          "name": "Dinner (wine + local plates)",
+          "description": "Local wine + seasonal dishes.",
           "start_time": "2026-07-18T20:15:00",
-          "end_time": "2026-07-18T22:15:00",
+          "end_time": "2026-07-18T21:45:00",
           "category": "meal",
           "location": "Port de Sóller",
-          "cost": 150.0,
+          "cost": null,
+          "notes": null
+        },
+        {
+          "name": "Hotel night (cover)",
+          "description": "Lodging overnight stay.",
+          "start_time": "2026-07-18T22:45:00",
+          "end_time": "2026-07-19T06:30:00",
+          "category": "lodging",
+          "location": "Port de Sóller",
+          "cost": null,
           "notes": null
         }
       ]
@@ -272,56 +322,66 @@
     {
       "index": 5,
       "calendar_date": "2026-07-19",
-      "label": "Hidden beach #2 (cove hopping)",
+      "label": "Hidden beach #2 + slow day",
       "slots": [
         {
           "name": "Breakfast",
-          "description": "Start relaxed; sunscreen + water for the hike-beach mix.",
-          "start_time": "2026-07-19T08:30:00",
-          "end_time": "2026-07-19T09:30:00",
-          "category": "meal",
-          "location": "Near hotel",
-          "cost": 20.0,
-          "notes": null
-        },
-        {
-          "name": "Hidden beach cove #2 (easy walk)",
-          "description": "A less-crowded cove; towel up, swim, and keep moving slowly.",
-          "start_time": "2026-07-19T10:15:00",
-          "end_time": "2026-07-19T13:30:00",
-          "category": "leisure",
-          "location": "Port de Sóller area (hidden cove)",
-          "cost": 0.0,
-          "notes": null
-        },
-        {
-          "name": "Lunch (market-style / tapas)",
-          "description": "Sharing plates; aim for local produce + seafood.",
-          "start_time": "2026-07-19T13:45:00",
-          "end_time": "2026-07-19T15:15:00",
+          "description": "Breakfast + coffee.",
+          "start_time": "2026-07-19T09:00:00",
+          "end_time": "2026-07-19T10:00:00",
           "category": "meal",
           "location": "Port de Sóller",
-          "cost": 85.0,
+          "cost": null,
           "notes": null
         },
         {
-          "name": "Boat/shore stroll + photo time",
-          "description": "Low-effort scenic time around the harbor.",
+          "name": "Hidden beach #2",
+          "description": "Another quiet cove; arrive early to avoid crowds.",
+          "start_time": "2026-07-19T10:30:00",
+          "end_time": "2026-07-19T13:15:00",
+          "category": "attraction",
+          "location": "Coast near Port de Sóller",
+          "cost": null,
+          "notes": null
+        },
+        {
+          "name": "Lunch (seafood/vegetarian options)",
+          "description": "Keep it casual; aim for fresh fish, local veg, olive oil.",
+          "start_time": "2026-07-19T13:30:00",
+          "end_time": "2026-07-19T15:00:00",
+          "category": "meal",
+          "location": "Port de Sóller",
+          "cost": null,
+          "notes": null
+        },
+        {
+          "name": "Lounging / siesta time",
+          "description": "Back at the hotel/beach loungers for rest.",
           "start_time": "2026-07-19T16:00:00",
-          "end_time": "2026-07-19T18:00:00",
+          "end_time": "2026-07-19T18:30:00",
           "category": "leisure",
-          "location": "Port de Sóller promenade",
-          "cost": 0.0,
+          "location": "Port de Sóller",
+          "cost": null,
           "notes": null
         },
         {
-          "name": "Dinner (chef’s special / wine pairing)",
-          "description": "A more “special” dinner night within budget; reserve if possible.",
-          "start_time": "2026-07-19T20:15:00",
-          "end_time": "2026-07-19T22:30:00",
+          "name": "Dinner (tumbet or grilled fish)",
+          "description": "Local dinner; keep pace relaxed.",
+          "start_time": "2026-07-19T20:30:00",
+          "end_time": "2026-07-19T22:00:00",
           "category": "meal",
           "location": "Port de Sóller",
-          "cost": 180.0,
+          "cost": null,
+          "notes": null
+        },
+        {
+          "name": "Hotel night (cover)",
+          "description": "Lodging overnight stay.",
+          "start_time": "2026-07-19T22:45:00",
+          "end_time": "2026-07-20T06:30:00",
+          "category": "lodging",
+          "location": "Port de Sóller",
+          "cost": null,
           "notes": null
         }
       ]
@@ -329,56 +389,66 @@
     {
       "index": 6,
       "calendar_date": "2026-07-20",
-      "label": "Tramuntana day trip viewpoint",
+      "label": "Tramuntana light hike + local dinner",
       "slots": [
         {
           "name": "Breakfast",
-          "description": "Grab-and-go if you want an early start.",
-          "start_time": "2026-07-20T08:00:00",
-          "end_time": "2026-07-20T09:00:00",
+          "description": "Slow start.",
+          "start_time": "2026-07-20T09:00:00",
+          "end_time": "2026-07-20T10:00:00",
           "category": "meal",
-          "location": "Near hotel",
-          "cost": 20.0,
+          "location": "Port de Sóller",
+          "cost": null,
           "notes": null
         },
         {
-          "name": "Day trip: Tramuntana viewpoint loop (light)",
-          "description": "Drive or bus to viewpoints; do a short out-and-back walk for shade + photos.",
-          "start_time": "2026-07-20T09:30:00",
-          "end_time": "2026-07-20T12:30:00",
+          "name": "Tramuntana light hike (views)",
+          "description": "Short scenic hike in the Tramuntana (keep it light: viewpoints + easy paths).",
+          "start_time": "2026-07-20T10:30:00",
+          "end_time": "2026-07-20T13:00:00",
           "category": "attraction",
-          "location": "Tramuntana (viewpoints near Sóller/Valldemossa zone)",
-          "cost": 40.0,
-          "notes": "Choose short segments; avoid long climbs in peak sun."
-        },
-        {
-          "name": "Lunch (Valldemossa / Deià style stop)",
-          "description": "Local dishes in a scenic village; go for seasonal fish or lamb.",
-          "start_time": "2026-07-20T12:45:00",
-          "end_time": "2026-07-20T14:30:00",
-          "category": "meal",
-          "location": "Valldemossa or Deià",
-          "cost": 130.0,
+          "location": "Tramuntana mountains",
+          "cost": null,
           "notes": null
         },
         {
-          "name": "Late afternoon: return to sea + swim",
-          "description": "Back to Port de Sóller for a calm swim and rest.",
-          "start_time": "2026-07-20T16:00:00",
-          "end_time": "2026-07-20T18:30:00",
+          "name": "Return + refresh at sea",
+          "description": "Cool down, shower, and rest.",
+          "start_time": "2026-07-20T13:30:00",
+          "end_time": "2026-07-20T15:30:00",
           "category": "leisure",
           "location": "Port de Sóller",
-          "cost": 0.0,
+          "cost": null,
           "notes": null
         },
         {
-          "name": "Dinner (wine + local seafood)",
-          "description": "Unhurried dinner; pick a place with strong seafood rotation.",
-          "start_time": "2026-07-20T20:15:00",
-          "end_time": "2026-07-20T22:15:00",
+          "name": "Lunch (quick bite)",
+          "description": "Late lunch/early snack so dinner feels unhurried.",
+          "start_time": "2026-07-20T16:00:00",
+          "end_time": "2026-07-20T17:00:00",
           "category": "meal",
           "location": "Port de Sóller",
-          "cost": 150.0,
+          "cost": null,
+          "notes": null
+        },
+        {
+          "name": "Dinner (tapas)",
+          "description": "Local tapas crawl or single excellent restaurant.",
+          "start_time": "2026-07-20T20:30:00",
+          "end_time": "2026-07-20T22:00:00",
+          "category": "meal",
+          "location": "Port de Sóller",
+          "cost": null,
+          "notes": null
+        },
+        {
+          "name": "Hotel night (cover)",
+          "description": "Lodging overnight stay.",
+          "start_time": "2026-07-20T22:45:00",
+          "end_time": "2026-07-21T06:30:00",
+          "category": "lodging",
+          "location": "Port de Sóller",
+          "cost": null,
           "notes": null
         }
       ]
@@ -386,56 +456,76 @@
     {
       "index": 7,
       "calendar_date": "2026-07-21",
-      "label": "Food-focused day (markets + village stops)",
+      "label": "Day trip: Sóller Valley + Deìà (relaxed)",
       "slots": [
         {
           "name": "Breakfast",
-          "description": "Coffee + breakfast near the harbor.",
-          "start_time": "2026-07-21T08:30:00",
-          "end_time": "2026-07-21T09:30:00",
+          "description": "Breakfast, then we’ll head out leisurely.",
+          "start_time": "2026-07-21T09:00:00",
+          "end_time": "2026-07-21T10:00:00",
           "category": "meal",
           "location": "Port de Sóller",
-          "cost": 20.0,
+          "cost": null,
           "notes": null
         },
         {
-          "name": "Market + village food crawl (Sóller area)",
-          "description": "Morning market browsing + local bites. Keep it flexible; stop when something looks best.",
-          "start_time": "2026-07-21T10:00:00",
+          "name": "Transport to Sóller",
+          "description": "Short transfer; optional tram/bus depending on preference.",
+          "start_time": "2026-07-21T10:30:00",
+          "end_time": "2026-07-21T11:15:00",
+          "category": "transport",
+          "location": "Port de Sóller → Sóller",
+          "cost": null,
+          "notes": null
+        },
+        {
+          "name": "Sóller streets + café stop",
+          "description": "Relaxed town browsing + coffee.",
+          "start_time": "2026-07-21T11:30:00",
           "end_time": "2026-07-21T13:00:00",
-          "category": "attraction",
-          "location": "Sóller (market / center)",
-          "cost": 40.0,
-          "notes": "Bring water; midday heat—choose shaded spots."
-        },
-        {
-          "name": "Lunch (tapas + local wine)",
-          "description": "Order a mix of local dishes + a glass of red/rosé.",
-          "start_time": "2026-07-21T13:15:00",
-          "end_time": "2026-07-21T15:00:00",
-          "category": "meal",
-          "location": "Sóller or Port de Sóller",
-          "cost": 110.0,
-          "notes": null
-        },
-        {
-          "name": "Slow sea time + gelato/ice cream",
-          "description": "Swim if you feel like it; otherwise just lounge + dessert.",
-          "start_time": "2026-07-21T16:00:00",
-          "end_time": "2026-07-21T18:30:00",
           "category": "leisure",
-          "location": "Port de Sóller waterfront",
-          "cost": 20.0,
+          "location": "Sóller",
+          "cost": null,
           "notes": null
         },
         {
-          "name": "Dinner (creative Mallorcan tasting / seafood)",
-          "description": "High-quality dinner; reserve.",
+          "name": "Deìà (relaxed viewpoint walk)",
+          "description": "Short scenic walk + viewpoints; keep it light in the heat.",
+          "start_time": "2026-07-21T13:30:00",
+          "end_time": "2026-07-21T16:00:00",
+          "category": "attraction",
+          "location": "Deìà",
+          "cost": null,
+          "notes": null
+        },
+        {
+          "name": "Return to Port de Sóller",
+          "description": "Back in time for a calm sea evening.",
+          "start_time": "2026-07-21T16:30:00",
+          "end_time": "2026-07-21T17:30:00",
+          "category": "transport",
+          "location": "Deìà → Port de Sóller",
+          "cost": null,
+          "notes": null
+        },
+        {
+          "name": "Dinner (Mallorcan classics)",
+          "description": "Grilled fish + local sides; early night if you want.",
           "start_time": "2026-07-21T20:15:00",
-          "end_time": "2026-07-21T22:30:00",
+          "end_time": "2026-07-21T21:45:00",
           "category": "meal",
           "location": "Port de Sóller",
-          "cost": 160.0,
+          "cost": null,
+          "notes": null
+        },
+        {
+          "name": "Hotel night (cover)",
+          "description": "Lodging overnight stay.",
+          "start_time": "2026-07-21T22:45:00",
+          "end_time": "2026-07-22T06:30:00",
+          "category": "lodging",
+          "location": "Port de Sóller",
+          "cost": null,
           "notes": null
         }
       ]
@@ -443,56 +533,66 @@
     {
       "index": 8,
       "calendar_date": "2026-07-22",
-      "label": "Hidden beach #3 + long lounge",
+      "label": "Hidden beach #3 + boat/sea time",
       "slots": [
         {
           "name": "Breakfast",
-          "description": "Light breakfast; plan towels + water.",
-          "start_time": "2026-07-22T08:30:00",
-          "end_time": "2026-07-22T09:30:00",
-          "category": "meal",
-          "location": "Near hotel",
-          "cost": 20.0,
-          "notes": null
-        },
-        {
-          "name": "Hidden beach cove #3 (long lounge)",
-          "description": "Pick a calmer cove; swim in the morning light; rest on shore benches.",
-          "start_time": "2026-07-22T10:30:00",
-          "end_time": "2026-07-22T14:30:00",
-          "category": "leisure",
-          "location": "Port de Sóller area (hidden cove)",
-          "cost": 0.0,
-          "notes": null
-        },
-        {
-          "name": "Lunch (grilled fish / ensalada)",
-          "description": "Simple, fresh lunch after beach time.",
-          "start_time": "2026-07-22T15:00:00",
-          "end_time": "2026-07-22T16:30:00",
+          "description": "Coffee + slow start.",
+          "start_time": "2026-07-22T09:00:00",
+          "end_time": "2026-07-22T10:00:00",
           "category": "meal",
           "location": "Port de Sóller",
-          "cost": 90.0,
+          "cost": null,
           "notes": null
         },
         {
-          "name": "Hotel downtime + siesta",
-          "description": "Reset for evening plans.",
-          "start_time": "2026-07-22T17:00:00",
+          "name": "Hidden beach #3",
+          "description": "Quiet cove day—arrive early; bring beach gear.",
+          "start_time": "2026-07-22T10:30:00",
+          "end_time": "2026-07-22T13:15:00",
+          "category": "attraction",
+          "location": "Hidden cove near Tramuntana coast",
+          "cost": null,
+          "notes": null
+        },
+        {
+          "name": "Lunch (picnic / beach friendly)",
+          "description": "Buy fresh local items and eat by the sea.",
+          "start_time": "2026-07-22T13:30:00",
+          "end_time": "2026-07-22T15:00:00",
+          "category": "meal",
+          "location": "Near the beach",
+          "cost": null,
+          "notes": null
+        },
+        {
+          "name": "Boat/sea time + swim",
+          "description": "Optional short boat ride or just another long swim.",
+          "start_time": "2026-07-22T16:00:00",
           "end_time": "2026-07-22T18:30:00",
           "category": "leisure",
-          "location": "Hotel",
-          "cost": 0.0,
+          "location": "Port de Sóller / nearby",
+          "cost": null,
           "notes": null
         },
         {
-          "name": "Dinner (local roast + dessert)",
-          "description": "Another classic Mallorcan dinner—go for seasonal specials.",
+          "name": "Dinner (local seafood)",
+          "description": "One more excellent seafood dinner.",
           "start_time": "2026-07-22T20:15:00",
-          "end_time": "2026-07-22T22:30:00",
+          "end_time": "2026-07-22T21:45:00",
           "category": "meal",
           "location": "Port de Sóller",
-          "cost": 170.0,
+          "cost": null,
+          "notes": null
+        },
+        {
+          "name": "Hotel night (cover)",
+          "description": "Lodging overnight stay.",
+          "start_time": "2026-07-22T22:45:00",
+          "end_time": "2026-07-23T06:30:00",
+          "category": "lodging",
+          "location": "Port de Sóller",
+          "cost": null,
           "notes": null
         }
       ]
@@ -500,56 +600,66 @@
     {
       "index": 9,
       "calendar_date": "2026-07-23",
-      "label": "Free sea day (swim + slow lunch)",
+      "label": "Last full hiking + farewell dinner",
       "slots": [
         {
           "name": "Breakfast",
-          "description": "Slow start.",
-          "start_time": "2026-07-23T08:30:00",
-          "end_time": "2026-07-23T09:30:00",
-          "category": "meal",
-          "location": "Near hotel",
-          "cost": 20.0,
-          "notes": null
-        },
-        {
-          "name": "Free sea day: swim + lounge (choose 2 swimming stops)",
-          "description": "Two relaxed swims separated by a break; keep it effortless.",
-          "start_time": "2026-07-23T10:00:00",
-          "end_time": "2026-07-23T14:30:00",
-          "category": "leisure",
-          "location": "Port de Sóller bay / nearby coves",
-          "cost": 0.0,
-          "notes": null
-        },
-        {
-          "name": "Long lunch (local wine + fideuà/paella)",
-          "description": "One big meal; then rest.",
-          "start_time": "2026-07-23T14:45:00",
-          "end_time": "2026-07-23T16:30:00",
+          "description": "Breakfast before the final active day.",
+          "start_time": "2026-07-23T09:00:00",
+          "end_time": "2026-07-23T10:00:00",
           "category": "meal",
           "location": "Port de Sóller",
-          "cost": 120.0,
+          "cost": null,
           "notes": null
         },
         {
-          "name": "Late afternoon: sunset lookout OR shaded promenade",
-          "description": "Choose a short viewpoint if energy allows; otherwise promenade.",
-          "start_time": "2026-07-23T18:30:00",
-          "end_time": "2026-07-23T20:00:00",
+          "name": "Tramuntana light hike (final)",
+          "description": "Choose an easy-to-moderate route with great views; keep total effort light.",
+          "start_time": "2026-07-23T10:30:00",
+          "end_time": "2026-07-23T13:30:00",
+          "category": "attraction",
+          "location": "Tramuntana mountains",
+          "cost": null,
+          "notes": null
+        },
+        {
+          "name": "Return + long lunch",
+          "description": "Late lunch after the hike (fresh fish + ensalada).",
+          "start_time": "2026-07-23T14:00:00",
+          "end_time": "2026-07-23T16:00:00",
+          "category": "meal",
+          "location": "Port de Sóller / Sóller",
+          "cost": null,
+          "notes": null
+        },
+        {
+          "name": "Sea lounge + swim",
+          "description": "Relax hard before tomorrow.",
+          "start_time": "2026-07-23T16:30:00",
+          "end_time": "2026-07-23T18:30:00",
           "category": "leisure",
-          "location": "Port de Sóller area",
-          "cost": 0.0,
+          "location": "Port de Sóller beachfront",
+          "cost": null,
           "notes": null
         },
         {
-          "name": "Dinner (lighter seafood + dessert)",
-          "description": "Keep it lighter after the long lunch.",
+          "name": "Farewell dinner (boutique-ish)",
+          "description": "A more special dinner: tasting-style or standout local restaurant.",
           "start_time": "2026-07-23T20:15:00",
-          "end_time": "2026-07-23T22:15:00",
+          "end_time": "2026-07-23T22:00:00",
           "category": "meal",
           "location": "Port de Sóller",
-          "cost": 130.0,
+          "cost": null,
+          "notes": null
+        },
+        {
+          "name": "Hotel night (cover)",
+          "description": "Lodging overnight stay.",
+          "start_time": "2026-07-23T22:45:00",
+          "end_time": "2026-07-24T06:30:00",
+          "category": "lodging",
+          "location": "Port de Sóller",
+          "cost": null,
           "notes": null
         }
       ]
@@ -557,77 +667,97 @@
     {
       "index": 10,
       "calendar_date": "2026-07-24",
-      "label": "Final beach + depart evening",
+      "label": "Departure day (reduced pace)",
       "slots": [
         {
           "name": "Breakfast",
-          "description": "Pack gradually; keep breakfast easy.",
-          "start_time": "2026-07-24T08:30:00",
-          "end_time": "2026-07-24T09:30:00",
-          "category": "meal",
-          "location": "Near hotel",
-          "cost": 20.0,
-          "notes": null
-        },
-        {
-          "name": "Final hidden beach + swim",
-          "description": "One last calm cove. Spend more time than you think you should.",
-          "start_time": "2026-07-24T10:15:00",
-          "end_time": "2026-07-24T13:30:00",
-          "category": "leisure",
-          "location": "Port de Sóller area (hidden cove)",
-          "cost": 0.0,
-          "notes": null
-        },
-        {
-          "name": "Lunch (last local meal)",
-          "description": "Order something you loved earlier as a “send-off”.",
-          "start_time": "2026-07-24T13:45:00",
-          "end_time": "2026-07-24T15:15:00",
+          "description": "Slow morning; pack lightly.",
+          "start_time": "2026-07-24T09:00:00",
+          "end_time": "2026-07-24T10:00:00",
           "category": "meal",
           "location": "Port de Sóller",
-          "cost": 100.0,
+          "cost": null,
           "notes": null
         },
         {
-          "name": "Check-out + luggage storage (if needed)",
-          "description": "Check-out, use hotel storage, and stay near the harbor.",
-          "start_time": "2026-07-24T15:30:00",
-          "end_time": "2026-07-24T16:30:00",
-          "category": "lodging",
-          "location": "Hotel",
-          "cost": 0.0,
-          "notes": null
-        },
-        {
-          "name": "Evening: harbor stroll + farewell dinner",
-          "description": "Last walk; cool down and take photos.",
-          "start_time": "2026-07-24T18:30:00",
-          "end_time": "2026-07-24T20:00:00",
+          "name": "Final beach time",
+          "description": "Last swim + sun while still relaxed.",
+          "start_time": "2026-07-24T10:30:00",
+          "end_time": "2026-07-24T13:00:00",
           "category": "leisure",
-          "location": "Port de Sóller promenade",
-          "cost": 0.0,
+          "location": "Port de Sóller",
+          "cost": null,
           "notes": null
         },
         {
-          "name": "Farewell dinner (wine + Mallorcan specialties)",
-          "description": "Dinner before departure next day or late checkout plan.",
-          "start_time": "2026-07-24T20:15:00",
-          "end_time": "2026-07-24T22:30:00",
+          "name": "Lunch (last local bite)",
+          "description": "Keep it casual; order something you haven’t tried yet.",
+          "start_time": "2026-07-24T13:30:00",
+          "end_time": "2026-07-24T15:00:00",
           "category": "meal",
           "location": "Port de Sóller",
-          "cost": 180.0,
+          "cost": null,
           "notes": null
         },
         {
-          "name": "Departure (Port de Sóller → Palma airport) + flight",
-          "description": "Assumes early flight next day; adjust if your return flight differs.",
-          "start_time": "2026-07-25T05:30:00",
-          "end_time": "2026-07-25T10:30:00",
+          "name": "Hotel check-out prep",
+          "description": "Return to hotel, organize bags.",
+          "start_time": "2026-07-24T16:00:00",
+          "end_time": "2026-07-24T17:00:00",
+          "category": "other",
+          "location": "Hotel near Port de Sóller",
+          "cost": null,
+          "notes": null
+        },
+        {
+          "name": "Return transfer prep (buffer)",
+          "description": "Get ready for a July 25 departure day; if your flight is late, you can move this later.",
+          "start_time": "2026-07-24T17:15:00",
+          "end_time": "2026-07-24T18:30:00",
           "category": "transport",
-          "location": "Palma de Mallorca (PMI)",
-          "cost": 0.0,
-          "notes": "Return flight placeholder—confirm actual times."
+          "location": "Port de Sóller → Palma Airport (planned for 25th)",
+          "cost": null,
+          "notes": null
+        },
+        {
+          "name": "Early dinner",
+          "description": "Early and unhurried; prioritize rest.",
+          "start_time": "2026-07-24T19:45:00",
+          "end_time": "2026-07-24T21:15:00",
+          "category": "meal",
+          "location": "Port de Sóller",
+          "cost": null,
+          "notes": null
+        },
+        {
+          "name": "Hotel night (cover) - last night",
+          "description": "Lodging overnight stay (covers stay through morning of 25th).",
+          "start_time": "2026-07-24T22:45:00",
+          "end_time": "2026-07-25T06:30:00",
+          "category": "lodging",
+          "location": "Port de Sóller",
+          "cost": null,
+          "notes": null
+        },
+        {
+          "name": "Departure transfer (to airport)",
+          "description": "Buffer transfer to Palma Airport for your flight home.",
+          "start_time": "2026-07-25T06:30:00",
+          "end_time": "2026-07-25T07:45:00",
+          "category": "transport",
+          "location": "Port de Sóller → Palma Airport (PMI)",
+          "cost": null,
+          "notes": null
+        },
+        {
+          "name": "Flight home (PMI → BER)",
+          "description": "Direct return flight to Berlin (timing placeholder—needs confirmation once flight options are available).",
+          "start_time": "2026-07-25T09:00:00",
+          "end_time": "2026-07-25T12:30:00",
+          "category": "transport",
+          "location": "Palma de Mallorca (PMI) → Berlin (BER)",
+          "cost": null,
+          "notes": null
         }
       ]
     }

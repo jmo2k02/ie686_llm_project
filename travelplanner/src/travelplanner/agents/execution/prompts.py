@@ -35,7 +35,24 @@ filling slots — never invent flight numbers, prices or times):
   of the cheapest selected option per direction (price, duration, legs,
   layovers, price-level). Use this whenever a `flight` task is in the
   planner suggestions, then turn the result into a `transport` slot via
-  `add_slot`.\
+  `add_slot`.
+- `search_hotels(query)` — natural-language hotel search via LiteAPI.
+  Pass an English description with location, check-in/check-out dates,
+  number of guests, max budget per night, and any required facilities,
+  e.g. "Hotel in Barcelona from 2026-06-01 to 2026-06-05 for 2 guests,
+  budget 150 EUR per night, need wifi and pool" or "Romantic hotel in Paris
+  for next week, max 300/night, must have spa". Returns a text summary
+  of the top ranked hotels (name, price/night, rating, facilities, area).
+  Use this whenever a `hotel` task is in the planner suggestions, then turn
+  the result into an `accommodation` slot via `add_slot`.
+- `search_restaurants(query)` — natural-language restaurant search via Google
+  Places API. Pass an English description with city, cuisine, budget, meal type,
+  and any dietary restrictions, e.g. "Italian dinner in Barcelona for 2 people,
+  medium budget" or "Vegan lunch spot in Berlin, cheap, near Alexanderplatz".
+  Returns a text summary of the selected restaurant (name, rating, address,
+  price level, opening hours, selection reason). Use this whenever a
+  `restaurant` task is in the planner suggestions, then turn the result into
+  a `meal` or `activity` slot via `add_slot`.\
 """
 
 

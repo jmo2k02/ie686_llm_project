@@ -1,5 +1,6 @@
 # scratch_e2e_attraction.py — end-to-end: structured task text → param extraction → archetype → LLM activity → SERPAPI place
 # Edit TASK_TEXT below and run: python scratch_e2e_attraction.py
+# To constrain the time slot, mention it naturally in TASK_TEXT (e.g. "a morning activity").
 
 from dotenv import load_dotenv
 
@@ -12,12 +13,13 @@ from travelplanner.agents.attraction_search_agent import (
 load_dotenv()
 
 TASK_TEXT = """\
-Find an activity for a solo digital nomad visiting Barcelona on Day 1 of their trip, 
-with a budget of 80 EUR. They are interested in the local startup scene and want 
-to blend remote work with exploration of creative and professional communities at a 
-slow pace. Previously, they had visited a co-working space in Poblenou. 
-Focus on tech and creative co-working community.
+Find anactivity for one person visiting Barcelona on Day 2 of their trip,
+with a budget of 80 EUR. They are interested in the local startup scene and want
+to blend remote work with exploration of creative and professional communities at a
+slow pace. Previously, they had visited a co-working space in Poblenou, and the 
+Barcelona faculty space.
 """
+
 MODEL = "openrouter:minimax/minimax-m2.5"
 TEMPERATURE = 0.0
 
@@ -32,6 +34,7 @@ print(f"  Destination : {params.destination}")
 print(f"  Day         : {params.day}")
 print(f"  Budget      : {params.budget} EUR")
 print(f"  Profile     : {params.traveller_profile}")
+print(f"  Time slot   : {params.time_slot or '(any)'}")
 print(f"  Previous    : {params.previous_activities or '(none)'}")
 print(f"  Hint        : {params.orchestrator_hint or '(none)'}")
 print()

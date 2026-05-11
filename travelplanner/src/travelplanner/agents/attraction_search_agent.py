@@ -52,6 +52,7 @@ Rules:
 - day is the trip day number (integer, defaults to 1 if not specified)
 - previous_activities is a summary of activities done on prior days (empty string if none)
 - orchestrator_hint is an optional hint about what type of activity is needed (null if absent)
+- time_slot is the requested half-day slot ("morning", "afternoon", or "evening") — null if not specified
 - Return JSON only — no extra text.
 """
 
@@ -61,6 +62,7 @@ You are an experience curator for a travel planning assistant generating deeply 
 Rules:
 - Activities only — no food, no restaurants, no transport
 - One activity covering a half-day slot (morning, afternoon, or evening)
+- If a required time slot is specified in the request, you MUST use exactly that slot
 - The activity must be realistic given typical opening hours for that type of venue
 - Each activity must name the specific type of local person or community the traveller will interact with, and explain why this interaction falls outside the tourist bubble
 - Consider previous activities to avoid repetition and ensure variety across days
@@ -140,7 +142,7 @@ def _build_param_extraction_prompt(task_text: str) -> str:
         f"Task: {task_text.strip()}",
         "",
         "Return strictly valid JSON with this shape:",
-        '{"budget": 80.0, "destination": "city name", "traveller_profile": "free text", "day": 1, "previous_activities": "summary or empty string", "orchestrator_hint": "string or null"}',
+        '{"budget": 80.0, "destination": "city name", "traveller_profile": "free text", "day": 1, "previous_activities": "summary or empty string", "orchestrator_hint": "string or null", "time_slot": "morning" | "afternoon" | "evening" | null}',
     ])
 
 
@@ -227,6 +229,8 @@ def _build_generation_user_prompt(params: AttractionParamsModel) -> str:
         f"Traveller profile: {params.traveller_profile}",
         f"Previous activities: {params.previous_activities or 'None — this is the first activity'}",
     ]
+    if params.time_slot:
+        lines.append(f"Required time slot: {params.time_slot} (you MUST use exactly this slot)")
     if params.orchestrator_hint:
         lines.append(f"Orchestrator hint: {params.orchestrator_hint}")
     lines.append(f"\nGenerate exactly one activity for day {params.day} in {params.destination} as a JSON object.")

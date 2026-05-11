@@ -35,6 +35,19 @@ filling slots — never invent flight numbers, prices or times):
   of the cheapest selected option per direction (price, duration, legs,
   layovers, price-level). Use this whenever a `flight` task is in the
   planner suggestions, then turn the result into a `transport` slot via
+  `add_slot`.\
+- `search_attractions(query)` — natural-language attraction search via an 
+  LLM + Google Maps (SerpAPI). Pass an English description of who and when,
+  traveller profile, optionally a time slot, previous activities, and any
+  specific hints, e.g. "Find an activity for one person visiting Barcelona on
+  Day 2 of their trip, with a budget of 80 EUR. They are interested in the local
+  startup scene and want to blend remote work with exploration of creative and
+  professional communities at a slow pace. Previously, they had visited a co-working
+  space in Poblenou." Returns a text summary of the selected activity (title,
+  description, local touchpoint, duration, estimated price, place details). Use this
+  whenever an `attraction` task is in the planner suggestions, then turn the result
+  into an `activity` slot via `add_slot`.\
+
   `add_slot`.
 - `search_hotels(query)` — natural-language hotel search via LiteAPI.
   Pass an English description with location, check-in/check-out dates,

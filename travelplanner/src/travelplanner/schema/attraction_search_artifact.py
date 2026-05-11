@@ -12,6 +12,7 @@ class AttractionParamsModel(BaseModel):
     day: int = 1
     previous_activities: str = ""
     orchestrator_hint: str | None = None
+    time_slot: Literal["morning", "afternoon", "evening"] | None = None
 
 
 class GeneratedActivityModel(BaseModel):

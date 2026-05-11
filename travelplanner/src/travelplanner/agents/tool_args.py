@@ -22,7 +22,32 @@ class FlightSearchArgs(BaseModel):
         ),
     ]
 
+      
+class AttractionSearchArgs(BaseModel):
+  query: Annotated[
+        str,
+        Field(
+            min_length=1,
+            description=(
+                "Natural-language description for who and when the activity is for. "
+                "Include destination, day, budget, traveller profile, time slot (optionally)," 
+                "and previous activities that have been done (if any), to avoid " 
+                "recommending the same thing again. Additionally, include any specific "
+                "hints (if necessary) for the search. For example: "
+                "'Find an activity for one person visiting Barcelona on Day 2 "
+                "of their trip, with a budget of 80 EUR. They are interested in the local "
+                "startup scene and want to blend remote work with exploration of "
+                "creative and professional communities at a slow pace. Previously, "
+                "they had visited a co-working space in Poblenou.'"
+                "The tool will extract structured parameters via an LLM, select a "
+                "matching traveller archetype via embedding similarity, generate a "
+                "tailored activity, then resolve it to a real place via Google Maps "
+                "(SerpAPI)."
+            ),
+        ),
+    ]
 
+    
 class HotelSearchArgs(BaseModel):
     query: Annotated[
         str,

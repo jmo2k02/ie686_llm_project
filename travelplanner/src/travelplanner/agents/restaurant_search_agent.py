@@ -107,8 +107,9 @@ def load_config_from_env() -> RestaurantSearchConfig:
 class RestaurantSearchAgentState(BaseModel):
     query: str
     model_name: str
-    system_state: StateContractModel = Field(
-        description="Reference to global system state"
+    system_state: StateContractModel | None = Field(
+        default=None,
+        description="Reference to global system state (optional, used when wired into a full workflow)",
     )
     agent_key: str = Field(
         default="restaurant_search",
@@ -117,6 +118,10 @@ class RestaurantSearchAgentState(BaseModel):
     temperature: float = 0.0
     task_list: list[TaskModel] = Field(default_factory=list)
     message_history: MessageHistoryModel | None = None
+    agent_artifacts: dict[str, list[AgentArtifactModel]] = Field(
+        default_factory=dict,
+        description="Local artifact storage when system_state is not provided",
+    )
 
 
 # ── Parameter extraction ────────────────────────────────────────────────────
@@ -489,7 +494,7 @@ def make_graph():
                 artifacts.append(
                     AgentArtifactModel(
                         name=task.name,
-                        type="restaurant-search-result",
+                        type="restaurant_search",
                         content=err_content.model_dump(mode="json"),
                         description=f"Restaurant search failed for task '{task.name}': parameter extraction error",
                     )
@@ -508,20 +513,27 @@ def make_graph():
             artifacts.append(
                 AgentArtifactModel(
                     name=task.name,
-                    type="restaurant-search-result",
+                    type="restaurant_search",
                     content=content.model_dump(mode="json"),
                     description=description,
                 )
             )
 
-        # Write into global system_state (same pattern as hotel_search_agent)
-        existing = state.system_state.agent_artifacts.get(state.agent_key, [])
-        state.system_state.agent_artifacts[state.agent_key] = existing + artifacts
-
-        return {
-            "system_state": state.system_state,
-            "message_history": last_message_history,
-        }
+        # Store artifacts (global system_state if available, otherwise local)
+        if state.system_state is not None:
+            existing = state.system_state.agent_artifacts.get(state.agent_key, [])
+            state.system_state.agent_artifacts[state.agent_key] = existing + artifacts
+            return {
+                "system_state": state.system_state,
+                "message_history": last_message_history,
+            }
+        else:
+            existing = state.agent_artifacts.get(state.agent_key, [])
+            state.agent_artifacts[state.agent_key] = existing + artifacts
+            return {
+                "agent_artifacts": state.agent_artifacts,
+                "message_history": last_message_history,
+            }
 
     graph = StateGraph(RestaurantSearchAgentState)
     graph.add_node("restaurant_search_agent", restaurant_search)

@@ -90,7 +90,8 @@ def summarize_attraction_artifact(artifact: AgentArtifactModel) -> str:
     lines = [
         f"Destination: {content.destination} | Budget: {content.budget} EUR | "
         f"Archetype: {content.selected_archetype} | Status: {content.status}",
-      
+    ]
+    
     if content.item:
         item = content.item
         lines.append(

@@ -931,8 +931,9 @@ class IntelligentHotelSearchState(BaseModel):
     """State for intelligent hotel search agent."""
 
     query: str = Field(description="Natural language user query")
-    system_state: StateContractModel = Field(
-        description="Reference to global system state"
+    system_state: Optional[StateContractModel] = Field(
+        default=None,
+        description="Reference to global system state (optional, used when wired into a full workflow)",
     )
     agent_key: str = Field(
         default="hotel_search",
@@ -1337,6 +1338,10 @@ def store_artifact_node(state: IntelligentHotelSearchState) -> Dict[str, Any]:
         print("[store_artifact_node] No artifact to store")
         return {}
 
+    if state.system_state is None:
+        print("[store_artifact_node] No system_state present, skipping external storage")
+        return {}
+
     # Add artifact to SystemState
     updated_system_state = state.system_state.model_copy(deep=True)
 
@@ -1444,11 +1449,24 @@ def intelligent_hotel_search(
 
 if __name__ == "__main__":
     # Example usage
-    result = intelligent_hotel_search(
-        "Find me a nice hotel in Barcelona for next week, we love swimming and need wifi, max 150 per night"
+    from travelplanner.schema.system_state import StateContractModel
+
+    system_state = StateContractModel(
+        query="Find me a nice hotel in Barcelona for next week, we love swimming and need wifi, max 150 per night"
     )
+    result = intelligent_hotel_search(
+        query="Find me a nice hotel in Barcelona for next week, we love swimming and need wifi, max 150 per night",
+        system_state=system_state,
+    )
+
+    artifacts = result.agent_artifacts.get("hotel_search", [])
+    if artifacts:
+        content = artifacts[0].content
+        recommendations = content.get("recommendations", "No recommendations generated")
+    else:
+        recommendations = "No recommendations generated"
 
     print("\n" + "=" * 60)
     print("RECOMMENDATIONS:")
     print("=" * 60)
-    print(result.content.get("recommendations", "No recommendations generated"))
+    print(recommendations)

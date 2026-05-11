@@ -8,6 +8,12 @@ from travelplanner.schema.attraction_search_artifact import (
 from travelplanner.schema.flight_search_artifact import (
     FlightSearchArtifactContentModel,
 )
+from travelplanner.schema.hotel_search_artifact import (
+    HotelSearchArtifactContentModel,
+)
+from travelplanner.schema.restaurant_search_artifact import (
+    RestaurantArtifactContentModel,
+)
 from travelplanner.schema.system_state import AgentArtifactModel
 
 
@@ -84,11 +90,7 @@ def summarize_attraction_artifact(artifact: AgentArtifactModel) -> str:
     lines = [
         f"Destination: {content.destination} | Budget: {content.budget} EUR | "
         f"Archetype: {content.selected_archetype} | Status: {content.status}",
-    ]
-
-    for err in content.errors:
-        lines.append(f"  Error [{err.code}]: {err.message}")
-
+      
     if content.item:
         item = content.item
         lines.append(
@@ -123,12 +125,78 @@ def summarize_attraction_artifact(artifact: AgentArtifactModel) -> str:
         else:
             lines.append(f"  No specific place found (location: {item.location_name})")
         lines.append(f"  Provenance: {item.provenance}")
-
+    
     if content.top_candidates:
         lines.append(f"Top candidates [{len(content.top_candidates)}]:")
         for i, c in enumerate(content.top_candidates):
             rating = f" | Rating: {c.rating}" if c.rating is not None else ""
             reviews = f" ({c.reviews} reviews)" if c.reviews else ""
             lines.append(f"  [{i}] {c.title} | {c.address or 'address unknown'}{rating}{reviews}")
+      
+    return "\n".join(lines)  
+
+def summarize_hotel_artifact(artifact: AgentArtifactModel) -> str:
+    """Render a hotel-search artifact as a compact text summary for an LLM."""
+    content = HotelSearchArtifactContentModel.model_validate(artifact.content)
+
+    params = content.search_parameters
+    lines = [
+        f"Hotel search | {params.location} | {params.check_in_date} to {params.check_out_date} ({params.nights} nights)",
+        f"Guests: {params.guest_count} | Budget: {params.budget_max} EUR/night | Status: {content.status}",
+    ]
+
+    for err in content.errors:
+        lines.append(f"  Error [{err.code}]: {err.message}")
+
+    if content.options:
+        lines.append(f"Top hotels ({len(content.options)}):")
+        for hotel in content.options:
+            budget_note = " (over budget)" if hotel.over_budget else ""
+            lines.append(
+                f"  {hotel.rank or '?'}. {hotel.name} – {hotel.currency} {hotel.nightly_rate:.0f}/night"
+                f" | Rating: {hotel.rating}/10{budget_note}"
+            )
+            if hotel.area:
+                lines.append(f"     Area: {hotel.area}")
+            if hotel.facilities:
+                lines.append(f"     Facilities: {', '.join(hotel.facilities[:8])}")
+
+    if not content.options and content.status != "failed":
+        lines.append("No hotels found for the given criteria.")
+
+    return "\n".join(lines)
+
+
+def summarize_restaurant_artifact(artifact: AgentArtifactModel) -> str:
+    """Render a restaurant-search artifact as a compact text summary for an LLM."""
+    content = RestaurantArtifactContentModel.model_validate(artifact.content)
+
+    lines = [
+        f"Restaurant search | {content.city}",
+        f"Query: {content.query} | Cuisine: {content.cuisine or 'any'} | Budget: {content.budget or 'not specified'} | Meal: {content.meal_type or 'any'} | Status: {content.status}",
+    ]
+
+    for err in content.errors:
+        lines.append(f"  Error [{err.code}]: {err.message}")
+
+    if content.items:
+        lines.append(f"Selected restaurants ({len(content.items)}):")
+        for item in content.items:
+            lines.append(
+                f"  {item.name} | Rating: {item.rating or 'N/A'} | Price: {item.price_range or item.price_level or 'N/A'}"
+            )
+            if item.address:
+                lines.append(f"     Address: {item.address}")
+            if item.cuisine:
+                lines.append(f"     Cuisine: {item.cuisine}")
+            if item.opening_hours:
+                lines.append(f"     Hours: {item.opening_hours}")
+            if item.selection_reason:
+                lines.append(f"     Why: {item.selection_reason}")
+            if item.dietary_suitability:
+                lines.append(f"     Dietary match: {', '.join(item.dietary_suitability)}")
+
+    if not content.items and content.status != "failed":
+        lines.append("No restaurants found for the given criteria.")
 
     return "\n".join(lines)

@@ -2,6 +2,9 @@
 
 from __future__ import annotations
 
+from travelplanner.schema.attraction_search_artifact import (
+    AttractionArtifactContentModel,
+)
 from travelplanner.schema.flight_search_artifact import (
     FlightSearchArtifactContentModel,
 )
@@ -70,5 +73,62 @@ def summarize_flight_artifact(artifact: AgentArtifactModel) -> str:
             f"Price insights: {content.price_insights.price_level} "
             f"(typical range: {content.price_insights.typical_price_range})"
         )
+
+    return "\n".join(lines)
+
+
+def summarize_attraction_artifact(artifact: AgentArtifactModel) -> str:
+    """Render an attraction-search artifact as a compact text summary for an LLM."""
+    content = AttractionArtifactContentModel.model_validate(artifact.content)
+
+    lines = [
+        f"Destination: {content.destination} | Budget: {content.budget} EUR | "
+        f"Archetype: {content.selected_archetype} | Status: {content.status}",
+    ]
+
+    for err in content.errors:
+        lines.append(f"  Error [{err.code}]: {err.message}")
+
+    if content.item:
+        item = content.item
+        lines.append(
+            f"Activity — Day {item.day} {item.time_slot.upper()}: {item.title}"
+        )
+        lines.append(f"  {item.description}")
+        lines.append(f"  Local touchpoint: {item.local_touchpoint}")
+        lines.append(
+            f"  Duration: {item.estimated_duration_hours}h | "
+            f"Est. price: {item.estimated_price_range} | "
+            f"Place found: {item.place_found}"
+        )
+        if item.place_found:
+            lines.append(f"  Place: {item.location_name}")
+            if item.location_address:
+                lines.append(f"    Address: {item.location_address}")
+            if item.coordinates:
+                lines.append(
+                    f"    ({item.coordinates['lat']:.4f}, {item.coordinates['lng']:.4f})"
+                )
+            if item.place_rating is not None:
+                reviews = f" ({item.place_review_count} reviews)" if item.place_review_count else ""
+                lines.append(
+                    f"    Rating: {item.place_rating}{reviews} | "
+                    f"Price: {item.place_price_level or 'N/A'} | "
+                    f"Type: {item.place_type or 'N/A'}"
+                )
+            if item.place_hours:
+                lines.append(f"    Hours: {item.place_hours}")
+            if item.selection_reason:
+                lines.append(f"    Why: {item.selection_reason}")
+        else:
+            lines.append(f"  No specific place found (location: {item.location_name})")
+        lines.append(f"  Provenance: {item.provenance}")
+
+    if content.top_candidates:
+        lines.append(f"Top candidates [{len(content.top_candidates)}]:")
+        for i, c in enumerate(content.top_candidates):
+            rating = f" | Rating: {c.rating}" if c.rating is not None else ""
+            reviews = f" ({c.reviews} reviews)" if c.reviews else ""
+            lines.append(f"  [{i}] {c.title} | {c.address or 'address unknown'}{rating}{reviews}")
 
     return "\n".join(lines)

@@ -47,9 +47,9 @@ the information explicitly unavailable rather than inventing a value.
   date(s) and trip type, e.g. "Munich to Sydney from 2026-06-24 until
   2026-07-16" or "one-way LHR to JFK on 2026-09-10". Returns a text summary
   of the cheapest selected option per direction (price, duration, legs,
-  layovers, price-level). Use this whenever a `flight` task is in the
-  planner suggestions, then turn the result into a `transport` slot via
-  `add_slot`.\
+  layovers, price-level) and a Google Flights URL for verification and
+  booking. Use this whenever a `flight` task is in the planner suggestions,
+  then turn the result into a `transport` slot via `add_slot`.\
 - `search_attractions(query)` — natural-language attraction search via an
   LLM + Google Maps (SerpAPI). Pass an English description of who and when,
   traveller profile, optionally a time slot, previous activities, and any
@@ -58,9 +58,10 @@ the information explicitly unavailable rather than inventing a value.
   startup scene and want to blend remote work with exploration of creative and
   professional communities at a slow pace. Previously, they had visited a co-working
   space in Poblenou." Returns a text summary of the selected activity (title,
-  description, local touchpoint, duration, estimated price, place details). Use this
-  whenever an `attraction` task is in the planner suggestions, then turn the result
-  into an `activity` slot via `add_slot`.
+  description, local touchpoint, duration, estimated price, place details) and
+  a Google Maps URL for verification. Use this whenever an `attraction` task is
+  in the planner suggestions, then turn the result into an `activity` slot via
+  `add_slot`.
 - `search_hotels(query)` — natural-language hotel search via LiteAPI.
   Pass an English description with location, check-in/check-out dates,
   number of guests, max budget per night, and any required facilities,

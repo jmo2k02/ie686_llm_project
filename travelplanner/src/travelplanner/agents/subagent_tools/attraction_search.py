@@ -31,7 +31,8 @@ SEARCH_ATTRACTIONS_DESCRIPTION = (
     "matching traveller archetype via embedding similarity, generates a tailored "
     "activity, then resolves it to a real place via Google Maps (SerpAPI). "
     "Returns a textual summary of the selected activity (title, description, local "
-    "touchpoint, duration, estimated price, place details). Returns 'Error: ...' "
+    "touchpoint, duration, estimated price, place details) and a Google Maps URL "
+    "the user can open to verify the result. Returns 'Error: ...' "
     "on failure — read it and retry with a clearer query."
 )
 

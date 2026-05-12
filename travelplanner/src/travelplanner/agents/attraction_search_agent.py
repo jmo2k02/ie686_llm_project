@@ -273,9 +273,9 @@ def _search_candidates(
     keyword: str,
     destination: str,
     config: AttractionSearchConfig,
-) -> list[AttractionCandidateModel]:
+) -> tuple[list[AttractionCandidateModel], str | None]:
     if not config.serpapi_api_key:
-        return []
+        return [], None
     try:
         response = requests.get(
             _SEARCH_URL,
@@ -290,8 +290,9 @@ def _search_candidates(
         response.raise_for_status()
         data = response.json()
     except (requests.HTTPError, requests.Timeout, requests.ConnectionError):
-        return []
+        return [], None
 
+    google_maps_url: str | None = data.get("search_metadata", {}).get("google_maps_url")
     candidates = []
     for raw in data.get("local_results", [])[: config.max_candidates]:
         gps = raw.get("gps_coordinates")
@@ -308,7 +309,7 @@ def _search_candidates(
                 hours=raw.get("hours"),
             )
         )
-    return candidates
+    return candidates, google_maps_url
 
 
 def _fetch_reviews(
@@ -336,19 +337,24 @@ def _fetch_reviews(
         return []
 
 
+
 def _find_candidates(
     activity: GeneratedActivityModel,
     destination: str,
     config: AttractionSearchConfig,
-) -> list[AttractionCandidateModel]:
+) -> tuple[list[AttractionCandidateModel], str | None]:
     candidates: list[AttractionCandidateModel] = []
+    google_maps_url: str | None = None
     for keyword in activity.search_keywords:
         if len(candidates) >= 2:
             break
-        candidates.extend(_search_candidates(keyword, destination, config))
+        new_candidates, url = _search_candidates(keyword, destination, config)
+        candidates.extend(new_candidates)
+        if google_maps_url is None:
+            google_maps_url = url
 
     if not candidates:
-        return []
+        return [], None
 
     sorted_candidates = sorted(
         candidates, key=lambda c: c.rating or 0.0, reverse=True
@@ -357,7 +363,7 @@ def _find_candidates(
         snippets = _fetch_reviews(candidate, config)
         sorted_candidates[i] = candidate.model_copy(update={"review_snippets": snippets})
 
-    return sorted_candidates
+    return sorted_candidates, google_maps_url
 
 
 def _format_candidate_line(i: int, c: AttractionCandidateModel) -> str:
@@ -541,13 +547,14 @@ def run_attraction_search(
 
     # Step 3: Resolve to a place via SERPAPI
     top_candidates: list[AttractionCandidateModel] = []
+    google_maps_url: str | None = None
 
     if not config.serpapi_api_key:
         errors.append(_normalize_error("missing_api_key", "SERPAPI_API_KEY is not set — place search skipped"))
 
     if activity.has_specific_location and config.serpapi_api_key:
         try:
-            top_candidates = _find_candidates(activity, params.destination, config)
+            top_candidates, google_maps_url = _find_candidates(activity, params.destination, config)
         except Exception as exc:
             errors.append(_normalize_error("http_error", f"Candidate search failed: {exc}"))
 
@@ -563,6 +570,10 @@ def run_attraction_search(
     else:
         item = _build_item(activity, None, None, params.destination, params.budget, archetype_name)
 
+    if item.place_found and item.location_name:
+        query = item.location_name.replace(" ", "+")
+        google_maps_url = f"https://www.google.com/maps/search/{query}"
+
     status = _compute_status(item, errors)
     return AttractionArtifactContentModel(
         task_ref=task_ref,
@@ -573,6 +584,7 @@ def run_attraction_search(
         selected_archetype=archetype_name,
         item=item,
         top_candidates=top_candidates[: config.top_review_candidates],
+        google_maps_url=google_maps_url,
         errors=errors,
         config={
             "openai_api_key_set": bool(config.openai_api_key),

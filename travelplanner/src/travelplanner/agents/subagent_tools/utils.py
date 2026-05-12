@@ -27,20 +27,11 @@ def summarize_flight_artifact(artifact: AgentArtifactModel) -> str:
     content = FlightSearchArtifactContentModel.model_validate(artifact.content)
 
     trip_type = content.config.get("trip_type")
-    trip_label = {1: "round trip", 2: "one way", 3: "multi-city"}.get(
-        trip_type, str(trip_type)
-    )
+    trip_label = {1: "round trip", 2: "one way"}.get(trip_type, str(trip_type))
 
-    if trip_type == 3:
-        route = " → ".join(
-            f"{legs[0].legs[0].departure_airport.id}→{legs[0].legs[-1].arrival_airport.id}"
-            for legs in content.multi_city_legs
-            if legs
-        ) or f"{content.departure_id} (multi-city)"
-    else:
-        route = f"{content.departure_id} → {content.arrival_id} on {content.outbound_date}"
-        if content.return_date:
-            route += f" (return {content.return_date})"
+    route = f"{content.departure_id} → {content.arrival_id} on {content.outbound_date}"
+    if content.return_date:
+        route += f" (return {content.return_date})"
 
     lines = [
         f"{trip_label} | {route} | adults: {content.adults} | currency: {content.currency}",
@@ -51,19 +42,20 @@ def summarize_flight_artifact(artifact: AgentArtifactModel) -> str:
 
     lines.append(f"Selected flights ({len(content.selected_flights)}):")
     for i, flight in enumerate(content.selected_flights):
-        if trip_type == 3:
-            label = f"Leg {i + 1}"
-        else:
-            label = "Outbound" if i == 0 else "Return"
+        is_return = trip_type == 1 and i == 1
         carbon = (
             f" | carbon: {flight.carbon_emissions_kg} kg"
             if flight.carbon_emissions_kg is not None
             else ""
         )
-        lines.append(
-            f"  {label}: {flight.currency} {flight.price} | "
-            f"{flight.total_duration_minutes} min{carbon}"
-        )
+        if is_return:
+            lines.append(f"  Return: {flight.total_duration_minutes} min{carbon}")
+        else:
+            label = "Round-trip total" if trip_type == 1 else "One-way fare"
+            lines.append(
+                f"  {label}: {flight.currency} {flight.price} | "
+                f"{flight.total_duration_minutes} min{carbon}"
+            )
         for leg in flight.legs:
             lines.append(
                 f"    {leg.airline} {leg.flight_number}: "
@@ -80,6 +72,9 @@ def summarize_flight_artifact(artifact: AgentArtifactModel) -> str:
             f"Price insights: {content.price_insights.price_level} "
             f"(typical range: {content.price_insights.typical_price_range})"
         )
+
+    if content.google_flights_url:
+        lines.append(f"Verify / book: {content.google_flights_url}")
 
     return "\n".join(lines)
 
@@ -134,8 +129,11 @@ def summarize_attraction_artifact(artifact: AgentArtifactModel) -> str:
             rating = f" | Rating: {c.rating}" if c.rating is not None else ""
             reviews = f" ({c.reviews} reviews)" if c.reviews else ""
             lines.append(f"  [{i}] {c.title} | {c.address or 'address unknown'}{rating}{reviews}")
-      
-    return "\n".join(lines)  
+
+    if content.google_maps_url:
+        lines.append(f"Verify on Google Maps: {content.google_maps_url}")
+
+    return "\n".join(lines)
 
 def summarize_hotel_artifact(artifact: AgentArtifactModel) -> str:
     """Render a hotel-search artifact as a compact text summary for an LLM."""

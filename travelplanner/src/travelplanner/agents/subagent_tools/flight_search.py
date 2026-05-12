@@ -24,9 +24,10 @@ SEARCH_FLIGHTS_DESCRIPTION = (
     "Search flights via Google Flights (SerpAPI). Accepts a natural-language "
     "flight request (origin, destination, date(s), trip type). The tool "
     "extracts IATA codes, dates, and trip type with an LLM, then queries the "
-    "provider for round-trip, one-way, or multi-city itineraries. Returns a "
+    "provider for round-trip and one-way itineraries. Returns a "
     "textual summary of the cheapest selected option per direction (price, "
-    "duration, legs, layovers) plus any price insights. Returns 'Error: ...' "
+    "duration, legs, layovers) plus any price insights and a Google Flights "
+    "URL the user can open to verify and book. Returns 'Error: ...' "
     "on failure — read it and retry with a clearer query."
 )
 

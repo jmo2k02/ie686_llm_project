@@ -102,3 +102,6 @@ if result.top_candidates:
         print(f"  [{i}] {c.title}  |  {c.address or 'address unknown'}{rating}{reviews}")
         if c.gps_coordinates:
             print(f"      ({c.gps_coordinates['lat']:.4f}, {c.gps_coordinates['lng']:.4f})")
+
+if result.google_maps_url:
+    print(f"\nVerify on Google Maps: {result.google_maps_url}")

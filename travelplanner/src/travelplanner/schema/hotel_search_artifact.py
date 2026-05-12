@@ -69,6 +69,12 @@ class HotelOptionModel(BaseModel):
         float, Field(default=0.0, description="Amount over budget", ge=0)
     ]
     rank: Annotated[int | None, Field(default=None, description="Rank in shortlist")]
+    google_place_id: Annotated[
+        str | None, Field(default=None, description="Google Place ID for Nuitee booking link")
+    ]
+    booking_url: Annotated[
+        str | None, Field(default=None, description="Nuitee booking URL (deep link)")
+    ]
 
 
 class HotelSearchMetadataModel(BaseModel):
@@ -135,3 +141,7 @@ class HotelSearchArtifactContentModel(BaseModel):
         dict[str, Any],
         Field(default_factory=dict, description="Search configuration options"),
     ] = Field(default_factory=dict)
+    booking_url: Annotated[
+        str | None,
+        Field(default=None, description="Nuitee deep-link for manual city-wide hotel search"),
+    ]

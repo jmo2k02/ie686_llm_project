@@ -12,11 +12,13 @@ The search functions are provider-agnostic and can be reused by other agents.
 """
 from __future__ import annotations
 
+import base64
 import json
 import os
 import time
 from datetime import datetime, timedelta
 from typing import Any, Dict, List, Optional, Tuple
+from urllib.parse import quote
 
 import pycountry
 import requests
@@ -150,6 +152,52 @@ def calculate_nights(check_in: str, check_out: str) -> int:
     except Exception as e:
         print(f"[calculate_nights] Error calculating nights: {e}")
         return 1
+
+
+def _build_nuitee_booking_url(
+    city_name: str,
+    place_id: str | None,
+    check_in: str,
+    check_out: str,
+    guest_count: int,
+    language: str = "de",
+    currency: str = "EUR",
+) -> str | None:
+    """Return a Nuitee deep-link for manual city-wide hotel search.
+
+    Args:
+        city_name: Destination city (used for display name).
+        place_id: Google Place ID for the city (optional).
+        check_in: YYYY-MM-DD.
+        check_out: YYYY-MM-DD.
+        guest_count: Number of adult guests.
+        language: UI language (default "de").
+        currency: Booking currency (default "EUR").
+
+    Returns:
+        Full Nuitee booking URL or None if *place_id* is missing.
+    """
+    if not place_id:
+        return None
+
+    occupancies_json = json.dumps([{"adults": guest_count, "children": []}], separators=(",", ":"))
+    occupancies_b64 = base64.b64encode(occupancies_json.encode("utf-8")).decode("utf-8")
+
+    params = {
+        "placeId": place_id,
+        "placeTypes": "",
+        "name": city_name,
+        "checkin": check_in,
+        "checkout": check_out,
+        "rooms": "1",
+        "adults": str(guest_count),
+        "occupancies": occupancies_b64,
+        "sorting": "1",
+        "language": language,
+        "currency": currency,
+    }
+    query = "&".join(f"{k}={quote(str(v), safe='')}" for k, v in params.items())
+    return f"https://travelstack.nuitee.link/hotels?{query}"
 
 
 def parse_location(location: str) -> Tuple[Optional[str], Optional[str]]:
@@ -315,7 +363,9 @@ def search_hotels_via_api(
     check_in_date: str,
     check_out_date: str,
     guest_count: int,
-    timeout: int = 8
+    budget_max: float = 0.0,
+    nights: int = 1,
+    timeout: int = 8,
 ) -> Dict[str, Any]:
     """Search for hotels with live availability using LiteAPI /v3.0/hotels/rates endpoint.
 
@@ -326,6 +376,8 @@ def search_hotels_via_api(
         check_in_date: Check-in date (YYYY-MM-DD)
         check_out_date: Check-out date (YYYY-MM-DD)
         guest_count: Number of guests
+        budget_max: Maximum budget per night in EUR (used for maxPrice filter)
+        nights: Number of nights (used for maxPrice calculation)
         timeout: Request timeout in seconds
 
     Returns:
@@ -348,17 +400,23 @@ def search_hotels_via_api(
             "checkin": check_in_date,
             "checkout": check_out_date,
             "currency": "EUR",
-            "guestNationality": "US",
+            "guestNationality": country_code,  # ISO-2 (e.g. "DE", "US", "FR")
             "occupancies": [
                 {
                     "adults": guest_count
                 }
             ],
             "timeout": timeout,
-            "limit": 200,
+            "limit": 1000,
+            "sorting": "1",  # Sort by price ascending (cheapest first)
             "maxRatesPerHotel": 1,  # Get cheapest rate per hotel
-            "includeHotelData": True  # Include hotel names and details in response
+            "includeHotelData": True,  # Include hotel names and details in response
         }
+
+        # Only add maxPrice if budget is set (> 0)
+        # NOTE: LiteAPI does not support maxPrice in the request; we filter client-side
+        # by offerRetailRate.amount after receiving the response.
+
 
         print(f"[search_hotels_via_api] Request payload: {json.dumps(payload, indent=2)}")
 
@@ -538,6 +596,10 @@ def rank_hotels(
 def _extract_price_from_rate(rate: Dict[str, Any]) -> Tuple[float, str]:
     """Extract price from LiteAPI rate structure.
 
+    Uses ``offerRetailRate`` (total stay cost) when available, falling back to
+    ``retailRate``.  Since we set ``maxRatesPerHotel: 1`` this is already the
+    cheapest rate for the hotel.
+
     Args:
         rate: Rate dict from LiteAPI
 
@@ -547,6 +609,19 @@ def _extract_price_from_rate(rate: Dict[str, Any]) -> Tuple[float, str]:
     price = 0.0
     currency = "EUR"
 
+    # Prefer offerRetailRate (total for stay) when available
+    offer_retail = rate.get("offerRetailRate", {})
+    if isinstance(offer_retail, dict):
+        total = offer_retail.get("total", [])
+        if total and isinstance(total, list):
+            try:
+                price = float(total[0].get("amount", 0.0))
+                currency = total[0].get("currency", "EUR")
+                return price, currency
+            except (ValueError, TypeError, IndexError):
+                pass
+
+    # Fallback: legacy retailRate field
     retail_rate = rate.get("retailRate", {})
     if isinstance(retail_rate, dict):
         total = retail_rate.get("total", [])
@@ -755,7 +830,8 @@ def build_hotel_artifact(
     latitude: Optional[float],
     longitude: Optional[float],
     task_id: Optional[int],
-    elapsed_ms: Optional[int] = None
+    elapsed_ms: Optional[int] = None,
+    booking_url: Optional[str] = None,
 ) -> AgentArtifactModel:
     """Build hotel_shortlist artifact from LiteAPI API search results.
 
@@ -885,7 +961,7 @@ def build_hotel_artifact(
         filtered_hotels,
         budget_max,
         preferred_counts=preferred_counts,
-        exclude_over_budget=exclude_over_budget
+        exclude_over_budget=exclude_over_budget or budget_max > 0
     )
 
     # Build final artifact
@@ -913,6 +989,8 @@ def build_hotel_artifact(
     )
 
     print(f"[build_hotel_artifact] Created artifact with {len(ranked_hotels)} options")
+
+    content.booking_url = booking_url
 
     return AgentArtifactModel(
         name="hotel_shortlist",
@@ -1260,6 +1338,15 @@ def search_node(state: IntelligentHotelSearchState) -> Dict[str, Any]:
         place_result = search_places(f"{city_name}, {country_code}")
         place_id = place_result.get("placeId")
 
+    # Build Nuitee booking link (city-wide manual search)
+    booking_url = _build_nuitee_booking_url(
+        city_name=city_name or "",
+        place_id=place_id,
+        check_in=check_in,
+        check_out=check_out,
+        guest_count=guest_count,
+    )
+
     # API search
     api_response = search_hotels_via_api(
         place_id=place_id,
@@ -1268,6 +1355,8 @@ def search_node(state: IntelligentHotelSearchState) -> Dict[str, Any]:
         check_in_date=check_in,
         check_out_date=check_out,
         guest_count=guest_count,
+        budget_max=budget_max,
+        nights=nights,
     )
 
     # Build artifact with enrichment
@@ -1288,6 +1377,7 @@ def search_node(state: IntelligentHotelSearchState) -> Dict[str, Any]:
         longitude=longitude,
         task_id=state.task_id,
         elapsed_ms=api_response.get("api_response_time_ms"),
+        booking_url=booking_url,
     )
 
     return {

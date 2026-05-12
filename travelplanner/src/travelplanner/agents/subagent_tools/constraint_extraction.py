@@ -15,6 +15,7 @@ from travelplanner.agents.constraint_iteration_agent import (
     ConstraintIterationState,
     make_pipeline_graph,
 )
+from travelplanner.agents.subagent_tools.utils import summarize_constraint_artifact
 
 
 EXTRACT_CONSTRAINTS_DESCRIPTION = (
@@ -53,41 +54,13 @@ def make_extract_constraints_tool(
         except Exception as exc:
             return f"Error: {exc}"
 
-        hard = result.get("hard_constraints", [])
-        nc = result.get("normalized_constraints")
+        artifacts = result.get("agent_artifacts", {}).get("constraint_agent", [])
+        if not artifacts:
+            return "Error: constraint extraction produced no artifact"
+
         violations = result.get("violations", [])
-
-        if not hard and nc is None:
-            return "Error: constraint extraction produced no output"
-
-        lines: list[str] = []
-
-        if nc is not None:
-            nc_dict = nc.model_dump(exclude_none=True)
-            if nc_dict:
-                lines.append("Extracted constraints (normalized):")
-                for key, val in nc_dict.items():
-                    if isinstance(val, dict):
-                        for sub_key, sub_val in val.items():
-                            lines.append(f"  {key}.{sub_key}: {sub_val}")
-                    else:
-                        lines.append(f"  {key}: {val}")
-        elif hard:
-            lines.append("Extracted constraints:")
-            for c in hard:
-                if not c.user_skipped:
-                    lines.append(f"  - {c.text}")
-
-        if violations:
-            lines.append(f"\nWarnings ({len(violations)} violation(s) detected):")
-            for v in violations:
-                lines.append(f"  - {v.violated_constraint}")
-                lines.append(f"    Reason: {v.explanation}")
-                for suggestion in v.suggestions:
-                    lines.append(f"    Suggestion: {suggestion}")
-        else:
-            lines.append("\nNo constraint violations detected.")
-
-        return "\n".join(lines)
+        return "\n\n".join(
+            summarize_constraint_artifact(a, violations) for a in artifacts
+        )
 
     return extract_constraints

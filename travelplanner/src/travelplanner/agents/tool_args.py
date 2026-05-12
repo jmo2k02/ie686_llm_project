@@ -196,3 +196,21 @@ class ClosestPlacesToTargetArgs(BaseModel):
             ),
         ),
     ]
+
+
+class ConstraintExtractionArgs(BaseModel):
+    query: Annotated[
+        str,
+        Field(
+            min_length=1,
+            description=(
+                "Natural-language travel request to extract constraints from. "
+                "Include as much detail as is known — destination, origin, dates, "
+                "number of travelers, budget, accommodation preferences, transport "
+                "mode, and interests. E.g. 'Two adults flying from Munich to Barcelona "
+                "from 2026-06-10 to 2026-06-17, budget 2000 EUR, interested in food "
+                "and architecture'. The tool parses all 8 constraint categories, "
+                "normalizes them, and checks for commonsense violations."
+            ),
+        ),
+    ]

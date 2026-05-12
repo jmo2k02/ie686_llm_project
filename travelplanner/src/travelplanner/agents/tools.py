@@ -17,6 +17,7 @@ from travelplanner.agents.subagent_tools.routing_check import (
     CLOSEST_PLACES_TO_TARGET_DESCRIPTION,
 )
 from travelplanner.agents.subagent_tools.attraction_search import make_attraction_search_tool, SEARCH_ATTRACTIONS_DESCRIPTION
+from travelplanner.agents.subagent_tools.constraint_extraction import make_extract_constraints_tool, EXTRACT_CONSTRAINTS_DESCRIPTION
 from travelplanner.agents.tool_args import (
     FlightSearchArgs,
     HotelSearchArgs,
@@ -25,6 +26,7 @@ from travelplanner.agents.tool_args import (
     WebSearchArgs,
     CheckRouteTimingArgs, BuildPlaceDistanceGraphArgs,
     DistanceBetweenPlacesArgs, ClosestPlacesToTargetArgs,
+    ConstraintExtractionArgs,
 )
 from travelplanner.config import get_setting
 
@@ -109,6 +111,13 @@ def make_subagent_tools(
             name="closest_places_to_target",
             description=CLOSEST_PLACES_TO_TARGET_DESCRIPTION,
             args_schema=ClosestPlacesToTargetArgs,
+            handle_validation_error=True,
+        ),
+        StructuredTool.from_function(
+            func=make_extract_constraints_tool(model, temperature, task_ref),
+            name="extract_constraints",
+            description=EXTRACT_CONSTRAINTS_DESCRIPTION,
+            args_schema=ConstraintExtractionArgs,
             handle_validation_error=True,
         ),
     ]

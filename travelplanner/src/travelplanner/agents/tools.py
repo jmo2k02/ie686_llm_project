@@ -113,11 +113,4 @@ def make_subagent_tools(
             args_schema=ClosestPlacesToTargetArgs,
             handle_validation_error=True,
         ),
-        StructuredTool.from_function(
-            func=make_extract_constraints_tool(model, temperature, task_ref),
-            name="extract_constraints",
-            description=EXTRACT_CONSTRAINTS_DESCRIPTION,
-            args_schema=ConstraintExtractionArgs,
-            handle_validation_error=True,
-        ),
     ]

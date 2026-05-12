@@ -46,9 +46,7 @@ Rules:
 - Determine trip_type from natural language:
     * "one way" or only a single direction with no return → 2
     * "return", "round trip", or a return date is mentioned → 1
-    * Multiple sequential destinations (multi-city itinerary) → 3
-- For trip_type 1 or 2: build a single-item segments list for the departure→arrival pair.
-- For trip_type 3: build one segment per leg in the itinerary, in order.
+- Build a single-item segments list for the departure→arrival pair.
 - return_date is only set when trip_type == 1; otherwise omit it (null).
 - If no currency is mentioned, use the default provided.
 - If number of adults is not mentioned, use the default provided.
@@ -180,7 +178,11 @@ def _search_flights(
         )
         response.raise_for_status()
         data = response.json()
-        return {"ok": True, "raw": data}
+        return {
+            "ok": True,
+            "raw": data,
+            "google_flights_url": data.get("search_metadata", {}).get("google_flights_url"),
+        }
     except requests.Timeout:
         return {"ok": False, "error": "timeout_error", "message": "SerpAPI request timed out"}
     except requests.HTTPError as exc:
@@ -289,116 +291,81 @@ def run_flight_search(
     config: FlightSearchConfig,
     task_ref: str = "scratch",
 ) -> FlightSearchArtifactContentModel:
-    """Execute a complete flight search for all legs and return a populated artifact.
+    """Execute a flight search and return a populated artifact.
 
-    Handles one-way (type=2), round-trip (type=1, two calls), and multi-city
-    (type=3, N independent one-way calls).  Safe to call directly from scripts or tests.
+    One-way (type=2): single SerpAPI call. Round-trip (type=1): primary call returns
+    the outbound options with bundled total price; a second type=2 call retrieves return
+    flight details only — its price is not reported separately. Safe to call from scripts.
     """
     errors: list[FlightSearchErrorModel] = []
     best_flights: list[FlightOptionModel] = []
     other_flights: list[FlightOptionModel] = []
     return_flights: list[FlightOptionModel] = []
-    multi_city_legs: list[list[FlightOptionModel]] = []
     price_insights: FlightPriceInsightsModel | None = None
+    google_flights_url: str | None = None
 
-    ok = True
+    result = _search_flights(params, config)
+    ok = result["ok"]
+    if ok:
+        google_flights_url = result.get("google_flights_url")
+        raw_data = result["raw"]
+        try:
+            best_flights = [
+                _normalize_flight_option(opt, params.currency)
+                for opt in raw_data.get("best_flights", [])[: config.max_results]
+            ]
+            other_flights = [
+                _normalize_flight_option(opt, params.currency)
+                for opt in raw_data.get("other_flights", [])[: config.max_results]
+            ]
+            price_insights = _normalize_price_insights(raw_data.get("price_insights"))
+        except Exception as exc:
+            errors.append(_normalize_error("parse_error", f"Response normalization failed: {exc}"))
 
-    if params.trip_type == 3:
-        # Multi-city: one independent one-way call per segment, no chaining
-        for seg in params.segments:
-            seg_params = FlightParamsModel(
+        if params.trip_type == 1 and params.return_date:
+            seg = params.segments[0]
+            return_params = FlightParamsModel(
                 trip_type=2,
-                segments=[seg],
+                segments=[FlightSegmentParams(
+                    departure_id=seg.arrival_id,
+                    arrival_id=seg.departure_id,
+                    outbound_date=params.return_date,
+                )],
                 adults=params.adults,
                 currency=params.currency,
             )
-            seg_result = _search_flights(seg_params, config)
-            if seg_result["ok"]:
+            return_result = _search_flights(return_params, config)
+            if return_result["ok"]:
                 try:
-                    leg_options = [
+                    return_flights = [
                         _normalize_flight_option(opt, params.currency)
-                        for opt in seg_result["raw"].get("best_flights", [])[: config.max_results]
+                        for opt in return_result["raw"].get("best_flights", [])[: config.max_results]
                     ]
                 except Exception as exc:
-                    errors.append(_normalize_error("parse_error", f"Leg normalization failed: {exc}"))
-                    leg_options = []
-                multi_city_legs.append(leg_options)
+                    errors.append(
+                        _normalize_error("parse_error", f"Return-flight normalization failed: {exc}")
+                    )
             else:
-                ok = False
                 errors.append(
                     _normalize_error(
-                        seg_result.get("error", "unknown_error"),
-                        seg_result.get("message", f"Error fetching {seg.departure_id}→{seg.arrival_id}"),
+                        return_result.get("error", "unknown_error"),
+                        return_result.get("message", "Error fetching return flights"),
                     )
                 )
-                multi_city_legs.append([])
-        total_options = sum(len(opts) for opts in multi_city_legs)
-        status = _compute_status(ok, total_options, 0)
     else:
-        result = _search_flights(params, config)
-        ok = result["ok"]
-        if ok:
-            raw_data = result["raw"]
-            try:
-                best_flights = [
-                    _normalize_flight_option(opt, params.currency)
-                    for opt in raw_data.get("best_flights", [])[: config.max_results]
-                ]
-                other_flights = [
-                    _normalize_flight_option(opt, params.currency)
-                    for opt in raw_data.get("other_flights", [])[: config.max_results]
-                ]
-                price_insights = _normalize_price_insights(raw_data.get("price_insights"))
-            except Exception as exc:
-                errors.append(_normalize_error("parse_error", f"Response normalization failed: {exc}"))
-
-            if params.trip_type == 1 and params.return_date:
-                seg = params.segments[0]
-                return_params = FlightParamsModel(
-                    trip_type=2,
-                    segments=[FlightSegmentParams(
-                        departure_id=seg.arrival_id,
-                        arrival_id=seg.departure_id,
-                        outbound_date=params.return_date,
-                    )],
-                    adults=params.adults,
-                    currency=params.currency,
-                )
-                return_result = _search_flights(return_params, config)
-                if return_result["ok"]:
-                    try:
-                        return_flights = [
-                            _normalize_flight_option(opt, params.currency)
-                            for opt in return_result["raw"].get("best_flights", [])[: config.max_results]
-                        ]
-                    except Exception as exc:
-                        errors.append(
-                            _normalize_error("parse_error", f"Return-flight normalization failed: {exc}")
-                        )
-                else:
-                    errors.append(
-                        _normalize_error(
-                            return_result.get("error", "unknown_error"),
-                            return_result.get("message", "Error fetching return flights"),
-                        )
-                    )
-        else:
-            errors.append(
-                _normalize_error(
-                    result.get("error", "unknown_error"),
-                    result.get("message", "Unknown error"),
-                )
+        errors.append(
+            _normalize_error(
+                result.get("error", "unknown_error"),
+                result.get("message", "Unknown error"),
             )
-        status = _compute_status(ok, len(best_flights), len(other_flights))
+        )
 
-    if params.trip_type == 3:
-        selected_flights = [legs[0] for legs in multi_city_legs if legs]
-    else:
-        selected_flights = []
-        if best_flights:
-            selected_flights.append(best_flights[0])
-        if return_flights:
-            selected_flights.append(return_flights[0])
+    status = _compute_status(ok, len(best_flights), len(other_flights))
+    selected_flights: list[FlightOptionModel] = []
+    if best_flights:
+        selected_flights.append(best_flights[0])
+    if return_flights:
+        selected_flights.append(return_flights[0])
 
     first_seg = params.segments[0] if params.segments else FlightSegmentParams(
         departure_id="", arrival_id="", outbound_date=""
@@ -417,8 +384,8 @@ def run_flight_search(
         best_flights=best_flights,
         other_flights=other_flights,
         return_flights=return_flights,
-        multi_city_legs=multi_city_legs,
         price_insights=price_insights,
+        google_flights_url=google_flights_url,
         errors=errors,
         config={
             "api_key_set": bool(config.api_key),
@@ -474,21 +441,14 @@ def make_graph():
             # Step 2: Run the full search (all legs/chaining)
             content = run_flight_search(params, config, task_ref=task.name)
 
-            trip_label = {1: "round trip", 2: "one way", 3: "multi-city"}.get(params.trip_type, "")
-            route = "→".join(f"{s.departure_id}→{s.arrival_id}" for s in params.segments)
+            trip_label = {1: "round trip", 2: "one way"}.get(params.trip_type, "")
             first_seg = params.segments[0]
-            if params.trip_type == 3:
-                legs_summary = ", ".join(
-                    f"leg {i + 1}: {len(opts)} option(s)"
-                    for i, opts in enumerate(content.multi_city_legs)
-                )
-                description = f"{route} ({trip_label}) — {legs_summary}"
-            else:
-                description = (
-                    f"{route} on {first_seg.outbound_date} ({trip_label})"
-                    + (f" / return {params.return_date}" if params.return_date else "")
-                    + f" — {len(content.best_flights)} outbound, {len(content.return_flights)} return flight(s) found"
-                )
+            route = f"{first_seg.departure_id}→{first_seg.arrival_id}"
+            description = (
+                f"{route} on {first_seg.outbound_date} ({trip_label})"
+                + (f" / return {params.return_date}" if params.return_date else "")
+                + f" — {len(content.best_flights)} option(s) found"
+            )
             artifacts.append(
                 AgentArtifactModel(
                     name=task.name,

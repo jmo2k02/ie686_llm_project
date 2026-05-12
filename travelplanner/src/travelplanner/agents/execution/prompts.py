@@ -102,17 +102,7 @@ the information explicitly unavailable rather than inventing a value.
   Returns dict with ok=true, distance_km, duration_min, summary.
 - `closest_places_to_target(graph, target_name, candidate_names)` — find the
   closest place to a target among candidates in a pre-built graph. Returns dict
-  with ok=true, winner ({place_id, name, address}), distance_km, duration_min.
-- `extract_constraints(query)` — extract and validate structured travel
-  constraints from a natural-language trip description (non-interactive).
-  Parses all 8 categories: destination, origin, travel dates, travelers,
-  budget, accommodation, transport mode, and interests. Also checks for
-  commonsense violations (e.g. past dates, end before start, negative budget).
-  Returns a text summary of normalized constraints plus any warnings. Use this
-  when you need to verify that a specific part of the user's request was
-  correctly understood before booking slots — e.g. to confirm a budget figure,
-  re-parse ambiguous date phrasing, or validate traveler counts. Do NOT use
-  this for flight, hotel, restaurant, or attraction searches.\
+  with ok=true, winner ({place_id, name, address}), distance_km, duration_min.\
 """
 
 _GENERAL_BEHAVIOUR_PROMPT = f"""\

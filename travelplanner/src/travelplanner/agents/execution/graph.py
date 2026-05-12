@@ -23,6 +23,32 @@ logger = logging.getLogger("execution_agent")
 MODEL_NAME = get_setting("agents.execution.model_name")
 
 
+class TodoMirror:
+    def __init__(self):
+        self._by_title: dict[str, TodoItem] = {}
+
+    def update_from_agent(self, raw_todos: list[dict]) -> list[TodoItem]:
+        # Anything the agent currently lists wins for its status
+        current_titles = set()
+        for entry in raw_todos:
+            title = entry.get("content") or ""
+            status = entry.get("status", "pending")
+            current_titles.add(title)
+            existing = self._by_title.get(title)
+            if existing is None:
+                self._by_title[title] = TodoItem(title=title, status=status, description="")
+            else:
+                # Don't regress completed -> pending unless the agent explicitly does
+                existing.status = status
+
+        # Items the agent dropped: keep them visible but mark as "completed"
+        # (or "dropped" if you add that to your enum) so the dashboard shows history
+        for title, item in self._by_title.items():
+            if title not in current_titles and item.status != "completed":
+                item.status = "completed"  # or "dropped"
+
+        return list(self._by_title.values())
+
 def make_graph(
     plan: TravelPlan,
     *,
@@ -130,6 +156,7 @@ def make_node(
         plan: TravelPlan = state.travelplan
         agent = make_graph(plan, model=model_name, temperature=temperature)
         prompt = _compose_user_prompt(state)
+        todo_mirror = TodoMirror()
 
         latest_todos: list[TodoItem] = []
         async for event in agent.astream(
@@ -137,14 +164,18 @@ def make_node(
             stream_mode="values",
         ):
             if isinstance(event, dict):
-                latest_todos = _to_todo_items(event.get("todos"))
+                latest_todos = todo_mirror.update_from_agent(event.get("todos") or [])
             update_travelplan(plan)
             update_todos(latest_todos)
+            if files := getattr(event, "files", False):
+                print(f"  files: {list(files.keys()) if isinstance(files, dict) else files}")
         with open("tp.json", "w") as f_json, open("tp.md", "w") as f_md, open("tp.ics", "w", encoding="utf-8") as f_ics:
             f_json.write(plan.model_dump_json(indent=2))
             f_md.write(plan.to_markdown())
             f_ics.write(plan.to_ical())
-            
+        # Final update
+        update_travelplan(plan)
+        update_todos(latest_todos) 
         return {"travelplan": plan, "todos": latest_todos}
 
     return execution_node

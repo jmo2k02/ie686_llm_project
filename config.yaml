@@ -1,20 +1,20 @@
 models:
   workflows:
     task_planning:
-      model_name: "gpt-5.4-nano-2026-03-17"
+      model_name: "openrouter:openai/gpt-5-mini"
       temperature: 0.0
 
 agents:
   constraint:
-    model_name: "gpt-5.4-nano-2026-03-17"
+    model_name: "openrouter:openai/gpt-5-mini"
     temperature: 0.0
 
   attraction_search:
     model_name: xx
 
   planner:
-    model_name: "gpt-5.4-nano-2026-03-17"
-    reviewer_model: "gpt-5.4-nano-2026-03-17"
+    model_name: "openrouter:openai/gpt-5.4-mini"
+    reviewer_model: "openrouter:openai/gpt-5.4-mini"
     # Max number of tasks that can be created
     max_tasks: 12
     # Amount of reviews the final task list will be run through
@@ -23,8 +23,11 @@ agents:
     reviewer_temp: 0.0
 
   execution:
-    model_name: "gpt-5-mini-2025-08-07"
+    model_name: "openrouter:openai/gpt-5.4"
     
+  itinerary_validator:
+    model_name: "openrouter:openai/gpt-5.4-mini"
+    temperature: 0.0
 
   general_web_search:
     provider: "tavily"

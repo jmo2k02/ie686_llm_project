@@ -107,7 +107,7 @@ class TravelPlan(BaseModel):
         category, location, cost, or description. Useful when the renderer
         has limited horizontal space (e.g. the CLI dashboard panel).
         """
-        return self._render_table(_render_slot_cell_compact, include_cost_summary=False)
+        return self._render_table(_render_slot_cell_compact, include_cost_summary=True)
 
     def to_ical(self) -> str:
         """Render the plan as an RFC 5545 iCalendar (``.ics``) string.

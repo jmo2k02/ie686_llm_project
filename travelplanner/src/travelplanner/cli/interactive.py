@@ -622,7 +622,7 @@ def _render_todos_panel(dashboard: DashboardState) -> Panel:
         body = table
     return Panel(
         body,
-        title="Agent Todos",
+        title="Agent Scratchpad",
         border_style="cyan",
         padding=(1, 2),
     )

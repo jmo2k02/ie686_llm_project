@@ -19,14 +19,11 @@ print(f'Query: "{QUERY}"\n')
 print("Extracting parameters...")
 params = _extract_flight_params(QUERY, MODEL, TEMPERATURE, config)
 
-trip_label = {1: "round trip", 2: "one way", 3: "multi-city"}.get(params.trip_type, str(params.trip_type))
-if params.trip_type == 3:
-    route = " → ".join(f"{s.departure_id}→{s.arrival_id} ({s.outbound_date})" for s in params.segments)
-else:
-    seg = params.segments[0]
-    route = f"{seg.departure_id} → {seg.arrival_id} on {seg.outbound_date}"
-    if params.return_date:
-        route += f"  (return {params.return_date})"
+trip_label = {1: "round trip", 2: "one way"}.get(params.trip_type, str(params.trip_type))
+seg = params.segments[0]
+route = f"{seg.departure_id} → {seg.arrival_id} on {seg.outbound_date}"
+if params.return_date:
+    route += f"  (return {params.return_date})"
 print(f"  {trip_label}  |  {route}  |  adults: {params.adults}  currency: {params.currency}\n")
 
 # ── Step 2: search flights ────────────────────────────────────────────────────
@@ -40,8 +37,11 @@ if result.errors:
 
 # ── Step 3: selected flights (what the orchestrator receives) ─────────────────
 
-def print_flight(flight) -> None:
-    print(f"  Price: {flight.currency} {flight.price}  |  Duration: {flight.total_duration_minutes} min  |  Carbon: {flight.carbon_emissions_kg} kg")
+def print_flight(flight, *, show_price: bool = True) -> None:
+    if show_price:
+        print(f"  Price: {flight.currency} {flight.price}  |  Duration: {flight.total_duration_minutes} min  |  Carbon: {flight.carbon_emissions_kg} kg")
+    else:
+        print(f"  Duration: {flight.total_duration_minutes} min  |  Carbon: {flight.carbon_emissions_kg} kg")
     for leg in flight.legs:
         print(f"    {leg.airline} {leg.flight_number}: {leg.departure_airport.id} {leg.departure_airport.time} → {leg.arrival_airport.id} {leg.arrival_airport.time}")
     for lv in flight.layovers:
@@ -52,12 +52,18 @@ print(f"\n{'━' * 60}")
 print(f"SELECTED FLIGHTS  [{len(result.selected_flights)} flight(s) committed to orchestrator]")
 print(f"{'━' * 60}")
 for i, flight in enumerate(result.selected_flights):
-    label = (
-        f"Leg {i + 1}" if params.trip_type == 3
-        else ("Outbound" if i == 0 else "Return")
-    )
+    is_return = params.trip_type == 1 and i == 1
+    if is_return:
+        label = "Return (included in round-trip price)"
+    elif params.trip_type == 1:
+        label = "Round-trip total"
+    else:
+        label = "One-way fare"
     print(f"\n{label}:")
-    print_flight(flight)
+    print_flight(flight, show_price=not is_return)
 
 if result.price_insights:
     print(f"\nPrice insights: {result.price_insights.price_level}  (typical range: {result.price_insights.typical_price_range})")
+
+if result.google_flights_url:
+    print(f"\nVerify / book: {result.google_flights_url}")

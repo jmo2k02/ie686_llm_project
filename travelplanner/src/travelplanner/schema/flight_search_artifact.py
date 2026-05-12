@@ -13,12 +13,12 @@ class FlightSegmentParams(BaseModel):
 
 class FlightParamsModel(BaseModel):
     trip_type: Annotated[
-        Literal[1, 2, 3],
-        Field(description="1=round trip, 2=one way, 3=multi-city"),
+        Literal[1, 2],
+        Field(description="1=round trip, 2=one way"),
     ]
     segments: Annotated[
         list[FlightSegmentParams],
-        Field(description="One segment for types 1/2, N segments for type 3"),
+        Field(description="One segment for the departure→arrival pair"),
     ]
     return_date: Annotated[
         str | None,
@@ -97,22 +97,25 @@ class FlightSearchArtifactContentModel(BaseModel):
         Field(
             default_factory=list,
             description=(
-                "Committed flight choices for the orchestrator: "
-                "one entry per direction (outbound for type 2, outbound+return for type 1, "
-                "one per leg for type 3). Always the cheapest available option."
+                "Committed flight choice for the orchestrator: "
+                "one bundled entry for round-trip (type 1) or one entry for one-way (type 2). "
+                "Always the cheapest available option."
             ),
         ),
     ] = Field(default_factory=list)
     best_flights: list[FlightOptionModel] = Field(default_factory=list)
     other_flights: list[FlightOptionModel] = Field(default_factory=list)
-    return_flights: list[FlightOptionModel] = Field(default_factory=list)
-    multi_city_legs: Annotated[
-        list[list[FlightOptionModel]],
+    return_flights: Annotated[
+        list[FlightOptionModel],
         Field(
             default_factory=list,
-            description="Per-leg options for multi-city (trip_type=3); index matches segments list",
+            description="Return-leg options for round-trip (type 1); fetched via a second one-way call for details only — price is already bundled in selected_flights[0].",
         ),
     ] = Field(default_factory=list)
     price_insights: FlightPriceInsightsModel | None = None
+    google_flights_url: Annotated[
+        str | None,
+        Field(description="Google Flights search URL from SerpAPI search_metadata — lets the user verify and book"),
+    ] = None
     errors: list[FlightSearchErrorModel] = Field(default_factory=list)
     config: dict[str, Any] = Field(default_factory=dict)

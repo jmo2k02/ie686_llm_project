@@ -5,6 +5,7 @@ from __future__ import annotations
 from travelplanner.schema.attraction_search_artifact import (
     AttractionArtifactContentModel,
 )
+from travelplanner.schema.constraint_artifact import ConstraintArtifactContentModel
 from travelplanner.schema.flight_search_artifact import (
     FlightSearchArtifactContentModel,
 )
@@ -26,20 +27,11 @@ def summarize_flight_artifact(artifact: AgentArtifactModel) -> str:
     content = FlightSearchArtifactContentModel.model_validate(artifact.content)
 
     trip_type = content.config.get("trip_type")
-    trip_label = {1: "round trip", 2: "one way", 3: "multi-city"}.get(
-        trip_type, str(trip_type)
-    )
+    trip_label = {1: "round trip", 2: "one way"}.get(trip_type, str(trip_type))
 
-    if trip_type == 3:
-        route = " → ".join(
-            f"{legs[0].legs[0].departure_airport.id}→{legs[0].legs[-1].arrival_airport.id}"
-            for legs in content.multi_city_legs
-            if legs
-        ) or f"{content.departure_id} (multi-city)"
-    else:
-        route = f"{content.departure_id} → {content.arrival_id} on {content.outbound_date}"
-        if content.return_date:
-            route += f" (return {content.return_date})"
+    route = f"{content.departure_id} → {content.arrival_id} on {content.outbound_date}"
+    if content.return_date:
+        route += f" (return {content.return_date})"
 
     lines = [
         f"{trip_label} | {route} | adults: {content.adults} | currency: {content.currency}",
@@ -50,19 +42,20 @@ def summarize_flight_artifact(artifact: AgentArtifactModel) -> str:
 
     lines.append(f"Selected flights ({len(content.selected_flights)}):")
     for i, flight in enumerate(content.selected_flights):
-        if trip_type == 3:
-            label = f"Leg {i + 1}"
-        else:
-            label = "Outbound" if i == 0 else "Return"
+        is_return = trip_type == 1 and i == 1
         carbon = (
             f" | carbon: {flight.carbon_emissions_kg} kg"
             if flight.carbon_emissions_kg is not None
             else ""
         )
-        lines.append(
-            f"  {label}: {flight.currency} {flight.price} | "
-            f"{flight.total_duration_minutes} min{carbon}"
-        )
+        if is_return:
+            lines.append(f"  Return: {flight.total_duration_minutes} min{carbon}")
+        else:
+            label = "Round-trip total" if trip_type == 1 else "One-way fare"
+            lines.append(
+                f"  {label}: {flight.currency} {flight.price} | "
+                f"{flight.total_duration_minutes} min{carbon}"
+            )
         for leg in flight.legs:
             lines.append(
                 f"    {leg.airline} {leg.flight_number}: "
@@ -79,6 +72,9 @@ def summarize_flight_artifact(artifact: AgentArtifactModel) -> str:
             f"Price insights: {content.price_insights.price_level} "
             f"(typical range: {content.price_insights.typical_price_range})"
         )
+
+    if content.google_flights_url:
+        lines.append(f"Verify / book: {content.google_flights_url}")
 
     return "\n".join(lines)
 
@@ -133,8 +129,11 @@ def summarize_attraction_artifact(artifact: AgentArtifactModel) -> str:
             rating = f" | Rating: {c.rating}" if c.rating is not None else ""
             reviews = f" ({c.reviews} reviews)" if c.reviews else ""
             lines.append(f"  [{i}] {c.title} | {c.address or 'address unknown'}{rating}{reviews}")
-      
-    return "\n".join(lines)  
+
+    if content.google_maps_url:
+        lines.append(f"Verify on Google Maps: {content.google_maps_url}")
+
+    return "\n".join(lines)
 
 def summarize_hotel_artifact(artifact: AgentArtifactModel) -> str:
     """Render a hotel-search artifact as a compact text summary for an LLM."""
@@ -164,6 +163,9 @@ def summarize_hotel_artifact(artifact: AgentArtifactModel) -> str:
 
     if not content.options and content.status != "failed":
         lines.append("No hotels found for the given criteria.")
+
+    if content.booking_url:
+        lines.append(f"Manual search (Nuitee): {content.booking_url}")
 
     return "\n".join(lines)
 
@@ -199,5 +201,51 @@ def summarize_restaurant_artifact(artifact: AgentArtifactModel) -> str:
 
     if not content.items and content.status != "failed":
         lines.append("No restaurants found for the given criteria.")
+
+    return "\n".join(lines)
+
+
+def summarize_constraint_artifact(
+    artifact: AgentArtifactModel,
+    violations: list | None = None,
+) -> str:
+    """Render a constraint-extraction artifact as a compact text summary for an LLM."""
+    content = ConstraintArtifactContentModel.model_validate(artifact.content)
+
+    lines = [
+        f"Constraint extraction | Query: {content.query} | Status: {content.status}",
+    ]
+
+    if content.corrected_query and content.corrected_query != content.query:
+        lines.append(f"  Spell-corrected to: {content.corrected_query}")
+
+    if content.normalized_constraints is not None:
+        nc = content.normalized_constraints.model_dump(exclude_none=True)
+        if nc:
+            lines.append("Normalized constraints:")
+            for key, val in nc.items():
+                if isinstance(val, dict):
+                    for sub_key, sub_val in val.items():
+                        lines.append(f"  {key}.{sub_key}: {sub_val}")
+                else:
+                    lines.append(f"  {key}: {val}")
+    elif content.hard_constraints:
+        lines.append("Hard constraints:")
+        for c in content.hard_constraints:
+            if not c.get("user_skipped"):
+                lines.append(f"  - {c.get('text', '')}")
+
+    if content.categories_missing:
+        lines.append(f"Missing categories: {', '.join(content.categories_missing)}")
+
+    if violations:
+        lines.append(f"\nWarnings ({len(violations)} violation(s) detected):")
+        for v in violations:
+            lines.append(f"  - {v.violated_constraint}")
+            lines.append(f"    Reason: {v.explanation}")
+            for suggestion in v.suggestions:
+                lines.append(f"    Suggestion: {suggestion}")
+    else:
+        lines.append("No constraint violations detected.")
 
     return "\n".join(lines)

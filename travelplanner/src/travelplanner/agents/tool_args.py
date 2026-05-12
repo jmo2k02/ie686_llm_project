@@ -11,11 +11,10 @@ class FlightSearchArgs(BaseModel):
         Field(
             min_length=1,
             description=(
-                "Natural-language description of the desired flight(s). Include "
+                "Natural-language description of the desired flight. Include "
                 "origin, destination, date(s), and trip type if known — e.g. "
-                "'Munich to Sydney from June 24 2026 until July 16 2026', "
-                "'one-way LHR to JFK on 2026-09-10', or a multi-city itinerary "
-                "like 'FRA → CDG on 2026-06-01, then CDG → BCN on 2026-06-05'. "
+                "'Munich to Sydney from June 24 2026 until July 16 2026' "
+                "or 'one-way LHR to JFK on 2026-09-10'. "
                 "The tool will extract IATA codes, dates, and trip type via an "
                 "LLM, then query Google Flights via SerpAPI."
             ),
@@ -193,6 +192,24 @@ class ClosestPlacesToTargetArgs(BaseModel):
             min_length=1,
             description=(
                 "List of candidate place names or IDs to rank against the target."
+            ),
+        ),
+    ]
+
+
+class ConstraintExtractionArgs(BaseModel):
+    query: Annotated[
+        str,
+        Field(
+            min_length=1,
+            description=(
+                "Natural-language travel request to extract constraints from. "
+                "Include as much detail as is known — destination, origin, dates, "
+                "number of travelers, budget, accommodation preferences, transport "
+                "mode, and interests. E.g. 'Two adults flying from Munich to Barcelona "
+                "from 2026-06-10 to 2026-06-17, budget 2000 EUR, interested in food "
+                "and architecture'. The tool parses all 8 constraint categories, "
+                "normalizes them, and checks for commonsense violations."
             ),
         ),
     ]

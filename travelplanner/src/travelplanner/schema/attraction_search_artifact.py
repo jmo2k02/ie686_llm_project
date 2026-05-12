@@ -107,5 +107,9 @@ class AttractionArtifactContentModel(BaseModel):
         default_factory=list,
         description="Up to 3 SERPAPI candidates — routing agent may swap the committed place",
     )
+    google_maps_url: Annotated[
+        str | None,
+        Field(description="Google Maps search URL from SerpAPI search_metadata — lets the user verify the result"),
+    ] = None
     errors: list[AttractionSearchErrorModel] = Field(default_factory=list)
     config: dict[str, Any] = Field(default_factory=dict)

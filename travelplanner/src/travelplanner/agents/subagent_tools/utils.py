@@ -5,6 +5,7 @@ from __future__ import annotations
 from travelplanner.schema.attraction_search_artifact import (
     AttractionArtifactContentModel,
 )
+from travelplanner.schema.constraint_artifact import ConstraintArtifactContentModel
 from travelplanner.schema.flight_search_artifact import (
     FlightSearchArtifactContentModel,
 )
@@ -199,5 +200,51 @@ def summarize_restaurant_artifact(artifact: AgentArtifactModel) -> str:
 
     if not content.items and content.status != "failed":
         lines.append("No restaurants found for the given criteria.")
+
+    return "\n".join(lines)
+
+
+def summarize_constraint_artifact(
+    artifact: AgentArtifactModel,
+    violations: list | None = None,
+) -> str:
+    """Render a constraint-extraction artifact as a compact text summary for an LLM."""
+    content = ConstraintArtifactContentModel.model_validate(artifact.content)
+
+    lines = [
+        f"Constraint extraction | Query: {content.query} | Status: {content.status}",
+    ]
+
+    if content.corrected_query and content.corrected_query != content.query:
+        lines.append(f"  Spell-corrected to: {content.corrected_query}")
+
+    if content.normalized_constraints is not None:
+        nc = content.normalized_constraints.model_dump(exclude_none=True)
+        if nc:
+            lines.append("Normalized constraints:")
+            for key, val in nc.items():
+                if isinstance(val, dict):
+                    for sub_key, sub_val in val.items():
+                        lines.append(f"  {key}.{sub_key}: {sub_val}")
+                else:
+                    lines.append(f"  {key}: {val}")
+    elif content.hard_constraints:
+        lines.append("Hard constraints:")
+        for c in content.hard_constraints:
+            if not c.get("user_skipped"):
+                lines.append(f"  - {c.get('text', '')}")
+
+    if content.categories_missing:
+        lines.append(f"Missing categories: {', '.join(content.categories_missing)}")
+
+    if violations:
+        lines.append(f"\nWarnings ({len(violations)} violation(s) detected):")
+        for v in violations:
+            lines.append(f"  - {v.violated_constraint}")
+            lines.append(f"    Reason: {v.explanation}")
+            for suggestion in v.suggestions:
+                lines.append(f"    Suggestion: {suggestion}")
+    else:
+        lines.append("No constraint violations detected.")
 
     return "\n".join(lines)

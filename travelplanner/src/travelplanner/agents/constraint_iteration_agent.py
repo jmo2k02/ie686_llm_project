@@ -1147,7 +1147,6 @@ def make_pipeline_graph():
     graph.add_node("check_commonsense_violations", check_commonsense_violations)
     graph.add_node("enrich_hard_constraints", enrich_hard_constraints_pipeline)
     graph.add_node("build_artifact", _build_artifact_node)
-    graph.add_node("finalize_constraint_output", finalize_constraint_output)
 
     graph.set_entry_point("extract_hard_constraints")
     graph.add_edge("extract_hard_constraints", "check_commonsense_violations")

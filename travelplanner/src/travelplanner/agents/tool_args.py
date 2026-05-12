@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Annotated
+from typing import Annotated, Any
 
 from pydantic import BaseModel, Field
 
@@ -81,6 +81,118 @@ class RestaurantSearchArgs(BaseModel):
                 "'Vegan lunch spot in Berlin, cheap, near Alexanderplatz'. "
                 "The tool will extract parameters via an LLM, then query Google "
                 "Places for matching venues."
+            ),
+        ),
+    ]
+
+
+class CheckRouteTimingArgs(BaseModel):
+    origin_address: Annotated[
+        str,
+        Field(min_length=1, description="Origin address, e.g. 'Munich Central Station'"),
+    ]
+    destination_address: Annotated[
+        str,
+        Field(min_length=1, description="Destination address, e.g. 'Marienplatz, Munich'"),
+    ]
+    travel_mode: Annotated[
+        str,
+        Field(default="drive", description="Travel mode: drive, transit, bicycling, walk"),
+    ]
+
+
+class WebSearchArgs(BaseModel):
+    query: Annotated[
+        str,
+        Field(
+            min_length=1,
+            description=(
+                "A specific, factual question. Not a general research topic. "
+                "E.g. 'official opening hours for Sagrada Familia in May 2026', "
+                "'contact email for the Louvre Museum Paris', "
+                "'current train strike information for Munich to Berlin route on 2026-07-15'. "
+                "The tool queries Tavily and returns a source-backed answer with URLs."
+            ),
+        ),
+    ]
+
+
+class BuildPlaceDistanceGraphArgs(BaseModel):
+    stops: Annotated[
+        list[dict[str, str]],
+        Field(
+            min_length=1,
+            description=(
+                "List of stop dicts, each with address and/or name keys. "
+                "At least one stop is required. Used to build a place-distance graph."
+            ),
+        ),
+    ]
+    cluster_context: Annotated[
+        str | None,
+        Field(
+            default=None,
+            description=(
+                "Cluster preset hint: dense_urban, mixed, or sparse. "
+                "Omit to let the routing agent infer automatically."
+            ),
+        ),
+    ] = None
+
+
+class DistanceBetweenPlacesArgs(BaseModel):
+    graph: Annotated[
+        dict[str, Any],
+        Field(
+            description=(
+                "The place-distance graph dict previously returned "
+                "by build_place_distance_graph. No API calls are made."
+            ),
+        ),
+    ]
+    from_place_id: Annotated[
+        str,
+        Field(
+            min_length=1,
+            description=(
+                "Place ID or name for the origin. Must exist in the graph."
+            ),
+        ),
+    ]
+    to_place_id: Annotated[
+        str,
+        Field(
+            min_length=1,
+            description=(
+                "Place ID or name for the destination. Must exist in the graph."
+            ),
+        ),
+    ]
+
+
+class ClosestPlacesToTargetArgs(BaseModel):
+    graph: Annotated[
+        dict,
+        Field(
+            description=(
+                "The place-distance graph dict previously returned "
+                "by build_place_distance_graph. No API calls are made."
+            ),
+        ),
+    ]
+    target_name: Annotated[
+        str,
+        Field(
+            min_length=1,
+            description="Name or ID of the target place in the graph.",
+        ),
+    ]
+    candidate_names: Annotated[
+        list[str],
+        Field(
+            min_length=1,
+            description=(
+                "List of candidate place names or IDs to rank against the target."
             ),
         ),
     ]

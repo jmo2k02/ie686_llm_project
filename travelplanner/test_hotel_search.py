@@ -105,6 +105,12 @@ def _print_artifacts(updated_state, agent_key: str = "hotel_search"):
         print("=" * 60)
         print(content["recommendations"])
 
+    if content.get("booking_url"):
+        print("\n" + "=" * 60)
+        print("NUITEE BOOKING LINK:")
+        print("=" * 60)
+        print(content["booking_url"])
+
     if content.get("options"):
         print("\n" + "=" * 60)
         print("TOP 3 HOTELS (Raw Data):")

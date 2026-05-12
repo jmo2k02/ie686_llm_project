@@ -166,6 +166,9 @@ def summarize_hotel_artifact(artifact: AgentArtifactModel) -> str:
     if not content.options and content.status != "failed":
         lines.append("No hotels found for the given criteria.")
 
+    if content.booking_url:
+        lines.append(f"Manual search (Nuitee): {content.booking_url}")
+
     return "\n".join(lines)
 
 

@@ -1,0 +1,926 @@
+{
+  "plan_excerpt": "# TravelPlan: Barcelona Trip — 4 Days / 3 Nights (2026-06-10 to 2026-06-13)\n\n| Day 1 — 2026-06-10 — Arrival, Barcelona | Day 2 — 2026-06-11 — Sightseeing, Barcelona | Day 3 — 2026-06-12 — Sightseeing, Barcelona | Day 4 — 2026-06-13 — Departure |\n| --- | --- | --- | --- |\n| **1. Flight MUC→BCN** [tra",
+  "judge_models": [
+    "openrouter:minimax/minimax-m2.7",
+    "openrouter:google/gemini-3-flash-preview",
+    "openrouter:deepseek/deepseek-v4-flash",
+    "openrouter:nvidia/nemotron-3-super-120b-a12b"
+  ],
+  "rationale_verifications": [
+    {
+      "day_index": 1,
+      "slot_position": 1,
+      "slot_name": "Flight MUC→BCN",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.flights.com/lp/flights/muc/bcn/munich-to-barcelona",
+        "https://www.flightconnections.com/flights-from-muc-to-bcn",
+        "https://www.swiss.com/lhg/de/en/o-d/cy-cy/munich-barcelona",
+        "https://www.skyscanner.com/routes/muc/bcn/munich-to-barcelona.html",
+        "https://www.flightsfrom.com/MUC-BCN"
+      ],
+      "verdict": "FAIL",
+      "reasoning": "The slot claims a flight duration of 2 hours (08:00 to 10:00). However, Source 5 explicitly states that for the Munich (MUC) to Barcelona (BCN) route, 'the flight time is 2 hours and 20 minutes.' Additionally, while Lufthansa is confirmed to operate this route (Source 5), the specific flight number 'LH1234' and the exact cost of '€420' for a date in 2026 cannot be verified with the provided evidence, which shows prices ranging from €81 to €131 (Sources 3 and 4). The duration discrepancy alone warrants a FAIL.",
+      "claims_checked": [
+        "Flight route: Munich (MUC) to Barcelona (BCN)",
+        "Airline: Lufthansa",
+        "Flight number: LH1234",
+        "Departure time: 08:00",
+        "Arrival time: 10:00",
+        "Flight duration: 2 hours",
+        "Cost: €420.00"
+      ]
+    },
+    {
+      "day_index": 1,
+      "slot_position": 2,
+      "slot_name": "Check-in at Hotel Arts Barcelona",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.hotelartsbarcelona.com"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence is the landing page for Hotel Arts Barcelona. While it confirms the existence and name of the hotel ('Hotel Arts Barcelona'), it does not contain specific details regarding the standard check-in time (14:00) or the room rates (€400/night). The text is a navigation menu and header without the policy or pricing sections. Therefore, there is no evidence to either support or contradict the specific claims about time and cost.",
+      "claims_checked": [
+        "Venue name: Hotel Arts Barcelona",
+        "Location: Barcelona",
+        "Check-in time: 14:00",
+        "Rate: €400/night",
+        "Total cost: €1200.00 for 3 nights"
+      ]
+    },
+    {
+      "day_index": 1,
+      "slot_position": 3,
+      "slot_name": "Dinner at Tickets",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://arecipeforgluttony.wordpress.com/2014/10/23/tickets-restaurant-barcelona/",
+        "https://www.barcelonasolutions.com/venues/tickets-restaurant-barcelona/",
+        "https://www.youtube.com/watch?v=qDWZZb1FZZ8",
+        "https://m.yelp.com/biz/tickets-barcelona-3",
+        "https://www.tripadvisor.com/ShowTopic-g187497-i44-k5203708-How_much_does_dinner_at_Tickets_Restaurant_cost-Barcelona_Catalonia.html"
+      ],
+      "verdict": "FAIL",
+      "reasoning": "The slot claims 'Tickets' is a restaurant in Barcelona serving avant-garde tapas. While the location and style are supported by evidence (Source 2 and 3), the restaurant is permanently closed. Multiple sources (Source 2 and 4) list the address as Av. del Paraŀlel 164, which was the location of Albert Adrià's Tickets. However, Tickets closed permanently in 2020/2021 following the collapse of the elBarri group. Furthermore, the slot schedules dinner for Wednesday, June 10, 2026, but the restaurant no longer operates. Even if it were open, Source 2 and 4 indicate opening hours start at 19:00 (7:00 pm), making a one-hour duration (19:00-20:00) for a Michelin-starred avant-garde tasting experience unrealistic, and the €80 cost is outdated/low for this specific venue's typical experience.",
+      "claims_checked": [
+        "Venue name: Tickets",
+        "Location: Barcelona",
+        "Category: Avant-garde tapas",
+        "Cost: €80.00",
+        "Opening hours/Availability: Open at 19:00 on a Wednesday"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 1,
+      "slot_name": "Breakfast at Café de Flore",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.tripadvisor.com/Restaurant_Review-g187147-d695246-Reviews-Cafe_de_Flore-Paris_Ile_de_France.html",
+        "https://www.seiskamimura.com/home/paris-guide-breakfast-at-caf-de-flore",
+        "https://viewfromtheback.com/2026/02/10/trip-to-cafe-flore/",
+        "https://wandererbykarma.wordpress.com/2024/03/01/a-parisian-breakfast-at-the-historic-cafe-de-flore/",
+        "https://www.facebook.com/groups/901325013936471/posts/2027259654676329/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms that Café de Flore is a historic café located in Paris (specifically the 6th arrondissement) that serves breakfast. Source [1] explicitly lists 'Breakfast' as a meal type. Source [3] confirms the location on Boulevard Saint-Germain. While the exact cost of €20.00 is not explicitly stated as a fixed price in the snippets, Source [4] describes a 'traditional tea breakfast' consisting of a croissant, baguette, butter, jam, and tea, which is consistent with a typical Parisian breakfast price point in this range. The time window (08:00) is consistent with a breakfast service.",
+      "claims_checked": [
+        "Venue name: Café de Flore",
+        "Location: Paris",
+        "Category: meal (Breakfast)",
+        "Cost: €20.00"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 2,
+      "slot_name": "Sagrada Família guided tour",
+      "source_type": "link",
+      "source_urls": [
+        "https://sagradafamilia.org/en/tickets-individuals"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence from the official website confirms that a 'Sagrada Família with guided tour' is available and specifically lists the price as '30 €'. While the evidence does not explicitly list the specific time slots for June 2026, the existence of the guided tour product at the stated price supports the core claims of the slot.",
+      "claims_checked": [
+        "Venue name: Sagrada Família",
+        "Activity: Guided tour",
+        "Cost: €30.00"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 3,
+      "slot_name": "Lunch at Bar del Pla",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.tripadvisor.com/Restaurant_Review-g187497-d1911643-Reviews-Bar_del_Pla-Barcelona_Catalonia.html",
+        "https://www.yelp.com/biz/bar-del-pla-barcelona",
+        "https://www.instagram.com/reel/DDvJkx_SqTR/",
+        "https://www.cntraveler.com/restaurants/barcelona/bar-del-pla",
+        "https://barcelonanavigator.com/bar-del-pla/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms the existence of 'Bar del Pla' in Barcelona (Sources 1, 2, 3, 4, 5). Source 4 explicitly states the venue is 'open all day' and 'stays busy from noon 'til midnight,' which supports the 13:00 (1:00 PM) lunch time slot. While the specific cost of €25.00 is not explicitly stated as a fixed price, it is a reasonable estimate for a tapas bar in this area, and no evidence contradicts this price point. The location in Barcelona is confirmed by all sources.",
+      "claims_checked": [
+        "Venue name: Bar del Pla",
+        "Location: Barcelona",
+        "Category: meal/tapas bar",
+        "Time: 13:00 (Lunch)",
+        "Cost: €25.00"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 4,
+      "slot_name": "Picasso Museum",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.barcelona.de/en/barcelona-museum-picasso.html",
+        "https://www.tripadvisor.com/Attraction_Review-g187497-d190165-Reviews-Museu_Picasso-Barcelona_Catalonia.html",
+        "https://en.wikipedia.org/wiki/Museu_Picasso",
+        "https://www.expedia.com/Picasso-Museum-Downtown-Barcelona.d6066941.Vacation-Attraction",
+        "https://museupicassobcn.cat/en"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The evidence confirms the existence of the Picasso Museum in Barcelona and its status as a major attraction. However, the provided search results do not mention the current admission price (the slot claims €15.00) or the specific opening hours to verify if the 15:00–17:00 window is valid. While Source 5 is the official website, the snippet provided does not list ticket prices or schedules.",
+      "claims_checked": [
+        "Venue name: Picasso Museum",
+        "Category: attraction",
+        "Location: Barcelona",
+        "Cost: €15.00",
+        "Time window: 15:00 to 17:00"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 5,
+      "slot_name": "Dinner at Bodega Sepúlveda",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://bodega-sepulveda.menufyy.com/",
+        "https://www.opentable.com/r/bodega-sepulveda-barcelona",
+        "https://www.bodegasepulveda.com/en/",
+        "https://www.yelp.com/biz/bodega-sep%C3%BAlveda-barcelona-2",
+        "https://www.bodegasepulveda.com/en/about-us/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms the existence of 'Bodega Sepúlveda' in Barcelona (Source 1, 2, 3). Source 4 confirms the restaurant is open for dinner during the requested time window (8:00 pm - 1:00 am). While the cost of €60 is not explicitly stated as a fixed price, the description of the venue as a 'refined' restaurant with a curated wine list and traditional dishes (Source 1, 3) makes a €60 estimate for dinner plausible and consistent with the category.",
+      "claims_checked": [
+        "Venue name: Bodega Sepúlveda",
+        "Location: Barcelona",
+        "Category: meal",
+        "Opening hours: Open for dinner at 19:00/20:00",
+        "Cost: €60.00"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 1,
+      "slot_name": "Breakfast at Federal Café",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.barcelonafoodexperience.com/blog/federal-cafe",
+        "https://federal-cafe-sant-antoni.grubbio.com/",
+        "https://www.yelp.com/biz/federal-caf%C3%A9-barcelona-2",
+        "https://www.happycow.net/reviews/federal-cafe-barcelona-180911",
+        "https://www.yelp.com/biz/federal-caf%C3%A9-barcelona-2?start=40"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms the existence of Federal Café in Barcelona (Source 1, 2, 3). Source 3 and 5 explicitly state that the café opens at 8:00 am ('Mon - 8:00 am - 11:00 pm'), which aligns with the slot's start time. Multiple sources (Source 1, 2, 3) categorize it as a breakfast/brunch location. While the exact cost of €15.00 is not explicitly listed as a total, the menu items described (avocado toast, chia pudding, pastrami sandwich) are consistent with a mid-range breakfast price point in Barcelona.",
+      "claims_checked": [
+        "Venue name: Federal Café",
+        "Location: Barcelona",
+        "Category: meal (breakfast/brunch)",
+        "Opening time: 8:00 am",
+        "Cost: €15.00"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 2,
+      "slot_name": "Montjuïc Cable Car",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.barcelonaturisme.com/wv3/en/page/1827/montjuic-cable-car.html",
+        "https://en.wikipedia.org/wiki/Montju%C3%AFc_Cable_Car",
+        "https://www.tripadvisor.com/Attraction_Review-g187497-d6495421-Reviews-Teleferic_de_Montjuic-Barcelona_Catalonia.html",
+        "https://www.barcelona-tickets.com/montjuic-cable-car-tickets/about/",
+        "https://www.telefericdemontjuic.cat/en"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The evidence confirms the existence and location of the Montjuïc Cable Car (Telefèric de Montjuïc) and its route to the castle. However, the provided search results do not contain specific pricing information (to verify the €14.00 claim) or operating hours (to verify the 10:00 opening time). While Source 1 mentions a closure in February, it does not list the standard daily schedule or ticket costs.",
+      "claims_checked": [
+        "Venue name: Montjuïc Cable Car",
+        "Location: Montjuïc, Barcelona",
+        "Cost: €14.00",
+        "Opening time: 10:00"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 3,
+      "slot_name": "Lunch at La Boqueria market",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://migrationology.com/la-boqueria-market-barcelona/",
+        "https://www.barcelona-tourist-guide.com/en/tour/barcelona-city-centre/guide-la-boqueria-barcelona.html",
+        "https://devourtours.com/blog/places-to-eat-in-la-boqueria-market/",
+        "https://www.tripadvisor.com/ShowUserReviews-g187497-d190164-r402958099-Mercat_de_la_Boqueria-Barcelona_Catalonia.html",
+        "https://spanishsabores.com/barcelonas-boqueria-market-spanish-food/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms that La Boqueria (Mercat de Sant Josep de la Boqueria) is a major food market in Barcelona located on Las Ramblas (Source 2, 3). Source 2 specifically recommends visiting before 14:00 when the market is in 'full swing,' which aligns with the slot's 13:00-14:00 time window. Multiple sources (Source 3, 4) confirm it is a popular location for lunch with various food stalls and bars. While the exact cost of €20 is not explicitly stated as a fixed price, it is a reasonable estimate for a market meal consisting of tapas or seafood as described in the evidence.",
+      "claims_checked": [
+        "Venue name: La Boqueria market",
+        "Location: Barcelona",
+        "Category: meal/lunch",
+        "Time window: 13:00-14:00",
+        "Cost: €20.00"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 4,
+      "slot_name": "Dinner at La Mar Salada",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.opentable.com/r/la-mar-salada-la-barceloneta-barcelona",
+        "https://www.yelp.com/biz/la-mar-salada-barcelona",
+        "https://www.yelp.com/biz/la-mar-salada-barcelona?start=20",
+        "https://www.divento.com/en/eating-and-drinking/8115-la-mar-salada-restaurant-barcelona.html",
+        "https://pickledpeas.wordpress.com/2022/11/03/dinner-at-la-mar-salada-barcelona/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms that La Mar Salada is a seafood restaurant located in Barcelona (specifically the Barceloneta area). Source 1 lists the price range as '€31 to €50', which aligns with the €50 cost claim. Source 4 explicitly mentions the restaurant is an 'ideal setting for supper' (dinner). While Source 2 and 3 only show lunch hours for Monday, Source 5 confirms the existence of dinner service ('Dinner at La Mar Salada'), and Source 1 (OpenTable) is a reservation platform for such meals.",
+      "claims_checked": [
+        "Venue name: La Mar Salada",
+        "Location: Barcelona",
+        "Category: Seafood restaurant",
+        "Cost: €50.00",
+        "Service: Dinner"
+      ]
+    },
+    {
+      "day_index": 4,
+      "slot_position": 1,
+      "slot_name": "Breakfast at Federal Café",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.barcelonafoodexperience.com/blog/federal-cafe",
+        "https://federal-cafe-sant-antoni.grubbio.com/",
+        "https://www.tripadvisor.com/Restaurant_Review-g187497-d2296742-Reviews-Federal_Cafe_Parlament-Barcelona_Catalonia.html",
+        "https://www.yelp.com/biz/federal-caf%C3%A9-barcelona-2?start=40",
+        "https://whatshouldieatforbreakfasttoday.com/eat-barcelona-federal-cafe/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms the existence of 'Federal Café' in Barcelona (Source 1, 2, 3). Multiple sources explicitly list 'Breakfast' and 'Brunch' as meal types offered (Source 3, 4, 5). While the specific cost of €12.00 is not explicitly detailed as a fixed price, Source 1 mentions standard breakfast items like avocado toast and chia pudding, and Source 2 mentions sandwiches, which are consistent with a typical €12 breakfast spend in this category. The location 'Barcelona' is confirmed by all sources.",
+      "claims_checked": [
+        "Venue name: Federal Café",
+        "Location: Barcelona",
+        "Category: meal (Breakfast/Brunch)",
+        "Cost: €12.00"
+      ]
+    },
+    {
+      "day_index": 4,
+      "slot_position": 2,
+      "slot_name": "Flight BCN→MUC",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.iberia.com/us/cheap-flights/Barcelona-Munich/",
+        "https://www.swiss.com/lhg/es/en/o-d/cy-cy/barcelona-munich",
+        "https://www.flightroutes.com/BCN-MUC",
+        "https://www.flights.com/lp/flights/bcn/muc/barcelona-to-munich",
+        "https://www.lufthansa.com/lhg/es/en/o-d/cy-cy/barcelona-munich"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims that Vueling operates a flight from Barcelona (BCN) to Munich (MUC) and that the flight duration is approximately 120 minutes. Source 3 explicitly confirms that 'You can fly non-stop from Barcelona (BCN) to Munich (MUC) with Lufthansa, Vueling or Lufthansa City Airlines' and that 'The flight takes approximately 2 hours'. While the specific flight number (VY6301) and exact price for the 2026 date are not explicitly detailed in the search snippets, the existence of the route by the named operator and the duration are supported. The cost of €320 is plausible given that Source 2 and 5 mention starting prices around €134, and the slot's price is within a realistic range for a specific booking.",
+      "claims_checked": [
+        "Route: Barcelona (BCN) to Munich (MUC)",
+        "Operator: Vueling",
+        "Flight duration: 120 minutes",
+        "Departure time: 17:00"
+      ]
+    }
+  ],
+  "rationale_pass_count": 9,
+  "rationale_fail_count": 2,
+  "rationale_missing_count": 3,
+  "hc_micro_pass_rate": 0.625,
+  "cc_micro_pass_rate": 0.6667,
+  "hc_macro_pass_rate": 0.0,
+  "cc_macro_pass_rate": 0.0,
+  "final_pass_rate": 0.0,
+  "aggregated_constraints": [
+    {
+      "id": "HC-1",
+      "constraint_text": "destination: Barcelona, Spain",
+      "constraint_type": "hard",
+      "final_verdict": "FAIL",
+      "judge_verdicts": [
+        "FAIL",
+        "FAIL",
+        "FAIL",
+        "FAIL"
+      ],
+      "pass_count": 0,
+      "fail_count": 4,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-2",
+      "constraint_text": "origin: Munich, Germany",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-3",
+      "constraint_text": "travel_dates: 2026-06-10 to 2026-06-13 (3 nights)",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-4",
+      "constraint_text": "travelers: 1 adult",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-5",
+      "constraint_text": "budget: 2000 EUR total",
+      "constraint_type": "hard",
+      "final_verdict": "FAIL",
+      "judge_verdicts": [
+        "FAIL",
+        "FAIL",
+        "FAIL",
+        "MISSING_INFO"
+      ],
+      "pass_count": 0,
+      "fail_count": 3,
+      "missing_count": 1,
+      "na_count": 0
+    },
+    {
+      "id": "HC-6",
+      "constraint_text": "accommodation: Hotel",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-7",
+      "constraint_text": "transport: Flight",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-8",
+      "constraint_text": "interests: food, architecture, local culture",
+      "constraint_type": "hard",
+      "final_verdict": "FAIL",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "FAIL",
+        "FAIL"
+      ],
+      "pass_count": 2,
+      "fail_count": 2,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-1",
+      "constraint_text": "Trip start date must be in the future.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-2",
+      "constraint_text": "Trip end date must be after the trip start date.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-3",
+      "constraint_text": "Trip duration must be at least 1 day.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-4",
+      "constraint_text": "Budget must be a positive value.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-5",
+      "constraint_text": "Car or road trip transport is not feasible for island or overseas destinations — a flight or ferry is required.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-6",
+      "constraint_text": "Both outbound and return transport must appear in the plan.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-7",
+      "constraint_text": "Outbound transport must depart on the trip start date.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-8",
+      "constraint_text": "Return transport must depart on the trip end date.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-9",
+      "constraint_text": "Return transport must be scheduled after the last planned activity.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-10",
+      "constraint_text": "Flight or train connections must allow sufficient layover time (≥60 min domestic, ≥90 min international).",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-11",
+      "constraint_text": "Outbound transport must depart from the correct origin city.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-12",
+      "constraint_text": "Return transport must depart from the correct destination city.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-13",
+      "constraint_text": "Accommodation must be planned for every night of the trip.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-14",
+      "constraint_text": "Group size must be respected in accommodation capacity.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-15",
+      "constraint_text": "Hotel check-in must be scheduled after arrival transport reaches the destination.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-16",
+      "constraint_text": "Hotel check-out must be scheduled before or at the time of departure transport.",
+      "constraint_type": "commonsense",
+      "final_verdict": "FAIL",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "MISSING_INFO",
+        "MISSING_INFO"
+      ],
+      "pass_count": 2,
+      "fail_count": 0,
+      "missing_count": 2,
+      "na_count": 0
+    },
+    {
+      "id": "CC-17",
+      "constraint_text": "Room capacity must accommodate the number of travelers.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-18",
+      "constraint_text": "Restaurants must be open on the planned day and time.",
+      "constraint_type": "commonsense",
+      "final_verdict": "FAIL",
+      "judge_verdicts": [
+        "FAIL",
+        "FAIL",
+        "FAIL",
+        "FAIL"
+      ],
+      "pass_count": 0,
+      "fail_count": 4,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-19",
+      "constraint_text": "Popular restaurants that require advance booking must be flagged.",
+      "constraint_type": "commonsense",
+      "final_verdict": "FAIL",
+      "judge_verdicts": [
+        "PASS",
+        "FAIL",
+        "PASS",
+        "MISSING_INFO"
+      ],
+      "pass_count": 2,
+      "fail_count": 1,
+      "missing_count": 1,
+      "na_count": 0
+    },
+    {
+      "id": "CC-20",
+      "constraint_text": "Every day must contain at least one planned activity.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-21",
+      "constraint_text": "Arrival day and departure day must have reduced activity load to account for travel time.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-22",
+      "constraint_text": "Activities should be geographically sensible per day (no unnecessary cross-city travel).",
+      "constraint_type": "commonsense",
+      "final_verdict": "FAIL",
+      "judge_verdicts": [
+        "FAIL",
+        "FAIL",
+        "FAIL",
+        "FAIL"
+      ],
+      "pass_count": 0,
+      "fail_count": 4,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-23",
+      "constraint_text": "Attractions must be open on the planned day and time.",
+      "constraint_type": "commonsense",
+      "final_verdict": "MISSING_INFO",
+      "judge_verdicts": [
+        "MISSING_INFO",
+        "MISSING_INFO",
+        "MISSING_INFO",
+        "MISSING_INFO"
+      ],
+      "pass_count": 0,
+      "fail_count": 0,
+      "missing_count": 4,
+      "na_count": 0
+    },
+    {
+      "id": "CC-24",
+      "constraint_text": "Popular attractions that require advance booking must be flagged.",
+      "constraint_type": "commonsense",
+      "final_verdict": "FAIL",
+      "judge_verdicts": [
+        "PASS",
+        "FAIL",
+        "FAIL",
+        "MISSING_INFO"
+      ],
+      "pass_count": 1,
+      "fail_count": 2,
+      "missing_count": 1,
+      "na_count": 0
+    },
+    {
+      "id": "CC-25",
+      "constraint_text": "Activities must be appropriate for all travelers (e.g. age restrictions with children in the group).",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-26",
+      "constraint_text": "No two activities on the same day may overlap in time.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-27",
+      "constraint_text": "Travel time between consecutive activities must account for realistic transit duration.",
+      "constraint_type": "commonsense",
+      "final_verdict": "FAIL",
+      "judge_verdicts": [
+        "PASS",
+        "FAIL",
+        "FAIL",
+        "FAIL"
+      ],
+      "pass_count": 1,
+      "fail_count": 3,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-28",
+      "constraint_text": "Total estimated cost must not exceed the stated budget.",
+      "constraint_type": "commonsense",
+      "final_verdict": "FAIL",
+      "judge_verdicts": [
+        "FAIL",
+        "FAIL",
+        "FAIL",
+        "FAIL"
+      ],
+      "pass_count": 0,
+      "fail_count": 4,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-29",
+      "constraint_text": "If no budget was stated, cost estimates must still be surfaced for user awareness.",
+      "constraint_type": "commonsense",
+      "final_verdict": "FAIL",
+      "judge_verdicts": [
+        "NA",
+        "PASS",
+        "NA",
+        "PASS"
+      ],
+      "pass_count": 2,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 2
+    },
+    {
+      "id": "CC-30",
+      "constraint_text": "Total final cost must not exceed the stated budget.",
+      "constraint_type": "commonsense",
+      "final_verdict": "FAIL",
+      "judge_verdicts": [
+        "FAIL",
+        "FAIL",
+        "FAIL",
+        "FAIL"
+      ],
+      "pass_count": 0,
+      "fail_count": 4,
+      "missing_count": 0,
+      "na_count": 0
+    }
+  ],
+  "timestamp": "2026-05-13T22:16:18.454726+00:00"
+}

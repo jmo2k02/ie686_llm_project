@@ -53,30 +53,47 @@ class AggregatedConstraintModel(BaseModel):
     na_count: int
 
 
-class UrlVerificationModel(BaseModel):
-    """Fact-check result for a single URL found in the travel plan."""
-    url: str
-    fetched_title: str = ""
+class RationaleVerificationOutputModel(BaseModel):
+    """Structured LLM output for verifying a single slot's rationale."""
     verdict: Annotated[
         Literal["PASS", "FAIL", "MISSING_INFO"],
         Field(
             description=(
-                "PASS: all verifiable claims in the plan about this URL match the fetched content. "
-                "FAIL: at least one verifiable claim contradicts the fetched content. "
-                "MISSING_INFO: URL content was not accessible or contained insufficient information."
+                "PASS: every verifiable claim about the slot is consistent with the evidence. "
+                "FAIL: at least one claim is contradicted by the evidence. "
+                "MISSING_INFO: the evidence does not contain enough information to confirm or deny the claims."
             )
         ),
     ]
-    reasoning: str
+    reasoning: Annotated[
+        str,
+        Field(description="Step-by-step reasoning that compares slot claims to retrieved evidence"),
+    ]
     claims_checked: Annotated[
         list[str],
-        Field(description="Specific factual claims from the plan that were checked against this URL"),
+        Field(description="Specific factual claims about the slot that were checked"),
     ] = []
 
 
-class UrlVerificationOutputModel(BaseModel):
-    """Structured output from the URL verification judge."""
-    url: str
+class RationaleVerificationModel(BaseModel):
+    """Per-slot rationale verification result for a single slot in the plan."""
+    day_index: Annotated[int, Field(description="1-based day index in the plan")]
+    slot_position: Annotated[int, Field(description="1-based slot position within the day (after sorting by start_time)")]
+    slot_name: Annotated[str, Field(description="Slot name copied from the plan, for human review")]
+    source_type: Annotated[
+        Literal["link", "web_search", "skipped"],
+        Field(
+            description=(
+                "link: at least one slot.links URL was used as evidence. "
+                "web_search: no link was provided so a Tavily web search was performed. "
+                "skipped: verification was not attempted (e.g. slot has no meaningful claims)."
+            )
+        ),
+    ]
+    source_urls: Annotated[
+        list[str],
+        Field(description="URLs that were inspected to verify the slot"),
+    ] = []
     verdict: Literal["PASS", "FAIL", "MISSING_INFO"]
     reasoning: str
     claims_checked: list[str] = []
@@ -86,13 +103,13 @@ class ScorecardModel(BaseModel):
     """Final evaluation scorecard with Xie et al. (2024) metrics."""
     plan_excerpt: Annotated[str, Field(description="First 300 characters of plan_text for reference")]
     judge_models: list[str]
-    url_verifications: Annotated[
-        list[UrlVerificationModel],
-        Field(description="Fact-check results for each URL found in the travel plan"),
+    rationale_verifications: Annotated[
+        list[RationaleVerificationModel],
+        Field(description="Per-slot rationale verification results"),
     ] = []
-    url_pass_count: Annotated[int, Field(description="Number of URLs whose claims were confirmed (PASS)")] = 0
-    url_fail_count: Annotated[int, Field(description="Number of URLs with at least one contradicted claim (FAIL)")] = 0
-    url_missing_count: Annotated[int, Field(description="Number of URLs where content was insufficient to verify (MISSING_INFO)")] = 0
+    rationale_pass_count: Annotated[int, Field(description="Number of slots whose rationale was confirmed (PASS)")] = 0
+    rationale_fail_count: Annotated[int, Field(description="Number of slots whose rationale was contradicted (FAIL)")] = 0
+    rationale_missing_count: Annotated[int, Field(description="Number of slots whose rationale could not be verified (MISSING_INFO)")] = 0
     hc_micro_pass_rate: Annotated[float, Field(description="Fraction of applicable HC constraints that PASS")]
     cc_micro_pass_rate: Annotated[float, Field(description="Fraction of CC constraints that PASS")]
     hc_macro_pass_rate: Annotated[float, Field(description="1.0 if all applicable HCs pass, else 0.0")]

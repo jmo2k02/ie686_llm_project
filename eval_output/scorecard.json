@@ -11,29 +11,24 @@
       "url": "https://www.hotelartsbarcelona.com",
       "fetched_title": "Hotel Arts Barcelona | Beachfront Art-Focused City Hotel with Pools & Gardens",
       "verdict": "MISSING_INFO",
-      "reasoning": "The fetched content appears to be a Marriott/Ritz-Carlton page for Hotel Arts Barcelona, but does not provide specific verification for the plan's claims. While the hotel exists, the specific details like €400/night rate cannot be confirmed from this snippet. The URL redirects to the Ritz-Carlton website, which suggests the booking details would need to be verified through their reservation system.",
-      "claims_checked": [
-        "Hotel Arts Barcelona exists",
-        "€400/night rate",
-        "3-night stay"
-      ]
+      "reasoning": "Verification failed: Extra data: line 12 column 1 (char 472)",
+      "claims_checked": []
     },
     {
-      "url": "https://sagradafamilia.org/en/tickets",
-      "fetched_title": "Tickets - Sagrada Família - Sagrada Familia",
-      "verdict": "MISSING_INFO",
-      "reasoning": "The fetched content is a navigation page for ticket-related information, but does not provide specific details about ticket prices or availability for a guided tour. While the page links to a 'Prices' section, the actual pricing details were not included in the fetched content. Therefore, I cannot confirm or deny the plan's claim of a €35 guided tour.",
+      "url": "https://sagradafamilia.org/en/tickets-individuals",
+      "fetched_title": "Individual Tickets - Sagrada Família - Sagrada Familia",
+      "verdict": "PASS",
+      "reasoning": "The plan claims a Sagrada Família guided tour ticket costs €30, which matches the website's 'Sagrada Família with guided tour' ticket price of 30 €. The URL provides ticket options and confirms the pricing for a guided tour.",
       "claims_checked": [
-        "Sagrada Família guided tour at €35",
-        "Guided tour time of 10:00–12:30"
+        "Sagrada Família guided tour ticket price is €30"
       ]
     }
   ],
-  "url_pass_count": 0,
+  "url_pass_count": 1,
   "url_fail_count": 0,
-  "url_missing_count": 2,
-  "hc_micro_pass_rate": 0.875,
-  "cc_micro_pass_rate": 0.5667,
+  "url_missing_count": 1,
+  "hc_micro_pass_rate": 0.75,
+  "cc_micro_pass_rate": 0.6,
   "hc_macro_pass_rate": 0.0,
   "cc_macro_pass_rate": 0.0,
   "final_pass_rate": 0.0,
@@ -122,16 +117,16 @@
       "id": "HC-6",
       "constraint_text": "accommodation: Hotel",
       "constraint_type": "hard",
-      "final_verdict": "PASS",
+      "final_verdict": "FAIL",
       "judge_verdicts": [
+        "MISSING_INFO",
         "PASS",
-        "PASS",
-        "PASS",
+        "MISSING_INFO",
         "PASS"
       ],
-      "pass_count": 4,
+      "pass_count": 2,
       "fail_count": 0,
-      "missing_count": 0,
+      "missing_count": 2,
       "na_count": 0
     },
     {
@@ -298,15 +293,15 @@
       "id": "CC-9",
       "constraint_text": "Arrival day and departure day must have reduced activity load to account for travel time.",
       "constraint_type": "commonsense",
-      "final_verdict": "FAIL",
+      "final_verdict": "PASS",
       "judge_verdicts": [
         "PASS",
         "PASS",
         "FAIL",
-        "FAIL"
+        "PASS"
       ],
-      "pass_count": 2,
-      "fail_count": 2,
+      "pass_count": 3,
+      "fail_count": 1,
       "missing_count": 0,
       "na_count": 0
     },
@@ -330,17 +325,17 @@
       "id": "CC-11",
       "constraint_text": "If no budget was stated, cost estimates must still be surfaced for user awareness.",
       "constraint_type": "commonsense",
-      "final_verdict": "FAIL",
+      "final_verdict": "NA",
       "judge_verdicts": [
         "NA",
         "NA",
-        "PASS",
+        "NA",
         "PASS"
       ],
-      "pass_count": 2,
+      "pass_count": 1,
       "fail_count": 0,
       "missing_count": 0,
-      "na_count": 2
+      "na_count": 3
     },
     {
       "id": "CC-12",
@@ -348,13 +343,13 @@
       "constraint_type": "commonsense",
       "final_verdict": "FAIL",
       "judge_verdicts": [
-        "PASS",
+        "FAIL",
         "FAIL",
         "FAIL",
         "FAIL"
       ],
-      "pass_count": 1,
-      "fail_count": 3,
+      "pass_count": 0,
+      "fail_count": 4,
       "missing_count": 0,
       "na_count": 0
     },
@@ -399,11 +394,11 @@
         "MISSING_INFO",
         "MISSING_INFO",
         "MISSING_INFO",
-        "MISSING_INFO"
+        "PASS"
       ],
-      "pass_count": 0,
+      "pass_count": 1,
       "fail_count": 0,
-      "missing_count": 4,
+      "missing_count": 3,
       "na_count": 0
     },
     {
@@ -458,17 +453,17 @@
       "id": "CC-19",
       "constraint_text": "Flight or train connections must allow sufficient layover time (≥60 min domestic, ≥90 min international).",
       "constraint_type": "commonsense",
-      "final_verdict": "NA",
+      "final_verdict": "MISSING_INFO",
       "judge_verdicts": [
+        "MISSING_INFO",
         "NA",
-        "NA",
-        "NA",
+        "MISSING_INFO",
         "MISSING_INFO"
       ],
       "pass_count": 0,
       "fail_count": 0,
-      "missing_count": 1,
-      "na_count": 3
+      "missing_count": 3,
+      "na_count": 1
     },
     {
       "id": "CC-20",
@@ -493,13 +488,13 @@
       "final_verdict": "MISSING_INFO",
       "judge_verdicts": [
         "MISSING_INFO",
-        "MISSING_INFO",
+        "PASS",
         "MISSING_INFO",
         "MISSING_INFO"
       ],
-      "pass_count": 0,
+      "pass_count": 1,
       "fail_count": 0,
-      "missing_count": 4,
+      "missing_count": 3,
       "na_count": 0
     },
     {
@@ -621,13 +616,13 @@
       "final_verdict": "MISSING_INFO",
       "judge_verdicts": [
         "MISSING_INFO",
-        "MISSING_INFO",
+        "PASS",
         "MISSING_INFO",
         "MISSING_INFO"
       ],
-      "pass_count": 0,
+      "pass_count": 1,
       "fail_count": 0,
-      "missing_count": 4,
+      "missing_count": 3,
       "na_count": 0
     },
     {
@@ -636,16 +631,16 @@
       "constraint_type": "commonsense",
       "final_verdict": "PASS",
       "judge_verdicts": [
-        "NA",
+        "PASS",
         "PASS",
         "PASS",
         "PASS"
       ],
-      "pass_count": 3,
+      "pass_count": 4,
       "fail_count": 0,
       "missing_count": 0,
-      "na_count": 1
+      "na_count": 0
     }
   ],
-  "timestamp": "2026-05-13T15:36:09.841174+00:00"
+  "timestamp": "2026-05-13T19:54:45.303175+00:00"
 }

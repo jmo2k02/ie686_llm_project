@@ -95,7 +95,7 @@ class TravelPlan(BaseModel):
         """Render the plan as a markdown table with one column per day.
 
         Cells render slots sorted by start_time and include category,
-        location, cost, and description. A cost summary line follows the
+        location, cost, links, and description. A cost summary line follows the
         table.
         """
         return self._render_table(_render_slot_cell, include_cost_summary=True)
@@ -217,11 +217,18 @@ def _render_slot_cell(position: int, slot: Slot) -> str:
     cell = " ".join(bits)
     if slot.description:
         cell += f" — {slot.description}"
+    if slot.links:
+        links = ", ".join(f"[link {i}]({link})" for i, link in enumerate(slot.links, start=1))
+        cell += f" — Links: {links}"
     return cell
 
 
 def _render_slot_cell_compact(position: int, slot: Slot) -> str:
-    return f"**{position}. {slot.name}** {_format_time_range(slot)}"
+    cell = f"**{position}. {slot.name}** {_format_time_range(slot)}"
+    if slot.links:
+        links = ", ".join(f"[link {i}]({link})" for i, link in enumerate(slot.links, start=1))
+        cell += f" — Links: {links}"
+    return cell
 
 
 # ── iCalendar helpers ──────────────────────────────────────────────────────
@@ -261,6 +268,8 @@ def _build_vevent(
     if slot.cost is not None:
         description_parts.append(f"Cost: €{slot.cost:.2f}")
     description_parts.append(f"Category: {slot.category}")
+    for i, link in enumerate(slot.links, start=1):
+        description_parts.append(f"Link {i}: {link}")
     if slot.notes:
         description_parts.append(f"Notes: {slot.notes}")
     if description_parts:

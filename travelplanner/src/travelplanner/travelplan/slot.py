@@ -32,6 +32,10 @@ class Slot(BaseModel):
     cost: float | None = Field(
         default=None, ge=0.0, description="Estimated cost in EUR; None if unknown"
     )
+    links: list[str] = Field(
+        default_factory=list,
+        description="Source, verification, or booking URLs associated with the slot",
+    )
     notes: str | None = Field(default=None, description="Free-form notes for the agent")
 
     @model_validator(mode="after")

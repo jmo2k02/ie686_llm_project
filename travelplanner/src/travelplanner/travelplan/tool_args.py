@@ -97,6 +97,16 @@ class _SlotPayload(BaseModel):
             description="Estimated cost in EUR; omit if unknown.",
         ),
     ]
+    links: Annotated[
+        list[str],
+        Field(
+            default_factory=list,
+            description=(
+                "Source, verification, or booking URLs for this slot. Include URLs "
+                "returned by sub-agent tools."
+            ),
+        ),
+    ]
     notes: Annotated[
         str | None,
         Field(default=None, description="Free-form notes."),

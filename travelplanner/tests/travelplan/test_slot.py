@@ -28,6 +28,16 @@ class TestSlotValidation(unittest.TestCase):
         self.assertEqual(s.name, "Breakfast")
         self.assertEqual(s.cost, 15.0)
         self.assertEqual(s.category, "other")
+        self.assertEqual(s.links, [])
+
+    def test_links_are_string_list(self):
+        s = _slot(
+            "Museum",
+            "2026-06-01T10:00",
+            "2026-06-01T12:00",
+            links=["https://example.com/museum"],
+        )
+        self.assertEqual(s.links, ["https://example.com/museum"])
 
     def test_end_before_start_rejected(self):
         with self.assertRaises(ValidationError):

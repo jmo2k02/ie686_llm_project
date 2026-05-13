@@ -6,8 +6,8 @@ Available TravelPlan tools:
 - `init_plan(title)` — reset the plan to an empty state with an optional title.
 - `add_day(label, calendar_date_iso)` — append a new day. Days are 1-based.
 - `remove_day(day_index)` — drop a day; remaining days are renumbered.
-- `add_slot(day_index, name, start_time_iso, end_time_iso, ...)` — append a slot to a day.
-- `insert_slot(day_index, position, name, start_time_iso, end_time_iso, ...)` — insert at a 1-based position.
+- `add_slot(day_index, name, start_time_iso, end_time_iso, ..., links)` — append a slot to a day.
+- `insert_slot(day_index, position, name, start_time_iso, end_time_iso, ..., links)` — insert at a 1-based position.
 - `delete_slot(day_index, position)` — delete a slot.
 - `view_plan()` — return the rendered markdown table.
 - `cost_summary()` — total + per-day cost in EUR.\
@@ -18,8 +18,8 @@ _VALIDATION_TRAVELPLAN_TOOLS_DOCS = """\
 Available TravelPlan tools for validation repair:
 - `add_day(label, calendar_date_iso)` — append a new day. Days are 1-based.
 - `remove_day(day_index)` — drop a day; remaining days are renumbered.
-- `add_slot(day_index, name, start_time_iso, end_time_iso, ...)` — append a slot to a day.
-- `insert_slot(day_index, position, name, start_time_iso, end_time_iso, ...)` — insert at a 1-based position.
+- `add_slot(day_index, name, start_time_iso, end_time_iso, ..., links)` — append a slot to a day.
+- `insert_slot(day_index, position, name, start_time_iso, end_time_iso, ..., links)` — insert at a 1-based position.
 - `delete_slot(day_index, position)` — delete a slot.
 - `view_plan()` — return the rendered markdown table.
 - `cost_summary()` — total + per-day cost in EUR.\
@@ -160,6 +160,13 @@ write_todos(todos=[
 - Call sub-agent tools (e.g. `search_flights`) to fetch concrete data for
   any task that needs it before writing slots; flight
   numbers or times.
+- When a sub-agent tool returns any URL, pass every relevant URL into the
+  TravelPlan slot's `links` argument as a list of strings. Do not leave URLs
+  only in `description` or `notes`; the final JSON, markdown, and calendar
+  renderers read them from `links`.
+- TRY TO ALWAYS FIND A LINK
+- IF THE AGENT DOES NOT RETURN A LINK TRY TO DO WEB SEARCH
+
 
 ### General 
 
@@ -250,7 +257,10 @@ Critical rules:
 2. Slots within a day MUST NOT overlap. Boundary-touching is allowed
    (one ends exactly when the next begins).
 3. Day indices and slot positions are 1-based.
-4. If a tool returns "Error: ...", read the message and retry with corrected
+4. Slot `links` must be a list of URL strings. If a sub-agent result contains
+   a booking, verification, Google Maps, Google Flights, source, or website URL,
+   copy that URL into the slot you create from that result.
+5. If a tool returns "Error: ...", read the message and retry with corrected
    arguments. The plan is unchanged when an error is returned.
 
 Workflow:
@@ -296,7 +306,10 @@ Critical rules:
 2. Slots within a day MUST NOT overlap. Boundary-touching is allowed
    (one ends exactly when the next begins).
 3. Day indices and slot positions are 1-based.
-4. If a tool returns "Error: ...", read the message and retry with corrected
+4. Slot `links` must be a list of URL strings. If a sub-agent result contains
+   a booking, verification, Google Maps, Google Flights, source, or website URL,
+   copy that URL into the slot you create from that result.
+5. If a tool returns "Error: ...", read the message and retry with corrected
    arguments. The plan is unchanged when an error is returned.
 
 Workflow:

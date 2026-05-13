@@ -30,10 +30,9 @@ from travelplanner.utils.llm import invoke_structured_model
 _GOOGLE_PLACES_URL = "https://places.googleapis.com/v1/places:searchText"
 _DEFAULT_TIMEOUT_SECONDS = 30
 _DEFAULT_MAX_RESULTS = 5
-_DEFAULT_CURRENCY = "EUR"
 
-# Mapping from budget label to price-symbol fallback
-_BUDGET_PRICE_SYMBOL: dict[str, str] = {"low": "$", "medium": "$$", "high": "$$$"}
+# Mapping from budget label to Google Places API price-level enum
+_BUDGET_PRICE_LEVEL: dict[str, str] = {"low": "PRICE_LEVEL_INEXPENSIVE", "medium": "PRICE_LEVEL_MODERATE", "high": "PRICE_LEVEL_EXPENSIVE"}
 
 _PARAM_EXTRACTION_SYSTEM_PROMPT = """\
 You are a restaurant search parameter extractor for a travel planning assistant.
@@ -71,7 +70,6 @@ class RestaurantSearchConfig:
     api_key: str = ""
     timeout_seconds: int = _DEFAULT_TIMEOUT_SECONDS
     max_results: int = _DEFAULT_MAX_RESULTS
-    default_currency: str = _DEFAULT_CURRENCY
 
 
 def _parse_int(value: str | None, *, default: int, minimum: int) -> int:
@@ -97,10 +95,6 @@ def load_config_from_env() -> RestaurantSearchConfig:
             default=int(get_setting(f"{cfg_prefix}.max_results", _DEFAULT_MAX_RESULTS)),
             minimum=1,
         ),
-        default_currency=os.getenv(
-            "TRAVELPLANNER_RESTAURANT_CURRENCY",
-            str(get_setting(f"{cfg_prefix}.currency", _DEFAULT_CURRENCY)),
-        ).strip(),
     )
 
 
@@ -159,6 +153,7 @@ def _extract_restaurant_params(
 _PLACES_FIELD_MASK = (
     "places.id,places.displayName,places.formattedAddress,places.types,"
     "places.rating,places.priceLevel,places.nationalPhoneNumber,places.websiteUri,"
+    "places.googleMapsUri,"
     "places.regularOpeningHours.weekdayDescriptions,places.location,places.photos"
 )
 
@@ -191,13 +186,8 @@ def _search_restaurants(
         "languageCode": "en",
     }
     # Price levels must use the PRICE_LEVEL_* enum prefix
-    price_map = {
-        "low": "PRICE_LEVEL_INEXPENSIVE",
-        "medium": "PRICE_LEVEL_MODERATE",
-        "high": "PRICE_LEVEL_EXPENSIVE",
-    }
-    if params.budget and params.budget in price_map:
-        body["priceLevels"] = [price_map[params.budget]]
+    if params.budget and params.budget in _BUDGET_PRICE_LEVEL:
+        body["priceLevels"] = [_BUDGET_PRICE_LEVEL[params.budget]]
 
     try:
         response = requests.post(
@@ -353,13 +343,20 @@ def _select_candidate(
 
 # ── Item construction ───────────────────────────────────────────────────────
 
+def _build_google_maps_url(place_id: str | None, google_maps_uri: str | None) -> str | None:
+    if google_maps_uri:
+        return google_maps_uri
+    if not place_id:
+        return None
+    return f"https://www.google.com/maps/place/?q=place_id:{place_id}"
+
+
 def _build_item(
     candidate: RestaurantCandidateModel | None,
     selection_reason: str | None,
     params: RestaurantParamsModel,
 ) -> RestaurantItemModel:
     if candidate is not None:
-        price_range = candidate.price_level or _BUDGET_PRICE_SYMBOL.get(params.budget or "medium", "$$")
         return RestaurantItemModel(
             name=candidate.name,
             address=candidate.address,
@@ -367,10 +364,13 @@ def _build_item(
             cuisine=params.cuisine,
             meal_type=params.meal_type,
             rating=candidate.rating,
-            price_level=candidate.price_level,
-            price_range=price_range,
+            price_level=candidate.price_level or _BUDGET_PRICE_LEVEL.get(params.budget or "medium", "PRICE_LEVEL_MODERATE"),
             phone=candidate.phone,
             website=candidate.website,
+            google_maps_url=_build_google_maps_url(
+                candidate.place_id,
+                candidate.raw.get("googleMapsUri") if candidate.raw else None,
+            ),
             opening_hours=candidate.opening_hours,
             location=candidate.location.model_dump() if candidate.location else None,
             dietary_suitability=params.dietary_restrictions,
@@ -382,7 +382,7 @@ def _build_item(
             name=f"Restaurant in {params.city}",
             cuisine=params.cuisine,
             meal_type=params.meal_type,
-            price_range=_BUDGET_PRICE_SYMBOL.get(params.budget or "medium", "$$"),
+            price_level=_BUDGET_PRICE_LEVEL.get(params.budget or "medium", "PRICE_LEVEL_MODERATE"),
             dietary_suitability=params.dietary_restrictions,
             provenance="fallback_llm_suggestion",
         )
@@ -457,7 +457,6 @@ def run_restaurant_search(
             "api_key_set": bool(config.api_key),
             "max_results": config.max_results,
             "timeout_seconds": config.timeout_seconds,
-            "currency": config.default_currency,
         },
     )
 

@@ -1,0 +1,36 @@
+{
+  "cases": [
+    {
+      "name": "freiburg-weekend",
+      "query": "Plan a relaxed 2-day weekend trip to Freiburg im Breisgau for one traveler arriving by train.",
+      "constraints": {
+        "dates": "2026-06-06 to 2026-06-07",
+        "budget_eur": 320,
+        "interests": ["old town", "Black Forest views", "local food"],
+        "pace": "relaxed",
+        "transport": "walk and public transit only"
+      }
+    },
+    {
+      "name": "barcelona-family",
+      "query": "Create a 3-day Barcelona itinerary for a family of four with two children.",
+      "constraints": {
+        "dates": "2026-08-10 to 2026-08-12",
+        "budget_eur": 1200,
+        "avoid": ["late nights", "long museum blocks"],
+        "must_include": ["Sagrada Familia", "beach time", "one kid-friendly food market"]
+      }
+    },
+    {
+      "name": "tokyo-food-culture",
+      "query": "Plan a compact 2-day Tokyo food and culture stopover starting near Tokyo Station.",
+      "constraints": {
+        "dates": "2026-04-18 to 2026-04-19",
+        "budget_jpy": 90000,
+        "traveler_count": 2,
+        "interests": ["markets", "temples", "neighborhood walking", "casual restaurants"],
+        "hotel_area": "near Tokyo Station or Ginza"
+      }
+    }
+  ]
+}

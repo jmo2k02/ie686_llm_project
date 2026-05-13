@@ -9,7 +9,7 @@ from langchain_core.language_models import BaseChatModel
 from langchain_core.messages import HumanMessage
 from langgraph.graph.state import CompiledStateGraph
 
-from travelplanner.agents.execution.prompts import SYSTEM_PROMPT
+from travelplanner.agents.execution.prompts import SYSTEM_PROMPT, VALIDATION_SYSTEM_PROMPT
 from travelplanner.agents.tools import make_subagent_tools
 from travelplanner.config import get_setting
 from travelplanner.schema.system_state import StateContractModel, TodoItem
@@ -54,6 +54,7 @@ def make_graph(
     *,
     model: str | BaseChatModel | None = None,
     temperature: float = 0.0,
+    validation_mode: bool = False,
 ) -> CompiledStateGraph:
     """Build the TravelPlanner execution agent.
 
@@ -82,10 +83,31 @@ def make_graph(
         model = model or str(get_setting("models.workflows.task_planning.model_name"))
         chat_model = make_chat_model(model_name=model, temperature=temperature)
     
+    travelplan_tools = make_travelplan_tools(plan)
+    system_prompt = SYSTEM_PROMPT
+    if validation_mode:
+        travelplan_tools = [tool for tool in travelplan_tools if tool.name != "init_plan"]
+        system_prompt = VALIDATION_SYSTEM_PROMPT
+
     return create_deep_agent(
         model=chat_model,
-        tools=[*make_subagent_tools(), *make_travelplan_tools(plan)],
-        system_prompt=SYSTEM_PROMPT,
+        tools=[*make_subagent_tools(), *travelplan_tools],
+        system_prompt=system_prompt,
+    )
+
+
+def make_validation_graph(
+    plan: TravelPlan,
+    *,
+    model: str | BaseChatModel | None = None,
+    temperature: float = 0.0,
+) -> CompiledStateGraph:
+    """Build a validation-repair agent that cannot reset the existing plan."""
+    return make_graph(
+        plan,
+        model=model,
+        temperature=temperature,
+        validation_mode=True,
     )
 
 
@@ -133,6 +155,16 @@ def _compose_user_prompt(state: StateContractModel) -> str:
             "a coherent itinerary."
         )
 
+    if state.validation_feedback:
+        sections.append(
+            f"\n# Validator feedback (repair mode attempt {state.validation_attempts + 1})"
+        )
+        sections.append(state.validation_feedback.strip())
+        sections.append(
+            "You are now repairing the existing plan. Inspect it first, preserve "
+            "valid content, and make targeted changes for every issue above."
+        )
+
     sections.append("\nNow build the travel plan with the available tools.")
     return "\n".join(sections)
 
@@ -156,7 +188,12 @@ def make_node(
 
     async def execution_node(state: StateContractModel) -> dict[str, Any]:
         plan: TravelPlan = state.travelplan
-        agent = make_graph(plan, model=model_name, temperature=temperature)
+        validation_mode = bool(state.validation_feedback)
+        agent = (
+            make_validation_graph(plan, model=model_name, temperature=temperature)
+            if validation_mode
+            else make_graph(plan, model=model_name, temperature=temperature)
+        )
         prompt = _compose_user_prompt(state)
         todo_mirror = TodoMirror()
 

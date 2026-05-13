@@ -4,93 +4,123 @@
     {
       "index": 1,
       "calendar_date": "2026-07-15",
-      "label": "Arrival & Relaxation",
+      "label": "Arrival & Coastal Relaxation",
       "slots": [
         {
-          "name": "Flight to Palma",
-          "description": "Direct flight from Berlin (BER) to Palma de Mallorca (PMI) with Ryanair. Flight FR 216.",
-          "start_time": "2026-07-15T19:50:00",
-          "end_time": "2026-07-15T22:35:00",
+          "name": "Flight to Palma de Mallorca",
+          "description": "Direct flight from Berlin (BER) to Palma (PMI). Typical duration 2h 45m.",
+          "start_time": "2026-07-15T09:00:00",
+          "end_time": "2026-07-15T11:45:00",
           "category": "transport",
-          "location": "Berlin BER to Palma PMI",
-          "cost": 244.0,
-          "notes": null
+          "location": "Berlin Brandenburg Airport (BER)",
+          "cost": 250.0,
+          "notes": "Estimated cost for 2 adults. Check Eurowings or Ryanair for specific times."
         },
         {
-          "name": "Car Rental Pickup",
-          "description": "Pick up rental car at Palma Airport. Wiber or Hertz recommended.",
-          "start_time": "2026-07-15T22:45:00",
-          "end_time": "2026-07-15T23:30:00",
+          "name": "Car Rental Pickup & Drive to Cala Ratjada",
+          "description": "Pick up rental car at PMI airport for the 4-day trip. Drive to Cala Ratjada (approx. 1h 10m).",
+          "start_time": "2026-07-15T12:00:00",
+          "end_time": "2026-07-15T13:30:00",
           "category": "transport",
-          "location": "Palma Airport (PMI)",
-          "cost": 120.0,
-          "notes": null
+          "location": "Palma de Mallorca Airport (PMI)",
+          "cost": 150.0,
+          "notes": "Ma-15 highway is the main route. No tolls."
         },
         {
-          "name": "Hotel Check-in",
-          "description": "Check-in at Mamboo Hotel Cala Ratjada. Total for 3 nights.",
-          "start_time": "2026-07-16T00:30:00",
-          "end_time": "2026-07-16T01:00:00",
+          "name": "Hotel Check-in: Lago Garden Spa",
+          "description": "Check-in at Lago Garden Apart-Suites & Spa Hotel, a high-rated boutique hotel with a spa and relaxed atmosphere.",
+          "start_time": "2026-07-15T14:00:00",
+          "end_time": "2026-07-15T14:30:00",
           "category": "lodging",
           "location": "Cala Ratjada",
-          "cost": 528.0,
+          "cost": 289.0,
           "notes": null
+        },
+        {
+          "name": "Late Lunch in Cala Ratjada",
+          "description": "Relaxed lunch by the harbor.",
+          "start_time": "2026-07-15T14:30:00",
+          "end_time": "2026-07-15T16:00:00",
+          "category": "meal",
+          "location": "Cala Ratjada Harbor",
+          "cost": 60.0,
+          "notes": "Try local tapas or fresh seafood."
+        },
+        {
+          "name": "Lounge by the Sea",
+          "description": "Relax by the sea or hotel pool. Walk along the promenade.",
+          "start_time": "2026-07-15T16:00:00",
+          "end_time": "2026-07-15T19:30:00",
+          "category": "leisure",
+          "location": "Cala Ratjada Promenade",
+          "cost": null,
+          "notes": null
+        },
+        {
+          "name": "Dinner at Es Coll d’Os",
+          "description": "High-quality local dining at Es Coll d’Os. Farm-to-table Mallorcan cuisine.",
+          "start_time": "2026-07-15T19:30:00",
+          "end_time": "2026-07-15T21:30:00",
+          "category": "meal",
+          "location": "Es Coll d’Os, Cala Ratjada",
+          "cost": 140.0,
+          "notes": "Reservations essential. Seasonal fixed-price menus."
         }
       ]
     },
     {
       "index": 2,
       "calendar_date": "2026-07-16",
-      "label": "Hidden Beaches of the Northeast",
+      "label": "Hidden Beaches of the Llevant",
       "slots": [
         {
-          "name": "Relaxed Morning",
-          "description": "Relaxed morning at the hotel or a short walk to the local harbor.",
-          "start_time": "2026-07-16T08:30:00",
-          "end_time": "2026-07-16T10:00:00",
+          "name": "Hidden Beaches: Cala Torta & Cala Mitjana",
+          "description": "Drive to Artà and then to the Cala Torta area. Hike to the secluded beaches of Cala Torta and Cala Mitjana.",
+          "start_time": "2026-07-16T09:30:00",
+          "end_time": "2026-07-16T14:00:00",
+          "category": "attraction",
+          "location": "Cala Torta & Cala Mitjana",
+          "cost": null,
+          "notes": "Bring water and shade. Road is rough, parking may require a short walk."
+        },
+        {
+          "name": "Afternoon Leisure / Capdepera Castle",
+          "description": "Return to Cala Ratjada for more lounging or a visit to the Capdepera Castle.",
+          "start_time": "2026-07-16T15:30:00",
+          "end_time": "2026-07-16T19:30:00",
           "category": "leisure",
-          "location": "Cala Ratjada",
+          "location": "Capdepera Castle",
           "cost": null,
           "notes": null
         },
         {
-          "name": "Hidden Beach Discovery",
-          "description": "Coastal trek to the secluded coves of Cala Torta and Cala Mesquida. Pristine waters and pine-scented trails.",
-          "start_time": "2026-07-16T10:00:00",
-          "end_time": "2026-07-16T14:00:00",
-          "category": "attraction",
-          "location": "Cala Torta / Cala Mesquida",
-          "cost": null,
-          "notes": "Bring water and snacks; these beaches are largely undeveloped."
+          "name": "Dinner at Sa Pleta by Marc Fosh",
+          "description": "Fine dining at Sa Pleta by Marc Fosh in Canyamel. Open-fire cooking and local seafood.",
+          "start_time": "2026-07-16T19:30:00",
+          "end_time": "2026-07-16T22:00:00",
+          "category": "meal",
+          "location": "Sa Pleta by Marc Fosh, Canyamel",
+          "cost": 180.0,
+          "notes": "Short drive or taxi from Cala Ratjada."
         },
         {
-          "name": "Late Lunch",
-          "description": "Lunch at a local spot near the beach or back in Cala Ratjada.",
+          "name": "Lunch in Artà",
+          "description": "Lunch in the historic town of Artà.",
           "start_time": "2026-07-16T14:00:00",
           "end_time": "2026-07-16T15:30:00",
           "category": "meal",
+          "location": "Artà Town Center",
+          "cost": 80.0,
+          "notes": "Explore the town's narrow streets after lunch."
+        },
+        {
+          "name": "Lago Garden Spa (Night 2)",
+          "description": "Boutique hotel stay at Lago Garden.",
+          "start_time": "2026-07-16T22:00:00",
+          "end_time": "2026-07-16T23:59:00",
+          "category": "lodging",
           "location": "Cala Ratjada",
-          "cost": null,
-          "notes": null
-        },
-        {
-          "name": "Seafront Lounging",
-          "description": "Afternoon lounging by the sea at Son Moll beach or the hotel pool.",
-          "start_time": "2026-07-16T15:30:00",
-          "end_time": "2026-07-16T19:00:00",
-          "category": "leisure",
-          "location": "Son Moll Beach",
-          "cost": null,
-          "notes": null
-        },
-        {
-          "name": "Dinner at Los Arcos",
-          "description": "Romantic dinner at Los Arcos, known for its quiet terrace and traditional Spanish cuisine.",
-          "start_time": "2026-07-16T19:30:00",
-          "end_time": "2026-07-16T21:30:00",
-          "category": "meal",
-          "location": "Calle Monturiol 28, Cala Ratjada",
-          "cost": 100.0,
+          "cost": 289.0,
           "notes": null
         }
       ]
@@ -101,63 +131,73 @@
       "label": "Tramuntana Day Trip",
       "slots": [
         {
-          "name": "Drive to Tramuntana",
-          "description": "Drive from Cala Ratjada to the Tramuntana Mountains (Valldemossa/Deià area).",
-          "start_time": "2026-07-17T08:30:00",
+          "name": "Drive to Tramuntana (Valldemossa)",
+          "description": "Drive from Cala Ratjada to Valldemossa. Added buffer for summer traffic.",
+          "start_time": "2026-07-17T08:00:00",
           "end_time": "2026-07-17T10:00:00",
           "category": "transport",
-          "location": "Cala Ratjada to Valldemossa",
+          "location": "Valldemossa",
           "cost": null,
-          "notes": "Approx. 1h 15m drive. Scenic route."
+          "notes": null
         },
         {
           "name": "Light Hiking in Tramuntana",
-          "description": "Light hiking on the 'Dry Stone Route' (GR-221) near Valldemossa. Scenic views of olive groves and the sea.",
-          "start_time": "2026-07-17T10:00:00",
-          "end_time": "2026-07-17T13:30:00",
+          "description": "Light hike on the initial section of the Cami de l'Arxiduc for panoramic views.",
+          "start_time": "2026-07-17T10:30:00",
+          "end_time": "2026-07-17T13:00:00",
           "category": "attraction",
-          "location": "Valldemossa / Deià Trail",
-          "cost": null,
-          "notes": "UNESCO World Heritage site. Moderate difficulty."
-        },
-        {
-          "name": "Village Exploration",
-          "description": "Explore the charming streets of Deià or Valldemossa. Relaxed pace.",
-          "start_time": "2026-07-17T15:00:00",
-          "end_time": "2026-07-17T17:30:00",
-          "category": "leisure",
-          "location": "Deià / Valldemossa",
+          "location": "Valldemossa / Deià Trails",
           "cost": null,
           "notes": null
         },
         {
-          "name": "Return Drive",
-          "description": "Drive back to Cala Ratjada.",
-          "start_time": "2026-07-17T17:30:00",
-          "end_time": "2026-07-17T19:00:00",
-          "category": "transport",
-          "location": "Valldemossa to Cala Ratjada",
-          "cost": null,
-          "notes": null
-        },
-        {
-          "name": "Lunch at S'Estaca",
-          "description": "Lunch at Restaurante S'Estaca in Valldemossa. Local food with scenic views.",
-          "start_time": "2026-07-17T13:30:00",
+          "name": "Lunch at Ca's Patró March (Deià)",
+          "description": "Lunch at the famous Ca's Patró March overlooking the sea. Fresh seafood.",
+          "start_time": "2026-07-17T13:00:00",
           "end_time": "2026-07-17T15:00:00",
           "category": "meal",
-          "location": "Carretera de Deià, Valldemossa",
-          "cost": 80.0,
+          "location": "Ca's Patró March, Deià",
+          "cost": 150.0,
           "notes": null
         },
         {
-          "name": "Dinner at CUCUM Beach House",
-          "description": "Dinner at CUCUM Beach House at Playa Son Moll for a chic, seaside romantic setting.",
+          "name": "Lago Garden Spa (Night 3)",
+          "description": "Boutique hotel stay at Lago Garden.",
+          "start_time": "2026-07-17T21:00:00",
+          "end_time": "2026-07-17T23:59:00",
+          "category": "lodging",
+          "location": "Cala Ratjada",
+          "cost": 289.0,
+          "notes": null
+        },
+        {
+          "name": "Explore Deià / Valldemossa Villages",
+          "description": "Explore the picturesque village of Deià or Valldemossa. Relaxed pace.",
+          "start_time": "2026-07-17T15:00:00",
+          "end_time": "2026-07-17T17:00:00",
+          "category": "leisure",
+          "location": "Deià / Valldemossa Villages",
+          "cost": null,
+          "notes": null
+        },
+        {
+          "name": "Return Drive to Cala Ratjada",
+          "description": "Drive back to Cala Ratjada. Added buffer for summer traffic.",
+          "start_time": "2026-07-17T17:00:00",
+          "end_time": "2026-07-17T19:30:00",
+          "category": "transport",
+          "location": "Cala Ratjada",
+          "cost": null,
+          "notes": null
+        },
+        {
+          "name": "Dinner at Restaurante Los Arcos",
+          "description": "Traditional Balearic dinner at Restaurante Los Arcos. Known for excellent paella.",
           "start_time": "2026-07-17T19:30:00",
-          "end_time": "2026-07-17T21:30:00",
+          "end_time": "2026-07-17T21:00:00",
           "category": "meal",
-          "location": "Playa Son Moll, Cala Ratjada",
-          "cost": 120.0,
+          "location": "Cala Ratjada",
+          "cost": 100.0,
           "notes": null
         }
       ]
@@ -165,27 +205,37 @@
     {
       "index": 4,
       "calendar_date": "2026-07-18",
-      "label": "Departure",
+      "label": "Leisurely Morning & Departure",
       "slots": [
         {
-          "name": "Drive to Airport",
-          "description": "Drive from Cala Ratjada to Palma Airport. Drop off rental car.",
-          "start_time": "2026-07-18T08:00:00",
-          "end_time": "2026-07-18T09:15:00",
-          "category": "transport",
-          "location": "Cala Ratjada to PMI Airport",
+          "name": "Leisurely Morning in Cala Ratjada",
+          "description": "Final morning swim or stroll along the Cala Agulla beach. Relaxed breakfast.",
+          "start_time": "2026-07-18T08:30:00",
+          "end_time": "2026-07-18T11:00:00",
+          "category": "leisure",
+          "location": "Cala Ratjada / Cala Agulla",
           "cost": null,
-          "notes": "Allow time for car return. Approx. 1h drive."
+          "notes": null
         },
         {
-          "name": "Return Flight",
-          "description": "Return flight from Palma (PMI) to Berlin (BER).",
-          "start_time": "2026-07-18T10:45:00",
-          "end_time": "2026-07-18T13:30:00",
+          "name": "Drive to Airport & Car Return",
+          "description": "Drive back to PMI airport and return rental car.",
+          "start_time": "2026-07-18T11:00:00",
+          "end_time": "2026-07-18T12:30:00",
           "category": "transport",
-          "location": "Palma PMI to Berlin BER",
+          "location": "Palma de Mallorca Airport (PMI)",
           "cost": null,
-          "notes": "Flight FR 8994."
+          "notes": null
+        },
+        {
+          "name": "Flight to Berlin",
+          "description": "Direct flight from Palma (PMI) to Berlin (BER). Typical duration 2h 45m.",
+          "start_time": "2026-07-18T14:30:00",
+          "end_time": "2026-07-18T17:15:00",
+          "category": "transport",
+          "location": "Palma de Mallorca Airport (PMI)",
+          "cost": 250.0,
+          "notes": null
         }
       ]
     }

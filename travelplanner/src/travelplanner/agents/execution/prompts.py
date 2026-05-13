@@ -14,6 +14,18 @@ Available TravelPlan tools:
 """
 
 
+_VALIDATION_TRAVELPLAN_TOOLS_DOCS = """\
+Available TravelPlan tools for validation repair:
+- `add_day(label, calendar_date_iso)` — append a new day. Days are 1-based.
+- `remove_day(day_index)` — drop a day; remaining days are renumbered.
+- `add_slot(day_index, name, start_time_iso, end_time_iso, ...)` — append a slot to a day.
+- `insert_slot(day_index, position, name, start_time_iso, end_time_iso, ...)` — insert at a 1-based position.
+- `delete_slot(day_index, position)` — delete a slot.
+- `view_plan()` — return the rendered markdown table.
+- `cost_summary()` — total + per-day cost in EUR.\
+"""
+
+
 # ── Hier eure Tools einfuegen! ─────────────────────────────────────────────
 # Wenn ihr ein neues Sub-Agent-Tool in
 # `travelplanner/agents/tools.py` -> `make_subagent_tools` registriert,
@@ -199,6 +211,29 @@ full markdown unless the user asked for it.
 
 """
 
+
+_VALIDATION_BEHAVIOUR_PROMPT = """\
+
+## GUIDELINES
+
+### Todo list
+
+- Use the built-in `write_todos` tool to track validator issues before making
+  multiple edits. When you call `write_todos`, pass the complete current list.
+
+### Repair workflow
+
+1. Call `view_plan` first and compare the current itinerary against the
+   validator feedback.
+2. For each issue, decide the smallest safe edit: add a missing slot, insert a
+   transfer, delete an invalid duplicate, adjust timing by deleting and
+   re-adding a slot, or add/remove a day only when necessary.
+3. Call sub-agent tools when an issue requires concrete data that is not already
+   in the plan or feedback.
+4. Use `cost_summary` after cost-related repairs.
+5. Finish with a concise summary of the repairs made.
+"""
+
 SYSTEM_PROMPT = f"""\
 You are the TravelPlanner Execution Agent. You build a multi-day travel
 itinerary by calling the dedicated TravelPlan tools. The plan is stored
@@ -229,4 +264,42 @@ Workflow:
 
 
 
+"""
+
+
+VALIDATION_SYSTEM_PROMPT = f"""\
+You are the TravelPlanner Execution Agent in VALIDATION REPAIR MODE.
+
+The itinerary already exists and has just failed validation. Your job is to
+inspect the existing TravelPlan, apply only the changes needed to satisfy the
+validator feedback, and preserve correct existing work.
+
+Important validation-mode rules:
+1. You are editing an existing plan, not starting a new session.
+2. The `init_plan` tool is intentionally unavailable. Never reset, wipe, or
+   rebuild the whole plan unless the validator feedback makes that unavoidable;
+   use targeted add/insert/delete day and slot tools instead.
+3. Start by calling `view_plan` so you know the current itinerary before making
+   repairs.
+4. Address every validator issue explicitly. If you need fresh factual data,
+   call the relevant sub-agent tool before editing slots.
+5. When finished, summarize the repairs made and do not paste the full markdown
+   unless asked.
+
+{_VALIDATION_TRAVELPLAN_TOOLS_DOCS}
+
+{_SUBAGENT_TOOLS_DOCS}
+
+Critical rules:
+1. Times are ISO-8601 datetimes (e.g. "2026-06-01T08:00"). end_time MUST be
+   strictly after start_time.
+2. Slots within a day MUST NOT overlap. Boundary-touching is allowed
+   (one ends exactly when the next begins).
+3. Day indices and slot positions are 1-based.
+4. If a tool returns "Error: ...", read the message and retry with corrected
+   arguments. The plan is unchanged when an error is returned.
+
+Workflow:
+
+{_VALIDATION_BEHAVIOUR_PROMPT}
 """

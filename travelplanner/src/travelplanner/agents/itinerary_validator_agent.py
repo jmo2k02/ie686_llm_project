@@ -136,6 +136,7 @@ def validator_node(state: StateContractModel) -> dict[str, Any]:
     return {
         "validation_passed": passed,
         "validation_feedback": feedback,
+        "validation_attempts": state.validation_attempts + 1,
         "message_histories": {
             **state.message_histories,
             "itinerary_validator": history,

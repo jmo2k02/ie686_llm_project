@@ -9,9 +9,10 @@ from __future__ import annotations
 
 from typing import Any
 
+from travelplanner.config import get_setting
 from travelplanner.schema.system_state import AgentArtifactModel, StateContractModel, TaskModel
 
-_DEFAULT_MODEL = "openai:gpt-4o-mini"
+_DEFAULT_MODEL = get_setting("models.workflows.task_planning.model_name")
 _MAX_RETRIES_PER_AGENT = 3
 
 

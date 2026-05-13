@@ -27,7 +27,7 @@ from travelplanner.schema.system_state import AgentArtifactModel, MessageHistory
 from travelplanner.utils.llm import invoke_structured_model
 
 
-_DEFAULT_MODEL = "openai:gpt-4o-mini"
+_DEFAULT_MODEL = get_setting("models.workflows.task_planning.model_name")
 
 
 class ExecutionResponse(BaseModel):

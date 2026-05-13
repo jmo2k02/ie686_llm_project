@@ -29,8 +29,8 @@ _SUBAGENT_TOOLS_DOCS = """\
 Available sub-agent tools (call these to gather real-world data before
 filling slots — never invent flight numbers, prices or times):
 
-Routing sequencing — call in this order for multi-stop trips:
-  1. Call `build_place_distance_graph` ONCE with all stops for a trip segment.
+ROUTING SEQUENCING INSTRUCTIONS — call in this order for multi-stop trips:
+  1. Call `build_place_distance_graph` with all stops for a trip segment. This needs to be done everytime with all required location you want to compare
   2. Use `distance_between_places` or `closest_places_to_target` repeatedly
      on the returned graph to answer individual leg questions.
   3. Use `check_route_timing` for a single origin-destination timing query
@@ -154,11 +154,7 @@ write_todos(todos=[
 - Call `view_plan` only when the layout matters for a decision; otherwise
   rely on the short confirmation strings the mutation tools return.
 
-- For time and distance computations use the tools:
--> `check_route_timing(origin_address, destination_address, travel_mode)`
--> `build_place_distance_graph(stops, cluster_context)`
--> `distance_between_places(graph, from_place_id, to_place_id)`
--> `closest_places_to_target(graph, target_name, candidate_names)`
+- For time and distance computations apply the ROUTING SEQUENCING INTSRUCTIONS.
 
 - When you finish, summarise what you built in plain prose — do not paste the
 full markdown unless the user asked for it.
@@ -168,9 +164,10 @@ full markdown unless the user asked for it.
 - Start fresh sessions with `init_plan(title=...)` so previous state cannot
   leak into the new plan.
 
-## 2. Look for flights
+## 2. Plan Arrival and Departure
 
-- use `search_flights(query)` tool
+- use `search_flights(query)` tool if hardconstraint transport = `Flight`
+- if transport = `Car` the user can do it himself.
 
 ## 3. Look for hotel
 
@@ -179,7 +176,7 @@ full markdown unless the user asked for it.
 ## 4. Check transfer from airport to hotel and vice versa
 
 - use `search_web(query)` 
-- make sure distances make sense with `check_route_timing(origin_address, destination_address, travel_mode)`
+- make sure distances make sense by applying the ROUTING SEQUENCING INTSRUCTIONS.
 - now you can set flight slots and check-in, check-out slots
 
 ## 5. Look for attractions and restaurants
@@ -189,12 +186,8 @@ full markdown unless the user asked for it.
 
 ## 6. Iteratively build out the slots of the trip
 
-- make groups of attractions and restaurants that are close to each other by using the tools:
--> `check_route_timing(origin_address, destination_address, travel_mode)`
--> `build_place_distance_graph(stops, cluster_context)`
--> `distance_between_places(graph, from_place_id, to_place_id)`
--> `closest_places_to_target(graph, target_name, candidate_names)`
-
+- make groups of attractions and restaurants that are close to each other by again applyint the ROUTING SEQUENCING INTSRUCTIONS
+- ALWAYS have at least two restaurants per day. Lunch and Dinner.
 - If you need to use your filesystem tools here it is OK.
 - MAKE SURE that the distances make sense.
 - Set the slots after they were verified by the above tools

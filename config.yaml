@@ -1,20 +1,20 @@
 models:
   workflows:
     task_planning:
-      model_name: "openrouter:openai/gpt-5-mini"
+      model_name: "openrouter:google/gemini-3-flash-preview"
       temperature: 0.0
 
 agents:
   constraint:
-    model_name: "openrouter:openai/gpt-5-mini"
+    model_name: "openrouter:google/gemini-3-flash-preview"
     temperature: 0.0
 
   attraction_search:
     model_name: xx
 
   planner:
-    model_name: "openrouter:openai/gpt-5.4-mini"
-    reviewer_model: "openrouter:openai/gpt-5.4-mini"
+    model_name: "openrouter:google/gemini-3-flash-preview"
+    reviewer_model: "openrouter:google/gemini-3-flash-preview"
     # Max number of tasks that can be created
     max_tasks: 12
     # Amount of reviews the final task list will be run through
@@ -23,10 +23,10 @@ agents:
     reviewer_temp: 0.0
 
   execution:
-    model_name: "openrouter:openai/gpt-5.4"
+    model_name: "openrouter:openai/gpt-5.5"
     
   itinerary_validator:
-    model_name: "openrouter:openai/gpt-5.4-mini"
+    model_name: "openrouter:google/gemini-3-flash-preview"
     temperature: 0.0
 
   general_web_search:
@@ -37,7 +37,7 @@ agents:
     max_searches: 3
     search_depth: "basic"
     include_answer: true
-    answer_model_name: "openrouter:minimax/minimax-m2.5"
+    answer_model_name: "openrouter:google/gemini-3-flash-preview"
     answer_temperature: 0.0
 
   flight_search:
@@ -52,7 +52,7 @@ agents:
     search_url : "https://serpapi.com/search"
     experience_pool_path : "experience_pool.json"
     default_embedding_model : "text-embedding-3-small"
-    default_answer_model : "openrouter:minimax/minimax-m2.5"
+    default_answer_model : "openrouter:google/gemini-3-flash-preview"
     default_max_candidates : 5
     default_top_review_candidates : 3
     default_timeout_seconds : 30

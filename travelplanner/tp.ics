@@ -3,186 +3,167 @@ VERSION:2.0
 PRODID:-//TravelPlanner//TravelPlan//EN
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
-X-WR-CALNAME:Berlin → Palma de Mallorca — Port de Sóller boutique 3-d
- ay trip (2026-07-15 to 2026-07-18)
+X-WR-CALNAME:Summer Break in Mallorca: Cala Ratjada & Tramuntana
 BEGIN:VEVENT
-SUMMARY:Flight — Berlin (BER) → Palma (PMI) — Ryanair FR216
+SUMMARY:Flight to Palma
 DTSTART:20260715T195000
 DTEND:20260715T223500
-DTSTAMP:20260512T112100Z
-UID:9b53fc5170645322@travelplanner.local
-DESCRIPTION:Direct evening flight for 2 adults (selected option). Book sep
- arate through airline. Price per person ~€133.5 outbound (summary price 
- EUR 267 total shown by search tool).\nCost: €267.00\nCategory: transport
- \nNotes: Arrive at airport 90–120 min before departure\; luggage and sea
- t options may add cost.
-LOCATION:Berlin Brandenburg Airport (BER)
+DTSTAMP:20260512T203205Z
+UID:4cd490fa81ce91c0@travelplanner.local
+DESCRIPTION:Direct flight from Berlin (BER) to Palma de Mallorca (PMI) wit
+ h Ryanair. Flight FR 216.\nCost: €244.00\nCategory: transport
+LOCATION:Berlin BER to Palma PMI
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Transfer — Palma Airport → Port de Sóller (taxi/private trans
- fer)
-DTSTART:20260715T231500
-DTEND:20260715T235500
-DTSTAMP:20260512T112100Z
-UID:a4b04d9619f534c7@travelplanner.local
-DESCRIPTION:Estimated 35–45 min drive. Recommended: pre-book private tra
- nsfer or take taxi (~€80). Alternatively\, public bus + tram is cheaper 
- but longer.\nCost: €80.00\nCategory: transport\nNotes: If taking public 
- transport\, allow extra time and check schedules\; late arrival favours ta
- xi.
-LOCATION:Palma de Mallorca Airport → Port de Sóller
+SUMMARY:Car Rental Pickup
+DTSTART:20260715T224500
+DTEND:20260715T233000
+DTSTAMP:20260512T203205Z
+UID:4be34a943e694706@travelplanner.local
+DESCRIPTION:Pick up rental car at Palma Airport. Wiber or Hertz recommende
+ d.\nCost: €120.00\nCategory: transport
+LOCATION:Palma Airport (PMI)
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Hotel check-in — Boutique hotel near Port de Sóller (estimate)
-DTSTART:20260715T235500
-DTEND:20260716T001500
-DTSTAMP:20260512T112100Z
-UID:61eb03736c2d2114@travelplanner.local
-DESCRIPTION:Estimated check-in time at arrival. Selected hotel options inc
- lude Aimia Hotel\, Hotel Eden Soller\, Primavera House (prices vary). We'l
- l reserve a double room for 3 nights 15–18 July. See hotel search result
- s for options and prices.\nCategory: lodging\nNotes: Confirm exact hotel a
- nd price\; concierge can arrange dinner or late snack.
-LOCATION:Port de Sóller area
+SUMMARY:Hotel Check-in
+DTSTART:20260716T003000
+DTEND:20260716T010000
+DTSTAMP:20260512T203205Z
+UID:7c04120064c89c98@travelplanner.local
+DESCRIPTION:Check-in at Mamboo Hotel Cala Ratjada. Total for 3 nights.\nCo
+ st: €528.00\nCategory: lodging
+LOCATION:Cala Ratjada
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Hotel reservation — Boutique hotel near Port de Sóller (provisi
- onal estimate)
-DTSTART:20260716T001500
-DTEND:20260718T100000
-DTSTAMP:20260512T112100Z
-UID:f9d5e41fb62b7f51@travelplanner.local
-DESCRIPTION:Reserve double room for 2 adults for 3 nights (15–18 July). 
- Options: Aimia Hotel (~€280/night)\, Hotel Eden Soller (~€237/night)\,
-  Primavera House (~€205/night). We'll target a mid-range boutique hotel 
- (~€230/night avg). Total estimated hotel cost ~€690 for 3 nights.\nCos
- t: €690.00\nCategory: lodging\nNotes: Finalize booking and cancellation 
- terms\; confirm whether breakfast included.
-LOCATION:Port de Sóller area
+SUMMARY:Relaxed Morning
+DTSTART:20260716T083000
+DTEND:20260716T100000
+DTSTAMP:20260512T203205Z
+UID:d75d4663d2caafef@travelplanner.local
+DESCRIPTION:Relaxed morning at the hotel or a short walk to the local harb
+ or.\nCategory: leisure
+LOCATION:Cala Ratjada
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Morning — Relax at Port de Sóller beach
-DTSTART:20260716T093000
-DTEND:20260716T130000
-DTSTAMP:20260512T112100Z
-UID:7dc704ca4a6e345e@travelplanner.local
-DESCRIPTION:Lounging\, swimming and sun on the main Port de Sóller beach 
- or nearby Cala D'en Repic. Light morning to keep pace relaxed.\nCost: €0
- .00\nCategory: leisure\nNotes: Bring swimwear\, sun protection\; beach fac
- ilities available at main beach.
-LOCATION:Port de Sóller / Cala D'en Repic
+SUMMARY:Hidden Beach Discovery
+DTSTART:20260716T100000
+DTEND:20260716T140000
+DTSTAMP:20260512T203205Z
+UID:bea44801113a637d@travelplanner.local
+DESCRIPTION:Coastal trek to the secluded coves of Cala Torta and Cala Mesq
+ uida. Pristine waters and pine-scented trails.\nCategory: attraction\nNote
+ s: Bring water and snacks\; these beaches are largely undeveloped.
+LOCATION:Cala Torta / Cala Mesquida
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Lunch — Seafront lunch at Es Passeig (recommend reservation)
-DTSTART:20260716T131500
-DTEND:20260716T150000
-DTSTAMP:20260512T112100Z
-UID:047eb057c42cee6e@travelplanner.local
-DESCRIPTION:High-quality local seafood and Mallorcan dishes\; restaurant o
- pen mid-day. Expect higher price level. Reservation recommended for dinner
- \; lunch is slightly easier.\nCost: €80.00\nCategory: meal\nNotes: Estim
- ate €40 per person for a mid-high quality seafood lunch.
-LOCATION:Es Passeig\, Paseo de la playa 8\, Port de Sóller
+SUMMARY:Late Lunch
+DTSTART:20260716T140000
+DTEND:20260716T153000
+DTSTAMP:20260512T203205Z
+UID:b1e38dff37940b41@travelplanner.local
+DESCRIPTION:Lunch at a local spot near the beach or back in Cala Ratjada.\
+ nCategory: meal
+LOCATION:Cala Ratjada
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Afternoon — Short hike to Cala Deia (or ferry/drive option)
-DTSTART:20260716T160000
-DTEND:20260716T193000
-DTSTAMP:20260512T112100Z
-UID:3d3a02cd135b973e@travelplanner.local
-DESCRIPTION:Short coastal walk to the Cala Deia cove for a quieter swim an
- d scenic views. Option to drive or take a guided walk. Estimated duration 
- 3–3.5 hours including swim time.\nCost: €0.00\nCategory: attraction\nN
- otes: Wear hiking sandals\; there are rocky sections. Avoid the hottest mi
- dday sun\; late afternoon is better.
-LOCATION:Deià → Cala Deia
+SUMMARY:Seafront Lounging
+DTSTART:20260716T153000
+DTEND:20260716T190000
+DTSTAMP:20260512T203205Z
+UID:7c93d92ab9a2709b@travelplanner.local
+DESCRIPTION:Afternoon lounging by the sea at Son Moll beach or the hotel p
+ ool.\nCategory: leisure
+LOCATION:Son Moll Beach
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Dinner — Local tapas or seafood restaurant in Port de Sóller
-DTSTART:20260716T200000
-DTEND:20260716T220000
-DTSTAMP:20260512T112100Z
-UID:6b97db783589022b@travelplanner.local
-DESCRIPTION:Choose a small well-regarded local restaurant (reserve for din
- ner). Casual high-quality Mallorcan dishes and seafood\; estimated €50-7
- 0 for two.\nCost: €60.00\nCategory: meal\nNotes: Reservation recommended
- \; check if restaurants close early.
-LOCATION:Port de Sóller centre
+SUMMARY:Dinner at Los Arcos
+DTSTART:20260716T193000
+DTEND:20260716T213000
+DTSTAMP:20260512T203205Z
+UID:caa8fcd5447a0bb0@travelplanner.local
+DESCRIPTION:Romantic dinner at Los Arcos\, known for its quiet terrace and
+  traditional Spanish cuisine.\nCost: €100.00\nCategory: meal
+LOCATION:Calle Monturiol 28\, Cala Ratjada
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Morning — Light Tramuntana hike (GR-221 or coastal trail)
+SUMMARY:Drive to Tramuntana
 DTSTART:20260717T083000
-DTEND:20260717T123000
-DTSTAMP:20260512T112100Z
-UID:8e6eb6b7bb8e2980@travelplanner.local
-DESCRIPTION:Moderate\, scenic hike in Serra de Tramuntana — options: sho
- rt section of GR-221 (Sóller–Deià) or trail towards Sa Foradada viewpo
- int. Suitable for a relaxed half-day hike with panoramic views.\nCost: €
- 0.00\nCategory: attraction\nNotes: Bring water\, sun protection\; trail co
- nditions vary\; consider a local guide for route selection.
-LOCATION:Tramuntana trails near Sóller/Deià
+DTEND:20260717T100000
+DTSTAMP:20260512T203205Z
+UID:d5b1d27d29843ed8@travelplanner.local
+DESCRIPTION:Drive from Cala Ratjada to the Tramuntana Mountains (Valldemos
+ sa/Deià area).\nCategory: transport\nNotes: Approx. 1h 15m drive. Scenic 
+ route.
+LOCATION:Cala Ratjada to Valldemossa
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Lunch — Picnic or mountain restaurant during hike
-DTSTART:20260717T124500
-DTEND:20260717T140000
-DTSTAMP:20260512T112100Z
-UID:0594dab0e3d0b10c@travelplanner.local
-DESCRIPTION:Casual lunch at a rural restaurant (possibility: Restaurant Ca
- 's Patró March near Cala Deià or picnic with local produce). Estimated c
- ost for two ~€50.\nCost: €50.00\nCategory: meal\nNotes: Check opening 
- times for rural restaurants (many close in afternoon).
-LOCATION:Tramuntana / Deià area
+SUMMARY:Light Hiking in Tramuntana
+DTSTART:20260717T100000
+DTEND:20260717T133000
+DTSTAMP:20260512T203205Z
+UID:a45197f3ee3b56fa@travelplanner.local
+DESCRIPTION:Light hiking on the 'Dry Stone Route' (GR-221) near Valldemoss
+ a. Scenic views of olive groves and the sea.\nCategory: attraction\nNotes:
+  UNESCO World Heritage site. Moderate difficulty.
+LOCATION:Valldemossa / Deià Trail
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Afternoon — Hidden beach time (Cala Tuent or Cala s'Almonia)
+SUMMARY:Lunch at S'Estaca
+DTSTART:20260717T133000
+DTEND:20260717T150000
+DTSTAMP:20260512T203205Z
+UID:472f33b136b5c227@travelplanner.local
+DESCRIPTION:Lunch at Restaurante S'Estaca in Valldemossa. Local food with 
+ scenic views.\nCost: €80.00\nCategory: meal
+LOCATION:Carretera de Deià\, Valldemossa
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Village Exploration
 DTSTART:20260717T150000
-DTEND:20260717T183000
-DTSTAMP:20260512T112100Z
-UID:dc5ab55a3cff9f02@travelplanner.local
-DESCRIPTION:Visit a quieter cove for swimming and relaxing. Cala Tuent is 
- more remote and less crowded\; Cala s'Almonia is small with dramatic cliff
- s. Access may require a short walk.\nCost: €0.00\nCategory: attraction\n
- Notes: Cala Tuent is a good option for a peaceful afternoon\; bring snacks
-  and water.
-LOCATION:Cala Tuent / Cala s'Almonia area
+DTEND:20260717T173000
+DTSTAMP:20260512T203205Z
+UID:064bf1b8aee37585@travelplanner.local
+DESCRIPTION:Explore the charming streets of Deià or Valldemossa. Relaxed 
+ pace.\nCategory: leisure
+LOCATION:Deià / Valldemossa
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Dinner — Farewell dinner at quality restaurant in Port de Sólle
- r
-DTSTART:20260717T200000
-DTEND:20260717T220000
-DTSTAMP:20260512T112100Z
-UID:9ae86d704b4e06d8@travelplanner.local
-DESCRIPTION:Special dinner at a well-reviewed seafront restaurant (e.g.\, 
- Es Passeig or similar) — reservation recommended. Estimated cost €100 
- for two (higher-end).\nCost: €100.00\nCategory: meal\nNotes: Reserve in 
- advance for a Saturday evening.
-LOCATION:Port de Sóller seafront
+SUMMARY:Return Drive
+DTSTART:20260717T173000
+DTEND:20260717T190000
+DTSTAMP:20260512T203205Z
+UID:ab6ea8c018d60f41@travelplanner.local
+DESCRIPTION:Drive back to Cala Ratjada.\nCategory: transport
+LOCATION:Valldemossa to Cala Ratjada
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Hotel check-out & transfer — Port de Sóller → Palma Airport
-DTSTART:20260718T033000
-DTEND:20260718T041500
-DTSTAMP:20260512T112100Z
-UID:c5bf280bf3ff0da0@travelplanner.local
-DESCRIPTION:Early transfer to the airport for the 06:15 flight. Pre-book p
- rivate transfer/taxi (~€80) or rental car drop-off. Allow at least 90–
- 120 minutes for check-in with low-cost carrier.\nCost: €80.00\nCategory:
-  transport\nNotes: Arrange pick-up at hotel\; confirm driver availability 
- for early morning.
-LOCATION:Port de Sóller → Palma de Mallorca Airport (PMI)
+SUMMARY:Dinner at CUCUM Beach House
+DTSTART:20260717T193000
+DTEND:20260717T213000
+DTSTAMP:20260512T203205Z
+UID:af03c9d39ae3a960@travelplanner.local
+DESCRIPTION:Dinner at CUCUM Beach House at Playa Son Moll for a chic\, sea
+ side romantic setting.\nCost: €120.00\nCategory: meal
+LOCATION:Playa Son Moll\, Cala Ratjada
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Flight — Palma (PMI) → Berlin (BER) — Ryanair FR106
-DTSTART:20260718T061500
-DTEND:20260718T090000
-DTSTAMP:20260512T112100Z
-UID:8bb3e741249d374f@travelplanner.local
-DESCRIPTION:Direct early morning return flight for 2 adults. Price per per
- son ~€43 (EUR 86 total shown by search tool).\nCost: €86.00\nCategory:
-  transport\nNotes: Allow at least 90 min check-in for low-cost carriers\; 
- pre-book transfer or taxi early.
-LOCATION:Palma de Mallorca Airport (PMI)
+SUMMARY:Drive to Airport
+DTSTART:20260718T080000
+DTEND:20260718T091500
+DTSTAMP:20260512T203205Z
+UID:7e2898d2d0388f33@travelplanner.local
+DESCRIPTION:Drive from Cala Ratjada to Palma Airport. Drop off rental car.
+ \nCategory: transport\nNotes: Allow time for car return. Approx. 1h drive.
+LOCATION:Cala Ratjada to PMI Airport
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Return Flight
+DTSTART:20260718T104500
+DTEND:20260718T133000
+DTSTAMP:20260512T203205Z
+UID:fd2be3b5e416f4a0@travelplanner.local
+DESCRIPTION:Return flight from Palma (PMI) to Berlin (BER).\nCategory: tra
+ nsport\nNotes: Flight FR 8994.
+LOCATION:Palma PMI to Berlin BER
 END:VEVENT
 END:VCALENDAR

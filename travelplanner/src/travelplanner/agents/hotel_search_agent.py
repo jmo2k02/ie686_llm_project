@@ -26,6 +26,7 @@ from dotenv import load_dotenv
 from langgraph.graph import END, StateGraph
 from pydantic import BaseModel, Field
 
+from travelplanner.config import get_setting
 from travelplanner.schema.hotel_search_artifact import (
     HotelSearchArtifactContentModel,
     HotelSearchCoordinatesModel,
@@ -45,6 +46,8 @@ if os.path.exists(_env_path):
     print(f"[hotel_search_agent] Loaded environment from: {_env_path}")
 else:
     print(f"[hotel_search_agent] WARNING: No .env file found at: {_env_path}")
+
+_DEFAULT_MODEL = get_setting("models.workflows.task_planning.model_name")
 
 # API Configuration
 LITEAPI_BASE_URL = "https://api.liteapi.travel/v3.0"
@@ -1019,7 +1022,7 @@ class IntelligentHotelSearchState(BaseModel):
     )
     task_id: Optional[int] = Field(default=None, description="Task ID")
     model_name: str = Field(
-        default="gpt-5-mini",
+        default=_DEFAULT_MODEL,
         description="LLM model to use (openrouter or ollama)"
     )
 
@@ -1122,15 +1125,14 @@ Output ONLY the JSON object, no explanation."""
 
 
 def parse_query_with_llm(
-    query: str, model_name: str = "gpt-5-mini"
+    query: str, model_name: str = _DEFAULT_MODEL
 ) -> Dict[str, Any]:
     """Parse natural language query into structured search parameters.
 
     Args:
         query: Natural language hotel search query
-        model_name: LLM model to use. Options:
-            - "gpt-5-mini" (default, team credits)
-            - "ollama:gpt-oss:120b" (personal testing with Ollama Cloud)
+        model_name: LLM model to use. Defaults to
+            ``models.workflows.task_planning.model_name``.
     """
     print(f"[parse_query_with_llm] Parsing query with LLM: {model_name}")
 
@@ -1198,7 +1200,7 @@ def synthesize_recommendations(
     query: str,
     parsed_params: Dict[str, Any],
     artifact_content: Dict[str, Any],
-    model_name: str = "gpt-5-mini",
+    model_name: str = _DEFAULT_MODEL,
 ) -> str:
     """Generate LLM-based recommendations from search results.
 
@@ -1206,9 +1208,8 @@ def synthesize_recommendations(
         query: Original user query
         parsed_params: Parsed search parameters
         artifact_content: Hotel search results
-        model_name: LLM model to use. Options:
-            - "gpt-5-mini" (default, team credits)
-            - "ollama:gpt-oss:120b" (personal testing with Ollama Cloud)
+        model_name: LLM model to use. Defaults to
+            ``models.workflows.task_planning.model_name``.
     """
     print(f"[synthesize_recommendations] Generating recommendations with {model_name}")
 
@@ -1483,7 +1484,7 @@ def intelligent_hotel_search(
     query: str,
     system_state: StateContractModel,
     task_id: Optional[int] = None,
-    model_name: str = "gpt-5-mini",
+    model_name: str = _DEFAULT_MODEL,
     agent_key: str = "hotel_search"
 ) -> StateContractModel:
     """Execute intelligent hotel search from natural language query.
@@ -1492,9 +1493,8 @@ def intelligent_hotel_search(
         query: Natural language hotel search query
         system_state: Global system state (required)
         task_id: Optional task ID
-        model_name: LLM model to use. Options:
-            - "gpt-5-mini" (default, team credits)
-            - Model name for Ollama (e.g., "nemotron-3-super", "kimi-k2.6:cloud")
+        model_name: LLM model to use. Defaults to
+            ``models.workflows.task_planning.model_name``.
         agent_key: Key for storing artifacts in SystemState (default: "hotel_search")
 
     Returns:

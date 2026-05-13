@@ -48,9 +48,7 @@ def make_graph(
     temperature: float | None = None,
 ) -> StateGraph:
     effective_model_name = model_name or str(
-        get_setting(
-            "models.workflows.task_planning.model_name", "gpt-5.4-nano-2026-03-17"
-        )
+        get_setting("models.workflows.task_planning.model_name")
     )
     effective_temperature = (
         temperature

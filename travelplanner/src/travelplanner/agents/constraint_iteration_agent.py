@@ -115,7 +115,7 @@ Examples that are NOT violations and must NOT appear in the output:
 - Budget is a positive number → not a violation of "budget must be positive"
 """
 
-_DEFAULT_MODEL_NAME = "gpt-5.4-nano-2026-03-17"
+_DEFAULT_MODEL_NAME = get_setting("models.workflows.task_planning.model_name")
 _DEFAULT_TEMPERATURE = 0.0
 
 

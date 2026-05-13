@@ -52,7 +52,7 @@ class TodoMirror:
 def make_graph(
     plan: TravelPlan,
     *,
-    model: str | BaseChatModel = "openai:gpt-4o-mini",
+    model: str | BaseChatModel | None = None,
     temperature: float = 0.0,
 ) -> CompiledStateGraph:
     """Build the TravelPlanner execution agent.
@@ -68,6 +68,7 @@ def make_graph(
         model: Either a provider-aware model name (e.g. ``"openai:gpt-4o-mini"``
             — same convention as the rest of the agents in this repo) or a
             pre-built ``BaseChatModel`` (useful for tests with a fake model).
+            Defaults to ``models.workflows.task_planning.model_name``.
         temperature: Sampling temperature; ignored when ``model`` is already
             a ``BaseChatModel``.
 
@@ -78,8 +79,9 @@ def make_graph(
     if isinstance(model, BaseChatModel):
         chat_model: BaseChatModel = model
     else:
+        model = model or str(get_setting("models.workflows.task_planning.model_name"))
         chat_model = make_chat_model(model_name=model, temperature=temperature)
-
+    
     return create_deep_agent(
         model=chat_model,
         tools=[*make_subagent_tools(), *make_travelplan_tools(plan)],

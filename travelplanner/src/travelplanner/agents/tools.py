@@ -17,7 +17,6 @@ from travelplanner.agents.subagent_tools.routing_check import (
     CLOSEST_PLACES_TO_TARGET_DESCRIPTION,
 )
 from travelplanner.agents.subagent_tools.attraction_search import make_attraction_search_tool, SEARCH_ATTRACTIONS_DESCRIPTION
-from travelplanner.agents.subagent_tools.constraint_extraction import make_extract_constraints_tool, EXTRACT_CONSTRAINTS_DESCRIPTION
 from travelplanner.agents.tool_args import (
     FlightSearchArgs,
     HotelSearchArgs,
@@ -30,7 +29,7 @@ from travelplanner.agents.tool_args import (
 )
 from travelplanner.config import get_setting
 
-_DEFAULT_MODEL = "openrouter:minimax/minimax-m2.5"
+_DEFAULT_MODEL = get_setting("models.workflows.task_planning.model_name")
 
 
 def make_subagent_tools(
@@ -46,6 +45,9 @@ def make_subagent_tools(
     """
     model = model_name or str(
         get_setting("models.agents.flight_search.model_name", _DEFAULT_MODEL)
+    )
+    restaurant_model = str(
+        get_setting("models.workflows.task_planning.model_name", model_name or _DEFAULT_MODEL)
     )
 
     return [
@@ -64,7 +66,7 @@ def make_subagent_tools(
             handle_validation_error=True,
         ),
         StructuredTool.from_function(
-            func=make_search_restaurants_tool(model, temperature, task_ref),
+            func=make_search_restaurants_tool(restaurant_model, temperature, task_ref),
             name="search_restaurants",
             description=SEARCH_RESTAURANTS_DESCRIPTION,
             args_schema=RestaurantSearchArgs,

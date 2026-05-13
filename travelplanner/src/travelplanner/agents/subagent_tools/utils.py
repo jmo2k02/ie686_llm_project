@@ -186,7 +186,7 @@ def summarize_restaurant_artifact(artifact: AgentArtifactModel) -> str:
         lines.append(f"Selected restaurants ({len(content.items)}):")
         for item in content.items:
             lines.append(
-                f"  {item.name} | Rating: {item.rating or 'N/A'} | Price: {item.price_range or item.price_level or 'N/A'}"
+                f"  {item.name} | Rating: {item.rating or 'N/A'} | Price: {item.price_level or 'N/A'}"
             )
             if item.address:
                 lines.append(f"     Address: {item.address}")
@@ -198,6 +198,9 @@ def summarize_restaurant_artifact(artifact: AgentArtifactModel) -> str:
                 lines.append(f"     Why: {item.selection_reason}")
             if item.dietary_suitability:
                 lines.append(f"     Dietary match: {', '.join(item.dietary_suitability)}")
+            link = item.website or item.google_maps_url
+            if link:
+                lines.append(f"     Link: {link}")
 
     if not content.items and content.status != "failed":
         lines.append("No restaurants found for the given criteria.")

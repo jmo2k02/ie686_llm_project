@@ -63,14 +63,14 @@ class RestaurantItemModel(BaseModel):
     cuisine: str | None = None
     meal_type: str | None = None
     rating: float | None = None
-    price_level: str | None = None
-    price_range: Annotated[str | None, Field(description="Resolved price symbol, e.g. '$', '$$', '$$$'")] = None
+    price_level: Annotated[str | None, Field(description="Google Places API price level enum: PRICE_LEVEL_FREE, PRICE_LEVEL_INEXPENSIVE, PRICE_LEVEL_MODERATE, PRICE_LEVEL_EXPENSIVE, PRICE_LEVEL_VERY_EXPENSIVE")] = None
     phone: str | None = None
     website: str | None = None
     opening_hours: str | None = None
     location: Annotated[dict[str, float] | None, Field(description='{"lat": ..., "lng": ...}')] = None
     dietary_suitability: Annotated[list[str], Field(default_factory=list, description="Matched dietary tags for this venue")]
     selection_reason: Annotated[str | None, Field(description="One-sentence reason from selector LLM")] = None
+    google_maps_url: Annotated[str | None, Field(description="Google Maps URL built from place_id, if available")] = None
     provenance: Annotated[str, Field(description='"liteapi_places" or "fallback_llm_suggestion"')]
 
 

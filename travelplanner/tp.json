@@ -1,5 +1,5 @@
 {
-  "title": "Summer Break in Cala Ratjada, Mallorca",
+  "title": "Summer Break in Mallorca: Cala Ratjada & Tramuntana",
   "days": [
     {
       "index": 1,
@@ -7,78 +7,67 @@
       "label": "Arrival & Coastal Relaxation",
       "slots": [
         {
-          "name": "Flight to Palma de Mallorca",
-          "description": "Direct flight from Berlin (BER) to Palma de Mallorca (PMI). Estimated cost for 2 adults based on peak July pricing.",
-          "start_time": "2026-07-15T09:00:00",
-          "end_time": "2026-07-15T11:45:00",
+          "name": "Flight to Palma",
+          "description": "Direct flight from Berlin (BER) to Palma de Mallorca (PMI) for 2 adults. Typical morning departure.",
+          "start_time": "2026-07-15T10:00:00",
+          "end_time": "2026-07-15T12:45:00",
           "category": "transport",
           "location": "Berlin Brandenburg Airport (BER)",
-          "cost": 400.0,
+          "cost": 380.0,
           "links": [
-            "https://www.google.com/travel/flights/flights-from-berlin-to-palma.html"
+            "https://www.eurowings.com"
           ],
           "notes": null
         },
         {
-          "name": "Car Rental Pickup & Drive to Cala Ratjada",
-          "description": "Pick up rental car at the airport. Estimated cost for 4 days in July. Drive to Cala Ratjada (approx. 1 hour).",
-          "start_time": "2026-07-15T12:00:00",
-          "end_time": "2026-07-15T13:30:00",
-          "category": "transport",
-          "location": "Palma de Mallorca Airport (PMI)",
-          "cost": 180.0,
-          "links": [
-            "https://www.skyscanner.net/car-hire-from/pmi/car-hire-from-palma-majorca-airport.html"
-          ],
-          "notes": null
-        },
-        {
-          "name": "Late Lunch at Noah's Lounge",
-          "description": "Relaxed lunch by the sea at Noah's Lounge. High-quality international cuisine and great atmosphere.",
-          "start_time": "2026-07-15T14:30:00",
-          "end_time": "2026-07-15T16:00:00",
+          "name": "Lunch at Wikiki Gastrobar",
+          "description": "High-quality lunch with a modern twist on local seafood at a seafront gastrobar.",
+          "start_time": "2026-07-15T15:30:00",
+          "end_time": "2026-07-15T17:00:00",
           "category": "meal",
-          "location": "Noah’s Lounge, Cala Ratjada Promenade",
-          "cost": null,
+          "location": "Paseo Marítimo, 11, 07590 Cala Ratjada",
+          "cost": 60.0,
           "links": [
-            "https://www.themallorcan.com/blog/best-restaurants-cala-ratjada"
+            "https://mallorca-touristguide.co.uk/the-best-restaurants-in-cala-ratjada"
           ],
           "notes": null
         },
         {
-          "name": "Beach Relaxation & Harbor Stroll",
-          "description": "Spend the afternoon lounging at Playa Son Moll or exploring the Cala Ratjada harbor.",
-          "start_time": "2026-07-15T16:00:00",
-          "end_time": "2026-07-15T19:00:00",
-          "category": "leisure",
-          "location": "Playa Son Moll, Cala Ratjada",
-          "cost": null,
-          "links": [],
-          "notes": null
-        },
-        {
-          "name": "Hotel Check-in",
-          "description": "Check-in at a highly-rated boutique hotel. Lago Garden offers a luxury spa experience near the harbor.",
-          "start_time": "2026-07-15T14:00:00",
-          "end_time": "2026-07-15T14:30:00",
-          "category": "lodging",
-          "location": "Lago Garden Apart-Suites & Spa Hotel, Cala Ratjada",
-          "cost": 867.0,
-          "links": [
-            "https://travelstack.nuitee.link/hotels?placeId=ChIJde3StVgWlhIRYQHEEMePNXE&checkin=2026-07-15&checkout=2026-07-18&adults=2"
-          ],
-          "notes": "Total cost for 3 nights approx. €867."
-        },
-        {
-          "name": "Dinner at Rö Sushi Nikkei",
-          "description": "High-quality fusion dining with harbor views. Blending Japanese and Peruvian flavors.",
+          "name": "Dinner at Restaurante Los Arcos",
+          "description": "High-quality Mediterranean and seafood dinner. Fresh Balearic seafood and paella.",
           "start_time": "2026-07-15T19:30:00",
           "end_time": "2026-07-15T21:30:00",
           "category": "meal",
-          "location": "Rö Sushi Nikkei, Cala Ratjada",
-          "cost": null,
+          "location": "Carrer de l'Agulla, 5, 07590 Cala Ratjada",
+          "cost": 100.0,
           "links": [
-            "https://www.themallorcan.com/blog/best-restaurants-cala-ratjada"
+            "https://maps.google.com/?cid=12417075210028756945"
+          ],
+          "notes": null
+        },
+        {
+          "name": "Car Rental & Drive to Hotel",
+          "description": "Pick up rental car at PMI airport and drive to Cala Ratjada (approx. 1h 15m). Small car category (e.g., Seat Arona).",
+          "start_time": "2026-07-15T13:00:00",
+          "end_time": "2026-07-15T14:30:00",
+          "category": "transport",
+          "location": "Palma Airport (PMI)",
+          "cost": 162.0,
+          "links": [
+            "https://www.discovercars.com/spain-balearic-islands/mallorca/pmi"
+          ],
+          "notes": null
+        },
+        {
+          "name": "Hotel Check-in: Lago Garden Apart-Suites & Spa",
+          "description": "Check-in at a high-rated boutique hotel. Lago Garden offers excellent spa and suites. Price for 3 nights.",
+          "start_time": "2026-07-15T14:30:00",
+          "end_time": "2026-07-15T15:30:00",
+          "category": "lodging",
+          "location": "Cala Ratjada",
+          "cost": 867.0,
+          "links": [
+            "https://travelstack.nuitee.link/hotels?placeId=ChIJde3StVgWlhIRYQHEEMePNXE&name=Cala%20Ratjada&checkin=2026-07-15&checkout=2026-07-18&rooms=1&adults=2"
           ],
           "notes": null
         }
@@ -87,54 +76,58 @@
     {
       "index": 2,
       "calendar_date": "2026-07-16",
-      "label": "Hidden Beaches & Local Flavors",
+      "label": "Hidden Coves of the Northeast",
       "slots": [
         {
-          "name": "Hidden Beach: Hike to Cala Torta",
-          "description": "Drive to Cala Mesquida and hike the coastal trail to the secluded Cala Torta. A 'virgin' beach in a natural reserve. Bring water and snacks.",
-          "start_time": "2026-07-16T09:00:00",
+          "name": "Lunch at Sa Trobada",
+          "description": "Authentic local experience specializing in traditional Mallorcan products.",
+          "start_time": "2026-07-16T13:00:00",
+          "end_time": "2026-07-16T14:30:00",
+          "category": "meal",
+          "location": "Carrer de l'Agulla, 18, 07590 Cala Ratjada",
+          "cost": 50.0,
+          "links": [
+            "https://mallorca-touristguide.co.uk/the-best-restaurants-in-cala-ratjada"
+          ],
+          "notes": null
+        },
+        {
+          "name": "Afternoon at Cala Mesquida",
+          "description": "A unique landscape of shifting dunes and a wilder feel. 15-minute drive from Cala Ratjada.",
+          "start_time": "2026-07-16T15:00:00",
+          "end_time": "2026-07-16T18:30:00",
+          "category": "attraction",
+          "location": "Cala Mesquida, Capdepera",
+          "cost": 0.0,
+          "links": [
+            "https://www.click-mallorca.com/blog/en/what-to-see-mallorca/beaches-mallorca/cala-agulla-mallorca/"
+          ],
+          "notes": null
+        },
+        {
+          "name": "Dinner at Es Coll d’Os",
+          "description": "Farm-to-table concept using home-grown produce for a sophisticated and quiet dining experience.",
+          "start_time": "2026-07-16T19:30:00",
+          "end_time": "2026-07-16T21:30:00",
+          "category": "meal",
+          "location": "Camino de Es Coll d'Os, s/n, 07590 Cala Ratjada",
+          "cost": 120.0,
+          "links": [
+            "https://www.themallorcan.com/blog/best-restaurants-cala-ratjada"
+          ],
+          "notes": null
+        },
+        {
+          "name": "Morning at Cala Torta",
+          "description": "A pristine hidden beach within a nature reserve with no urban development. Accessible via a 25-minute drive from Cala Ratjada.",
+          "start_time": "2026-07-16T09:30:00",
           "end_time": "2026-07-16T13:00:00",
           "category": "attraction",
           "location": "Cala Torta, Artà",
-          "cost": null,
+          "cost": 0.0,
           "links": [
-            "https://www.seemallorca.com/beaches/cala-torta-beach-north-east-697634"
+            "https://www.mallorca.com/en/guide/beaches/cala-torta"
           ],
-          "notes": null
-        },
-        {
-          "name": "Dinner at Restaurant Los Arcos",
-          "description": "Iconic Mediterranean gastronomy. Famous for fresh fish and paella. Highest rated local spot.",
-          "start_time": "2026-07-16T20:00:00",
-          "end_time": "2026-07-16T22:00:00",
-          "category": "meal",
-          "location": "Restaurant Los Arcos, Cala Ratjada",
-          "cost": null,
-          "links": [
-            "http://www.losarcoscalarajada.com/"
-          ],
-          "notes": null
-        },
-        {
-          "name": "Traditional Lunch at Sa Trobada",
-          "description": "Authentic Mallorcan lunch in the historic center of Capdepera. Traditional dishes away from the tourist crowds.",
-          "start_time": "2026-07-16T14:00:00",
-          "end_time": "2026-07-16T15:30:00",
-          "category": "meal",
-          "location": "Sa Trobada, Capdepera",
-          "cost": null,
-          "links": [],
-          "notes": null
-        },
-        {
-          "name": "Capdepera Castle Visit",
-          "description": "Visit the medieval castle of Capdepera for panoramic views of the coastline.",
-          "start_time": "2026-07-16T16:00:00",
-          "end_time": "2026-07-16T17:30:00",
-          "category": "leisure",
-          "location": "Castell de Capdepera",
-          "cost": null,
-          "links": [],
           "notes": null
         }
       ]
@@ -142,63 +135,71 @@
     {
       "index": 3,
       "calendar_date": "2026-07-17",
-      "label": "Tramuntana Day Trip & Hiking",
+      "label": "Tramuntana Mountains Day Trip",
       "slots": [
         {
-          "name": "Light Hike: Deià Coastal Loop",
-          "description": "A light 5km circular hike from the village of Deià down to the scenic shingle beach of Cala Deià. Classic stone paths and olive groves.",
-          "start_time": "2026-07-17T10:30:00",
-          "end_time": "2026-07-17T13:30:00",
-          "category": "attraction",
-          "location": "Deià to Cala Deià Trail",
-          "cost": null,
+          "name": "Drive to Tramuntana Mountains",
+          "description": "Drive from Cala Ratjada to Valldemossa (approx. 1h 30m). Scenic route across the island.",
+          "start_time": "2026-07-17T09:00:00",
+          "end_time": "2026-07-17T10:30:00",
+          "category": "transport",
+          "location": "Mallorca Ma-15 and Ma-1130",
+          "cost": 0.0,
           "links": [
-            "https://www.alltrails.com/poi/spain/mallorca/deia/cala-deia"
+            "https://www.google.com/maps/dir/Cala+Ratjada/Valldemossa"
           ],
           "notes": null
         },
         {
-          "name": "Drive to Tramuntana Mountains",
-          "description": "Scenic drive across the island to the Tramuntana mountains (approx. 1.5 hours).",
-          "start_time": "2026-07-17T09:00:00",
-          "end_time": "2026-07-17T10:30:00",
-          "category": "transport",
-          "location": "Cala Ratjada to Valldemossa/Deià",
-          "cost": null,
-          "links": [],
+          "name": "Light Hike: Camí de s’Arxiduc (Partial)",
+          "description": "A light out-and-back version of the quintessential romantic ridge walk with panoramic Mediterranean views. Trailhead at northern edge of Valldemossa.",
+          "start_time": "2026-07-17T10:30:00",
+          "end_time": "2026-07-17T12:30:00",
+          "category": "attraction",
+          "location": "Carrer de les Oliveres, 07170 Valldemossa",
+          "cost": 0.0,
+          "links": [
+            "https://www.alltrails.com/spain/mallorca/valldemossa"
+          ],
           "notes": null
         },
         {
-          "name": "Explore Valldemossa",
-          "description": "Explore the charming streets of Valldemossa or visit the Cartuja. Allow ample time for the return drive to Cala Ratjada.",
-          "start_time": "2026-07-17T15:30:00",
-          "end_time": "2026-07-17T17:30:00",
-          "category": "leisure",
-          "location": "Valldemossa",
-          "cost": null,
-          "links": [],
-          "notes": null
-        },
-        {
-          "name": "Return Drive to Cala Ratjada",
-          "description": "Drive back to Cala Ratjada. Estimated 1.5 - 2 hours with afternoon traffic. Arrive by 19:30 to freshen up for dinner.",
-          "start_time": "2026-07-17T17:30:00",
-          "end_time": "2026-07-17T19:30:00",
-          "category": "transport",
-          "location": "Valldemossa to Cala Ratjada",
-          "cost": null,
-          "links": [],
-          "notes": null
-        },
-        {
-          "name": "Farewell Dinner at CUCUM Beach House",
-          "description": "Sophisticated beachfront dining at the newly rebranded CUCUM Beach House. Perfect for a final night celebration.",
-          "start_time": "2026-07-17T20:00:00",
-          "end_time": "2026-07-17T22:00:00",
+          "name": "Lunch at QuitaPenas Valldemossa",
+          "description": "Authentic local experience specializing in traditional Mallorcan tapas and products.",
+          "start_time": "2026-07-17T13:00:00",
+          "end_time": "2026-07-17T14:30:00",
           "category": "meal",
-          "location": "CUCUM Beach House, Playa Son Moll",
-          "cost": null,
-          "links": [],
+          "location": "Carrer Vell, 4, 07170 Valldemossa",
+          "cost": 60.0,
+          "links": [
+            "http://www.quitapenasvalldemossa.com/"
+          ],
+          "notes": null
+        },
+        {
+          "name": "Light Hike: Camí dels Pintors",
+          "description": "A very easy, flat coastal stroll perfect for couples, hugging the cliffs between Deià and Sóller. Access to secluded swimming coves.",
+          "start_time": "2026-07-17T15:00:00",
+          "end_time": "2026-07-17T17:30:00",
+          "category": "attraction",
+          "location": "Cala Deià, 07179 Deià",
+          "cost": 0.0,
+          "links": [
+            "https://www.alltrails.com/spain/mallorca/deia"
+          ],
+          "notes": null
+        },
+        {
+          "name": "Dinner at Ca's Patró March",
+          "description": "Famous rustic setting overlooking the water, specializing in fresh seafood. Featured in 'The Night Manager'. Bookings mandatory.",
+          "start_time": "2026-07-17T19:30:00",
+          "end_time": "2026-07-17T21:30:00",
+          "category": "meal",
+          "location": "Carrer Sa Marina, s/n, 07179 Deià",
+          "cost": 120.0,
+          "links": [
+            "https://www.seemallorca.com/deia/restaurants/"
+          ],
           "notes": null
         }
       ]
@@ -206,40 +207,44 @@
     {
       "index": 4,
       "calendar_date": "2026-07-18",
-      "label": "Final Morning & Departure",
+      "label": "Leisurely Morning & Departure",
       "slots": [
         {
-          "name": "Morning Swim at Cala Agulla",
-          "description": "Final morning swim at Cala Agulla, a beautiful beach surrounded by pine trees, just a short drive or walk from the hotel.",
-          "start_time": "2026-07-18T09:00:00",
-          "end_time": "2026-07-18T11:00:00",
-          "category": "leisure",
-          "location": "Cala Agulla, Cala Ratjada",
-          "cost": null,
-          "links": [],
+          "name": "Brunch at Noah’s Lounge",
+          "description": "Tranquil oasis atmosphere with high-quality service and a prime view of the local fishing port.",
+          "start_time": "2026-07-18T10:00:00",
+          "end_time": "2026-07-18T11:30:00",
+          "category": "meal",
+          "location": "Paseo Marítimo, 46, 07590 Cala Ratjada",
+          "cost": 40.0,
+          "links": [
+            "https://www.themallorcan.com/blog/best-restaurants-cala-ratjada"
+          ],
           "notes": null
         },
         {
           "name": "Drive to Airport & Car Return",
-          "description": "Drive back to Palma Airport and return the rental car. Allow time for traffic.",
-          "start_time": "2026-07-18T12:00:00",
-          "end_time": "2026-07-18T13:30:00",
+          "description": "Drive back to PMI airport, return rental car.",
+          "start_time": "2026-07-18T11:30:00",
+          "end_time": "2026-07-18T13:00:00",
           "category": "transport",
-          "location": "Cala Ratjada to PMI Airport",
-          "cost": null,
-          "links": [],
+          "location": "Palma Airport (PMI)",
+          "cost": 0.0,
+          "links": [
+            "https://www.google.com/maps/dir/Cala+Ratjada/Palma+Airport"
+          ],
           "notes": null
         },
         {
-          "name": "Flight to Berlin Airport (BER)",
-          "description": "Direct flight from Palma de Mallorca (PMI) to Berlin (BER). Cost included in Day 1 round-trip estimate.",
-          "start_time": "2026-07-18T15:00:00",
-          "end_time": "2026-07-18T17:45:00",
+          "name": "Flight to Berlin",
+          "description": "Direct flight back to Berlin. Typical afternoon/evening departure. Cost included in Day 1.",
+          "start_time": "2026-07-18T15:15:00",
+          "end_time": "2026-07-18T18:00:00",
           "category": "transport",
-          "location": "Palma de Mallorca Airport (PMI)",
-          "cost": null,
+          "location": "Palma Airport (PMI)",
+          "cost": 0.0,
           "links": [
-            "https://www.google.com/travel/flights/flights-from-berlin-to-palma.html"
+            "https://www.eurowings.com"
           ],
           "notes": null
         }

@@ -279,3 +279,4 @@ def _build_vevent(
     if slot.location:
         event.add("location", slot.location)
     return event
+

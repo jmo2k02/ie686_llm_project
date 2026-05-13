@@ -63,6 +63,8 @@ Check categories:
 3. **Completeness**
    - Every valid task from the task list has a matching activity on the calendar.
    - No critical category (flight, hotel, transport) is missing without justification.
+   - There shoulb be at least two meals everyday (lunch, dinner)
+   - There should be a link for every slot
 
 Rules:
 - Return ``passed: true`` only if **all** categories are satisfied.

@@ -37,6 +37,18 @@ agents:
     answer_model_name: "openrouter:minimax/minimax-m2.5"
     answer_temperature: 0.0
 
+  baseline_agent:
+    model_name: "openrouter:minimax/minimax-m2.5"
+    temperature: 0.2
+    recursion_limit: 20
+    min_tool_calls: 1
+    max_tool_calls: 25
+    output_dir: ".output/baseline_agent"
+    tavily:
+      max_results: 5
+      search_depth: "basic"
+      include_answer: true
+
   flight_search:
     search_url: "https://serpapi.com/search"
     currency: "EUR"

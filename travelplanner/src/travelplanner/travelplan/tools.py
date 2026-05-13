@@ -43,6 +43,7 @@ def make_travelplan_tools(plan: TravelPlan) -> list[BaseTool]:
         category: SlotCategory,
         location: str | None,
         cost: float | None,
+        links: list[str],
         notes: str | None,
     ) -> Slot:
         return Slot(
@@ -53,6 +54,7 @@ def make_travelplan_tools(plan: TravelPlan) -> list[BaseTool]:
             category=category,
             location=location,
             cost=cost,
+            links=links,
             notes=notes,
         )
 
@@ -96,12 +98,13 @@ def make_travelplan_tools(plan: TravelPlan) -> list[BaseTool]:
         category: SlotCategory = "other",
         location: str | None = None,
         cost: float | None = None,
+        links: list[str] | None = None,
         notes: str | None = None,
     ) -> str:
         try:
             slot = _build_slot(
                 name, description, start_time_iso, end_time_iso,
-                category, location, cost, notes,
+                category, location, cost, links or [], notes,
             )
             position = plan.add_slot(day_index, slot)
             day = plan.get_day(day_index)
@@ -122,12 +125,13 @@ def make_travelplan_tools(plan: TravelPlan) -> list[BaseTool]:
         category: SlotCategory = "other",
         location: str | None = None,
         cost: float | None = None,
+        links: list[str] | None = None,
         notes: str | None = None,
     ) -> str:
         try:
             slot = _build_slot(
                 name, description, start_time_iso, end_time_iso,
-                category, location, cost, notes,
+                category, location, cost, links or [], notes,
             )
             actual = plan.insert_slot(day_index, position, slot)
             day = plan.get_day(day_index)

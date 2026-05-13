@@ -37,8 +37,9 @@ load_dotenv(Path(__file__).parent.parent / ".env")
 
 from travelplanner.agents.hotel_search_agent import intelligent_hotel_search
 from travelplanner.schema.system_state import StateContractModel
+from travelplanner.config import get_setting
 
-DEFAULT_MODEL = "gpt-5-mini"
+DEFAULT_MODEL = get_setting("models.workflows.task_planning.model_name")
 OLLAMA_MODEL = "ollama:nemotron-3-super"
 
 # Base minimum requirements shared by all test cases

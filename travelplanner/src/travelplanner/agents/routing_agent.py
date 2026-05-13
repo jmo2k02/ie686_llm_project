@@ -28,6 +28,7 @@ from typing import Any, Literal
 from langgraph.graph import END, StateGraph
 from pydantic import BaseModel, Field
 
+from travelplanner.config import get_setting
 from travelplanner.integrations.place_distance_graph import (
     build_place_distance_graph,
     parse_places_input_payload,
@@ -41,7 +42,7 @@ from travelplanner.schema.system_state import AgentArtifactModel, MessageHistory
 from travelplanner.utils.llm import invoke_structured_model
 
 
-_DEFAULT_MODEL = "openai:gpt-4o-mini"
+_DEFAULT_MODEL = get_setting("models.workflows.task_planning.model_name")
 
 
 @dataclass(frozen=True)

@@ -53,7 +53,7 @@ def make_search_web_tool(
     task_ref: str = "tool_call",
 ) -> Callable[[str], str]:
     """Return a ``search_web(query)`` callable bound to graph + config."""
-    web_graph = make_general_web_search_graph()
+    web_graph = make_general_web_search_graph().compile()
 
     def search_web(query: str) -> str:
         try:

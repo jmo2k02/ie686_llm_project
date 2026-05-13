@@ -9,7 +9,7 @@ from langchain_core.language_models import BaseChatModel
 from langchain_core.messages import HumanMessage
 from langgraph.graph.state import CompiledStateGraph
 
-from travelplanner.agents.execution.prompts import SYSTEM_PROMPT
+from travelplanner.agents.execution.prompts import SYSTEM_PROMPT, VALIDATION_SYSTEM_PROMPT
 from travelplanner.agents.tools import make_subagent_tools
 from travelplanner.config import get_setting
 from travelplanner.schema.system_state import StateContractModel, TodoItem
@@ -23,11 +23,38 @@ logger = logging.getLogger("execution_agent")
 MODEL_NAME = get_setting("agents.execution.model_name")
 
 
+class TodoMirror:
+    def __init__(self):
+        self._by_title: dict[str, TodoItem] = {}
+
+    def update_from_agent(self, raw_todos: list[dict]) -> list[TodoItem]:
+        # Anything the agent currently lists wins for its status
+        current_titles = set()
+        for entry in raw_todos:
+            title = entry.get("content") or ""
+            status = entry.get("status", "pending")
+            current_titles.add(title)
+            existing = self._by_title.get(title)
+            if existing is None:
+                self._by_title[title] = TodoItem(title=title, status=status, description="")
+            else:
+                # Don't regress completed -> pending unless the agent explicitly does
+                existing.status = status
+
+        # Items the agent dropped: keep them visible but mark as "completed"
+        # (or "dropped" if you add that to your enum) so the dashboard shows history
+        for title, item in self._by_title.items():
+            if title not in current_titles and item.status != "completed":
+                item.status = "completed"  # or "dropped"
+
+        return list(self._by_title.values())
+
 def make_graph(
     plan: TravelPlan,
     *,
-    model: str | BaseChatModel = "openai:gpt-4o-mini",
+    model: str | BaseChatModel | None = None,
     temperature: float = 0.0,
+    validation_mode: bool = False,
 ) -> CompiledStateGraph:
     """Build the TravelPlanner execution agent.
 
@@ -42,6 +69,7 @@ def make_graph(
         model: Either a provider-aware model name (e.g. ``"openai:gpt-4o-mini"``
             — same convention as the rest of the agents in this repo) or a
             pre-built ``BaseChatModel`` (useful for tests with a fake model).
+            Defaults to ``models.workflows.task_planning.model_name``.
         temperature: Sampling temperature; ignored when ``model`` is already
             a ``BaseChatModel``.
 
@@ -52,12 +80,34 @@ def make_graph(
     if isinstance(model, BaseChatModel):
         chat_model: BaseChatModel = model
     else:
+        model = model or str(get_setting("models.workflows.task_planning.model_name"))
         chat_model = make_chat_model(model_name=model, temperature=temperature)
+    
+    travelplan_tools = make_travelplan_tools(plan)
+    system_prompt = SYSTEM_PROMPT
+    if validation_mode:
+        travelplan_tools = [tool for tool in travelplan_tools if tool.name != "init_plan"]
+        system_prompt = VALIDATION_SYSTEM_PROMPT
 
     return create_deep_agent(
         model=chat_model,
-        tools=[*make_subagent_tools(), *make_travelplan_tools(plan)],
-        system_prompt=SYSTEM_PROMPT,
+        tools=[*make_subagent_tools(), *travelplan_tools],
+        system_prompt=system_prompt,
+    )
+
+
+def make_validation_graph(
+    plan: TravelPlan,
+    *,
+    model: str | BaseChatModel | None = None,
+    temperature: float = 0.0,
+) -> CompiledStateGraph:
+    """Build a validation-repair agent that cannot reset the existing plan."""
+    return make_graph(
+        plan,
+        model=model,
+        temperature=temperature,
+        validation_mode=True,
     )
 
 
@@ -105,6 +155,16 @@ def _compose_user_prompt(state: StateContractModel) -> str:
             "a coherent itinerary."
         )
 
+    if state.validation_feedback:
+        sections.append(
+            f"\n# Validator feedback (repair mode attempt {state.validation_attempts + 1})"
+        )
+        sections.append(state.validation_feedback.strip())
+        sections.append(
+            "You are now repairing the existing plan. Inspect it first, preserve "
+            "valid content, and make targeted changes for every issue above."
+        )
+
     sections.append("\nNow build the travel plan with the available tools.")
     return "\n".join(sections)
 
@@ -128,8 +188,14 @@ def make_node(
 
     async def execution_node(state: StateContractModel) -> dict[str, Any]:
         plan: TravelPlan = state.travelplan
-        agent = make_graph(plan, model=model_name, temperature=temperature)
+        validation_mode = bool(state.validation_feedback)
+        agent = (
+            make_validation_graph(plan, model=model_name, temperature=temperature)
+            if validation_mode
+            else make_graph(plan, model=model_name, temperature=temperature)
+        )
         prompt = _compose_user_prompt(state)
+        todo_mirror = TodoMirror()
 
         latest_todos: list[TodoItem] = []
         async for event in agent.astream(
@@ -137,14 +203,18 @@ def make_node(
             stream_mode="values",
         ):
             if isinstance(event, dict):
-                latest_todos = _to_todo_items(event.get("todos"))
+                latest_todos = todo_mirror.update_from_agent(event.get("todos") or [])
             update_travelplan(plan)
             update_todos(latest_todos)
+            if files := getattr(event, "files", False):
+                print(f"  files: {list(files.keys()) if isinstance(files, dict) else files}")
         with open("tp.json", "w") as f_json, open("tp.md", "w") as f_md, open("tp.ics", "w", encoding="utf-8") as f_ics:
             f_json.write(plan.model_dump_json(indent=2))
             f_md.write(plan.to_markdown())
             f_ics.write(plan.to_ical())
-            
+        # Final update
+        update_travelplan(plan)
+        update_todos(latest_todos) 
         return {"travelplan": plan, "todos": latest_todos}
 
     return execution_node

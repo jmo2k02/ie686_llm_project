@@ -28,7 +28,7 @@ from travelplanner.schema.system_state import MessageHistoryModel, StateContract
 from travelplanner.utils.llm import invoke_structured_model
 
 
-_DEFAULT_MODEL = "openai:gpt-4o-mini"
+_DEFAULT_MODEL = get_setting("models.workflows.task_planning.model_name")
 
 
 class ValidationResponse(BaseModel):
@@ -76,8 +76,8 @@ Return valid JSON matching the ValidationResponse schema.
 
 def _build_user_prompt(state: StateContractModel) -> str:
     timetable_blob = (
-        state.timetable.model_dump_json(indent=2)
-        if state.timetable is not None
+        state.travelplan.to_markdown()
+        if state.travelplan is not None
         else "{}"
     )
     constraints_blob = json.dumps(
@@ -98,10 +98,10 @@ def _build_user_prompt(state: StateContractModel) -> str:
 
 def validator_node(state: StateContractModel) -> dict[str, Any]:
     model_name = str(
-        get_setting("models.agents.itinerary_validator.model_name", _DEFAULT_MODEL)
+        get_setting("agents.itinerary_validator.model_name", _DEFAULT_MODEL)
     )
     temperature = float(
-        get_setting("models.agents.itinerary_validator.temperature", 0.0)
+        get_setting("agents.itinerary_validator.temperature", 0.0)
     )
     user_prompt = _build_user_prompt(state)
 
@@ -136,6 +136,7 @@ def validator_node(state: StateContractModel) -> dict[str, Any]:
     return {
         "validation_passed": passed,
         "validation_feedback": feedback,
+        "validation_attempts": state.validation_attempts + 1,
         "message_histories": {
             **state.message_histories,
             "itinerary_validator": history,

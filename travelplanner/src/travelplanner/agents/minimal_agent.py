@@ -7,6 +7,7 @@ from langchain_core.messages import HumanMessage, SystemMessage
 from langgraph.graph import END, StateGraph
 from langgraph.pregel import Pregel
 
+from travelplanner.config import get_setting
 from travelplanner.utils.llm import make_chat_model
 from travelplanner.schema.system_state import MessageHistoryModel, StateContractModel
 
@@ -46,7 +47,7 @@ def _build_user_prompt(query: str, context_blob: str) -> str:
 
 
 def make_graph() -> Pregel:
-    model_name: str = "gpt-5.4-nano-2026-03-17"
+    model_name: str = get_setting("models.workflows.task_planning.model_name")
     temperature: float = 0.6
     history_key: str = "minimal_agent"
     client = make_chat_model(model_name=model_name, temperature=temperature)

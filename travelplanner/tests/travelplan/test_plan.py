@@ -125,6 +125,7 @@ class TestTravelPlanMarkdown(unittest.TestCase):
                 cost=15.0,
                 category="meal",
                 location="Cafe Roma",
+                links=["https://example.com/cafe"],
             ),
         )
         plan.add_slot(
@@ -148,6 +149,7 @@ class TestTravelPlanMarkdown(unittest.TestCase):
         self.assertIn("Day 2 — 2026-06-02", md)
         # Slot bodies
         self.assertIn("**1. Breakfast** [meal] 08:00–10:00 @ Cafe Roma (€15.00)", md)
+        self.assertIn("Links: [link 1](https://example.com/cafe)", md)
         self.assertIn("**2. Museum** [attraction] 11:00–14:00 (€20.00)", md)
         self.assertIn("**1. Hike** [attraction] 09:00–13:00", md)
         # Cost summary
@@ -178,11 +180,13 @@ class TestTravelPlanMarkdown(unittest.TestCase):
                 cost=15.0,
                 category="meal",
                 location="Cafe Roma",
+                links=["https://example.com/cafe"],
             ),
         )
         md = plan.to_markdown_compact()
         # Required: position, name, time range
         self.assertIn("**1. Breakfast** 08:00–10:00", md)
+        self.assertIn("Links: [link 1](https://example.com/cafe)", md)
         self.assertIn("Day 1 — 2026-06-01 — Arrival", md)
         # Excluded: category, location, cost, cost summary line
         self.assertNotIn("[meal]", md)
@@ -217,6 +221,7 @@ class TestTravelPlanIcal(unittest.TestCase):
                 cost=15.0,
                 category="meal",
                 location="Cafe Roma",
+                links=["https://example.com/cafe"],
             ),
         )
         plan.add_slot(
@@ -234,6 +239,7 @@ class TestTravelPlanIcal(unittest.TestCase):
         self.assertIn("DTEND:20260601T100000", ics)
         self.assertIn("LOCATION:Cafe Roma", ics)
         self.assertIn("Category: meal", ics)
+        self.assertIn("Link 1: https://example.com/cafe", ics)
         # Cost should be formatted with EUR prefix.
         self.assertIn(r"Cost: €15.00", ics)
 

@@ -546,7 +546,7 @@ def make_graph():
 def intelligent_restaurant_search(
     query: str,
     system_state: StateContractModel,
-    model_name: str = "gpt-5-mini",
+    model_name: str = get_setting("models.workflows.task_planning.model_name"),
     agent_key: str = "restaurant_search",
     temperature: float = 0.0,
 ) -> StateContractModel:
@@ -560,10 +560,8 @@ def intelligent_restaurant_search(
     Args:
         query: Natural language restaurant search query.
         system_state: Global system state (required).
-        model_name: LLM model to use. Examples:
-            - ``"gpt-5-mini"`` (default, OpenAI)
-            - ``"openrouter:anthropic/claude-3.5-sonnet"``
-            - ``"ollama:nemotron-3-super"``
+        model_name: LLM model to use. Defaults to
+            ``models.workflows.task_planning.model_name``.
         agent_key: Key for storing artifacts in SystemState (default: "restaurant_search").
         temperature: LLM temperature (default: 0.0).
 
@@ -614,7 +612,7 @@ if __name__ == "__main__":
     updated_state = intelligent_restaurant_search(
         query="Italian dinner in Barcelona for 2 people, medium budget",
         system_state=system_state,
-        # Use ollama:nemotron-3-super for Ollama, or leave default for OpenAI (gpt-5-mini)
+        # Override model_name here to test a provider-specific restaurant model.
         model_name="ollama:nemotron-3-super",
     )
     artifacts = updated_state.agent_artifacts.get("restaurant_search", [])

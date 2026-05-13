@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import re
 import unittest
+from unittest.mock import patch
 from typing import Set
 
 from travelplanner.agents.tools import make_subagent_tools
@@ -260,6 +261,38 @@ class TestSubagentToolsGraphWiring(unittest.TestCase):
                 callable(t.func),
                 f"{name}.func is not callable",
             )
+
+
+class TestSubagentToolModelSelection(unittest.TestCase):
+    """Regression coverage for per-tool model routing."""
+
+    def test_search_restaurants_uses_task_planning_model_from_config(self) -> None:
+        captured: dict[str, str] = {}
+
+        def fake_restaurant_factory(model_name: str, temperature: float, task_ref: str):
+            captured["model_name"] = model_name
+            return lambda query: query
+
+        def fake_get_setting(path: str, default=None):
+            if path == "models.workflows.task_planning.model_name":
+                return "openrouter:test/task-planning"
+            if path == "models.agents.flight_search.model_name":
+                return "openrouter:test/flight-search"
+            return default
+
+        with patch(
+            "travelplanner.agents.tools.get_setting",
+            side_effect=fake_get_setting,
+        ), patch(
+            "travelplanner.agents.tools.make_search_restaurants_tool",
+            side_effect=fake_restaurant_factory,
+        ):
+            make_subagent_tools()
+
+        self.assertEqual(
+            captured["model_name"],
+            "openrouter:test/task-planning",
+        )
 
 
 if __name__ == "__main__":

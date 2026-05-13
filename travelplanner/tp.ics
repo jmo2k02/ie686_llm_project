@@ -3,660 +3,203 @@ VERSION:2.0
 PRODID:-//TravelPlanner//TravelPlan//EN
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
-X-WR-CALNAME:Berlin → Port de Sóller (Palma de Mallorca) | 10-day summe
- r break (Jul 15–25\, 2026)
+X-WR-CALNAME:Summer Break in Cala Ratjada\, Mallorca
 BEGIN:VEVENT
-SUMMARY:Flight to Mallorca (BER → PMI)
-DTSTART:20260715T083000
-DTEND:20260715T123000
-DTSTAMP:20260510T183644Z
-UID:441f6ee03bbcb54c@travelplanner.local
-DESCRIPTION:Direct flight to Palma de Mallorca (timing placeholder—needs
-  confirmation once flight options are available).\nCategory: transport
-LOCATION:Berlin (BER) → Palma de Mallorca (PMI)
+SUMMARY:Flight to Palma de Mallorca
+DTSTART:20260715T090000
+DTEND:20260715T114500
+DTSTAMP:20260513T203205Z
+UID:23107c8c3b07cfa2@travelplanner.local
+DESCRIPTION:Direct flight from Berlin (BER) to Palma de Mallorca (PMI). Es
+ timated cost for 2 adults based on peak July pricing.\nCost: €400.00\nCa
+ tegory: transport\nLink 1: https://www.google.com/travel/flights/flights-f
+ rom-berlin-to-palma.html
+LOCATION:Berlin Brandenburg Airport (BER)
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Arrival / Transfer
-DTSTART:20260715T150000
-DTEND:20260715T163000
-DTSTAMP:20260510T183644Z
-UID:9ce15033f2d1990d@travelplanner.local
-DESCRIPTION:Collect luggage and transfer from Palma Airport to Port de Só
- ller\; check-in assistance if needed.\nCategory: transport
-LOCATION:Palma de Mallorca → Port de Sóller
+SUMMARY:Car Rental Pickup & Drive to Cala Ratjada
+DTSTART:20260715T120000
+DTEND:20260715T133000
+DTSTAMP:20260513T203205Z
+UID:f3bc7cfec20f42c2@travelplanner.local
+DESCRIPTION:Pick up rental car at the airport. Estimated cost for 4 days i
+ n July. Drive to Cala Ratjada (approx. 1 hour).\nCost: €180.00\nCategory
+ : transport\nLink 1: https://www.skyscanner.net/car-hire-from/pmi/car-hire
+ -from-palma-majorca-airport.html
+LOCATION:Palma de Mallorca Airport (PMI)
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Check-in & settle
-DTSTART:20260715T163000
-DTEND:20260715T173000
-DTSTAMP:20260510T183644Z
-UID:10a94569fd774755@travelplanner.local
-DESCRIPTION:Boutique hotel check-in\; quick unpack and orientation walk to
-  the sea.\nCategory: lodging
-LOCATION:Port de Sóller (near beachfront)
+SUMMARY:Hotel Check-in
+DTSTART:20260715T140000
+DTEND:20260715T143000
+DTSTAMP:20260513T203205Z
+UID:59fd4dcd281cbde8@travelplanner.local
+DESCRIPTION:Check-in at a highly-rated boutique hotel. Lago Garden offers 
+ a luxury spa experience near the harbor.\nCost: €867.00\nCategory: lodgi
+ ng\nLink 1: https://travelstack.nuitee.link/hotels?placeId=ChIJde3StVgWlhI
+ RYQHEEMePNXE&checkin=2026-07-15&checkout=2026-07-18&adults=2\nNotes: Total
+  cost for 3 nights approx. €867.
+LOCATION:Lago Garden Apart-Suites & Spa Hotel\, Cala Ratjada
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Sunset sea lounge
-DTSTART:20260715T190000
-DTEND:20260715T201500
-DTSTAMP:20260510T183644Z
-UID:45f64801a46bcdf1@travelplanner.local
-DESCRIPTION:Easy stroll + drinks with ocean view (no schedule pressure).\n
- Category: leisure
-LOCATION:Port de Sóller waterfront
+SUMMARY:Late Lunch at Noah's Lounge
+DTSTART:20260715T143000
+DTEND:20260715T160000
+DTSTAMP:20260513T203205Z
+UID:097cf600aac32f56@travelplanner.local
+DESCRIPTION:Relaxed lunch by the sea at Noah's Lounge. High-quality intern
+ ational cuisine and great atmosphere.\nCategory: meal\nLink 1: https://www
+ .themallorcan.com/blog/best-restaurants-cala-ratjada
+LOCATION:Noah’s Lounge\, Cala Ratjada Promenade
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Local dinner (tapas/seafood)
-DTSTART:20260715T203000
-DTEND:20260715T220000
-DTSTAMP:20260510T183644Z
-UID:aea1d594f3255a0d@travelplanner.local
-DESCRIPTION:First dinner: try local olive oils\, seafood\, and a house win
- e/beer.\nCategory: meal
-LOCATION:Port de Sóller
+SUMMARY:Beach Relaxation & Harbor Stroll
+DTSTART:20260715T160000
+DTEND:20260715T190000
+DTSTAMP:20260513T203205Z
+UID:e1fe8feef77dd1c2@travelplanner.local
+DESCRIPTION:Spend the afternoon lounging at Playa Son Moll or exploring th
+ e Cala Ratjada harbor.\nCategory: leisure
+LOCATION:Playa Son Moll\, Cala Ratjada
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Hotel night (cover)
-DTSTART:20260715T224500
-DTEND:20260716T063000
-DTSTAMP:20260510T183644Z
-UID:012279ba6a07cb5e@travelplanner.local
-DESCRIPTION:Lodging overnight stay.\nCategory: lodging
-LOCATION:Port de Sóller
+SUMMARY:Dinner at Rö Sushi Nikkei
+DTSTART:20260715T193000
+DTEND:20260715T213000
+DTSTAMP:20260513T203205Z
+UID:cbc021647cf22468@travelplanner.local
+DESCRIPTION:High-quality fusion dining with harbor views. Blending Japanes
+ e and Peruvian flavors.\nCategory: meal\nLink 1: https://www.themallorcan.
+ com/blog/best-restaurants-cala-ratjada
+LOCATION:Rö Sushi Nikkei\, Cala Ratjada
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Breakfast
+SUMMARY:Hidden Beach: Hike to Cala Torta
 DTSTART:20260716T090000
-DTEND:20260716T100000
-DTSTAMP:20260510T183644Z
-UID:aa9c33be33c85010@travelplanner.local
-DESCRIPTION:Slow start\; coffee + local pastries.\nCategory: meal
-LOCATION:Near hotel
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Hidden beach morning
-DTSTART:20260716T103000
 DTEND:20260716T130000
-DTSTAMP:20260510T183644Z
-UID:4679c7a569d85304@travelplanner.local
-DESCRIPTION:Go to a quiet cove (short walk/drive from Port de Sóller). Br
- ing water + sun protection.\nCategory: attraction
-LOCATION:Hidden cove near Port de Sóller
+DTSTAMP:20260513T203205Z
+UID:c761a0b13b527b89@travelplanner.local
+DESCRIPTION:Drive to Cala Mesquida and hike the coastal trail to the seclu
+ ded Cala Torta. A 'virgin' beach in a natural reserve. Bring water and sna
+ cks.\nCategory: attraction\nLink 1: https://www.seemallorca.com/beaches/ca
+ la-torta-beach-north-east-697634
+LOCATION:Cala Torta\, Artà
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Lunch: local food
-DTSTART:20260716T133000
-DTEND:20260716T150000
-DTSTAMP:20260510T183644Z
-UID:7c3f38872a8b21af@travelplanner.local
-DESCRIPTION:Paella or grilled seafood + ensalada mallorquina.\nCategory: m
- eal
-LOCATION:Port de Sóller
+SUMMARY:Traditional Lunch at Sa Trobada
+DTSTART:20260716T140000
+DTEND:20260716T153000
+DTSTAMP:20260513T203205Z
+UID:aab063a0b1b9ed8f@travelplanner.local
+DESCRIPTION:Authentic Mallorcan lunch in the historic center of Capdepera.
+  Traditional dishes away from the tourist crowds.\nCategory: meal
+LOCATION:Sa Trobada\, Capdepera
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Post-beach shower + lounge
-DTSTART:20260716T150000
-DTEND:20260716T160000
-DTSTAMP:20260510T183644Z
-UID:e065a4d4f45ea4bb@travelplanner.local
-DESCRIPTION:Clean up and reset for a relaxed afternoon.\nCategory: leisure
-LOCATION:Port de Sóller
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Lounging / swim break
+SUMMARY:Capdepera Castle Visit
 DTSTART:20260716T160000
-DTEND:20260716T183000
-DTSTAMP:20260510T183644Z
-UID:7336835cd2d2862b@travelplanner.local
-DESCRIPTION:Return to the sea\; long lazy afternoon.\nCategory: leisure
-LOCATION:Port de Sóller beachfront
+DTEND:20260716T173000
+DTSTAMP:20260513T203205Z
+UID:80589b24add8663e@travelplanner.local
+DESCRIPTION:Visit the medieval castle of Capdepera for panoramic views of 
+ the coastline.\nCategory: leisure
+LOCATION:Castell de Capdepera
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Dinner (wine + small plates)
-DTSTART:20260716T203000
+SUMMARY:Dinner at Restaurant Los Arcos
+DTSTART:20260716T200000
 DTEND:20260716T220000
-DTSTAMP:20260510T183644Z
-UID:f835e8d68d758e6d@travelplanner.local
-DESCRIPTION:Try local classics: tumbet\, sobrasada (if you like)\, or gril
- led octopus.\nCategory: meal
-LOCATION:Port de Sóller
+DTSTAMP:20260513T203205Z
+UID:6565f85d8c9968b1@travelplanner.local
+DESCRIPTION:Iconic Mediterranean gastronomy. Famous for fresh fish and pae
+ lla. Highest rated local spot.\nCategory: meal\nLink 1: http://www.losarco
+ scalarajada.com/
+LOCATION:Restaurant Los Arcos\, Cala Ratjada
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Optional evening stroll
-DTSTART:20260716T221500
-DTEND:20260716T224500
-DTSTAMP:20260510T183644Z
-UID:579d1c301d515516@travelplanner.local
-DESCRIPTION:Promenade walk to wind down.\nCategory: leisure
-LOCATION:Port de Sóller
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Hotel night (cover)
-DTSTART:20260716T224500
-DTEND:20260717T063000
-DTSTAMP:20260510T183644Z
-UID:8a828704f0583da4@travelplanner.local
-DESCRIPTION:Lodging overnight stay.\nCategory: lodging
-LOCATION:Port de Sóller
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Breakfast
+SUMMARY:Drive to Tramuntana Mountains
 DTSTART:20260717T090000
-DTEND:20260717T100000
-DTSTAMP:20260510T183644Z
-UID:455d997dcb6d6239@travelplanner.local
-DESCRIPTION:Coffee + breakfast buffet at hotel or café.\nCategory: meal
-LOCATION:Port de Sóller
+DTEND:20260717T103000
+DTSTAMP:20260513T203205Z
+UID:e6ce1ae3111b5afb@travelplanner.local
+DESCRIPTION:Scenic drive across the island to the Tramuntana mountains (ap
+ prox. 1.5 hours).\nCategory: transport
+LOCATION:Cala Ratjada to Valldemossa/Deià
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Tramuntana light hike (cooler morning)
+SUMMARY:Light Hike: Deià Coastal Loop
 DTSTART:20260717T103000
-DTEND:20260717T130000
-DTSTAMP:20260510T183644Z
-UID:a2196ccfe93e04bb@travelplanner.local
-DESCRIPTION:Light hike with scenic views\; choose well-marked\, shorter ro
- ute (aim ~2–2.5h including breaks).\nCategory: attraction
-LOCATION:Tramuntana (near Sóller)
+DTEND:20260717T133000
+DTSTAMP:20260513T203205Z
+UID:3e7b154d8cbdc15e@travelplanner.local
+DESCRIPTION:A light 5km circular hike from the village of Deià down to th
+ e scenic shingle beach of Cala Deià. Classic stone paths and olive groves
+ .\nCategory: attraction\nLink 1: https://www.alltrails.com/poi/spain/mallo
+ rca/deia/cala-deia
+LOCATION:Deià to Cala Deià Trail
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Lunch (local seafood / tapas)
-DTSTART:20260717T133000
-DTEND:20260717T150000
-DTSTAMP:20260510T183644Z
-UID:e766a781b276cdcd@travelplanner.local
-DESCRIPTION:Settle with a relaxed lunch in Sóller/Port de Sóller.\nCateg
- ory: meal
-LOCATION:Port de Sóller / Sóller
+SUMMARY:Explore Valldemossa
+DTSTART:20260717T153000
+DTEND:20260717T173000
+DTSTAMP:20260513T203205Z
+UID:d7b71d212ff48816@travelplanner.local
+DESCRIPTION:Explore the charming streets of Valldemossa or visit the Cartu
+ ja. Allow ample time for the return drive to Cala Ratjada.\nCategory: leis
+ ure
+LOCATION:Valldemossa
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Beach lounge + swim
-DTSTART:20260717T160000
-DTEND:20260717T183000
-DTSTAMP:20260510T183644Z
-UID:5c65c2673d2b62e0@travelplanner.local
-DESCRIPTION:Return to the sea for long lounging and a swim.\nCategory: lei
- sure
-LOCATION:Port de Sóller beachfront
+SUMMARY:Return Drive to Cala Ratjada
+DTSTART:20260717T173000
+DTEND:20260717T193000
+DTSTAMP:20260513T203205Z
+UID:b4db32e3fd014bb0@travelplanner.local
+DESCRIPTION:Drive back to Cala Ratjada. Estimated 1.5 - 2 hours with after
+ noon traffic. Arrive by 19:30 to freshen up for dinner.\nCategory: transpo
+ rt
+LOCATION:Valldemossa to Cala Ratjada
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Dinner (Mallorcan specialties)
-DTSTART:20260717T203000
+SUMMARY:Farewell Dinner at CUCUM Beach House
+DTSTART:20260717T200000
 DTEND:20260717T220000
-DTSTAMP:20260510T183644Z
-UID:3b305d8b485af6c9@travelplanner.local
-DESCRIPTION:Try local favorites\; keep it early enough for a restful night
- .\nCategory: meal
-LOCATION:Port de Sóller
+DTSTAMP:20260513T203205Z
+UID:88627a119f43545f@travelplanner.local
+DESCRIPTION:Sophisticated beachfront dining at the newly rebranded CUCUM B
+ each House. Perfect for a final night celebration.\nCategory: meal
+LOCATION:CUCUM Beach House\, Playa Son Moll
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Optional nightcap
-DTSTART:20260717T221500
-DTEND:20260717T224500
-DTSTAMP:20260510T183644Z
-UID:1c62e49d0e2e6c3d@travelplanner.local
-DESCRIPTION:One last drink on the promenade.\nCategory: leisure
-LOCATION:Port de Sóller
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Hotel night (cover)
-DTSTART:20260717T224500
-DTEND:20260718T063000
-DTSTAMP:20260510T183644Z
-UID:35c07f9a583d11d7@travelplanner.local
-DESCRIPTION:Lodging overnight stay.\nCategory: lodging
-LOCATION:Port de Sóller
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Breakfast
+SUMMARY:Morning Swim at Cala Agulla
 DTSTART:20260718T090000
-DTEND:20260718T100000
-DTSTAMP:20260510T183644Z
-UID:f28bf29fb938b773@travelplanner.local
-DESCRIPTION:Slow breakfast\, easy start.\nCategory: meal
-LOCATION:Port de Sóller
+DTEND:20260718T110000
+DTSTAMP:20260513T203205Z
+UID:126cc0a1020292bd@travelplanner.local
+DESCRIPTION:Final morning swim at Cala Agulla\, a beautiful beach surround
+ ed by pine trees\, just a short drive or walk from the hotel.\nCategory: l
+ eisure
+LOCATION:Cala Agulla\, Cala Ratjada
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Transport to Palma
-DTSTART:20260718T103000
-DTEND:20260718T113000
-DTSTAMP:20260510T183644Z
-UID:d680c3b045a1fe29@travelplanner.local
-DESCRIPTION:Drive or public transport to Palma\; plan buffer for parking.\
- nCategory: transport
-LOCATION:Port de Sóller → Palma
+SUMMARY:Drive to Airport & Car Return
+DTSTART:20260718T120000
+DTEND:20260718T133000
+DTSTAMP:20260513T203205Z
+UID:60ee6863eca2f8d2@travelplanner.local
+DESCRIPTION:Drive back to Palma Airport and return the rental car. Allow t
+ ime for traffic.\nCategory: transport
+LOCATION:Cala Ratjada to PMI Airport
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Palma old town wander
-DTSTART:20260718T114500
-DTEND:20260718T143000
-DTSTAMP:20260510T183644Z
-UID:98521a4312adac74@travelplanner.local
-DESCRIPTION:Cathedral exterior + streets + small plazas\; focus on relaxed
-  browsing rather than a checklist.\nCategory: attraction
-LOCATION:Palma de Mallorca (Old Town)
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Lunch (local Mallorcan)
-DTSTART:20260718T144500
-DTEND:20260718T161500
-DTSTAMP:20260510T183644Z
-UID:4cfc2a58df5c18bc@travelplanner.local
-DESCRIPTION:Try dishes like pa amb oli\, fideuà\, or grilled fish (whatev
- er looks freshest).\nCategory: meal
-LOCATION:Palma
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Return to Port de Sóller
-DTSTART:20260718T170000
-DTEND:20260718T180000
-DTSTAMP:20260510T183644Z
-UID:fcbbe16e7d66057f@travelplanner.local
-DESCRIPTION:Back to the sea area.\nCategory: transport
-LOCATION:Palma → Port de Sóller
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Sunset sea lounge
-DTSTART:20260718T190000
-DTEND:20260718T200000
-DTSTAMP:20260510T183644Z
-UID:6f9991d45ad02d0a@travelplanner.local
-DESCRIPTION:Unwind\; optional beach walk.\nCategory: leisure
-LOCATION:Port de Sóller waterfront
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Dinner (wine + local plates)
-DTSTART:20260718T201500
-DTEND:20260718T214500
-DTSTAMP:20260510T183644Z
-UID:91a40b32a69969fc@travelplanner.local
-DESCRIPTION:Local wine + seasonal dishes.\nCategory: meal
-LOCATION:Port de Sóller
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Hotel night (cover)
-DTSTART:20260718T224500
-DTEND:20260719T063000
-DTSTAMP:20260510T183644Z
-UID:a0d4b628d0b053ad@travelplanner.local
-DESCRIPTION:Lodging overnight stay.\nCategory: lodging
-LOCATION:Port de Sóller
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Breakfast
-DTSTART:20260719T090000
-DTEND:20260719T100000
-DTSTAMP:20260510T183644Z
-UID:c2e485ac84f12cf9@travelplanner.local
-DESCRIPTION:Breakfast + coffee.\nCategory: meal
-LOCATION:Port de Sóller
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Hidden beach #2
-DTSTART:20260719T103000
-DTEND:20260719T131500
-DTSTAMP:20260510T183644Z
-UID:9bc80ece32d147ff@travelplanner.local
-DESCRIPTION:Another quiet cove\; arrive early to avoid crowds.\nCategory: 
- attraction
-LOCATION:Coast near Port de Sóller
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Lunch (seafood/vegetarian options)
-DTSTART:20260719T133000
-DTEND:20260719T150000
-DTSTAMP:20260510T183644Z
-UID:5d9ea235c5544f7b@travelplanner.local
-DESCRIPTION:Keep it casual\; aim for fresh fish\, local veg\, olive oil.\n
- Category: meal
-LOCATION:Port de Sóller
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Lounging / siesta time
-DTSTART:20260719T160000
-DTEND:20260719T183000
-DTSTAMP:20260510T183644Z
-UID:527b005554c28420@travelplanner.local
-DESCRIPTION:Back at the hotel/beach loungers for rest.\nCategory: leisure
-LOCATION:Port de Sóller
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Dinner (tumbet or grilled fish)
-DTSTART:20260719T203000
-DTEND:20260719T220000
-DTSTAMP:20260510T183644Z
-UID:4122c57e2ab35033@travelplanner.local
-DESCRIPTION:Local dinner\; keep pace relaxed.\nCategory: meal
-LOCATION:Port de Sóller
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Hotel night (cover)
-DTSTART:20260719T224500
-DTEND:20260720T063000
-DTSTAMP:20260510T183644Z
-UID:27a745e5eda450c2@travelplanner.local
-DESCRIPTION:Lodging overnight stay.\nCategory: lodging
-LOCATION:Port de Sóller
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Breakfast
-DTSTART:20260720T090000
-DTEND:20260720T100000
-DTSTAMP:20260510T183644Z
-UID:c48715608a2a19f4@travelplanner.local
-DESCRIPTION:Slow start.\nCategory: meal
-LOCATION:Port de Sóller
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Tramuntana light hike (views)
-DTSTART:20260720T103000
-DTEND:20260720T130000
-DTSTAMP:20260510T183644Z
-UID:4d465465bc492f4f@travelplanner.local
-DESCRIPTION:Short scenic hike in the Tramuntana (keep it light: viewpoints
-  + easy paths).\nCategory: attraction
-LOCATION:Tramuntana mountains
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Return + refresh at sea
-DTSTART:20260720T133000
-DTEND:20260720T153000
-DTSTAMP:20260510T183644Z
-UID:544f10fc3d768bb0@travelplanner.local
-DESCRIPTION:Cool down\, shower\, and rest.\nCategory: leisure
-LOCATION:Port de Sóller
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Lunch (quick bite)
-DTSTART:20260720T160000
-DTEND:20260720T170000
-DTSTAMP:20260510T183644Z
-UID:68cab8e3521917a3@travelplanner.local
-DESCRIPTION:Late lunch/early snack so dinner feels unhurried.\nCategory: m
- eal
-LOCATION:Port de Sóller
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Dinner (tapas)
-DTSTART:20260720T203000
-DTEND:20260720T220000
-DTSTAMP:20260510T183644Z
-UID:f5845f47c7fc42a5@travelplanner.local
-DESCRIPTION:Local tapas crawl or single excellent restaurant.\nCategory: m
- eal
-LOCATION:Port de Sóller
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Hotel night (cover)
-DTSTART:20260720T224500
-DTEND:20260721T063000
-DTSTAMP:20260510T183644Z
-UID:083cd1e11803851b@travelplanner.local
-DESCRIPTION:Lodging overnight stay.\nCategory: lodging
-LOCATION:Port de Sóller
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Breakfast
-DTSTART:20260721T090000
-DTEND:20260721T100000
-DTSTAMP:20260510T183644Z
-UID:48f8e99728591a2f@travelplanner.local
-DESCRIPTION:Breakfast\, then we’ll head out leisurely.\nCategory: meal
-LOCATION:Port de Sóller
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Transport to Sóller
-DTSTART:20260721T103000
-DTEND:20260721T111500
-DTSTAMP:20260510T183644Z
-UID:c48c34bc0f07ac31@travelplanner.local
-DESCRIPTION:Short transfer\; optional tram/bus depending on preference.\nC
- ategory: transport
-LOCATION:Port de Sóller → Sóller
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Sóller streets + café stop
-DTSTART:20260721T113000
-DTEND:20260721T130000
-DTSTAMP:20260510T183644Z
-UID:cd598271ceeb4273@travelplanner.local
-DESCRIPTION:Relaxed town browsing + coffee.\nCategory: leisure
-LOCATION:Sóller
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Deìà (relaxed viewpoint walk)
-DTSTART:20260721T133000
-DTEND:20260721T160000
-DTSTAMP:20260510T183644Z
-UID:cc968425bf3a22b5@travelplanner.local
-DESCRIPTION:Short scenic walk + viewpoints\; keep it light in the heat.\nC
- ategory: attraction
-LOCATION:Deìà
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Return to Port de Sóller
-DTSTART:20260721T163000
-DTEND:20260721T173000
-DTSTAMP:20260510T183644Z
-UID:23bfadba71051e68@travelplanner.local
-DESCRIPTION:Back in time for a calm sea evening.\nCategory: transport
-LOCATION:Deìà → Port de Sóller
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Dinner (Mallorcan classics)
-DTSTART:20260721T201500
-DTEND:20260721T214500
-DTSTAMP:20260510T183644Z
-UID:b6457dffbfc5e330@travelplanner.local
-DESCRIPTION:Grilled fish + local sides\; early night if you want.\nCategor
- y: meal
-LOCATION:Port de Sóller
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Hotel night (cover)
-DTSTART:20260721T224500
-DTEND:20260722T063000
-DTSTAMP:20260510T183644Z
-UID:74e7c554a942ddfa@travelplanner.local
-DESCRIPTION:Lodging overnight stay.\nCategory: lodging
-LOCATION:Port de Sóller
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Breakfast
-DTSTART:20260722T090000
-DTEND:20260722T100000
-DTSTAMP:20260510T183644Z
-UID:377d576cb4169ae5@travelplanner.local
-DESCRIPTION:Coffee + slow start.\nCategory: meal
-LOCATION:Port de Sóller
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Hidden beach #3
-DTSTART:20260722T103000
-DTEND:20260722T131500
-DTSTAMP:20260510T183644Z
-UID:79bde8d08ce2f33e@travelplanner.local
-DESCRIPTION:Quiet cove day—arrive early\; bring beach gear.\nCategory: a
- ttraction
-LOCATION:Hidden cove near Tramuntana coast
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Lunch (picnic / beach friendly)
-DTSTART:20260722T133000
-DTEND:20260722T150000
-DTSTAMP:20260510T183644Z
-UID:eff8a3cae6c976d7@travelplanner.local
-DESCRIPTION:Buy fresh local items and eat by the sea.\nCategory: meal
-LOCATION:Near the beach
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Boat/sea time + swim
-DTSTART:20260722T160000
-DTEND:20260722T183000
-DTSTAMP:20260510T183644Z
-UID:ea679dfb16239772@travelplanner.local
-DESCRIPTION:Optional short boat ride or just another long swim.\nCategory:
-  leisure
-LOCATION:Port de Sóller / nearby
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Dinner (local seafood)
-DTSTART:20260722T201500
-DTEND:20260722T214500
-DTSTAMP:20260510T183644Z
-UID:2f66427be5abebe6@travelplanner.local
-DESCRIPTION:One more excellent seafood dinner.\nCategory: meal
-LOCATION:Port de Sóller
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Hotel night (cover)
-DTSTART:20260722T224500
-DTEND:20260723T063000
-DTSTAMP:20260510T183644Z
-UID:784605234c717f82@travelplanner.local
-DESCRIPTION:Lodging overnight stay.\nCategory: lodging
-LOCATION:Port de Sóller
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Breakfast
-DTSTART:20260723T090000
-DTEND:20260723T100000
-DTSTAMP:20260510T183644Z
-UID:1ff1a7a19b5cd8b2@travelplanner.local
-DESCRIPTION:Breakfast before the final active day.\nCategory: meal
-LOCATION:Port de Sóller
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Tramuntana light hike (final)
-DTSTART:20260723T103000
-DTEND:20260723T133000
-DTSTAMP:20260510T183644Z
-UID:f2f46a350a6993d9@travelplanner.local
-DESCRIPTION:Choose an easy-to-moderate route with great views\; keep total
-  effort light.\nCategory: attraction
-LOCATION:Tramuntana mountains
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Return + long lunch
-DTSTART:20260723T140000
-DTEND:20260723T160000
-DTSTAMP:20260510T183644Z
-UID:9c8f67b8fbc679d3@travelplanner.local
-DESCRIPTION:Late lunch after the hike (fresh fish + ensalada).\nCategory: 
- meal
-LOCATION:Port de Sóller / Sóller
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Sea lounge + swim
-DTSTART:20260723T163000
-DTEND:20260723T183000
-DTSTAMP:20260510T183644Z
-UID:13688cc546cc254b@travelplanner.local
-DESCRIPTION:Relax hard before tomorrow.\nCategory: leisure
-LOCATION:Port de Sóller beachfront
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Farewell dinner (boutique-ish)
-DTSTART:20260723T201500
-DTEND:20260723T220000
-DTSTAMP:20260510T183644Z
-UID:3e7fb243e92a9691@travelplanner.local
-DESCRIPTION:A more special dinner: tasting-style or standout local restaur
- ant.\nCategory: meal
-LOCATION:Port de Sóller
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Hotel night (cover)
-DTSTART:20260723T224500
-DTEND:20260724T063000
-DTSTAMP:20260510T183644Z
-UID:69a88c7a1841e751@travelplanner.local
-DESCRIPTION:Lodging overnight stay.\nCategory: lodging
-LOCATION:Port de Sóller
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Breakfast
-DTSTART:20260724T090000
-DTEND:20260724T100000
-DTSTAMP:20260510T183644Z
-UID:3e41a3ef9a9e78af@travelplanner.local
-DESCRIPTION:Slow morning\; pack lightly.\nCategory: meal
-LOCATION:Port de Sóller
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Final beach time
-DTSTART:20260724T103000
-DTEND:20260724T130000
-DTSTAMP:20260510T183644Z
-UID:eae76625be00aabf@travelplanner.local
-DESCRIPTION:Last swim + sun while still relaxed.\nCategory: leisure
-LOCATION:Port de Sóller
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Lunch (last local bite)
-DTSTART:20260724T133000
-DTEND:20260724T150000
-DTSTAMP:20260510T183644Z
-UID:bb11fa3c10e7d12d@travelplanner.local
-DESCRIPTION:Keep it casual\; order something you haven’t tried yet.\nCat
- egory: meal
-LOCATION:Port de Sóller
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Hotel check-out prep
-DTSTART:20260724T160000
-DTEND:20260724T170000
-DTSTAMP:20260510T183644Z
-UID:2c67656428285c2e@travelplanner.local
-DESCRIPTION:Return to hotel\, organize bags.\nCategory: other
-LOCATION:Hotel near Port de Sóller
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Return transfer prep (buffer)
-DTSTART:20260724T171500
-DTEND:20260724T183000
-DTSTAMP:20260510T183644Z
-UID:ace4dfb459b81936@travelplanner.local
-DESCRIPTION:Get ready for a July 25 departure day\; if your flight is late
- \, you can move this later.\nCategory: transport
-LOCATION:Port de Sóller → Palma Airport (planned for 25th)
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Early dinner
-DTSTART:20260724T194500
-DTEND:20260724T211500
-DTSTAMP:20260510T183644Z
-UID:4f506d37eca0ffae@travelplanner.local
-DESCRIPTION:Early and unhurried\; prioritize rest.\nCategory: meal
-LOCATION:Port de Sóller
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Hotel night (cover) - last night
-DTSTART:20260724T224500
-DTEND:20260725T063000
-DTSTAMP:20260510T183644Z
-UID:7467e39656e51f1c@travelplanner.local
-DESCRIPTION:Lodging overnight stay (covers stay through morning of 25th).\
- nCategory: lodging
-LOCATION:Port de Sóller
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Departure transfer (to airport)
-DTSTART:20260725T063000
-DTEND:20260725T074500
-DTSTAMP:20260510T183644Z
-UID:52eb73ca68e09744@travelplanner.local
-DESCRIPTION:Buffer transfer to Palma Airport for your flight home.\nCatego
- ry: transport
-LOCATION:Port de Sóller → Palma Airport (PMI)
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Flight home (PMI → BER)
-DTSTART:20260725T090000
-DTEND:20260725T123000
-DTSTAMP:20260510T183644Z
-UID:8afb01c6b27df110@travelplanner.local
-DESCRIPTION:Direct return flight to Berlin (timing placeholder—needs con
- firmation once flight options are available).\nCategory: transport
-LOCATION:Palma de Mallorca (PMI) → Berlin (BER)
+SUMMARY:Flight to Berlin Airport (BER)
+DTSTART:20260718T150000
+DTEND:20260718T174500
+DTSTAMP:20260513T203205Z
+UID:141ac6e3fcd386ab@travelplanner.local
+DESCRIPTION:Direct flight from Palma de Mallorca (PMI) to Berlin (BER). Co
+ st included in Day 1 round-trip estimate.\nCategory: transport\nLink 1: ht
+ tps://www.google.com/travel/flights/flights-from-berlin-to-palma.html
+LOCATION:Palma de Mallorca Airport (PMI)
 END:VEVENT
 END:VCALENDAR

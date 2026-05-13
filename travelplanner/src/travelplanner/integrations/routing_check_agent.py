@@ -44,6 +44,7 @@ from typing import Any, Literal, cast
 from langgraph.graph import END, StateGraph
 from pydantic import BaseModel, Field
 
+from travelplanner.config import get_setting
 from travelplanner.integrations.routing_contracts import (
     ARTIFACT_TYPE_PLACE_DISTANCE_GRAPH,
     ARTIFACT_TYPE_ROUTE_TIMING,
@@ -72,7 +73,7 @@ __all__ = [
 ]
 
 
-_DEFAULT_MODEL = "openai:gpt-4o-mini"
+_DEFAULT_MODEL = get_setting("models.workflows.task_planning.model_name")
 
 # ---------------------------------------------------------------------------
 # Config

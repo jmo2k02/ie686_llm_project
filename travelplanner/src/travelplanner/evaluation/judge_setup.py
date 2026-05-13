@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 # Disable LangSmith tracing when no API key is configured to avoid auth noise.
@@ -15,7 +16,7 @@ from langsmith import traceable
 from langgraph.graph import END, StateGraph
 from pydantic import BaseModel
 
-from travelplanner.agents.general_web_search_agent import _search_tavily
+from travelplanner.agents.general_web_search_agent import _extract_full_content
 from travelplanner.schema.commonsense_constraints import ALL_COMMONSENSE_CONSTRAINT_DEFS
 from travelplanner.schema.judge_artifact import (
     AggregatedConstraintModel,
@@ -23,45 +24,37 @@ from travelplanner.schema.judge_artifact import (
     JudgeOutputModel,
     JudgeResultModel,
     ScorecardModel,
+    UrlVerificationModel,
+    UrlVerificationOutputModel,
 )
 from travelplanner.utils.llm import invoke_structured_model
 
-from .systemprompt import JUDGE_SYSTEM_PROMPT, build_judge_user_prompt
+from .systemprompt import (
+    JUDGE_SYSTEM_PROMPT,
+    URL_VERIFICATION_SYSTEM_PROMPT,
+    build_judge_user_prompt_cc,
+    build_judge_user_prompt_hc,
+    build_url_verification_prompt,
+)
 
 
 # ─── Constants ────────────────────────────────────────────────────────────────
 
 DEFAULT_JUDGE_MODELS: list[str] = [
-    "openrouter:anthropic/claude-3-5-haiku",
-    "openrouter:google/gemini-flash-1.5",
-    "openrouter:mistralai/mistral-small-3.1-24.09",
-    "openrouter:meta-llama/llama-3.1-8b-instruct",
+    "openrouter:anthropic/claude-3.5-haiku",      # dot, not hyphen
+    "openrouter:google/gemini-2.5-flash",
+    "openrouter:mistralai/mistral-large",
+    "openrouter:meta-llama/llama-3.3-70b-instruct",
 ]
 
-# Commonsense constraints are ground truth: always sourced from the canonical
-# definition file, never from an external JSON.
 _ALL_CC_AS_DICTS: list[dict] = [
     {"type": "commonsense", "text": c.text, "user_skipped": False}
     for c in ALL_COMMONSENSE_CONSTRAINT_DEFS
 ]
 
-# Constraint texts that benefit from Tavily web lookups.
-_GROUNDING_KEYWORDS = {
-    "budget",
-    "cost",
-    "price",
-    "geographically",
-    "geographic",
-    "overseas",
-    "island",
-    "transit",
-    "opening hours",
-    "advance booking",
-    "origin city",
-    "destination city",
-}
-
 _MAX_JUDGE_RETRIES = 2
+
+_URL_RE = re.compile(r'https?://[^\s\)\]\"\'\<\>]+')
 
 
 # ─── State ────────────────────────────────────────────────────────────────────
@@ -69,17 +62,15 @@ _MAX_JUDGE_RETRIES = 2
 class JudgeState(BaseModel):
     # Inputs
     plan_text: str
-    # Hard constraints as {type, text, user_skipped} dicts, one per category,
-    # with text formatted as "category: value" (matching constraint_iteration_agent output).
     hard_constraints: list[dict]
-    # Commonsense constraints: defaults to all 23 from ALL_COMMONSENSE_CONSTRAINT_DEFS.
     commonsense_constraints: list[dict] = _ALL_CC_AS_DICTS
-    user_query: str
     judge_model_names: list[str] = DEFAULT_JUDGE_MODELS
     output_dir: str = "."
     # Pipeline state (populated by nodes)
-    tavily_evidence: dict[str, str] = {}
-    judge_results: list[JudgeResultModel] = []
+    plan_urls: list[str] = []
+    url_verifications: list[UrlVerificationModel] = []
+    hc_judge_results: list[JudgeResultModel] = []
+    cc_judge_results: list[JudgeResultModel] = []
     aggregated_constraints: list[AggregatedConstraintModel] = []
     scorecard: ScorecardModel | None = None
 
@@ -94,57 +85,106 @@ def load_inputs_node(state: JudgeState) -> dict[str, Any]:
     return {"hard_constraints": hc, "commonsense_constraints": cc}
 
 
-# ─── Node: tavily_grounding ───────────────────────────────────────────────────
+# ─── Node: url_extraction ─────────────────────────────────────────────────────
 
-def _needs_grounding(constraint_text: str) -> bool:
-    lower = constraint_text.lower()
-    return any(kw in lower for kw in _GROUNDING_KEYWORDS)
+def url_extraction_node(state: JudgeState) -> dict[str, Any]:
+    seen: set[str] = set()
+    unique_urls: list[str] = []
+    for url in _URL_RE.findall(state.plan_text):
+        if url not in seen:
+            seen.add(url)
+            unique_urls.append(url)
+    return {"plan_urls": unique_urls}
 
 
-def tavily_grounding_node(state: JudgeState) -> dict[str, Any]:
-    evidence: dict[str, str] = {}
+# ─── Node: url_verification ───────────────────────────────────────────────────
 
-    candidates: list[tuple[str, str]] = []
-    for i, c in enumerate(state.hard_constraints, start=1):
-        text = c.get("text", "")
-        if _needs_grounding(text):
-            candidates.append((f"HC-{i}", text))
-    for i, c in enumerate(state.commonsense_constraints, start=1):
-        text = c.get("text", "")
-        if _needs_grounding(text):
-            candidates.append((f"CC-{i}", text))
+def _plan_excerpt_for_url(plan_text: str, url: str, context_chars: int = 500) -> str:
+    idx = plan_text.find(url)
+    if idx == -1:
+        return ""
+    start = max(0, idx - context_chars // 2)
+    end = min(len(plan_text), idx + len(url) + context_chars // 2)
+    return plan_text[start:end]
 
-    for constraint_id, constraint_text in candidates:
-        query = (
-            f"Fact-check for travel plan evaluation — {constraint_id}: {constraint_text}. "
-            f"Travel context: {state.user_query[:300]}"
+
+@traceable(name="url_verification")
+def _verify_single_url(url: str, plan_text: str, model_name: str) -> UrlVerificationModel:
+    fetched_title = ""
+    fetched_content = ""
+    try:
+        extracted = _extract_full_content([url], timeout=15, extract_depth="basic")
+        if extracted:
+            fetched_title = extracted[0].get("title", "")
+            fetched_content = extracted[0].get("raw_content", "")
+    except Exception:
+        pass
+
+    user_prompt = build_url_verification_prompt(
+        url=url,
+        fetched_title=fetched_title,
+        fetched_content=fetched_content,
+        plan_excerpt=_plan_excerpt_for_url(plan_text, url),
+    )
+
+    try:
+        output, _, _ = invoke_structured_model(
+            model_name=model_name,
+            temperature=0.0,
+            system_prompt=URL_VERIFICATION_SYSTEM_PROMPT,
+            user_prompt=user_prompt,
+            response_model=UrlVerificationOutputModel,
         )
-        result = _search_tavily(
-            query,
-            max_results=3,
-            timeout=15,
-            search_depth="basic",
-            include_answer=True,
+        return UrlVerificationModel(
+            url=url,
+            fetched_title=fetched_title,
+            verdict=output.verdict,
+            reasoning=output.reasoning,
+            claims_checked=output.claims_checked,
         )
-        if result.get("ok"):
-            snippet = result.get("answer") or ""
-            if not snippet and result.get("results"):
-                snippet = result["results"][0].get("content", "")[:400]
-            if snippet:
-                evidence[constraint_id] = snippet
+    except Exception as exc:
+        return UrlVerificationModel(
+            url=url,
+            fetched_title=fetched_title,
+            verdict="MISSING_INFO",
+            reasoning=f"Verification failed: {exc}",
+        )
 
-    return {"tavily_evidence": evidence}
+
+def url_verification_node(state: JudgeState) -> dict[str, Any]:
+    if not state.plan_urls:
+        return {"url_verifications": []}
+
+    model_name = state.judge_model_names[0] if state.judge_model_names else DEFAULT_JUDGE_MODELS[0]
+    order = {url: i for i, url in enumerate(state.plan_urls)}
+    results: list[UrlVerificationModel] = []
+
+    with ThreadPoolExecutor(max_workers=min(len(state.plan_urls), 4)) as pool:
+        future_to_url = {
+            pool.submit(_verify_single_url, url, state.plan_text, model_name): url
+            for url in state.plan_urls
+        }
+        for future in as_completed(future_to_url):
+            url = future_to_url[future]
+            try:
+                results.append(future.result())
+            except Exception as exc:
+                results.append(UrlVerificationModel(
+                    url=url,
+                    verdict="MISSING_INFO",
+                    reasoning=f"Unexpected error: {exc}",
+                ))
+
+    results.sort(key=lambda r: order.get(r.url, 999))
+    return {"url_verifications": results}
 
 
-# ─── Node: judge_fan_out ──────────────────────────────────────────────────────
+# ─── Judge helpers ────────────────────────────────────────────────────────────
 
-def _make_fail_result(model_name: str, n_hc: int, n_cc: int, reason: str) -> JudgeResultModel:
+def _make_fail_result(model_name: str, n: int, prefix: str, reason: str) -> JudgeResultModel:
     verdicts = [
-        ConstraintVerdictModel(id=f"HC-{i}", verdict="FAIL", reasoning=reason)
-        for i in range(1, n_hc + 1)
-    ] + [
-        ConstraintVerdictModel(id=f"CC-{i}", verdict="FAIL", reasoning=reason)
-        for i in range(1, n_cc + 1)
+        ConstraintVerdictModel(id=f"{prefix}-{i}", verdict="FAIL", reasoning=reason)
+        for i in range(1, n + 1)
     ]
     return JudgeResultModel(
         model_name=model_name,
@@ -155,12 +195,7 @@ def _make_fail_result(model_name: str, n_hc: int, n_cc: int, reason: str) -> Jud
 
 
 @traceable(name="judge_invocation")
-def _invoke_judge(
-    model_name: str,
-    user_prompt: str,
-    n_hc: int,
-    n_cc: int,
-) -> JudgeResultModel:
+def _invoke_judge(model_name: str, user_prompt: str, n: int, prefix: str) -> JudgeResultModel:
     last_exc: Exception | None = None
     for attempt in range(_MAX_JUDGE_RETRIES + 1):
         try:
@@ -181,36 +216,65 @@ def _invoke_judge(
             last_exc = exc
 
     reason = f"Judge failed after {_MAX_JUDGE_RETRIES + 1} attempts: {last_exc}"
-    return _make_fail_result(model_name, n_hc, n_cc, reason)
+    return _make_fail_result(model_name, n, prefix, reason)
 
 
-def judge_fan_out_node(state: JudgeState) -> dict[str, Any]:
-    user_prompt = build_judge_user_prompt(
-        user_query=state.user_query,
-        plan_text=state.plan_text,
-        hard_constraints=state.hard_constraints,
-        commonsense_constraints=state.commonsense_constraints,
-        tavily_evidence=state.tavily_evidence,
-    )
-    n_hc = len(state.hard_constraints)
-    n_cc = len(state.commonsense_constraints)
-
-    results: list[JudgeResultModel | None] = [None] * len(state.judge_model_names)
-
-    with ThreadPoolExecutor(max_workers=len(state.judge_model_names)) as pool:
+def _run_judges_parallel(
+    model_names: list[str],
+    user_prompt: str,
+    n: int,
+    prefix: str,
+) -> list[JudgeResultModel]:
+    results: list[JudgeResultModel | None] = [None] * len(model_names)
+    with ThreadPoolExecutor(max_workers=len(model_names)) as pool:
         future_to_idx = {
-            pool.submit(_invoke_judge, model, user_prompt, n_hc, n_cc): idx
-            for idx, model in enumerate(state.judge_model_names)
+            pool.submit(_invoke_judge, model, user_prompt, n, prefix): idx
+            for idx, model in enumerate(model_names)
         }
         for future in as_completed(future_to_idx):
             idx = future_to_idx[future]
             try:
                 results[idx] = future.result()
             except Exception as exc:
-                model = state.judge_model_names[idx]
-                results[idx] = _make_fail_result(model, n_hc, n_cc, str(exc))
+                results[idx] = _make_fail_result(model_names[idx], n, prefix, str(exc))
+    return [r for r in results if r is not None]
 
-    return {"judge_results": [r for r in results if r is not None]}
+
+# ─── Node: judge_hc ───────────────────────────────────────────────────────────
+
+def judge_hc_node(state: JudgeState) -> dict[str, Any]:
+    uv_dicts = [uv.model_dump() for uv in state.url_verifications]
+    user_prompt = build_judge_user_prompt_hc(
+        plan_text=state.plan_text,
+        hard_constraints=state.hard_constraints,
+        url_verifications=uv_dicts,
+    )
+    results = _run_judges_parallel(
+        state.judge_model_names,
+        user_prompt,
+        n=len(state.hard_constraints),
+        prefix="HC",
+    )
+    return {"hc_judge_results": results}
+
+
+# ─── Node: judge_cc ───────────────────────────────────────────────────────────
+
+def judge_cc_node(state: JudgeState) -> dict[str, Any]:
+    uv_dicts = [uv.model_dump() for uv in state.url_verifications]
+    user_prompt = build_judge_user_prompt_cc(
+        plan_text=state.plan_text,
+        commonsense_constraints=state.commonsense_constraints,
+        url_verifications=uv_dicts,
+        hard_constraints=state.hard_constraints,
+    )
+    results = _run_judges_parallel(
+        state.judge_model_names,
+        user_prompt,
+        n=len(state.commonsense_constraints),
+        prefix="CC",
+    )
+    return {"cc_judge_results": results}
 
 
 # ─── Node: aggregate ──────────────────────────────────────────────────────────
@@ -231,33 +295,45 @@ def _majority_verdict(verdicts: list[str]) -> str:
 
 
 def aggregate_node(state: JudgeState) -> dict[str, Any]:
-    all_constraints: list[tuple[str, str, str]] = []
-    for i, c in enumerate(state.hard_constraints, start=1):
-        all_constraints.append((f"HC-{i}", c.get("text", ""), "hard"))
-    for i, c in enumerate(state.commonsense_constraints, start=1):
-        all_constraints.append((f"CC-{i}", c.get("text", ""), "commonsense"))
-
     aggregated: list[AggregatedConstraintModel] = []
-    for cid, ctext, ctype in all_constraints:
-        judge_verdicts = []
-        for jr in state.judge_results:
-            matched = next((v.verdict for v in jr.verdicts if v.id == cid), "FAIL")
-            judge_verdicts.append(matched)
 
+    for i, c in enumerate(state.hard_constraints, start=1):
+        cid = f"HC-{i}"
+        judge_verdicts = [
+            next((v.verdict for v in jr.verdicts if v.id == cid), "FAIL")
+            for jr in state.hc_judge_results
+        ]
         final = _majority_verdict(judge_verdicts)
-        aggregated.append(
-            AggregatedConstraintModel(
-                id=cid,
-                constraint_text=ctext,
-                constraint_type=ctype,  # type: ignore[arg-type]
-                final_verdict=final,
-                judge_verdicts=judge_verdicts,
-                pass_count=judge_verdicts.count("PASS"),
-                fail_count=judge_verdicts.count("FAIL"),
-                missing_count=judge_verdicts.count("MISSING_INFO"),
-                na_count=judge_verdicts.count("NA"),
-            )
-        )
+        aggregated.append(AggregatedConstraintModel(
+            id=cid,
+            constraint_text=c.get("text", ""),
+            constraint_type="hard",
+            final_verdict=final,
+            judge_verdicts=judge_verdicts,
+            pass_count=judge_verdicts.count("PASS"),
+            fail_count=judge_verdicts.count("FAIL"),
+            missing_count=judge_verdicts.count("MISSING_INFO"),
+            na_count=judge_verdicts.count("NA"),
+        ))
+
+    for i, c in enumerate(state.commonsense_constraints, start=1):
+        cid = f"CC-{i}"
+        judge_verdicts = [
+            next((v.verdict for v in jr.verdicts if v.id == cid), "FAIL")
+            for jr in state.cc_judge_results
+        ]
+        final = _majority_verdict(judge_verdicts)
+        aggregated.append(AggregatedConstraintModel(
+            id=cid,
+            constraint_text=c.get("text", ""),
+            constraint_type="commonsense",
+            final_verdict=final,
+            judge_verdicts=judge_verdicts,
+            pass_count=judge_verdicts.count("PASS"),
+            fail_count=judge_verdicts.count("FAIL"),
+            missing_count=judge_verdicts.count("MISSING_INFO"),
+            na_count=judge_verdicts.count("NA"),
+        ))
 
     return {"aggregated_constraints": aggregated}
 
@@ -277,17 +353,23 @@ def score_node(state: JudgeState) -> dict[str, Any]:
     cc_micro = cc_pass / len(cc) if cc else 1.0
     cc_macro = 1.0 if cc and all(c.final_verdict == "PASS" for c in cc) else 0.0
 
+    url_pass = sum(1 for u in state.url_verifications if u.verdict == "PASS")
+    url_fail = sum(1 for u in state.url_verifications if u.verdict == "FAIL")
+    url_missing = sum(1 for u in state.url_verifications if u.verdict == "MISSING_INFO")
+
     scorecard = ScorecardModel(
-        user_query=state.user_query,
         plan_excerpt=state.plan_text[:300],
         judge_models=state.judge_model_names,
+        url_verifications=state.url_verifications,
+        url_pass_count=url_pass,
+        url_fail_count=url_fail,
+        url_missing_count=url_missing,
         hc_micro_pass_rate=round(hc_micro, 4),
         cc_micro_pass_rate=round(cc_micro, 4),
         hc_macro_pass_rate=hc_macro,
         cc_macro_pass_rate=cc_macro,
         final_pass_rate=1.0 if hc_macro == 1.0 and cc_macro == 1.0 else 0.0,
         aggregated_constraints=state.aggregated_constraints,
-        tavily_evidence=state.tavily_evidence,
         timestamp=datetime.now(timezone.utc).isoformat(),
     )
     return {"scorecard": scorecard}
@@ -307,7 +389,7 @@ def report_node(state: JudgeState) -> dict[str, Any]:
     )
 
     with (output_dir / "audit_log.jsonl").open("w", encoding="utf-8") as f:
-        for jr in state.judge_results:
+        for jr in state.hc_judge_results + state.cc_judge_results:
             f.write(
                 json.dumps({
                     "model_name": jr.model_name,
@@ -325,16 +407,20 @@ def report_node(state: JudgeState) -> dict[str, Any]:
 def make_graph() -> Any:
     builder: StateGraph = StateGraph(JudgeState)
     builder.add_node("load_inputs", load_inputs_node)
-    builder.add_node("tavily_grounding", tavily_grounding_node)
-    builder.add_node("judge_fan_out", judge_fan_out_node)
+    builder.add_node("url_extraction", url_extraction_node)
+    builder.add_node("url_verification", url_verification_node)
+    builder.add_node("judge_hc", judge_hc_node)
+    builder.add_node("judge_cc", judge_cc_node)
     builder.add_node("aggregate", aggregate_node)
     builder.add_node("score", score_node)
     builder.add_node("report", report_node)
 
     builder.set_entry_point("load_inputs")
-    builder.add_edge("load_inputs", "tavily_grounding")
-    builder.add_edge("tavily_grounding", "judge_fan_out")
-    builder.add_edge("judge_fan_out", "aggregate")
+    builder.add_edge("load_inputs", "url_extraction")
+    builder.add_edge("url_extraction", "url_verification")
+    builder.add_edge("url_verification", "judge_hc")
+    builder.add_edge("judge_hc", "judge_cc")
+    builder.add_edge("judge_cc", "aggregate")
     builder.add_edge("aggregate", "score")
     builder.add_edge("score", "report")
     builder.add_edge("report", END)
@@ -347,29 +433,26 @@ def make_graph() -> Any:
 def run_evaluation(
     plan_path: str,
     hard_constraints_path: str,
-    user_query: str,
     output_dir: str = ".",
     judge_model_names: list[str] | None = None,
 ) -> ScorecardModel:
     """Evaluate a travel plan against hard and commonsense constraints.
 
-    Hard constraints are read from a JSON file (ground truth, one dict per
-    category with keys type/text/user_skipped, matching constraint_iteration_agent
-    output format: text = "category: value").
-
-    Commonsense constraints are always sourced from ALL_COMMONSENSE_CONSTRAINT_DEFS
-    in commonsense_constraints.py — they are canonical and not configurable per run.
+    Workflow:
+      1. Scan plan for URLs → fetch each via Tavily extract → LLM verifies plan claims.
+      2. Four judges evaluate all hard constraints (parallel).
+      3. Four judges evaluate all commonsense constraints (parallel).
+      4. Majority-vote aggregation → Xie et al. (2024) metrics → scorecard.json + audit_log.jsonl.
 
     Args:
         plan_path: Path to the travel plan markdown file.
-        hard_constraints_path: Path to JSON file containing a list of hard
-            constraint dicts produced by constraint_iteration_agent.
-        user_query: The original user travel request.
-        output_dir: Directory where scorecard.json and audit_log.jsonl are written.
+        hard_constraints_path: Path to JSON list of hard constraint dicts from
+            constraint_iteration_agent (format: {type, text: "category: value", user_skipped}).
+        output_dir: Directory for scorecard.json and audit_log.jsonl.
         judge_model_names: Override the default 4-judge model list.
 
     Returns:
-        The final ScorecardModel with Xie et al. (2024) metrics.
+        ScorecardModel with Xie et al. (2024) HC/CC Micro and Macro Pass Rates.
     """
     plan_text = Path(plan_path).read_text(encoding="utf-8")
     hard_constraints: list[dict] = json.loads(
@@ -379,7 +462,6 @@ def run_evaluation(
     initial_state = JudgeState(
         plan_text=plan_text,
         hard_constraints=hard_constraints,
-        user_query=user_query,
         judge_model_names=judge_model_names or DEFAULT_JUDGE_MODELS,
         output_dir=output_dir,
     )

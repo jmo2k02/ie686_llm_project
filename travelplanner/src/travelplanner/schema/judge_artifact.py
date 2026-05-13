@@ -53,16 +53,50 @@ class AggregatedConstraintModel(BaseModel):
     na_count: int
 
 
+class UrlVerificationModel(BaseModel):
+    """Fact-check result for a single URL found in the travel plan."""
+    url: str
+    fetched_title: str = ""
+    verdict: Annotated[
+        Literal["PASS", "FAIL", "MISSING_INFO"],
+        Field(
+            description=(
+                "PASS: all verifiable claims in the plan about this URL match the fetched content. "
+                "FAIL: at least one verifiable claim contradicts the fetched content. "
+                "MISSING_INFO: URL content was not accessible or contained insufficient information."
+            )
+        ),
+    ]
+    reasoning: str
+    claims_checked: Annotated[
+        list[str],
+        Field(description="Specific factual claims from the plan that were checked against this URL"),
+    ] = []
+
+
+class UrlVerificationOutputModel(BaseModel):
+    """Structured output from the URL verification judge."""
+    url: str
+    verdict: Literal["PASS", "FAIL", "MISSING_INFO"]
+    reasoning: str
+    claims_checked: list[str] = []
+
+
 class ScorecardModel(BaseModel):
     """Final evaluation scorecard with Xie et al. (2024) metrics."""
-    user_query: str
     plan_excerpt: Annotated[str, Field(description="First 300 characters of plan_text for reference")]
     judge_models: list[str]
+    url_verifications: Annotated[
+        list[UrlVerificationModel],
+        Field(description="Fact-check results for each URL found in the travel plan"),
+    ] = []
+    url_pass_count: Annotated[int, Field(description="Number of URLs whose claims were confirmed (PASS)")] = 0
+    url_fail_count: Annotated[int, Field(description="Number of URLs with at least one contradicted claim (FAIL)")] = 0
+    url_missing_count: Annotated[int, Field(description="Number of URLs where content was insufficient to verify (MISSING_INFO)")] = 0
     hc_micro_pass_rate: Annotated[float, Field(description="Fraction of applicable HC constraints that PASS")]
     cc_micro_pass_rate: Annotated[float, Field(description="Fraction of CC constraints that PASS")]
     hc_macro_pass_rate: Annotated[float, Field(description="1.0 if all applicable HCs pass, else 0.0")]
     cc_macro_pass_rate: Annotated[float, Field(description="1.0 if all CCs pass, else 0.0")]
     final_pass_rate: Annotated[float, Field(description="1.0 if both HC macro and CC macro are 1.0, else 0.0")]
     aggregated_constraints: list[AggregatedConstraintModel]
-    tavily_evidence: Annotated[dict[str, str], Field(description="Constraint ID → Tavily evidence snippet used by judges")]
     timestamp: str

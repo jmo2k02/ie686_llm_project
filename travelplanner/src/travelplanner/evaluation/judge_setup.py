@@ -2,7 +2,8 @@ from __future__ import annotations
 
 import json
 import os
-import re
+import sys
+import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 # Disable LangSmith tracing when no API key is configured to avoid auth noise.
@@ -10,42 +11,47 @@ if not os.getenv("LANGCHAIN_API_KEY", "").strip():
     os.environ["LANGCHAIN_TRACING_V2"] = "false"
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any
+from typing import Any, Literal
 
 from langsmith import traceable
 from langgraph.graph import END, StateGraph
 from pydantic import BaseModel
 
-from travelplanner.agents.general_web_search_agent import _extract_full_content
+from travelplanner.agents.evaluation_web_search_agent import verify_all_slots
 from travelplanner.schema.commonsense_constraints import ALL_COMMONSENSE_CONSTRAINT_DEFS
 from travelplanner.schema.judge_artifact import (
     AggregatedConstraintModel,
     ConstraintVerdictModel,
     JudgeOutputModel,
     JudgeResultModel,
+    RationaleVerificationModel,
     ScorecardModel,
-    UrlVerificationModel,
-    UrlVerificationOutputModel,
 )
+from travelplanner.travelplan.plan import TravelPlan
 from travelplanner.utils.llm import invoke_structured_model
 
 from .systemprompt import (
     JUDGE_SYSTEM_PROMPT,
-    URL_VERIFICATION_SYSTEM_PROMPT,
+    MARKDOWN_TO_TRAVELPLAN_SYSTEM_PROMPT,
     build_judge_user_prompt_cc,
     build_judge_user_prompt_hc,
-    build_url_verification_prompt,
+    build_markdown_to_travelplan_prompt,
 )
 
 
 # ─── Constants ────────────────────────────────────────────────────────────────
 
 DEFAULT_JUDGE_MODELS: list[str] = [
-    "openrouter:anthropic/claude-3.5-haiku",      # dot, not hyphen
-    "openrouter:google/gemini-2.5-flash",
-    "openrouter:mistralai/mistral-large",
-    "openrouter:meta-llama/llama-3.3-70b-instruct",
+    "openrouter:minimax/minimax-m2.7",      # dot, not hyphen
+    "openrouter:google/gemini-3-flash-preview",
+    "openrouter:deepseek/deepseek-v4-flash",
+    "openrouter:nvidia/nemotron-3-super-120b-a12b",
 ]
+
+# Model used to convert baseline markdown → TravelPlan and to run the per-slot
+# rationale verifier. Kept separate from the judge ensemble so the same model
+# is used consistently for plan extraction.
+DEFAULT_EXTRACTION_MODEL = "openrouter:google/gemini-3-flash-preview"
 
 _ALL_CC_AS_DICTS: list[dict] = [
     {"type": "commonsense", "text": c.text, "user_skipped": False}
@@ -54,21 +60,42 @@ _ALL_CC_AS_DICTS: list[dict] = [
 
 _MAX_JUDGE_RETRIES = 2
 
-_URL_RE = re.compile(r'https?://[^\s\)\]\"\'\<\>]+')
+PlanInputFormat = Literal["json", "markdown"]
+
+
+# ─── Progress logging ─────────────────────────────────────────────────────────
+
+_RUN_START_MONO: float = time.monotonic()
+
+
+def _log(msg: str) -> None:
+    """Stderr-flushed progress line with wallclock + elapsed-since-run-start."""
+    now = datetime.now().strftime("%H:%M:%S")
+    elapsed = time.monotonic() - _RUN_START_MONO
+    print(f"[{now} +{elapsed:6.1f}s] {msg}", file=sys.stderr, flush=True)
+
+
+def reset_log_clock() -> None:
+    """Reset the elapsed-time counter — call at the start of each scenario."""
+    global _RUN_START_MONO
+    _RUN_START_MONO = time.monotonic()
 
 
 # ─── State ────────────────────────────────────────────────────────────────────
 
 class JudgeState(BaseModel):
     # Inputs
-    plan_text: str
+    plan_source_text: str
+    plan_input_format: PlanInputFormat
     hard_constraints: list[dict]
     commonsense_constraints: list[dict] = _ALL_CC_AS_DICTS
     judge_model_names: list[str] = DEFAULT_JUDGE_MODELS
+    extraction_model_name: str = DEFAULT_EXTRACTION_MODEL
     output_dir: str = "."
     # Pipeline state (populated by nodes)
-    plan_urls: list[str] = []
-    url_verifications: list[UrlVerificationModel] = []
+    plan: TravelPlan | None = None
+    plan_markdown: str = ""
+    rationale_verifications: list[RationaleVerificationModel] = []
     hc_judge_results: list[JudgeResultModel] = []
     cc_judge_results: list[JudgeResultModel] = []
     aggregated_constraints: list[AggregatedConstraintModel] = []
@@ -80,103 +107,83 @@ class JudgeState(BaseModel):
 # ─── Node: load_inputs ────────────────────────────────────────────────────────
 
 def load_inputs_node(state: JudgeState) -> dict[str, Any]:
+    _log(f"[node:load_inputs] start — format={state.plan_input_format}")
+    t0 = time.monotonic()
     hc = [c for c in state.hard_constraints if not c.get("user_skipped", False)]
     cc = [c for c in state.commonsense_constraints if not c.get("user_skipped", False)]
+    _log(
+        f"[node:load_inputs] done ({time.monotonic() - t0:.1f}s) — "
+        f"hc={len(hc)} cc={len(cc)}"
+    )
     return {"hard_constraints": hc, "commonsense_constraints": cc}
 
 
-# ─── Node: url_extraction ─────────────────────────────────────────────────────
+# ─── Node: build_travelplan ───────────────────────────────────────────────────
 
-def url_extraction_node(state: JudgeState) -> dict[str, Any]:
-    seen: set[str] = set()
-    unique_urls: list[str] = []
-    for url in _URL_RE.findall(state.plan_text):
-        if url not in seen:
-            seen.add(url)
-            unique_urls.append(url)
-    return {"plan_urls": unique_urls}
-
-
-# ─── Node: url_verification ───────────────────────────────────────────────────
-
-def _plan_excerpt_for_url(plan_text: str, url: str, context_chars: int = 500) -> str:
-    idx = plan_text.find(url)
-    if idx == -1:
-        return ""
-    start = max(0, idx - context_chars // 2)
-    end = min(len(plan_text), idx + len(url) + context_chars // 2)
-    return plan_text[start:end]
-
-
-@traceable(name="url_verification")
-def _verify_single_url(url: str, plan_text: str, model_name: str) -> UrlVerificationModel:
-    fetched_title = ""
-    fetched_content = ""
-    try:
-        extracted = _extract_full_content([url], timeout=15, extract_depth="basic")
-        if extracted:
-            fetched_title = extracted[0].get("title", "")
-            fetched_content = extracted[0].get("raw_content", "")
-    except Exception:
-        pass
-
-    user_prompt = build_url_verification_prompt(
-        url=url,
-        fetched_title=fetched_title,
-        fetched_content=fetched_content,
-        plan_excerpt=_plan_excerpt_for_url(plan_text, url),
+@traceable(name="markdown_to_travelplan")
+def _markdown_to_travelplan(markdown: str, model_name: str) -> TravelPlan:
+    plan, _, _ = invoke_structured_model(
+        model_name=model_name,
+        #model_name="openrouter:openai/gpt-5.5",
+        temperature=0.0,
+        system_prompt=MARKDOWN_TO_TRAVELPLAN_SYSTEM_PROMPT,
+        user_prompt=build_markdown_to_travelplan_prompt(markdown),
+        response_model=TravelPlan,
     )
+    return plan
 
-    try:
-        output, _, _ = invoke_structured_model(
-            model_name=model_name,
-            temperature=0.0,
-            system_prompt=URL_VERIFICATION_SYSTEM_PROMPT,
-            user_prompt=user_prompt,
-            response_model=UrlVerificationOutputModel,
+
+def build_travelplan_node(state: JudgeState) -> dict[str, Any]:
+    _log(f"[node:build_travelplan] start — format={state.plan_input_format}")
+    t0 = time.monotonic()
+    if state.plan_input_format == "json":
+        plan = TravelPlan.model_validate_json(state.plan_source_text)
+    elif state.plan_input_format == "markdown":
+        _log(
+            f"[node:build_travelplan] calling extraction LLM "
+            f"(model={state.extraction_model_name})"
         )
-        return UrlVerificationModel(
-            url=url,
-            fetched_title=fetched_title,
-            verdict=output.verdict,
-            reasoning=output.reasoning,
-            claims_checked=output.claims_checked,
+        plan = _markdown_to_travelplan(
+            state.plan_source_text, state.extraction_model_name
         )
-    except Exception as exc:
-        return UrlVerificationModel(
-            url=url,
-            fetched_title=fetched_title,
-            verdict="MISSING_INFO",
-            reasoning=f"Verification failed: {exc}",
-        )
+    else:
+        raise ValueError(f"Unsupported plan_input_format: {state.plan_input_format!r}")
+
+    n_slots = sum(len(d.slots) for d in plan.days)
+    _log(
+        f"[node:build_travelplan] done ({time.monotonic() - t0:.1f}s) — "
+        f"days={len(plan.days)} slots={n_slots}"
+    )
+    return {"plan": plan, "plan_markdown": plan.to_markdown()}
 
 
-def url_verification_node(state: JudgeState) -> dict[str, Any]:
-    if not state.plan_urls:
-        return {"url_verifications": []}
+# ─── Node: rationale_verification ─────────────────────────────────────────────
 
-    model_name = state.judge_model_names[0] if state.judge_model_names else DEFAULT_JUDGE_MODELS[0]
-    order = {url: i for i, url in enumerate(state.plan_urls)}
-    results: list[UrlVerificationModel] = []
-
-    with ThreadPoolExecutor(max_workers=min(len(state.plan_urls), 4)) as pool:
-        future_to_url = {
-            pool.submit(_verify_single_url, url, state.plan_text, model_name): url
-            for url in state.plan_urls
-        }
-        for future in as_completed(future_to_url):
-            url = future_to_url[future]
-            try:
-                results.append(future.result())
-            except Exception as exc:
-                results.append(UrlVerificationModel(
-                    url=url,
-                    verdict="MISSING_INFO",
-                    reasoning=f"Unexpected error: {exc}",
-                ))
-
-    results.sort(key=lambda r: order.get(r.url, 999))
-    return {"url_verifications": results}
+def rationale_verification_node(state: JudgeState) -> dict[str, Any]:
+    assert state.plan is not None, "build_travelplan_node must run first"
+    n_slots = sum(len(d.slots) for d in state.plan.days)
+    _log(
+        f"[node:rationale_verification] start — verifying {n_slots} slot(s) "
+        f"(extraction_model={state.extraction_model_name})"
+    )
+    t0 = time.monotonic()
+    results = verify_all_slots(
+        state.plan,
+        state.extraction_model_name,
+        progress_callback=lambda rv, done, total: _log(
+            f"[node:rationale_verification] slot {done}/{total} done — "
+            f"Day {rv.day_index}/slot {rv.slot_position} ({rv.source_type}) "
+            f"→ {rv.verdict}"
+        ),
+    )
+    n_pass = sum(1 for r in results if r.verdict == "PASS")
+    n_fail = sum(1 for r in results if r.verdict == "FAIL")
+    n_miss = sum(1 for r in results if r.verdict == "MISSING_INFO")
+    _log(
+        f"[node:rationale_verification] done ({time.monotonic() - t0:.1f}s) — "
+        f"PASS={n_pass} FAIL={n_fail} MISSING={n_miss}"
+    )
+    return {"rationale_verifications": results}
 
 
 # ─── Judge helpers ────────────────────────────────────────────────────────────
@@ -226,6 +233,9 @@ def _run_judges_parallel(
     prefix: str,
 ) -> list[JudgeResultModel]:
     results: list[JudgeResultModel | None] = [None] * len(model_names)
+    total = len(model_names)
+    done = 0
+    t0 = time.monotonic()
     with ThreadPoolExecutor(max_workers=len(model_names)) as pool:
         future_to_idx = {
             pool.submit(_invoke_judge, model, user_prompt, n, prefix): idx
@@ -237,17 +247,32 @@ def _run_judges_parallel(
                 results[idx] = future.result()
             except Exception as exc:
                 results[idx] = _make_fail_result(model_names[idx], n, prefix, str(exc))
+            done += 1
+            jr = results[idx]
+            short = model_names[idx].split("/")[-1]
+            retry_info = (
+                f" retries={jr.retry_count}" if jr is not None and jr.retry_count else ""
+            )
+            _log(
+                f"[judges:{prefix}] {done}/{total} done — {short} "
+                f"({time.monotonic() - t0:.1f}s elapsed){retry_info}"
+            )
     return [r for r in results if r is not None]
 
 
 # ─── Node: judge_hc ───────────────────────────────────────────────────────────
 
 def judge_hc_node(state: JudgeState) -> dict[str, Any]:
-    uv_dicts = [uv.model_dump() for uv in state.url_verifications]
+    _log(
+        f"[node:judge_hc] start — {len(state.judge_model_names)} judges × "
+        f"{len(state.hard_constraints)} hard constraints"
+    )
+    t0 = time.monotonic()
+    rv_dicts = [rv.model_dump() for rv in state.rationale_verifications]
     user_prompt = build_judge_user_prompt_hc(
-        plan_text=state.plan_text,
+        plan_text=state.plan_markdown,
         hard_constraints=state.hard_constraints,
-        url_verifications=uv_dicts,
+        rationale_verifications=rv_dicts,
     )
     results = _run_judges_parallel(
         state.judge_model_names,
@@ -255,17 +280,23 @@ def judge_hc_node(state: JudgeState) -> dict[str, Any]:
         n=len(state.hard_constraints),
         prefix="HC",
     )
+    _log(f"[node:judge_hc] done ({time.monotonic() - t0:.1f}s)")
     return {"hc_judge_results": results}
 
 
 # ─── Node: judge_cc ───────────────────────────────────────────────────────────
 
 def judge_cc_node(state: JudgeState) -> dict[str, Any]:
-    uv_dicts = [uv.model_dump() for uv in state.url_verifications]
+    _log(
+        f"[node:judge_cc] start — {len(state.judge_model_names)} judges × "
+        f"{len(state.commonsense_constraints)} commonsense constraints"
+    )
+    t0 = time.monotonic()
+    rv_dicts = [rv.model_dump() for rv in state.rationale_verifications]
     user_prompt = build_judge_user_prompt_cc(
-        plan_text=state.plan_text,
+        plan_text=state.plan_markdown,
         commonsense_constraints=state.commonsense_constraints,
-        url_verifications=uv_dicts,
+        rationale_verifications=rv_dicts,
         hard_constraints=state.hard_constraints,
     )
     results = _run_judges_parallel(
@@ -274,6 +305,7 @@ def judge_cc_node(state: JudgeState) -> dict[str, Any]:
         n=len(state.commonsense_constraints),
         prefix="CC",
     )
+    _log(f"[node:judge_cc] done ({time.monotonic() - t0:.1f}s)")
     return {"cc_judge_results": results}
 
 
@@ -295,6 +327,8 @@ def _majority_verdict(verdicts: list[str]) -> str:
 
 
 def aggregate_node(state: JudgeState) -> dict[str, Any]:
+    _log("[node:aggregate] start")
+    t0 = time.monotonic()
     aggregated: list[AggregatedConstraintModel] = []
 
     for i, c in enumerate(state.hard_constraints, start=1):
@@ -335,12 +369,18 @@ def aggregate_node(state: JudgeState) -> dict[str, Any]:
             na_count=judge_verdicts.count("NA"),
         ))
 
+    _log(
+        f"[node:aggregate] done ({time.monotonic() - t0:.1f}s) — "
+        f"{len(aggregated)} aggregated constraints"
+    )
     return {"aggregated_constraints": aggregated}
 
 
 # ─── Node: score ──────────────────────────────────────────────────────────────
 
 def score_node(state: JudgeState) -> dict[str, Any]:
+    _log("[node:score] start")
+    t0 = time.monotonic()
     hc = [c for c in state.aggregated_constraints if c.constraint_type == "hard"]
     cc = [c for c in state.aggregated_constraints if c.constraint_type == "commonsense"]
 
@@ -353,17 +393,17 @@ def score_node(state: JudgeState) -> dict[str, Any]:
     cc_micro = cc_pass / len(cc) if cc else 1.0
     cc_macro = 1.0 if cc and all(c.final_verdict == "PASS" for c in cc) else 0.0
 
-    url_pass = sum(1 for u in state.url_verifications if u.verdict == "PASS")
-    url_fail = sum(1 for u in state.url_verifications if u.verdict == "FAIL")
-    url_missing = sum(1 for u in state.url_verifications if u.verdict == "MISSING_INFO")
+    rv_pass = sum(1 for r in state.rationale_verifications if r.verdict == "PASS")
+    rv_fail = sum(1 for r in state.rationale_verifications if r.verdict == "FAIL")
+    rv_missing = sum(1 for r in state.rationale_verifications if r.verdict == "MISSING_INFO")
 
     scorecard = ScorecardModel(
-        plan_excerpt=state.plan_text[:300],
+        plan_excerpt=state.plan_markdown[:300],
         judge_models=state.judge_model_names,
-        url_verifications=state.url_verifications,
-        url_pass_count=url_pass,
-        url_fail_count=url_fail,
-        url_missing_count=url_missing,
+        rationale_verifications=state.rationale_verifications,
+        rationale_pass_count=rv_pass,
+        rationale_fail_count=rv_fail,
+        rationale_missing_count=rv_missing,
         hc_micro_pass_rate=round(hc_micro, 4),
         cc_micro_pass_rate=round(cc_micro, 4),
         hc_macro_pass_rate=hc_macro,
@@ -372,12 +412,19 @@ def score_node(state: JudgeState) -> dict[str, Any]:
         aggregated_constraints=state.aggregated_constraints,
         timestamp=datetime.now(timezone.utc).isoformat(),
     )
+    _log(
+        f"[node:score] done ({time.monotonic() - t0:.1f}s) — "
+        f"hc_macro={hc_macro:.0%} cc_macro={cc_macro:.0%} "
+        f"final={scorecard.final_pass_rate:.0%}"
+    )
     return {"scorecard": scorecard}
 
 
 # ─── Node: report ─────────────────────────────────────────────────────────────
 
 def report_node(state: JudgeState) -> dict[str, Any]:
+    _log(f"[node:report] start — writing to {state.output_dir}")
+    t0 = time.monotonic()
     output_dir = Path(state.output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
 
@@ -388,7 +435,7 @@ def report_node(state: JudgeState) -> dict[str, Any]:
         scorecard.model_dump_json(indent=2), encoding="utf-8"
     )
 
-    with (output_dir / "audit_log.jsonl").open("w", encoding="utf-8") as f:
+    with (output_dir / f"audit_log_{datetime.now(timezone.utc).isoformat()}.jsonl").open("w", encoding="utf-8") as f:
         for jr in state.hc_judge_results + state.cc_judge_results:
             f.write(
                 json.dumps({
@@ -399,6 +446,7 @@ def report_node(state: JudgeState) -> dict[str, Any]:
                 }) + "\n"
             )
 
+    _log(f"[node:report] done ({time.monotonic() - t0:.1f}s)")
     return {}
 
 
@@ -407,8 +455,8 @@ def report_node(state: JudgeState) -> dict[str, Any]:
 def make_graph() -> Any:
     builder: StateGraph = StateGraph(JudgeState)
     builder.add_node("load_inputs", load_inputs_node)
-    builder.add_node("url_extraction", url_extraction_node)
-    builder.add_node("url_verification", url_verification_node)
+    builder.add_node("build_travelplan", build_travelplan_node)
+    builder.add_node("rationale_verification", rationale_verification_node)
     builder.add_node("judge_hc", judge_hc_node)
     builder.add_node("judge_cc", judge_cc_node)
     builder.add_node("aggregate", aggregate_node)
@@ -416,9 +464,9 @@ def make_graph() -> Any:
     builder.add_node("report", report_node)
 
     builder.set_entry_point("load_inputs")
-    builder.add_edge("load_inputs", "url_extraction")
-    builder.add_edge("url_extraction", "url_verification")
-    builder.add_edge("url_verification", "judge_hc")
+    builder.add_edge("load_inputs", "build_travelplan")
+    builder.add_edge("build_travelplan", "rationale_verification")
+    builder.add_edge("rationale_verification", "judge_hc")
     builder.add_edge("judge_hc", "judge_cc")
     builder.add_edge("judge_cc", "aggregate")
     builder.add_edge("aggregate", "score")
@@ -430,39 +478,66 @@ def make_graph() -> Any:
 
 # ─── Public entry point ───────────────────────────────────────────────────────
 
+def _infer_plan_format(plan_path: str, override: PlanInputFormat | None) -> PlanInputFormat:
+    if override is not None:
+        return override
+    suffix = Path(plan_path).suffix.lower()
+    if suffix == ".json":
+        return "json"
+    if suffix in {".md", ".markdown", ".txt"}:
+        return "markdown"
+    raise ValueError(
+        f"Cannot infer plan format from '{plan_path}'. Pass plan_format='json' or 'markdown'."
+    )
+
+
 def run_evaluation(
     plan_path: str,
     hard_constraints_path: str,
     output_dir: str = ".",
     judge_model_names: list[str] | None = None,
+    plan_format: PlanInputFormat | None = None,
+    extraction_model_name: str | None = None,
 ) -> ScorecardModel:
     """Evaluate a travel plan against hard and commonsense constraints.
 
     Workflow:
-      1. Scan plan for URLs → fetch each via Tavily extract → LLM verifies plan claims.
-      2. Four judges evaluate all hard constraints (parallel).
-      3. Four judges evaluate all commonsense constraints (parallel).
-      4. Majority-vote aggregation → Xie et al. (2024) metrics → scorecard.json + audit_log.jsonl.
+      1. Load the plan as a TravelPlan. JSON inputs are parsed directly; markdown
+         inputs (e.g. from the baseline agent) are converted via a structured LLM call.
+      2. Verify each Slot's factual rationale: use slot.links if present, otherwise
+         fall back to a Tavily web search built from the slot's claims.
+      3. Four judges evaluate all hard constraints (parallel).
+      4. Four judges evaluate all commonsense constraints (parallel).
+      5. Majority-vote aggregation → Xie et al. (2024) metrics → scorecard.json + audit_log.jsonl.
 
     Args:
-        plan_path: Path to the travel plan markdown file.
+        plan_path: Path to the travel plan. Either a TravelPlan .json file
+            (travelplanner pipeline output) or a markdown .md file (baseline agent
+            output).
         hard_constraints_path: Path to JSON list of hard constraint dicts from
             constraint_iteration_agent (format: {type, text: "category: value", user_skipped}).
         output_dir: Directory for scorecard.json and audit_log.jsonl.
         judge_model_names: Override the default 4-judge model list.
+        plan_format: Force the plan format ("json" or "markdown"). When omitted,
+            the format is inferred from the file suffix.
+        extraction_model_name: Override the model used for markdown → TravelPlan
+            extraction and per-slot rationale verification.
 
     Returns:
         ScorecardModel with Xie et al. (2024) HC/CC Micro and Macro Pass Rates.
     """
-    plan_text = Path(plan_path).read_text(encoding="utf-8")
+    plan_source_text = Path(plan_path).read_text(encoding="utf-8")
+    plan_input_format = _infer_plan_format(plan_path, plan_format)
     hard_constraints: list[dict] = json.loads(
         Path(hard_constraints_path).read_text(encoding="utf-8")
     )
 
     initial_state = JudgeState(
-        plan_text=plan_text,
+        plan_source_text=plan_source_text,
+        plan_input_format=plan_input_format,
         hard_constraints=hard_constraints,
         judge_model_names=judge_model_names or DEFAULT_JUDGE_MODELS,
+        extraction_model_name=extraction_model_name or DEFAULT_EXTRACTION_MODEL,
         output_dir=output_dir,
     )
 

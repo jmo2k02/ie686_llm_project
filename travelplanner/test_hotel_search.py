@@ -53,6 +53,52 @@ BASE_MINIMUM = {
     "occupancies": [{"adults": 2}],
 }
 
+TEST_CASES = {
+    "1": {
+        "title": "TEST CASE 1: Budget + Wi-Fi (no breakfast)",
+        "extras": [
+            "max budget: 90 EUR/night",
+            "required facility: Wi-Fi",
+            "breakfast not needed",
+        ],
+        "query": (
+            "Find a hotel in Berlin for July 1–2, 2026. "
+            "We are 2 adults from Germany. "
+            "Must have Wi-Fi. Budget max 90 euros per night. "
+            "No need for breakfast included."
+        ),
+    },
+    "2": {
+        "title": "TEST CASE 2: City Center + Pool + Breakfast",
+        "extras": [
+            "preferred area: city center / Mitte",
+            "required facilities: swimming pool, breakfast included",
+            "budget up to 180 EUR/night",
+        ],
+        "query": (
+            "Looking for a hotel in central Berlin (Mitte or near Alexanderplatz) "
+            "for July 1–2, 2026. Two German adults. "
+            "Must have a swimming pool and breakfast included. "
+            "Budget up to 180 euros per night."
+        ),
+    },
+    "3": {
+        "title": "TEST CASE 3: Family + Parking + Gym",
+        "extras": [
+            "traveling with a small child (family-friendly preferred)",
+            "required facilities: parking, gym/fitness center",
+            "budget up to 150 EUR/night",
+        ],
+        "query": (
+            "Need a family-friendly hotel in Berlin for July 1–2, 2026. "
+            "Two adults and a small child (German guests). "
+            "Must offer parking and a gym. "
+            "Budget up to 150 euros per night. "
+            "Close to public transport is a plus."
+        ),
+    },
+}
+
 
 def _get_model_name(use_ollama: bool) -> str:
     return OLLAMA_MODEL if use_ollama else DEFAULT_MODEL
@@ -64,21 +110,20 @@ def _print_base():
         print(f"  {k}: {v}")
 
 
-def _run_search(query: str, model_name: str, agent_key: str = "hotel_search"):
+def _run_search(query: str, model_name: str):
     """Execute search and return updated state."""
     system_state = StateContractModel(query="Plan Berlin trip")
-    updated_state = intelligent_hotel_search(
+    return intelligent_hotel_search(
         query=query,
         system_state=system_state,
         model_name=model_name,
-        agent_key=agent_key,
+        agent_key="hotel_search",
     )
-    return updated_state
 
 
-def _print_artifacts(updated_state, agent_key: str = "hotel_search"):
+def _print_artifacts(updated_state):
     """Pretty-print the hotel search artifact."""
-    artifacts = updated_state.agent_artifacts.get(agent_key, [])
+    artifacts = updated_state.agent_artifacts.get("hotel_search", [])
     if not artifacts:
         print("\n✗ No artifacts found in SystemState!")
         return
@@ -124,77 +169,22 @@ def _print_artifacts(updated_state, agent_key: str = "hotel_search"):
             print(f"   Facilities: {', '.join(hotel['facilities'][:5])}...")
 
 
-def test_case_1_budget_wifi(model_name: str):
-    """Case 1: Berlin, tight budget, Wi-Fi required, no breakfast needed."""
+def run_test_case(case_id: str, model_name: str):
+    """Run a single test case by ID."""
+    case = TEST_CASES[case_id]
     print("\n" + "=" * 60)
-    print("TEST CASE 1: Budget + Wi-Fi (no breakfast)")
+    print(case["title"])
     print("=" * 60)
     _print_base()
     print("\n[Extras]")
-    print("  - max budget: 90 EUR/night")
-    print("  - required facility: Wi-Fi")
-    print("  - breakfast not needed")
+    for extra in case["extras"]:
+        print(f"  - {extra}")
 
-    query = (
-        "Find a hotel in Berlin for July 1–2, 2026. "
-        "We are 2 adults from Germany. "
-        "Must have Wi-Fi. Budget max 90 euros per night. "
-        "No need for breakfast included."
-    )
-    print(f"\nQuery: {query.strip()}")
+    print(f"\nQuery: {case['query'].strip()}")
     print("\nProcessing...")
 
-    updated_state = _run_search(query, model_name=model_name, agent_key="hotel_search")
-    _print_artifacts(updated_state, agent_key="hotel_search")
-
-
-def test_case_2_central_pool_breakfast(model_name: str):
-    """Case 2: Berlin city center, pool + breakfast, higher budget."""
-    print("\n" + "=" * 60)
-    print("TEST CASE 2: City Center + Pool + Breakfast")
-    print("=" * 60)
-    _print_base()
-    print("\n[Extras]")
-    print("  - preferred area: city center / Mitte")
-    print("  - required facilities: swimming pool, breakfast included")
-    print("  - budget up to 180 EUR/night")
-
-    query = (
-        "Looking for a hotel in central Berlin (Mitte or near Alexanderplatz) "
-        "for July 1–2, 2026. Two German adults. "
-        "Must have a swimming pool and breakfast included. "
-        "Budget up to 180 euros per night."
-    )
-    print(f"\nQuery: {query.strip()}")
-    print("\nProcessing...")
-
-    updated_state = _run_search(query, model_name=model_name, agent_key="hotel_search")
-    _print_artifacts(updated_state, agent_key="hotel_search")
-
-
-def test_case_3_family_parking_gym(model_name: str):
-    """Case 3: Berlin, family-friendly, parking + gym, flexible dates note."""
-    print("\n" + "=" * 60)
-    print("TEST CASE 3: Family + Parking + Gym")
-    print("=" * 60)
-    _print_base()
-    print("\n[Extras]")
-    print("  - traveling with a small child (family-friendly preferred)")
-    print("  - required facilities: parking, gym/fitness center")
-    print("  - budget up to 150 EUR/night")
-
-    query = (
-        "Need a family-friendly hotel in Berlin for July 1–2, 2026. "
-        "Two adults and a small child (German guests). "
-        "Must offer parking and a gym. "
-        "Budget up to 150 euros per night. "
-        "Close to public transport is a plus."
-    )
-    print(f"\nQuery: {query.strip()}")
-    print("\nProcessing...")
-
-    updated_state = _run_search(query, model_name=model_name, agent_key="hotel_search")
-    _print_artifacts(updated_state, agent_key="hotel_search")
+    updated_state = _run_search(case["query"], model_name)
+    _print_artifacts(updated_state)
 
 
 def main():
@@ -226,16 +216,11 @@ def main():
 
     case = args.case.strip().lower()
 
-    if case == "1":
-        test_case_1_budget_wifi(model_name)
-    elif case == "2":
-        test_case_2_central_pool_breakfast(model_name)
-    elif case == "3":
-        test_case_3_family_parking_gym(model_name)
-    elif case == "all":
-        test_case_1_budget_wifi(model_name)
-        test_case_2_central_pool_breakfast(model_name)
-        test_case_3_family_parking_gym(model_name)
+    if case == "all":
+        for cid in TEST_CASES:
+            run_test_case(cid, model_name)
+    elif case in TEST_CASES:
+        run_test_case(case, model_name)
     else:
         print(f"\nUnknown case '{args.case}'. Use 1, 2, 3, or all.")
         return

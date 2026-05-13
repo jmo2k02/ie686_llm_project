@@ -55,7 +55,7 @@ ALL_COMMONSENSE_CONSTRAINT_DEFS: list[CommonsenseConstraintDef] = [
     # ── Planner Agent ──────────────────────────────────────────────────────────
     # Checked once a day-by-day plan outline exists.
     CommonsenseConstraintDef(
-        text="Both outbound and return transport must appear in the plan.",
+        text="Both outbound and return transport must appear in the plan.", #what if one way? exclude one way from scope?
         checked_by="planner_agent",
         required_categories=frozenset({"transport"}),
     ),

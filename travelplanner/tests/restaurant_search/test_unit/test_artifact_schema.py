@@ -54,7 +54,7 @@ class TestRestaurantArtifactSchema(unittest.TestCase):
             "address": "Carrer de Còrsega 343, Barcelona",
             "types": ["restaurant", "food", "establishment"],
             "rating": 4.5,
-            "price_level": "$$",
+            "price_level": "PRICE_LEVEL_MODERATE",
             "phone": "+34 123 456 789",
             "website": "https://lapepita.com",
             "opening_hours": "Mon-Sun 13:00-23:00",
@@ -77,19 +77,20 @@ class TestRestaurantArtifactSchema(unittest.TestCase):
             "cuisine": "Italian",
             "meal_type": "dinner",
             "rating": 4.5,
-            "price_level": "$$",
-            "price_range": "$$",
+            "price_level": "PRICE_LEVEL_MODERATE",
             "phone": "+34 123 456 789",
             "website": "https://lapepita.com",
             "opening_hours": "Mon-Sun 13:00-23:00",
             "location": {"lat": 41.3851, "lng": 2.1734},
             "dietary_suitability": ["vegetarian"],
             "selection_reason": "Highly rated and fits the budget.",
+            "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJ_abc123",
             "provenance": "google_places_api_new",
         }
         parsed = RestaurantItemModel.model_validate(payload)
         self.assertEqual(parsed.name, "La Pepita")
-        self.assertEqual(parsed.price_range, "$$")
+        self.assertEqual(parsed.price_level, "PRICE_LEVEL_MODERATE")
+        self.assertEqual(parsed.google_maps_url, "https://www.google.com/maps/place/?q=place_id:ChIJ_abc123")
         self.assertEqual(parsed.provenance, "google_places_api_new")
 
     def test_item_model_fallback(self) -> None:
@@ -97,7 +98,7 @@ class TestRestaurantArtifactSchema(unittest.TestCase):
             "name": "Restaurant in Barcelona",
             "cuisine": "Italian",
             "meal_type": "dinner",
-            "price_range": "$$",
+            "price_level": "PRICE_LEVEL_MODERATE",
             "dietary_suitability": ["vegetarian"],
             "provenance": "fallback_llm_suggestion",
         }
@@ -122,7 +123,7 @@ class TestRestaurantArtifactSchema(unittest.TestCase):
                     "address": "Carrer de Còrsega 343, Barcelona",
                     "place_id": "ChIJ_abc123",
                     "rating": 4.5,
-                    "price_range": "$$",
+                    "price_level": "PRICE_LEVEL_MODERATE",
                     "provenance": "google_places_api_new",
                 }
             ],

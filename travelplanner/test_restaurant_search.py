@@ -102,9 +102,10 @@ def _run_and_print(query: str, model_name: str, agent_key: str = "restaurant_sea
         print(f"  Name: {item.get('name')}")
         print(f"  Address: {item.get('address')}")
         print(f"  Rating: {item.get('rating')}")
-        print(f"  Price: {item.get('price_range')}")
+        print(f"  Price level: {item.get('price_level')}")
         print(f"  Phone: {item.get('phone')}")
         print(f"  Website: {item.get('website')}")
+        print(f"  Google Maps: {item.get('google_maps_url')}")
         print(f"  Selection reason: {item.get('selection_reason')}")
 
     if content.get("errors"):

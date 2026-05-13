@@ -41,14 +41,14 @@
     ]
   },
   {
-    "archetype": "active_traveler",
+    "archetype": "active_solo_traveler",
     "profile": {
       "travel_style": "active",
-      "party_type": "solo or small group",
+      "party_type": "solo",
       "pace": "fast",
       "budget": "medium",
-      "interests": ["outdoor sports", "local athletic scenes", "physical challenge", "authentic local life"],
-      "engagement_depth": "participatory — competing and training alongside locals rather than consuming a tourist activity"
+      "interests": ["outdoor sports", "local athletic scenes", "physical challenge", "authentic local life", "untouched nature", "spontaneous social connection"],
+      "engagement_depth": "participatory — competing and training alongside locals, exploring beyond tourist infrastructure, and bonding with other travelers through shared experience"
     },
     "experiences": [
       {
@@ -73,11 +73,11 @@
         "typical_duration_hours": 2
       },
       {
-        "title": "Get the local route from a neighborhood sports shop",
-        "description": "Walk into a local sports shop — independent, not a chain — and ask what route the regulars actually use for cycling, trail running, open-water swimming, or climbing depending on what you do. Buy something small if you want the conversation to open up fully. The person behind the counter almost certainly trains themselves and will give you a hand-drawn or phone-screenshot route that does not appear on any app, with notes on the best time of day, which section is technical, and where the view is. They often know who to contact for a guide or a training partner if you want one. This conversation is the most useful thirty minutes of the trip.",
-        "engagement_type": "local knowledge extraction",
-        "local_touchpoint": "Independent sports shop staff and their network. The shop is a hub for the local athletic community — the conversations happening there are between people who train seriously.",
-        "typical_duration_hours": 0.5
+        "title": "Volunteer for a day with a local conservation or trail crew",
+        "description": "Find a local conservation organization, national park volunteer program, or trail maintenance crew that takes one-day volunteers — most active ones do, and a quick search or tourist office ask surfaces them reliably. You will spend four to six hours doing something physical and unglamorous: clearing invasive species, repairing a path, counting birds, restoring a dune. The work puts you in landscapes that are genuinely unvisited because they are working landscapes, not viewpoints. The people alongside you — rangers, long-term volunteers, ecologists — know that terrain with the kind of specificity that only regular presence builds. The conversation during the work and the lunch break is the kind of knowledge transfer that no guided tour produces. You leave having contributed something, which changes the texture of the experience entirely.",
+        "engagement_type": "participatory land stewardship",
+        "local_touchpoint": "Conservation staff and long-term volunteers. Shared physical work in a place they care about opens them up in a way that service transactions never do.",
+        "typical_duration_hours": 5
       }
     ]
   },
@@ -88,8 +88,8 @@
       "party_type": "solo",
       "pace": "slow",
       "budget": "medium",
-      "interests": ["remote work", "local startup and creative scenes", "coffee culture", "professional community", "authentic neighborhood life"],
-      "engagement_depth": "participatory — plugging into the local professional and creative ecosystem rather than consuming it as a tourist"
+      "interests": ["remote work", "local startup and creative scenes", "coffee culture", "professional community", "authentic neighborhood life", "wellness and body practices", "cultural discovery"],
+      "engagement_depth": "participatory — plugging into the local professional, creative, and cultural ecosystem rather than consuming it as a tourist; seeking the feeling of being a temporary insider"
     },
     "experiences": [
       {
@@ -119,6 +119,20 @@
         "engagement_type": "creative and technical community participation",
         "local_touchpoint": "Makers, engineers, designers, and hobbyists who use the space regularly. The shared interest in building things creates immediate common ground.",
         "typical_duration_hours": 3
+      },
+      {
+        "title": "Find the city's body practice and do it with the people who do it seriously",
+        "description": "Every city has a physical or wellness practice embedded in its culture that locals use not as a spa experience but as a functional ritual: a hammam in a Moroccan medina, a neighborhood sauna in Helsinki, a bathhouse in Budapest, a cold-plunge spot known to morning swimmers, a rooftop yoga class taught by a practitioner who has studied for twenty years. Find the version that locals use, not the hotel version. Go early in the morning when the people there are doing it out of habit rather than novelty. The ritual itself — the heat, the water, the silence, the specific social codes around undressing and resting and conversation — tells you something about the city's relationship to the body and to slowness that no amount of walking around delivers. You will feel different for the rest of the day. That is the intended effect.",
+        "engagement_type": "cultural body practice",
+        "local_touchpoint": "Regulars who use the space as part of their weekly rhythm. The shared vulnerability of the setting removes social performance in a way that co-working spaces never do.",
+        "typical_duration_hours": 2
+      },
+      {
+        "title": "Spend an afternoon in an independent record shop, bookshop, or print archive",
+        "description": "Find the city's serious independent record shop, secondhand bookshop, or print archive — not the curated concept store aimed at tourists, but the one with an opinionated owner, irregular opening hours, and a physical organization system that only makes sense once you understand it. Spend two hours without an agenda. The selection in a serious independent shop is a cultural argument: what the owner thinks is worth stocking, what the regulars come back for, what has been in the back room for a decade waiting for the right person. Ask what has been selling locally, or what came in recently that surprised them. The conversation that follows is a faster introduction to the city's cultural taste than any museum or guidebook, and you will almost certainly leave with something you did not expect to want.",
+        "engagement_type": "cultural and intellectual immersion through independent retail",
+        "local_touchpoint": "The owner or staff, and whoever else is browsing seriously. Shared taste is a fast social bridge.",
+        "typical_duration_hours": 2
       }
     ]
   },

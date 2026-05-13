@@ -36,7 +36,7 @@ from travelplanner.schema.hotel_search_artifact import (
     HotelOptionModel,
 )
 from travelplanner.schema.system_state import AgentArtifactModel, StateContractModel
-from travelplanner.utils.llm import _call_llm, make_chat_model
+from travelplanner.utils.llm import _call_llm
 
 # Load environment variables from .env file at module initialization
 _project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..', '..'))
@@ -204,25 +204,12 @@ def _build_nuitee_booking_url(
 
 
 def parse_location(location: str) -> Tuple[Optional[str], Optional[str]]:
-    """Parse location string into (city_name, country_code).
-
-    Args:
-        location: Location string (e.g., "Eixample, Barcelona, Spain")
-
-    Returns:
-        Tuple of (city_name, country_code) or (None, None) if parsing fails
-
-    Examples:
-        "Eixample, Barcelona, Spain" → ("Barcelona", "ES")
-        "Westminster, London, UK" → ("London", "GB")
-        "Barcelona, Spain" → ("Barcelona", "ES")
-    """
+    """Parse location string into (city_name, country_code)."""
     print(f"[parse_location] Parsing location: {location}")
 
     parts = [p.strip() for p in location.split(",")]
-
     if len(parts) < 2:
-        print(f"[parse_location] Invalid location format, need at least city, country")
+        print("[parse_location] Invalid location format, need at least city, country")
         return None, None
 
     country_str = parts[-1]
@@ -233,14 +220,8 @@ def parse_location(location: str) -> Tuple[Optional[str], Optional[str]]:
         country_code = country.alpha_2
         print(f"[parse_location] Parsed: city={city_name}, country={country_code}")
         return city_name, country_code
-    except LookupError:
-        print(f"[parse_location] Country not found: '{country_str}'")
-        return city_name, None
-    except (IndexError, AttributeError) as e:
-        print(f"[parse_location] Failed to extract country code: {e}")
-        return city_name, None
-    except Exception as e:
-        print(f"[parse_location] Unexpected error: {e}")
+    except (LookupError, IndexError, AttributeError, Exception) as e:
+        print(f"[parse_location] Error resolving country '{country_str}': {e}")
         return city_name, None
 
 
@@ -264,99 +245,92 @@ def _get_api_headers() -> Dict[str, str]:
     }
 
 
-def get_hotel_details(hotel_id: str, timeout: int = 4) -> Dict[str, Any]:
-    """Fetch full hotel details including facilities.
+def _api_request(
+    method: str,
+    url: str,
+    label: str,
+    timeout: int,
+    **kwargs
+) -> Dict[str, Any]:
+    """Execute a LiteAPI request with unified error handling.
 
-    Args:
-        hotel_id: LiteAPI hotel ID
-        timeout: Request timeout in seconds (default: 4)
-
-    Returns:
-        Dict with hotel details including hotelFacilities
+    Returns a dict with either ``{"status": "success", ...}`` or
+    ``{"status": "failed", "error": "..."}``.
     """
-    print(f"[get_hotel_details] Fetching details for hotel: {hotel_id}")
-
     try:
-        params = {"hotelId": hotel_id, "timeout": timeout}
-        response = requests.get(
-            f"{LITEAPI_BASE_URL}/data/hotel",
+        response = requests.request(
+            method=method,
+            url=url,
             headers=_get_api_headers(),
-            params=params,
-            timeout=timeout + 2  # Add buffer to timeout
+            timeout=timeout,
+            **kwargs
         )
         response.raise_for_status()
-
-        data = response.json()
-        hotel_data = data.get("data", {})
-
-        facilities = hotel_data.get("hotelFacilities", [])
-        print(f"[get_hotel_details] Found {len(facilities)} facilities")
-
-        return {
-            "status": "success",
-            "hotel": hotel_data
-        }
-
+        return {"status": "success", "data": response.json()}
     except requests.exceptions.Timeout:
-        print(f"[get_hotel_details] Request timeout for hotel: {hotel_id}")
+        print(f"[{label}] Request timeout")
         return {"status": "failed", "error": "timeout"}
+    except requests.exceptions.HTTPError as e:
+        print(f"[{label}] HTTP error: {e}")
+        return {"status": "failed", "error": f"http_error: {e}"}
     except requests.exceptions.RequestException as e:
-        print(f"[get_hotel_details] Request error: {e}")
+        print(f"[{label}] Request error: {e}")
         return {"status": "failed", "error": str(e)}
     except Exception as e:
-        print(f"[get_hotel_details] Unexpected error: {e}")
+        print(f"[{label}] Unexpected error: {e}")
         return {"status": "failed", "error": str(e)}
+
+
+def get_hotel_details(hotel_id: str, timeout: int = 4) -> Dict[str, Any]:
+    """Fetch full hotel details including facilities."""
+    print(f"[get_hotel_details] Fetching details for hotel: {hotel_id}")
+
+    result = _api_request(
+        "GET",
+        f"{LITEAPI_BASE_URL}/data/hotel",
+        "get_hotel_details",
+        timeout=timeout + 2,
+        params={"hotelId": hotel_id, "timeout": timeout},
+    )
+
+    if result["status"] == "success":
+        hotel_data = result["data"].get("data", {})
+        facilities = hotel_data.get("hotelFacilities", [])
+        print(f"[get_hotel_details] Found {len(facilities)} facilities")
+        return {"status": "success", "hotel": hotel_data}
+
+    return result
 
 
 def search_places(text_query: str) -> Dict[str, Any]:
-    """Search for places using LiteAPI autocomplete.
-
-    Args:
-        text_query: Search query (e.g., "Barcelona, Spain")
-
-    Returns:
-        Dict with placeId and displayName
-    """
+    """Search for places using LiteAPI autocomplete."""
     print(f"[search_places] Searching for: {text_query}")
 
-    try:
-        params = {"textQuery": text_query}
-        response = requests.get(
-            f"{LITEAPI_BASE_URL}/data/places",
-            headers=_get_api_headers(),
-            params=params,
-            timeout=10
-        )
-        response.raise_for_status()
+    result = _api_request(
+        "GET",
+        f"{LITEAPI_BASE_URL}/data/places",
+        "search_places",
+        timeout=10,
+        params={"textQuery": text_query},
+    )
 
-        data = response.json()
-        places = data.get("data", [])
-
+    if result["status"] == "success":
+        places = result["data"].get("data", [])
         if not places:
             print(f"[search_places] No places found for: {text_query}")
             return {"status": "failed", "error": "no_results"}
 
-        first_place = places[0]
-        place_id = first_place.get("placeId", "")
-        display_name = first_place.get("displayName", "")
-
+        first = places[0]
+        place_id = first.get("placeId", "")
+        display_name = first.get("displayName", "")
         print(f"[search_places] Found place: {display_name} (ID: {place_id})")
-
         return {
             "status": "success",
             "placeId": place_id,
-            "displayName": display_name
+            "displayName": display_name,
         }
 
-    except requests.exceptions.Timeout:
-        print(f"[search_places] Request timeout")
-        return {"status": "failed", "error": "timeout"}
-    except requests.exceptions.RequestException as e:
-        print(f"[search_places] Request error: {e}")
-        return {"status": "failed", "error": str(e)}
-    except Exception as e:
-        print(f"[search_places] Unexpected error: {e}")
-        return {"status": "failed", "error": str(e)}
+    return result
 
 
 def search_hotels_via_api(
@@ -370,93 +344,49 @@ def search_hotels_via_api(
     nights: int = 1,
     timeout: int = 8,
 ) -> Dict[str, Any]:
-    """Search for hotels with live availability using LiteAPI /v3.0/hotels/rates endpoint.
-
-    Args:
-        place_id: LiteAPI place ID (not used for rates endpoint, kept for compatibility)
-        city_name: City name for search
-        country_code: Country code (ISO 2-letter)
-        check_in_date: Check-in date (YYYY-MM-DD)
-        check_out_date: Check-out date (YYYY-MM-DD)
-        guest_count: Number of guests
-        budget_max: Maximum budget per night in EUR (used for maxPrice filter)
-        nights: Number of nights (used for maxPrice calculation)
-        timeout: Request timeout in seconds
-
-    Returns:
-        Dict with search results including hotels with rates and availability
-    """
+    """Search for hotels with live availability using LiteAPI /v3.0/hotels/rates endpoint."""
     print(f"[search_hotels_via_api] Searching hotels in {city_name}, {country_code}")
 
-    try:
-        # Use countryCode and cityName with POST to /hotels/rates
-        if not city_name or not country_code:
-            return {
-                "status": "failed",
-                "error": "city_name and country_code are required"
-            }
+    if not city_name or not country_code:
+        return {"status": "failed", "error": "city_name and country_code are required"}
 
-        # Build request payload for rates endpoint
-        payload = {
-            "countryCode": country_code,
-            "cityName": city_name,
-            "checkin": check_in_date,
-            "checkout": check_out_date,
-            "currency": "EUR",
-            "guestNationality": country_code,  # ISO-2 (e.g. "DE", "US", "FR")
-            "occupancies": [
-                {
-                    "adults": guest_count
-                }
-            ],
-            "timeout": timeout,
-            "limit": 1000,
-            "sorting": "1",  # Sort by price ascending (cheapest first)
-            "maxRatesPerHotel": 1,  # Get cheapest rate per hotel
-            "includeHotelData": True,  # Include hotel names and details in response
-        }
+    payload = {
+        "countryCode": country_code,
+        "cityName": city_name,
+        "checkin": check_in_date,
+        "checkout": check_out_date,
+        "currency": "EUR",
+        "guestNationality": country_code,
+        "occupancies": [{"adults": guest_count}],
+        "timeout": timeout,
+        "limit": 1000,
+        "sorting": "1",
+        "maxRatesPerHotel": 1,
+        "includeHotelData": True,
+    }
 
-        # Only add maxPrice if budget is set (> 0)
-        # NOTE: LiteAPI does not support maxPrice in the request; we filter client-side
-        # by offerRetailRate.amount after receiving the response.
+    print(f"[search_hotels_via_api] Request payload: {json.dumps(payload, indent=2)}")
 
+    start_time = time.time()
+    result = _api_request(
+        "POST",
+        f"{LITEAPI_BASE_URL}/hotels/rates",
+        "search_hotels_via_api",
+        timeout=timeout + 2,
+        json=payload,
+    )
+    elapsed_ms = int((time.time() - start_time) * 1000)
 
-        print(f"[search_hotels_via_api] Request payload: {json.dumps(payload, indent=2)}")
-
-        start_time = time.time()
-        response = requests.post(
-            f"{LITEAPI_BASE_URL}/hotels/rates",
-            headers=_get_api_headers(),
-            json=payload,
-            timeout=timeout + 2
-        )
-        elapsed_ms = int((time.time() - start_time) * 1000)
-
-        response.raise_for_status()
-
-        data = response.json()
-
-        hotels = data.get("data", [])
+    if result["status"] == "success":
+        hotels = result["data"].get("data", [])
         print(f"[search_hotels_via_api] Found {len(hotels)} hotels with rates in {elapsed_ms}ms")
-
         return {
             "status": "success",
             "data": hotels,
-            "api_response_time_ms": elapsed_ms
+            "api_response_time_ms": elapsed_ms,
         }
 
-    except requests.exceptions.Timeout:
-        print(f"[search_hotels_via_api] Request timeout")
-        return {"status": "failed", "error": "timeout"}
-    except requests.exceptions.HTTPError as e:
-        print(f"[search_hotels_via_api] HTTP error: {e}")
-        return {"status": "failed", "error": f"http_error: {e}"}
-    except requests.exceptions.RequestException as e:
-        print(f"[search_hotels_via_api] Request error: {e}")
-        return {"status": "failed", "error": str(e)}
-    except Exception as e:
-        print(f"[search_hotels_via_api] Unexpected error: {e}")
-        return {"status": "failed", "error": str(e)}
+    return result
 
 
 # ============================================================================
@@ -491,54 +421,32 @@ def filter_hotels_by_constraints(
     preferred_facilities: Optional[List[str]] = None,
     min_rating: Optional[float] = None
 ) -> Tuple[List[HotelOptionModel], Dict[str, int]]:
-    """Filter hotels by facilities and rating.
-
-    Args:
-        hotels: List of hotel options
-        required_facilities: Must-have facilities (AND logic)
-        preferred_facilities: Nice-to-have facilities (for scoring)
-        min_rating: Minimum rating threshold
-
-    Returns:
-        Tuple of (filtered_hotels, preferred_facility_counts)
-    """
+    """Filter hotels by facilities and rating."""
     print(f"[filter_hotels_by_constraints] Filtering {len(hotels)} hotels")
     print(f"  Required facilities: {required_facilities}")
     print(f"  Preferred facilities: {preferred_facilities}")
     print(f"  Min rating: {min_rating}")
 
-    filtered = []
-    preferred_counts = {}
+    filtered: List[HotelOptionModel] = []
+    preferred_counts: Dict[str, int] = {}
+    req = required_facilities or []
+    pref = preferred_facilities or []
 
     for hotel in hotels:
-        # Apply min rating filter
         if min_rating is not None and hotel.rating < min_rating:
             print(f"[filter] {hotel.name} excluded: rating {hotel.rating} < {min_rating}")
             continue
 
-        # Apply required facilities filter (ALL must be present)
-        if required_facilities:
-            hotel_facilities_lower = [f.lower() for f in hotel.facilities]
-            has_all_required = True
+        hotel_facilities_lower = [f.lower() for f in hotel.facilities]
 
-            for req in required_facilities:
-                if not _facility_match(hotel_facilities_lower, req):
-                    print(f"[filter] {hotel.name} excluded: missing required facility '{req}'")
-                    has_all_required = False
-                    break
+        missing = next((r for r in req if not _facility_match(hotel_facilities_lower, r)), None)
+        if missing:
+            print(f"[filter] {hotel.name} excluded: missing required facility '{missing}'")
+            continue
 
-            if not has_all_required:
-                continue
-
-        # Count preferred facilities (for ranking)
-        preferred_count = 0
-        if preferred_facilities:
-            hotel_facilities_lower = [f.lower() for f in hotel.facilities]
-            for pref in preferred_facilities:
-                if _facility_match(hotel_facilities_lower, pref):
-                    preferred_count += 1
-
-        preferred_counts[hotel.accommodation_id] = preferred_count
+        preferred_counts[hotel.accommodation_id] = sum(
+            1 for p in pref if _facility_match(hotel_facilities_lower, p)
+        )
         filtered.append(hotel)
 
     print(f"[filter_hotels_by_constraints] Filtered to {len(filtered)} hotels")
@@ -599,43 +507,18 @@ def rank_hotels(
 def _extract_price_from_rate(rate: Dict[str, Any]) -> Tuple[float, str]:
     """Extract price from LiteAPI rate structure.
 
-    Uses ``offerRetailRate`` (total stay cost) when available, falling back to
-    ``retailRate``.  Since we set ``maxRatesPerHotel: 1`` this is already the
-    cheapest rate for the hotel.
-
-    Args:
-        rate: Rate dict from LiteAPI
-
-    Returns:
-        Tuple of (price, currency)
+    Tries ``offerRetailRate`` first, then falls back to ``retailRate``.
     """
-    price = 0.0
-    currency = "EUR"
-
-    # Prefer offerRetailRate (total for stay) when available
-    offer_retail = rate.get("offerRetailRate", {})
-    if isinstance(offer_retail, dict):
-        total = offer_retail.get("total", [])
-        if total and isinstance(total, list):
-            try:
-                price = float(total[0].get("amount", 0.0))
-                currency = total[0].get("currency", "EUR")
-                return price, currency
-            except (ValueError, TypeError, IndexError):
-                pass
-
-    # Fallback: legacy retailRate field
-    retail_rate = rate.get("retailRate", {})
-    if isinstance(retail_rate, dict):
-        total = retail_rate.get("total", [])
-        if total and isinstance(total, list):
-            try:
-                price = float(total[0].get("amount", 0.0))
-                currency = total[0].get("currency", "EUR")
-            except (ValueError, TypeError, IndexError):
-                pass
-
-    return price, currency
+    for key in ("offerRetailRate", "retailRate"):
+        data = rate.get(key, {})
+        if isinstance(data, dict):
+            total = data.get("total", [])
+            if total and isinstance(total, list):
+                try:
+                    return float(total[0].get("amount", 0.0)), total[0].get("currency", "EUR")
+                except (ValueError, TypeError, IndexError):
+                    pass
+    return 0.0, "EUR"
 
 
 def _build_hotel_option_from_data(
@@ -644,20 +527,9 @@ def _build_hotel_option_from_data(
     nights: int,
     budget_max: float
 ) -> Optional[HotelOptionModel]:
-    """Build a HotelOptionModel from LiteAPI hotel info and rate data.
-
-    Args:
-        hotel_info: Hotel data from LiteAPI (name, address, rating, etc.)
-        rate_data: Rate data containing room types and pricing
-        nights: Number of nights
-        budget_max: Maximum budget per night
-
-    Returns:
-        HotelOptionModel or None if data is invalid
-    """
+    """Build a HotelOptionModel from LiteAPI hotel info and rate data."""
     hotel_id = hotel_info.get("id", "")
     hotel_name = hotel_info.get("name", "Unknown Hotel")
-
     if not hotel_id:
         return None
 
@@ -667,62 +539,39 @@ def _build_hotel_option_from_data(
 
     def get_room_price(room: Dict[str, Any]) -> Tuple[float, str]:
         rates = room.get("rates", [])
-        if rates and isinstance(rates, list):
-            return _extract_price_from_rate(rates[0])
-        return 0.0, "EUR"
+        return _extract_price_from_rate(rates[0]) if (rates and isinstance(rates, list)) else (0.0, "EUR")
 
-    cheapest_room = None
-    cheapest_price = float('inf')
-    cheapest_currency = "EUR"
-
-    for room in room_types:
-        price, currency = get_room_price(room)
-        if price < cheapest_price:
-            cheapest_price = price
-            cheapest_currency = currency
-            cheapest_room = room
-
-    if cheapest_room is None or cheapest_price == float('inf') or cheapest_price <= 0:
+    # Find cheapest room
+    prices = [(get_room_price(room), room) for room in room_types]
+    valid = [(price, currency, room) for (price, currency), room in prices if price > 0]
+    if not valid:
         return None
 
-    nightly_rate = cheapest_price / nights if nights > 0 else cheapest_price
+    cheapest_price, cheapest_currency, cheapest_room = min(valid, key=lambda x: x[0])
 
+    nightly_rate = cheapest_price / nights if nights > 0 else cheapest_price
     star_rating = float(hotel_info.get("star_rating", 0) or hotel_info.get("rating", 0) or 0)
 
     location = hotel_info.get("location", {})
-    if isinstance(location, dict):
-        hotel_lat = location.get("latitude", 0.0)
-        hotel_lon = location.get("longitude", 0.0)
-    else:
-        hotel_lat = 0.0
-        hotel_lon = 0.0
+    hotel_lat = location.get("latitude", 0.0) if isinstance(location, dict) else 0.0
+    hotel_lon = location.get("longitude", 0.0) if isinstance(location, dict) else 0.0
 
     address = hotel_info.get("address", "")
 
-    facilities = hotel_info.get("hotelFacilities", [])
-    if isinstance(facilities, list):
-        facilities = [str(f) for f in facilities]
-    else:
-        facilities = []
+    facilities = [str(f) for f in hotel_info.get("hotelFacilities", []) if isinstance(f, (str, int, float))]
 
+    # Photo extraction
     main_photo = hotel_info.get("main_photo", "")
-    if not main_photo:
-        hotel_images = hotel_info.get("hotelImages", [])
-        if isinstance(hotel_images, list) and hotel_images:
-            for img in hotel_images:
-                if isinstance(img, dict) and img.get("defaultImage"):
-                    main_photo = img.get("url", "")
-                    break
-            if not main_photo and hotel_images:
-                main_photo = hotel_images[0].get("url", "") if isinstance(hotel_images[0], dict) else str(hotel_images[0])
-
+    hotel_images = hotel_info.get("hotelImages", [])
+    if not main_photo and isinstance(hotel_images, list) and hotel_images:
+        default = next((img.get("url", "") for img in hotel_images if isinstance(img, dict) and img.get("defaultImage")), None)
+        main_photo = default or (hotel_images[0].get("url", "") if isinstance(hotel_images[0], dict) else str(hotel_images[0]))
     photos = [main_photo] if main_photo else []
 
-    tags = hotel_info.get("tags", [])
-    if isinstance(tags, list):
-        facilities.extend([str(t) for t in tags[:5]])
+    tags = [str(t) for t in hotel_info.get("tags", [])[:5]]
+    all_facilities = list(set(facilities + tags))
 
-    hotel_option = HotelOptionModel(
+    return HotelOptionModel(
         search_result_id=cheapest_room.get("offerId", ""),
         accommodation_id=hotel_id,
         name=hotel_name,
@@ -731,7 +580,7 @@ def _build_hotel_option_from_data(
         currency=cheapest_currency,
         area=hotel_info.get("location_type"),
         address=address if address else None,
-        facilities=list(set(facilities)),
+        facilities=all_facilities,
         rating=star_rating,
         reviews=0,
         check_in_time="15:00",
@@ -741,10 +590,8 @@ def _build_hotel_option_from_data(
         photos=photos,
         booking_available=True,
         over_budget=nightly_rate > budget_max,
-        over_budget_amount=max(0, nightly_rate - budget_max)
+        over_budget_amount=max(0, nightly_rate - budget_max),
     )
-
-    return hotel_option
 
 
 def _create_failed_artifact(
@@ -1041,22 +888,6 @@ class IntelligentHotelSearchState(BaseModel):
 
     class Config:
         arbitrary_types_allowed = True
-
-
-# ============================================================================
-# LLM Helper Functions
-# ============================================================================
-
-
-def _call_llm(system_prompt: str, user_prompt: str, model_name: str, temperature: float = 0.0) -> str:
-    """Delegate to shared travelplanner.utils.llm._call_llm.
-
-    This shim preserves backwards compatibility for existing callers inside
-    this module. New code should import directly from
-    ``travelplanner.utils.llm``.
-    """
-    from travelplanner.utils.llm import _call_llm as _shared_call_llm
-    return _shared_call_llm(system_prompt, user_prompt, model_name, temperature)
 
 
 # ============================================================================

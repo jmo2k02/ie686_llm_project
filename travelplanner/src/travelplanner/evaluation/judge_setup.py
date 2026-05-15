@@ -19,7 +19,7 @@ from langgraph.graph import END, StateGraph
 from pydantic import BaseModel
 
 from travelplanner.agents.evaluation_web_search_agent import verify_all_slots
-from travelplanner.schema.commonsense_constraints import ALL_COMMONSENSE_CONSTRAINT_DEFS
+from travelplanner.schema.eval_commonsense_constraints import ALL_COMMONSENSE_CONSTRAINT_DEFS
 from travelplanner.schema.judge_artifact import (
     AggregatedConstraintModel,
     ConstraintVerdictModel,

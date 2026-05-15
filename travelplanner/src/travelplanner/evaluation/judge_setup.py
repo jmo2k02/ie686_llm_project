@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import concurrent.futures
 import json
 import os
 import sys
@@ -45,7 +46,7 @@ DEFAULT_JUDGE_MODELS: list[str] = [
     "openrouter:minimax/minimax-m2.7",      # dot, not hyphen
     "openrouter:google/gemini-3-flash-preview",
     "openrouter:deepseek/deepseek-v4-flash",
-    "openrouter:nvidia/nemotron-3-super-120b-a12b",
+    "openrouter:qwen/qwen2.5-vl-72b-instruct",
 ]
 
 # Model used to convert baseline markdown → TravelPlan and to run the per-slot
@@ -59,6 +60,7 @@ _ALL_CC_AS_DICTS: list[dict] = [
 ]
 
 _MAX_JUDGE_RETRIES = 2
+_JUDGE_TIMEOUT_SECS = 300  # 5 minutes per judge round
 
 PlanInputFormat = Literal["json", "markdown"]
 
@@ -137,7 +139,10 @@ def build_travelplan_node(state: JudgeState) -> dict[str, Any]:
     _log(f"[node:build_travelplan] start — format={state.plan_input_format}")
     t0 = time.monotonic()
     if state.plan_input_format == "json":
-        plan = TravelPlan.model_validate_json(state.plan_source_text)
+        raw = json.loads(state.plan_source_text)
+        if "travelplan" in raw:
+            raw = raw["travelplan"]
+        plan = TravelPlan.model_validate(raw)
     elif state.plan_input_format == "markdown":
         _log(
             f"[node:build_travelplan] calling extraction LLM "
@@ -236,27 +241,44 @@ def _run_judges_parallel(
     total = len(model_names)
     done = 0
     t0 = time.monotonic()
-    with ThreadPoolExecutor(max_workers=len(model_names)) as pool:
+    pool = ThreadPoolExecutor(max_workers=len(model_names))
+    try:
         future_to_idx = {
             pool.submit(_invoke_judge, model, user_prompt, n, prefix): idx
             for idx, model in enumerate(model_names)
         }
-        for future in as_completed(future_to_idx):
-            idx = future_to_idx[future]
-            try:
-                results[idx] = future.result()
-            except Exception as exc:
-                results[idx] = _make_fail_result(model_names[idx], n, prefix, str(exc))
-            done += 1
-            jr = results[idx]
-            short = model_names[idx].split("/")[-1]
-            retry_info = (
-                f" retries={jr.retry_count}" if jr is not None and jr.retry_count else ""
-            )
-            _log(
-                f"[judges:{prefix}] {done}/{total} done — {short} "
-                f"({time.monotonic() - t0:.1f}s elapsed){retry_info}"
-            )
+        try:
+            for future in as_completed(future_to_idx, timeout=_JUDGE_TIMEOUT_SECS):
+                idx = future_to_idx[future]
+                try:
+                    results[idx] = future.result()
+                except Exception as exc:
+                    results[idx] = _make_fail_result(model_names[idx], n, prefix, str(exc))
+                done += 1
+                jr = results[idx]
+                short = model_names[idx].split("/")[-1]
+                retry_info = (
+                    f" retries={jr.retry_count}" if jr is not None and jr.retry_count else ""
+                )
+                _log(
+                    f"[judges:{prefix}] {done}/{total} done — {short} "
+                    f"({time.monotonic() - t0:.1f}s elapsed){retry_info}"
+                )
+        except concurrent.futures.TimeoutError:
+            for future, idx in future_to_idx.items():
+                if results[idx] is None:
+                    short = model_names[idx].split("/")[-1]
+                    _log(
+                        f"[judges:{prefix}] TIMEOUT — {short} "
+                        f"({_JUDGE_TIMEOUT_SECS}s elapsed)"
+                    )
+                    results[idx] = _make_fail_result(
+                        model_names[idx], n, prefix,
+                        f"timed out after {_JUDGE_TIMEOUT_SECS}s",
+                    )
+                    done += 1
+    finally:
+        pool.shutdown(wait=False, cancel_futures=True)
     return [r for r in results if r is not None]
 
 

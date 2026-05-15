@@ -4,7 +4,7 @@
     "openrouter:minimax/minimax-m2.7",
     "openrouter:google/gemini-3-flash-preview",
     "openrouter:deepseek/deepseek-v4-flash",
-    "openrouter:qwen/qwen2.5-vl-72b-instruct"
+    "openrouter:qwen/qwen3-72b"
   ],
   "rationale_verifications": [
     {
@@ -16,12 +16,13 @@
         "https://www.austrianrailways.com/train-munich-to-vienna"
       ],
       "verdict": "PASS",
-      "reasoning": "The evidence confirms that the OBB Railjet high-speed train operates from Munich Hauptbahnhof to Vienna Hauptbahnhof. It explicitly states the travel time is 'just 4 hours', which matches the slot's 4-hour window (07:30 to 11:30). The evidence also mentions that schedules are typically announced 12 weeks in advance, supporting the slot's note that July 2026 schedules are not yet finalized. While the evidence lists a price of $104, it also advises booking in advance for cheaper tickets and the slot's own link to the OBB Sparschiene page (though not fully scraped) is the standard source for the €25-type fares mentioned in the notes.",
+      "reasoning": "The evidence from Source 1 confirms that the OBB Railjet high-speed train operates from Munich Hauptbahnhof to Vienna Hauptbahnhof. It explicitly states the travel time is 'just 4 hours', which matches the slot's 4-hour window (07:30 to 11:30). The evidence also mentions that 'railway operators release cheap train tickets' and that schedules are typically set 12 weeks in advance, supporting the slot's note about July 2026 schedules not being finalized and the suggestion to book advance fares. While the evidence lists a price of $104, it also emphasizes that booking in advance provides 'discount tickets' and 'cheaper train tickets', making the slot's estimated budget fare of €25-€28 per person (Sparschiene) a plausible claim for advance booking consistent with the provided OBB Sparschiene link.",
       "claims_checked": [
-        "Operator: ÖBB/DB Railjet",
         "Route: München Hbf to Wien Hbf",
+        "Operator: ÖBB Railjet",
         "Duration: Approximately 4 hours",
-        "Availability of advance/Sparschiene fares",
+        "Direct service availability",
+        "Availability of advance/discount fares (Sparschiene)",
         "July 2026 schedules are not yet finalized"
       ]
     },
@@ -50,14 +51,13 @@
         "https://www.booking.com/hotel/at/pension-walzerstadt.html"
       ],
       "verdict": "PASS",
-      "reasoning": "The evidence confirms the hotel's name and its location in the 7th district ('The location is excellent in the 7th district of Vienna'). It confirms the availability of Wi-Fi ('Free Wifi'). It supports the claim of being close to public transport ('short walk away from the metro'). While the specific price of €384 for 4 nights is not explicitly listed in the snippet, the snippet title mentions 'updated prices 2026' and the slot notes it as a 'quoted hotel search rate', which is consistent with the provided booking link for those specific dates. The address 'Zieglergasse 35' is consistent with the hotel name and district provided in the evidence.",
+      "reasoning": "The evidence confirms the hotel's name ('Hotel Pension Walzerstadt'), its location in the 7th district ('The location is excellent in the 7th district of Vienna'), and the availability of Wi-Fi ('Free Wifi'). While the specific address 'Zieglergasse 35' is not explicitly written in the text snippet, the snippet confirms it is 'a short walk away from the metro' (consistent with the claim of being close to U3 Zieglergasse). The price and specific check-in time are not explicitly detailed in the snippet, but the slot notes that the check-in time is unverified and the price is a quoted search rate, which is consistent with the nature of the booking link provided.",
       "claims_checked": [
         "Venue name: Hotel Pension Walzerstadt",
-        "Location: Zieglergasse 35, 1070 Vienna (7th district)",
-        "Category: Budget accommodation/lodging",
-        "Facilities: Wi-Fi",
+        "Location: 7th district of Vienna",
         "Proximity: Close to metro/U3 Zieglergasse",
-        "Price: €96/night (Total €384 for 4 nights)"
+        "Facility: Wi-Fi available",
+        "Category: Budget accommodation/Pension"
       ]
     },
     {
@@ -103,19 +103,20 @@
       "slot_name": "Self-guided Innere Stadt walk",
       "source_type": "link",
       "source_urls": [
-        "https://www.google.com/maps/search/St.+Stephen's+Cathedral+Vienna"
+        "https://www.google.com/maps/search/St.+Stephen's+Cathedral+Vienna",
+        "https://www.google.com/maps/search/Schottendurchhaus"
       ],
       "verdict": "MISSING_INFO",
-      "reasoning": "The provided evidence consists of Google Maps search result pages for 'St. Stephen's Cathedral' and 'Schottendurchhaus'. However, the fetched content contains only metadata and image links for the map interface; it does not contain text confirming the location (Innere Stadt), the cost (free), the specific walking route (Graben, Kohlmarkt, Hofburg, Michaelerplatz), or the feasibility of the time window. While the links themselves are relevant to the activity, the evidence text is silent on the verifiable claims made in the slot.",
+      "reasoning": "The slot provides two Google Maps search links as evidence, but no content was retrieved from these links or any other source. Therefore, there is no evidence available to verify the existence of the locations, the feasibility of the walking route, or the cost.",
       "claims_checked": [
         "Location: Innere Stadt, Vienna",
-        "Cost: €0.00",
         "Route includes Stephansplatz",
         "Route includes Graben",
         "Route includes Kohlmarkt",
         "Route includes Hofburg exterior",
         "Route includes Michaelerplatz",
-        "Route includes hidden courtyards/Durchhäuser"
+        "Route includes Schottendurchhaus",
+        "Cost: €0.00"
       ]
     },
     {
@@ -219,14 +220,12 @@
         "https://www.google.com/maps/search/Hofburg+Palace+Vienna"
       ],
       "verdict": "MISSING_INFO",
-      "reasoning": "The provided evidence is a set of Google Maps image tiles and metadata which do not contain text-based information regarding the specific walking route (Graben, Kohlmarkt, Volksgarten), the cost of the Sisi Museum, or the accessibility of the Hofburg courtyards. While the location 'Hofburg Palace' is confirmed by the URL title, the specific claims about the walking tour's components and costs cannot be verified from the visual map data provided.",
+      "reasoning": "The slot provided a Google Maps search link as its source, but no content was retrieved from the evidence provided. Without specific details from the link or a web search to verify the route, opening hours of the public areas, or the current cost status of the courtyards and gardens, the claims cannot be validated.",
       "claims_checked": [
-        "Venue name: Hofburg Palace",
-        "Location: 1010 Vienna",
-        "Route includes Graben/Kohlmarkt to Michaelerplatz",
-        "Route includes Hofburg courtyards and Volksgarten",
-        "Cost: €0.00 (Free exterior walk)",
-        "Optional paid Sisi Museum exists"
+        "Location: Hofburg Palace area, 1010 Vienna",
+        "Route: Graben/Kohlmarkt to Michaelerplatz, Hofburg courtyards, Volksgarten, and Ringstraße",
+        "Cost: €0.00 (Free access to exterior and gardens)",
+        "Time window: 14:30 to 16:30"
       ]
     },
     {
@@ -255,13 +254,12 @@
         "https://www.plachutta.at/en/restaurant/wollzeile/"
       ],
       "verdict": "PASS",
-      "reasoning": "The evidence (Source 1) confirms the restaurant name 'Plachutta Wollzeile' and its location in 'Vienna’s City Center' (1010). The title explicitly mentions 'Famous Tafelspitz', supporting the description. While the fetched text is partially truncated, the URL and title confirm the specific venue and its primary offering. The opening hours and address are standard for this well-known establishment and consistent with the provided link.",
+      "reasoning": "The evidence from the official website confirms the restaurant name ('Plachutta Wollzeile'), its specialty ('Famous Tafelspitz'), and its location in Vienna's city center ('Restaurant 1010'). While the fetched text is partially cut off, the title and headers explicitly support the core claims. The opening hours (11:30–23:30) and address (Wollzeile 38) are standard for this well-known establishment and consistent with the provided URL's metadata and title.",
       "claims_checked": [
         "Venue name: Plachutta Wollzeile",
         "Location: Wollzeile 38, 1010 Vienna",
-        "Category: meal/restaurant",
-        "Specialty: Tafelspitz",
-        "Opening hours: 11:30–23:30"
+        "Specialty: Traditional Tafelspitz",
+        "Opening hours: Daily 11:30–23:30"
       ]
     },
     {
@@ -290,14 +288,13 @@
       "source_urls": [
         "https://www.google.com/maps/search/Stadtpark+Vienna"
       ],
-      "verdict": "PASS",
-      "reasoning": "The evidence provided is a Google Maps search for 'Stadtpark Vienna'. While the text content is minimal, the map metadata and search results confirm the existence and location of 'Stadtpark' in Vienna. The presence of 'Meierei im Stadtpark' and the 'Johann Strauss Monument' are standard features of this specific park in Vienna, and the park is a public municipal space which is free to enter. The location 'Stadtpark, Vienna' is directly supported by the search result title and URL.",
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provided a Google Maps search link, but no evidence was retrieved from the link or provided in the evidence section. Therefore, the claims regarding the location, the presence of the Johann Strauss monument, and the cost cannot be verified against the provided evidence.",
       "claims_checked": [
-        "Venue name: Stadtpark",
-        "Location: Vienna",
+        "Location: Stadtpark, Vienna",
         "Presence of Johann Strauss monument",
-        "Presence of Meierei in Stadtpark",
-        "Cost: €0.00 (Free)"
+        "Cost: €0.00",
+        "Proximity to Meierei in Stadtpark"
       ]
     },
     {
@@ -340,17 +337,14 @@
       "slot_name": "Upper Belvedere museum",
       "source_type": "link",
       "source_urls": [
-        "https://www.belvederepalace.at/en/visiting-hours",
-        "https://www.google.com/maps/search/Austrian+Gallery+Belvedere"
+        "https://www.belvederepalace.at/en/visiting-hours"
       ],
       "verdict": "PASS",
-      "reasoning": "The evidence confirms the location as 'Prinz-Eugen-Straße 27, 1030 Wien, Austria'. The opening hours for Sunday (the day of the visit, 2026-07-12) are listed as 09:00 AM - 06:00 PM, which accommodates the planned slot of 13:00 to 16:00. The description regarding Klimt's 'The Kiss' and the Baroque palace is supported by the title and content of the official website. While the cost in the slot is €40.00 and the notes estimate €20 per adult, the evidence does not explicitly list current ticket prices, but it does emphasize booking timed entries, which aligns with the slot's notes.",
+      "reasoning": "The slot claims the Upper Belvedere is located at Prinz-Eugen-Straße 27, 1030 Vienna, which matches the evidence ('Belvedere, Prinz-Eugen-Straße 27, 1030 Wien, Austria'). The slot claims it is open daily, typically 09:00–18:00; the evidence confirms 'Regular Opening Hours' are '09:00 AM - 06:00 PM' for every day of the week, including Sunday (the day of the visit). The slot mentions Klimt's 'The Kiss', which is supported by the evidence mentioning 'timing tips for enjoying Klimt'. The note to 'book timed entry' is supported by the evidence stating 'Book ahead for summer and weekends—popular slots sell out' and 'Leave buffer for cloakroom and timed entry'. While the cost field says €40.00 and the notes say €20.00, the evidence does not provide specific pricing to verify or contradict these amounts, so they do not trigger a FAIL.",
       "claims_checked": [
-        "Venue name: Upper Belvedere museum",
-        "Address: Prinz-Eugen-Straße 27, 1030 Vienna",
+        "Location: Prinz-Eugen-Straße 27, 1030 Vienna",
         "Opening hours: Daily 09:00–18:00",
-        "Visit date/time: 2026-07-12 from 13:00 to 16:00",
-        "Content: Klimt’s The Kiss and Baroque palace rooms",
+        "Content: Klimt’s The Kiss and Austrian art",
         "Requirement: Book timed entry"
       ]
     },
@@ -363,11 +357,11 @@
         "https://www.belvederepalace.at/en/visiting-hours"
       ],
       "verdict": "PASS",
-      "reasoning": "The slot claims the Belvedere Gardens are free and located in Vienna. While the provided evidence focuses primarily on the palace opening hours (9:00 AM - 6:00 PM daily), it confirms the location ('Prinz-Eugen-Straße 27, 1030 Wien, Austria') and mentions 'gardens' as a component of the visit. The time window (16:00 - 17:00 on July 12, 2026) falls within the regular daily opening hours of 09:00 AM - 06:00 PM. The evidence does not explicitly state the gardens are free, but it does not contradict it, and the slot's link is the official source for visiting information.",
+      "reasoning": "The slot claims the Belvedere Gardens are located in Vienna, are free to access, and are open during the specified time (16:00 - 17:00 on a Sunday in July). The evidence confirms the location (Prinz-Eugen-Straße 27, 1030 Wien, Austria). The opening hours for Sunday are listed as 09:00 AM - 06:00 PM, which covers the 16:00 - 17:00 window. While the evidence does not explicitly state the gardens are free, it mentions 'gardens without the crush' and the slot specifically notes the 'Free outdoor component', which is a standard characteristic of these public gardens and is not contradicted by the provided ticket-focused link.",
       "claims_checked": [
         "Location: Belvedere Gardens, Vienna",
-        "Time: 16:00 - 17:00 on 2026-07-12",
-        "Cost: €0.00 (Free)",
+        "Time: 16:00 - 17:00 on Sunday, July 12, 2026",
+        "Cost: €0.00 (Free outdoor component)",
         "Description: Formal gardens between Upper and Lower Belvedere"
       ]
     },
@@ -398,12 +392,12 @@
         "https://www.wien.info/en/travel-info/transport/tickets-361360"
       ],
       "verdict": "MISSING_INFO",
-      "reasoning": "The provided link (wien.info) contains information exclusively about public transport tickets and prices in Vienna. It does not contain any information regarding cafes, bakeries, or breakfast options near Mariahilfer Straße or Hotel Pension Walzerstadt. Therefore, there is no evidence to verify or contradict the existence, location, or cost of the breakfast venue described in the slot.",
+      "reasoning": "The provided evidence is a page about public transport tickets in Vienna (Wiener Linien). It contains no information regarding cafes, bakeries, or breakfast options near Mariahilfer Straße or Hotel Pension Walzerstadt. While it confirms the existence of subway trains (U-Bahn), it does not verify the specific location or availability of the meal slot described.",
       "claims_checked": [
         "Location: Near Hotel Pension Walzerstadt / Mariahilfer Straße",
         "Category: Simple café/bakery breakfast",
         "Cost: €20.00",
-        "Transport connection: U4/U-Bahn connections toward Schönbrunn"
+        "Transport: U4/U-Bahn connections toward Schönbrunn"
       ]
     },
     {
@@ -428,17 +422,15 @@
       "slot_name": "Schönbrunn Palace Park and Gloriette walk",
       "source_type": "link",
       "source_urls": [
-        "https://schonbrunn-palace.org/opening-hours-best-time/",
-        "https://www.google.com/maps/search/Schönbrunn+Palace+Park"
+        "https://schonbrunn-palace.org/opening-hours-best-time/"
       ],
       "verdict": "PASS",
-      "reasoning": "The evidence confirms that the park opens at 06:30 daily ('The park always opens at 6:30 am'). While the specific closing time for July is not explicitly listed in the truncated text, the evidence notes that 'Summer gives you the longest palace day' and the slot's claim of 21:00 is consistent with typical seasonal extensions mentioned. The location and the existence of free areas (Great Parterre, fountains, and park) are supported by the description of seasonal paid attractions versus the general park access.",
+      "reasoning": "The evidence confirms the location and the specific opening hours for the park in July. The source states: 'The park always opens at 6:30 am, but the closing time changes by month.' While the specific closing time for July isn't explicitly listed in the snippet provided, the slot's claim of '06:30–21:00' is consistent with the evidence that the park opens at 06:30 and that 'Summer gives you the longest palace day'. The location 'Schönbrunner Schloßstraße 47' is the standard address for the palace. The slot correctly identifies that the park/gardens are free, as the evidence distinguishes between the 'park' and 'paid gardens and special attractions'.",
       "claims_checked": [
-        "Venue name: Schönbrunn Palace Park and Gloriette",
-        "Location: Schönbrunner Schloßstraße 47, 1130 Vienna",
-        "Opening time: 06:30",
-        "Cost: €0.00 (for free palace gardens/park)",
-        "July closing time: 21:00"
+        "Location: Schönbrunn Palace Park, Schönbrunner Schloßstraße 47, 1130 Vienna",
+        "Opening hours: 06:30–21:00 in July",
+        "Cost: €0.00 (Free palace gardens)",
+        "The park opens at 06:30 am"
       ]
     },
     {
@@ -485,12 +477,12 @@
         "https://www.mqw.at/en/"
       ],
       "verdict": "PASS",
-      "reasoning": "The slot correctly identifies that the Wien Museum Karlsplatz is closed on Mondays (the date of the visit, 2026-07-13, is a Monday), as confirmed by Source 1 which explicitly lists 'Monday: Closed'. The slot provides a contingency plan (walking through MQ courtyards) which is supported by Source 2, showing the MuseumsQuartier as an active venue with public spaces. The cost of €0.00 is consistent with a walk through public courtyards and exterior views of the Secession and Naschmarkt.",
+      "reasoning": "The slot correctly identifies that the Wien Museum Karlsplatz is closed on Mondays (Source 1: 'Monday: Closed'). The slot also correctly notes that the permanent exhibition is free (Source 1 mentions 'Wien Museum Karlsplatz' and the slot description accounts for the closure by suggesting an alternative walk). The MuseumsQuartier (MQ) is a public space with courtyards, and Source 2 confirms it is a venue with various spaces and exhibitions, supporting the 'walk through courtyards' claim. The cost of €0.00 is consistent with a public walk and the museum's free permanent exhibition policy (though the museum is closed on the specific date).",
       "claims_checked": [
         "Wien Museum Karlsplatz is closed on Mondays",
-        "The walk includes Karlsplatz, Secession exterior, Naschmarkt edge, and MuseumsQuartier courtyards",
-        "The activity cost is €0.00",
-        "MuseumsQuartier courtyards are accessible for a walk"
+        "Wien Museum Karlsplatz has a free permanent exhibition",
+        "MuseumsQuartier has courtyards accessible for a walk",
+        "The activity (walking/MQ courtyards) is free of charge"
       ]
     },
     {
@@ -597,11 +589,11 @@
       ]
     }
   ],
-  "rationale_pass_count": 23,
+  "rationale_pass_count": 22,
   "rationale_fail_count": 3,
-  "rationale_missing_count": 7,
+  "rationale_missing_count": 8,
   "hc_micro_pass_rate": 1.0,
-  "cc_micro_pass_rate": 0.8333,
+  "cc_micro_pass_rate": 0.7667,
   "hc_macro_pass_rate": 1.0,
   "cc_macro_pass_rate": 0.0,
   "final_pass_rate": 0.0,
@@ -727,10 +719,10 @@
         "PASS",
         "PASS",
         "PASS",
-        "PASS"
+        "FAIL"
       ],
-      "pass_count": 4,
-      "fail_count": 0,
+      "pass_count": 3,
+      "fail_count": 1,
       "missing_count": 0,
       "na_count": 0
     },
@@ -743,10 +735,10 @@
         "PASS",
         "PASS",
         "PASS",
-        "PASS"
+        "FAIL"
       ],
-      "pass_count": 4,
-      "fail_count": 0,
+      "pass_count": 3,
+      "fail_count": 1,
       "missing_count": 0,
       "na_count": 0
     },
@@ -759,10 +751,10 @@
         "PASS",
         "PASS",
         "PASS",
-        "PASS"
+        "FAIL"
       ],
-      "pass_count": 4,
-      "fail_count": 0,
+      "pass_count": 3,
+      "fail_count": 1,
       "missing_count": 0,
       "na_count": 0
     },
@@ -775,10 +767,10 @@
         "PASS",
         "PASS",
         "PASS",
-        "PASS"
+        "FAIL"
       ],
-      "pass_count": 4,
-      "fail_count": 0,
+      "pass_count": 3,
+      "fail_count": 1,
       "missing_count": 0,
       "na_count": 0
     },
@@ -790,11 +782,11 @@
       "judge_verdicts": [
         "NA",
         "NA",
-        "PASS",
-        "NA"
+        "NA",
+        "FAIL"
       ],
-      "pass_count": 1,
-      "fail_count": 0,
+      "pass_count": 0,
+      "fail_count": 1,
       "missing_count": 0,
       "na_count": 3
     },
@@ -807,10 +799,10 @@
         "PASS",
         "PASS",
         "PASS",
-        "PASS"
+        "FAIL"
       ],
-      "pass_count": 4,
-      "fail_count": 0,
+      "pass_count": 3,
+      "fail_count": 1,
       "missing_count": 0,
       "na_count": 0
     },
@@ -823,10 +815,10 @@
         "PASS",
         "PASS",
         "PASS",
-        "PASS"
+        "FAIL"
       ],
-      "pass_count": 4,
-      "fail_count": 0,
+      "pass_count": 3,
+      "fail_count": 1,
       "missing_count": 0,
       "na_count": 0
     },
@@ -839,10 +831,10 @@
         "PASS",
         "PASS",
         "PASS",
-        "PASS"
+        "FAIL"
       ],
-      "pass_count": 4,
-      "fail_count": 0,
+      "pass_count": 3,
+      "fail_count": 1,
       "missing_count": 0,
       "na_count": 0
     },
@@ -855,10 +847,10 @@
         "PASS",
         "PASS",
         "PASS",
-        "PASS"
+        "FAIL"
       ],
-      "pass_count": 4,
-      "fail_count": 0,
+      "pass_count": 3,
+      "fail_count": 1,
       "missing_count": 0,
       "na_count": 0
     },
@@ -866,17 +858,17 @@
       "id": "CC-10",
       "constraint_text": "Flight or train connections must allow sufficient layover time (≥60 min domestic, ≥90 min international).",
       "constraint_type": "commonsense",
-      "final_verdict": "PASS",
+      "final_verdict": "FAIL",
       "judge_verdicts": [
         "NA",
         "PASS",
-        "PASS",
-        "PASS"
+        "NA",
+        "FAIL"
       ],
-      "pass_count": 3,
-      "fail_count": 0,
+      "pass_count": 1,
+      "fail_count": 1,
       "missing_count": 0,
-      "na_count": 1
+      "na_count": 2
     },
     {
       "id": "CC-11",
@@ -887,10 +879,10 @@
         "PASS",
         "PASS",
         "PASS",
-        "PASS"
+        "FAIL"
       ],
-      "pass_count": 4,
-      "fail_count": 0,
+      "pass_count": 3,
+      "fail_count": 1,
       "missing_count": 0,
       "na_count": 0
     },
@@ -903,10 +895,10 @@
         "PASS",
         "PASS",
         "PASS",
-        "PASS"
+        "FAIL"
       ],
-      "pass_count": 4,
-      "fail_count": 0,
+      "pass_count": 3,
+      "fail_count": 1,
       "missing_count": 0,
       "na_count": 0
     },
@@ -919,10 +911,10 @@
         "PASS",
         "PASS",
         "PASS",
-        "PASS"
+        "FAIL"
       ],
-      "pass_count": 4,
-      "fail_count": 0,
+      "pass_count": 3,
+      "fail_count": 1,
       "missing_count": 0,
       "na_count": 0
     },
@@ -935,10 +927,10 @@
         "PASS",
         "PASS",
         "PASS",
-        "PASS"
+        "FAIL"
       ],
-      "pass_count": 4,
-      "fail_count": 0,
+      "pass_count": 3,
+      "fail_count": 1,
       "missing_count": 0,
       "na_count": 0
     },
@@ -951,10 +943,10 @@
         "PASS",
         "PASS",
         "PASS",
-        "PASS"
+        "FAIL"
       ],
-      "pass_count": 4,
-      "fail_count": 0,
+      "pass_count": 3,
+      "fail_count": 1,
       "missing_count": 0,
       "na_count": 0
     },
@@ -967,10 +959,10 @@
         "PASS",
         "PASS",
         "PASS",
-        "PASS"
+        "FAIL"
       ],
-      "pass_count": 4,
-      "fail_count": 0,
+      "pass_count": 3,
+      "fail_count": 1,
       "missing_count": 0,
       "na_count": 0
     },
@@ -983,10 +975,10 @@
         "PASS",
         "PASS",
         "PASS",
-        "PASS"
+        "FAIL"
       ],
-      "pass_count": 4,
-      "fail_count": 0,
+      "pass_count": 3,
+      "fail_count": 1,
       "missing_count": 0,
       "na_count": 0
     },
@@ -1014,8 +1006,8 @@
       "judge_verdicts": [
         "MISSING_INFO",
         "PASS",
-        "FAIL",
-        "MISSING_INFO"
+        "MISSING_INFO",
+        "FAIL"
       ],
       "pass_count": 1,
       "fail_count": 1,
@@ -1031,10 +1023,10 @@
         "PASS",
         "PASS",
         "PASS",
-        "PASS"
+        "FAIL"
       ],
-      "pass_count": 4,
-      "fail_count": 0,
+      "pass_count": 3,
+      "fail_count": 1,
       "missing_count": 0,
       "na_count": 0
     },
@@ -1047,10 +1039,10 @@
         "PASS",
         "PASS",
         "PASS",
-        "PASS"
+        "FAIL"
       ],
-      "pass_count": 4,
-      "fail_count": 0,
+      "pass_count": 3,
+      "fail_count": 1,
       "missing_count": 0,
       "na_count": 0
     },
@@ -1063,10 +1055,10 @@
         "PASS",
         "PASS",
         "PASS",
-        "PASS"
+        "FAIL"
       ],
-      "pass_count": 4,
-      "fail_count": 0,
+      "pass_count": 3,
+      "fail_count": 1,
       "missing_count": 0,
       "na_count": 0
     },
@@ -1076,13 +1068,13 @@
       "constraint_type": "commonsense",
       "final_verdict": "FAIL",
       "judge_verdicts": [
-        "PASS",
+        "FAIL",
         "FAIL",
         "FAIL",
         "FAIL"
       ],
-      "pass_count": 1,
-      "fail_count": 3,
+      "pass_count": 0,
+      "fail_count": 4,
       "missing_count": 0,
       "na_count": 0
     },
@@ -1094,8 +1086,8 @@
       "judge_verdicts": [
         "MISSING_INFO",
         "PASS",
-        "FAIL",
-        "MISSING_INFO"
+        "MISSING_INFO",
+        "FAIL"
       ],
       "pass_count": 1,
       "fail_count": 1,
@@ -1111,10 +1103,10 @@
         "PASS",
         "PASS",
         "PASS",
-        "PASS"
+        "FAIL"
       ],
-      "pass_count": 4,
-      "fail_count": 0,
+      "pass_count": 3,
+      "fail_count": 1,
       "missing_count": 0,
       "na_count": 0
     },
@@ -1127,10 +1119,10 @@
         "PASS",
         "PASS",
         "PASS",
-        "PASS"
+        "FAIL"
       ],
-      "pass_count": 4,
-      "fail_count": 0,
+      "pass_count": 3,
+      "fail_count": 1,
       "missing_count": 0,
       "na_count": 0
     },
@@ -1143,10 +1135,10 @@
         "PASS",
         "PASS",
         "PASS",
-        "PASS"
+        "FAIL"
       ],
-      "pass_count": 4,
-      "fail_count": 0,
+      "pass_count": 3,
+      "fail_count": 1,
       "missing_count": 0,
       "na_count": 0
     },
@@ -1159,10 +1151,10 @@
         "PASS",
         "PASS",
         "PASS",
-        "PASS"
+        "FAIL"
       ],
-      "pass_count": 4,
-      "fail_count": 0,
+      "pass_count": 3,
+      "fail_count": 1,
       "missing_count": 0,
       "na_count": 0
     },
@@ -1170,17 +1162,17 @@
       "id": "CC-29",
       "constraint_text": "If no budget was stated, cost estimates must still be surfaced for user awareness.",
       "constraint_type": "commonsense",
-      "final_verdict": "PASS",
+      "final_verdict": "FAIL",
       "judge_verdicts": [
         "NA",
         "PASS",
-        "PASS",
-        "PASS"
+        "NA",
+        "FAIL"
       ],
-      "pass_count": 3,
-      "fail_count": 0,
+      "pass_count": 1,
+      "fail_count": 1,
       "missing_count": 0,
-      "na_count": 1
+      "na_count": 2
     },
     {
       "id": "CC-30",
@@ -1191,13 +1183,13 @@
         "PASS",
         "PASS",
         "PASS",
-        "PASS"
+        "FAIL"
       ],
-      "pass_count": 4,
-      "fail_count": 0,
+      "pass_count": 3,
+      "fail_count": 1,
       "missing_count": 0,
       "na_count": 0
     }
   ],
-  "timestamp": "2026-05-15T20:49:42.570272+00:00"
+  "timestamp": "2026-05-15T20:00:11.180954+00:00"
 }

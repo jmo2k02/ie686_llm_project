@@ -2,23 +2,613 @@
   "id": "query_1_couple_citytrip_Adrian",
   "source": "travel_agent",
   "status": "ok",
-  "duration_seconds": 121.9,
+  "duration_seconds": 299.8,
   "plan_path": "data/travelplans/travel_agent/query_1_couple_citytrip_Adrian.json",
   "scorecard": {
-    "plan_excerpt": "# TravelPlan\n\n_No days yet._",
+    "plan_excerpt": "# TravelPlan: Munich to Vienna 5-day trip, July 10–14 2026\n\n| Day 1 — 2026-07-10 — Arrival and Innere Stadt | Day 2 — 2026-07-11 — Hofburg and classic Vienna | Day 3 — 2026-07-12 — Belvedere and Naschmarkt | Day 4 — 2026-07-13 — Schönbrunn and MuseumsQuartier | Day 5 — 2026-07-14 — Departure |\n| ---",
     "judge_models": [
       "openrouter:minimax/minimax-m2.7",
       "openrouter:google/gemini-3-flash-preview",
       "openrouter:deepseek/deepseek-v4-flash",
-      "openrouter:nvidia/nemotron-3-super-120b-a12b"
+      "openrouter:qwen/qwen2.5-vl-72b-instruct"
     ],
-    "rationale_verifications": [],
-    "rationale_pass_count": 0,
-    "rationale_fail_count": 0,
-    "rationale_missing_count": 0,
-    "hc_micro_pass_rate": 0.0,
-    "cc_micro_pass_rate": 0.0667,
-    "hc_macro_pass_rate": 0.0,
+    "rationale_verifications": [
+      {
+        "day_index": 1,
+        "slot_position": 1,
+        "slot_name": "Direct Railjet train: Munich → Vienna",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.austrianrailways.com/train-munich-to-vienna"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms that the OBB Railjet high-speed train operates from Munich Hauptbahnhof to Vienna Hauptbahnhof. It explicitly states the travel time is 'just 4 hours', which matches the slot's 4-hour window (07:30 to 11:30). The evidence also mentions that schedules are typically announced 12 weeks in advance, supporting the slot's note that July 2026 schedules are not yet finalized. While the evidence lists a price of $104, it also advises booking in advance for cheaper tickets and the slot's own link to the OBB Sparschiene page (though not fully scraped) is the standard source for the €25-type fares mentioned in the notes.",
+        "claims_checked": [
+          "Operator: ÖBB/DB Railjet",
+          "Route: München Hbf to Wien Hbf",
+          "Duration: Approximately 4 hours",
+          "Availability of advance/Sparschiene fares",
+          "July 2026 schedules are not yet finalized"
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 2,
+        "slot_name": "Transfer: Wien Hbf → Hotel Pension Walzerstadt",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.wien.info/en/travel-info/transport/tickets-361360"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims the existence of a '7-day Vienna digital ticket' which covers the cost of public transport. The evidence explicitly confirms this: 'Flexible 7-day VIENNA Ticket (digital ticket and non-transferable): Valid from the time of validation for seven consecutive calendar days: € 25.20'. The evidence also confirms that these tickets are valid on 'subway trains' and 'commuter trains (S-Bahn) operated by Wiener Linien in the Vienna core zone', which supports the claim that the transfer from Wien Hbf (Vienna Central Station) to the hotel via the U-Bahn network is covered.",
+        "claims_checked": [
+          "Existence of a 7-day Vienna digital ticket",
+          "Public transport ticket covers travel from Wien Hbf via U-Bahn network",
+          "Cost is covered by the digital ticket (effectively €0.00 at point of use)"
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 3,
+        "slot_name": "Check in: Hotel Pension Walzerstadt",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.booking.com/hotel/at/pension-walzerstadt.html"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms the hotel's name and its location in the 7th district ('The location is excellent in the 7th district of Vienna'). It confirms the availability of Wi-Fi ('Free Wifi'). It supports the claim of being close to public transport ('short walk away from the metro'). While the specific price of €384 for 4 nights is not explicitly listed in the snippet, the snippet title mentions 'updated prices 2026' and the slot notes it as a 'quoted hotel search rate', which is consistent with the provided booking link for those specific dates. The address 'Zieglergasse 35' is consistent with the hotel name and district provided in the evidence.",
+        "claims_checked": [
+          "Venue name: Hotel Pension Walzerstadt",
+          "Location: Zieglergasse 35, 1070 Vienna (7th district)",
+          "Category: Budget accommodation/lodging",
+          "Facilities: Wi-Fi",
+          "Proximity: Close to metro/U3 Zieglergasse",
+          "Price: €96/night (Total €384 for 4 nights)"
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 4,
+        "slot_name": "Buy 7-day Vienna public transport tickets",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.wien.info/en/travel-info/transport/tickets-361360"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence from the official Vienna tourism website (wien.info) confirms the existence and price of the 'Flexible 7-day VIENNA Ticket (digital ticket and non-transferable)' at €25.20. The slot's total cost of €50.40 for two people matches this rate (2 x €25.20 = €50.40). The evidence also confirms these tickets are valid for the 'Vienna core zone' and cover 'streetcars, buses... subway trains and commuter trains (S-Bahn) operated by Wiener Linien', which aligns with the slot's description and notes.",
+        "claims_checked": [
+          "7-day Vienna public transport ticket exists",
+          "Digital 7-day ticket price is €25.20 per person",
+          "Total cost for two tickets is €50.40",
+          "Tickets are valid for the Vienna core zone",
+          "Tickets are available via Wiener Linien/WienMobil"
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 5,
+        "slot_name": "Lunch: Trzesniewski open sandwiches",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.speckmittei.at",
+          "https://www.travelsignposts.com/Austria/food/trzesniewski"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot provided two specific URLs (speckmittei.at and travelsignposts.com) as sources for its claims. However, no content was retrieved from these links or any other source. Without evidence to verify the location (Dorotheergasse 1), the opening hours (Friday daytime), or the nature of the establishment, a verdict of PASS or FAIL cannot be determined.",
+        "claims_checked": [
+          "Venue name: Trzesniewski",
+          "Address: Dorotheergasse 1, 1010 Vienna",
+          "Category: Standing snack bar with open-faced sandwiches",
+          "Operating hours: Open Friday daytime",
+          "Cost: €24.00"
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 6,
+        "slot_name": "Self-guided Innere Stadt walk",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.google.com/maps/search/St.+Stephen's+Cathedral+Vienna"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The provided evidence consists of Google Maps search result pages for 'St. Stephen's Cathedral' and 'Schottendurchhaus'. However, the fetched content contains only metadata and image links for the map interface; it does not contain text confirming the location (Innere Stadt), the cost (free), the specific walking route (Graben, Kohlmarkt, Hofburg, Michaelerplatz), or the feasibility of the time window. While the links themselves are relevant to the activity, the evidence text is silent on the verifiable claims made in the slot.",
+        "claims_checked": [
+          "Location: Innere Stadt, Vienna",
+          "Cost: €0.00",
+          "Route includes Stephansplatz",
+          "Route includes Graben",
+          "Route includes Kohlmarkt",
+          "Route includes Hofburg exterior",
+          "Route includes Michaelerplatz",
+          "Route includes hidden courtyards/Durchhäuser"
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 7,
+        "slot_name": "Dinner: Griechenbeisl",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.griechenbeisl.at/",
+          "https://www.wien.info/en/griechenbeisl-132812"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The restaurant's official website confirms it is the 'oldest Inn in town' and serves traditional Viennese cuisine (Wiener Schnitzel, Tafelspitz). The location at Fleischmarkt 11 is consistent with the description of being near Schwedenplatz. The opening hours for the date in question (July 10, 2026, which is a Friday) are 12:00pm – 11:00pm, which accommodates the 7:00pm – 8:30pm time slot. The cost estimate is reasonable for a traditional sit-down dinner with mains and drinks in central Vienna.",
+        "claims_checked": [
+          "Venue name: Griechenbeisl",
+          "Location: Fleischmarkt 11, 1010 Vienna",
+          "Category: Traditional Austrian/Viennese restaurant",
+          "Historical status: One of Vienna’s oldest restaurants",
+          "Opening hours: Open at 19:00 on Friday, July 10, 2026",
+          "Menu: Classic dishes like Wiener Schnitzel and Tafelspitz"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 1,
+        "slot_name": "Breakfast at Café Sperl",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.wien.info/en/caf%C3%A9-sperl-film-location-920732",
+          "https://www.cafesperl.at"
+        ],
+        "verdict": "FAIL",
+        "reasoning": "The slot claims that Café Sperl is closed on Sundays in July and August ('avoid Sundays in July/August due to Sunday closure'). However, the official website (Source 2) explicitly states that in July and August, the cafe is closed on Saturdays ('Im Juli & August haben wir am Samstag geschlossen'). The slot's date (2026-07-11) is a Saturday in July, meaning the cafe would be closed according to the evidence, contradicting the slot's claim that it is open on Saturdays.",
+        "claims_checked": [
+          "Venue name: Café Sperl",
+          "Address: Gumpendorfer Straße 11, 1060 Vienna",
+          "Opening hours: Open Saturdays in July",
+          "Opening hours: Closed Sundays in July/August",
+          "Opening time: 08:30 AM"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 2,
+        "slot_name": "Walk/transit to Kunsthistorisches Museum",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.wien.info/en/travel-info/transport/tickets-361360"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The provided evidence is a general information page about public transport tickets in Vienna. It confirms the existence of the U3 line (subway trains) and ticket prices, but it contains no information regarding the specific locations mentioned (Hotel Pension Walzerstadt, Kunsthistorisches Museum, Maria-Theresien-Platz, Volkstheater, or MuseumsQuartier). Therefore, it cannot verify the walking duration (20–25 minutes) or the transit proximity between these specific points.",
+        "claims_checked": [
+          "Hotel Pension Walzerstadt is a 20–25 minute walk to Maria-Theresien-Platz",
+          "Hotel is a short U3 ride to Volkstheater/MuseumsQuartier",
+          "Cost is €0.00 (implies walking or pre-purchased pass)",
+          "Transit duration is approximately 30 minutes (09:30 to 10:00)"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 3,
+        "slot_name": "Kunsthistorisches Museum",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.khm.at/en/visit"
+        ],
+        "verdict": "FAIL",
+        "reasoning": "The slot claims the museum is open 'daily 10:00–18:00' in July. However, the official website (Source 1) states the standard opening hours are 'Tue - Sun, 10 a.m. - 6 p.m.' and 'Thu until 9 pm'. While the museum does open on certain Mondays for holidays (as seen in the May, October, and November schedules), there is no evidence provided that it is open daily (including Mondays) in July 2026. Furthermore, the slot claims a cost of €44.00 for the visit (with a note of €22 per adult), but the provided evidence from the official site does not list ticket prices to verify this amount.",
+        "claims_checked": [
+          "Venue name: Kunsthistorisches Museum",
+          "Location: Maria-Theresien-Platz, 1010 Vienna",
+          "Opening hours: daily 10:00–18:00 in July",
+          "Cost: €44.00 total / €22.00 per adult",
+          "Collections: Bruegel, Kunstkammer, Egyptian/Greek, Klimt staircase"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 4,
+        "slot_name": "Lunch: Figlmüller Bäckerstraße",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.figlmueller.at/en/reservations/",
+          "https://www.figlmueller.at/en/location-contact/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence from the official website confirms the location (Bäckerstraße 6, 1010 Vienna) and the operating hours (daily 11:30am – 11:30pm, kitchen until 10pm). Source 1 explicitly states: 'Figlmüller Bäckerstraße: Bäckerstraße 6, 1010 Vienna. Open daily 11:30am – 11:30pm. Kitchen daily 11:30am – 10pm.' The cost estimate and reservation note are consistent with the nature of the establishment as described on the site.",
+        "claims_checked": [
+          "Venue name: Figlmüller Bäckerstraße",
+          "Address: Bäckerstraße 6, 1010 Vienna",
+          "Opening hours: daily 11:30–23:30",
+          "Kitchen hours: until 22:00"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 5,
+        "slot_name": "Hofburg exterior and imperial lanes walk",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.google.com/maps/search/Hofburg+Palace+Vienna"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The provided evidence is a set of Google Maps image tiles and metadata which do not contain text-based information regarding the specific walking route (Graben, Kohlmarkt, Volksgarten), the cost of the Sisi Museum, or the accessibility of the Hofburg courtyards. While the location 'Hofburg Palace' is confirmed by the URL title, the specific claims about the walking tour's components and costs cannot be verified from the visual map data provided.",
+        "claims_checked": [
+          "Venue name: Hofburg Palace",
+          "Location: 1010 Vienna",
+          "Route includes Graben/Kohlmarkt to Michaelerplatz",
+          "Route includes Hofburg courtyards and Volksgarten",
+          "Cost: €0.00 (Free exterior walk)",
+          "Optional paid Sisi Museum exists"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 6,
+        "slot_name": "Coffee and cake break",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.cafemuseum.at/en/cafe-museum.html"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms the existence and location of Café Museum at Operngasse 7, 1010 Wien (historic center/Karlsplatz). The opening hours are listed as 'Mon - Sun 8 a.m. - 9 p.m.', which covers the requested time slot of 16:30 to 17:15. The evidence explicitly mentions 'coffee specialities' and 'pastries', supporting the 'Melange and cake' claim. While the evidence does not mention the Café Central renovation, the slot's primary recommendation (Café Museum) is fully validated by the provided link.",
+        "claims_checked": [
+          "Venue name: Café Museum",
+          "Location: Operngasse 7, 1010 Wien (historic center)",
+          "Opening hours: 8 a.m. - 9 p.m. (covers 16:30-17:15)",
+          "Offerings: Coffee and pastries (cake)"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 7,
+        "slot_name": "Dinner: Plachutta Wollzeile",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.plachutta.at/en/restaurant/wollzeile/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence (Source 1) confirms the restaurant name 'Plachutta Wollzeile' and its location in 'Vienna’s City Center' (1010). The title explicitly mentions 'Famous Tafelspitz', supporting the description. While the fetched text is partially truncated, the URL and title confirm the specific venue and its primary offering. The opening hours and address are standard for this well-known establishment and consistent with the provided link.",
+        "claims_checked": [
+          "Venue name: Plachutta Wollzeile",
+          "Location: Wollzeile 38, 1010 Vienna",
+          "Category: meal/restaurant",
+          "Specialty: Tafelspitz",
+          "Opening hours: 11:30–23:30"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 1,
+        "slot_name": "Breakfast at Café Museum",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.cafemuseum.at/en/cafe-museum.html"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms the venue name ('Café Museum'), the address ('Operngasse 7, 1010 Wien'), and the location near Karlsplatz ('The \"brilliant\" coffee house at Karlsplatz'). The opening hours are listed as 'Mon - Sun 8 a.m. - 9 p.m.', which supports the 08:30 start time. While the specific breakfast cutoff of 11:30 is not explicitly mentioned in the provided text snippet, the venue is open and serves 'Viennese cuisine' during that window. The cost of €30 is a reasonable estimate for a high-end Viennese café breakfast.",
+        "claims_checked": [
+          "Venue name: Café Museum",
+          "Address: Operngasse 7, 1010 Vienna",
+          "Location: Near Karlsplatz",
+          "Opening time: 08:30 (within 8 a.m. - 9 p.m. range)",
+          "Category: Café/Meal"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 2,
+        "slot_name": "Stadtpark morning walk",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.google.com/maps/search/Stadtpark+Vienna"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence provided is a Google Maps search for 'Stadtpark Vienna'. While the text content is minimal, the map metadata and search results confirm the existence and location of 'Stadtpark' in Vienna. The presence of 'Meierei im Stadtpark' and the 'Johann Strauss Monument' are standard features of this specific park in Vienna, and the park is a public municipal space which is free to enter. The location 'Stadtpark, Vienna' is directly supported by the search result title and URL.",
+        "claims_checked": [
+          "Venue name: Stadtpark",
+          "Location: Vienna",
+          "Presence of Johann Strauss monument",
+          "Presence of Meierei in Stadtpark",
+          "Cost: €0.00 (Free)"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 3,
+        "slot_name": "Lunch: Meierei im Stadtpark",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.steirereck.at/meierei.html"
+        ],
+        "verdict": "FAIL",
+        "reasoning": "The slot is scheduled for Sunday, July 12, 2026, from 11:00 to 12:15. However, the official website (Source 1) explicitly states that the venue is closed on Sundays: 'Sonntags & Feiertags geschlossen'. While the slot description acknowledges that Sunday opening may vary and suggests a backup, the primary scheduling of the slot on a day the venue is definitively closed according to its own website constitutes a failure.",
+        "claims_checked": [
+          "Venue name: Meierei im Stadtpark",
+          "Location: Am Heumarkt 2a, 1030 Vienna",
+          "Operator: Steirereck group",
+          "Opening hours: Open on Sunday, July 12, 2026"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 4,
+        "slot_name": "Transfer/walk to Upper Belvedere",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.wien.info/en/travel-info/transport/tickets-361360"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms that 'A valid ticket is required to travel by public transport in Vienna' and that these tickets are 'valid on all streetcars, buses... subway trains and commuter trains (S-Bahn) operated by Wiener Linien in the Vienna core zone.' This supports the note that the tram journey is covered by a Vienna transport ticket. While the evidence does not explicitly map the distance between Stadtpark and Upper Belvedere, it confirms the general validity of the transport system mentioned in the slot.",
+        "claims_checked": [
+          "Tram travel is covered by a Vienna transport ticket.",
+          "The site is south-east of the Ring.",
+          "Travel time from Stadtpark area is approximately 30 minutes.",
+          "Cost is €0.00 (assuming walking or pre-purchased ticket)."
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 5,
+        "slot_name": "Upper Belvedere museum",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.belvederepalace.at/en/visiting-hours",
+          "https://www.google.com/maps/search/Austrian+Gallery+Belvedere"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms the location as 'Prinz-Eugen-Straße 27, 1030 Wien, Austria'. The opening hours for Sunday (the day of the visit, 2026-07-12) are listed as 09:00 AM - 06:00 PM, which accommodates the planned slot of 13:00 to 16:00. The description regarding Klimt's 'The Kiss' and the Baroque palace is supported by the title and content of the official website. While the cost in the slot is €40.00 and the notes estimate €20 per adult, the evidence does not explicitly list current ticket prices, but it does emphasize booking timed entries, which aligns with the slot's notes.",
+        "claims_checked": [
+          "Venue name: Upper Belvedere museum",
+          "Address: Prinz-Eugen-Straße 27, 1030 Vienna",
+          "Opening hours: Daily 09:00–18:00",
+          "Visit date/time: 2026-07-12 from 13:00 to 16:00",
+          "Content: Klimt’s The Kiss and Baroque palace rooms",
+          "Requirement: Book timed entry"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 6,
+        "slot_name": "Belvedere Gardens walk",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.belvederepalace.at/en/visiting-hours"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims the Belvedere Gardens are free and located in Vienna. While the provided evidence focuses primarily on the palace opening hours (9:00 AM - 6:00 PM daily), it confirms the location ('Prinz-Eugen-Straße 27, 1030 Wien, Austria') and mentions 'gardens' as a component of the visit. The time window (16:00 - 17:00 on July 12, 2026) falls within the regular daily opening hours of 09:00 AM - 06:00 PM. The evidence does not explicitly state the gardens are free, but it does not contradict it, and the slot's link is the official source for visiting information.",
+        "claims_checked": [
+          "Location: Belvedere Gardens, Vienna",
+          "Time: 16:00 - 17:00 on 2026-07-12",
+          "Cost: €0.00 (Free)",
+          "Description: Formal gardens between Upper and Lower Belvedere"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 7,
+        "slot_name": "Dinner: Bitzinger Würstelstand Albertina",
+        "source_type": "link",
+        "source_urls": [
+          "https://bitzinger.wien/en/wuerstelstand/impressum/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms the venue name and location (Sausage stand at the Albertina, 1010 Vienna, Augustinerstraße 1 /Hanuschgasse). While the slot uses 'Albertinaplatz 1' and the evidence uses 'Augustinerstraße 1', these are adjacent/intersecting points for the same physical stand at the Albertina. The evidence does not explicitly list opening hours or specific menu prices, but it confirms the venue's existence and location as described.",
+        "claims_checked": [
+          "Venue name: Bitzinger Würstelstand Albertina",
+          "Location: Albertinaplatz 1 / Augustinerstraße 1, 1010 Vienna",
+          "Category: meal (Gastronomy)",
+          "Description: Viennese street food near the Opera/Albertina",
+          "Opening hours: Open daily 08:00–04:00"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 1,
+        "slot_name": "Breakfast near Mariahilfer Straße",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.wien.info/en/travel-info/transport/tickets-361360"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The provided link (wien.info) contains information exclusively about public transport tickets and prices in Vienna. It does not contain any information regarding cafes, bakeries, or breakfast options near Mariahilfer Straße or Hotel Pension Walzerstadt. Therefore, there is no evidence to verify or contradict the existence, location, or cost of the breakfast venue described in the slot.",
+        "claims_checked": [
+          "Location: Near Hotel Pension Walzerstadt / Mariahilfer Straße",
+          "Category: Simple café/bakery breakfast",
+          "Cost: €20.00",
+          "Transport connection: U4/U-Bahn connections toward Schönbrunn"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 2,
+        "slot_name": "Transfer to Schönbrunn",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.wien.info/en/travel-info/transport/tickets-361360"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms the existence of a '7-day VIENNA Ticket' (both paper and digital versions) which covers all public transport in the Vienna core zone ('valid on all streetcars, buses... subway trains... operated by Wiener Linien'). This supports the claim that the transfer is covered by a 7-day ticket. While the evidence does not explicitly map the route from Hotel Pension Walzerstadt to Schönbrunn, it confirms the validity of the ticket type mentioned in the notes for the transport category described.",
+        "claims_checked": [
+          "Schönbrunn is served by public transport",
+          "A 7-day Vienna ticket exists and covers public transport",
+          "The cost for the specific trip is €0.00 (incremental cost) if covered by the 7-day ticket"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 3,
+        "slot_name": "Schönbrunn Palace Park and Gloriette walk",
+        "source_type": "link",
+        "source_urls": [
+          "https://schonbrunn-palace.org/opening-hours-best-time/",
+          "https://www.google.com/maps/search/Schönbrunn+Palace+Park"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms that the park opens at 06:30 daily ('The park always opens at 6:30 am'). While the specific closing time for July is not explicitly listed in the truncated text, the evidence notes that 'Summer gives you the longest palace day' and the slot's claim of 21:00 is consistent with typical seasonal extensions mentioned. The location and the existence of free areas (Great Parterre, fountains, and park) are supported by the description of seasonal paid attractions versus the general park access.",
+        "claims_checked": [
+          "Venue name: Schönbrunn Palace Park and Gloriette",
+          "Location: Schönbrunner Schloßstraße 47, 1130 Vienna",
+          "Opening time: 06:30",
+          "Cost: €0.00 (for free palace gardens/park)",
+          "July closing time: 21:00"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 4,
+        "slot_name": "Lunch: Joseph II Schloss-Restaurant Schönbrunn",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.restaurant-schoenbrunn.at/en"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims the restaurant is open daily from 11:00–20:30 with hot food from 11:30–19:30. The evidence confirms that until March 2026, these hours apply, but for the date of the visit (July 13, 2026), the hours actually expand to 'Open daily from 10:00 to 22:00' and 'Kitchen hours from 11:30 to 20:30'. Since the planned time (12:00–13:15) falls within both the claimed and the expanded actual hours, the slot is valid. The location 'inside the Schönbrunn complex' is supported by the text 'Located in the heart of the UNESCO World Heritage Site of Schönbrunn Palace'.",
+        "claims_checked": [
+          "Venue name: Joseph II Schloss-Restaurant Schönbrunn",
+          "Location: Schönbrunner Schloßstraße 47, 1130 Vienna (inside Schönbrunn complex)",
+          "Opening hours: Daily 11:00–20:30 (or better)",
+          "Hot food hours: 11:30–19:30 (or better)",
+          "Cuisine: Austrian/Viennese"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 5,
+        "slot_name": "Transfer to Karlsplatz / MuseumsQuartier",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.wien.info/en/travel-info/transport/tickets-361360"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims that the transfer from Schönbrunn to Karlsplatz/MuseumsQuartier is 'Covered by Vienna ticket' and lists a cost of €0.00 (implying no additional cost beyond the existing ticket). The evidence confirms the existence of various 'Vienna network tickets' (24-hour, 7-day) which are 'valid on all streetcars, buses... subway trains and commuter trains (S-Bahn) operated by Wiener Linien in the Vienna core zone.' Since both Schönbrunn and Karlsplatz are within the Vienna core zone, the use of a pre-purchased Vienna ticket covers this journey.",
+        "claims_checked": [
+          "Route: Schönbrunn to Karlsplatz / MuseumsQuartier",
+          "Cost: €0.00 (covered by Vienna ticket)",
+          "Transport mode: Public transit (implied by 'Vienna ticket' and 'Wiener Linien')"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 6,
+        "slot_name": "Wien Museum Karlsplatz and MuseumsQuartier walk",
+        "source_type": "link",
+        "source_urls": [
+          "https://whichmuseum.com/museum/wien-museum-karlsplatz-vienna-5358/opening-hours",
+          "https://www.mqw.at/en/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot correctly identifies that the Wien Museum Karlsplatz is closed on Mondays (the date of the visit, 2026-07-13, is a Monday), as confirmed by Source 1 which explicitly lists 'Monday: Closed'. The slot provides a contingency plan (walking through MQ courtyards) which is supported by Source 2, showing the MuseumsQuartier as an active venue with public spaces. The cost of €0.00 is consistent with a walk through public courtyards and exterior views of the Secession and Naschmarkt.",
+        "claims_checked": [
+          "Wien Museum Karlsplatz is closed on Mondays",
+          "The walk includes Karlsplatz, Secession exterior, Naschmarkt edge, and MuseumsQuartier courtyards",
+          "The activity cost is €0.00",
+          "MuseumsQuartier courtyards are accessible for a walk"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 7,
+        "slot_name": "Dinner: Glacis Beisl",
+        "source_type": "link",
+        "source_urls": [
+          "https://glacisbeisl.at/en/",
+          "https://www.mqw.at/en/catering/glacis-beisl/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms the venue name (Glacis Beisl), its location within the MuseumsQuartier/7th district, and its cuisine (traditional Viennese). Source 2 explicitly confirms the opening hours as 'Mon. – Sun., 12:00 – 24:00', which matches the slot's claim of daily opening 12:00–00:00. The garden atmosphere is also highlighted in both sources ('wonderful garden', 'spacious outdoor seating area beneath old walnut trees'). While the specific address 'Breite Gasse 4' is not explicitly written in the text, Source 1 places it in the 7th district between Spittelberg and the Museumsquartier, which is consistent with that address.",
+        "claims_checked": [
+          "Venue name: Glacis Beisl",
+          "Location: Breite Gasse 4, 1070 Vienna (beside MuseumsQuartier)",
+          "Cuisine: Traditional Viennese Beisl cuisine",
+          "Opening hours: Daily 12:00–00:00",
+          "Atmosphere: Garden atmosphere"
+        ]
+      },
+      {
+        "day_index": 5,
+        "slot_position": 1,
+        "slot_name": "Early hotel checkout and station breakfast",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.bahnhof.de/muenchen-hbf"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims that breakfast can be obtained at Wien Hauptbahnhof. While the provided evidence for München Hbf is irrelevant, the slot's second link (though not fully scraped in the evidence text provided, it is listed in the slot) points to the official ÖBB page for Wien Hauptbahnhof. General knowledge of major European train stations like Wien Hbf supports the claim that breakfast options are available. The slot also mentions Hotel Pension Walzerstadt, which is a real establishment in Vienna near Zieglergasse. The cost and timing are reasonable estimates for a station breakfast and checkout process. Since the evidence provided for the specific station link (Source 1) was for the wrong city (Munich), but the slot itself correctly identifies Wien Hauptbahnhof and provides the correct URL for it, and there are no contradictions to the claims made, it passes based on the consistency of the location names and the presence of the correct official link for the intended destination.",
+        "claims_checked": [
+          "Location: Hotel Pension Walzerstadt",
+          "Location: Wien Hauptbahnhof",
+          "Activity: Breakfast available at Wien Hbf",
+          "Activity: Hotel checkout",
+          "Link provided: https://www.oebb.at/en/reiseplanung-services/am-bahnhof/unsere-bahnhoefe/wien-hauptbahnhof"
+        ]
+      },
+      {
+        "day_index": 5,
+        "slot_position": 2,
+        "slot_name": "Optional final city walk / souvenir stop",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.google.com/maps/search/Mariahilfer+Straße+Vienna"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot provides a link to a Google Maps search for 'Mariahilfer Straße Vienna', but no content was retrieved from this link or any other source. Therefore, there is no evidence available to verify the location, accessibility, or nature of the claims made in the slot.",
+        "claims_checked": [
+          "Location: Mariahilfer Straße / 7th district, Vienna",
+          "Category: leisure",
+          "Cost: €0.00"
+        ]
+      },
+      {
+        "day_index": 5,
+        "slot_position": 3,
+        "slot_name": "Lunch: casual Austrian bite near station",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.oebb.at/en/reiseplanung-services/am-bahnhof/unsere-bahnhoefe/wien-hauptbahnhof"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot provides a link to the official ÖBB page for Wien Hauptbahnhof, but no content was retrieved from that link or any other source. Therefore, there is no evidence available to verify the existence of food courts or specific pricing at this location.",
+        "claims_checked": [
+          "Location: Wien Hauptbahnhof / nearby",
+          "Availability of a food court or inexpensive bakery/snack spot at Wien Hbf",
+          "Cost: €18.00 for 2 people"
+        ]
+      },
+      {
+        "day_index": 5,
+        "slot_position": 4,
+        "slot_name": "Transfer to Wien Hauptbahnhof",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.wien.info/en/travel-info/transport/tickets-361360"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims that public transport to Wien Hbf can be covered by a 'Vienna ticket' and lists a cost of €0.00 (implying it is pre-paid or included in a pass). The evidence confirms that various 'Vienna network tickets' (24-hour, 7-day) exist and are valid on 'all streetcars, buses... subway trains and commuter trains (S-Bahn) operated by Wiener Linien in the Vienna core zone.' Since both the starting point (Hotel Pension Walzerstadt) and the destination (Wien Hbf) are within the city of Vienna, they fall under this core zone coverage. The evidence supports the existence of tickets that cover this journey.",
+        "claims_checked": [
+          "Public transport to Wien Hbf is covered by a Vienna ticket.",
+          "The journey is within the Vienna core zone (implied by the use of a Vienna ticket for city transport).",
+          "Tickets are valid on streetcars, buses, subways, and commuter trains."
+        ]
+      },
+      {
+        "day_index": 5,
+        "slot_position": 5,
+        "slot_name": "Direct Railjet train: Vienna → Munich",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.austrianrailways.com/train-munich-to-vienna"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms that the OBB Railjet high-speed train operates between Munich Hauptbahnhof and Vienna Hauptbahnhof. It explicitly states the travel time is 'just 4 hours' and the distance is 455 km. While the slot is for Vienna to Munich and the evidence title is Munich to Vienna, the route details confirm the connection between 'Munich Hauptbahnhof to Vienna Hauptbahnhof'. The cost of €56.00 for two adults is consistent with the 'Sparschiene' link provided (which typically offers discounted fares starting around €20-25 per person) and the evidence's mention of 'discount tickets' and 'cheaper train tickets' for those who book in advance.",
+        "claims_checked": [
+          "Operator: ÖBB/DB Railjet-style service",
+          "Route: Wien Hbf to München Hbf",
+          "Duration: Approximately 4 hours",
+          "Direct service availability",
+          "Cost: €56.00 (approx. €25 per person plus reservation)"
+        ]
+      }
+    ],
+    "rationale_pass_count": 23,
+    "rationale_fail_count": 3,
+    "rationale_missing_count": 7,
+    "hc_micro_pass_rate": 1.0,
+    "cc_micro_pass_rate": 0.8333,
+    "hc_macro_pass_rate": 1.0,
     "cc_macro_pass_rate": 0.0,
     "final_pass_rate": 0.0,
     "aggregated_constraints": [
@@ -26,160 +616,160 @@
         "id": "HC-1",
         "constraint_text": "origin: Munich",
         "constraint_type": "hard",
-        "final_verdict": "MISSING_INFO",
+        "final_verdict": "PASS",
         "judge_verdicts": [
-          "MISSING_INFO",
-          "MISSING_INFO",
-          "MISSING_INFO",
-          "MISSING_INFO"
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
         ],
-        "pass_count": 0,
+        "pass_count": 4,
         "fail_count": 0,
-        "missing_count": 4,
+        "missing_count": 0,
         "na_count": 0
       },
       {
         "id": "HC-2",
         "constraint_text": "destination: Vienna",
         "constraint_type": "hard",
-        "final_verdict": "MISSING_INFO",
+        "final_verdict": "PASS",
         "judge_verdicts": [
-          "MISSING_INFO",
-          "MISSING_INFO",
-          "MISSING_INFO",
-          "MISSING_INFO"
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
         ],
-        "pass_count": 0,
+        "pass_count": 4,
         "fail_count": 0,
-        "missing_count": 4,
+        "missing_count": 0,
         "na_count": 0
       },
       {
         "id": "HC-3",
         "constraint_text": "travel_dates: 2026.07.10 to 2026.07.14",
         "constraint_type": "hard",
-        "final_verdict": "MISSING_INFO",
+        "final_verdict": "PASS",
         "judge_verdicts": [
-          "MISSING_INFO",
-          "MISSING_INFO",
-          "MISSING_INFO",
-          "MISSING_INFO"
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
         ],
-        "pass_count": 0,
+        "pass_count": 4,
         "fail_count": 0,
-        "missing_count": 4,
+        "missing_count": 0,
         "na_count": 0
       },
       {
         "id": "HC-4",
         "constraint_text": "travelers: 2 adults",
         "constraint_type": "hard",
-        "final_verdict": "MISSING_INFO",
+        "final_verdict": "PASS",
         "judge_verdicts": [
-          "MISSING_INFO",
-          "MISSING_INFO",
-          "MISSING_INFO",
-          "MISSING_INFO"
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
         ],
-        "pass_count": 0,
+        "pass_count": 4,
         "fail_count": 0,
-        "missing_count": 4,
+        "missing_count": 0,
         "na_count": 0
       },
       {
         "id": "HC-5",
         "constraint_text": "budget: 1200 EUR total",
         "constraint_type": "hard",
-        "final_verdict": "MISSING_INFO",
+        "final_verdict": "PASS",
         "judge_verdicts": [
-          "MISSING_INFO",
-          "MISSING_INFO",
-          "MISSING_INFO",
-          "MISSING_INFO"
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
         ],
-        "pass_count": 0,
+        "pass_count": 4,
         "fail_count": 0,
-        "missing_count": 4,
+        "missing_count": 0,
         "na_count": 0
       },
       {
         "id": "HC-6",
         "constraint_text": "accommodation: hotel",
         "constraint_type": "hard",
-        "final_verdict": "MISSING_INFO",
+        "final_verdict": "PASS",
         "judge_verdicts": [
-          "MISSING_INFO",
-          "MISSING_INFO",
-          "MISSING_INFO",
-          "MISSING_INFO"
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
         ],
-        "pass_count": 0,
+        "pass_count": 4,
         "fail_count": 0,
-        "missing_count": 4,
+        "missing_count": 0,
         "na_count": 0
       },
       {
         "id": "HC-7",
         "constraint_text": "interests: museums, food, city walks",
         "constraint_type": "hard",
-        "final_verdict": "MISSING_INFO",
+        "final_verdict": "PASS",
         "judge_verdicts": [
-          "MISSING_INFO",
-          "MISSING_INFO",
-          "MISSING_INFO",
-          "MISSING_INFO"
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
         ],
-        "pass_count": 0,
+        "pass_count": 4,
         "fail_count": 0,
-        "missing_count": 4,
+        "missing_count": 0,
         "na_count": 0
       },
       {
         "id": "CC-1",
         "constraint_text": "Trip start date must be in the future.",
         "constraint_type": "commonsense",
-        "final_verdict": "FAIL",
+        "final_verdict": "PASS",
         "judge_verdicts": [
-          "MISSING_INFO",
           "PASS",
           "PASS",
-          "MISSING_INFO"
+          "PASS",
+          "PASS"
         ],
-        "pass_count": 2,
+        "pass_count": 4,
         "fail_count": 0,
-        "missing_count": 2,
+        "missing_count": 0,
         "na_count": 0
       },
       {
         "id": "CC-2",
         "constraint_text": "Trip end date must be after the trip start date.",
         "constraint_type": "commonsense",
-        "final_verdict": "FAIL",
+        "final_verdict": "PASS",
         "judge_verdicts": [
-          "MISSING_INFO",
           "PASS",
           "PASS",
-          "MISSING_INFO"
+          "PASS",
+          "PASS"
         ],
-        "pass_count": 2,
+        "pass_count": 4,
         "fail_count": 0,
-        "missing_count": 2,
+        "missing_count": 0,
         "na_count": 0
       },
       {
         "id": "CC-3",
         "constraint_text": "Trip duration must be at least 1 day.",
         "constraint_type": "commonsense",
-        "final_verdict": "FAIL",
+        "final_verdict": "PASS",
         "judge_verdicts": [
-          "MISSING_INFO",
           "PASS",
           "PASS",
-          "MISSING_INFO"
+          "PASS",
+          "PASS"
         ],
-        "pass_count": 2,
+        "pass_count": 4,
         "fail_count": 0,
-        "missing_count": 2,
+        "missing_count": 0,
         "na_count": 0
       },
       {
@@ -191,16 +781,96 @@
           "PASS",
           "PASS",
           "PASS",
-          "MISSING_INFO"
+          "PASS"
         ],
-        "pass_count": 3,
+        "pass_count": 4,
         "fail_count": 0,
-        "missing_count": 1,
+        "missing_count": 0,
         "na_count": 0
       },
       {
         "id": "CC-5",
         "constraint_text": "Car or road trip transport is not feasible for island or overseas destinations — a flight or ferry is required.",
+        "constraint_type": "commonsense",
+        "final_verdict": "NA",
+        "judge_verdicts": [
+          "NA",
+          "NA",
+          "PASS",
+          "NA"
+        ],
+        "pass_count": 1,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 3
+      },
+      {
+        "id": "CC-6",
+        "constraint_text": "Both outbound and return transport must appear in the plan.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-7",
+        "constraint_text": "Outbound transport must depart on the trip start date.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-8",
+        "constraint_text": "Return transport must depart on the trip end date.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-9",
+        "constraint_text": "Return transport must be scheduled after the last planned activity.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-10",
+        "constraint_text": "Flight or train connections must allow sufficient layover time (≥60 min domestic, ≥90 min international).",
         "constraint_type": "commonsense",
         "final_verdict": "PASS",
         "judge_verdicts": [
@@ -215,212 +885,132 @@
         "na_count": 1
       },
       {
-        "id": "CC-6",
-        "constraint_text": "Both outbound and return transport must appear in the plan.",
-        "constraint_type": "commonsense",
-        "final_verdict": "FAIL",
-        "judge_verdicts": [
-          "FAIL",
-          "FAIL",
-          "FAIL",
-          "MISSING_INFO"
-        ],
-        "pass_count": 0,
-        "fail_count": 3,
-        "missing_count": 1,
-        "na_count": 0
-      },
-      {
-        "id": "CC-7",
-        "constraint_text": "Outbound transport must depart on the trip start date.",
-        "constraint_type": "commonsense",
-        "final_verdict": "FAIL",
-        "judge_verdicts": [
-          "FAIL",
-          "MISSING_INFO",
-          "FAIL",
-          "MISSING_INFO"
-        ],
-        "pass_count": 0,
-        "fail_count": 2,
-        "missing_count": 2,
-        "na_count": 0
-      },
-      {
-        "id": "CC-8",
-        "constraint_text": "Return transport must depart on the trip end date.",
-        "constraint_type": "commonsense",
-        "final_verdict": "FAIL",
-        "judge_verdicts": [
-          "FAIL",
-          "MISSING_INFO",
-          "FAIL",
-          "MISSING_INFO"
-        ],
-        "pass_count": 0,
-        "fail_count": 2,
-        "missing_count": 2,
-        "na_count": 0
-      },
-      {
-        "id": "CC-9",
-        "constraint_text": "Return transport must be scheduled after the last planned activity.",
-        "constraint_type": "commonsense",
-        "final_verdict": "FAIL",
-        "judge_verdicts": [
-          "FAIL",
-          "MISSING_INFO",
-          "FAIL",
-          "MISSING_INFO"
-        ],
-        "pass_count": 0,
-        "fail_count": 2,
-        "missing_count": 2,
-        "na_count": 0
-      },
-      {
-        "id": "CC-10",
-        "constraint_text": "Flight or train connections must allow sufficient layover time (≥60 min domestic, ≥90 min international).",
-        "constraint_type": "commonsense",
-        "final_verdict": "MISSING_INFO",
-        "judge_verdicts": [
-          "NA",
-          "MISSING_INFO",
-          "FAIL",
-          "MISSING_INFO"
-        ],
-        "pass_count": 0,
-        "fail_count": 1,
-        "missing_count": 2,
-        "na_count": 1
-      },
-      {
         "id": "CC-11",
         "constraint_text": "Outbound transport must depart from the correct origin city.",
         "constraint_type": "commonsense",
-        "final_verdict": "FAIL",
+        "final_verdict": "PASS",
         "judge_verdicts": [
-          "FAIL",
-          "MISSING_INFO",
-          "FAIL",
-          "MISSING_INFO"
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
         ],
-        "pass_count": 0,
-        "fail_count": 2,
-        "missing_count": 2,
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
         "na_count": 0
       },
       {
         "id": "CC-12",
         "constraint_text": "Return transport must depart from the correct destination city.",
         "constraint_type": "commonsense",
-        "final_verdict": "FAIL",
+        "final_verdict": "PASS",
         "judge_verdicts": [
-          "FAIL",
-          "MISSING_INFO",
-          "FAIL",
-          "MISSING_INFO"
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
         ],
-        "pass_count": 0,
-        "fail_count": 2,
-        "missing_count": 2,
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
         "na_count": 0
       },
       {
         "id": "CC-13",
         "constraint_text": "Accommodation must be planned for every night of the trip.",
         "constraint_type": "commonsense",
-        "final_verdict": "FAIL",
+        "final_verdict": "PASS",
         "judge_verdicts": [
-          "FAIL",
-          "FAIL",
-          "FAIL",
-          "MISSING_INFO"
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
         ],
-        "pass_count": 0,
-        "fail_count": 3,
-        "missing_count": 1,
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
         "na_count": 0
       },
       {
         "id": "CC-14",
         "constraint_text": "Group size must be respected in accommodation capacity.",
         "constraint_type": "commonsense",
-        "final_verdict": "FAIL",
+        "final_verdict": "PASS",
         "judge_verdicts": [
-          "FAIL",
-          "MISSING_INFO",
-          "FAIL",
-          "MISSING_INFO"
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
         ],
-        "pass_count": 0,
-        "fail_count": 2,
-        "missing_count": 2,
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
         "na_count": 0
       },
       {
         "id": "CC-15",
         "constraint_text": "Hotel check-in must be scheduled after arrival transport reaches the destination.",
         "constraint_type": "commonsense",
-        "final_verdict": "FAIL",
+        "final_verdict": "PASS",
         "judge_verdicts": [
-          "FAIL",
-          "MISSING_INFO",
-          "FAIL",
-          "MISSING_INFO"
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
         ],
-        "pass_count": 0,
-        "fail_count": 2,
-        "missing_count": 2,
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
         "na_count": 0
       },
       {
         "id": "CC-16",
         "constraint_text": "Hotel check-out must be scheduled before or at the time of departure transport.",
         "constraint_type": "commonsense",
-        "final_verdict": "FAIL",
+        "final_verdict": "PASS",
         "judge_verdicts": [
-          "FAIL",
-          "MISSING_INFO",
-          "FAIL",
-          "MISSING_INFO"
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
         ],
-        "pass_count": 0,
-        "fail_count": 2,
-        "missing_count": 2,
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
         "na_count": 0
       },
       {
         "id": "CC-17",
         "constraint_text": "Room capacity must accommodate the number of travelers.",
         "constraint_type": "commonsense",
-        "final_verdict": "FAIL",
+        "final_verdict": "PASS",
         "judge_verdicts": [
-          "FAIL",
-          "MISSING_INFO",
-          "FAIL",
-          "MISSING_INFO"
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
         ],
-        "pass_count": 0,
-        "fail_count": 2,
-        "missing_count": 2,
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
         "na_count": 0
       },
       {
         "id": "CC-18",
         "constraint_text": "Restaurants must be open on the planned day and time.",
         "constraint_type": "commonsense",
-        "final_verdict": "MISSING_INFO",
+        "final_verdict": "FAIL",
         "judge_verdicts": [
-          "NA",
-          "MISSING_INFO",
           "FAIL",
-          "MISSING_INFO"
+          "FAIL",
+          "FAIL",
+          "FAIL"
         ],
         "pass_count": 0,
-        "fail_count": 1,
-        "missing_count": 2,
-        "na_count": 1
+        "fail_count": 4,
+        "missing_count": 0,
+        "na_count": 0
       },
       {
         "id": "CC-19",
@@ -428,79 +1018,79 @@
         "constraint_type": "commonsense",
         "final_verdict": "MISSING_INFO",
         "judge_verdicts": [
-          "NA",
           "MISSING_INFO",
+          "PASS",
           "FAIL",
           "MISSING_INFO"
         ],
-        "pass_count": 0,
+        "pass_count": 1,
         "fail_count": 1,
         "missing_count": 2,
-        "na_count": 1
+        "na_count": 0
       },
       {
         "id": "CC-20",
         "constraint_text": "Every day must contain at least one planned activity.",
         "constraint_type": "commonsense",
-        "final_verdict": "FAIL",
+        "final_verdict": "PASS",
         "judge_verdicts": [
-          "FAIL",
-          "FAIL",
-          "FAIL",
-          "MISSING_INFO"
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
         ],
-        "pass_count": 0,
-        "fail_count": 3,
-        "missing_count": 1,
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
         "na_count": 0
       },
       {
         "id": "CC-21",
         "constraint_text": "Arrival day and departure day must have reduced activity load to account for travel time.",
         "constraint_type": "commonsense",
-        "final_verdict": "FAIL",
+        "final_verdict": "PASS",
         "judge_verdicts": [
-          "FAIL",
-          "FAIL",
-          "FAIL",
-          "MISSING_INFO"
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
         ],
-        "pass_count": 0,
-        "fail_count": 3,
-        "missing_count": 1,
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
         "na_count": 0
       },
       {
         "id": "CC-22",
         "constraint_text": "Activities should be geographically sensible per day (no unnecessary cross-city travel).",
         "constraint_type": "commonsense",
-        "final_verdict": "MISSING_INFO",
+        "final_verdict": "PASS",
         "judge_verdicts": [
-          "NA",
-          "MISSING_INFO",
-          "FAIL",
-          "MISSING_INFO"
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
         ],
-        "pass_count": 0,
-        "fail_count": 1,
-        "missing_count": 2,
-        "na_count": 1
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
       },
       {
         "id": "CC-23",
         "constraint_text": "Attractions must be open on the planned day and time.",
         "constraint_type": "commonsense",
-        "final_verdict": "MISSING_INFO",
+        "final_verdict": "FAIL",
         "judge_verdicts": [
-          "NA",
-          "MISSING_INFO",
+          "PASS",
           "FAIL",
-          "MISSING_INFO"
+          "FAIL",
+          "FAIL"
         ],
-        "pass_count": 0,
-        "fail_count": 1,
-        "missing_count": 2,
-        "na_count": 1
+        "pass_count": 1,
+        "fail_count": 3,
+        "missing_count": 0,
+        "na_count": 0
       },
       {
         "id": "CC-24",
@@ -508,93 +1098,93 @@
         "constraint_type": "commonsense",
         "final_verdict": "MISSING_INFO",
         "judge_verdicts": [
-          "NA",
           "MISSING_INFO",
+          "PASS",
           "FAIL",
           "MISSING_INFO"
         ],
-        "pass_count": 0,
+        "pass_count": 1,
         "fail_count": 1,
         "missing_count": 2,
-        "na_count": 1
+        "na_count": 0
       },
       {
         "id": "CC-25",
         "constraint_text": "Activities must be appropriate for all travelers (e.g. age restrictions with children in the group).",
         "constraint_type": "commonsense",
-        "final_verdict": "MISSING_INFO",
+        "final_verdict": "PASS",
         "judge_verdicts": [
-          "NA",
-          "MISSING_INFO",
-          "FAIL",
-          "MISSING_INFO"
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
         ],
-        "pass_count": 0,
-        "fail_count": 1,
-        "missing_count": 2,
-        "na_count": 1
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
       },
       {
         "id": "CC-26",
         "constraint_text": "No two activities on the same day may overlap in time.",
         "constraint_type": "commonsense",
-        "final_verdict": "FAIL",
+        "final_verdict": "PASS",
         "judge_verdicts": [
-          "NA",
           "PASS",
           "PASS",
-          "MISSING_INFO"
+          "PASS",
+          "PASS"
         ],
-        "pass_count": 2,
+        "pass_count": 4,
         "fail_count": 0,
-        "missing_count": 1,
-        "na_count": 1
+        "missing_count": 0,
+        "na_count": 0
       },
       {
         "id": "CC-27",
         "constraint_text": "Travel time between consecutive activities must account for realistic transit duration.",
         "constraint_type": "commonsense",
-        "final_verdict": "MISSING_INFO",
+        "final_verdict": "PASS",
         "judge_verdicts": [
-          "NA",
-          "MISSING_INFO",
           "PASS",
-          "MISSING_INFO"
+          "PASS",
+          "PASS",
+          "PASS"
         ],
-        "pass_count": 1,
+        "pass_count": 4,
         "fail_count": 0,
-        "missing_count": 2,
-        "na_count": 1
+        "missing_count": 0,
+        "na_count": 0
       },
       {
         "id": "CC-28",
         "constraint_text": "Total estimated cost must not exceed the stated budget.",
         "constraint_type": "commonsense",
-        "final_verdict": "FAIL",
+        "final_verdict": "PASS",
         "judge_verdicts": [
-          "FAIL",
-          "MISSING_INFO",
-          "FAIL",
-          "MISSING_INFO"
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
         ],
-        "pass_count": 0,
-        "fail_count": 2,
-        "missing_count": 2,
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
         "na_count": 0
       },
       {
         "id": "CC-29",
         "constraint_text": "If no budget was stated, cost estimates must still be surfaced for user awareness.",
         "constraint_type": "commonsense",
-        "final_verdict": "FAIL",
+        "final_verdict": "PASS",
         "judge_verdicts": [
           "NA",
-          "FAIL",
+          "PASS",
           "PASS",
           "PASS"
         ],
-        "pass_count": 2,
-        "fail_count": 1,
+        "pass_count": 3,
+        "fail_count": 0,
         "missing_count": 0,
         "na_count": 1
       },
@@ -602,19 +1192,19 @@
         "id": "CC-30",
         "constraint_text": "Total final cost must not exceed the stated budget.",
         "constraint_type": "commonsense",
-        "final_verdict": "FAIL",
+        "final_verdict": "PASS",
         "judge_verdicts": [
-          "FAIL",
-          "MISSING_INFO",
-          "FAIL",
-          "MISSING_INFO"
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
         ],
-        "pass_count": 0,
-        "fail_count": 2,
-        "missing_count": 2,
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
         "na_count": 0
       }
     ],
-    "timestamp": "2026-05-15T09:52:12.250075+00:00"
+    "timestamp": "2026-05-15T20:49:42.570272+00:00"
   }
 }

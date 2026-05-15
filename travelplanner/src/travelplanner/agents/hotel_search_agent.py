@@ -183,8 +183,12 @@ def _build_nuitee_booking_url(
     if not place_id:
         return None
 
-    occupancies_json = json.dumps([{"adults": guest_count, "children": []}], separators=(",", ":"))
-    occupancies_b64 = base64.b64encode(occupancies_json.encode("utf-8")).decode("utf-8")
+    occupancies_json = json.dumps(
+        [{"adults": guest_count, "children": []}], separators=(",", ":")
+    )
+    occupancies_b64 = base64.b64encode(
+        occupancies_json.encode("utf-8")
+    ).decode("utf-8")
 
     params = {
         "placeId": place_id,
@@ -201,6 +205,50 @@ def _build_nuitee_booking_url(
     }
     query = "&".join(f"{k}={quote(str(v), safe='')}" for k, v in params.items())
     return f"https://travelstack.nuitee.link/hotels?{query}"
+
+
+def _build_nuitee_hotel_url(
+    hotel_id: str,
+    check_in: str,
+    check_out: str,
+    guest_count: int,
+    language: str = "de",
+    currency: str = "EUR",
+) -> str | None:
+    """Return a Nuitee deep-link for a specific hotel.
+
+    Args:
+        hotel_id: LiteAPI hotel ID (e.g. ``lp12345``).
+        check_in: YYYY-MM-DD.
+        check_out: YYYY-MM-DD.
+        guest_count: Number of adult guests.
+        language: UI language (default "de").
+        currency: Booking currency (default "EUR").
+
+    Returns:
+        Full Nuitee booking URL for the specific hotel or None if *hotel_id* is missing.
+    """
+    if not hotel_id:
+        return None
+
+    occupancies_json = json.dumps(
+        [{"adults": guest_count, "children": []}], separators=(",", ":")
+    )
+    occupancies_b64 = base64.b64encode(
+        occupancies_json.encode("utf-8")
+    ).decode("utf-8")
+
+    params = {
+        "checkin": check_in,
+        "checkout": check_out,
+        "rooms": "1",
+        "adults": str(guest_count),
+        "occupancies": occupancies_b64,
+        "language": language,
+        "currency": currency,
+    }
+    query = "&".join(f"{k}={quote(str(v), safe='')}" for k, v in params.items())
+    return f"https://travelstack.nuitee.link/hotels/{hotel_id}?{query}"
 
 
 def parse_location(location: str) -> Tuple[Optional[str], Optional[str]]:
@@ -794,6 +842,13 @@ def build_hotel_artifact(
         )
 
         if hotel_option:
+            # Attach a per-hotel Nuitee deep-link
+            hotel_option.booking_url = _build_nuitee_hotel_url(
+                hotel_id=hotel_id,
+                check_in=check_in_date,
+                check_out=check_out_date,
+                guest_count=guest_count,
+            )
             hotels.append(hotel_option)
 
     # Enrich with facility details if needed

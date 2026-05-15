@@ -3,249 +3,439 @@ VERSION:2.0
 PRODID:-//TravelPlanner//TravelPlan//EN
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
-X-WR-CALNAME:Family Trip to Barcelona (Aug 1-8\, 2026)
+X-WR-CALNAME:Munich to Vienna 5-day trip\, July 10–14 2026
 BEGIN:VEVENT
-SUMMARY:Flight to Barcelona
-DTSTART:20260801T100000
-DTEND:20260801T123000
-DTSTAMP:20260515T075153Z
-UID:202a49d7d63a0a6f@travelplanner.local
-DESCRIPTION:Direct flight from Berlin (BER) to Barcelona (BCN). Estimated 
- price for family of 4 based on budget carrier averages.\nCost: €700.00\n
- Category: transport
-LOCATION:Berlin Brandenburg Airport (BER) to Barcelona-El Prat Airport (BC
- N)
+SUMMARY:Direct Railjet train: Munich → Vienna
+DTSTART:20260710T073000
+DTEND:20260710T113000
+DTSTAMP:20260515T104012Z
+UID:625a5d7efe0cd450@travelplanner.local
+DESCRIPTION:Budget-friendly direct ÖBB/DB Railjet-style train from Münch
+ en Hbf to Wien Hbf. Exact July 2026 schedules are not finalized yet\; typi
+ cal direct journey is about 4 hours. Book Sparschiene/advance fares when r
+ eleased.\nCost: €56.00\nCategory: transport\nLink 1: https://www.oebb.at
+ /en/tickets-kundenkarten/oesterreich-weit/sparschiene\nLink 2: https://www
+ .austrianrailways.com/train-munich-to-vienna\nNotes: Estimated one-way cos
+ t for 2 adults: €25 each plus small seat reservation allowance.
+LOCATION:München Hbf → Wien Hbf
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Check-in at Aparthotel Silver
-DTSTART:20260801T140000
-DTEND:20260801T150000
-DTSTAMP:20260515T075153Z
-UID:4ee1e193dbfb0aee@travelplanner.local
-DESCRIPTION:Family-friendly apartment hotel in Barcelona. Estimated total 
- for 7 nights at approx €145/night.\nCost: €1015.00\nCategory: lodging\
- nLink 1: https://www.hotelsilver.com/
-LOCATION:Aparthotel Silver\, Carrer de Vallirana\, 65\, 08006 Barcelona
+SUMMARY:Transfer: Wien Hbf → Hotel Pension Walzerstadt
+DTSTART:20260710T113000
+DTEND:20260710T121500
+DTSTAMP:20260515T104012Z
+UID:63322cd861506c5a@travelplanner.local
+DESCRIPTION:Take Vienna public transport from Wien Hbf toward Zieglergasse
+ /1070 district. Routing API unavailable due missing key\, but hotel is nea
+ r U3 Zieglergasse and Wien Hbf connects via U1/U-Bahn network.\nCost: €0
+ .00\nCategory: transport\nLink 1: https://www.wien.info/en/travel-info/tra
+ nsport/tickets-361360\nNotes: Covered by 7-day Vienna digital ticket added
+  separately.
+LOCATION:Wien Hbf → Zieglergasse 35\, 1070 Vienna
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Dinner at Ca l'Estevet
-DTSTART:20260801T193000
-DTEND:20260801T213000
-DTSTAMP:20260515T075153Z
-UID:78e5a57388a28fa4@travelplanner.local
-DESCRIPTION:Authentic Catalan dining experience.\nCost: €80.00\nCategory
- : meal\nLink 1: https://www.restaurantestevet.com/
-LOCATION:Carrer de Valldonzella\, 46\, 08001 Barcelona
+SUMMARY:Check in: Hotel Pension Walzerstadt
+DTSTART:20260710T121500
+DTEND:20260710T130000
+DTSTAMP:20260515T104012Z
+UID:4874b79b8966ef78@travelplanner.local
+DESCRIPTION:Budget accommodation in the 7th district with Wi‑Fi\, close 
+ to U3 Zieglergasse and Mariahilfer Straße. Quoted hotel search rate €96
+ /night for 4 nights.\nCost: €384.00\nCategory: lodging\nLink 1: https://
+ travelstack.nuitee.link/hotels?placeId=ChIJbRAjM5uobUcRO98FQnxbmd0&placeTy
+ pes=&name=Vienna&checkin=2026-07-10&checkout=2026-07-14&rooms=1&adults=2&o
+ ccupancies=W3siYWR1bHRzIjoyLCJjaGlsZHJlbiI6W119XQ%3D%3D&sorting=1&language
+ =de&currency=EUR\nLink 2: https://www.booking.com/hotel/at/pension-walzers
+ tadt.html\nNotes: Check-in time not verified\; ask hotel for early luggage
+  drop if room is not ready.
+LOCATION:Hotel Pension Walzerstadt\, Zieglergasse 35\, 1070 Vienna
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Sagrada Família Visit
-DTSTART:20260802T100000
-DTEND:20260802T130000
-DTSTAMP:20260515T075153Z
-UID:e7a4c31bf912a834@travelplanner.local
-DESCRIPTION:Explore Gaudí's masterpiece. Kids under 11 free for basic ent
- ry. Price estimated for 2 adults + 2 kids with audio guides.\nCost: €112
- .00\nCategory: attraction\nLink 1: https://sagradafamilia.org/en/tickets
-LOCATION:Carrer de Mallorca\, 401\, 08013 Barcelona
+SUMMARY:Buy 7-day Vienna public transport tickets
+DTSTART:20260710T130000
+DTEND:20260710T131500
+DTSTAMP:20260515T104012Z
+UID:fc159d2c2cb7fe51@travelplanner.local
+DESCRIPTION:Buy two digital 7-day Vienna core-zone tickets. 2026 fare sour
+ ce indicates €25.20 per person and better value than abolished 48/72-hou
+ r tickets.\nCost: €50.40\nCategory: transport\nLink 1: https://www.wien.
+ info/en/travel-info/transport/tickets-361360\nNotes: Covers city transit J
+ uly 10–14\, not intercity train.
+LOCATION:WienMobil app / Wiener Linien
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Lunch at Vivo Tapas
-DTSTART:20260802T130000
-DTEND:20260802T143000
-DTSTAMP:20260515T075153Z
-UID:2df5aef12bab9760@travelplanner.local
-DESCRIPTION:Mediterranean-influenced tapas.\nCost: €60.00\nCategory: mea
- l\nLink 1: https://vivotapas.com/
-LOCATION:Carrer del Rosselló\, 255\, 08008 Barcelona
+SUMMARY:Lunch: Trzesniewski open sandwiches
+DTSTART:20260710T133000
+DTEND:20260710T141500
+DTSTAMP:20260515T104012Z
+UID:d3da9f8dc69fb265@travelplanner.local
+DESCRIPTION:Iconic Viennese standing snack bar with small open-faced sandw
+ iches\, ideal for an inexpensive first local meal.\nCost: €24.00\nCatego
+ ry: meal\nLink 1: https://www.speckmittei.at\nLink 2: https://www.travelsi
+ gnposts.com/Austria/food/trzesniewski\nNotes: Flagship location\; open Fri
+ day daytime.
+LOCATION:Trzesniewski\, Dorotheergasse 1\, 1010 Vienna
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Barcelona Aquarium
-DTSTART:20260803T100000
-DTEND:20260803T130000
-DTSTAMP:20260515T075153Z
-UID:6f1d5f0d87a92760@travelplanner.local
-DESCRIPTION:Visit the aquarium at Port Vell. Price for 2 adults\, 1 child 
- (5-10)\, 1 child (3-4).\nCost: €79.00\nCategory: attraction\nLink 1: htt
- ps://www.museos.com/en/barcelona/aquarium-of-barcelona/
-LOCATION:Moll d'Espanya del Port Vell\, s/n\, 08039 Barcelona
+SUMMARY:Self-guided Innere Stadt walk
+DTSTART:20260710T141500
+DTEND:20260710T170000
+DTSTAMP:20260515T104012Z
+UID:2d5403186da6bce4@travelplanner.local
+DESCRIPTION:Walk Stephansplatz\, Graben\, Kohlmarkt\, Hofburg exterior\, M
+ ichaelerplatz\, and hidden courtyards/Durchhäuser around the old town. Lo
+ w-cost orientation on foot.\nCost: €0.00\nCategory: attraction\nLink 1: 
+ https://www.google.com/maps/search/St.+Stephen's+Cathedral+Vienna\nLink 2:
+  https://www.google.com/maps/search/Schottendurchhaus\nNotes: Keep this fl
+ exible after travel.
+LOCATION:Innere Stadt\, Vienna
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Bogatell Beach Afternoon
-DTSTART:20260803T143000
-DTEND:20260803T180000
-DTSTAMP:20260515T075153Z
-UID:c4fb39b24beacee8@travelplanner.local
-DESCRIPTION:Relaxing afternoon at Bogatell beach. Traditional sand-sculpti
- ng and maritime games.\nCost: €0.00\nCategory: leisure
-LOCATION:Bogatell Beach\, Barcelona
+SUMMARY:Dinner: Griechenbeisl
+DTSTART:20260710T190000
+DTEND:20260710T203000
+DTSTAMP:20260515T104012Z
+UID:795d4b306d07d1ee@travelplanner.local
+DESCRIPTION:Traditional Austrian dinner in one of Vienna’s oldest restau
+ rants\, near Schwedenplatz\; historic rooms and classic dishes.\nCost: €
+ 70.00\nCategory: meal\nLink 1: https://www.griechenbeisl.at/\nLink 2: http
+ s://www.wien.info/en/griechenbeisl-132812\nNotes: Reserve ahead\; estimate
+  assumes moderate mains and drinks for 2.
+LOCATION:Griechenbeisl\, Fleischmarkt 11\, 1010 Vienna
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Dinner at La Marea
-DTSTART:20260803T193000
-DTEND:20260803T213000
-DTSTAMP:20260515T075153Z
-UID:faf8f7a5a6cdcfe0@travelplanner.local
-DESCRIPTION:Seafood dinner near the beach.\nCost: €80.00\nCategory: meal
- \nLink 1: https://www.lamarearestaurante.com/ca/
-LOCATION:Passeig de Garcia Fària\, 33\, 08005 Barcelona
+SUMMARY:Breakfast at Café Sperl
+DTSTART:20260711T083000
+DTEND:20260711T093000
+DTSTAMP:20260515T104012Z
+UID:c1032e599910a83b@travelplanner.local
+DESCRIPTION:Historic Viennese coffee house breakfast before a museum-heavy
+  day. Café Sperl is open Saturdays in July\; avoid Sundays in July/August
+  due to Sunday closure.\nCost: €28.00\nCategory: meal\nLink 1: https://w
+ ww.cafesperl.at\nLink 2: https://www.wien.info/en/caf%C3%A9-sperl-film-loc
+ ation-920732\nNotes: Estimated for 2 coffees and pastries/light breakfast.
+LOCATION:Café Sperl\, Gumpendorfer Straße 11\, 1060 Vienna
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Park Güell Exploration
-DTSTART:20260804T100000
-DTEND:20260804T130000
-DTSTAMP:20260515T075153Z
-UID:526a30158661094b@travelplanner.local
-DESCRIPTION:Explore the monumental zone. 2 adults (€10 each) + 1 child 7
- -12 (€7) + 1 child under 7 (Free).\nCost: €27.00\nCategory: attraction
- \nLink 1: https://parkguell.barcelona/en/buy-tickets
-LOCATION:Carrer d'Olot\, s/n\, 08024 Barcelona
+SUMMARY:Walk/transit to Kunsthistorisches Museum
+DTSTART:20260711T093000
+DTEND:20260711T100000
+DTSTAMP:20260515T104012Z
+UID:c9f03f258b733e9a@travelplanner.local
+DESCRIPTION:From the hotel area to Maria-Theresien-Platz\; hotel is about 
+ a 20–25 minute walk or short U3 ride to Volkstheater/MuseumsQuartier.\nC
+ ost: €0.00\nCategory: transport\nLink 1: https://www.wien.info/en/travel
+ -info/transport/tickets-361360\nNotes: Routing API was unavailable\; estim
+ ate based on verified hotel and museum transit proximity.
+LOCATION:Hotel Pension Walzerstadt → Kunsthistorisches Museum
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Lunch at Viana Barcelona
-DTSTART:20260804T130000
-DTEND:20260804T143000
-DTSTAMP:20260515T075153Z
-UID:7621f510edbe2252@travelplanner.local
-DESCRIPTION:Mediterranean fusion in a cozy setting.\nCost: €60.00\nCateg
- ory: meal\nLink 1: http://www.vianabcn.com/
-LOCATION:Carrer del Vidre\, 7\, 08002 Barcelona
+SUMMARY:Kunsthistorisches Museum
+DTSTART:20260711T100000
+DTEND:20260711T130000
+DTSTAMP:20260515T104012Z
+UID:849b124fa34cd1b2@travelplanner.local
+DESCRIPTION:Focus on Bruegel\, the Kunstkammer\, Egyptian/Greek collection
+ s\, and Klimt’s staircase decorations. Official July hours: daily 10:00
+ –18:00.\nCost: €44.00\nCategory: attraction\nLink 1: https://www.khm.a
+ t/en/visit\nNotes: Estimated €22 per adult.
+LOCATION:Kunsthistorisches Museum\, Maria-Theresien-Platz\, 1010 Vienna
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Gràcia Neighborhood Walk
-DTSTART:20260804T150000
-DTEND:20260804T180000
-DTSTAMP:20260515T075153Z
-UID:c29bbb3fdbeb8a80@travelplanner.local
-DESCRIPTION:Explore the charming streets of Gràcia. Visit local plazas li
- ke Plaça de la Vila de Gràcia.\nCost: €0.00\nCategory: leisure
-LOCATION:Gràcia District\, Barcelona
+SUMMARY:Lunch: Figlmüller Bäckerstraße
+DTSTART:20260711T131500
+DTEND:20260711T143000
+DTSTAMP:20260515T104012Z
+UID:7bf57cfb4d878203@travelplanner.local
+DESCRIPTION:Classic schnitzel lunch in the old town\; official hours daily
+  11:30–23:30\, kitchen until 22:00.\nCost: €55.00\nCategory: meal\nLin
+ k 1: https://www.figlmueller.at/en/reservations/\nLink 2: https://www.figl
+ mueller.at/en/location-contact/\nNotes: Reserve\; estimate for 2 schnitzel
+ s/sides and soft drinks.
+LOCATION:Figlmüller\, Bäckerstraße 6\, 1010 Vienna
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Dinner in Gràcia
-DTSTART:20260804T193000
-DTEND:20260804T210000
-DTSTAMP:20260515T075153Z
-UID:fd7374e143ffd4e2@travelplanner.local
-DESCRIPTION:Family dinner in Gràcia.\nCost: €70.00\nCategory: meal
-LOCATION:Gràcia\, Barcelona
+SUMMARY:Hofburg exterior and imperial lanes walk
+DTSTART:20260711T143000
+DTEND:20260711T163000
+DTSTAMP:20260515T104012Z
+UID:3595584d7bde38e9@travelplanner.local
+DESCRIPTION:Walk through Graben/Kohlmarkt to Michaelerplatz\, Hofburg cour
+ tyards\, Volksgarten\, and Ringstraße viewpoints. Keeps costs low while c
+ overing imperial Vienna on foot.\nCost: €0.00\nCategory: attraction\nLin
+ k 1: https://www.google.com/maps/search/Hofburg+Palace+Vienna\nNotes: Opti
+ onal paid Sisi Museum if budget allows\, but not included in cost.
+LOCATION:Hofburg Palace area\, 1010 Vienna
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:CosmoCaixa Science Museum
-DTSTART:20260805T100000
-DTEND:20260805T140000
-DTSTAMP:20260515T075153Z
-UID:482a679fb855c529@travelplanner.local
-DESCRIPTION:Interactive science museum. 2 adults (€8 each)\, kids under 
- 16 free.\nCost: €16.00\nCategory: attraction\nLink 1: https://www.museos
- .com/en/barcelona/cosmocaixa/
-LOCATION:Carrer d'Isaac Newton\, 26\, 08022 Barcelona
+SUMMARY:Coffee and cake break
+DTSTART:20260711T163000
+DTEND:20260711T171500
+DTSTAMP:20260515T104012Z
+UID:86c9371be14439a2@travelplanner.local
+DESCRIPTION:Pause for Melange and cake in the historic center. Café Centr
+ al is expected closed for renovation in 2026\, so use Café Museum or anot
+ her open café nearby.\nCost: €24.00\nCategory: meal\nLink 1: https://ww
+ w.cafemuseum.at/en/cafe-museum.html\nNotes: Café Central renovation noted
+  in research\; not scheduled.
+LOCATION:Café Museum or nearby historic café
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Tibidabo Views & Walk
-DTSTART:20260805T143000
-DTEND:20260805T170000
-DTSTAMP:20260515T075153Z
-UID:73036f5f6e5fdabe@travelplanner.local
-DESCRIPTION:Panoramic views of Barcelona from the Tibidabo area. Relaxing 
- walk near the science museum.\nCost: €0.00\nCategory: leisure
-LOCATION:Tibidabo Hill\, Barcelona
+SUMMARY:Dinner: Plachutta Wollzeile
+DTSTART:20260711T190000
+DTEND:20260711T204500
+DTSTAMP:20260515T104012Z
+UID:99827196f0b4db46@travelplanner.local
+DESCRIPTION:Traditional Tafelspitz dinner at a classic Vienna restaurant\;
+  open daily 11:30–23:30.\nCost: €90.00\nCategory: meal\nLink 1: https:
+ //www.plachutta.at/en/restaurant/wollzeile/\nNotes: Reserve\; this is the 
+ splurge dinner of the trip.
+LOCATION:Plachutta Wollzeile\, Wollzeile 38\, 1010 Vienna
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Family Dinner
-DTSTART:20260805T193000
-DTEND:20260805T210000
-DTSTAMP:20260515T075153Z
-UID:a3aafdee6fe93f70@travelplanner.local
-DESCRIPTION:Dinner near the apartment.\nCost: €70.00\nCategory: meal
-LOCATION:Gràcia/Eixample\, Barcelona
+SUMMARY:Breakfast at Café Museum
+DTSTART:20260712T083000
+DTEND:20260712T093000
+DTSTAMP:20260515T104012Z
+UID:dfd97f5238b24ee7@travelplanner.local
+DESCRIPTION:Classic Vienna café near Karlsplatz\; breakfast is served dai
+ ly until 11:30.\nCost: €30.00\nCategory: meal\nLink 1: https://www.cafem
+ useum.at/en/cafe-museum.html\nNotes: Good start before Stadtpark and Belve
+ dere.
+LOCATION:Café Museum\, Operngasse 7\, 1010 Vienna
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Morning Beach Time
-DTSTART:20260806T100000
-DTEND:20260806T130000
-DTSTAMP:20260515T075153Z
-UID:cc92872654dc3045@travelplanner.local
-DESCRIPTION:Morning at the beach. Perfect for kids to play.\nCost: €0.00
- \nCategory: leisure
-LOCATION:Barceloneta Beach\, Barcelona
+SUMMARY:Stadtpark morning walk
+DTSTART:20260712T093000
+DTEND:20260712T103000
+DTSTAMP:20260515T104012Z
+UID:b1d1d1ed27d35f2f@travelplanner.local
+DESCRIPTION:Walk through Stadtpark to see the Johann Strauss monument and 
+ green spaces before lunch\; free and central.\nCost: €0.00\nCategory: at
+ traction\nLink 1: https://www.google.com/maps/search/Stadtpark+Vienna\nNot
+ es: Pairs naturally with Meierei in Stadtpark.
+LOCATION:Stadtpark\, Vienna
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Beachside Lunch
-DTSTART:20260806T130000
-DTEND:20260806T143000
-DTSTAMP:20260515T075153Z
-UID:5e58571ef979a5b9@travelplanner.local
-DESCRIPTION:Casual lunch near the beach.\nCost: €60.00\nCategory: meal
-LOCATION:Barceloneta\, Barcelona
+SUMMARY:Lunch: Meierei im Stadtpark
+DTSTART:20260712T110000
+DTEND:20260712T121500
+DTSTAMP:20260515T104012Z
+UID:be7df0a3ff10e57d@travelplanner.local
+DESCRIPTION:Casual bistro/café in Stadtpark from the Steirereck group\; n
+ ote official research suggests Sunday opening may vary\, so verify/reserve
+  or substitute Café Museum if closed.\nCost: €60.00\nCategory: meal\nLi
+ nk 1: https://www.steirereck.at/meierei.html\nNotes: If Sunday closure is 
+ confirmed\, replace with Café Museum or trude at Wien Museum.
+LOCATION:Meierei im Stadtpark\, Am Heumarkt 2a\, 1030 Vienna
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Afternoon Leisure
-DTSTART:20260806T143000
-DTEND:20260806T180000
-DTSTAMP:20260515T075153Z
-UID:c0181ed7d9f7ee4e@travelplanner.local
-DESCRIPTION:Afternoon relaxation or more beach time.\nCost: €0.00\nCateg
- ory: leisure
-LOCATION:Barceloneta\, Barcelona
+SUMMARY:Transfer/walk to Upper Belvedere
+DTSTART:20260712T121500
+DTEND:20260712T124500
+DTSTAMP:20260515T104012Z
+UID:445c06c15de24eda@travelplanner.local
+DESCRIPTION:Walk or take tram toward Prinz-Eugen-Straße for Belvedere. Th
+ e site is south-east of the Ring\; allow about 30 minutes from Stadtpark a
+ rea.\nCost: €0.00\nCategory: transport\nLink 1: https://www.wien.info/en
+ /travel-info/transport/tickets-361360\nNotes: Covered by Vienna transport 
+ ticket if using tram.
+LOCATION:Stadtpark → Upper Belvedere
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Dinner in Barceloneta
-DTSTART:20260806T193000
-DTEND:20260806T210000
-DTSTAMP:20260515T075153Z
-UID:e7723f4b16e04bad@travelplanner.local
-DESCRIPTION:Dinner in the lively Barceloneta area.\nCost: €70.00\nCatego
- ry: meal
-LOCATION:Barceloneta\, Barcelona
+SUMMARY:Upper Belvedere museum
+DTSTART:20260712T130000
+DTEND:20260712T160000
+DTSTAMP:20260515T104012Z
+UID:1f2b70defba161f1@travelplanner.local
+DESCRIPTION:Visit Klimt’s The Kiss\, Austrian art collections\, and Baro
+ que palace rooms. Official visitor info: Upper Belvedere opens daily\, typ
+ ically 09:00–18:00.\nCost: €40.00\nCategory: attraction\nLink 1: https
+ ://www.belvederepalace.at/en/visiting-hours\nLink 2: https://www.google.co
+ m/maps/search/Austrian+Gallery+Belvedere\nNotes: Estimated €20 per adult
+ \; book timed entry.
+LOCATION:Upper Belvedere\, Prinz-Eugen-Straße 27\, 1030 Vienna
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Gothic Quarter & Giants Hunt
-DTSTART:20260807T100000
-DTEND:20260807T133000
-DTSTAMP:20260515T075153Z
-UID:ea64537f648c9585@travelplanner.local
-DESCRIPTION:Explore the Gothic Quarter\, hunt for gargoyles at the Cathedr
- al\, and visit the 'Casa dels Entremesos' to see the giants. Cathedral ent
- ry for 2 adults (kids free/reduced).\nCost: €20.00\nCategory: attraction
-LOCATION:Gothic Quarter\, Barcelona
+SUMMARY:Belvedere Gardens walk
+DTSTART:20260712T160000
+DTEND:20260712T170000
+DTSTAMP:20260515T104012Z
+UID:41f14d3e26c12d9f@travelplanner.local
+DESCRIPTION:Walk the free formal gardens between Upper and Lower Belvedere
+  for city views and photos.\nCost: €0.00\nCategory: attraction\nLink 1: 
+ https://www.belvederepalace.at/en/visiting-hours\nNotes: Free outdoor comp
+ onent.
+LOCATION:Belvedere Gardens\, Vienna
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Lunch in Old Town
-DTSTART:20260807T133000
-DTEND:20260807T150000
-DTSTAMP:20260515T075153Z
-UID:b419f1ed37039862@travelplanner.local
-DESCRIPTION:Lunch in the historic center.\nCost: €60.00\nCategory: meal
-LOCATION:Gothic Quarter\, Barcelona
+SUMMARY:Dinner: Bitzinger Würstelstand Albertina
+DTSTART:20260712T183000
+DTEND:20260712T191500
+DTSTAMP:20260515T104012Z
+UID:0f11d2cd5bf12604@travelplanner.local
+DESCRIPTION:Budget-friendly Viennese street food: Käsekrainer or bratwurs
+ t near the Opera/Albertina. Open daily 08:00–04:00.\nCost: €22.00\nCat
+ egory: meal\nLink 1: https://bitzinger.wien/en/wuerstelstand/impressum/\nN
+ otes: Keeps the day budget balanced after museum tickets.
+LOCATION:Bitzinger Würstelstand\, Albertinaplatz 1\, 1010 Vienna
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Las Ramblas Stroll
-DTSTART:20260807T153000
-DTEND:20260807T180000
-DTSTAMP:20260515T075153Z
-UID:335b0ad30c43a27f@travelplanner.local
-DESCRIPTION:Last-minute souvenir shopping and a stroll down Las Ramblas.\n
- Cost: €0.00\nCategory: leisure
-LOCATION:Las Ramblas\, Barcelona
+SUMMARY:Breakfast near Mariahilfer Straße
+DTSTART:20260713T080000
+DTEND:20260713T084500
+DTSTAMP:20260515T104012Z
+UID:68055b69c88bbbf7@travelplanner.local
+DESCRIPTION:Simple café/bakery breakfast near the hotel before taking U4/
+ U-Bahn connections toward Schönbrunn.\nCost: €20.00\nCategory: meal\nLi
+ nk 1: https://www.wien.info/en/travel-info/transport/tickets-361360\nNotes
+ : Use local bakery/café to preserve budget.
+LOCATION:Near Hotel Pension Walzerstadt / Mariahilfer Straße
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Farewell Dinner
-DTSTART:20260807T193000
-DTEND:20260807T213000
-DTSTAMP:20260515T075153Z
-UID:b5931d8c912d687b@travelplanner.local
-DESCRIPTION:Farewell dinner in Barcelona.\nCost: €80.00\nCategory: meal
-LOCATION:City Center\, Barcelona
+SUMMARY:Transfer to Schönbrunn
+DTSTART:20260713T084500
+DTEND:20260713T093000
+DTSTAMP:20260515T104012Z
+UID:438a47374779028b@travelplanner.local
+DESCRIPTION:Use Vienna public transport from the 7th district toward U4 Sc
+ hönbrunn/Hietzing for the palace park. Exact live route unavailable\, but
+  Schönbrunn is directly served by U4.\nCost: €0.00\nCategory: transport
+ \nLink 1: https://www.wien.info/en/travel-info/transport/tickets-361360\nN
+ otes: Covered by 7-day Vienna ticket.
+LOCATION:Hotel Pension Walzerstadt → Schönbrunn Palace Park
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Flight to Berlin
-DTSTART:20260808T160000
-DTEND:20260808T183000
-DTSTAMP:20260515T075153Z
-UID:61d2b4c62c0db6e9@travelplanner.local
-DESCRIPTION:Return flight to Berlin. Estimated price based on budget carri
- er averages.\nCost: €700.00\nCategory: transport
-LOCATION:Barcelona-El Prat Airport (BCN) to Berlin Brandenburg Airport (BE
- R)
+SUMMARY:Schönbrunn Palace Park and Gloriette walk
+DTSTART:20260713T093000
+DTEND:20260713T120000
+DTSTAMP:20260515T104012Z
+UID:4331255525812073@travelplanner.local
+DESCRIPTION:Explore the free palace gardens\, Great Parterre\, fountains\,
+  and walk up to the Gloriette. Palace park July hours researched as 06:30
+ –21:00\; palace interiors are optional if budget allows.\nCost: €0.00\
+ nCategory: attraction\nLink 1: https://schonbrunn-palace.org/opening-hours
+ -best-time/\nLink 2: https://www.google.com/maps/search/Schönbrunn+Palace
+ +Park\nNotes: Free garden-focused option preserves total budget.
+LOCATION:Schönbrunn Palace Park\, Schönbrunner Schloßstraße 47\, 1130 
+ Vienna
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Lunch: Joseph II Schloss-Restaurant Schönbrunn
+DTSTART:20260713T120000
+DTEND:20260713T131500
+DTSTAMP:20260515T104012Z
+UID:b8547727c4c3eb3b@travelplanner.local
+DESCRIPTION:Convenient Austrian lunch inside the Schönbrunn complex\; off
+ icial research found daily opening 11:00–20:30\, hot food 11:30–19:30.
+ \nCost: €50.00\nCategory: meal\nLink 1: https://www.restaurant-schoenbru
+ nn.at/en\nNotes: Estimate for moderate lunch for 2\; reserve if possible.
+LOCATION:Joseph II\, Schönbrunner Schloßstraße 47\, 1130 Vienna
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Transfer to Karlsplatz / MuseumsQuartier
+DTSTART:20260713T131500
+DTEND:20260713T140000
+DTSTAMP:20260515T104012Z
+UID:8307399019bcf2b8@travelplanner.local
+DESCRIPTION:Transit back toward central Vienna for free/low-cost museum an
+ d MQ time.\nCost: €0.00\nCategory: transport\nLink 1: https://www.wien.i
+ nfo/en/travel-info/transport/tickets-361360\nNotes: Covered by Vienna tick
+ et.
+LOCATION:Schönbrunn → Karlsplatz / MuseumsQuartier
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Wien Museum Karlsplatz and MuseumsQuartier walk
+DTSTART:20260713T140000
+DTEND:20260713T170000
+DTSTAMP:20260515T104012Z
+UID:c9438a40041f7f89@travelplanner.local
+DESCRIPTION:Visit the free permanent exhibition at Wien Museum Karlsplatz 
+ if open and continue on foot through Karlsplatz\, Secession exterior\, Nas
+ chmarkt edge\, and MuseumsQuartier courtyards. Note: Wien Museum is normal
+ ly closed Mondays\, so if closed use MQ courtyards/Spittelberg walk instea
+ d.\nCost: €0.00\nCategory: attraction\nLink 1: https://whichmuseum.com/m
+ useum/wien-museum-karlsplatz-vienna-5358/opening-hours\nLink 2: https://ww
+ w.mqw.at/en/\nNotes: Monday closure likely\; the walk/MQ courtyards remain
+  valid and free.
+LOCATION:Karlsplatz → MuseumsQuartier\, Vienna
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Dinner: Glacis Beisl
+DTSTART:20260713T183000
+DTEND:20260713T200000
+DTSTAMP:20260515T104012Z
+UID:a3612c5ae0bfbb25@travelplanner.local
+DESCRIPTION:Traditional Viennese Beisl cuisine with garden atmosphere besi
+ de MuseumsQuartier\; official source found daily opening 12:00–00:00.\nC
+ ost: €55.00\nCategory: meal\nLink 1: https://glacisbeisl.at/en/\nLink 2:
+  https://www.mqw.at/en/catering/glacis-beisl/\nNotes: Good fit after MQ/Sp
+ ittelberg walk.
+LOCATION:Glacis Beisl\, Breite Gasse 4\, 1070 Vienna
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Early hotel checkout and station breakfast
+DTSTART:20260714T083000
+DTEND:20260714T091500
+DTSTAMP:20260515T104012Z
+UID:e07f30a219a5ebf3@travelplanner.local
+DESCRIPTION:Check out\, leave luggage if possible\, and grab an easy break
+ fast near Zieglergasse or at Wien Hbf.\nCost: €22.00\nCategory: meal\nLi
+ nk 1: https://www.bahnhof.de/muenchen-hbf\nLink 2: https://www.oebb.at/en/
+ reiseplanung-services/am-bahnhof/unsere-bahnhoefe/wien-hauptbahnhof\nNotes
+ : Exact hotel checkout time unavailable\; confirm with property.
+LOCATION:Hotel Pension Walzerstadt / Wien Hauptbahnhof
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Optional final city walk / souvenir stop
+DTSTART:20260714T091500
+DTEND:20260714T113000
+DTSTAMP:20260515T104012Z
+UID:d3e0f5daf36466dd@travelplanner.local
+DESCRIPTION:Light final walk around Mariahilfer Straße or the hotel neigh
+ borhood\; keep it flexible for luggage and checkout timing.\nCost: €0.00
+ \nCategory: leisure\nLink 1: https://www.google.com/maps/search/Mariahilfe
+ r+Straße+Vienna\nNotes: Free buffer before train.
+LOCATION:Mariahilfer Straße / 7th district\, Vienna
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Lunch: casual Austrian bite near station
+DTSTART:20260714T114500
+DTEND:20260714T123000
+DTSTAMP:20260515T104012Z
+UID:e552c7608ec620d7@travelplanner.local
+DESCRIPTION:Simple budget lunch before departure\, either at Wien Hbf food
+  court or an inexpensive bakery/snack spot.\nCost: €18.00\nCategory: mea
+ l\nLink 1: https://www.oebb.at/en/reiseplanung-services/am-bahnhof/unsere-
+ bahnhoefe/wien-hauptbahnhof\nNotes: Lower-cost placeholder for 2 people to
+  keep total trip under €1\,200.
+LOCATION:Wien Hauptbahnhof / nearby
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Transfer to Wien Hauptbahnhof
+DTSTART:20260714T123000
+DTEND:20260714T131500
+DTSTAMP:20260515T104012Z
+UID:9467f2194b827df5@travelplanner.local
+DESCRIPTION:Collect bags and use public transport to Wien Hbf for the retu
+ rn train.\nCost: €0.00\nCategory: transport\nLink 1: https://www.wien.in
+ fo/en/travel-info/transport/tickets-361360\nNotes: Covered by Vienna ticke
+ t.
+LOCATION:Hotel Pension Walzerstadt → Wien Hbf
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Direct Railjet train: Vienna → Munich
+DTSTART:20260714T140000
+DTEND:20260714T180000
+DTSTAMP:20260515T104012Z
+UID:1ebbf49c62f8acee@travelplanner.local
+DESCRIPTION:Return by direct ÖBB/DB Railjet-style service from Wien Hbf t
+ o München Hbf. Exact July 2026 schedule not yet finalized\; typical direc
+ t journey about 4 hours.\nCost: €56.00\nCategory: transport\nLink 1: htt
+ ps://www.oebb.at/en/tickets-kundenkarten/oesterreich-weit/sparschiene\nLin
+ k 2: https://www.austrianrailways.com/train-munich-to-vienna\nNotes: Estim
+ ated one-way cost for 2 adults: €25 each plus seat reservation allowance
+ .
+LOCATION:Wien Hbf → München Hbf
 END:VEVENT
 END:VCALENDAR

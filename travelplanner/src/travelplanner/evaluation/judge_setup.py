@@ -46,7 +46,7 @@ DEFAULT_JUDGE_MODELS: list[str] = [
     "openrouter:minimax/minimax-m2.7",      # dot, not hyphen
     "openrouter:google/gemini-3-flash-preview",
     "openrouter:deepseek/deepseek-v4-flash",
-    "openrouter:qwen/qwen2.5-vl-72b-instruct",
+    "openrouter:qwen/qwen3.5-397b-a17b",
 ]
 
 # Model used to convert baseline markdown → TravelPlan and to run the per-slot

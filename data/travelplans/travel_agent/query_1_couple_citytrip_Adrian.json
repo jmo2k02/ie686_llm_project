@@ -1,0 +1,350 @@
+{
+  "id": "query_1_couple_citytrip_Adrian",
+  "description": "Normal case: couple, city trip",
+  "query": "My partner and I are planning a 5-day trip from Munich to Vienna from July 10th to 14th, 2026. We have a total budget of €1,200. We enjoy visiting museums, trying local food, and exploring the city on foot. Please suggest accommodations and a daily itinerary.",
+  "hard_constraints": {
+    "origin": "Munich",
+    "destination": "Vienna",
+    "date_from": "2026.07.10",
+    "date_to": "2026.07.14",
+    "travelers": {
+      "adults": 2,
+      "children_under_6": 0,
+      "children_6_to_16": 0
+    },
+    "budget_amount": 1200,
+    "budget_currency": "EUR",
+    "accommodation": "hotel",
+    "transport": "No Preference",
+    "interests": "museums, food, city walks"
+  },
+  "model_name": "openrouter:google/gemini-3-flash-preview",
+  "generated_at": "2026-05-15T07:48:28.173538+00:00",
+  "duration_seconds": 635.52,
+  "travelplan": {
+    "title": "Munich to Vienna 5-Day Trip (July 2026)",
+    "days": [
+      {
+        "index": 1,
+        "calendar_date": "2026-07-10",
+        "label": "Arrival & First Impressions",
+        "slots": [
+          {
+            "name": "ÖBB Railjet Train (2 Adults)",
+            "description": "Direct high-speed train from Munich Hbf to Vienna Hbf for 2 adults. Book early for Sparschiene discounts.",
+            "start_time": "2026-07-10T09:30:00",
+            "end_time": "2026-07-10T13:30:00",
+            "category": "transport",
+            "location": "Munich Hbf to Vienna Hbf",
+            "cost": 40.0,
+            "links": [
+              "https://www.oebb.at/en/"
+            ],
+            "notes": null
+          },
+          {
+            "name": "Rioca Vienna Posto 2 (4 Nights)",
+            "description": "4 nights at Rioca Vienna Posto 2, a highly-rated and budget-friendly option.",
+            "start_time": "2026-07-10T14:00:00",
+            "end_time": "2026-07-10T15:00:00",
+            "category": "lodging",
+            "location": "Dresdner Str. 109, 1200 Wien, Austria",
+            "cost": 332.0,
+            "links": [
+              "https://travelstack.nuitee.link/hotels?placeId=ChIJbRAjM5uobUcRO98FQnxbmd0&placeTypes=&name=Vienna&checkin=2026-07-10&checkout=2026-07-14&rooms=1&adults=2&occupancies=W3siYWR1bHRzIjoyLCJjaGlsZHJlbiI6W119XQ%3D%3D&sorting=1&language=de&currency=EUR"
+            ],
+            "notes": null
+          },
+          {
+            "name": "Walking Tour: Innere Stadt Courtyards",
+            "description": "Explore the hidden courtyards and medieval streets of Vienna's First District on foot.",
+            "start_time": "2026-07-10T15:30:00",
+            "end_time": "2026-07-10T18:00:00",
+            "category": "attraction",
+            "location": "Innere Stadt, Vienna",
+            "cost": 0.0,
+            "links": [],
+            "notes": null
+          },
+          {
+            "name": "Dinner at Bauernbräu (2 Adults)",
+            "description": "Traditional Viennese dinner for 2 people.",
+            "start_time": "2026-07-10T19:00:00",
+            "end_time": "2026-07-10T21:00:00",
+            "category": "meal",
+            "location": "Gumpendorfer Str. 134/136, 1060 Wien, Austria",
+            "cost": 70.0,
+            "links": [],
+            "notes": null
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "calendar_date": "2026-07-11",
+        "label": "Imperial History & Art",
+        "slots": [
+          {
+            "name": "Naschmarkt & Secession (2 Adults)",
+            "description": "Visit the Naschmarkt and Secession building for 2 adults.",
+            "start_time": "2026-07-11T09:30:00",
+            "end_time": "2026-07-11T12:30:00",
+            "category": "attraction",
+            "location": "Naschmarkt, Vienna",
+            "cost": 30.0,
+            "links": [],
+            "notes": null
+          },
+          {
+            "name": "Lunch at Naschmarkt (2 Adults)",
+            "description": "Sample various local foods at the market for 2.",
+            "start_time": "2026-07-11T12:30:00",
+            "end_time": "2026-07-11T14:00:00",
+            "category": "meal",
+            "location": "Naschmarkt, Vienna",
+            "cost": 50.0,
+            "links": [],
+            "notes": null
+          },
+          {
+            "name": "MuseumsQuartier (2 Adults)",
+            "description": "Explore the MuseumsQuartier for 2 adults.",
+            "start_time": "2026-07-11T14:30:00",
+            "end_time": "2026-07-11T17:30:00",
+            "category": "attraction",
+            "location": "MuseumsQuartier, Vienna",
+            "cost": 30.0,
+            "links": [],
+            "notes": null
+          },
+          {
+            "name": "Dinner in Neubau (2 Adults)",
+            "description": "Dinner for 2 in the vibrant 7th district.",
+            "start_time": "2026-07-11T18:30:00",
+            "end_time": "2026-07-11T20:30:00",
+            "category": "meal",
+            "location": "Neubau, Vienna",
+            "cost": 80.0,
+            "links": [],
+            "notes": null
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "calendar_date": "2026-07-12",
+        "label": "Palaces & Gardens",
+        "slots": [
+          {
+            "name": "Kunsthistorisches Museum (2 Adults)",
+            "description": "One of the world's foremost museums, housing Habsburg art collections. Tickets for 2 adults.",
+            "start_time": "2026-07-12T10:00:00",
+            "end_time": "2026-07-12T13:30:00",
+            "category": "attraction",
+            "location": "Maria-Theresien-Platz, 1010 Vienna, Austria",
+            "cost": 44.0,
+            "links": [
+              "https://www.khm.at/en/visit"
+            ],
+            "notes": null
+          },
+          {
+            "name": "Lunch (2 Adults)",
+            "description": "Lunch for 2 near Maria-Theresien-Platz.",
+            "start_time": "2026-07-12T13:30:00",
+            "end_time": "2026-07-12T14:30:00",
+            "category": "meal",
+            "location": "Vienna",
+            "cost": 40.0,
+            "links": [],
+            "notes": null
+          },
+          {
+            "name": "Breakfast (2 Adults)",
+            "description": "Quick breakfast for 2 at a local bakery.",
+            "start_time": "2026-07-12T08:30:00",
+            "end_time": "2026-07-12T09:30:00",
+            "category": "meal",
+            "location": "Vienna",
+            "cost": 20.0,
+            "links": [],
+            "notes": null
+          },
+          {
+            "name": "Sachertorte at Café Aida (2 Adults)",
+            "description": "Enjoy a slice of the famous chocolate cake for 2.",
+            "start_time": "2026-07-12T15:30:00",
+            "end_time": "2026-07-12T16:30:00",
+            "category": "meal",
+            "location": "Singerstraße 1, 1010 Wien, Austria",
+            "cost": 20.0,
+            "links": [
+              "https://aida.at/"
+            ],
+            "notes": null
+          },
+          {
+            "name": "Dinner at Figlmüller (2 Adults)",
+            "description": "Legendary plate-sized schnitzel for 2. Reservation mandatory.",
+            "start_time": "2026-07-12T18:30:00",
+            "end_time": "2026-07-12T20:30:00",
+            "category": "meal",
+            "location": "Wollzeile 5, 1010 Vienna, Austria",
+            "cost": 90.0,
+            "links": [
+              "https://figlmueller.at/en/"
+            ],
+            "notes": null
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "calendar_date": "2026-07-13",
+        "label": "Modern Art & Local Flavors",
+        "slots": [
+          {
+            "name": "Belvedere Palace Combo (2 Adults)",
+            "description": "Combo ticket for Upper and Lower Belvedere for 2 adults. Includes Klimt's 'The Kiss'.",
+            "start_time": "2026-07-13T09:30:00",
+            "end_time": "2026-07-13T12:30:00",
+            "category": "attraction",
+            "location": "Prinz-Eugen-Straße 27, 1030 Vienna, Austria",
+            "cost": 58.0,
+            "links": [
+              "https://www.belvedere.at/en"
+            ],
+            "notes": null
+          },
+          {
+            "name": "Belvedere Gardens Walk",
+            "description": "Stroll through the beautiful Baroque gardens connecting the palaces.",
+            "start_time": "2026-07-13T12:30:00",
+            "end_time": "2026-07-13T13:30:00",
+            "category": "leisure",
+            "location": "Belvedere Gardens, Vienna",
+            "cost": 0.0,
+            "links": [],
+            "notes": null
+          },
+          {
+            "name": "Lunch (2 Adults)",
+            "description": "Lunch for 2 in the Landstraße district.",
+            "start_time": "2026-07-13T13:30:00",
+            "end_time": "2026-07-13T14:30:00",
+            "category": "meal",
+            "location": "Vienna",
+            "cost": 40.0,
+            "links": [],
+            "notes": null
+          },
+          {
+            "name": "Dinner (2 Adults)",
+            "description": "Dinner for 2 at a local Gasthaus.",
+            "start_time": "2026-07-13T18:30:00",
+            "end_time": "2026-07-13T20:30:00",
+            "category": "meal",
+            "location": "Vienna",
+            "cost": 80.0,
+            "links": [],
+            "notes": null
+          }
+        ]
+      },
+      {
+        "index": 5,
+        "calendar_date": "2026-07-14",
+        "label": "Final Walk & Departure",
+        "slots": [
+          {
+            "name": "Final City Walk",
+            "description": "Final walk through the city center.",
+            "start_time": "2026-07-14T09:00:00",
+            "end_time": "2026-07-14T11:30:00",
+            "category": "leisure",
+            "location": "Vienna City Center",
+            "cost": 0.0,
+            "links": [],
+            "notes": null
+          },
+          {
+            "name": "Farewell Lunch (2 Adults)",
+            "description": "Final Viennese lunch for 2.",
+            "start_time": "2026-07-14T12:00:00",
+            "end_time": "2026-07-14T13:00:00",
+            "category": "meal",
+            "location": "Vienna",
+            "cost": 40.0,
+            "links": [],
+            "notes": null
+          },
+          {
+            "name": "ÖBB Railjet to Munich (2 Adults)",
+            "description": "Return train to Munich for 2 adults.",
+            "start_time": "2026-07-14T14:30:00",
+            "end_time": "2026-07-14T18:30:00",
+            "category": "transport",
+            "location": "Wien Hbf to Munich Hbf",
+            "cost": 40.0,
+            "links": [],
+            "notes": null
+          }
+        ]
+      }
+    ]
+  },
+  "validation_passed": false,
+  "validation_attempts": 3,
+  "validation_feedback": "The itinerary is generally well-structured but has a few logical and thematic inconsistencies. 1. Please clarify the Day 3 schedule; it mentions 'Palaces & Gardens' in the header but the main activity is the Kunsthistorisches Museum (Art History). 2. Ensure that the transport cost of €40 for the ÖBB Railjet covers *both* adults as requested, or adjust the budget if that was a per-person estimate. 3. Consider adding Schönbrunn Palace to the 'Palaces' day as it is a top-rated attraction that fits the user's interest in walking and history. 4. Double-check the Day 3 timeline to ensure no overlapping activities.",
+  "task_list": [
+    {
+      "name": "transportation_munich_vienna",
+      "type": "general-web-search",
+      "text": "Find train or flight options from Munich to Vienna for July 10th and returning July 14th, 2026 for 2 people. Prioritize budget-friendly options like the OBB Railjet to preserve the €1,200 total budget.",
+      "is_valid": true,
+      "validation_comment": null
+    },
+    {
+      "name": "vienna_accommodation",
+      "type": "hotel",
+      "text": "Search for accommodations in Vienna for 4 nights (July 10-14, 2026) for 2 adults with a total budget under €600 to allow for other expenses.",
+      "is_valid": true,
+      "validation_comment": null
+    },
+    {
+      "name": "vienna_museums",
+      "type": "attraction",
+      "text": "Identify top-rated museums in Vienna, such as the Kunsthistorisches Museum or Belvedere, suitable for a 5-day trip.",
+      "is_valid": true,
+      "validation_comment": null
+    },
+    {
+      "name": "vienna_walking_tours",
+      "type": "attraction",
+      "text": "Find scenic walking routes or pedestrian-friendly areas in Vienna's Innere Stadt and surrounding districts.",
+      "is_valid": true,
+      "validation_comment": null
+    },
+    {
+      "name": "vienna_local_food",
+      "type": "restaurant",
+      "text": "Find traditional Viennese restaurants and cafes offering local specialties like Schnitzel and Sachertorte within a moderate budget.",
+      "is_valid": true,
+      "validation_comment": null
+    },
+    {
+      "name": "museum_hours_check",
+      "type": "opening_times",
+      "text": "Verify the opening hours for major Vienna museums for the dates July 10-14, 2026.",
+      "is_valid": true,
+      "validation_comment": null
+    },
+    {
+      "name": "itinerary_routing_check",
+      "type": "routing-check",
+      "text": "Check the walking distances and transit times between selected museums, restaurants, and the city center to ensure a feasible daily itinerary.",
+      "is_valid": true,
+      "validation_comment": null
+    }
+  ]
+}

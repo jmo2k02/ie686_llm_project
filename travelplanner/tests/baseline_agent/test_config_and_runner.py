@@ -13,7 +13,7 @@ from travelplanner.baseline_agent.agent import (
     _require_tavily_human_message,
     run_baseline,
 )
-from travelplanner.baseline_agent.config import load_config_from_env
+from travelplanner.baseline_agent.config import BaselineAgentConfig, load_config_from_env
 from travelplanner.baseline_agent.run_from_json import _load_cases, run_cases
 
 
@@ -163,6 +163,38 @@ class TestRequireTavilyNudge(unittest.TestCase):
 
 
 class TestBaselineRunFallbacks(unittest.TestCase):
+    def test_run_baseline_finalizes_when_model_ignores_tool_nudge(self) -> None:
+        class FakeModel:
+            def bind_tools(self, _tools: object) -> "FakeModel":
+                return self
+
+            def invoke(self, messages: object) -> AIMessage:
+                last = messages[-1]
+                content = getattr(last, "content", "")
+                if isinstance(content, str) and content.startswith("No more Tavily"):
+                    return AIMessage(content="# Baseline itinerary: Rome")
+                return AIMessage(content="I will answer without searching.")
+
+        config = BaselineAgentConfig(
+            model_name="fake/model",
+            temperature=0.0,
+            recursion_limit=20,
+            min_tool_calls=1,
+            max_tool_calls=4,
+            output_dir=Path("/tmp"),
+            tavily_max_results=5,
+            tavily_search_depth="basic",
+            tavily_include_answer=True,
+        )
+        with patch(
+            "travelplanner.baseline_agent.agent.make_chat_model",
+            return_value=FakeModel(),
+        ):
+            result = run_baseline(query="Plan Rome", constraints=[], config=config)
+
+        self.assertIn("# Baseline itinerary: Rome", result.markdown)
+        self.assertEqual(result.executed_tool_calls, 0)
+
     def test_run_baseline_returns_markdown_when_graph_recursion_limit_is_hit(self) -> None:
         class RecursingGraph:
             def stream(self, *_args: object, **_kwargs: object):

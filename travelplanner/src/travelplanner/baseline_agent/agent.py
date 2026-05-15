@@ -160,6 +160,15 @@ def _count_executed_tools(messages: list[AnyMessage]) -> int:
     return sum(1 for message in messages if getattr(message, "type", None) == "tool")
 
 
+def _count_tool_requirement_nudges(messages: list[AnyMessage]) -> int:
+    return sum(
+        1
+        for message in messages
+        if getattr(message, "type", None) == "human"
+        and _message_content_to_text(message.content).startswith("Workflow requirement:")
+    )
+
+
 def _cap_ai_tool_calls(response: AnyMessage, max_parallel: int) -> AnyMessage:
     """Ensure at most ``max_parallel`` tool calls are executed this turn (hard API cap)."""
 
@@ -348,6 +357,8 @@ def make_graph(
             return "tools"
         executed = _count_executed_tools(state["messages"])
         if executed < effective_config.min_tool_calls:
+            if _count_tool_requirement_nudges(state["messages"]) > 0:
+                return "final"
             return "require_tools"
         if executed >= effective_config.max_tool_calls:
             return "final"
@@ -385,6 +396,18 @@ def make_graph(
     return graph.compile()
 
 
+def _recursion_limit_for_config(config: BaselineAgentConfig) -> int:
+    """Return a LangGraph step budget large enough for the tool budget.
+
+    A single Tavily search loop can consume both an agent node and a tool node;
+    the configured default of 25 tool calls therefore cannot finish within a
+    raw recursion limit of 20 if the model keeps searching until the cap.
+    """
+
+    required_for_tool_cap = (config.max_tool_calls * 2) + 3
+    return max(config.recursion_limit, required_for_tool_cap)
+
+
 def run_baseline(
     *,
     query: str,
@@ -399,7 +422,8 @@ def run_baseline(
             HumanMessage(content=_build_user_prompt(query, constraints)),
         ]
     }
-    stream_config = {"recursion_limit": effective_config.recursion_limit}
+    recursion_limit = _recursion_limit_for_config(effective_config)
+    stream_config = {"recursion_limit": recursion_limit}
     collected: list[AnyMessage] | None = None
     try:
         for state in graph.stream(
@@ -417,7 +441,7 @@ def run_baseline(
             markdown=(
                 "# Baseline incomplete — recursion limit reached\n\n"
                 f"The baseline agent reached its recursion limit of "
-                f"{effective_config.recursion_limit} before producing a final "
+                f"{recursion_limit} before producing a final "
                 "markdown itinerary. Try increasing "
                 "TRAVELPLANNER_BASELINE_AGENT_RECURSION_LIMIT, lowering "
                 "TRAVELPLANNER_BASELINE_AGENT_MAX_TOOL_CALLS, or lowering "

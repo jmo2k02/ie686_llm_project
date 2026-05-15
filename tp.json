@@ -1,341 +1,480 @@
 {
-  "title": "Family Trip to Barcelona (Aug 1-8, 2026)",
+  "title": "Munich to Vienna 5-day trip, July 10–14 2026",
   "days": [
     {
       "index": 1,
-      "calendar_date": "2026-08-01",
-      "label": "Arrival & Settling In",
+      "calendar_date": "2026-07-10",
+      "label": "Arrival and Innere Stadt",
       "slots": [
         {
-          "name": "Dinner at Ca l'Estevet",
-          "description": "Authentic Catalan dining experience.",
-          "start_time": "2026-08-01T19:30:00",
-          "end_time": "2026-08-01T21:30:00",
-          "category": "meal",
-          "location": "Carrer de Valldonzella, 46, 08001 Barcelona",
-          "cost": 80.0,
-          "links": [
-            "https://www.restaurantestevet.com/"
-          ],
-          "notes": null
-        },
-        {
-          "name": "Check-in at Aparthotel Silver",
-          "description": "Family-friendly apartment hotel in Barcelona. Estimated total for 7 nights at approx €145/night.",
-          "start_time": "2026-08-01T14:00:00",
-          "end_time": "2026-08-01T15:00:00",
-          "category": "lodging",
-          "location": "Aparthotel Silver, Carrer de Vallirana, 65, 08006 Barcelona",
-          "cost": 1015.0,
-          "links": [
-            "https://www.hotelsilver.com/"
-          ],
-          "notes": null
-        },
-        {
-          "name": "Flight to Barcelona",
-          "description": "Direct flight from Berlin (BER) to Barcelona (BCN). Estimated price for family of 4 based on budget carrier averages.",
-          "start_time": "2026-08-01T10:00:00",
-          "end_time": "2026-08-01T12:30:00",
+          "name": "Direct Railjet train: Munich → Vienna",
+          "description": "Budget-friendly direct ÖBB/DB Railjet-style train from München Hbf to Wien Hbf. Exact July 2026 schedules are not finalized yet; typical direct journey is about 4 hours. Book Sparschiene/advance fares when released.",
+          "start_time": "2026-07-10T07:30:00",
+          "end_time": "2026-07-10T11:30:00",
           "category": "transport",
-          "location": "Berlin Brandenburg Airport (BER) to Barcelona-El Prat Airport (BCN)",
-          "cost": 700.0,
-          "links": [],
-          "notes": null
+          "location": "München Hbf → Wien Hbf",
+          "cost": 56.0,
+          "links": [
+            "https://www.oebb.at/en/tickets-kundenkarten/oesterreich-weit/sparschiene",
+            "https://www.austrianrailways.com/train-munich-to-vienna"
+          ],
+          "notes": "Estimated one-way cost for 2 adults: €25 each plus small seat reservation allowance."
+        },
+        {
+          "name": "Transfer: Wien Hbf → Hotel Pension Walzerstadt",
+          "description": "Take Vienna public transport from Wien Hbf toward Zieglergasse/1070 district. Routing API unavailable due missing key, but hotel is near U3 Zieglergasse and Wien Hbf connects via U1/U-Bahn network.",
+          "start_time": "2026-07-10T11:30:00",
+          "end_time": "2026-07-10T12:15:00",
+          "category": "transport",
+          "location": "Wien Hbf → Zieglergasse 35, 1070 Vienna",
+          "cost": 0.0,
+          "links": [
+            "https://www.wien.info/en/travel-info/transport/tickets-361360"
+          ],
+          "notes": "Covered by 7-day Vienna digital ticket added separately."
+        },
+        {
+          "name": "Buy 7-day Vienna public transport tickets",
+          "description": "Buy two digital 7-day Vienna core-zone tickets. 2026 fare source indicates €25.20 per person and better value than abolished 48/72-hour tickets.",
+          "start_time": "2026-07-10T13:00:00",
+          "end_time": "2026-07-10T13:15:00",
+          "category": "transport",
+          "location": "WienMobil app / Wiener Linien",
+          "cost": 50.4,
+          "links": [
+            "https://www.wien.info/en/travel-info/transport/tickets-361360"
+          ],
+          "notes": "Covers city transit July 10–14, not intercity train."
+        },
+        {
+          "name": "Lunch: Trzesniewski open sandwiches",
+          "description": "Iconic Viennese standing snack bar with small open-faced sandwiches, ideal for an inexpensive first local meal.",
+          "start_time": "2026-07-10T13:30:00",
+          "end_time": "2026-07-10T14:15:00",
+          "category": "meal",
+          "location": "Trzesniewski, Dorotheergasse 1, 1010 Vienna",
+          "cost": 24.0,
+          "links": [
+            "https://www.speckmittei.at",
+            "https://www.travelsignposts.com/Austria/food/trzesniewski"
+          ],
+          "notes": "Flagship location; open Friday daytime."
+        },
+        {
+          "name": "Self-guided Innere Stadt walk",
+          "description": "Walk Stephansplatz, Graben, Kohlmarkt, Hofburg exterior, Michaelerplatz, and hidden courtyards/Durchhäuser around the old town. Low-cost orientation on foot.",
+          "start_time": "2026-07-10T14:15:00",
+          "end_time": "2026-07-10T17:00:00",
+          "category": "attraction",
+          "location": "Innere Stadt, Vienna",
+          "cost": 0.0,
+          "links": [
+            "https://www.google.com/maps/search/St.+Stephen's+Cathedral+Vienna",
+            "https://www.google.com/maps/search/Schottendurchhaus"
+          ],
+          "notes": "Keep this flexible after travel."
+        },
+        {
+          "name": "Check in: Hotel Pension Walzerstadt",
+          "description": "Budget accommodation in the 7th district with Wi‑Fi, close to U3 Zieglergasse and Mariahilfer Straße. Quoted hotel search rate €96/night for 4 nights.",
+          "start_time": "2026-07-10T12:15:00",
+          "end_time": "2026-07-10T13:00:00",
+          "category": "lodging",
+          "location": "Hotel Pension Walzerstadt, Zieglergasse 35, 1070 Vienna",
+          "cost": 384.0,
+          "links": [
+            "https://travelstack.nuitee.link/hotels?placeId=ChIJbRAjM5uobUcRO98FQnxbmd0&placeTypes=&name=Vienna&checkin=2026-07-10&checkout=2026-07-14&rooms=1&adults=2&occupancies=W3siYWR1bHRzIjoyLCJjaGlsZHJlbiI6W119XQ%3D%3D&sorting=1&language=de&currency=EUR",
+            "https://www.booking.com/hotel/at/pension-walzerstadt.html"
+          ],
+          "notes": "Check-in time not verified; ask hotel for early luggage drop if room is not ready."
+        },
+        {
+          "name": "Dinner: Griechenbeisl",
+          "description": "Traditional Austrian dinner in one of Vienna’s oldest restaurants, near Schwedenplatz; historic rooms and classic dishes.",
+          "start_time": "2026-07-10T19:00:00",
+          "end_time": "2026-07-10T20:30:00",
+          "category": "meal",
+          "location": "Griechenbeisl, Fleischmarkt 11, 1010 Vienna",
+          "cost": 70.0,
+          "links": [
+            "https://www.griechenbeisl.at/",
+            "https://www.wien.info/en/griechenbeisl-132812"
+          ],
+          "notes": "Reserve ahead; estimate assumes moderate mains and drinks for 2."
         }
       ]
     },
     {
       "index": 2,
-      "calendar_date": "2026-08-03",
-      "label": "Beach & Sea Life",
+      "calendar_date": "2026-07-11",
+      "label": "Hofburg and classic Vienna",
       "slots": [
         {
-          "name": "Sagrada Família Visit",
-          "description": "Explore Gaudí's masterpiece. Kids under 11 free for basic entry. Price estimated for 2 adults + 2 kids with audio guides.",
-          "start_time": "2026-08-02T10:00:00",
-          "end_time": "2026-08-02T13:00:00",
-          "category": "attraction",
-          "location": "Carrer de Mallorca, 401, 08013 Barcelona",
-          "cost": 112.0,
+          "name": "Breakfast at Café Sperl",
+          "description": "Historic Viennese coffee house breakfast before a museum-heavy day. Café Sperl is open Saturdays in July; avoid Sundays in July/August due to Sunday closure.",
+          "start_time": "2026-07-11T08:30:00",
+          "end_time": "2026-07-11T09:30:00",
+          "category": "meal",
+          "location": "Café Sperl, Gumpendorfer Straße 11, 1060 Vienna",
+          "cost": 28.0,
           "links": [
-            "https://sagradafamilia.org/en/tickets"
+            "https://www.cafesperl.at",
+            "https://www.wien.info/en/caf%C3%A9-sperl-film-location-920732"
           ],
-          "notes": null
+          "notes": "Estimated for 2 coffees and pastries/light breakfast."
         },
         {
-          "name": "Lunch at Vivo Tapas",
-          "description": "Mediterranean-influenced tapas.",
-          "start_time": "2026-08-02T13:00:00",
-          "end_time": "2026-08-02T14:30:00",
-          "category": "meal",
-          "location": "Carrer del Rosselló, 255, 08008 Barcelona",
-          "cost": 60.0,
+          "name": "Walk/transit to Kunsthistorisches Museum",
+          "description": "From the hotel area to Maria-Theresien-Platz; hotel is about a 20–25 minute walk or short U3 ride to Volkstheater/MuseumsQuartier.",
+          "start_time": "2026-07-11T09:30:00",
+          "end_time": "2026-07-11T10:00:00",
+          "category": "transport",
+          "location": "Hotel Pension Walzerstadt → Kunsthistorisches Museum",
+          "cost": 0.0,
           "links": [
-            "https://vivotapas.com/"
+            "https://www.wien.info/en/travel-info/transport/tickets-361360"
           ],
-          "notes": null
+          "notes": "Routing API was unavailable; estimate based on verified hotel and museum transit proximity."
+        },
+        {
+          "name": "Kunsthistorisches Museum",
+          "description": "Focus on Bruegel, the Kunstkammer, Egyptian/Greek collections, and Klimt’s staircase decorations. Official July hours: daily 10:00–18:00.",
+          "start_time": "2026-07-11T10:00:00",
+          "end_time": "2026-07-11T13:00:00",
+          "category": "attraction",
+          "location": "Kunsthistorisches Museum, Maria-Theresien-Platz, 1010 Vienna",
+          "cost": 44.0,
+          "links": [
+            "https://www.khm.at/en/visit"
+          ],
+          "notes": "Estimated €22 per adult."
+        },
+        {
+          "name": "Lunch: Figlmüller Bäckerstraße",
+          "description": "Classic schnitzel lunch in the old town; official hours daily 11:30–23:30, kitchen until 22:00.",
+          "start_time": "2026-07-11T13:15:00",
+          "end_time": "2026-07-11T14:30:00",
+          "category": "meal",
+          "location": "Figlmüller, Bäckerstraße 6, 1010 Vienna",
+          "cost": 55.0,
+          "links": [
+            "https://www.figlmueller.at/en/reservations/",
+            "https://www.figlmueller.at/en/location-contact/"
+          ],
+          "notes": "Reserve; estimate for 2 schnitzels/sides and soft drinks."
+        },
+        {
+          "name": "Hofburg exterior and imperial lanes walk",
+          "description": "Walk through Graben/Kohlmarkt to Michaelerplatz, Hofburg courtyards, Volksgarten, and Ringstraße viewpoints. Keeps costs low while covering imperial Vienna on foot.",
+          "start_time": "2026-07-11T14:30:00",
+          "end_time": "2026-07-11T16:30:00",
+          "category": "attraction",
+          "location": "Hofburg Palace area, 1010 Vienna",
+          "cost": 0.0,
+          "links": [
+            "https://www.google.com/maps/search/Hofburg+Palace+Vienna"
+          ],
+          "notes": "Optional paid Sisi Museum if budget allows, but not included in cost."
+        },
+        {
+          "name": "Coffee and cake break",
+          "description": "Pause for Melange and cake in the historic center. Café Central is expected closed for renovation in 2026, so use Café Museum or another open café nearby.",
+          "start_time": "2026-07-11T16:30:00",
+          "end_time": "2026-07-11T17:15:00",
+          "category": "meal",
+          "location": "Café Museum or nearby historic café",
+          "cost": 24.0,
+          "links": [
+            "https://www.cafemuseum.at/en/cafe-museum.html"
+          ],
+          "notes": "Café Central renovation noted in research; not scheduled."
+        },
+        {
+          "name": "Dinner: Plachutta Wollzeile",
+          "description": "Traditional Tafelspitz dinner at a classic Vienna restaurant; open daily 11:30–23:30.",
+          "start_time": "2026-07-11T19:00:00",
+          "end_time": "2026-07-11T20:45:00",
+          "category": "meal",
+          "location": "Plachutta Wollzeile, Wollzeile 38, 1010 Vienna",
+          "cost": 90.0,
+          "links": [
+            "https://www.plachutta.at/en/restaurant/wollzeile/"
+          ],
+          "notes": "Reserve; this is the splurge dinner of the trip."
         }
       ]
     },
     {
       "index": 3,
-      "calendar_date": "2026-08-02",
-      "label": "Gaudí Wonders",
+      "calendar_date": "2026-07-12",
+      "label": "Belvedere and Naschmarkt",
       "slots": [
         {
-          "name": "Barcelona Aquarium",
-          "description": "Visit the aquarium at Port Vell. Price for 2 adults, 1 child (5-10), 1 child (3-4).",
-          "start_time": "2026-08-03T10:00:00",
-          "end_time": "2026-08-03T13:00:00",
-          "category": "attraction",
-          "location": "Moll d'Espanya del Port Vell, s/n, 08039 Barcelona",
-          "cost": 79.0,
-          "links": [
-            "https://www.museos.com/en/barcelona/aquarium-of-barcelona/"
-          ],
-          "notes": null
-        },
-        {
-          "name": "Bogatell Beach Afternoon",
-          "description": "Relaxing afternoon at Bogatell beach. Traditional sand-sculpting and maritime games.",
-          "start_time": "2026-08-03T14:30:00",
-          "end_time": "2026-08-03T18:00:00",
-          "category": "leisure",
-          "location": "Bogatell Beach, Barcelona",
-          "cost": 0.0,
-          "links": [],
-          "notes": null
-        },
-        {
-          "name": "Dinner at La Marea",
-          "description": "Seafood dinner near the beach.",
-          "start_time": "2026-08-03T19:30:00",
-          "end_time": "2026-08-03T21:30:00",
+          "name": "Breakfast at Café Museum",
+          "description": "Classic Vienna café near Karlsplatz; breakfast is served daily until 11:30.",
+          "start_time": "2026-07-12T08:30:00",
+          "end_time": "2026-07-12T09:30:00",
           "category": "meal",
-          "location": "Passeig de Garcia Fària, 33, 08005 Barcelona",
-          "cost": 80.0,
+          "location": "Café Museum, Operngasse 7, 1010 Vienna",
+          "cost": 30.0,
           "links": [
-            "https://www.lamarearestaurante.com/ca/"
+            "https://www.cafemuseum.at/en/cafe-museum.html"
           ],
-          "notes": null
+          "notes": "Good start before Stadtpark and Belvedere."
+        },
+        {
+          "name": "Lunch: Meierei im Stadtpark",
+          "description": "Casual bistro/café in Stadtpark from the Steirereck group; note official research suggests Sunday opening may vary, so verify/reserve or substitute Café Museum if closed.",
+          "start_time": "2026-07-12T11:00:00",
+          "end_time": "2026-07-12T12:15:00",
+          "category": "meal",
+          "location": "Meierei im Stadtpark, Am Heumarkt 2a, 1030 Vienna",
+          "cost": 60.0,
+          "links": [
+            "https://www.steirereck.at/meierei.html"
+          ],
+          "notes": "If Sunday closure is confirmed, replace with Café Museum or trude at Wien Museum."
+        },
+        {
+          "name": "Stadtpark morning walk",
+          "description": "Walk through Stadtpark to see the Johann Strauss monument and green spaces before lunch; free and central.",
+          "start_time": "2026-07-12T09:30:00",
+          "end_time": "2026-07-12T10:30:00",
+          "category": "attraction",
+          "location": "Stadtpark, Vienna",
+          "cost": 0.0,
+          "links": [
+            "https://www.google.com/maps/search/Stadtpark+Vienna"
+          ],
+          "notes": "Pairs naturally with Meierei in Stadtpark."
+        },
+        {
+          "name": "Transfer/walk to Upper Belvedere",
+          "description": "Walk or take tram toward Prinz-Eugen-Straße for Belvedere. The site is south-east of the Ring; allow about 30 minutes from Stadtpark area.",
+          "start_time": "2026-07-12T12:15:00",
+          "end_time": "2026-07-12T12:45:00",
+          "category": "transport",
+          "location": "Stadtpark → Upper Belvedere",
+          "cost": 0.0,
+          "links": [
+            "https://www.wien.info/en/travel-info/transport/tickets-361360"
+          ],
+          "notes": "Covered by Vienna transport ticket if using tram."
+        },
+        {
+          "name": "Upper Belvedere museum",
+          "description": "Visit Klimt’s The Kiss, Austrian art collections, and Baroque palace rooms. Official visitor info: Upper Belvedere opens daily, typically 09:00–18:00.",
+          "start_time": "2026-07-12T13:00:00",
+          "end_time": "2026-07-12T16:00:00",
+          "category": "attraction",
+          "location": "Upper Belvedere, Prinz-Eugen-Straße 27, 1030 Vienna",
+          "cost": 40.0,
+          "links": [
+            "https://www.belvederepalace.at/en/visiting-hours",
+            "https://www.google.com/maps/search/Austrian+Gallery+Belvedere"
+          ],
+          "notes": "Estimated €20 per adult; book timed entry."
+        },
+        {
+          "name": "Belvedere Gardens walk",
+          "description": "Walk the free formal gardens between Upper and Lower Belvedere for city views and photos.",
+          "start_time": "2026-07-12T16:00:00",
+          "end_time": "2026-07-12T17:00:00",
+          "category": "attraction",
+          "location": "Belvedere Gardens, Vienna",
+          "cost": 0.0,
+          "links": [
+            "https://www.belvederepalace.at/en/visiting-hours"
+          ],
+          "notes": "Free outdoor component."
+        },
+        {
+          "name": "Dinner: Bitzinger Würstelstand Albertina",
+          "description": "Budget-friendly Viennese street food: Käsekrainer or bratwurst near the Opera/Albertina. Open daily 08:00–04:00.",
+          "start_time": "2026-07-12T18:30:00",
+          "end_time": "2026-07-12T19:15:00",
+          "category": "meal",
+          "location": "Bitzinger Würstelstand, Albertinaplatz 1, 1010 Vienna",
+          "cost": 22.0,
+          "links": [
+            "https://bitzinger.wien/en/wuerstelstand/impressum/"
+          ],
+          "notes": "Keeps the day budget balanced after museum tickets."
         }
       ]
     },
     {
       "index": 4,
-      "calendar_date": "2026-08-04",
-      "label": "Park Güell & Gràcia",
+      "calendar_date": "2026-07-13",
+      "label": "Schönbrunn and MuseumsQuartier",
       "slots": [
         {
-          "name": "Park Güell Exploration",
-          "description": "Explore the monumental zone. 2 adults (€10 each) + 1 child 7-12 (€7) + 1 child under 7 (Free).",
-          "start_time": "2026-08-04T10:00:00",
-          "end_time": "2026-08-04T13:00:00",
+          "name": "Breakfast near Mariahilfer Straße",
+          "description": "Simple café/bakery breakfast near the hotel before taking U4/U-Bahn connections toward Schönbrunn.",
+          "start_time": "2026-07-13T08:00:00",
+          "end_time": "2026-07-13T08:45:00",
+          "category": "meal",
+          "location": "Near Hotel Pension Walzerstadt / Mariahilfer Straße",
+          "cost": 20.0,
+          "links": [
+            "https://www.wien.info/en/travel-info/transport/tickets-361360"
+          ],
+          "notes": "Use local bakery/café to preserve budget."
+        },
+        {
+          "name": "Schönbrunn Palace Park and Gloriette walk",
+          "description": "Explore the free palace gardens, Great Parterre, fountains, and walk up to the Gloriette. Palace park July hours researched as 06:30–21:00; palace interiors are optional if budget allows.",
+          "start_time": "2026-07-13T09:30:00",
+          "end_time": "2026-07-13T12:00:00",
           "category": "attraction",
-          "location": "Carrer d'Olot, s/n, 08024 Barcelona",
-          "cost": 27.0,
-          "links": [
-            "https://parkguell.barcelona/en/buy-tickets"
-          ],
-          "notes": null
-        },
-        {
-          "name": "Lunch at Viana Barcelona",
-          "description": "Mediterranean fusion in a cozy setting.",
-          "start_time": "2026-08-04T13:00:00",
-          "end_time": "2026-08-04T14:30:00",
-          "category": "meal",
-          "location": "Carrer del Vidre, 7, 08002 Barcelona",
-          "cost": 60.0,
-          "links": [
-            "http://www.vianabcn.com/"
-          ],
-          "notes": null
-        },
-        {
-          "name": "Gràcia Neighborhood Walk",
-          "description": "Explore the charming streets of Gràcia. Visit local plazas like Plaça de la Vila de Gràcia.",
-          "start_time": "2026-08-04T15:00:00",
-          "end_time": "2026-08-04T18:00:00",
-          "category": "leisure",
-          "location": "Gràcia District, Barcelona",
+          "location": "Schönbrunn Palace Park, Schönbrunner Schloßstraße 47, 1130 Vienna",
           "cost": 0.0,
-          "links": [],
-          "notes": null
+          "links": [
+            "https://schonbrunn-palace.org/opening-hours-best-time/",
+            "https://www.google.com/maps/search/Schönbrunn+Palace+Park"
+          ],
+          "notes": "Free garden-focused option preserves total budget."
         },
         {
-          "name": "Dinner in Gràcia",
-          "description": "Family dinner in Gràcia.",
-          "start_time": "2026-08-04T19:30:00",
-          "end_time": "2026-08-04T21:00:00",
+          "name": "Lunch: Joseph II Schloss-Restaurant Schönbrunn",
+          "description": "Convenient Austrian lunch inside the Schönbrunn complex; official research found daily opening 11:00–20:30, hot food 11:30–19:30.",
+          "start_time": "2026-07-13T12:00:00",
+          "end_time": "2026-07-13T13:15:00",
           "category": "meal",
-          "location": "Gràcia, Barcelona",
-          "cost": 70.0,
-          "links": [],
-          "notes": null
+          "location": "Joseph II, Schönbrunner Schloßstraße 47, 1130 Vienna",
+          "cost": 50.0,
+          "links": [
+            "https://www.restaurant-schoenbrunn.at/en"
+          ],
+          "notes": "Estimate for moderate lunch for 2; reserve if possible."
+        },
+        {
+          "name": "Transfer to Karlsplatz / MuseumsQuartier",
+          "description": "Transit back toward central Vienna for free/low-cost museum and MQ time.",
+          "start_time": "2026-07-13T13:15:00",
+          "end_time": "2026-07-13T14:00:00",
+          "category": "transport",
+          "location": "Schönbrunn → Karlsplatz / MuseumsQuartier",
+          "cost": 0.0,
+          "links": [
+            "https://www.wien.info/en/travel-info/transport/tickets-361360"
+          ],
+          "notes": "Covered by Vienna ticket."
+        },
+        {
+          "name": "Wien Museum Karlsplatz and MuseumsQuartier walk",
+          "description": "Visit the free permanent exhibition at Wien Museum Karlsplatz if open and continue on foot through Karlsplatz, Secession exterior, Naschmarkt edge, and MuseumsQuartier courtyards. Note: Wien Museum is normally closed Mondays, so if closed use MQ courtyards/Spittelberg walk instead.",
+          "start_time": "2026-07-13T14:00:00",
+          "end_time": "2026-07-13T17:00:00",
+          "category": "attraction",
+          "location": "Karlsplatz → MuseumsQuartier, Vienna",
+          "cost": 0.0,
+          "links": [
+            "https://whichmuseum.com/museum/wien-museum-karlsplatz-vienna-5358/opening-hours",
+            "https://www.mqw.at/en/"
+          ],
+          "notes": "Monday closure likely; the walk/MQ courtyards remain valid and free."
+        },
+        {
+          "name": "Transfer to Schönbrunn",
+          "description": "Use Vienna public transport from the 7th district toward U4 Schönbrunn/Hietzing for the palace park. Exact live route unavailable, but Schönbrunn is directly served by U4.",
+          "start_time": "2026-07-13T08:45:00",
+          "end_time": "2026-07-13T09:30:00",
+          "category": "transport",
+          "location": "Hotel Pension Walzerstadt → Schönbrunn Palace Park",
+          "cost": 0.0,
+          "links": [
+            "https://www.wien.info/en/travel-info/transport/tickets-361360"
+          ],
+          "notes": "Covered by 7-day Vienna ticket."
+        },
+        {
+          "name": "Dinner: Glacis Beisl",
+          "description": "Traditional Viennese Beisl cuisine with garden atmosphere beside MuseumsQuartier; official source found daily opening 12:00–00:00.",
+          "start_time": "2026-07-13T18:30:00",
+          "end_time": "2026-07-13T20:00:00",
+          "category": "meal",
+          "location": "Glacis Beisl, Breite Gasse 4, 1070 Vienna",
+          "cost": 55.0,
+          "links": [
+            "https://glacisbeisl.at/en/",
+            "https://www.mqw.at/en/catering/glacis-beisl/"
+          ],
+          "notes": "Good fit after MQ/Spittelberg walk."
         }
       ]
     },
     {
       "index": 5,
-      "calendar_date": "2026-08-05",
-      "label": "Science & Views",
-      "slots": [
-        {
-          "name": "CosmoCaixa Science Museum",
-          "description": "Interactive science museum. 2 adults (€8 each), kids under 16 free.",
-          "start_time": "2026-08-05T10:00:00",
-          "end_time": "2026-08-05T14:00:00",
-          "category": "attraction",
-          "location": "Carrer d'Isaac Newton, 26, 08022 Barcelona",
-          "cost": 16.0,
-          "links": [
-            "https://www.museos.com/en/barcelona/cosmocaixa/"
-          ],
-          "notes": null
-        },
-        {
-          "name": "Tibidabo Views & Walk",
-          "description": "Panoramic views of Barcelona from the Tibidabo area. Relaxing walk near the science museum.",
-          "start_time": "2026-08-05T14:30:00",
-          "end_time": "2026-08-05T17:00:00",
-          "category": "leisure",
-          "location": "Tibidabo Hill, Barcelona",
-          "cost": 0.0,
-          "links": [],
-          "notes": null
-        },
-        {
-          "name": "Family Dinner",
-          "description": "Dinner near the apartment.",
-          "start_time": "2026-08-05T19:30:00",
-          "end_time": "2026-08-05T21:00:00",
-          "category": "meal",
-          "location": "Gràcia/Eixample, Barcelona",
-          "cost": 70.0,
-          "links": [],
-          "notes": null
-        }
-      ]
-    },
-    {
-      "index": 6,
-      "calendar_date": "2026-08-07",
-      "label": "Old Town Exploration",
-      "slots": [
-        {
-          "name": "Beachside Lunch",
-          "description": "Casual lunch near the beach.",
-          "start_time": "2026-08-06T13:00:00",
-          "end_time": "2026-08-06T14:30:00",
-          "category": "meal",
-          "location": "Barceloneta, Barcelona",
-          "cost": 60.0,
-          "links": [],
-          "notes": null
-        },
-        {
-          "name": "Afternoon Leisure",
-          "description": "Afternoon relaxation or more beach time.",
-          "start_time": "2026-08-06T14:30:00",
-          "end_time": "2026-08-06T18:00:00",
-          "category": "leisure",
-          "location": "Barceloneta, Barcelona",
-          "cost": 0.0,
-          "links": [],
-          "notes": null
-        },
-        {
-          "name": "Dinner in Barceloneta",
-          "description": "Dinner in the lively Barceloneta area.",
-          "start_time": "2026-08-06T19:30:00",
-          "end_time": "2026-08-06T21:00:00",
-          "category": "meal",
-          "location": "Barceloneta, Barcelona",
-          "cost": 70.0,
-          "links": [],
-          "notes": null
-        },
-        {
-          "name": "Morning Beach Time",
-          "description": "Morning at the beach. Perfect for kids to play.",
-          "start_time": "2026-08-06T10:00:00",
-          "end_time": "2026-08-06T13:00:00",
-          "category": "leisure",
-          "location": "Barceloneta Beach, Barcelona",
-          "cost": 0.0,
-          "links": [],
-          "notes": null
-        }
-      ]
-    },
-    {
-      "index": 7,
-      "calendar_date": "2026-08-08",
+      "calendar_date": "2026-07-14",
       "label": "Departure",
       "slots": [
         {
-          "name": "Gothic Quarter & Giants Hunt",
-          "description": "Explore the Gothic Quarter, hunt for gargoyles at the Cathedral, and visit the 'Casa dels Entremesos' to see the giants. Cathedral entry for 2 adults (kids free/reduced).",
-          "start_time": "2026-08-07T10:00:00",
-          "end_time": "2026-08-07T13:30:00",
-          "category": "attraction",
-          "location": "Gothic Quarter, Barcelona",
-          "cost": 20.0,
-          "links": [],
-          "notes": null
-        },
-        {
-          "name": "Lunch in Old Town",
-          "description": "Lunch in the historic center.",
-          "start_time": "2026-08-07T13:30:00",
-          "end_time": "2026-08-07T15:00:00",
+          "name": "Early hotel checkout and station breakfast",
+          "description": "Check out, leave luggage if possible, and grab an easy breakfast near Zieglergasse or at Wien Hbf.",
+          "start_time": "2026-07-14T08:30:00",
+          "end_time": "2026-07-14T09:15:00",
           "category": "meal",
-          "location": "Gothic Quarter, Barcelona",
-          "cost": 60.0,
-          "links": [],
-          "notes": null
+          "location": "Hotel Pension Walzerstadt / Wien Hauptbahnhof",
+          "cost": 22.0,
+          "links": [
+            "https://www.bahnhof.de/muenchen-hbf",
+            "https://www.oebb.at/en/reiseplanung-services/am-bahnhof/unsere-bahnhoefe/wien-hauptbahnhof"
+          ],
+          "notes": "Exact hotel checkout time unavailable; confirm with property."
         },
         {
-          "name": "Las Ramblas Stroll",
-          "description": "Last-minute souvenir shopping and a stroll down Las Ramblas.",
-          "start_time": "2026-08-07T15:30:00",
-          "end_time": "2026-08-07T18:00:00",
+          "name": "Optional final city walk / souvenir stop",
+          "description": "Light final walk around Mariahilfer Straße or the hotel neighborhood; keep it flexible for luggage and checkout timing.",
+          "start_time": "2026-07-14T09:15:00",
+          "end_time": "2026-07-14T11:30:00",
           "category": "leisure",
-          "location": "Las Ramblas, Barcelona",
+          "location": "Mariahilfer Straße / 7th district, Vienna",
           "cost": 0.0,
-          "links": [],
-          "notes": null
+          "links": [
+            "https://www.google.com/maps/search/Mariahilfer+Straße+Vienna"
+          ],
+          "notes": "Free buffer before train."
         },
         {
-          "name": "Farewell Dinner",
-          "description": "Farewell dinner in Barcelona.",
-          "start_time": "2026-08-07T19:30:00",
-          "end_time": "2026-08-07T21:30:00",
+          "name": "Lunch: casual Austrian bite near station",
+          "description": "Simple budget lunch before departure, either at Wien Hbf food court or an inexpensive bakery/snack spot.",
+          "start_time": "2026-07-14T11:45:00",
+          "end_time": "2026-07-14T12:30:00",
           "category": "meal",
-          "location": "City Center, Barcelona",
-          "cost": 80.0,
-          "links": [],
-          "notes": null
-        }
-      ]
-    },
-    {
-      "index": 8,
-      "calendar_date": "2026-08-06",
-      "label": "Relaxed Beach Day",
-      "slots": [
+          "location": "Wien Hauptbahnhof / nearby",
+          "cost": 18.0,
+          "links": [
+            "https://www.oebb.at/en/reiseplanung-services/am-bahnhof/unsere-bahnhoefe/wien-hauptbahnhof"
+          ],
+          "notes": "Lower-cost placeholder for 2 people to keep total trip under €1,200."
+        },
         {
-          "name": "Flight to Berlin",
-          "description": "Return flight to Berlin. Estimated price based on budget carrier averages.",
-          "start_time": "2026-08-08T16:00:00",
-          "end_time": "2026-08-08T18:30:00",
+          "name": "Transfer to Wien Hauptbahnhof",
+          "description": "Collect bags and use public transport to Wien Hbf for the return train.",
+          "start_time": "2026-07-14T12:30:00",
+          "end_time": "2026-07-14T13:15:00",
           "category": "transport",
-          "location": "Barcelona-El Prat Airport (BCN) to Berlin Brandenburg Airport (BER)",
-          "cost": 700.0,
-          "links": [],
-          "notes": null
+          "location": "Hotel Pension Walzerstadt → Wien Hbf",
+          "cost": 0.0,
+          "links": [
+            "https://www.wien.info/en/travel-info/transport/tickets-361360"
+          ],
+          "notes": "Covered by Vienna ticket."
+        },
+        {
+          "name": "Direct Railjet train: Vienna → Munich",
+          "description": "Return by direct ÖBB/DB Railjet-style service from Wien Hbf to München Hbf. Exact July 2026 schedule not yet finalized; typical direct journey about 4 hours.",
+          "start_time": "2026-07-14T14:00:00",
+          "end_time": "2026-07-14T18:00:00",
+          "category": "transport",
+          "location": "Wien Hbf → München Hbf",
+          "cost": 56.0,
+          "links": [
+            "https://www.oebb.at/en/tickets-kundenkarten/oesterreich-weit/sparschiene",
+            "https://www.austrianrailways.com/train-munich-to-vienna"
+          ],
+          "notes": "Estimated one-way cost for 2 adults: €25 each plus seat reservation allowance."
         }
       ]
     }

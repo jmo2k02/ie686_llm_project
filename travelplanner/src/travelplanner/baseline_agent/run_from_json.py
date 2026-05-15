@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import re
 from pathlib import Path
 from typing import Any
 
@@ -51,15 +50,14 @@ def _load_cases(path: Path) -> list[BaselineCase]:
     return [BaselineCase.model_validate(item) for item in raw_cases]
 
 
-def _slugify(value: str) -> str:
-    slug = re.sub(r"[^a-zA-Z0-9]+", "-", value.strip().lower()).strip("-")
-    return slug or "baseline-case"
-
-
-def _write_markdown(output_dir: Path, case: BaselineCase, index: int, markdown: str) -> Path:
+def _write_markdown(output_dir: Path, case: BaselineCase, markdown: str) -> Path:
+    if not case.id:
+        raise ValueError(
+            f"Case is missing required 'id' field (name={case.name!r}); "
+            "id is used as the output filename stem."
+        )
     output_dir.mkdir(parents=True, exist_ok=True)
-    stem = case.name or f"{case.id}"
-    path = output_dir / f"{index:02d}-{_slugify(stem)}.md"
+    path = output_dir / f"{case.id}.md"
     path.write_text(markdown.rstrip() + "\n", encoding="utf-8")
     return path
 
@@ -68,13 +66,13 @@ def run_cases(input_path: Path, output_dir: Path | None = None) -> list[Path]:
     config = load_config_from_env()
     effective_output_dir = output_dir or config.output_dir
     written_paths: list[Path] = []
-    for index, case in enumerate(_load_cases(input_path), start=1):
+    for case in _load_cases(input_path):
         result = run_baseline(
             query=case.query,
             constraints=case.planning_constraints(),
             config=config,
         )
-        path = _write_markdown(effective_output_dir, case, index, result.markdown)
+        path = _write_markdown(effective_output_dir, case, result.markdown)
         _ = print(
             f"wrote {path} "
             f"(model={result.model_name}, "

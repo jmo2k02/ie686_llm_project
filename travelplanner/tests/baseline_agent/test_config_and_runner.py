@@ -121,11 +121,11 @@ class TestBaselineRunnerInput(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "Input JSON does not exist"):
             _load_cases(Path("/tmp/does-not-exist-baseline-agent.json"))
 
-    def test_run_cases_writes_distinct_files_for_duplicate_case_names(self) -> None:
+    def test_run_cases_writes_file_named_after_id(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "cases.json"
             path.write_text(
-                '[{"name":"rome","query":"Plan A"},{"name":"rome","query":"Plan B"}]',
+                '[{"id":"query_1_couple_citytrip_Adrian","query":"Plan A"}]',
                 encoding="utf-8",
             )
             out = Path(tmp) / "out"
@@ -141,10 +141,29 @@ class TestBaselineRunnerInput(unittest.TestCase):
             ):
                 paths = run_cases(path, out)
 
-        self.assertEqual(len(paths), 2)
-        self.assertNotEqual(paths[0].resolve(), paths[1].resolve())
-        self.assertEqual(paths[0].name, "01-rome.md")
-        self.assertEqual(paths[1].name, "02-rome.md")
+        self.assertEqual(len(paths), 1)
+        self.assertEqual(paths[0].name, "query_1_couple_citytrip_Adrian.md")
+
+    def test_run_cases_raises_when_case_id_is_missing(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "cases.json"
+            path.write_text(
+                '[{"name":"rome","query":"Plan A"}]',
+                encoding="utf-8",
+            )
+            out = Path(tmp) / "out"
+            mock_result = MagicMock(
+                markdown="# out",
+                model_name="m",
+                executed_tool_calls=0,
+                requested_tool_calls=0,
+            )
+            with patch(
+                "travelplanner.baseline_agent.run_from_json.run_baseline",
+                return_value=mock_result,
+            ):
+                with self.assertRaisesRegex(ValueError, "missing required 'id'"):
+                    _ = run_cases(path, out)
 
 
 class TestRequireTavilyNudge(unittest.TestCase):

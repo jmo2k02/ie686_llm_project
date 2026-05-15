@@ -160,6 +160,8 @@ def summarize_hotel_artifact(artifact: AgentArtifactModel) -> str:
                 lines.append(f"     Area: {hotel.area}")
             if hotel.facilities:
                 lines.append(f"     Facilities: {', '.join(hotel.facilities[:8])}")
+            if hotel.booking_url:
+                lines.append(f"     Book: {hotel.booking_url}")
 
     if not content.options and content.status != "failed":
         lines.append("No hotels found for the given criteria.")

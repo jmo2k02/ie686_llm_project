@@ -167,6 +167,8 @@ def _print_artifacts(updated_state):
             print(f"   Rating: {hotel['rating']}/10")
             print(f"   Over Budget: {hotel['over_budget']}")
             print(f"   Facilities: {', '.join(hotel['facilities'][:5])}...")
+            if hotel.get('booking_url'):
+                print(f"   Hotel Link: {hotel['booking_url']}")
 
 
 def run_test_case(case_id: str, model_name: str):

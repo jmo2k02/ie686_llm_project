@@ -14,11 +14,23 @@ from travelplanner.baseline_agent.config import load_config_from_env
 
 class BaselineCase(BaseModel):
     name: str | None = Field(default=None, description="Stable output filename stem.")
+    id: str | None = None
+    type: str | None = None
+    description: str | None = None
+    hard_constraints: Any = Field(default_factory=dict)
     query: str = Field(description="User travel-planning request.")
     constraints: Any = Field(
-        default_factory=list,
+        default_factory=dict,
         description="Hard and soft constraints as a string, list, or mapping.",
     )
+
+    def planning_constraints(self) -> dict[str, Any]:
+        merged: dict[str, Any] = {}
+        if self.hard_constraints not in ({}, [], None, ""):
+            merged["hard_constraints"] = self.hard_constraints
+        if self.constraints not in ({}, [], None, ""):
+            merged["constraints"] = self.constraints
+        return merged
 
 
 def _load_cases(path: Path) -> list[BaselineCase]:
@@ -46,7 +58,7 @@ def _slugify(value: str) -> str:
 
 def _write_markdown(output_dir: Path, case: BaselineCase, index: int, markdown: str) -> Path:
     output_dir.mkdir(parents=True, exist_ok=True)
-    stem = case.name or f"case-{index:02d}"
+    stem = case.name or f"{case.id}"
     path = output_dir / f"{index:02d}-{_slugify(stem)}.md"
     path.write_text(markdown.rstrip() + "\n", encoding="utf-8")
     return path
@@ -59,7 +71,7 @@ def run_cases(input_path: Path, output_dir: Path | None = None) -> list[Path]:
     for index, case in enumerate(_load_cases(input_path), start=1):
         result = run_baseline(
             query=case.query,
-            constraints=case.constraints,
+            constraints=case.planning_constraints(),
             config=config,
         )
         path = _write_markdown(effective_output_dir, case, index, result.markdown)

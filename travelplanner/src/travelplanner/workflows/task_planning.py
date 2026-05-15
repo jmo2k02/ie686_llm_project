@@ -61,7 +61,7 @@ def make_graph(
         temperature=effective_temperature,
     ).compile()
     execution_node = make_execution_node(
-        model_name=effective_model_name,
+        model_name=get_setting("agents.execution.model_name"),
         temperature=effective_temperature,
     )
     validator_graph = make_validator_graph().compile()

@@ -1,0 +1,407 @@
+{
+  "id": "query_16_already_at_destination_Adrian",
+  "description": "Edge case: traveller is already at the destination, only needs remaining days planned",
+  "query": "I am already in Rome for a business trip and have 3 unexpected free days from July 5th to 8th, 2026. No flights or hotel needed — I already have both. I have €400 to spend on activities, food, and experiences. I love Roman history, street food, and discovering hidden gems off the tourist trail. Please suggest the best way to spend these 3 days.",
+  "hard_constraints": {
+    "origin": null,
+    "destination": "Rome",
+    "date_from": "2026.07.05",
+    "date_to": "2026.07.08",
+    "travelers": {
+      "adults": 1,
+      "children_under_6": 0,
+      "children_6_to_16": 0
+    },
+    "budget_amount": 400,
+    "budget_currency": "EUR",
+    "accommodation": null,
+    "transport": null,
+    "interests": "Roman history, street food, Colosseum, Trastevere, hidden gems"
+  },
+  "model_name": "openrouter:google/gemini-3-flash-preview",
+  "generated_at": "2026-05-16T16:38:15.852628+00:00",
+  "duration_seconds": 266.39,
+  "travelplan": {
+    "title": "Rome Hidden History & Street Food — July 5-7, 2026",
+    "days": [
+      {
+        "index": 1,
+        "calendar_date": "2026-07-05",
+        "label": "Appian Way, aqueducts & Testaccio street food",
+        "slots": [
+          {
+            "name": "Metro to Parco degli Acquedotti",
+            "description": "Use Metro A toward Subaugusta/Giulio Agricola, then walk to Parco degli Acquedotti. A 2026 BIT ticket is estimated at €2 and valid 100 minutes.",
+            "start_time": "2026-07-05T08:30:00",
+            "end_time": "2026-07-05T09:15:00",
+            "category": "transport",
+            "location": "Rome Metro Line A to Subaugusta/Giulio Agricola",
+            "cost": 2.0,
+            "links": [
+              "https://romesite.com/transport.html"
+            ],
+            "notes": "Exact start depends on hotel location; no hotel slot added per user constraint."
+          },
+          {
+            "name": "Walk the aqueducts and ancient-road landscape",
+            "description": "Explore Parco degli Acquedotti for Aqua Claudia, Anio Novus, and the open suburban edge of ancient Rome. Free, low-tourist-density, best before the midday heat.",
+            "start_time": "2026-07-05T09:15:00",
+            "end_time": "2026-07-05T11:45:00",
+            "category": "attraction",
+            "location": "Parco degli Acquedotti, Via Lemonia, 221, Rome",
+            "cost": 0.0,
+            "links": [
+              "https://www.google.com/maps/search/Via+Appia+Antica+-+Appian+Way"
+            ],
+            "notes": "Park hours verified as daytime public access; bring water and sun protection."
+          },
+          {
+            "name": "Street-food lunch at Ce Stamo A Pensà",
+            "description": "Inexpensive Roman-style street-food stop: ideal for a quick solo lunch before heading to the Appian Way catacombs.",
+            "start_time": "2026-07-05T12:15:00",
+            "end_time": "2026-07-05T13:15:00",
+            "category": "meal",
+            "location": "Ce Stamo A Pensà, Via Leonina, 81, 00184 Roma RM, Italy",
+            "cost": 15.0,
+            "links": [
+              "https://www.instagram.com/ce_stamo_a_pensa?igsh=cDcwbTEyeTY3aDI0"
+            ],
+            "notes": "Tool verified Sunday opening 11:00–01:00."
+          },
+          {
+            "name": "Transit to Catacombs of San Callisto",
+            "description": "Cross back toward the Appian Way by metro/bus. Use Bus 118 or 218 for the catacombs; allow buffer because Sunday services can be slower.",
+            "start_time": "2026-07-05T13:15:00",
+            "end_time": "2026-07-05T14:30:00",
+            "category": "transport",
+            "location": "Rome city center to Via Appia Antica, 110/126",
+            "cost": 2.0,
+            "links": [
+              "https://www.catacombesancallisto.it/en/dove-siamo.php"
+            ],
+            "notes": "A direct route graph could not be generated because the maps API key is unavailable; timing is conservatively padded."
+          },
+          {
+            "name": "Catacombs of San Callisto guided visit",
+            "description": "Guided underground visit of one of Rome’s major early Christian burial complexes. Sunday July 5 availability was verified for the afternoon window; ticket office cutoff is around 16:50.",
+            "start_time": "2026-07-05T15:00:00",
+            "end_time": "2026-07-05T16:15:00",
+            "category": "attraction",
+            "location": "Catacombs of San Callisto, Via Appia Antica, 110/126, Rome",
+            "cost": 10.0,
+            "links": [
+              "https://www.catacombesancallisto.it/en/orari.php"
+            ],
+            "notes": "Bring a light layer; no photography inside."
+          },
+          {
+            "name": "Slow Appian Way walk",
+            "description": "Walk a manageable stretch of Via Appia Antica after the catacombs, when the light is better and Sunday traffic is limited. Focus on road stones, tombs, and the rural feel inside the city.",
+            "start_time": "2026-07-05T16:15:00",
+            "end_time": "2026-07-05T18:00:00",
+            "category": "leisure",
+            "location": "Via Appia Antica, Rome",
+            "cost": 0.0,
+            "links": [
+              "https://www.google.com/maps/search/Via+Appia+Antica+-+Appian+Way"
+            ],
+            "notes": "Keep this flexible depending on heat and energy."
+          },
+          {
+            "name": "Dinner at La Nuova Piazzetta",
+            "description": "Moderate-budget, authentic Roman dinner option; convenient after returning from the Appian Way side of the city.",
+            "start_time": "2026-07-05T19:30:00",
+            "end_time": "2026-07-05T21:00:00",
+            "category": "meal",
+            "location": "La Nuova Piazzetta, Vicolo del Buon Consiglio, 23/a, Rome",
+            "cost": 32.0,
+            "links": [
+              "https://maps.google.com/?cid=5816990672718758843&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+            ],
+            "notes": "Tool verified Sunday opening all day."
+          },
+          {
+            "name": "Transit back toward Monti/Celio",
+            "description": "Return by Bus 118/218 and metro toward the central Rome dinner area.",
+            "start_time": "2026-07-05T18:00:00",
+            "end_time": "2026-07-05T19:00:00",
+            "category": "transport",
+            "location": "Appian Way to central Rome",
+            "cost": 2.0,
+            "links": [
+              "https://catacombsofrome.com/how-to-get-to-st-callixtus-catacombs/"
+            ],
+            "notes": "Use Tap&Go or BIT ticket."
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "calendar_date": "2026-07-06",
+        "label": "Underground Rome, Celio & Monti",
+        "slots": [
+          {
+            "name": "San Clemente underground layers",
+            "description": "Descend from the medieval basilica into the 4th-century church and Roman-era Mithraeum/house levels — one of the best compact ‘vertical Rome’ experiences.",
+            "start_time": "2026-07-06T10:00:00",
+            "end_time": "2026-07-06T11:30:00",
+            "category": "attraction",
+            "location": "Basilica di San Clemente, Via Labicana, 95, Rome",
+            "cost": 12.0,
+            "links": [
+              "https://www.basilicasanclemente.com/eng/opening-hours-and-info/"
+            ],
+            "notes": "Book online; estimated €10 ticket plus booking fee. Dress code; no photos underground."
+          },
+          {
+            "name": "Walk to Case Romane del Celio",
+            "description": "Short walk of roughly 450 m / 6–8 minutes via the quiet Celio streets and Clivus Scauri.",
+            "start_time": "2026-07-06T11:30:00",
+            "end_time": "2026-07-06T11:45:00",
+            "category": "transport",
+            "location": "San Clemente to Case Romane del Celio",
+            "cost": 0.0,
+            "links": [
+              "https://www.rome2rio.com/s/San-Clemente-al-Laterano/Rome"
+            ],
+            "notes": "Walking is faster than transit for this pair."
+          },
+          {
+            "name": "Case Romane del Celio",
+            "description": "Visit frescoed Roman houses beneath the Basilica of Santi Giovanni e Paolo: a quieter, residential counterpoint to the Forum and Colosseum.",
+            "start_time": "2026-07-06T11:45:00",
+            "end_time": "2026-07-06T13:00:00",
+            "category": "attraction",
+            "location": "Case Romane del Celio, Piazza di Santi Giovanni e Paolo, 7, Rome",
+            "cost": 8.0,
+            "links": [
+              "https://www.turbopass.com/en/rome/attractions/case-romane-del-celio"
+            ],
+            "notes": "Monday opening verified; ticket office may close before site closing."
+          },
+          {
+            "name": "Street-food lunch at Supplì Roma",
+            "description": "Classic Roman street-food break with supplì/pizza al taglio. It is in Trastevere, so use this as a deliberate food detour after the Celio morning.",
+            "start_time": "2026-07-06T13:30:00",
+            "end_time": "2026-07-06T14:30:00",
+            "category": "meal",
+            "location": "Supplì Roma, Via di S. Francesco a Ripa, 137, Rome",
+            "cost": 14.0,
+            "links": [
+              "http://www.suppliroma.it/"
+            ],
+            "notes": "Tool verified Monday opening 10:00–21:00."
+          },
+          {
+            "name": "Transit back to Santi Quattro Coronati",
+            "description": "Return from Trastevere toward Celio/Colosseum for the afternoon hidden-monastery stop.",
+            "start_time": "2026-07-06T14:30:00",
+            "end_time": "2026-07-06T15:15:00",
+            "category": "transport",
+            "location": "Trastevere to Santi Quattro Coronati",
+            "cost": 2.0,
+            "links": [
+              "https://romesite.com/transport.html"
+            ],
+            "notes": "Use tram/bus plus short walk; exact route depends on service that day."
+          },
+          {
+            "name": "Santi Quattro Coronati cloister and oratory",
+            "description": "A fortified medieval complex hidden near the Colosseum, with a quiet cloister and San Silvestro frescoes. Ring/bell protocol and small donation expected.",
+            "start_time": "2026-07-06T15:15:00",
+            "end_time": "2026-07-06T16:45:00",
+            "category": "attraction",
+            "location": "Basilica dei Santi Quattro Coronati, Via dei Santi Quattro, 20, Rome",
+            "cost": 3.0,
+            "links": [
+              "https://www.tripadvisor.com/Attraction_Review-g187791-d246188-Reviews-Ss_Quattro_Coronati-Rome_Lazio.html"
+            ],
+            "notes": "Afternoon basilica window verified from 15:15; access to cloister/oratory can be at nuns’ discretion."
+          },
+          {
+            "name": "Dinner at Nerone",
+            "description": "Moderate-budget Roman dinner near Viminale/Monti; good for pasta and classic Roman dishes after the hidden-history day.",
+            "start_time": "2026-07-06T19:00:00",
+            "end_time": "2026-07-06T20:30:00",
+            "category": "meal",
+            "location": "Nerone, Via del Viminale, 7A, Rome",
+            "cost": 32.0,
+            "links": [
+              "http://neronealviminale.it/"
+            ],
+            "notes": "Tool verified Monday dinner opening 16:30–22:00."
+          },
+          {
+            "name": "Rest / aperitivo buffer in Monti",
+            "description": "Unscheduled recovery time in Monti/Celio after two underground sites. Use for a coffee, a shaded walk, or returning to your hotel before dinner.",
+            "start_time": "2026-07-06T16:45:00",
+            "end_time": "2026-07-06T18:45:00",
+            "category": "leisure",
+            "location": "Monti / Celio, Rome",
+            "cost": 8.0,
+            "links": [],
+            "notes": "Budget includes coffee/aperitivo; keep flexible."
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "calendar_date": "2026-07-07",
+        "label": "Ostia Antica & Roman-Jewish Rome",
+        "slots": [
+          {
+            "name": "Transit to Ostia Antica",
+            "description": "Take Metro B to Piramide/Porta San Paolo, then Roma-Lido/Metromare to Ostia Antica; walk 5–10 minutes to the entrance.",
+            "start_time": "2026-07-07T08:00:00",
+            "end_time": "2026-07-07T09:00:00",
+            "category": "transport",
+            "location": "Rome center to Ostia Antica Archaeological Park",
+            "cost": 2.0,
+            "links": [
+              "https://www.rometoolkit.com/whattodo/ostia_antica.html"
+            ],
+            "notes": "Estimated 45–60 minutes from central Rome; BIT ticket should cover the urban rail journey within validity."
+          },
+          {
+            "name": "Ostia Antica archaeological park",
+            "description": "Explore Rome’s ancient port city: theater, baths, insulae, warehouses, Decumanus Maximus, and quieter side streets. Pompeii-like feel without leaving the Rome transit zone.",
+            "start_time": "2026-07-07T09:00:00",
+            "end_time": "2026-07-07T12:45:00",
+            "category": "attraction",
+            "location": "Parco Archeologico di Ostia Antica, Viale dei Romagnoli, 717, Rome",
+            "cost": 18.0,
+            "links": [
+              "https://ostiaantica.cultura.gov.it/en/info/archaeological-area-of-ostia-antica-visitor-information/"
+            ],
+            "notes": "Tuesday opening verified from 08:30; bring water and sun protection."
+          },
+          {
+            "name": "Lunch at Arianna al Borghetto",
+            "description": "Traditional lunch in the medieval borgo by Ostia Antica, close enough to avoid a long midday transfer after the ruins.",
+            "start_time": "2026-07-07T13:00:00",
+            "end_time": "2026-07-07T14:15:00",
+            "category": "meal",
+            "location": "Arianna al Borghetto, Via del Forno, 11, Ostia Antica, Rome",
+            "cost": 28.0,
+            "links": [
+              "https://maps.google.com/?cid=6194301250260823979&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+            ],
+            "notes": "Tool verified Tuesday lunch opening 12:30–15:00."
+          },
+          {
+            "name": "Borgo and Castle of Julius II exterior stroll",
+            "description": "Short post-lunch look at the medieval borgo and exterior of Castello di Giulio II. Interior weekday access is uncertain, so treat it as an exterior hidden-gem add-on.",
+            "start_time": "2026-07-07T14:15:00",
+            "end_time": "2026-07-07T15:00:00",
+            "category": "leisure",
+            "location": "Borgo di Ostia Antica / Castello di Giulio II",
+            "cost": 0.0,
+            "links": [
+              "https://ostiaantica.cultura.gov.it/en/"
+            ],
+            "notes": "Castle interior opening on Tuesday is unreliable; no paid slot planned."
+          },
+          {
+            "name": "Return to central Rome",
+            "description": "Return from Ostia Antica by Metromare/Roma-Lido to Piramide, then continue by metro/bus or walk/taxi depending on energy and hotel location.",
+            "start_time": "2026-07-07T15:00:00",
+            "end_time": "2026-07-07T16:00:00",
+            "category": "transport",
+            "location": "Ostia Antica to central Rome",
+            "cost": 2.0,
+            "links": [
+              "https://www.rometoolkit.com/whattodo/ostia_antica.html"
+            ],
+            "notes": "Conservative 60-minute estimate."
+          },
+          {
+            "name": "Roman-Jewish dinner at Yotvata",
+            "description": "Dinner in the Jewish Ghetto area with Roman-Jewish specialties; a good place to try carciofi alla giudia if available/seasonal alternatives.",
+            "start_time": "2026-07-07T18:30:00",
+            "end_time": "2026-07-07T20:00:00",
+            "category": "meal",
+            "location": "Yotvata, Piazza Cenci, 70, Rome",
+            "cost": 35.0,
+            "links": [
+              "http://www.yotvata.it/"
+            ],
+            "notes": "Tool verified Tuesday dinner opening 18:30–23:00."
+          },
+          {
+            "name": "Jewish Ghetto and Portico d’Ottavia walk",
+            "description": "Self-guided hidden-history walk around Portico d’Ottavia, Teatro di Marcello, Via del Portico d’Ottavia, and the Roman-Jewish quarter before dinner.",
+            "start_time": "2026-07-07T16:30:00",
+            "end_time": "2026-07-07T18:00:00",
+            "category": "attraction",
+            "location": "Portico d’Ottavia / Jewish Ghetto, Rome",
+            "cost": 0.0,
+            "links": [
+              "https://www.turismoroma.it/en/places/portico-dottavia"
+            ],
+            "notes": "Outdoor sites; best in late afternoon after the Ostia heat."
+          },
+          {
+            "name": "Campo de’ Fiori evening stroll or gelato",
+            "description": "Unstructured final evening nearby: wander toward Campo de’ Fiori or Largo di Torre Argentina and use the remaining budget for gelato or a drink.",
+            "start_time": "2026-07-07T20:00:00",
+            "end_time": "2026-07-07T21:00:00",
+            "category": "leisure",
+            "location": "Campo de’ Fiori / Largo di Torre Argentina, Rome",
+            "cost": 8.0,
+            "links": [
+              "https://www.turismoroma.it/en/places/largo-di-torre-argentina"
+            ],
+            "notes": "Keep flexible; no booking needed."
+          }
+        ]
+      }
+    ]
+  },
+  "validation_passed": true,
+  "validation_attempts": 1,
+  "validation_feedback": "The itinerary is excellent and perfectly aligns with your interests in Roman history, street food, and hidden gems. It respects the €400 budget (estimated total is ~€235), covers the requested dates (July 5-7, 2026), and includes all requested tasks such as the Appian Way, Case Romane del Celio, and street food in Testaccio/Trastevere. The logistics are sound, accounting for the Sunday schedule on July 5th and the travel time to Ostia Antica.",
+  "task_list": [
+    {
+      "name": "search_roman_history_attractions",
+      "type": "attraction",
+      "text": "Find historical Roman sites and hidden gems in Rome, focusing on those off the beaten path (e.g., Appian Way, Case Romane del Celio) for a solo traveler.",
+      "is_valid": true,
+      "validation_comment": null
+    },
+    {
+      "name": "search_street_food_rome",
+      "type": "restaurant",
+      "text": "Identify top-rated street food spots and local markets in Rome, specifically in neighborhoods like Testaccio or Trastevere, focusing on Roman specialties like Supplì and Pizza al Taglio.",
+      "is_valid": true,
+      "validation_comment": null
+    },
+    {
+      "name": "check_attraction_opening_times",
+      "type": "opening_times",
+      "text": "Verify the opening hours for selected Roman historical sites and hidden gems for July 5th-8th, 2026, noting any closures.",
+      "is_valid": true,
+      "validation_comment": null
+    },
+    {
+      "name": "budget_friendly_dining",
+      "type": "restaurant",
+      "text": "Find authentic, budget-friendly Roman eateries to ensure the €400 budget covers 3 days of food and activities for one person.",
+      "is_valid": true,
+      "validation_comment": null
+    },
+    {
+      "name": "route_optimization_rome",
+      "type": "routing-check",
+      "text": "Check the walking or transit distances between selected hidden gems and street food spots to ensure a feasible 3-day itinerary within Rome.",
+      "is_valid": true,
+      "validation_comment": null
+    },
+    {
+      "name": "search_unique_experiences",
+      "type": "attraction",
+      "text": "Search for unique Roman history experiences or small-group tours (e.g., underground tours) that fit within the €400 budget.",
+      "is_valid": true,
+      "validation_comment": null
+    }
+  ]
+}

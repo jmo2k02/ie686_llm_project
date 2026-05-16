@@ -2,8 +2,17 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 from pathlib import Path
 from typing import Any
+
+from dotenv import find_dotenv, load_dotenv
+
+load_dotenv(find_dotenv(usecwd=True))
+
+if not (os.getenv("LANGCHAIN_API_KEY", "").strip() or os.getenv("LANGSMITH_API_KEY", "").strip()):
+    os.environ["LANGCHAIN_TRACING_V2"] = "false"
+    os.environ["LANGSMITH_TRACING"] = "false"
 
 from pydantic import BaseModel, Field, ValidationError
 
@@ -63,17 +72,17 @@ def _write_markdown(output_dir: Path, case: BaselineCase, markdown: str) -> Path
 
 
 def run_cases(input_path: Path, output_dir: Path | None = None) -> list[Path]:
-    config = load_config_from_env()
-    effective_output_dir = output_dir or config.output_dir
+    agent_config = load_config_from_env()
+    effective_output_dir = output_dir or agent_config.output_dir
     written_paths: list[Path] = []
     for case in _load_cases(input_path):
         result = run_baseline(
             query=case.query,
             constraints=case.planning_constraints(),
-            config=config,
+            config=agent_config,
         )
         path = _write_markdown(effective_output_dir, case, result.markdown)
-        _ = print(
+        print(
             f"wrote {path} "
             f"(model={result.model_name}, "
             f"tavily_executed={result.executed_tool_calls}, "

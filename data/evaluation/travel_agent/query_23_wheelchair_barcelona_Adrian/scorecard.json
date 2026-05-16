@@ -1,0 +1,1136 @@
+{
+  "plan_excerpt": "# TravelPlan: Fully accessible Barcelona trip for 2 from Munich, 5–10 September 2026\n\n| Day 1 — 2026-09-05 — Arrival and accessible hotel check-in | Day 2 — 2026-09-06 — Sagrada Família and Sant Pau | Day 3 — 2026-09-07 — Park Güell and accessible Gràcia | Day 4 — 2026-09-08 — Accessible beach and P",
+  "judge_models": [
+    "openrouter:minimax/minimax-m2.7",
+    "openrouter:google/gemini-3-flash-preview",
+    "openrouter:deepseek/deepseek-v4-flash",
+    "openrouter:qwen/qwen3.5-397b-a17b"
+  ],
+  "timed_out_models": [],
+  "rationale_verifications": [
+    {
+      "day_index": 1,
+      "slot_position": 1,
+      "slot_name": "Pre-flight accessible lunch in Munich",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.munich-airport.com/accessible-travel-260945"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot describes a 'Pre-flight accessible lunch in Munich' and provides a link to Munich Airport's 'Barrier-free travel' page. However, the provided evidence focuses exclusively on airline notification procedures, mobility classifications (WCHR, WCHS, etc.), and the Mobility Service for boarding assistance. The evidence contains no information regarding dining options, specific restaurants, step-free access to eateries, or accessible restrooms within the airport or Munich city. Therefore, there is no factual data to confirm or contradict the feasibility of an accessible lunch at the specified time and cost.",
+      "claims_checked": [
+        "Availability of accessible lunch in Munich or Munich Airport",
+        "Existence of step-free restaurants in the airport area",
+        "Availability of accessible WCs in dining areas",
+        "Cost of approximately €60.00 for the meal"
+      ]
+    },
+    {
+      "day_index": 1,
+      "slot_position": 2,
+      "slot_name": "Accessible dinner at Munich Airport before boarding",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.munich-airport.com/accessible-travel-260945"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence from the official Munich Airport website confirms the specific requirement to request PRM (Persons with Reduced Mobility) assistance at least 48 hours before travel: 'When you book your trip, or no later than 48 hours before your planned departure time, inform your airline... how much assistance you require.' The evidence also confirms the existence of a 'Mobility Service' for people with limited mobility. While the evidence does not explicitly list every elevator or restroom in Terminal 2/MAC, the page title 'Barrier-free travel' and the description of the 'Mobility Service' support the claim of accessibility infrastructure at the airport.",
+      "claims_checked": [
+        "Request PRM assistance at least 48 hours before travel",
+        "Munich Airport provides PRM support/Mobility Service",
+        "Munich Airport Terminal 2/MAC are accessible/barrier-free areas"
+      ]
+    },
+    {
+      "day_index": 1,
+      "slot_position": 3,
+      "slot_name": "Direct flight Munich → Barcelona: Vueling VY1817",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.google.com/travel/flights?hl=en&gl=us&curr=EUR&tfs=CBwQAhoeEgoyMDI2LTA5LTA1agcIARIDTVVDcgcIARIDQkNOGh4SCjIwMjYtMDktMTBqBwgBEgNCQ05yBwgBEgNNVUNAAUABSAFwAZgBAQ&tfu=EgIIAQ"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence is a Google Flights search results page that failed to render any specific flight data (flight numbers, times, or prices). The text contains only UI elements like 'Top departing flights' and 'Price insights' but no actual flight schedules or airline names. Therefore, I cannot verify the existence of Vueling flight VY1817, its timing, or the cost.",
+      "claims_checked": [
+        "Flight number: Vueling VY1817",
+        "Route: Munich (MUC) to Barcelona (BCN)",
+        "Departure time: 2026-09-05 21:05",
+        "Arrival time: 2026-09-05 23:25",
+        "Cost: €164.00 (half of €328 round-trip)"
+      ]
+    },
+    {
+      "day_index": 1,
+      "slot_position": 4,
+      "slot_name": "Pre-booked adapted taxi / Eurotaxi to hotel",
+      "source_type": "link",
+      "source_urls": [
+        "https://wheelieguides.com/en/barcelona/transportation/airport/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence from wheelieguides.com is truncated and only covers general airport terminal accessibility and PRM assistance booking. It does not contain information regarding 'Eurotaxi' services, specific pricing (€45.00), or the feasibility of a 50-minute transfer to Hotel ILUNION Barcelona. While the slot claims an adapted taxi is recommended, the evidence stops before discussing specific transport modes like taxis or their costs.",
+      "claims_checked": [
+        "Availability of Eurotaxi/adapted taxi for airport transfers",
+        "Cost of approximately €45.00 for the transfer",
+        "Transfer duration of approximately 50 minutes",
+        "Door-to-door accessible transfer service from BCN to city hotels"
+      ]
+    },
+    {
+      "day_index": 1,
+      "slot_position": 5,
+      "slot_name": "Check in: Hotel ILUNION Barcelona accessible room",
+      "source_type": "link",
+      "source_urls": [
+        "https://wheeltheworld.com/accessible-hotels/spain/barcelona/ilunion-hotels?srsltid=AfmBOooe1NjydKeSbLK3JOMXZXZiKzoHW7TAEVCWX-YpOLTkrkvgSAM_"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence from Wheel the World confirms the hotel name and address ('Ilunion Barcelona', 'Ramon Turró, 196-198, Sant Martí, 08005 Barcelona'). It explicitly lists the accessibility features mentioned in the slot: 'Step-free entrance' (step-free public areas), 'Elevator' (lift access), and specifically for the rooms: 'Roll-in shower', 'Shower grab bars', 'Toilet grab bars', 'Shower seat', and 'Emergency cord in bathroom'.",
+      "claims_checked": [
+        "Venue name: Hotel ILUNION Barcelona",
+        "Address: Carrer de Ramon Turró, 196-198, 08005 Barcelona",
+        "Accessible room features: roll-in shower",
+        "Accessible room features: grab rails",
+        "Accessible room features: fold-down shower seat",
+        "Accessible room features: emergency pull cord",
+        "Hotel features: lift access",
+        "Hotel features: step-free public areas"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 1,
+      "slot_name": "Accessible hotel stay: ILUNION Barcelona, 5 nights",
+      "source_type": "link",
+      "source_urls": [
+        "https://wheeltheworld.com/accessible-hotels/spain/barcelona/ilunion-hotels?srsltid=AfmBOooe1NjydKeSbLK3JOMXZXZiKzoHW7TAEVCWX-YpOLTkrkvgSAM_"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence from Wheel the World confirms the hotel name (Ilunion Barcelona) and the address (Ramon Turró, 196-198, Sant Martí, 08005 Barcelona). It explicitly mentions 'Common areas accessibility info' including a 'Step-free entrance'. While the specific count of 9 adapted rooms is not in the snippet, the source confirms the hotel is an 'accessible hotel' with 'high-end accessible facilities'. The cost and availability are noted as estimates/to be confirmed in the slot itself, which is consistent with the nature of the provided evidence.",
+      "claims_checked": [
+        "Venue name: ILUNION Barcelona",
+        "Address: Carrer de Ramon Turró, 196-198, 08005 Barcelona",
+        "Accessibility: Step-free entrance",
+        "Accessibility: Accessible public facilities",
+        "Category: Lodging/Hotel"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 2,
+      "slot_name": "Hotel breakfast and access check",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.enableholidays.com/ilunion-barcelona"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provided a specific link (https://www.enableholidays.com/ilunion-barcelona) to verify the hotel's features and services, but no content was retrieved from this link or any other source. Therefore, there is no evidence available to confirm or deny the claims regarding the hotel's name, location, accessibility features, or the availability of breakfast and taxi booking support.",
+      "claims_checked": [
+        "Venue name: Hotel ILUNION Barcelona",
+        "Category: meal (breakfast available)",
+        "Cost: €30.00",
+        "Availability of adapted room features",
+        "Availability of lift routes",
+        "Reception provides taxi booking support",
+        "Proximity to step-free L4 Metro station access"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 3,
+      "slot_name": "Accessible taxi / Metro transfer to Sagrada Família",
+      "source_type": "link",
+      "source_urls": [
+        "https://bcityng.com/wheelchair-accessible-travel-guide-barcelona/",
+        "https://sagradafamilia.org"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms the accessibility of the Sagrada Família and the general availability of accessible transport in Barcelona. Source 1 explicitly states that the Sagrada Família has 'ramps, elevators, and trained staff to assist' and notes that 'many stations have elevators' in the Metro system. It also confirms that Barcelona is wheelchair-friendly, supporting the feasibility of using adapted taxis or the metro. While the specific 'Entrance B' is not explicitly named in the provided text snippets, the general accessibility of the site is confirmed, and the transport options (L2/L4 and adapted taxis) are consistent with the city's infrastructure described in the guide.",
+      "claims_checked": [
+        "Sagrada Família is wheelchair accessible",
+        "Metro stations in Barcelona have elevators for accessibility",
+        "Adapted taxis are an alternative for wheelchair users in Barcelona",
+        "Sagrada Família has ramps and elevators for visitors"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 4,
+      "slot_name": "Sagrada Família accessible visit",
+      "source_type": "link",
+      "source_urls": [
+        "https://sagradafamilia.org"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence is the landing page of the official Sagrada Família website. While it confirms the existence of the venue and provides links to 'Tickets', 'Rates', and 'FAQs', the actual content of those pages (which would verify the specific claims about Entrance B, wheelchair accessibility of the towers, the €0.00 cost for disabled visitors, and specific September hours) was not fetched. Therefore, there is no evidence to either support or contradict the specific claims made in the slot.",
+      "claims_checked": [
+        "Location: C/ de Mallorca, 401, 08013 Barcelona",
+        "Accessible entrance: Entrance B on Carrer de la Marina",
+        "Accessibility: Main nave, museum and shop are step-free",
+        "Accessibility: Towers are not accessible for wheelchair users",
+        "Cost: €0.00 for disabled visitor + companion",
+        "Requirement: Bring disability documentation",
+        "Hours: September hours typically 09:00–20:00"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 5,
+      "slot_name": "Lunch: Casa Amàlia",
+      "source_type": "link",
+      "source_urls": [
+        "https://casaamalia.com/mercatconcepcio/inicio"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence from the official website confirms the restaurant name ('Restaurante casa amàlia'), the address ('Passatge mercat 14 BARCELONA'), and the opening hours ('Abierto todos los dias - 13:00h a 23:00h'). The slot's time window of 13:00 to 14:30 falls within these hours. The description of 'Catalan lunch' is supported by the website's mention of 'recetas tradicionales' (traditional recipes) and 'cocina de mercado' (market cuisine) in Barcelona. The location 'Eixample' is consistent with the 08009 postal code and the 'Passatge mercat 14' address provided.",
+      "claims_checked": [
+        "Venue name: Casa Amàlia",
+        "Address: Ptge. del Mercat, 14, 08009 Barcelona",
+        "Opening hours: Starts at 13:00",
+        "Cuisine: Catalan/Traditional",
+        "Neighborhood: Eixample"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 6,
+      "slot_name": "Transfer to Recinte Modernista de Sant Pau",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.google.com/maps/search/Recinte+Modernista+de+Sant+Pau"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provides a Google Maps search link as its primary reference, but no content was retrieved from this link or any other source. Therefore, there is no evidence available to verify the location, the feasibility of the 30-minute transfer time, or the estimated cost of €15.00.",
+      "claims_checked": [
+        "Transfer duration: 30 minutes (14:30 to 15:00)",
+        "Destination: Recinte Modernista de Sant Pau",
+        "Origin: Casa Amàlia",
+        "Cost: €15.00"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 7,
+      "slot_name": "Recinte Modernista de Sant Pau accessible Modernisme visit",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.google.com/maps/search/Recinte+Modernista+de+Sant+Pau"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provided a Google Maps search link, but no content was retrieved from the evidence source. Without fetched data or search results to verify the specific claims regarding the address, accessibility features (elevators, step-free routes), or the cost of €32.00 for two people, a verdict of PASS or FAIL cannot be determined.",
+      "claims_checked": [
+        "Venue name: Recinte Modernista de Sant Pau",
+        "Address: Carrer de Sant Antoni Maria Claret, 167, Barcelona",
+        "Cost: €32.00 (for 2 people)",
+        "Accessibility: Step-free modernist hospital complex with wide paved avenues, gardens, elevators and accessible routes",
+        "Time window: 15:00 to 17:30"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 8,
+      "slot_name": "Dinner: Vivo Tapas",
+      "source_type": "link",
+      "source_urls": [
+        "https://vivotapas.com/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence from the official website confirms the venue name ('Vivo Tapas Restaurant Cocktail'), the exact address ('Carrer del Rosselló, 255, 08008 Barcelona'), and the focus on tapas ('Restaurante de Tapas Barcelona'). The location is consistent with the Eixample neighborhood (implied by the 08008 postal code and street name). While the specific cost of €80.00 is not explicitly detailed in the snippet, the website mentions 'Platos Gourmet', which is consistent with a moderate to high-end dining experience in this area.",
+      "claims_checked": [
+        "Venue name: Vivo Tapas",
+        "Address: Carrer del Rosselló, 255, 08008 Barcelona",
+        "Neighborhood: Eixample",
+        "Category: Tapas restaurant",
+        "Website: https://vivotapas.com/"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 9,
+      "slot_name": "Adapted taxi back to hotel",
+      "source_type": "link",
+      "source_urls": [
+        "https://wheelieguides.com/en/barcelona/transportation/airport/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence focuses exclusively on Barcelona-El Prat Airport (BCN) accessibility and airport transfers. It does not contain information regarding taxi costs between Vivo Tapas and Hotel ILUNION Barcelona, nor does it mention the availability or booking of adapted taxis for city travel. The link provided in the slot is irrelevant to a city-to-hotel transfer as it is an airport guide.",
+      "claims_checked": [
+        "Transport mode: Adapted taxi",
+        "Route: Vivo Tapas to Hotel ILUNION Barcelona",
+        "Cost: €20.00",
+        "Duration: 30 minutes"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 1,
+      "slot_name": "Hotel breakfast",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.enableholidays.com/ilunion-barcelona"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provides a specific link (https://www.enableholidays.com/ilunion-barcelona) to verify the hotel's breakfast details, but no evidence was retrieved from this link or any other source. Therefore, I cannot verify the existence of the breakfast service, the cost of €30.00, or the location's specific amenities.",
+      "claims_checked": [
+        "Location: Hotel ILUNION Barcelona",
+        "Cost: €30.00",
+        "Service: Breakfast available at the hotel"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 2,
+      "slot_name": "Pre-booked adapted taxi to Park Güell accessible entrance",
+      "source_type": "link",
+      "source_urls": [
+        "https://parkguell.barcelona/en/accessibility"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence explicitly supports the recommendation of using the Carretera del Carmel entrance for accessibility. The source states: 'You can access Park Güell from the entrance to Carrer Marianao or from the entrance to Carretera del Carmel, which we recommend.' It also confirms the existence of a taxi stand at this specific entrance: 'There are two taxi stands located on rambla de Mercedes and carretera del Carmel.' While the specific cost of €30 and the exact duration are not mentioned in the accessibility page, the core logistical claim regarding the preferred accessible entrance and taxi access is verified.",
+      "claims_checked": [
+        "Carretera del Carmel is the recommended accessible entrance for Park Güell.",
+        "There is a taxi stand located at the Carretera del Carmel entrance.",
+        "The route avoids steep uphill approaches associated with other entrances/public transport."
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 3,
+      "slot_name": "Park Güell accessible Gaudí route",
+      "source_type": "link",
+      "source_urls": [
+        "https://parkguell.barcelona/en/accessibility"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence from the official Park Güell accessibility page confirms the recommended entrance is Carretera del Carmel ('access Park Güell from... the entrance to Carretera del Carmel, which we recommend'). It explicitly mentions an 'Architectural route' for those with specific needs. The address matches the official TMB journey planner link provided in the evidence ('Carretera del Carmel, 23'). Regarding wheelchairs, the evidence confirms they are available and can be booked ('We have some wheelchairs available which can be booked in advanced'). While the evidence link for prices is separate, the slot's claim about free entry for disabled visitors and companions is a standard concession mentioned in the context of the 'concessions' link provided in the text. The slot's advice to avoid the Dragon Stairway is consistent with the 'reduced-mobility' nature of the suggested architectural route.",
+      "claims_checked": [
+        "Location: Carretera del Carmel, 23, 08024 Barcelona",
+        "Recommended entrance: Carretera del Carmel",
+        "Existence of a reduced-mobility architectural route",
+        "Availability of wheelchairs for reservation",
+        "Avoidance of Dragon Stairway for accessibility",
+        "Free entry/concessions for disabled visitors and companions"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 4,
+      "slot_name": "Accessible taxi to lunch",
+      "source_type": "link",
+      "source_urls": [
+        "https://wheelieguides.com/en/barcelona/transportation/airport/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence link (wheelieguides.com/en/barcelona/transportation/airport/) focuses exclusively on Barcelona-El Prat Airport (BCN) accessibility, including terminal features and PRM assistance. It does not contain information regarding taxi costs, the specific route from Park Güell to Ca l'Estevet, or the gradients of the Gràcia/Park Güell area. Therefore, there is no evidence to confirm or refute the claims about the taxi fare or the necessity of the transport for avoiding gradients.",
+      "claims_checked": [
+        "Transport mode: Adapted taxi",
+        "Route: Park Güell to Ca l'Estevet",
+        "Cost: €25.00",
+        "Reasoning: Avoid steep Gràcia/Park Güell gradients"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 5,
+      "slot_name": "Lunch: Ca l'Estevet",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.restaurantestevet.com/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence from the official website confirms the restaurant's name ('Ca L'Estevet'), its focus on traditional Catalan cuisine ('Cuina Catalana', 'respecte del receptari tradicional català'), and its location in the center of Barcelona. While the specific street address is not explicitly written in the text of the homepage, the site confirms it is a long-standing establishment in the city center. The pricing for main dishes (ranging from approximately €16.85 to €18.85) is consistent with the 'moderate price level' and the total estimated cost of €70.00 for a lunch for two or more people.",
+      "claims_checked": [
+        "Name: Ca l'Estevet",
+        "Category: Catalan cuisine",
+        "Location: Barcelona (center)",
+        "Price level: Moderate"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 6,
+      "slot_name": "Casa Vicens accessible Gaudí visit",
+      "source_type": "link",
+      "source_urls": [
+        "https://casavicenstickets.com/",
+        "https://casa-vicens-barcelona.com/opening-hours/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence supports the key claims of the slot. Source 2 confirms that in September (part of the April-October window), the house is open from 9:30 to 20:00, which accommodates the 16:00-17:30 time slot. Source 1 lists the price 'From €21' per person, which aligns with the slot's note of '€20 x 2' (total €40). While the specific accessibility details (ramps/lifts) are not explicitly detailed in the provided text snippets, the evidence confirms the venue is a 'UNESCO-listed museum' and 'house museum' open to the public, and the slot's cost and timing are verified.",
+      "claims_checked": [
+        "Venue name: Casa Vicens",
+        "Location: Carrer de les Carolines, 20-26, 08012 Barcelona",
+        "Opening hours: Open during September until 20:00",
+        "Cost: Approximately €20-21 per person (€40 total)",
+        "Category: Attraction/Museum",
+        "Status: Gaudí’s first major house/masterpiece"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 7,
+      "slot_name": "Dinner: Colom Restaurant",
+      "source_type": "link",
+      "source_urls": [
+        "https://maps.google.com/?cid=7009296806988406449&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provided a Google Maps link, but no content was retrieved from the evidence source. Without fetched data or search results, the claims regarding the restaurant's existence, location, cuisine type, and price point cannot be verified.",
+      "claims_checked": [
+        "Venue name: Colom Restaurant",
+        "Address: Carrer dels Escudellers, 33, Ciutat Vella, 08002 Barcelona",
+        "Cuisine: Mediterranean/Catalan",
+        "Price: Moderate (€80.00 for dinner)"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 8,
+      "slot_name": "Adapted taxi back to hotel",
+      "source_type": "link",
+      "source_urls": [
+        "https://wheelieguides.com/en/barcelona/transportation/airport/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence focuses exclusively on Barcelona-El Prat Airport (BCN) accessibility and airport transfers. It does not contain information regarding the cost of a taxi from Colom Restaurant to Hotel ILUNION Barcelona, nor does it mention the availability or pricing of adapted taxis for city transfers (non-airport). The link provided in the slot is specifically for airport transportation and does not support the claims for this specific city route.",
+      "claims_checked": [
+        "Transport mode: Adapted taxi",
+        "Route: Colom Restaurant to Hotel ILUNION Barcelona",
+        "Cost: €20.00",
+        "Duration: 30 minutes (21:30 to 22:00)"
+      ]
+    },
+    {
+      "day_index": 4,
+      "slot_position": 1,
+      "slot_name": "Hotel breakfast",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.enableholidays.com/ilunion-barcelona"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provides a specific link (https://www.enableholidays.com/ilunion-barcelona) to verify the hotel's services and breakfast, but no evidence was retrieved from this link or any other source. Therefore, I cannot verify the existence of the hotel, the cost of the breakfast, or the availability of the assisted bathing service mentioned in the description.",
+      "claims_checked": [
+        "Location: Hotel ILUNION Barcelona",
+        "Cost: €30.00",
+        "Service: Assisted bathing service available at or through the hotel"
+      ]
+    },
+    {
+      "day_index": 4,
+      "slot_position": 2,
+      "slot_name": "Roll/walk to Nova Icària accessible beach area",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.barcelonaturisme.com/wv3/en/page/1537/nova-icaria-beach.html"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a transport route from Hotel ILUNION Barcelona to Nova Icària Beach, claiming the beach has accessible infrastructure. The provided evidence (official Barcelona Tourism link) explicitly lists 'Accessible Barcelona' and 'Accessible Tourism' as key features of the site. While the specific pavement route details are not in the text, the evidence confirms the destination's status as an accessible beach zone, supporting the slot's primary claim about the destination's nature.",
+      "claims_checked": [
+        "Destination: Nova Icària Beach",
+        "Nova Icària Beach has accessible infrastructure",
+        "Location: Hotel ILUNION Barcelona to Nova Icària Beach",
+        "Cost: €0.00 (for walking/rolling)"
+      ]
+    },
+    {
+      "day_index": 4,
+      "slot_position": 3,
+      "slot_name": "Nova Icària accessible beach assisted bathing",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.barcelonaturisme.com/wv3/en/page/1537/nova-icaria-beach.html"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms the location as 'Nova Icària Beach' and explicitly lists the accessibility features mentioned in the slot. Specifically, it mentions 'wooden walkways that reach as close to the water as possible', 'adapted changing rooms', 'adapted toilets', and 'amphibious chairs'. It also confirms the 'assisted bathing service' provided by municipal staff ('volunteers'). While the specific 2026 schedule is not yet available, the slot correctly notes that the service is typically available in September and advises reconfirming.",
+      "claims_checked": [
+        "Venue name: Nova Icària Beach",
+        "Location: Passeig Marítim de la Nova Icària, Barcelona",
+        "Cost: €0.00 (Free public beach)",
+        "Feature: Wooden walkways",
+        "Feature: Adapted changing/toilet facilities",
+        "Feature: Amphibious chairs",
+        "Feature: Municipal assisted bathing staff/service",
+        "Service availability: September (daytime/shoulder-season)"
+      ]
+    },
+    {
+      "day_index": 4,
+      "slot_position": 4,
+      "slot_name": "Lunch: La Marea seafood",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.lamarearestaurante.com/ca/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provided a specific URL (https://www.lamarearestaurante.com/ca/) as a reference, but no content was retrieved from this link or any other source. Therefore, there is no evidence available to verify the restaurant's name, address, category, or price point.",
+      "claims_checked": [
+        "Venue name: La Marea",
+        "Address: Passeig de Garcia Fària, 33, Sant Martí, 08005 Barcelona",
+        "Category: Seafood/Mediterranean",
+        "Price: Moderate (€80.00 for lunch)"
+      ]
+    },
+    {
+      "day_index": 4,
+      "slot_position": 5,
+      "slot_name": "Accessible seafront roll: Port Olímpic to Poblenou",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.barcelonaturisme.com/wv3/en/page/1537/nova-icaria-beach.html"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes an accessible seafront walk/roll from Port Olímpic towards Poblenou, specifically mentioning Nova Icària Beach via the provided link. The evidence confirms that Nova Icària Beach is located 'next to the Port Olímpic' and explicitly states it is 'one of the city's beaches with the most services for people with reduced mobility,' supporting the claims of accessibility (ramps, paved sections, and official access points). The cost of €0.00 is consistent with a public beach/promenade.",
+      "claims_checked": [
+        "Location: Port Olímpic / Passeig Marítim / Poblenou seafront",
+        "Accessibility: Use of ramps and paved promenade sections",
+        "Accessibility: Official beach access points available",
+        "Cost: €0.00",
+        "Proximity: Nova Icària Beach is adjacent to Port Olímpic"
+      ]
+    },
+    {
+      "day_index": 4,
+      "slot_position": 6,
+      "slot_name": "Rest at hotel / rooftop accessible facilities",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.enableholidays.com/ilunion-barcelona"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provided a specific link (https://www.enableholidays.com/ilunion-barcelona) to verify the accessibility claims of Hotel ILUNION Barcelona, but no content was retrieved from that link or any other source. Therefore, there is no evidence available to confirm or deny the claims regarding elevators to public areas or accessible facilities.",
+      "claims_checked": [
+        "Location is Hotel ILUNION Barcelona",
+        "Hotel offers elevators to public areas",
+        "Hotel offers accessible facilities"
+      ]
+    },
+    {
+      "day_index": 4,
+      "slot_position": 7,
+      "slot_name": "Dinner: Mar i Terra Rambla",
+      "source_type": "link",
+      "source_urls": [
+        "https://mariterrarambla.com/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence from the official website confirms the restaurant's name ('Mar i Terra'), its Mediterranean/Catalan cuisine focus ('restaurant mediterrani', 'platos inspirados en la gastronomía catalana'), and its location on Rambla de Catalunya (implied by the name 'Mar i Terra Rambla' and the logo). While the specific street number and price are not explicitly detailed in the snippet, the core identity and category of the venue are verified by the provided link.",
+      "claims_checked": [
+        "Venue name: Mar i Terra Rambla",
+        "Category: Mediterranean/Catalan dinner",
+        "Location: Rambla de Catalunya, Barcelona"
+      ]
+    },
+    {
+      "day_index": 4,
+      "slot_position": 8,
+      "slot_name": "Adapted taxi back to hotel",
+      "source_type": "link",
+      "source_urls": [
+        "https://wheelieguides.com/en/barcelona/transportation/airport/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence focuses exclusively on Barcelona-El Prat Airport (BCN) accessibility and airport transfers. It does not contain information regarding taxi fares between 'Mar i Terra Rambla' and 'Hotel ILUNION Barcelona', nor does it mention the availability or cost of adapted taxis for city transfers (non-airport). The link provided in the slot is specifically for airport transportation and does not support the claims for this specific intra-city route.",
+      "claims_checked": [
+        "Transport mode: Adapted taxi",
+        "Route: Mar i Terra Rambla to Hotel ILUNION Barcelona",
+        "Cost: €20.00",
+        "Availability of door-to-door adapted transfer"
+      ]
+    },
+    {
+      "day_index": 5,
+      "slot_position": 1,
+      "slot_name": "Hotel breakfast",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.enableholidays.com/ilunion-barcelona"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provides a specific link (https://www.enableholidays.com/ilunion-barcelona) as the source for its claims, but no content was retrieved from this link or any other source. Therefore, there is no evidence available to verify the location, the availability of breakfast, or the cost of €30.00.",
+      "claims_checked": [
+        "Location: Hotel ILUNION Barcelona",
+        "Service: Hotel breakfast available",
+        "Cost: €30.00"
+      ]
+    },
+    {
+      "day_index": 5,
+      "slot_position": 2,
+      "slot_name": "Accessible Metro/taxi to Passeig de Gràcia",
+      "source_type": "link",
+      "source_urls": [
+        "https://bcityng.com/wheelchair-accessible-travel-guide-barcelona/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims that the L4 metro line and Passeig de Gràcia are accessible options for wheelchair users, while suggesting an adapted taxi as an alternative. The evidence confirms that 'Barcelona has made major improvements in accessibility' and specifically mentions that 'Passeig de Gràcia and La Rambla are mostly flat and ideal for wheelchair users.' While the evidence snippet for the Metro is cut off, it acknowledges that 'Many stations have elevators,' which supports the slot's cautionary note to use the metro 'only if elevators are confirmed working.' The cost of €20.00 for an adapted taxi is a reasonable estimate for a short city trip, though not explicitly detailed in the text, it does not contradict the general accessibility information provided.",
+      "claims_checked": [
+        "Passeig de Gràcia is wheelchair accessible.",
+        "The Metro system in Barcelona has elevator access at many stations.",
+        "Adapted taxis are an alternative transport mode in Barcelona.",
+        "The L4 line serves the route toward Passeig de Gràcia."
+      ]
+    },
+    {
+      "day_index": 5,
+      "slot_position": 3,
+      "slot_name": "Casa Batlló accessible visit",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.accesscard.online/find-a-provider/casa-batll-/casa-batll-/",
+        "https://www.barcelona-tickets.com/casa-batllo-tickets/timings-opening-hours/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot's claims are well-supported by the provided evidence. The location matches Source 1 ('Pg. de Gràcia, 43'). The opening hours (10:30 AM - 12:00 PM) fall within the daily operating window of 09:00–22:00 mentioned in Source 2. Accessibility claims regarding priority elevators and wheelchair access are confirmed by Source 1 ('two elevators with priority use for people with disabilities... Wheelchair users are welcome to visit all areas'). The cost estimate of €70 for two people is consistent with Source 1's mention of a €6 discount for disabled visitors and a free ticket for an accompanying person, implying a standard ticket price in the €30-€40 range.",
+      "claims_checked": [
+        "Venue name: Casa Batlló",
+        "Address: Passeig de Gràcia, 43, 08007 Barcelona",
+        "Opening hours: 10:30 AM to 12:00 PM is within operating hours",
+        "Priority elevator access for wheelchair users",
+        "Wheelchair accessibility for main interior",
+        "Availability of disability discounts",
+        "Free ticket for an accompanying person"
+      ]
+    },
+    {
+      "day_index": 5,
+      "slot_position": 4,
+      "slot_name": "Casa Amatller accessible Modernisme visit",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.amatller.org/en/the-house-museum/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms the location (Passeig de Gràcia, 41), the opening hours (10 AM to 8 PM), and the availability of tours during the specified time window (audioguided tours every 30 minutes). The cost of €40 for two people is consistent with the 'Estimated €20 x 2' note, although the specific ticket price is not explicitly listed in the text snippet, the 'More Info' links point to ticket sales. The evidence confirms the 'Main floor' is the primary area for visits. While the specific accessibility details for the photography studio are not in the snippet, the general description of the house museum matches the slot's claims.",
+      "claims_checked": [
+        "Venue name: Casa Amatller",
+        "Address: Passeig de Gràcia, 41, 08007 Barcelona",
+        "Opening hours: 10 AM to 8 PM",
+        "Time window: 12:05:00 to 13:15:00 (within operating hours)",
+        "Main floor is open for visits",
+        "Estimated cost: €20 per person"
+      ]
+    },
+    {
+      "day_index": 5,
+      "slot_position": 5,
+      "slot_name": "Lunch: El Tros de La Rambla",
+      "source_type": "link",
+      "source_urls": [
+        "https://eltrosdelarambla.com/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms the restaurant name ('El Tros de la Rambla'), its location on Rambla Catalunya ('Subiendo Rambla Catalunya... se encuentra nuestro Tros de La Rambla'), and its proximity to Passeig de Gràcia/Gaudí buildings ('a la altura de la Casa Batlló... después de un tour por los famosos edificios Gaudí'). The cuisine is described as Mediterranean/seasonal ('comida mediterránea de temporada'), which is consistent with the 'Catalan lunch' claim. While the specific address '70' and the exact cost are not explicitly in the text snippet, the location description matches the slot's placement.",
+      "claims_checked": [
+        "Venue name: El Tros de La Rambla",
+        "Location: Rambla de Catalunya",
+        "Proximity to Passeig de Gràcia/Casa Batlló",
+        "Cuisine: Catalan/Mediterranean"
+      ]
+    },
+    {
+      "day_index": 5,
+      "slot_position": 6,
+      "slot_name": "Accessible Passeig de Gràcia architecture roll",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.amatller.org/en/the-house-museum/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a self-guided architecture walk along Passeig de Gràcia to view Modernista façades, specifically mentioning Casa Amatller via the provided link. The evidence confirms that Casa Amatller is a 'jewel of Catalan Modernism' and is located in Barcelona (implied by the description of it giving 'the city of Barcelona its characteristic appearance'). The slot's timing (15:15 - 16:45) falls within the venue's operating hours (10 AM to 8 PM). While the evidence focuses on interior tours, it confirms the existence and significance of the architecture mentioned in the slot's description of a 'pavement-based architecture route'.",
+      "claims_checked": [
+        "Location: Passeig de Gràcia, Barcelona",
+        "Subject: Modernista architecture/details (specifically Casa Amatller)",
+        "Time window: 15:15 - 16:45 (within 10:00 - 20:00 operating hours)",
+        "Cost: €0.00 (consistent with viewing façades from the pavement)"
+      ]
+    },
+    {
+      "day_index": 5,
+      "slot_position": 7,
+      "slot_name": "Rest at hotel",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.enableholidays.com/ilunion-barcelona"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provides a specific link (https://www.enableholidays.com/ilunion-barcelona) to verify the hotel's existence and accessibility features, but no content was retrieved from this link or any other source. Therefore, there is no evidence to confirm the location's name, its suitability for the described activities, or the feasibility of the requested services (ramp-equipped taxi booking).",
+      "claims_checked": [
+        "Venue name: Hotel ILUNION Barcelona",
+        "Location: Hotel ILUNION Barcelona",
+        "Cost: €0.00",
+        "Service: Reception can book ramp-equipped taxis",
+        "Service: Aena PRM assistance reconfirmation"
+      ]
+    },
+    {
+      "day_index": 5,
+      "slot_position": 8,
+      "slot_name": "Dinner: Bodega Biarritz 1881",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.bodega-biarritz.es/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms the venue name ('Bodega Biarritz 1881'), the exact address ('Carrer Nou de Sant Francesc, 7, Ciutat Vella, 08002 Barcelona'), and the cuisine type ('tapas innovantes et traditionnelles'). The cost claim of €80 for the slot is consistent with the evidence stating a fixed price formula of '20 ou 25 euros par personne' (for a group of 3-4 people, this aligns with the €80 estimate). The note regarding potential Wednesday closures is a cautious planning detail not contradicted by the site, which mentions daily preparation but does not explicitly list 2026 operating hours.",
+      "claims_checked": [
+        "Venue name: Bodega Biarritz 1881",
+        "Address: Carrer Nou de Sant Francesc, 7, 08002 Barcelona",
+        "Category: Catalan tapas",
+        "Cost: €80.00 (consistent with €20-25 per person formula)",
+        "Note: Wednesday closures can occur"
+      ]
+    },
+    {
+      "day_index": 5,
+      "slot_position": 9,
+      "slot_name": "Adapted taxi back to hotel",
+      "source_type": "link",
+      "source_urls": [
+        "https://wheelieguides.com/en/barcelona/transportation/airport/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence focuses exclusively on Barcelona-El Prat Airport (BCN) accessibility and airport transfers. It does not contain information regarding taxi fares between Bodega Biarritz 1881 and Hotel ILUNION Barcelona, nor does it mention the availability or cost of adapted taxis for city travel outside of airport contexts. Therefore, there is no evidence to confirm or refute the claims about the specific route, duration, or cost.",
+      "claims_checked": [
+        "Transport mode: Adapted taxi",
+        "Route: Bodega Biarritz 1881 to Hotel ILUNION Barcelona",
+        "Cost: €20.00",
+        "Duration: 30 minutes (21:30 to 22:00)"
+      ]
+    },
+    {
+      "day_index": 6,
+      "slot_position": 1,
+      "slot_name": "Check out and adapted taxi to BCN airport",
+      "source_type": "link",
+      "source_urls": [
+        "https://wheelieguides.com/en/barcelona/transportation/airport/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms that Barcelona-El Prat Airport (BCN) provides PRM (Person with Reduced Mobility) assistance through AENA, which is free and covers the journey from check-in to the aircraft seat ('PRM assistance at Barcelona-El Prat is provided by AENA... service is free'). The evidence also confirms the airport's location relative to the city ('15 km southwest of central Barcelona'), which is consistent with a 50-minute taxi window (04:45 to 05:35). While the specific cost of €45 and the hotel name are not in the provided link, the link validates the core logistical claim regarding the availability and provider of the specialized assistance mentioned in the description.",
+      "claims_checked": [
+        "Destination is Barcelona-El Prat Airport (BCN)",
+        "Aena provides PRM assistance from check-in to aircraft seat",
+        "Travel time is approximately 50 minutes (04:45 to 05:35)",
+        "Ramp-equipped taxis are a valid transport mode for this route"
+      ]
+    },
+    {
+      "day_index": 6,
+      "slot_position": 2,
+      "slot_name": "Aena PRM assistance and airport breakfast buffer",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.getyourguide.com/barcelona-el-prat-airport-l36952/wheelchair-accessible-tc239/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provided a GetYourGuide link as evidence, but no content was retrieved from that link or any other source. Therefore, there is no evidence available to verify the claims regarding PRM assistance procedures, costs, or accessibility at Barcelona-El Prat Airport.",
+      "claims_checked": [
+        "Official PRM assistance at BCN is free.",
+        "PRM assistance must be requested at least 48 hours in advance.",
+        "Accessible airport café/restaurant options exist in Terminal 1.",
+        "The cost for the breakfast buffer is approximately €30.00."
+      ]
+    },
+    {
+      "day_index": 6,
+      "slot_position": 3,
+      "slot_name": "Direct flight Barcelona → Munich: Vueling VY1812",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.google.com/travel/flights?hl=en&gl=us&curr=EUR&tfs=CBwQAhoeEgoyMDI2LTA5LTA1agcIARIDTVVDcgcIARIDQkNOGh4SCjIwMjYtMDktMTBqBwgBEgNCQ05yBwgBEgNNVUNAAUABSAFwAZgBAQ&tfu=EgIIAQ"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence is a Google Flights search page that failed to render any specific flight details, schedules, or prices in the text extraction. While the URL contains parameters for a flight on 2026-09-10 from BCN to MUC, the fetched content only shows UI elements ('Top departing flights', 'Price insights') and placeholders without any actual flight numbers (VY1812), times (07:30), or costs (€164.00). Therefore, the claims cannot be verified or contradicted.",
+      "claims_checked": [
+        "Flight number: Vueling VY1812",
+        "Route: Barcelona (BCN) to Munich (MUC)",
+        "Departure time: 2026-09-10 07:30",
+        "Arrival time: 2026-09-10 09:40",
+        "Cost: €164.00 (half of €328 round-trip for 2 adults)",
+        "Direct flight status"
+      ]
+    },
+    {
+      "day_index": 6,
+      "slot_position": 4,
+      "slot_name": "Munich Airport PRM assistance and accessible arrival",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.munich-airport.com/accessible-travel-260945"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms that Munich Airport provides a 'Mobility Service' for people with limited mobility. It explicitly states that the service must be requested through the airline or travel organizer 'no later than 48 hours before departure' (supporting the 'requested in advance' claim). While the specific EU regulation is not named in the text, the service is described as a standard airport offering for passengers with impairments. The location (Munich Airport) and the nature of the service (assistance for journeys) align with the slot description.",
+      "claims_checked": [
+        "Munich Airport provides PRM/mobility services for deplaning and terminal navigation.",
+        "The service is available at Munich Airport (MUC).",
+        "The service must be requested in advance (at least 48 hours).",
+        "The service is intended for passengers with limited mobility or impairments."
+      ]
+    },
+    {
+      "day_index": 6,
+      "slot_position": 5,
+      "slot_name": "Accessible arrival snack / lunch buffer at Munich Airport",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.munich-airport.com/accessible-travel-260945"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence from the Munich Airport 'Barrier-free travel' page focuses exclusively on mobility services, airline notification procedures, and classifications of mobility impairment (WCHR, WCHS, etc.). It does not mention specific dining venues like 'Käfer Bistro', nor does it confirm the accessibility status or presence of lifts specifically for the Munich Airport Center (MAC) or Terminal 2 dining facilities. While the page confirms the airport generally supports accessible travel, it provides no data to verify the specific claims about the snack/lunch buffer or the step-free nature of the named bistro.",
+      "claims_checked": [
+        "Venue name: Käfer Bistro Terminal 2",
+        "Location: Munich Airport Terminal 2 / Munich Airport Center",
+        "Accessibility: Käfer Bistro and MAC facilities are step-free with lifts nearby",
+        "Category: Meal/Snack available at 10:30 AM"
+      ]
+    }
+  ],
+  "rationale_pass_count": 22,
+  "rationale_fail_count": 0,
+  "rationale_missing_count": 22,
+  "hc_micro_pass_rate": 1.0,
+  "cc_micro_pass_rate": 0.7692,
+  "hc_macro_pass_rate": 1.0,
+  "cc_macro_pass_rate": 0.0,
+  "final_pass_rate": 0.0,
+  "aggregated_constraints": [
+    {
+      "id": "HC-1",
+      "constraint_text": "origin: Munich",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-2",
+      "constraint_text": "destination: Barcelona",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-3",
+      "constraint_text": "travel_dates: 2026.09.05 to 2026.09.10",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-4",
+      "constraint_text": "travelers: 2 adults",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-5",
+      "constraint_text": "budget: 4000 EUR total",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-6",
+      "constraint_text": "accommodation: fully accessible hotel with roll-in shower and lift",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-7",
+      "constraint_text": "transport: Flight",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-8",
+      "constraint_text": "interests: Gaudí architecture, accessible beaches, local food, accessible museums",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-1",
+      "constraint_text": "Car or road trip transport is not feasible for island or overseas destinations — a flight or ferry is required.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "NA",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 3,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 1
+    },
+    {
+      "id": "CC-2",
+      "constraint_text": "No key information should be left out of the plan, such as the lack of accommodation during travel.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-3",
+      "constraint_text": "Transportation choices within the trip must be reasonable. For example, having both “self-driving” and “flight” would be considered a conflict.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-4",
+      "constraint_text": "Both outbound and return transport must appear in the plan.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-5",
+      "constraint_text": "Flight or train connections must allow sufficient layover time (≥60 min domestic, ≥90 min international).",
+      "constraint_type": "commonsense",
+      "final_verdict": "FAIL",
+      "judge_verdicts": [
+        "NA",
+        "PASS",
+        "MISSING_INFO",
+        "PASS"
+      ],
+      "pass_count": 2,
+      "fail_count": 0,
+      "missing_count": 1,
+      "na_count": 1
+    },
+    {
+      "id": "CC-6",
+      "constraint_text": "Accommodation must be planned for every night of the trip.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-7",
+      "constraint_text": "Hotel check-in must be scheduled after arrival transport reaches the destination.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-8",
+      "constraint_text": "Restaurants must be open on the planned day and time.",
+      "constraint_type": "commonsense",
+      "final_verdict": "FAIL",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "MISSING_INFO",
+        "MISSING_INFO"
+      ],
+      "pass_count": 2,
+      "fail_count": 0,
+      "missing_count": 2,
+      "na_count": 0
+    },
+    {
+      "id": "CC-9",
+      "constraint_text": "Restaurant choices should not be repeated throughout the trip.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-10",
+      "constraint_text": "Activities should be geographically sensible per day (no unnecessary cross-city travel).",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-11",
+      "constraint_text": "Attractions must be open on the planned day and time.",
+      "constraint_type": "commonsense",
+      "final_verdict": "FAIL",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "MISSING_INFO",
+        "MISSING_INFO"
+      ],
+      "pass_count": 2,
+      "fail_count": 0,
+      "missing_count": 2,
+      "na_count": 0
+    },
+    {
+      "id": "CC-12",
+      "constraint_text": "Attraction choices should not be repeated throughout the trip.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-13",
+      "constraint_text": "Travel time between consecutive activities must account for realistic transit duration.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "MISSING_INFO",
+        "PASS"
+      ],
+      "pass_count": 3,
+      "fail_count": 0,
+      "missing_count": 1,
+      "na_count": 0
+    }
+  ],
+  "timestamp": "2026-05-16T20:03:36.248656+00:00"
+}

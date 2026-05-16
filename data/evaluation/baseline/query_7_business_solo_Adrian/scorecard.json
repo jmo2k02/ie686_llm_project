@@ -1,0 +1,851 @@
+{
+  "plan_excerpt": "# TravelPlan: Baseline itinerary: Frankfurt to New York business trip, June 15–17, 2026\n\n| Day 1 — 2026-06-15 — Frankfurt to New York, hotel check-in, first client dinner | Day 2 — 2026-06-16 — Meetings and formal client dinner | Day 3 — 2026-06-17 — Final meetings and return flight |\n| --- | --- | ",
+  "judge_models": [
+    "openrouter:minimax/minimax-m2.7",
+    "openrouter:google/gemini-3-flash-preview",
+    "openrouter:deepseek/deepseek-v4-flash",
+    "openrouter:qwen/qwen3.5-397b-a17b"
+  ],
+  "timed_out_models": [],
+  "rationale_verifications": [
+    {
+      "day_index": 1,
+      "slot_position": 1,
+      "slot_name": "Arrive at Frankfurt Airport",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.jayride.com/airport-transfer/germany/frankfurt-airport-fra?srsltid=AfmBOoqBaqVnvGTlJEcB_JLtl2bQo0aq7t9jRk4HnlBdAdJVxSlVvdkS",
+        "https://www.frankfurt-airport.com/en/transport-and-parking/to-from-the-airport/travel-by-train.html",
+        "https://www.frankfurt-airport.com/en/flights-and-transfer/transferring-at-fra.html",
+        "https://community.ricksteves.com/travel-forum/germany/navigating-frankfurt-airport",
+        "https://www.sixt.com/ride/airport-transfer/frankfurt/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms that Frankfurt Airport (FRA) is a major international hub (Source 1). Source 3 confirms the existence of 'Service Points' and 'transfer desks' for arriving/connecting passengers, which is consistent with the slot's mention of using airline services like lounges or priority check-in. The location 'Frankfurt Airport, FRA' is explicitly verified by Source 1 and Source 2.",
+      "claims_checked": [
+        "Venue name: Frankfurt Airport",
+        "IATA code: FRA",
+        "Availability of airline services (lounges/check-in) for business class passengers",
+        "Location: Frankfurt, Germany"
+      ]
+    },
+    {
+      "day_index": 1,
+      "slot_position": 2,
+      "slot_name": "Flight FRA to JFK/EWR",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.united.com/en-us/flights-from-frankfurt-to-new-york",
+        "https://www.flightconnections.com/flights-from-fra-to-jfk"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence supports the existence of nonstop flights from Frankfurt (FRA) to New York (JFK/EWR). Source 1 shows United Airlines fares for June 2026 starting from $661 (approximately €615), which is consistent with the slot's estimated cost of €700. Source 2 confirms the route FRA to JFK exists. While the specific time window (10:30 to 13:30) is a 9-hour duration (accounting for the 6-hour time difference), this is standard for a transatlantic flight of approximately 8-9 hours departing in the morning and arriving in the early afternoon local time.",
+      "claims_checked": [
+        "Nonstop flight from Frankfurt (FRA) to New York (JFK/EWR) exists.",
+        "Flights are available in June 2026.",
+        "Cost is approximately €700 (consistent with $661 fare).",
+        "Daytime flight schedule is feasible."
+      ]
+    },
+    {
+      "day_index": 1,
+      "slot_position": 3,
+      "slot_name": "Transfer to Midtown",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.mta.info/guides/airports/jfk/jfk-airport-to-manhattan"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims a JFK rail estimate of $15-$20. While the provided evidence text is truncated, the URL provided (mta.info/guides/airports/jfk/jfk-airport-to-manhattan) is the official source for these fares. The slot's cost of €15.00 is consistent with the $15-$20 estimate (approx. €14-€18). The time window of 90 minutes for immigration, baggage, and transfer is a standard travel estimate. Although the evidence mentions a strike 'Updated May 16th', the travel date is June 15th, 2026, and the slot correctly identifies the rail and car service options described in the linked official guides.",
+      "claims_checked": [
+        "JFK rail estimate: $15-$20",
+        "Car service estimate: $90-$160",
+        "Transfer destination: Midtown Manhattan",
+        "Transport options: JFK rail or car service/taxi"
+      ]
+    },
+    {
+      "day_index": 1,
+      "slot_position": 4,
+      "slot_name": "Check in at Hyatt Grand Central New York",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.hyatt.com/hyatt-hotels/en-US/nycgh-hyatt-grand-central-new-york/gallery"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provided a specific URL for the Hyatt Grand Central New York, but no evidence was retrieved from that link or any other source. Therefore, the claims regarding the address (109 East 42nd Street), the location's proximity to Grand Central Terminal, and the pricing estimates cannot be verified or contradicted.",
+      "claims_checked": [
+        "Venue name: Hyatt Grand Central New York",
+        "Address: 109 East 42nd Street, Midtown Manhattan",
+        "Location: Directly at Grand Central Terminal",
+        "Cost/Price: €350.00 (Estimate: €350-€700/night)"
+      ]
+    },
+    {
+      "day_index": 1,
+      "slot_position": 5,
+      "slot_name": "Rest/Work",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.hotel48lexnewyork.com/offers/work-stay-play",
+        "https://www.marriott.com/en-us/hotels/atlbd-renaissance-atlanta-midtown-hotel/overview/",
+        "https://www.instagram.com/reel/DVWWccsjVgJ/",
+        "https://www.loewshotels.com/atlanta-hotel",
+        "https://www.marriott.com/en-us/hotels/atlbd-renaissance-atlanta-midtown-hotel/experiences/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a period of rest and work at a hotel in 'Midtown'. The search results confirm that 'Midtown' (specifically Midtown Manhattan and Midtown Atlanta) is a standard district for hotels catering to both business and leisure travelers. For example, Source 1 mentions a 'Midtown Manhattan hotel' designed to 'seamlessly blend productivity with unparalleled comfort,' which aligns with the slot's description of reviewing materials and handling email. Source 2 and 4 also confirm the existence of upscale hotels in Midtown (Atlanta) suitable for 'Business & leisure travelers.' Since the slot is a generic placeholder for personal time at a hotel, and the evidence confirms Midtown is a valid location for such hotels and activities, the claims are supported.",
+      "claims_checked": [
+        "Location: Hotel / Midtown",
+        "Category: leisure",
+        "Activity: Refresh, review meeting materials, handle email",
+        "Cost: €0.00"
+      ]
+    },
+    {
+      "day_index": 1,
+      "slot_position": 6,
+      "slot_name": "Informal prep meeting",
+      "source_type": "link",
+      "source_urls": [
+        "https://grandcentralterminal.com/visit/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot proposes an informal meeting near Grand Central Terminal between 17:30 and 18:30. The evidence confirms that Grand Central Terminal is 'Open to Public Daily 5:15 AM – 2:00 AM', which covers the requested time window. The location 'Midtown East / Bryant Park area' is consistent with the location of Grand Central Terminal. While the specific cost of coffee is not listed, the terminal's hours support the feasibility of the meeting time.",
+      "claims_checked": [
+        "Location: Midtown East / Bryant Park area / Grand Central",
+        "Time window: 17:30 - 18:30",
+        "Venue availability: Open to the public during the specified time"
+      ]
+    },
+    {
+      "day_index": 1,
+      "slot_position": 7,
+      "slot_name": "Client dinner at The Grill",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.majorfood.com/brands/the-grill"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms the venue name ('THE GRILL'), its location in the 'Seagram Building', and its specific address ('99 East 52nd Street New York, NY 10022'). The description of it as a 'powerhouse' and 'glamorous room' in Midtown Manhattan aligns with the slot's description of a 'Midtown power-dinner setting'. While the evidence does not explicitly state the price or the need for reservations, the slot's cost is presented as an 'Estimate' and the reservation is a recommendation, neither of which are contradicted by the provided text.",
+      "claims_checked": [
+        "Venue name: The Grill",
+        "Location: 99 E 52nd St",
+        "Setting: Seagram Building",
+        "Neighborhood: Midtown Manhattan"
+      ]
+    },
+    {
+      "day_index": 1,
+      "slot_position": 8,
+      "slot_name": "Transport to hotel",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.rome2rio.com/Bus/New-York-Hilton-Midtown/Grand-Central-Terminal",
+        "https://www.rome2rio.com/s/New-York-Hilton-Midtown/Grand-Central-Terminal",
+        "https://www.facebook.com/groups/3135585626680301/posts/3533674693538057/",
+        "https://www.rome2rio.com/s/New-York-Hilton-Midtown/Grand-Central-Station",
+        "https://www.tripadvisor.com/ShowTopic-g60763-i5-k14670101-Transport_from_jfk_to_fitzpatricks_grand_central_hotel-New_York_City_New_York.html"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims a taxi or black car transport from Midtown to the Grand Central area takes approximately 30 minutes and costs roughly $15-$40 (€15.00). Evidence from Source 2 confirms that taxi is one of the primary ways to get from a Midtown location (New York Hilton Midtown) to Grand Central Terminal. While the evidence does not explicitly state the taxi fare for this specific short distance, Source 1 notes that a bus for this route takes 15 minutes, making a 30-minute window for a taxi (including wait time) highly plausible. The cost estimate of $15-$40 is consistent with standard NYC taxi minimums and short-distance metered fares, especially when compared to the $70 flat rate for much longer airport trips mentioned in Source 5.",
+      "claims_checked": [
+        "Transport mode: Taxi or black car",
+        "Route: Midtown to Grand Central area",
+        "Duration: 30 minutes (21:30 to 22:00)",
+        "Cost: €15.00 / $15-$40"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 1,
+      "slot_name": "Breakfast",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.facebook.com/HyattGCNY/posts/at-hyatt-grand-central-new-york-weve-got-your-cravings-covered-breakfast-buffet-/1192052829635078/",
+        "https://www.youtube.com/watch?v=zke9vd_JIIA",
+        "https://www.yelp.com/search?find_desc=Breakfast&find_near=hyatt-grand-central-new-york-new-york",
+        "https://www.hyatt.com/hyatt-hotels/en-US/nycgh-hyatt-grand-central-new-york/dining",
+        "https://www.tripadvisor.com/ShowUserReviews-g60763-d93450-r395855161-Hyatt_Grand_Central_New_York-New_York_City_New_York.html"
+      ],
+      "verdict": "FAIL",
+      "reasoning": "The slot claims a cost of €25.00 (approximately $26-$27 USD) for breakfast at the Hyatt Grand Central. However, evidence from Source 2 (a review from October 2025) states the breakfast buffet at this specific hotel costs '$45 + a 18% service charge and tax', totaling 'just under $58'. This significantly contradicts the slot's cost estimate and the note's lower-end estimate of $25. The time window (07:30-08:30) is supported by Source 1 and 4, which confirm breakfast hours from 6:30 AM to 12:30 PM.",
+      "claims_checked": [
+        "Location: Hyatt Grand Central / Midtown",
+        "Time: 07:30 - 08:30",
+        "Cost: €25.00 ($25-$50 estimate in notes)",
+        "Category: Breakfast/Meal"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 2,
+      "slot_name": "Transport to meeting",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.mta.info/press-release/mta-board-adopts-fare-and-toll-increases-take-effect-january-2026"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims a subway fare of 'about $3' and a cost of '€3.00' (which is approximately $3.25 USD). The provided evidence is a press release titled 'MTA Board Adopts Fare and Toll Increases to Take Effect January 2026'. While the full text of the fare table is truncated in the snippet, the title explicitly confirms that a fare increase was adopted to take effect in January 2026. Given the current standard fare is $2.90, an increase in 2026 would logically place the fare at or very near the $3.00 mark mentioned in the notes. The location (Midtown Manhattan) and transport mode (Subway) are consistent with MTA operations.",
+      "claims_checked": [
+        "Subway fare is about $3",
+        "MTA fare increase takes effect January 2026",
+        "Location: Midtown Manhattan",
+        "Transport mode: Subway"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 3,
+      "slot_name": "Primary business meetings",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://liquidspace.com/us/ny/new-york/primary",
+        "https://www.servcorp.com/en/meeting-rooms/prices-and-locations/new-york-city/1330-avenue-of-the-americas/",
+        "https://www.instagram.com/reel/DQH-NQfkvMn/",
+        "https://www.yelp.com/search?find_desc=Public+Spaces&find_loc=Financial+District%2C+Manhattan%2C+NY",
+        "https://www.businesstravel.com/a-business-travelers-guide-to-new-york-city"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot describes a generic 'Primary business meeting' at a 'Client office' with an assumed location of Midtown or the Financial District. The evidence provided consists of search results for coworking spaces named 'Primary' in the Financial District and general business travel guides for NYC. While the evidence confirms that Midtown and the Financial District are major business hubs (Source 5) and that there is a coworking venue called 'Primary' at 26 Broadway (Source 1), it cannot verify the specific existence or details of the user's private 'Primary business meetings' or the specific 'Client office' mentioned, as these are internal/private details not available in public web search results.",
+      "claims_checked": [
+        "Venue name: Primary business meetings",
+        "Location: Client office, assumed Midtown / Financial District",
+        "Time window: 09:00:00 to 12:00:00",
+        "Cost: €0.00"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 4,
+      "slot_name": "Business lunch",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://atlanta.com/articles/midtown/lunch-in-atlanta-midtown",
+        "https://aifiorinyc.com/ai-fioris-business-lunch-the-ultimate-prix-fixe-experience-in-midtown-manhattan",
+        "https://www.theinfatuation.com/new-york/guides/midtown-takeout-lunch",
+        "https://www.theinfatuation.com/new-york/guides/midtown-lunch",
+        "https://www.dearbornareachamber.org/event/dual-small-business-lunch-at-the-canteen-at-midtown"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a generic 'Business lunch' in 'Midtown' with a cost estimate of €60 ($60-$120). The evidence confirms that 'Midtown' (specifically Manhattan) is a major business hub with dedicated 'Business Lunch' and 'Power Lunch' offerings. Source 2 explicitly mentions a 'Business Lunch' prix fixe experience in Midtown Manhattan designed for professionals. Source 4 lists several 'Power Lunch' venues in Midtown suitable for 'Corporate Cards' and 'closing deals.' The cost estimate of €60 ($60-$120) is consistent with the 'Fine Dining' and 'Michelin-acclaimed' nature of the venues described in the evidence for this specific category and location.",
+      "claims_checked": [
+        "Location: Midtown",
+        "Category: Business lunch",
+        "Cost: €60.00 (Notes: $60-$120 pp)",
+        "Context: Quiet venue close to client office/meeting location"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 5,
+      "slot_name": "Afternoon meetings",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.officeevolution.com/locations/usa/florida/tampa/meeting-rooms/",
+        "https://liquidspace.com/s/Tampa,%20FL",
+        "https://www.deskpass.com/us-en/fl/tampa/conference-room",
+        "https://www.yelp.com/search?find_desc=Coworking+Space&find_loc=Tampa%2C+FL",
+        "https://www.wework.com/l/coworking-space/tampa--FL"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a generic business activity (meetings/workshops) at a 'Client office / coworking / hotel meeting space' in Tampa. The evidence confirms the existence and availability of such spaces in Tampa. Specifically, Source 1 confirms 'Office Evolution Tampa offers meeting and conference room options', Source 2 lists 'Tampa hourly and daily office space... meeting, or coworking space', and Source 5 confirms 'WeWork... conference rooms' in Tampa. The note regarding Hyatt/nearby business venues requiring live availability is a procedural instruction rather than a verifiable claim of fact that can be contradicted by the general search results.",
+      "claims_checked": [
+        "Availability of coworking/meeting spaces in Tampa",
+        "Availability of conference rooms for client meetings/workshops",
+        "Existence of business venues like Office Evolution or WeWork in the area"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 6,
+      "slot_name": "Buffer",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.yelp.com/search?cflt=buffets&find_loc=Midtown+East%2C+Manhattan%2C+NY",
+        "https://takingthekids.com/this-midtown-manhattan-buffet-is-new-yorks-best-all-you-can-eat-experience/",
+        "https://www.getyourguide.com/midtown-manhattan-l98088/food-drinks-tc103/",
+        "https://everafterinthewoods.com/new-yorks-best-all-you-can-eat-buffet-is-right-in-midtown-manhattan/",
+        "https://www.tripadvisor.com/Restaurants-g60763-zfn7102352-zfp49-New_York_City_New_York.html"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot uses the term 'Buffer' as a scheduling placeholder for personal time (returning to the hotel, calling Europe, changing clothes). However, the search results interpret 'Buffer' as a literal 'Buffet' restaurant (e.g., Crab House NYC, Yard House). Because the search results do not contain information regarding a scheduling buffer or a specific hotel location for this user, there is no evidence to verify the claims about the activity or the location's cost. The evidence is silent on the intended meaning of the slot.",
+      "claims_checked": [
+        "Name: Buffer",
+        "Location: Midtown Manhattan",
+        "Cost: €0.00",
+        "Activity: Return to hotel, call Europe, change for dinner"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 7,
+      "slot_name": "Transport to dinner",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://corecar.com/corporate-dinner-transportation-in-nyc/",
+        "https://www.ladottransit.com/dash/midtown/",
+        "https://www.instagram.com/reel/DIw7-pRzFbY/",
+        "https://latourist.com/index.php?page=los-angeles-transportation",
+        "https://www.tiktok.com/@iamdestinyadams/video/7437133231805205806"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims a transport cost of approximately €15.00 (with a note estimating $15-$40) for a taxi or walk in Midtown. While the search results are somewhat generic, Source 2 (LADOT Transit) mentions a 'DASH Midtown' service with fares ranging from $0.15 to $9.00, and Source 1 discusses the logistical challenges of Midtown traffic for dinner transportation. A taxi fare of $15-$40 for a 30-minute window in a major city's 'Midtown' district (like NYC or LA) is a standard, verifiable expectation for urban transport, and the evidence provided for 'DASH Midtown' shows public options are well under this budget, making the €15.00/ $15-$40 estimate for a private taxi consistent with typical urban pricing structures found in the search results.",
+      "claims_checked": [
+        "Location: Midtown",
+        "Transport mode: Taxi or walk",
+        "Duration: 30 minutes (18:00 to 18:30)",
+        "Cost: €15.00 (Estimate $15-$40)"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 8,
+      "slot_name": "Client dinner at Le Bernardin",
+      "source_type": "link",
+      "source_urls": [
+        "https://ny.eater.com/maps/best-nyc-restaurants-for-client-dinners"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot proposes Le Bernardin as a high-end seafood option for a client dinner in Midtown West. The provided Eater NY link ('17 Luxurious NYC Restaurants to Woo a Client') explicitly lists Le Bernardin as a top choice for this purpose. While the full text of the Eater article is truncated in the evidence, the title and the context of the link provided by the user support the venue's reputation for client dinners. The location (Midtown West) and category (high-end seafood) are consistent with the restaurant's established profile. The cost estimate in the notes ($250-$450+ pp) is consistent with the pricing of a world-class Michelin-starred seafood restaurant in Manhattan, though the specific '€250.00' field is a conversion/estimate that aligns with the lower end of the notes.",
+      "claims_checked": [
+        "Venue name: Le Bernardin",
+        "Location: Midtown West",
+        "Category: High-end seafood",
+        "Suitability: Client dinner/business meal",
+        "Cost estimate: $250-$450+ per person"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 9,
+      "slot_name": "Return to hotel",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.rome2rio.com/s/New-York-Hilton-Midtown/Grand-Central-Hotel-NY-USA",
+        "https://www.rome2rio.com/s/New-York-Hilton-Midtown/Grand-Central-Terminal",
+        "https://www.facebook.com/groups/3135585626680301/posts/3533674693538057/",
+        "https://www.rome2rio.com/s/New-York-Midtown/Grand-Central-42nd-Street-Station",
+        "https://www.tripadvisor.com/ShowTopic-g60763-i5-k9544765-JFK_to_Grand_Central-New_York_City_New_York.html"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims a transport route from Midtown to the Grand Central area via taxi/ride-hail with a duration of 30 minutes and a cost of approximately €15 ($15-$40). Evidence from Rome2Rio (Sources 1, 2, and 4) confirms that taxi is a standard way to travel between these two points. While the evidence does not explicitly state the exact price in Euros, the slot's internal note ($15-$40) is a standard range for short taxi trips in Manhattan, and the €15 cost claim falls within that reasonable estimation. The 30-minute time window is consistent with short-distance travel in Midtown traffic.",
+      "claims_checked": [
+        "Transport mode: Taxi or ride-hail",
+        "Route: Midtown to Grand Central area",
+        "Duration: 30 minutes (21:30 to 22:00)",
+        "Cost: €15.00 (approx $15-$40)"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 1,
+      "slot_name": "Breakfast and check out",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.facebook.com/HyattGCNY/posts/at-hyatt-grand-central-new-york-weve-got-your-cravings-covered-breakfast-buffet-/1192052829635078/",
+        "https://www.reservationdesk.com/hotel/5ff538f/hyatt-grand-central-new-york",
+        "https://www.tripadvisor.com/Hotel_Review-g60763-d93450-Reviews-Hyatt_Grand_Central_New_York-New_York_City_New_York.html",
+        "https://www.hotels.com/ho106069/grand-hyatt-new-york-new-york-united-states-of-america/",
+        "https://www.expedia.com/New-York-Hotels-Grand-Hyatt-New-York.h23677.Hotel-Information"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims a breakfast service at the Hyatt Grand Central New York within the 07:30-08:30 window, a cost of approximately €25 ($25-$50), and the ability to check out. Evidence from Source 1 and 2 confirms breakfast is served daily starting at 6:30 AM ('Breakfast Buffet daily from 6:30AM to 12:30PM'). Source 5 confirms the cost is within the estimated range ('Fee for full breakfast: approximately USD 15 to 65'). Source 4 confirms the standard check-out time is 11 AM, making an 08:30 check-out feasible.",
+      "claims_checked": [
+        "Location: Hyatt Grand Central New York",
+        "Breakfast availability at 07:30",
+        "Cost: €25.00 (Notes: $25-$50)",
+        "Check out is possible at 08:30"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 2,
+      "slot_name": "Transfer to meeting",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.mta.info/press-release/mta-board-adopts-fare-and-toll-increases-take-effect-january-2026"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims a subway fare of approximately $3.00 (noted as €3.00 in the cost field, but clarified as $3 in the notes) for a trip in June 2026. The provided evidence from the MTA official website confirms that a fare increase was adopted to take effect in January 2026. While the specific dollar amount is cut off in the snippet, the title 'MTA Board Adopts Fare and Toll Increases to Take Effect January 2026' supports the premise of a fare adjustment by that date, and a $3.00 estimate is consistent with standard incremental increases from the previous $2.90 fare. The location (Midtown) and transport mode (subway) are standard for NYC transit covered by the MTA.",
+      "claims_checked": [
+        "Subway fare is approximately $3.00",
+        "Fare increase takes effect by June 2026",
+        "Transport mode: subway or taxi",
+        "Location: Midtown / client office"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 3,
+      "slot_name": "Final meetings",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.pinterest.com/ideas/office-for-client-meetings/902944768313/",
+        "https://www.iicle.com/preparing-for-and-conducting-the-first-meeting-and-the-final-meeting-with-the-client",
+        "https://officephase.com/2026/02/18/client-meetings-without-the-cost-of-a-permanent-office/",
+        "https://www.quora.com/How-do-you-end-a-meeting-with-a-client-politely",
+        "https://telsec.net/how-to-effectively-structure-run-a-client-meeting/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot describes a generic business activity ('Final meetings') at a placeholder location ('Client office'). The provided evidence consists of general articles about office design, meeting etiquette, and flexible office rentals. None of the evidence contains information regarding a specific client office, a specific contract discussion, or a scheduled event for the date 2026-06-17. Because the location is explicitly noted as 'not provided' and the activity is a generic placeholder, there are no verifiable real-world facts in the evidence to confirm or deny the slot's details.",
+      "claims_checked": [
+        "Activity: Final meetings, contract discussions, or follow-up workshop",
+        "Location: Client office",
+        "Date: 2026-06-17",
+        "Cost: €0.00"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 4,
+      "slot_name": "Working lunch",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.facebook.com/groups/pisonerosfoodreview/posts/8622045224517890/",
+        "https://www.theinfatuation.com/new-york/guides/the-best-midtown-lunch-nyc-guide",
+        "https://www.yelp.com/search?find_desc=Work+Lunch&find_loc=Midtown%2C+Nashville%2C+TN",
+        "https://www.reddit.com/r/FoodNYC/comments/17m7m1m/casual_lunch_in_midtown_east_mid50s2nd/",
+        "https://www.yelp.com/search?find_desc=Business+Lunch&find_loc=Midtown%2C+Nashville%2C+TN"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a 'working lunch' in 'Midtown' with a budget estimate of '$50-$100'. Source 1 explicitly discusses business lunches in Midtown with a 'Budget around $50-$100 pp', which directly supports the cost and category claims. Source 2 confirms Midtown is a standard location for 'corporate-card-worthy sit down' or 'power lunch' options. While the slot mentions 'Financial District' as an alternative, the evidence for Midtown is sufficient to validate the feasibility of the claims.",
+      "claims_checked": [
+        "Location: Midtown",
+        "Category: Working lunch / Business lunch",
+        "Cost: €50.00 / $50-$100 range"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 5,
+      "slot_name": "Wrap-up",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.instagram.com/reel/DJ13Qp_yE0Q/",
+        "https://www.instagram.com/reel/DAydEx8xPEq/",
+        "https://www.tiktok.com/@lonefoxhome/video/7609745268694617358",
+        "https://www.lemon8-app.com/experience/hotel-lobby-coffee?region=us",
+        "https://www.tiktok.com/@tahliaaedwards/video/7242700011006446891"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a generic 'Wrap-up' activity involving notes and calls in a hotel lobby or quiet café. The evidence supports the feasibility of this activity in such locations. Specifically, Source [5] confirms that hotel lobbies are a 'life hack' for remote work and laptop use, contrasting them with cafes that may be 'laptop free.' Source [2] identifies a specific 'cute cafe' in an office building lobby that 'offers a quiet space to do some work.' The cost estimate of €0.00 (or $0-$30 in notes) is consistent with using a public lobby or purchasing a coffee while working.",
+      "claims_checked": [
+        "Activity: Wrap-up, notes, and internal calls",
+        "Location: Hotel lobby / client office / quiet café",
+        "Cost: €0.00 (or $0-$30)",
+        "Suitability of hotel lobbies/cafes for work"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 6,
+      "slot_name": "Collect luggage",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.hafh.com/en/travel-stories/10256",
+        "https://www.facebook.com/groups/1356268181922293/posts/1821439648738475/",
+        "https://www.tripadvisor.com/ShowUserReviews-g60763-d93450-r561361164-Hyatt_Grand_Central_New_York-New_York_City_New_York.html",
+        "https://www.reddit.com/r/hyatt/comments/1l4wbdk/hyatt_grand_central_nyny_globalist_no_exempt/",
+        "https://luggagehero.com/newyork/grand-central-terminal/"
+      ],
+      "verdict": "FAIL",
+      "reasoning": "The slot claims a cost of €0.00 for collecting luggage from the hotel concierge. However, multiple sources indicate that the Hyatt Grand Central New York charges a fee for luggage storage after checkout. Source 1 states: 'Please note that luggage storage after checkout is charged'. Source 3 explicitly mentions a '$25 fee' for storing bags. While one Reddit user in Source 4 claimed they were not charged, the official/travel site information (Sources 1 and 3) contradicts the '€0.00' claim for post-checkout storage.",
+      "claims_checked": [
+        "Location: Hyatt Grand Central New York",
+        "Cost: €0.00",
+        "Service: Luggage collection from hotel concierge"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 7,
+      "slot_name": "Transfer to JFK/EWR",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.mta.info/guides/airports/jfk/jfk-airport-to-manhattan"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims a JFK rail estimate of $15-$20 and a cost of €15.00 (approximately $16.50). While the provided evidence text is cut off, the URL provided (mta.info/guides/airports/jfk) is the official source for these transit options. The slot's time window of 90 minutes for a transfer from Midtown to JFK/EWR is a standard verifiable claim for these transit modes. The evidence confirms the existence of the Long Island Rail Road (LIRR) and NYC Transit as the primary public transit operators for this route. Although the evidence contains a mock alert about a strike in May 2026, the travel date is June 2026, and the pricing claims for the 'JFK rail' (AirTrain + Subway/LIRR) are consistent with standard MTA/Port Authority fare structures which typically total between $11.25 and $19.00.",
+      "claims_checked": [
+        "Transfer from Midtown to JFK/EWR",
+        "JFK rail estimate: $15-$20",
+        "Cost: €15.00",
+        "Duration: 1.5 hours (15:00 to 16:30)",
+        "Operators: Car service or JFK rail (MTA/LIRR)"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 8,
+      "slot_name": "Flight JFK/EWR to FRA",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.united.com/en-us/flights-from-frankfurt-to-new-york",
+        "https://www.flightconnections.com/flights-from-fra-to-jfk"
+      ],
+      "verdict": "FAIL",
+      "reasoning": "The slot claims a flight from New York (JFK/EWR) to Frankfurt (FRA) departing at 17:00 and arriving at 20:30 on the same day (a 3.5-hour duration). This is factually impossible for a transatlantic flight, which typically takes 7-8 hours and involves a +6 hour time zone shift. Furthermore, the evidence provided (Source 1 and Source 2) describes flights in the opposite direction: Frankfurt (FRA) to New York (JFK/EWR). Source 1 is titled 'Flights from Frankfurt to Newark/New York' and Source 2 is 'Flights from Frankfurt to New York City: FRA to JFK'. The slot's time window is also logically inconsistent with an 'overnight flight' as it ends at 20:30 on the same day.",
+      "claims_checked": [
+        "Route: New York (JFK/EWR) to Frankfurt (FRA)",
+        "Nonstop flight availability",
+        "Overnight flight",
+        "Departure time: 17:00",
+        "Arrival time: 20:30"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 9,
+      "slot_name": "Overnight flight rest",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.tripadvisor.com/ShowTopic-g187275-i116-k14514281-Transit_through_FRA_airport_overnight_stay-Germany.html",
+        "https://community.ricksteves.com/travel-forum/germany/fra-overnight-connection-what-would-you-recommend-for-hotel",
+        "https://www.reddit.com/r/unitedairlines/comments/1rkzq0v/overnight_layover_in_fra/",
+        "https://www.bogleheads.org/forum/viewtopic.php?t=415178",
+        "https://www.sleepinginairports.net/guides/frankfurt-airport-guide.htm"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes an overnight flight from New York to Frankfurt (FRA) departing on June 17 and arriving on June 18. While the provided evidence focuses on layovers *at* Frankfurt airport rather than the flight itself, the slot's claims are consistent with standard eastbound transatlantic flight patterns (overnight travel across time zones). The evidence confirms that Frankfurt (FRA) is a major international hub with overnight connections. The slot's note about the trip ending with a departure from New York on June 17 aligns with the 'eastbound overnight timing' logic mentioned in the description.",
+      "claims_checked": [
+        "Destination: Frankfurt (FRA)",
+        "Departure date: June 17, 2026",
+        "Arrival date: June 18, 2026",
+        "Route: Eastbound overnight flight",
+        "Origin: New York"
+      ]
+    }
+  ],
+  "rationale_pass_count": 19,
+  "rationale_fail_count": 3,
+  "rationale_missing_count": 4,
+  "hc_micro_pass_rate": 1.0,
+  "cc_micro_pass_rate": 0.8462,
+  "hc_macro_pass_rate": 1.0,
+  "cc_macro_pass_rate": 0.0,
+  "final_pass_rate": 0.0,
+  "aggregated_constraints": [
+    {
+      "id": "HC-1",
+      "constraint_text": "origin: Frankfurt",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-2",
+      "constraint_text": "destination: New York",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-3",
+      "constraint_text": "travel_dates: 2026.06.15 to 2026.06.17",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-4",
+      "constraint_text": "travelers: 1 adult",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-5",
+      "constraint_text": "accommodation: business hotel, city centre",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "MISSING_INFO",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 3,
+      "fail_count": 0,
+      "missing_count": 1,
+      "na_count": 0
+    },
+    {
+      "id": "HC-6",
+      "constraint_text": "transport: Flight",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-7",
+      "constraint_text": "interests: business meetings, efficient transport, good restaurants for client dinners",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-1",
+      "constraint_text": "Car or road trip transport is not feasible for island or overseas destinations — a flight or ferry is required.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-2",
+      "constraint_text": "No key information should be left out of the plan, such as the lack of accommodation during travel.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "FAIL"
+      ],
+      "pass_count": 3,
+      "fail_count": 1,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-3",
+      "constraint_text": "Transportation choices within the trip must be reasonable. For example, having both “self-driving” and “flight” would be considered a conflict.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-4",
+      "constraint_text": "Both outbound and return transport must appear in the plan.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-5",
+      "constraint_text": "Flight or train connections must allow sufficient layover time (≥60 min domestic, ≥90 min international).",
+      "constraint_type": "commonsense",
+      "final_verdict": "FAIL",
+      "judge_verdicts": [
+        "FAIL",
+        "PASS",
+        "FAIL",
+        "PASS"
+      ],
+      "pass_count": 2,
+      "fail_count": 2,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-6",
+      "constraint_text": "Accommodation must be planned for every night of the trip.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "FAIL"
+      ],
+      "pass_count": 3,
+      "fail_count": 1,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-7",
+      "constraint_text": "Hotel check-in must be scheduled after arrival transport reaches the destination.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-8",
+      "constraint_text": "Restaurants must be open on the planned day and time.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-9",
+      "constraint_text": "Restaurant choices should not be repeated throughout the trip.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-10",
+      "constraint_text": "Activities should be geographically sensible per day (no unnecessary cross-city travel).",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-11",
+      "constraint_text": "Attractions must be open on the planned day and time.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "NA",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 3,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 1
+    },
+    {
+      "id": "CC-12",
+      "constraint_text": "Attraction choices should not be repeated throughout the trip.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "NA",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 3,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 1
+    },
+    {
+      "id": "CC-13",
+      "constraint_text": "Travel time between consecutive activities must account for realistic transit duration.",
+      "constraint_type": "commonsense",
+      "final_verdict": "FAIL",
+      "judge_verdicts": [
+        "FAIL",
+        "FAIL",
+        "PASS",
+        "FAIL"
+      ],
+      "pass_count": 1,
+      "fail_count": 3,
+      "missing_count": 0,
+      "na_count": 0
+    }
+  ],
+  "timestamp": "2026-05-16T21:25:51.148834+00:00"
+}

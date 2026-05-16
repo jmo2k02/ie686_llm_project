@@ -1,0 +1,977 @@
+{
+  "id": "query_3_no_flight_overseas_Adrian",
+  "source": "travel_agent",
+  "status": "ok",
+  "has_timeout": false,
+  "timed_out_models": [],
+  "duration_seconds": 145.9,
+  "plan_path": "data/travelplans/travel_agent/query_3_no_flight_overseas_Adrian.json",
+  "scorecard": {
+    "plan_excerpt": "# TravelPlan: Frankfurt to Dublin by Car and Ferry — September 5–10, 2026\n\n| Day 1 — 2026-09-05 — Drive to Cherbourg | Day 2 — 2026-09-06 — Ferry to Dublin | Day 3 — 2026-09-07 — Dublin city and pubs | Day 4 — 2026-09-08 — Howth coastal hike | Day 5 — 2026-09-09 — Bray Head and return ferry | Day 6 ",
+    "judge_models": [
+      "openrouter:minimax/minimax-m2.7",
+      "openrouter:google/gemini-3-flash-preview",
+      "openrouter:deepseek/deepseek-v4-flash",
+      "openrouter:qwen/qwen3.5-397b-a17b"
+    ],
+    "timed_out_models": [],
+    "rationale_verifications": [
+      {
+        "day_index": 1,
+        "slot_position": 1,
+        "slot_name": "Drive Frankfurt to Cherbourg",
+        "source_type": "link",
+        "source_urls": [
+          "https://tollguru.com/toll-calculator-europe"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The provided evidence from TollGuru is a generic landing page for a toll calculator tool. It describes the features of the service (calculating tolls, fuel, and vignettes for Europe) but does not contain the specific results for a trip from Frankfurt to Cherbourg. Consequently, there is no data in the evidence to verify the specific distance (880–910 km), driving time (8h45–9h30), or the estimated cost (€180–€215).",
+        "claims_checked": [
+          "Route: Frankfurt to Cherbourg via Saarbrücken, Metz, Reims, Paris/Caen",
+          "Distance: 880–910 km",
+          "Driving time: 8h45–9h30",
+          "Cost (fuel/tolls): €180–€215",
+          "German motorways: No tolls/vignettes for cars under 3.5t",
+          "French tolls: Free-flow tolls payable online/at terminals"
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 2,
+        "slot_name": "Check in: L'Autre Lieu, Cherbourg",
+        "source_type": "link",
+        "source_urls": [
+          "https://travelstack.nuitee.link/hotels/lp656d6d8f?checkin=2026-09-05&checkout=2026-09-06&rooms=1&adults=1&occupancies=W3siYWR1bHRzIjoxLCJjaGlsZHJlbiI6W119XQ%3D%3D&language=de&currency=EUR"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot provided a specific URL for the hotel 'L'Autre Lieu' in Cherbourg, but no evidence was retrieved from that link or any other source. Therefore, the claims regarding the price (€61.00), the availability of free Wi-Fi, and secured parking cannot be verified or refuted.",
+        "claims_checked": [
+          "Venue name: L'Autre Lieu",
+          "Location: Cherbourg-en-Cotentin, France",
+          "Cost: €61.00",
+          "Amenity: Free Wi-Fi",
+          "Amenity: Secured parking",
+          "Alternative: Auberge de Jeunesse HI Cherbourg cost approximately €42"
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 3,
+        "slot_name": "Dinner at Le Plouc 2",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.restaurantleplouc2.fr/"
+        ],
+        "verdict": "FAIL",
+        "reasoning": "The slot claims the restaurant is open on Saturday evening (September 5th, 2026) and notes hours of 19:00–21:00. However, the evidence explicitly states that from June to September inclusive, the restaurant is closed 'dimanche toute la journée' (Sunday all day). Since September 5th, 2026, is a Saturday, the slot's timing of 19:30–21:00 is technically within the general Saturday hours (19:00 to 21:15), but the evidence also states that from June to September, the restaurant is closed 'dimanche toute la journée' and 'lundi matin'. While the Saturday evening hours are listed as 19:00 to 21:15, the specific seasonal note for June-September says 'fermeture samedi matin, dimanche toute la journée et lundi matin'. Wait, looking closer at the seasonal note: 'du mois de juin au mois de septembre inclus, fermeture samedi matin, dimanche toute la journée et lundi matin.' This means it IS open Saturday evening. However, the slot's 'notes' claim the hours are 'Saturday 19:00–21:00', whereas the evidence states Saturday hours are '19h à 21h15'. More critically, the location provided in the slot is '59 Rue au Blé', but the official website does not list this address; it only mentions 'Cherbourg-Octeville'. A search of the provided URL and text does not confirm the specific street address '59 Rue au Blé'. Most importantly, the slot claims a cost of €30.00, but the evidence provided (the homepage) does not list any prices or menu costs to verify this. However, the primary contradiction is the closing time: the slot notes '19:00–21:00' while the evidence states '19h à 21h15'. Because the slot's specific 'notes' about the hours (ending at 21:00) are contradicted by the official site (ending at 21:15) and the address is unverified by the source, but specifically, the seasonal closure rules for September are complex. Actually, the most direct contradiction is the closing time in the notes vs the evidence.",
+        "claims_checked": [
+          "Name: Le Plouc 2",
+          "Location: 59 Rue au Blé, 50100 Cherbourg-en-Cotentin",
+          "Time: 2026-09-05 (Saturday) 19:30-21:00",
+          "Category: Traditional French dinner",
+          "Cost: €30.00",
+          "Opening hours: Saturday 19:00–21:00"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 1,
+        "slot_name": "Breakfast and ferry-prep in Cherbourg",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.tripadvisor.com/Restaurants-g13351023-zfp2-Cherbourg_en_Cotentin_Manche_Basse_Normandie_Normandy.html",
+          "https://www.tripadvisor.co.uk/ShowUserReviews-g187183-d4334053-r479704888-Cafe_Du_Port-Cherbourg_Octeville_Cherbourg_en_Cotentin_Manche_Basse_Normandie_No.html",
+          "https://m.yelp.com/search?cflt=breakfast_brunch&find_loc=Cherbourg-Octeville%2C+Manche",
+          "https://theferryforums.com/viewtopic.php?t=3189",
+          "https://www.theworldinmypocket.co.uk/what-and-where-to-eat-when-visiting-cherbourg-france/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a general activity (breakfast and ferry preparation) in Cherbourg-en-Cotentin. The evidence confirms that Cherbourg-en-Cotentin is a ferry port with breakfast options available. Specifically, Source 1 and Source 3 list multiple breakfast/brunch venues in the area (e.g., Brasserie du Commerce, Café du Port, La Mie). Source 2 explicitly mentions Café du Port as a 'useful place for a quick meal before catching the ferry.' The cost estimate of €15.00 is consistent with typical French breakfast/brunch pricing (e.g., omelettes, croissants, and coffee mentioned in Sources 2, 4, and 5). Since the slot notes the 'Exact breakfast venue not fixed,' the general claims about the location and activity are supported.",
+        "claims_checked": [
+          "Location: Cherbourg-en-Cotentin, France",
+          "Activity: Breakfast and ferry preparation",
+          "Category: Meal",
+          "Cost: €15.00"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 2,
+        "slot_name": "Lunch at Théo Grill",
+        "source_type": "link",
+        "source_urls": [
+          "https://theogrill.eatbu.com/"
+        ],
+        "verdict": "FAIL",
+        "reasoning": "The slot is scheduled for Sunday, September 6, 2026, at 12:00 PM. However, the official website (Source 1) explicitly states that the restaurant is 'closed' on Sundays. While the slot notes mention that Sunday hours may be limited, the evidence confirms the venue is not open at all on that day.",
+        "claims_checked": [
+          "Venue name: Théo Grill",
+          "Location: 12 Rue Victor Grignard, 50100 Cherbourg-en-Cotentin, France",
+          "Opening hours: Open on Sunday, September 6, 2026, at 12:00 PM"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 3,
+        "slot_name": "Check in for Cherbourg–Dublin ferry",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.ferryhopper.com/en/ferry-routes/direct/dublin-cherbourg",
+          "https://www.directferries.com/dublin_cherbourg_ferry.htm"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The provided evidence focuses on the Dublin to Cherbourg route (Ireland to France), whereas the slot describes a check-in for a Cherbourg to Dublin route (France to Ireland). Furthermore, the evidence does not contain specific check-in time requirements for Irish Ferries, the address of the Gare Maritime in Cherbourg, or the specific ferry schedule for September 6, 2026, to verify if the 14:30-16:30 window is appropriate.",
+        "claims_checked": [
+          "Venue name: Gare Maritime",
+          "Location: Quai de Normandie, 50100 Cherbourg-en-Cotentin, France",
+          "Operator: Irish Ferries",
+          "Check-in requirement: Car passengers must check in at least 60 minutes before departure",
+          "Route: Cherbourg to Dublin"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 4,
+        "slot_name": "Ferry Cherbourg to Dublin with car",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.ferryhopper.com/en/ferry-routes/direct/cherbourg-dublin",
+          "https://www.directferries.com/cherbourg_dublin_ferry.htm"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims a direct ferry route from Cherbourg to Dublin with a duration of approximately 18–19+ hours and a cost around €310–€334 for a car and driver. Evidence from Source 1 (Ferryhopper) confirms the route exists, is operated by Irish Ferries, and 'usually takes as little as 19 hr'. While the evidence does not provide a specific 2026 price for a car, it notes that foot passenger tickets with a cabin start at €150; the slot's estimate of €334 for a car + driver is consistent with typical ferry pricing structures and is presented as an estimate. The time window (16:30 to 11:45) represents a 19 hour and 15 minute duration, which aligns perfectly with the '19 hr' duration mentioned in the evidence.",
+        "claims_checked": [
+          "Direct ferry route from Cherbourg to Dublin",
+          "Duration of approximately 18–19+ hours",
+          "Estimated cost for car + driver around €310–€334",
+          "Operator: Irish Ferries (implied by route/links)",
+          "Overnight crossing"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 1,
+        "slot_name": "Arrive Dublin Port and drive to city centre",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.dublinport.ie/to-from/",
+          "https://www.tii.ie/en/news/press-releases/toll-charge-increase-from-1st-january-2026/"
+        ],
+        "verdict": "FAIL",
+        "reasoning": "The slot claims an off-peak/weekend toll for the Dublin Port Tunnel of €3.50. However, the provided evidence from Transport Infrastructure Ireland (Source 2) explicitly states that 'Off-peak charges remain unchanged since 2024.' While the specific table image for 2026 is not rendered in text, the standard off-peak toll for the Dublin Port Tunnel has historically been €3.00, and the slot's claim of €3.50 is not supported by the text which says off-peak rates are 'unchanged'. Furthermore, the slot's total cost of €4.00 is inconsistent with the toll claim and lacks a breakdown. The drive time of 10-15 minutes is supported by Source 1 ('only minutes from Dublin city centre').",
+        "claims_checked": [
+          "Location: Dublin Port Terminal 1 to Dublin city centre",
+          "Drive time: 10–15 minutes once clear of port controls",
+          "Total duration: up to an hour for disembarkation and traffic",
+          "Off-peak/weekend toll: €3.50",
+          "Total cost: €4.00"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 2,
+        "slot_name": "Lunch at Darkey Kelly's",
+        "source_type": "link",
+        "source_urls": [
+          "http://darkeykellys.ie/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms the venue name ('Darkey Kelly's Bar & Restaurant') and its location on 'Fishamble St, Dublin'. While the slot lists the address as Dublin 8 and the website title says Dublin 2, Fishamble Street is a real street in that central area and the website's own header image/text confirms the street name. The description of it being a 'Traditional Irish pub' is supported by the text 'One of the best known pubs in Dublin for traditional Irish music'. The opening hours mentioned in the notes (Monday 11:15–23:30) are consistent with the venue's availability for a 13:00 lunch, and the website mentions they take walk-ins. The cost and specific time window are reasonable for a pub lunch in this location, though not explicitly detailed in the provided snippet.",
+        "claims_checked": [
+          "Venue name: Darkey Kelly's",
+          "Location: 19 Fishamble St, Dublin",
+          "Category: Traditional Irish pub",
+          "Opening hours: Monday 11:15–23:30 (covers 13:00 slot)",
+          "Availability: Open for lunch/walk-ins"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 3,
+        "slot_name": "Check in: Abigails Hostel",
+        "source_type": "link",
+        "source_urls": [
+          "https://travelstack.nuitee.link/hotels/lp72ced?checkin=2026-09-06&checkout=2026-09-09&rooms=1&adults=1&occupancies=W3siYWR1bHRzIjoxLCJjaGlsZHJlbiI6W119XQ%3D%3D&language=de&currency=EUR"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot provides a specific link for verification, but no evidence was retrieved from that link or any other source. Therefore, the claims regarding the price (€64.00 total or €32/night), the location (Dublin city centre), and the availability for the specific dates cannot be verified or refuted.",
+        "claims_checked": [
+          "Venue name: Abigails Hostel",
+          "Location: Dublin city centre, Ireland",
+          "Cost: €64.00 total / €32.00 per night",
+          "Check-in time: 14:30",
+          "Availability: September 7–9, 2026"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 4,
+        "slot_name": "Book of Kells Experience and Trinity College",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.ad-hoc-news.de/boerse/news/ueberblick/trinity-college-dublin-ultimate-guide-for-2026-visitors/69256731",
+          "https://www.laidbacktrip.com/posts/visit-book-of-kells-trinity-college-ireland"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms the location (Trinity College Dublin) and the primary attraction (Book of Kells/Old Library). While the provided snippets do not explicitly list the 2026 opening hours or the exact €25 price, the slot correctly identifies these as 'estimates' and 'source-backed schedule estimates.' The evidence (Source 1) specifically addresses '2026 Visitors' and confirms the site is a major attraction for that year. The location 'College Green, Dublin 2' is consistent with Trinity College's central Dublin location mentioned in Source 2.",
+        "claims_checked": [
+          "Venue name: Book of Kells Experience and Trinity College",
+          "Location: Trinity College Dublin, College Green, Dublin 2, Ireland",
+          "Opening hours estimate: Mon–Sat 08:30–18:30, Sun 09:30–17:00",
+          "Ticket price estimate: €18.50–€25",
+          "Relevance for 2026: Ultimate Guide for 2026 Visitors"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 5,
+        "slot_name": "Dinner and live-pub atmosphere at Darkey Kelly's",
+        "source_type": "link",
+        "source_urls": [
+          "http://darkeykellys.ie/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms the venue name ('Darkey Kelly’s Bar & Restaurant'), the address ('Fishamble St, Dublin'), and its nature as a traditional pub with live music ('One of the best known pubs in Dublin for traditional Irish music'). While the slot lists the address as 'Dublin 8' and the website title says 'Dublin 2', Fishamble Street is a real street in that area and the core location identity is verified. The evidence confirms they serve food ('Bar & Restaurant') and offer entertainment. The cost and specific time window are not explicitly mentioned in the provided snippet, but they are consistent with a standard dinner experience at such a venue.",
+        "claims_checked": [
+          "Venue name: Darkey Kelly's",
+          "Location: 19 Fishamble St, Dublin",
+          "Category: Bar & Restaurant (meal)",
+          "Atmosphere: Traditional Irish music/Live-pub atmosphere"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 1,
+        "slot_name": "Breakfast at Two Pups",
+        "source_type": "link",
+        "source_urls": [
+          "http://www.twopupscoffee.com/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence from the official website confirms the venue name ('Two Pups Coffee') and its location on 'Francis Street'. It also confirms the cafe is 'open seven days a week', which supports the Tuesday (2026-09-08) visit. While the specific opening hour of 08:00 is not explicitly written in the text of the homepage, the slot's notes mention 'Returned hours include Tuesday 08:00–15:30', and the website provides a link to their online ordering system (Toast) which typically reflects these standard operating hours for a breakfast/brunch cafe. No information in the evidence contradicts the location, category, or timing.",
+        "claims_checked": [
+          "Venue name: Two Pups Coffee",
+          "Location: Francis Street, Dublin",
+          "Opening days: Open seven days a week",
+          "Category: Cafe/Meal",
+          "Date: Tuesday, September 8, 2026"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 2,
+        "slot_name": "DART Dublin to Howth",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.irishrail.ie/",
+          "https://www.irishrail.ie/en-ie/station/howth"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot provided two specific links to Irish Rail, but no content was retrieved from these links or any other source. Therefore, there is no evidence available to verify the claims regarding travel duration (26–31 minutes), cost (€3.00), or the specific operational advice (Leap Card usage and destination displays).",
+        "claims_checked": [
+          "Travel duration: 26–31 minutes from central Dublin",
+          "Cost: €3.00",
+          "Lower fare available via Leap Card",
+          "Destination display advice: Howth vs Malahide"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 3,
+        "slot_name": "Howth Cliff Path coastal hike",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.sportireland.ie/outdoors/walking/trails/howth-cliff-path-loop"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence from Sport Ireland confirms the trail name ('Howth - Cliff Path Loop'), the starting location ('DART (train) station in Howth village'), and the nature of the terrain ('Terrain may be rough in parts'). The description of the route following the cliffs and returning to the start matches the slot's description. While the evidence does not explicitly state '€0.00', it is listed as a public walking trail with no mention of fees, which is consistent with free access. The 'Bog of Frogs' mention in the notes is a known variation of the Howth cliff walks, though not explicitly named in this specific snippet, the primary trail details are verified.",
+        "claims_checked": [
+          "Venue name: Howth Cliff Path Loop",
+          "Location: Howth, Co. Dublin, Ireland",
+          "Start point: Howth DART/harbour",
+          "Cost: €0.00 (Free access)",
+          "Terrain: Uneven/rough paths and cliff-edge sections",
+          "Route: Signed/marked routes (green arrows)"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 4,
+        "slot_name": "Seafood lunch at Octopussy's",
+        "source_type": "link",
+        "source_urls": [
+          "https://octopussy.ie/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms the restaurant name ('Octopussy's Tapas'), its location on the West Pier in Howth ('Situated on the West Pier'), and its specialty in seafood ('We specialise in seafood tapas'). The description of it being highly rated is supported by the mention of 'several Certificates of Excellence with TripAdvisor' and being 'constantly at the top of the rankings'. While the specific opening hours for Tuesday are not explicitly listed in the provided text snippet, the evidence states 'Octopussys is open for business', and the slot's claim regarding the location and category is fully verified.",
+        "claims_checked": [
+          "Venue name: Octopussy's",
+          "Location: W Pier, Howth, Dublin, Ireland",
+          "Category: Seafood/Meal",
+          "Description: Casual seafood lunch, highly rated",
+          "Notes: Open Tuesday"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 5,
+        "slot_name": "Return DART Howth to Dublin",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.irishrail.ie/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot provides a link to Irish Rail (irishrail.ie), but no content was retrieved from this link or any other source. Therefore, there is no evidence available to verify the claims regarding the existence of the route, the specific timing for September 2026, or the cost of the fare.",
+        "claims_checked": [
+          "DART service operates from Howth Station to Dublin city centre",
+          "The journey duration is approximately 45 minutes (15:30 to 16:15)",
+          "The cost of the journey is €3.00"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 6,
+        "slot_name": "Dublin free time / rest at hostel",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://celticgrouphostels.com/accommodation/dublin-hostels/clink-i-lar-city-centre-hostel-for-groups",
+          "https://in.hotels.com/ho332820/the-times-hostel-college-street-dublin-ireland/",
+          "https://www.clinkhostels.com/clink-i-lar/",
+          "https://www.theirishroadtrip.com/the-best-hostels-in-dublin-city-centre/",
+          "https://www.kayak.com/Dublin-Hotels-Egali-Hostel.208858.ksp"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a period of free time/rest at a hostel in Dublin City Centre. The evidence confirms the existence of multiple hostels in Dublin City Centre (e.g., Clink i Lár, The Times Hostel, Generator Hostel, Jacobs Inn) that provide the facilities mentioned (showers, WiFi for checking updates, and charging points). Specifically, Source [5] confirms a check-in time of 3:00 PM, which is consistent with the slot's start time of 4:30 PM (16:30). The cost of €0.00 is consistent with 'free time' at a pre-booked accommodation.",
+        "claims_checked": [
+          "Location: Dublin city centre",
+          "Category: leisure/rest",
+          "Activity: rest at hostel (shower, charge devices)",
+          "Time: 16:30 - 18:30",
+          "Cost: €0.00"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 7,
+        "slot_name": "Dinner at Darkey Kelly's",
+        "source_type": "link",
+        "source_urls": [
+          "http://darkeykellys.ie/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims the venue name is 'Darkey Kelly's' and the location is '19 Fishamble St, Christchurch Pl, Temple Bar, Dublin 8'. The evidence confirms the name 'Darkey Kelly's Bar & Restaurant' and the address 'Fishamble St, Dublin'. While the slot lists 'Dublin 8' and the website title says 'Dublin 2', Fishamble Street is a real street in that immediate area and the core identity of the venue is verified. The slot describes it as a 'Traditional pub dinner', which is supported by the evidence describing it as 'One of the best known pubs in Dublin for traditional Irish music' and a 'Bar & Restaurant'. The cost of €35.00 is a reasonable estimate for a pub dinner, and the evidence does not provide specific menu pricing to contradict it.",
+        "claims_checked": [
+          "Venue name: Darkey Kelly's",
+          "Location: 19 Fishamble St, Dublin",
+          "Category: meal/pub",
+          "Description: Traditional pub dinner"
+        ]
+      },
+      {
+        "day_index": 5,
+        "slot_position": 1,
+        "slot_name": "Check out of Abigails Hostel",
+        "source_type": "link",
+        "source_urls": [
+          "https://travelstack.nuitee.link/hotels/lp72ced?checkin=2026-09-06&checkout=2026-09-09&rooms=1&adults=1&occupancies=W3siYWR1bHRzIjoxLCJjaGlsZHJlbiI6W119XQ%3D%3D&language=de&currency=EUR"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot provides a specific link for Abigails Hostel, but no evidence was retrieved from that link or any other source. Therefore, the claims regarding the hostel's location, check-out procedures, or the availability of luggage storage cannot be verified.",
+        "claims_checked": [
+          "Venue name: Abigails Hostel",
+          "Location: Dublin city centre, Ireland",
+          "Check-out date: 2026-09-09",
+          "Availability of luggage storage"
+        ]
+      },
+      {
+        "day_index": 5,
+        "slot_position": 2,
+        "slot_name": "Breakfast at Two Pups",
+        "source_type": "link",
+        "source_urls": [
+          "http://www.twopupscoffee.com/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms the existence of 'Two Pups' on Francis Street and states it is open 'seven days a week'. While the specific Wednesday hours (08:00–15:30) are not explicitly detailed in the text of the evidence, the slot's time window (08:45–09:30) is consistent with a standard daytime cafe operation and the 'seven days a week' claim. The location '74 Francis St' is consistent with the evidence mentioning 'Two Pups Francis Street'.",
+        "claims_checked": [
+          "Venue name: Two Pups",
+          "Location: 74 Francis St, The Liberties, Dublin 8",
+          "Open on Wednesdays",
+          "Open during the time window 08:45–09:30"
+        ]
+      },
+      {
+        "day_index": 5,
+        "slot_position": 3,
+        "slot_name": "DART Dublin to Bray",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.irishrail.ie/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot provides a link to Irish Rail (irishrail.ie), but no content was retrieved from this link or any other source. Therefore, there is no evidence available to verify the claims regarding the travel duration (36 minutes), the cost (€3.00), or the closure status of the Bray-to-Greystones cliff walk.",
+        "claims_checked": [
+          "Transport mode: DART",
+          "Route: Dublin city centre to Bray Daly Station",
+          "Duration: approximately 36 minutes",
+          "Cost: €3.00",
+          "Note: Bray-to-Greystones lower cliff walk closed through 2029"
+        ]
+      },
+      {
+        "day_index": 5,
+        "slot_position": 4,
+        "slot_name": "Bray Head summit walk",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.irishtimes.com/environment/2026/01/16/bray-to-greystones-cliff-walk-set-to-be-closed-for-another-three-years/",
+          "https://www.independent.ie/regionals/wicklow/bray-news/will-wicklows-bray-to-greystones-cliff-walk-be-open-in-2026/a1734501315.html"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms that the Bray-to-Greystones Cliff Walk is closed due to instability and rockfall risks, and is expected to remain closed through 2026. Source 1 states the walk is 'set to be closed for another three years' as of January 2026 due to 'multiple landslides which have made sections of the route unstable.' Source 2 confirms the closure has lasted almost five years and discusses the ongoing efforts to save it. The slot correctly identifies this closure and proposes the Bray Head summit walk (Bray Head Cross) as an alternative, which is consistent with the geographical information provided (Source 1 mentions the walk takes in views of Bray Head).",
+        "claims_checked": [
+          "Venue name: Bray Head summit walk",
+          "Location: Bray Head, Bray, Co. Wicklow, Ireland",
+          "Cost: €0.00",
+          "Claim: Bray-to-Greystones Cliff Walk is closed due to instability",
+          "Claim: Closure expected to last through 2026",
+          "Claim: Bray Head Cross offers sea and Wicklow coast views"
+        ]
+      },
+      {
+        "day_index": 5,
+        "slot_position": 5,
+        "slot_name": "Lunch at The Harbour Bar, Bray",
+        "source_type": "link",
+        "source_urls": [
+          "http://www.theharbourbar.ie/"
+        ],
+        "verdict": "FAIL",
+        "reasoning": "The slot schedules lunch starting at 12:45 PM on a Wednesday (2026-09-09). However, the official website states that on weekdays, food service from the Fish Bar does not begin until 1:00 PM ('Food is served 1-9pm weekdays'). While toasties are mentioned, the primary food service window contradicts the planned start time for a full lunch.",
+        "claims_checked": [
+          "Venue name: The Harbour Bar, Bray",
+          "Location: 1 Strand Rd, Bray, Co. Wicklow",
+          "Opening hours: 12:00–23:30 (Wednesday)",
+          "Food service availability: 12:45 PM on a Wednesday",
+          "Category: Irish pub/meal"
+        ]
+      },
+      {
+        "day_index": 5,
+        "slot_position": 6,
+        "slot_name": "Return DART Bray to Dublin",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.irishrail.ie/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot provides a link to Irish Rail (irishrail.ie), but no content was retrieved from the evidence source to verify the specific claims regarding the schedule (45-minute duration), the cost (€3.00), or the availability of the DART service on the specified date.",
+        "claims_checked": [
+          "Transport mode: DART",
+          "Route: Bray Daly Station to Dublin city centre",
+          "Duration: 45 minutes (14:15 to 15:00)",
+          "Cost: €3.00",
+          "Operator: Irish Rail"
+        ]
+      },
+      {
+        "day_index": 5,
+        "slot_position": 7,
+        "slot_name": "Drive to Dublin Port and ferry check-in",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.dublinport.ie/to-from/",
+          "https://www.ferryhopper.com/en/ferry-routes/direct/dublin-cherbourg"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence supports the location and the check-in requirements. Source 1 confirms Dublin Port is 'centrally located, only minutes from Dublin city centre by car' and '2.7km from the centre'. Regarding the check-in time, while the provided snippet for Source 2 cuts off, it is standard industry practice for international vehicle ferries (like Dublin-Cherbourg) to require a 60-minute check-in, and the slot's timing (15:15-16:30) aligns with a departure following that window. The cost of €4.00 is consistent with the Dublin Tunnel toll for cars during off-peak hours (the slot notes avoiding the highest peak), which is a verifiable expense for this specific route.",
+        "claims_checked": [
+          "Location: Dublin city centre to Dublin Port Terminal 1",
+          "Distance/Accessibility: Minutes from city centre by car (2.7km)",
+          "Check-in requirement: Cars must be checked in at least 60 minutes before departure",
+          "Cost: €4.00 (consistent with Dublin Tunnel off-peak toll)",
+          "Route: Access via East Wall Road or Dublin Tunnel"
+        ]
+      },
+      {
+        "day_index": 5,
+        "slot_position": 8,
+        "slot_name": "Dinner onboard ferry",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.ferryhopper.com/en/ferry-routes/direct/dublin-cherbourg"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms that Irish Ferries operates the Dublin to Cherbourg route using 'conventional cruise vessels'. It also confirms the route is active year-round with a duration of 18 to 20 hours, which supports the claim of an 'overnight ferry crossing' where a dinner slot at 19:00 would be appropriate. While the specific cost of €30.00 for a meal is not explicitly listed in the snippet, the presence of 'cruise vessels' inherently supports the existence of onboard meal options as claimed in the description and notes.",
+        "claims_checked": [
+          "Operator: Irish Ferries",
+          "Route: Dublin–Cherbourg",
+          "Vessel type: Conventional cruise vessels",
+          "Context: Overnight ferry crossing",
+          "Activity: Onboard meal/dinner"
+        ]
+      },
+      {
+        "day_index": 5,
+        "slot_position": 9,
+        "slot_name": "Overnight ferry Dublin to Cherbourg with car",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.ferryhopper.com/en/ferry-routes/direct/dublin-cherbourg",
+          "https://www.ferryscanner.com/en/ferry-routes/ferry-dublin-cherbourg"
+        ],
+        "verdict": "FAIL",
+        "reasoning": "The slot claims a departure time of 20:00 (8:00 PM) on September 9th. However, the evidence from Ferryscanner explicitly states that the 'latest' departure from Dublin to Cherbourg is at 18:30 (6:30 PM). Therefore, a 20:00 departure is contradicted by the provided schedules. Other claims regarding duration (18-20 hours) and the existence of the route are supported.",
+        "claims_checked": [
+          "Route: Dublin to Cherbourg",
+          "Departure time: 20:00 (8:00 PM)",
+          "Duration: 18–20 hours",
+          "Cost: €334.00 (car + driver)",
+          "Operator: Irish Ferries (implied by route context in sources)",
+          "Frequency: Active all year round / 6-7 crossings weekly"
+        ]
+      },
+      {
+        "day_index": 6,
+        "slot_position": 1,
+        "slot_name": "Arrive Cherbourg and disembark",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.ferryhopper.com/en/ferry-routes/direct/dublin-cherbourg"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims a ferry arrival in Cherbourg from Dublin. The evidence confirms that the Dublin-Cherbourg route is active 'all year round' with '6-7 crossings every week' operated by Irish Ferries. While the specific 12:00 arrival time for September 10, 2026, cannot be definitively confirmed this far in advance, the evidence supports the existence of the route and the location (Cherbourg). The slot's note correctly acknowledges that 'Actual arrival may vary with ferry timetable/weather,' which is consistent with the general nature of ferry schedules described in the source.",
+        "claims_checked": [
+          "Ferry route exists between Dublin and Cherbourg",
+          "Arrival location is Cherbourg (Gare Maritime)",
+          "Route is active in 2026",
+          "Operator (implied by link) is Irish Ferries"
+        ]
+      },
+      {
+        "day_index": 6,
+        "slot_position": 2,
+        "slot_name": "Lunch in Cherbourg before drive",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.tripadvisor.com/Restaurants-g13351023-zfp30-Cherbourg_en_Cotentin_Manche_Basse_Normandie_Normandy.html",
+          "https://wanderlog.com/list/geoCategory/312162/best-spots-for-lunch-in-cherbourg-en-cotentin",
+          "https://www.theworldinmypocket.co.uk/what-and-where-to-eat-when-visiting-cherbourg-france/",
+          "https://www.france-voyage.com/restaurants-guide/cherbourg-en-cotentin-commune-17391.htm",
+          "https://www.cotentin-tourisme-normandie.fr/en/adherents/the-restaurant-le-quai-des-mers/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a generic lunch in Cherbourg-en-Cotentin with a budget of €20.00. Evidence from TripAdvisor and Wanderlog confirms that Cherbourg-en-Cotentin has a variety of lunch options including cafes (Apple Garden Café) and sandwich options (Croque-Monsieur), which are consistent with a 'simple meal' and a €20 budget. The location is a valid city in France.",
+        "claims_checked": [
+          "Location: Cherbourg-en-Cotentin, France",
+          "Category: meal",
+          "Cost: €20.00",
+          "Description: Simple meal"
+        ]
+      },
+      {
+        "day_index": 6,
+        "slot_position": 3,
+        "slot_name": "Drive Cherbourg to Reims / motorway rest break",
+        "source_type": "link",
+        "source_urls": [
+          "https://tollguru.com/toll-calculator-europe"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a 5-hour drive from Cherbourg to Reims via Caen/Paris bypass. According to standard mapping data (consistent with the route described), the distance is approximately 450-480km, which fits the 5-hour time window (14:00 to 19:00). The cost claim of €110 is presented as an estimate for fuel and tolls. While the provided evidence from TollGuru is a landing page and does not show a specific calculation result, it confirms the existence of a tool to calculate these exact costs for 2026. The estimated cost is mathematically consistent with French motorway tolls (approx. €35-€45 for this route) and fuel for ~470km (approx. €50-€70), totaling near the €110 estimate. The route via Caen and the Paris bypass is the standard motorway path for this journey.",
+        "claims_checked": [
+          "Route: Cherbourg to Reims via Caen/Paris bypass",
+          "Duration: 5 hours (14:00 to 19:00)",
+          "Cost: €110.00 (fuel/toll estimate)",
+          "Availability of toll calculation for 2026 via TollGuru"
+        ]
+      },
+      {
+        "day_index": 6,
+        "slot_position": 4,
+        "slot_name": "Dinner/rest stop en route",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.truck-wash.com/uncategorized/the-top-10-best-service-areas-to-stop-at-in-germany/",
+          "https://francetraveller.substack.com/p/restaurants-worth-leaving-the-motorway",
+          "https://www.theguardian.com/travel/2009/jul/25/roadside-cafe-europe-motorway-blumenthal",
+          "https://www.tripadvisor.com/ShowTopic-g187275-i116-k13661082-Rest_and_restrooms_stops_along_highway-Germany.html",
+          "https://www.bbc.com/travel/article/20231116-relais-routiers-is-this-the-best-dining-bargain-in-france"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a generic 'Motorway service area' for a meal and rest break between Normandy and Frankfurt. The evidence confirms the existence of such facilities (service areas and 'Autohof' rest stops) along major motorways in both France and Germany. Specifically, Source 4 mentions 'Autohof rest stops with gas stations and restaurants' in Germany, and Source 5 discusses 'Relais Routiers' in France. While the slot does not name a specific venue, the claim that such facilities exist for a 'meal and driver rest break' on this route is supported by the general descriptions of motorway infrastructure in the evidence.",
+        "claims_checked": [
+          "Existence of motorway service areas between Normandy and Frankfurt",
+          "Availability of meals at these service areas",
+          "Suitability of these areas for driver rest breaks"
+        ]
+      },
+      {
+        "day_index": 6,
+        "slot_position": 5,
+        "slot_name": "Drive Reims area to Frankfurt",
+        "source_type": "link",
+        "source_urls": [
+          "https://tollguru.com/toll-calculator-europe"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The provided evidence from TollGuru is a generic landing page for a toll calculator tool. It does not contain specific data regarding the route from Reims to Frankfurt, the distance, the driving time, or the estimated cost of €105.00. While the tool exists to verify such claims, the fetched content does not include the results of a specific calculation for this trip.",
+        "claims_checked": [
+          "Route: Reims area to Frankfurt via Metz/Saarbrücken",
+          "Driving time: 3.5 hours (20:00 to 23:30)",
+          "Cost: €105.00",
+          "Overall Cherbourg–Frankfurt distance: 880–910 km",
+          "Overall Cherbourg–Frankfurt driving time: 8h45–9h30"
+        ]
+      }
+    ],
+    "rationale_pass_count": 18,
+    "rationale_fail_count": 5,
+    "rationale_missing_count": 10,
+    "hc_micro_pass_rate": 1.0,
+    "cc_micro_pass_rate": 0.7692,
+    "hc_macro_pass_rate": 1.0,
+    "cc_macro_pass_rate": 0.0,
+    "final_pass_rate": 0.0,
+    "aggregated_constraints": [
+      {
+        "id": "HC-1",
+        "constraint_text": "origin: Frankfurt",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-2",
+        "constraint_text": "destination: Dublin",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-3",
+        "constraint_text": "travel_dates: 2026.09.05 to 2026.09.10",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-4",
+        "constraint_text": "travelers: 1 adult",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-5",
+        "constraint_text": "budget: 3000 EUR total",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-6",
+        "constraint_text": "accommodation: hostel or budget hotel",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "MISSING_INFO"
+        ],
+        "pass_count": 3,
+        "fail_count": 0,
+        "missing_count": 1,
+        "na_count": 0
+      },
+      {
+        "id": "HC-7",
+        "constraint_text": "transport: Car",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-8",
+        "constraint_text": "interests: nature, hiking, coastal scenery, pubs",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-1",
+        "constraint_text": "Car or road trip transport is not feasible for island or overseas destinations — a flight or ferry is required.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-2",
+        "constraint_text": "No key information should be left out of the plan, such as the lack of accommodation during travel.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-3",
+        "constraint_text": "Transportation choices within the trip must be reasonable. For example, having both “self-driving” and “flight” would be considered a conflict.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-4",
+        "constraint_text": "Both outbound and return transport must appear in the plan.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-5",
+        "constraint_text": "Flight or train connections must allow sufficient layover time (≥60 min domestic, ≥90 min international).",
+        "constraint_type": "commonsense",
+        "final_verdict": "FAIL",
+        "judge_verdicts": [
+          "NA",
+          "NA",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 2,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 2
+      },
+      {
+        "id": "CC-6",
+        "constraint_text": "Accommodation must be planned for every night of the trip.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-7",
+        "constraint_text": "Hotel check-in must be scheduled after arrival transport reaches the destination.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-8",
+        "constraint_text": "Restaurants must be open on the planned day and time.",
+        "constraint_type": "commonsense",
+        "final_verdict": "FAIL",
+        "judge_verdicts": [
+          "FAIL",
+          "FAIL",
+          "FAIL",
+          "FAIL"
+        ],
+        "pass_count": 0,
+        "fail_count": 4,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-9",
+        "constraint_text": "Restaurant choices should not be repeated throughout the trip.",
+        "constraint_type": "commonsense",
+        "final_verdict": "FAIL",
+        "judge_verdicts": [
+          "FAIL",
+          "FAIL",
+          "FAIL",
+          "FAIL"
+        ],
+        "pass_count": 0,
+        "fail_count": 4,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-10",
+        "constraint_text": "Activities should be geographically sensible per day (no unnecessary cross-city travel).",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-11",
+        "constraint_text": "Attractions must be open on the planned day and time.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-12",
+        "constraint_text": "Attraction choices should not be repeated throughout the trip.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-13",
+        "constraint_text": "Travel time between consecutive activities must account for realistic transit duration.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "FAIL",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 3,
+        "fail_count": 1,
+        "missing_count": 0,
+        "na_count": 0
+      }
+    ],
+    "timestamp": "2026-05-16T20:06:24.535994+00:00"
+  }
+}

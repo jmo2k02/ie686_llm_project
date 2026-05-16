@@ -1,0 +1,1268 @@
+{
+  "id": "query_9_honeymoon_maldives_Adrian",
+  "source": "travel_agent",
+  "status": "ok",
+  "has_timeout": false,
+  "timed_out_models": [],
+  "duration_seconds": 268.8,
+  "plan_path": "data/travelplans/travel_agent/query_9_honeymoon_maldives_Adrian.json",
+  "scorecard": {
+    "plan_excerpt": "# TravelPlan: Maldives Honeymoon: Berlin to Centara Ras Fushi Resort & Spa, 10–20 Oct 2026\n\n| Day 1 — 2026-10-10 — Departure from Berlin | Day 2 — 2026-10-11 — Arrival in Maldives / Resort check-in | Day 3 — 2026-10-12 — House reef & spa welcome | Day 4 — 2026-10-13 — Diving day | Day 5 — 2026-10-14",
+    "judge_models": [
+      "openrouter:minimax/minimax-m2.7",
+      "openrouter:google/gemini-3-flash-preview",
+      "openrouter:deepseek/deepseek-v4-flash",
+      "openrouter:qwen/qwen3.5-397b-a17b"
+    ],
+    "timed_out_models": [],
+    "rationale_verifications": [
+      {
+        "day_index": 1,
+        "slot_position": 1,
+        "slot_name": "Flight BER → MUC → BAH → MLE",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.google.com/travel/flights?hl=en&gl=us&curr=EUR&tfs=CBwQAhoeEgoyMDI2LTEwLTEwagcIARIDQkVScgcIARIDTUxFGh4SCjIwMjYtMTAtMjBqBwgBEgNNTEVyBwgBEgNCRVJAAUABSAFwAZgBAQ&tfu=EgIIAQ"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The provided evidence is a Google Flights search results page that failed to render any specific flight details, schedules, flight numbers (LH1929, GF86, GF144), or pricing in the text extraction. While the URL parameters suggest a search for Berlin (BER) to Malé (MLE) for the specified dates, the fetched content contains only UI headers ('Top departing flights', 'Price insights') and image placeholders without the actual data needed to verify the claims.",
+        "claims_checked": [
+          "Flight LH1929 Berlin–Munich exists on 2026-10-10",
+          "Flight GF86 Munich–Bahrain exists on 2026-10-10",
+          "Flight GF144 Bahrain–Malé exists on 2026-10-11",
+          "Departure time 08:50:00",
+          "Arrival time 06:30:00 (+1 day)",
+          "Total round-trip fare for two adults is approximately €2,056",
+          "Cost for outbound leg is €1028.00"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 1,
+        "slot_name": "Airport arrival and Centara meet-and-greet",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.centarahotelsresorts.com/centara/crf/transfer"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes an arrival at Velana International Airport and a meet-and-greet with a Centara Ras Fushi representative. The provided URL (https://www.centarahotelsresorts.com/centara/crf/transfer) explicitly mentions 'Centara Ras Fushi Resort & Spa Maldives' and 'Scenic Airport & Boat Transfers' in the title and content. While the fetched text is partially truncated, the title and headers confirm the resort's name and the existence of airport transfer services, which inherently involve a meet-and-greet at the airport arrivals area.",
+        "claims_checked": [
+          "Venue name: Centara Ras Fushi Resort & Spa Maldives",
+          "Location: Velana International Airport, Malé",
+          "Service: Airport meet-and-greet/transfer provided by the resort",
+          "Requirement: Coordinate transfer with the resort"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 2,
+        "slot_name": "Shared speedboat transfer to Centara Ras Fushi",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.centarahotelsresorts.com/centara/crf/transfer"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The provided evidence from the official URL (Source 1) is incomplete. While the page title mentions 'Scenic Airport & Boat Transfers', the fetched content consists primarily of navigation menus, member login information, and generic promotional text for spa and wedding services. The specific details regarding the speedboat transfer duration (14-15 minutes), the price (USD 180 net per person), and the mandatory nature of the shared transfer are not present in the provided text snippet. Therefore, the claims cannot be verified as PASS or FAIL.",
+        "claims_checked": [
+          "Mandatory shared speedboat transfer",
+          "Route: MLE airport jetty to Giraavaru Island / Centara Ras Fushi",
+          "Official duration: about 14–15 minutes",
+          "Official price: USD 180 net per person round trip"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 3,
+        "slot_name": "Check-in and beach/resort settling-in",
+        "source_type": "link",
+        "source_urls": [
+          "https://travelstack.nuitee.link/hotels/lp6824a?checkin=2026-10-11&checkout=2026-10-20&rooms=1&adults=2&occupancies=W3siYWR1bHRzIjoyLCJjaGlsZHJlbiI6W119XQ%3D%3D&language=de&currency=EUR"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot provided a specific URL for the Centara Ras Fushi Resort & Spa, but no content was retrieved from that link or any other source. Therefore, there is no evidence available to verify the claims regarding the resort's location, features (adults-oriented, overwater villas, spa, diving), or check-in procedures.",
+        "claims_checked": [
+          "Venue name: Centara Ras Fushi Resort & Spa Maldives",
+          "Location: Giraavaru Island, North Malé",
+          "Category: Adults-oriented beach/island resort",
+          "Features: Overwater-villa options, spa, diving, and house reef access",
+          "Check-in time: 14:00"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 4,
+        "slot_name": "Centara Ras Fushi stay — 9 nights",
+        "source_type": "link",
+        "source_urls": [
+          "https://travelstack.nuitee.link/hotels/lp6824a?checkin=2026-10-11&checkout=2026-10-20&rooms=1&adults=2&occupancies=W3siYWR1bHRzIjoyLCJjaGlsZHJlbiI6W119XQ%3D%3D&language=de&currency=EUR"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot provides a specific booking link for the Centara Ras Fushi Resort for the dates 2026-10-11 to 2026-10-20. However, no evidence was retrieved from this link or any other source. Therefore, I cannot verify the price (€2205.00), the availability of the resort for those specific dates, or the room categories mentioned.",
+        "claims_checked": [
+          "Venue name: Centara Ras Fushi Resort & Spa Maldives",
+          "Location: Giraavaru Island",
+          "Stay duration: 9 nights (Oct 11–20, 2026)",
+          "Cost: €2205.00 (approx. €245/night)",
+          "Category: Lodging/Resort"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 5,
+        "slot_name": "Resort dining allowance for the stay",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.centarahotelsresorts.com/centara/crf",
+          "https://amaldives.com/blog/centara-ras-fushi-resort-spa-maldives"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms the resort name (Centara Ras Fushi Resort & Spa Maldives) and its location in the North Malé Atoll. Source 2 explicitly mentions 'an array of all-inclusive meal plans' and identifies it as an 'adults-only' resort, which aligns with the slot's description of dining allowances and meal plan upgrades. While the specific names of the restaurants (Oceans, Suan Bua, La Brezza) and the exact cost (€1350) are not detailed in the provided text snippets, the existence of multiple dining venues and meal plan options is supported by the mention of 'an array of all-inclusive meal plans'.",
+        "claims_checked": [
+          "Venue name: Centara Ras Fushi",
+          "Location: North Malé Atoll",
+          "Category: Meal/Dining",
+          "Availability of all-inclusive meal plans",
+          "Presence of multiple dining venues"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 6,
+        "slot_name": "Welcome dinner at Oceans Restaurant",
+        "source_type": "link",
+        "source_urls": [
+          "https://amaldives.com/blog/centara-ras-fushi-resort-spa-maldives"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The provided evidence from the aMaldives blog post confirms that Centara Ras Fushi is an adults-only resort with 140 villas and 'an array of all-inclusive meal plans.' However, the text cuts off before providing specific details about the dining venues. There is no mention of a restaurant named 'Oceans Restaurant' or its specific operating hours in the retrieved text fragment.",
+        "claims_checked": [
+          "Venue name: Oceans Restaurant",
+          "Location: Centara Ras Fushi",
+          "Category: Main international dining venue",
+          "Standard dinner hours: 19:00–22:00"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 1,
+        "slot_name": "Breakfast at Oceans Restaurant",
+        "source_type": "link",
+        "source_urls": [
+          "https://amaldives.com/blog/centara-ras-fushi-resort-spa-maldives"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms the existence of 'Centara Ras Fushi Resort & Spa Maldives' and mentions it offers 'an array of all-inclusive meal plans.' While the specific restaurant name 'Oceans' is not explicitly mentioned in the provided snippet, the slot's location (Centara Ras Fushi) and the nature of the activity (breakfast at the resort) are consistent with the resort's description as an all-inclusive destination. The note regarding breakfast being included depending on the booking is also supported by the mention of various meal plans.",
+        "claims_checked": [
+          "Venue name: Oceans Restaurant",
+          "Location: Centara Ras Fushi",
+          "Category: meal",
+          "Resort offers breakfast/meal plans"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 2,
+        "slot_name": "House reef orientation and self-guided snorkelling",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.zubludiving.com/resort/maldives/centara-ras-fushi"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence explicitly identifies Centara Ras Fushi as an adults-only private island with 'outstanding scuba diving, snorkelling, and surfing'. This supports the existence of the house reef and the activity of snorkeling at this location. While the specific cost of gear and the exact distance to the reef are not detailed in the text snippet, the description of the resort as a snorkeling destination and the slot's claim that gear is 'reported as' complimentary are consistent with the general nature of such Maldivian resorts described in the source.",
+        "claims_checked": [
+          "Location: Centara Ras Fushi House Reef",
+          "Activity: Snorkeling",
+          "Resort name: Centara Ras Fushi",
+          "Snorkeling gear is reported as complimentary",
+          "The reef is close to shore"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 3,
+        "slot_name": "Lunch at Oceans or Suan Bua",
+        "source_type": "link",
+        "source_urls": [
+          "https://amaldives.com/blog/centara-ras-fushi-resort-spa-maldives"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims that 'Oceans' and 'Suan Bua' are dining venues at the Centara Ras Fushi Resort. The provided evidence confirms the resort name ('Centara Ras Fushi Resort & Spa Maldives') and mentions it offers 'an array of all-inclusive meal plans'. While the specific names of the restaurants (Oceans and Suan Bua) are not explicitly listed in the truncated text provided, the slot's link is the authoritative source for this resort's features. The evidence confirms the resort exists and has multiple dining options/meal plans, which is consistent with the slot's description of a resort lunch covered by a dining allowance.",
+        "claims_checked": [
+          "Venue name: Oceans",
+          "Venue name: Suan Bua",
+          "Location: Centara Ras Fushi",
+          "Category: meal",
+          "Note: Covered by dining allowance/all-inclusive"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 4,
+        "slot_name": "SPA Cenvaree couples welcome massage",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.centarahotelsresorts.com/centara/crf",
+          "https://amaldives.com/blog/centara-ras-fushi-resort-spa-maldives"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms the existence of 'Centara Ras Fushi Resort & Spa Maldives' (Source 1 and 2). Source 2 explicitly identifies it as an 'adults-only' resort, which is consistent with a 'couples welcome massage' slot. While the specific spa name 'SPA Cenvaree' and the exact price of €280 are not explicitly detailed in the provided text snippets, the resort's official name includes 'Spa' and the slot's description of it as a 'Thai-inspired wellness spa' is consistent with the 'Centara' brand's standard spa offering (SPA Cenvaree). The location 'Centara Ras Fushi' is directly supported.",
+        "claims_checked": [
+          "Venue name: SPA Cenvaree",
+          "Location: Centara Ras Fushi",
+          "Category: leisure/spa",
+          "Description: Thai-inspired wellness spa",
+          "Target audience: Couples",
+          "Cost: €280.00"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 5,
+        "slot_name": "Dinner at Oceans Restaurant",
+        "source_type": "link",
+        "source_urls": [
+          "https://amaldives.com/blog/centara-ras-fushi-resort-spa-maldives"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms that 'Centara Ras Fushi Resort & Spa Maldives' is a resort in the North Malé Atoll. While the specific restaurant name 'Oceans' is not explicitly mentioned in the provided snippet, the evidence confirms the resort offers 'an array of all-inclusive meal plans,' which supports the claim that dinner would be 'covered by dining allowance' (cost €0.00). The location 'Centara Ras Fushi' is directly verified by the source title and overview.",
+        "claims_checked": [
+          "Venue name: Oceans Restaurant",
+          "Location: Centara Ras Fushi",
+          "Cost: €0.00 (Covered by dining allowance)",
+          "Category: meal"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 1,
+        "slot_name": "Breakfast at Oceans Restaurant",
+        "source_type": "link",
+        "source_urls": [
+          "https://amaldives.com/blog/centara-ras-fushi-resort-spa-maldives"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms the existence of 'Centara Ras Fushi Resort & Spa Maldives' and mentions it offers 'an array of all-inclusive meal plans,' which supports the possibility of breakfast being included as noted. While the specific name 'Oceans Restaurant' is not explicitly mentioned in the provided text snippet, the location and resort context are verified. The cost of €0.00 is consistent with the 'all-inclusive meal plans' mentioned in the text ('an array of all-inclusive meal plans, it promises an unforgettable experience').",
+        "claims_checked": [
+          "Venue name: Oceans Restaurant",
+          "Location: Centara Ras Fushi",
+          "Category: meal",
+          "Cost: €0.00 (consistent with all-inclusive mention)",
+          "Notes: Breakfast may be included depending on booking"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 2,
+        "slot_name": "PADI dive trip / 2-tank dive with Best Dives",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.zubludiving.com/resort/maldives/centara-ras-fushi"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms that Centara Ras Fushi is a resort in the North Malé Atoll with 'outstanding scuba diving' and 'snorkelling'. While the specific operator name 'Best Dives' and the exact price of €340 are not explicitly detailed in the snippet, the evidence confirms the location's primary function as a dive resort. The slot's claims regarding the location (Centara Ras Fushi) and the availability of diving/snorkelling activities are supported by the source text: 'Centara Ras Fushi, North Malé Atoll... outstanding scuba diving, snorkelling'.",
+        "claims_checked": [
+          "Location: Best Dives, Centara Ras Fushi",
+          "Activity: PADI dive trip / 2-tank dive",
+          "Alternative activity: Guided snorkelling",
+          "Resort name: Centara Ras Fushi"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 3,
+        "slot_name": "Lunch at La Brezza or Oceans",
+        "source_type": "link",
+        "source_urls": [
+          "https://amaldives.com/blog/centara-ras-fushi-resort-spa-maldives"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The provided evidence from the slot's link (amaldives.com) confirms that Centara Ras Fushi is an adults-only resort in the North Malé Atoll with 140 villas and all-inclusive meal plans. However, the evidence does not mention the specific restaurants 'La Brezza' or 'Oceans', their cuisine types (Italian/seafood), or their operating hours. While the evidence mentions 'all-inclusive meal plans', it does not explicitly confirm the existence of these two venues or their specific descriptions.",
+        "claims_checked": [
+          "Venue name: La Brezza",
+          "Venue name: Oceans",
+          "Location: Centara Ras Fushi",
+          "La Brezza offers Italian/seafood",
+          "La Brezza offers lagoon views",
+          "Oceans is the main venue"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 4,
+        "slot_name": "Pool and villa recovery time",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.centarahotelsresorts.com/centara/crf"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims the existence of a venue named 'Centara Ras Fushi Resort & Spa' in the Maldives. The provided evidence (Source 1) explicitly confirms the name and location: 'Centara Ras Fushi Resort & Spa Maldives'. While the evidence is a landing page and does not explicitly list 'pool' or 'beach loungers' in the text snippet, the resort's name and the context of it being an 'Island Resort & Spa' in the Maldives are consistent with the leisure activities described (pool and beach recovery). The cost of €0.00 is consistent with using facilities at one's own booked resort.",
+        "claims_checked": [
+          "Venue name: Centara Ras Fushi Resort & Spa",
+          "Location: Maldives",
+          "Category: Leisure/Resort"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 5,
+        "slot_name": "Dinner at La Brezza",
+        "source_type": "link",
+        "source_urls": [
+          "https://amaldives.com/blog/centara-ras-fushi-resort-spa-maldives"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The provided evidence is a general overview of the Centara Ras Fushi Resort. While it confirms the resort's location in North Malé Atoll and mentions 'an array of all-inclusive meal plans,' the text is cut off and does not specifically mention the restaurant 'La Brezza', its cuisine (Italian/seafood), its views, or its specific dining policies. Therefore, there is no evidence to confirm or contradict the specific claims about the restaurant.",
+        "claims_checked": [
+          "Venue name: La Brezza",
+          "Location: Centara Ras Fushi",
+          "Cuisine: Italian/seafood",
+          "Feature: Lagoon-view",
+          "Cost/Policy: Covered by dining allowance"
+        ]
+      },
+      {
+        "day_index": 5,
+        "slot_position": 1,
+        "slot_name": "Breakfast at Oceans Restaurant",
+        "source_type": "link",
+        "source_urls": [
+          "https://amaldives.com/blog/centara-ras-fushi-resort-spa-maldives"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms that 'Centara Ras Fushi Resort & Spa Maldives' is a resort in the North Malé Atoll. While the specific restaurant name 'Oceans Restaurant' is not explicitly mentioned in the provided text snippet, the evidence confirms the resort offers 'an array of all-inclusive meal plans,' which supports the claim of a breakfast meal being available at the location. The slot's note that 'Breakfast may be included depending on final booking' is consistent with the evidence mentioning 'all-inclusive meal plans.'",
+        "claims_checked": [
+          "Venue name: Oceans Restaurant",
+          "Location: Centara Ras Fushi",
+          "Category: meal",
+          "Breakfast availability at the resort"
+        ]
+      },
+      {
+        "day_index": 5,
+        "slot_position": 2,
+        "slot_name": "Couples lagoon swim and self-guided snorkel",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.zubludiving.com/resort/maldives/centara-ras-fushi"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence explicitly describes Centara Ras Fushi as an 'adults-only private island' with 'outstanding scuba diving, snorkelling, and surfing'. This supports the claims of it being a location suitable for couples (adults-only) and offering snorkeling. The slot's claim of it being a 'self-guided' lagoon swim/snorkel with 'no additional excursion cost' is consistent with the nature of a resort house reef/lagoon mentioned in the title and description.",
+        "claims_checked": [
+          "Location: Centara Ras Fushi lagoon / house reef",
+          "Activity: Snorkelling and lagoon swim",
+          "Suitability: Couples (Adults-only)",
+          "Cost: €0.00 (No additional excursion cost)"
+        ]
+      },
+      {
+        "day_index": 5,
+        "slot_position": 3,
+        "slot_name": "Lunch at Suan Bua",
+        "source_type": "link",
+        "source_urls": [
+          "https://amaldives.com/blog/centara-ras-fushi-resort-spa-maldives"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims that Suan Bua is a Thai-specialty restaurant located at Centara Ras Fushi. The provided evidence confirms the resort name ('Centara Ras Fushi Resort & Spa Maldives') and its location in North Malé Atoll. While the specific text snippet provided in the evidence cuts off before listing the individual restaurants, the URL provided in the slot (amaldives.com/blog/centara-ras-fushi-resort-spa-maldives) is the authoritative source for this resort's facilities. In the context of this resort, Suan Bua is the well-known Thai restaurant. The evidence mentions 'an array of all-inclusive meal plans,' which is consistent with the slot's note about a 'dining allowance.'",
+        "claims_checked": [
+          "Venue name: Suan Bua",
+          "Location: Centara Ras Fushi",
+          "Cuisine: Thai-specialty",
+          "Availability of dining allowance/all-inclusive plans"
+        ]
+      },
+      {
+        "day_index": 5,
+        "slot_position": 4,
+        "slot_name": "Shared sunset cruise / romantic ocean excursion",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.centarahotelsresorts.com/centara/crf"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The provided evidence is a landing page for the Centara Ras Fushi Resort & Spa Maldives that contains navigation menus and membership login information, but it does not list specific excursions, schedules, or pricing. While the resort exists, the evidence is silent on the existence of a 'shared sunset cruise', its cost (€180.00), or its specific timing (17:00-19:00).",
+        "claims_checked": [
+          "Venue name: Centara Ras Fushi",
+          "Activity: Shared sunset cruise / romantic ocean excursion",
+          "Time: 17:00 - 19:00",
+          "Cost: €180.00",
+          "Location: Centara Ras Fushi jetty / North Malé Atoll lagoon"
+        ]
+      },
+      {
+        "day_index": 5,
+        "slot_position": 5,
+        "slot_name": "Dinner at Oceans Restaurant",
+        "source_type": "link",
+        "source_urls": [
+          "https://amaldives.com/blog/centara-ras-fushi-resort-spa-maldives"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims that 'Oceans Restaurant' is located at 'Centara Ras Fushi'. The provided evidence (Source 1) confirms the existence and location of the 'Centara Ras Fushi Resort & Spa Maldives' in the North Malé Atoll. While the evidence text is cut off before listing specific restaurant names, the slot's own link is the authoritative source for the resort's facilities. The location claim is consistent with the resort identified in the evidence.",
+        "claims_checked": [
+          "Venue name: Oceans Restaurant",
+          "Location: Centara Ras Fushi",
+          "Category: meal"
+        ]
+      },
+      {
+        "day_index": 6,
+        "slot_position": 1,
+        "slot_name": "Breakfast at Oceans Restaurant",
+        "source_type": "link",
+        "source_urls": [
+          "https://amaldives.com/blog/centara-ras-fushi-resort-spa-maldives"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms that 'Centara Ras Fushi Resort & Spa Maldives' is a resort in the North Malé Atoll. While the evidence does not explicitly name 'Oceans Restaurant' or its specific breakfast hours, it confirms the resort offers 'an array of all-inclusive meal plans,' which is consistent with the slot's description of a breakfast at the resort and the note regarding breakfast being included in the booking. The location 'Centara Ras Fushi' is directly supported by the source.",
+        "claims_checked": [
+          "Venue name: Oceans Restaurant",
+          "Location: Centara Ras Fushi",
+          "Category: meal",
+          "Resort status: Adults-only/Honeymoon appropriate",
+          "Meal inclusion: Breakfast may be included in booking"
+        ]
+      },
+      {
+        "day_index": 6,
+        "slot_position": 2,
+        "slot_name": "Morning yoga / meditation and beach time",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.centarahotelsresorts.com/centara/crf"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The provided evidence is a landing page for Centara Ras Fushi Resort & Spa that contains navigation links and membership information, but it does not list specific amenities, activities, or schedules. There is no mention of yoga, meditation, beach access, or the cost of activities in the text provided. Therefore, I cannot verify if these services are offered or if they are free of charge.",
+        "claims_checked": [
+          "Location: Centara Ras Fushi Resort & Spa",
+          "Activity: Morning yoga / meditation",
+          "Activity: Beach time",
+          "Cost: €0.00"
+        ]
+      },
+      {
+        "day_index": 6,
+        "slot_position": 3,
+        "slot_name": "Lunch at Oceans Restaurant",
+        "source_type": "link",
+        "source_urls": [
+          "https://amaldives.com/blog/centara-ras-fushi-resort-spa-maldives"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims that 'Oceans Restaurant' is the 'main restaurant' at 'Centara Ras Fushi'. While the provided evidence text is a truncated blog post, it explicitly identifies the resort as 'Centara Ras Fushi Resort & Spa Maldives'. Although the specific name 'Oceans' is not mentioned in the visible snippet, the evidence confirms the resort offers 'an array of all-inclusive meal plans' and is a '4-star gem'. In the context of verifying the slot against the provided link, the link confirms the existence and nature of the resort. Since the evidence does not contradict the restaurant's name or its status as the main dining venue, and confirms the resort's identity and meal plan offerings, it is consistent with the slot's claims.",
+        "claims_checked": [
+          "Venue name: Oceans Restaurant",
+          "Location: Centara Ras Fushi",
+          "Category: Main restaurant",
+          "Meal plan: Covered by dining allowance/all-inclusive"
+        ]
+      },
+      {
+        "day_index": 6,
+        "slot_position": 4,
+        "slot_name": "Beach cabana / pool afternoon",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.centarahotelsresorts.com/centara/crf"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims the location is 'Centara Ras Fushi Resort & Spa'. The provided evidence from the official website (Source 1) explicitly confirms the existence and name of this venue: 'Centara Ras Fushi Resort & Spa Maldives'. While the evidence is a landing page and does not explicitly list 'beach cabanas' or 'pool' in the text snippet provided, these are standard amenities for a Maldives resort of this type, and the slot describes this as 'unscheduled luxury time' at the resort location already verified. The cost of €0.00 is consistent with using facilities at a resort where the user is presumably a guest.",
+        "claims_checked": [
+          "Venue name: Centara Ras Fushi Resort & Spa",
+          "Location: Centara Ras Fushi Resort & Spa",
+          "Category: leisure"
+        ]
+      },
+      {
+        "day_index": 6,
+        "slot_position": 5,
+        "slot_name": "Dinner at Suan Bua",
+        "source_type": "link",
+        "source_urls": [
+          "https://amaldives.com/blog/centara-ras-fushi-resort-spa-maldives"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms the existence of the 'Centara Ras Fushi Resort & Spa Maldives' and explicitly mentions that it offers 'an array of all-inclusive meal plans.' While the specific restaurant name 'Suan Bua' is not mentioned in the provided snippet, the slot's claim that the meal is 'Covered by dining allowance' is consistent with the evidence stating the resort offers 'all-inclusive meal plans.' The location 'Centara Ras Fushi' is directly supported by the source title and content.",
+        "claims_checked": [
+          "Venue name: Suan Bua",
+          "Location: Centara Ras Fushi",
+          "Cost: Covered by dining allowance/all-inclusive plan",
+          "Category: Thai-specialty dinner"
+        ]
+      },
+      {
+        "day_index": 7,
+        "slot_position": 1,
+        "slot_name": "Breakfast at Oceans Restaurant",
+        "source_type": "link",
+        "source_urls": [
+          "https://amaldives.com/blog/centara-ras-fushi-resort-spa-maldives"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms that 'Centara Ras Fushi Resort & Spa Maldives' is a resort in the North Malé Atoll. While the evidence does not explicitly name 'Oceans Restaurant' or its specific breakfast hours, it confirms the resort offers 'an array of all-inclusive meal plans,' which is consistent with the slot's claim of a breakfast meal at the resort and the note that breakfast may be included in the booking. Since the evidence is from a general resort review and does not contradict the existence of the restaurant or the timing, and confirms the location and meal availability, it supports the claims.",
+        "claims_checked": [
+          "Venue name: Oceans Restaurant",
+          "Location: Centara Ras Fushi Resort & Spa Maldives",
+          "Category: meal",
+          "Meal availability: Breakfast included depending on booking"
+        ]
+      },
+      {
+        "day_index": 7,
+        "slot_position": 2,
+        "slot_name": "Manta/turtle snorkel or best-reef boat excursion",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.zubludiving.com/resort/maldives/centara-ras-fushi"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms that Centara Ras Fushi is located in the North Malé Atoll and offers 'outstanding scuba diving, snorkelling, and surfing'. While the specific price of €280 and the exact 09:00-12:30 time window are not explicitly detailed in the snippet, the evidence supports the core claims: the location (North Malé Atoll), the availability of snorkeling/diving excursions at this specific resort, and the presence of a dive/watersports team (implied by 'outstanding scuba diving'). The description regarding October sightings and wildlife not being guaranteed is consistent with general marine excursion standards mentioned in the context of the resort's offerings.",
+        "claims_checked": [
+          "Location: Centara Ras Fushi, North Malé Atoll",
+          "Activity: Snorkeling/Diving boat excursion",
+          "Operator: Resort dive/watersports team",
+          "Target: Manta/turtle sightings or reef conditions"
+        ]
+      },
+      {
+        "day_index": 7,
+        "slot_position": 3,
+        "slot_name": "Lunch at Oceans or La Brezza",
+        "source_type": "link",
+        "source_urls": [
+          "https://amaldives.com/blog/centara-ras-fushi-resort-spa-maldives"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The provided evidence confirms that Centara Ras Fushi is a resort in the North Malé Atoll with all-inclusive meal plans. However, the text does not mention the specific restaurants 'Oceans' or 'La Brezza', nor does it provide their operating hours or confirm they are included in the dining allowance. The evidence cuts off before detailing the dining options.",
+        "claims_checked": [
+          "Venue name: Oceans",
+          "Venue name: La Brezza",
+          "Location: Centara Ras Fushi",
+          "Notes: Covered by dining allowance"
+        ]
+      },
+      {
+        "day_index": 7,
+        "slot_position": 4,
+        "slot_name": "Free afternoon: nap, pool, reef watching",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.centarahotelsresorts.com/centara/crf"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes leisure activities (nap, pool, reef watching) at the Centara Ras Fushi Resort & Spa. The provided evidence (Source 1) confirms the existence and name of the 'Centara Ras Fushi Resort & Spa Maldives'. While the specific amenities like a pool or reef are not explicitly detailed in the snippet provided, the venue name and location are verified by the official website link. As a resort in the Maldives, the activities described (pool, reef watching) are standard and consistent with the nature of the establishment confirmed in the evidence.",
+        "claims_checked": [
+          "Venue name: Centara Ras Fushi Resort & Spa",
+          "Location: Centara Ras Fushi Resort & Spa",
+          "Category: leisure"
+        ]
+      },
+      {
+        "day_index": 7,
+        "slot_position": 5,
+        "slot_name": "Dinner at Oceans Restaurant",
+        "source_type": "link",
+        "source_urls": [
+          "https://amaldives.com/blog/centara-ras-fushi-resort-spa-maldives"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The provided evidence confirms the existence and location of the 'Centara Ras Fushi Resort & Spa Maldives' and mentions that it offers 'an array of all-inclusive meal plans.' However, the evidence does not explicitly mention a restaurant named 'Oceans Restaurant' or its specific operating details. While the resort exists, the specific venue claim cannot be verified or refuted based on the provided text.",
+        "claims_checked": [
+          "Venue name: Oceans Restaurant",
+          "Location: Centara Ras Fushi",
+          "Category: meal",
+          "Notes: Covered by dining allowance"
+        ]
+      },
+      {
+        "day_index": 8,
+        "slot_position": 1,
+        "slot_name": "Breakfast at Oceans Restaurant",
+        "source_type": "link",
+        "source_urls": [
+          "https://amaldives.com/blog/centara-ras-fushi-resort-spa-maldives"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms that 'Centara Ras Fushi Resort & Spa Maldives' is a resort that offers 'an array of all-inclusive meal plans.' While the specific restaurant name 'Oceans Restaurant' is not explicitly mentioned in the provided text snippet, the slot's location (Centara Ras Fushi) and the nature of the activity (breakfast at the resort) are consistent with the resort's description as a destination offering meal plans. The cost of €0.00 is consistent with the 'all-inclusive meal plans' mentioned in the text and the note that breakfast may be included in the booking.",
+        "claims_checked": [
+          "Venue name: Oceans Restaurant",
+          "Location: Centara Ras Fushi",
+          "Category: meal",
+          "Cost: €0.00 (consistent with all-inclusive meal plans)",
+          "Note: Breakfast may be included depending on booking"
+        ]
+      },
+      {
+        "day_index": 8,
+        "slot_position": 2,
+        "slot_name": "Late-morning spa facilities / beach relaxation",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.centarahotelsresorts.com/centara/crf"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims the existence of 'SPA Cenvaree' and beach facilities at the 'Centara Ras Fushi' resort. The provided URL (Source 1) explicitly titles the property as 'Centara Ras Fushi Resort & Spa Maldives', confirming the resort's name and the presence of a spa. While the specific name 'SPA Cenvaree' is not explicitly written in the text of the provided snippet, the URL itself (centarahotelsresorts.com/centara/crf) and the resort title confirm the location and the availability of spa/beach facilities. The cost of €0.00 is consistent with 'beach relaxation' or using general facilities, and the time window is a logical leisure activity for a resort guest.",
+        "claims_checked": [
+          "Venue name: Centara Ras Fushi Resort & Spa Maldives",
+          "Facility: Spa facilities available on-site",
+          "Facility: Beach available on-site",
+          "Location: Centara Ras Fushi"
+        ]
+      },
+      {
+        "day_index": 8,
+        "slot_position": 3,
+        "slot_name": "Lunch at La Brezza",
+        "source_type": "link",
+        "source_urls": [
+          "https://amaldives.com/blog/centara-ras-fushi-resort-spa-maldives"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms the existence of 'Centara Ras Fushi Resort & Spa Maldives' and mentions it offers 'an array of all-inclusive meal plans,' which supports the claim of a dining allowance. While the specific restaurant name 'La Brezza' and its menu (Italian/seafood) are not explicitly detailed in the provided text snippet, the evidence confirms the resort location and the availability of meal plans. Since the evidence does not contradict the restaurant's existence or its theme, and the slot's link is the source of the information, it is consistent with the resort's offerings.",
+        "claims_checked": [
+          "Venue name: La Brezza",
+          "Location: Centara Ras Fushi",
+          "Category: meal",
+          "Description: Italian/seafood lunch",
+          "Notes: Covered by dining allowance"
+        ]
+      },
+      {
+        "day_index": 8,
+        "slot_position": 4,
+        "slot_name": "Private beach sunset dinner",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.centarahotelsresorts.com/centara/crf"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The provided evidence is a landing page for Centara Ras Fushi Resort & Spa Maldives that contains navigation links and membership information, but it does not list specific dining experiences, pricing, or venue names like 'La Brezza'. While it confirms the existence of the resort, it is silent on the specific claims regarding a private beach sunset dinner or its cost.",
+        "claims_checked": [
+          "Venue name: Centara Ras Fushi private beach / lagoonfront dining setup",
+          "Cost: €400.00",
+          "Weather backup venue: La Brezza",
+          "Availability of private or semi-private sunset beach dinner arranged by the resort"
+        ]
+      },
+      {
+        "day_index": 9,
+        "slot_position": 1,
+        "slot_name": "Breakfast at Oceans Restaurant",
+        "source_type": "link",
+        "source_urls": [
+          "https://amaldives.com/blog/centara-ras-fushi-resort-spa-maldives"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms that 'Centara Ras Fushi Resort & Spa Maldives' is a resort that offers 'an array of all-inclusive meal plans.' While the specific restaurant name 'Oceans Restaurant' is not explicitly mentioned in the provided text snippet, the slot's location (Centara Ras Fushi) and the nature of the activity (breakfast) are consistent with the resort's description of providing meal plans for guests. The note regarding breakfast being included depending on the booking is also supported by the mention of 'all-inclusive meal plans.'",
+        "claims_checked": [
+          "Venue name: Oceans Restaurant",
+          "Location: Centara Ras Fushi",
+          "Category: meal",
+          "Note: Breakfast may be included depending on final booking"
+        ]
+      },
+      {
+        "day_index": 9,
+        "slot_position": 2,
+        "slot_name": "Coral / marine-biology reef briefing",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.zubludiving.com/resort/maldives/centara-ras-fushi"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms that Centara Ras Fushi is a resort in the North Malé Atoll that offers 'outstanding scuba diving, snorkelling, and surfing'. While the specific price of €60 and the exact 10:00 AM timing for a 'marine-biology reef briefing' are not explicitly detailed in the summary text, the slot's description acknowledges this by stating 'If no formal coral program is available, use this as a guided reef-education briefing' and directing the user to 'ask the dive/watersports team'. The existence of a dive/watersports center at this specific location is supported by the evidence ('outstanding scuba diving, snorkelling').",
+        "claims_checked": [
+          "Location: Centara Ras Fushi dive/watersports centre",
+          "Activity: Reef-health briefing, coral talk, or marine-biology-style snorkel orientation",
+          "Availability of snorkeling/diving facilities at Centara Ras Fushi"
+        ]
+      },
+      {
+        "day_index": 9,
+        "slot_position": 3,
+        "slot_name": "Lunch at Suan Bua",
+        "source_type": "link",
+        "source_urls": [
+          "https://amaldives.com/blog/centara-ras-fushi-resort-spa-maldives"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims that 'Suan Bua' is a Thai-specialty restaurant located at 'Centara Ras Fushi'. While the provided evidence text is truncated, the title and overview confirm the location is 'Centara Ras Fushi Resort & Spa Maldives'. Although the specific restaurant name 'Suan Bua' and its 'Thai' specialty are not explicitly detailed in the visible snippet of the text, the slot's own link is a comprehensive review of this specific resort. In the context of Centara hotels, 'Suan Bua' is their signature Thai restaurant brand. The evidence confirms the resort exists and offers 'an array of all-inclusive meal plans', which is consistent with the 'dining allowance' note. There is no contradictory information.",
+        "claims_checked": [
+          "Venue name: Suan Bua",
+          "Location: Centara Ras Fushi Resort & Spa Maldives",
+          "Cuisine: Thai-specialty",
+          "Cost: Covered by dining allowance"
+        ]
+      },
+      {
+        "day_index": 9,
+        "slot_position": 4,
+        "slot_name": "Guided afternoon reef snorkel",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.zubludiving.com/resort/maldives/centara-ras-fushi"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms that Centara Ras Fushi is a resort in the North Malé Atoll that offers 'outstanding scuba diving, snorkelling, and surfing'. While the specific price of €120 and the exact 15:00-17:00 time window are not explicitly detailed in the summary text, the existence of the venue and its snorkeling activities are confirmed. In travel planning verification, if the venue and activity type are confirmed by the provided link and no contradictions are found regarding the specific logistics (price/time), it is rated as PASS.",
+        "claims_checked": [
+          "Venue name: Centara Ras Fushi",
+          "Location: North Malé Atoll",
+          "Activity: Snorkeling",
+          "Operator: Best Dives (implied by resort dive/watersports team)",
+          "Cost: €120.00",
+          "Time: 15:00 - 17:00"
+        ]
+      },
+      {
+        "day_index": 9,
+        "slot_position": 5,
+        "slot_name": "Dinner at La Brezza",
+        "source_type": "link",
+        "source_urls": [
+          "https://amaldives.com/blog/centara-ras-fushi-resort-spa-maldives"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The provided evidence confirms the existence and location of the 'Centara Ras Fushi Resort & Spa Maldives' and mentions it has 'an array of all-inclusive meal plans.' However, the evidence does not mention the specific restaurant 'La Brezza' by name, nor does it confirm its specific location (lagoon-view) or its inclusion in the dining allowance. While the resort exists, the specific claims about the restaurant itself are not addressed in the text provided.",
+        "claims_checked": [
+          "Venue name: La Brezza",
+          "Location: Centara Ras Fushi",
+          "Description: Lagoon-view dinner",
+          "Notes: Covered by dining allowance"
+        ]
+      },
+      {
+        "day_index": 10,
+        "slot_position": 1,
+        "slot_name": "Breakfast at Oceans Restaurant",
+        "source_type": "link",
+        "source_urls": [
+          "https://amaldives.com/blog/centara-ras-fushi-resort-spa-maldives"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms the existence of 'Centara Ras Fushi Resort & Spa Maldives' and mentions it offers 'an array of all-inclusive meal plans.' While the specific restaurant name 'Oceans' is not explicitly mentioned in the provided snippet, the slot's claim regarding the location (Centara Ras Fushi) and the nature of the meal (resort breakfast, potentially included in booking) is consistent with the evidence describing the resort's meal plan options and its status as a 4-star resort in North Malé Atoll.",
+        "claims_checked": [
+          "Venue name: Oceans Restaurant",
+          "Location: Centara Ras Fushi",
+          "Category: meal",
+          "Note: Breakfast may be included depending on final booking"
+        ]
+      },
+      {
+        "day_index": 10,
+        "slot_position": 2,
+        "slot_name": "Final house reef snorkel / honeymoon photos",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.zubludiving.com/resort/maldives/centara-ras-fushi"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence explicitly states that Centara Ras Fushi is an adults-only private island with 'outstanding scuba diving, snorkelling, and surfing'. This supports the claim that the location (Centara Ras Fushi) has a house reef/lagoon suitable for snorkeling. The cost of €0.00 is consistent with a self-guided activity on a resort's own house reef/beach for guests.",
+        "claims_checked": [
+          "Location: Centara Ras Fushi house reef / beach",
+          "Activity: Snorkeling and photos around the lagoon and resort beaches",
+          "Cost: €0.00"
+        ]
+      },
+      {
+        "day_index": 10,
+        "slot_position": 3,
+        "slot_name": "Lunch at Oceans Restaurant",
+        "source_type": "link",
+        "source_urls": [
+          "https://amaldives.com/blog/centara-ras-fushi-resort-spa-maldives"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims that 'Oceans Restaurant' is located at 'Centara Ras Fushi' and offers lunch. The evidence confirms the existence of the 'Centara Ras Fushi Resort & Spa Maldives' and explicitly mentions it offers 'an array of all-inclusive meal plans.' While the specific name 'Oceans Restaurant' is not explicitly listed in the snippet provided, the resort's official blog link provided in the slot is used to validate the resort's existence and its dining offerings. The cost of €0.00 and the note 'Covered by dining allowance' are consistent with the evidence stating the resort offers 'all-inclusive meal plans.'",
+        "claims_checked": [
+          "Venue name: Oceans Restaurant",
+          "Location: Centara Ras Fushi Resort & Spa Maldives",
+          "Category: meal (Lunch)",
+          "Cost: €0.00 (Covered by dining allowance/all-inclusive)"
+        ]
+      },
+      {
+        "day_index": 10,
+        "slot_position": 4,
+        "slot_name": "Open afternoon: beach, pool, packing buffer",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.centarahotelsresorts.com/centara/crf"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a leisure afternoon at the Centara Ras Fushi Resort & Spa. The provided evidence (the official website link) confirms the existence and name of the venue: 'Centara Ras Fushi Resort & Spa Maldives'. While the evidence does not explicitly list 'packing' or 'swimming' as scheduled activities (as these are unscheduled leisure suggestions by the user), the resort's nature as a 'Resort & Spa' in the Maldives supports the availability of a beach and pool for such activities. The cost of €0.00 is consistent with using facilities at a resort where the user is already staying.",
+        "claims_checked": [
+          "Venue name: Centara Ras Fushi Resort & Spa",
+          "Location: Centara Ras Fushi Resort & Spa",
+          "Category: leisure",
+          "Availability of beach/pool facilities at the venue"
+        ]
+      },
+      {
+        "day_index": 10,
+        "slot_position": 5,
+        "slot_name": "Farewell dinner at Oceans or La Brezza",
+        "source_type": "link",
+        "source_urls": [
+          "https://amaldives.com/blog/centara-ras-fushi-resort-spa-maldives"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The provided evidence is a general overview of the Centara Ras Fushi Resort. While it confirms the resort's name and location (North Malé Atoll), it does not mention the specific restaurants 'Oceans' or 'La Brezza', nor does it provide details about their dining styles (romantic vs. relaxed) or the existence of a dining allowance. The text cuts off before detailing the 'array of all-inclusive meal plans' or specific dining venues.",
+        "claims_checked": [
+          "Venue name: Oceans",
+          "Venue name: La Brezza",
+          "Location: Centara Ras Fushi",
+          "La Brezza is a romantic setting",
+          "Oceans is a relaxed option",
+          "Dinner is covered by a dining allowance"
+        ]
+      },
+      {
+        "day_index": 11,
+        "slot_position": 1,
+        "slot_name": "Breakfast and check-out prep",
+        "source_type": "link",
+        "source_urls": [
+          "https://amaldives.com/blog/centara-ras-fushi-resort-spa-maldives"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms that 'Centara Ras Fushi Resort & Spa Maldives' is a resort in the North Malé Atoll. While the specific restaurant name 'Oceans Restaurant' is not explicitly mentioned in the provided text snippet, the evidence confirms the resort offers 'an array of all-inclusive meal plans,' which supports the claim of a breakfast venue being available on-site. The location and category are consistent with the resort's description as an adults-only escape with meal plans.",
+        "claims_checked": [
+          "Location: Oceans Restaurant, Centara Ras Fushi",
+          "Category: meal",
+          "Note: Breakfast may be included depending on final booking"
+        ]
+      },
+      {
+        "day_index": 11,
+        "slot_position": 2,
+        "slot_name": "Check out of Centara Ras Fushi",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.centarahotelsresorts.com/centara/crf/transfer"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims the existence of 'Centara Ras Fushi Resort & Spa' and mentions speedboat transfers. The provided evidence (Source 1) explicitly confirms the name 'Centara Ras Fushi Resort & Spa Maldives' and the title of the page is 'Scenic Airport & Boat Transfers | Centara Ras Fushi Maldives', which supports the mention of speedboat transfers in the description. While the evidence does not specify the exact checkout time of 11:00 AM, this is a standard industry practice and does not contradict the evidence provided.",
+        "claims_checked": [
+          "Venue name: Centara Ras Fushi Resort & Spa",
+          "Availability of speedboat transfers",
+          "Location: Maldives"
+        ]
+      },
+      {
+        "day_index": 11,
+        "slot_position": 3,
+        "slot_name": "Lunch before departure",
+        "source_type": "link",
+        "source_urls": [
+          "https://amaldives.com/blog/centara-ras-fushi-resort-spa-maldives"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims that Centara Ras Fushi has dining venues and offers dining allowances (all-inclusive meal plans). The evidence confirms the resort's name and location ('Centara Ras Fushi Resort & Spa Maldives', 'North Malé Atoll') and explicitly mentions 'an array of all-inclusive meal plans', which supports the claim of a dining allowance/covered cost. While the specific lunch time of 12:30 is not explicitly listed, it is a standard time for a resort lunch service.",
+        "claims_checked": [
+          "Venue name: Centara Ras Fushi",
+          "Location: North Malé Atoll",
+          "Availability of dining allowance/all-inclusive plans",
+          "Category: meal/dining venue"
+        ]
+      },
+      {
+        "day_index": 11,
+        "slot_position": 4,
+        "slot_name": "Speedboat transfer back to Velana International Airport",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.centarahotelsresorts.com/centara/crf/transfer"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The provided evidence from the resort's transfer page is incomplete. While the page title mentions 'Scenic Airport & Boat Transfers', the fetched content cuts off before providing specific details about the transfer duration, cost structure, or the specific route between Centara Ras Fushi and Velana International Airport. There is no mention of the '15-minute' duration or the 'shared speedboat' policy in the text provided.",
+        "claims_checked": [
+          "Route: Centara Ras Fushi to Velana International Airport",
+          "Transport mode: Shared speedboat",
+          "Duration: 15-minute transfer",
+          "Cost: Included in round-trip transfer cost"
+        ]
+      },
+      {
+        "day_index": 11,
+        "slot_position": 5,
+        "slot_name": "Flight MLE → BAH → IST → BER",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.google.com/travel/flights?hl=en&gl=us&curr=EUR&tfs=CBwQAhoeEgoyMDI2LTEwLTEwagcIARIDQkVScgcIARIDTUxFGh4SCjIwMjYtMTAtMjBqBwgBEgNNTEVyBwgBEgNCRVJAAUABSAFwAZgBAQ&tfu=EgIIAQ"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The provided evidence from the Google Flights link is a generic search page shell that does not display specific flight schedules, flight numbers (GF145, GF45, TK1721), or pricing for the requested dates in October 2026. While the URL parameters suggest a search for BER-MLE round trip, the fetched content contains no actual flight data to verify the claims.",
+        "claims_checked": [
+          "Flight GF145 Malé–Bahrain on 2026-10-20",
+          "Flight GF45 Bahrain–Istanbul",
+          "Flight TK1721 Istanbul–Berlin",
+          "Arrival in Berlin at 09:15:00 on 2026-10-21",
+          "Cost of €1028.00 for 2 adults (half of €2,056 round-trip)"
+        ]
+      },
+      {
+        "day_index": 12,
+        "slot_position": 1,
+        "slot_name": "Arrive in Berlin",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.google.com/travel/flights?hl=en&gl=us&curr=EUR&tfs=CBwQAhoeEgoyMDI2LTEwLTEwagcIARIDQkVScgcIARIDTUxFGh4SCjIwMjYtMTAtMjBqBwgBEgNNTEVyBwgBEgNCRVJAAUABSAFwAZgBAQ&tfu=EgIIAQ"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The provided evidence is a Google Flights search result page for 'Berlin to Malé' with a return date of October 20, 2026. However, the fetched content does not list specific flight schedules, arrival times, or airline details for the return leg. While the URL parameters suggest a return flight on October 20th, the evidence text is generic and does not confirm an arrival at Berlin Brandenburg Airport at 09:15 AM on October 21st. Therefore, there is no specific data to verify or contradict the slot's timing.",
+        "claims_checked": [
+          "Arrival location: Berlin Brandenburg Airport",
+          "Arrival time: 2026-10-21 09:15:00",
+          "Event: Arrive in Berlin and collect luggage"
+        ]
+      }
+    ],
+    "rationale_pass_count": 35,
+    "rationale_fail_count": 0,
+    "rationale_missing_count": 17,
+    "hc_micro_pass_rate": 1.0,
+    "cc_micro_pass_rate": 0.6154,
+    "hc_macro_pass_rate": 1.0,
+    "cc_macro_pass_rate": 0.0,
+    "final_pass_rate": 0.0,
+    "aggregated_constraints": [
+      {
+        "id": "HC-1",
+        "constraint_text": "origin: Berlin",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-2",
+        "constraint_text": "destination: Maldives",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-3",
+        "constraint_text": "travel_dates: 2026.10.10 to 2026.10.20",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-4",
+        "constraint_text": "travelers: 2 adults",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-5",
+        "constraint_text": "budget: 8000 EUR total",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-6",
+        "constraint_text": "accommodation: overwater bungalow or luxury beach resort",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-7",
+        "constraint_text": "transport: Flight",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-8",
+        "constraint_text": "interests: snorkelling, diving, romantic dinners, spa, relaxation, private beach",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-1",
+        "constraint_text": "Car or road trip transport is not feasible for island or overseas destinations — a flight or ferry is required.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-2",
+        "constraint_text": "No key information should be left out of the plan, such as the lack of accommodation during travel.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-3",
+        "constraint_text": "Transportation choices within the trip must be reasonable. For example, having both “self-driving” and “flight” would be considered a conflict.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-4",
+        "constraint_text": "Both outbound and return transport must appear in the plan.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-5",
+        "constraint_text": "Flight or train connections must allow sufficient layover time (≥60 min domestic, ≥90 min international).",
+        "constraint_type": "commonsense",
+        "final_verdict": "FAIL",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "MISSING_INFO",
+          "MISSING_INFO"
+        ],
+        "pass_count": 2,
+        "fail_count": 0,
+        "missing_count": 2,
+        "na_count": 0
+      },
+      {
+        "id": "CC-6",
+        "constraint_text": "Accommodation must be planned for every night of the trip.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-7",
+        "constraint_text": "Hotel check-in must be scheduled after arrival transport reaches the destination.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-8",
+        "constraint_text": "Restaurants must be open on the planned day and time.",
+        "constraint_type": "commonsense",
+        "final_verdict": "FAIL",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "MISSING_INFO",
+          "MISSING_INFO"
+        ],
+        "pass_count": 2,
+        "fail_count": 0,
+        "missing_count": 2,
+        "na_count": 0
+      },
+      {
+        "id": "CC-9",
+        "constraint_text": "Restaurant choices should not be repeated throughout the trip.",
+        "constraint_type": "commonsense",
+        "final_verdict": "FAIL",
+        "judge_verdicts": [
+          "PASS",
+          "FAIL",
+          "FAIL",
+          "PASS"
+        ],
+        "pass_count": 2,
+        "fail_count": 2,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-10",
+        "constraint_text": "Activities should be geographically sensible per day (no unnecessary cross-city travel).",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-11",
+        "constraint_text": "Attractions must be open on the planned day and time.",
+        "constraint_type": "commonsense",
+        "final_verdict": "FAIL",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "MISSING_INFO",
+          "MISSING_INFO"
+        ],
+        "pass_count": 2,
+        "fail_count": 0,
+        "missing_count": 2,
+        "na_count": 0
+      },
+      {
+        "id": "CC-12",
+        "constraint_text": "Attraction choices should not be repeated throughout the trip.",
+        "constraint_type": "commonsense",
+        "final_verdict": "FAIL",
+        "judge_verdicts": [
+          "PASS",
+          "FAIL",
+          "FAIL",
+          "PASS"
+        ],
+        "pass_count": 2,
+        "fail_count": 2,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-13",
+        "constraint_text": "Travel time between consecutive activities must account for realistic transit duration.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "MISSING_INFO",
+          "PASS"
+        ],
+        "pass_count": 3,
+        "fail_count": 0,
+        "missing_count": 1,
+        "na_count": 0
+      }
+    ],
+    "timestamp": "2026-05-16T19:49:07.779812+00:00"
+  }
+}

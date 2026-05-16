@@ -1,0 +1,1537 @@
+{
+  "id": "query_11_backpacker_capetown_Adrian",
+  "description": "Normal case: solo backpacker, long-haul, tight budget",
+  "query": "I am travelling solo from Munich to Cape Town for 3 weeks from June 1st to 21st, 2026. My total budget is €4,000 including flights. I will stay in hostels, love hiking (Table Mountain, Cape Point), wildlife, and surfing. I want to experience local culture and meet other travellers. Please help me plan this trip on a tight budget.",
+  "hard_constraints": {
+    "origin": "Munich",
+    "destination": "Cape Town",
+    "date_from": "2026.06.01",
+    "date_to": "2026.06.21",
+    "travelers": {
+      "adults": 1,
+      "children_under_6": 0,
+      "children_6_to_16": 0
+    },
+    "budget_amount": 4000,
+    "budget_currency": "EUR",
+    "accommodation": "hostel",
+    "transport": "Flight",
+    "interests": "hiking, wildlife, local culture, surf, budget travel, meeting people"
+  },
+  "model_name": "openrouter:google/gemini-3-flash-preview",
+  "generated_at": "2026-05-16T16:05:11.084285+00:00",
+  "duration_seconds": 678.65,
+  "travelplan": {
+    "title": "Cape Town solo budget adventure — Munich to Cape Town, 1–21 June 2026",
+    "days": [
+      {
+        "index": 1,
+        "calendar_date": "2026-06-01",
+        "label": "Departure from Munich",
+        "slots": [
+          {
+            "name": "Budget lunch before departure",
+            "description": "Keep the travel day cheap with a supermarket or bakery lunch before heading to Munich Airport.",
+            "start_time": "2026-06-01T12:00:00",
+            "end_time": "2026-06-01T13:00:00",
+            "category": "meal",
+            "location": "Munich",
+            "cost": 8.0,
+            "links": [],
+            "notes": "Tight-budget baseline meal."
+          },
+          {
+            "name": "Early dinner at Munich Airport",
+            "description": "Eat before boarding to avoid extra airport/airline spending.",
+            "start_time": "2026-06-01T14:30:00",
+            "end_time": "2026-06-01T15:15:00",
+            "category": "meal",
+            "location": "Munich Airport",
+            "cost": 10.0,
+            "links": [],
+            "notes": "Outbound flight departs 16:40."
+          },
+          {
+            "name": "Flight: Munich to Doha",
+            "description": "Qatar Airways QR58 from MUC to DOH. Round-trip flight search total: €845 including return itinerary.",
+            "start_time": "2026-06-01T16:40:00",
+            "end_time": "2026-06-01T23:40:00",
+            "category": "transport",
+            "location": "Munich Airport / Hamad International Airport",
+            "cost": 845.0,
+            "links": [
+              "https://www.google.com/travel/flights?hl=en&gl=us&curr=EUR&tfs=CBwQAhoeEgoyMDI2LTA2LTAxagcIARIDTVVDcgcIARIDQ1BUGh4SCjIwMjYtMDYtMjFqBwgBEgNDUFRyBwgBEgNNVUNAAUgBcAGYAQE&tfu=EgIIAQ"
+            ],
+            "notes": "Budget option found via Google Flights; verify before booking."
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "calendar_date": "2026-06-02",
+        "label": "Arrival in Cape Town",
+        "slots": [
+          {
+            "name": "Flight: Doha to Cape Town",
+            "description": "Qatar Airways QR1369 from DOH to CPT after a 4h20 layover in Doha.",
+            "start_time": "2026-06-02T04:00:00",
+            "end_time": "2026-06-02T13:10:00",
+            "category": "transport",
+            "location": "Hamad International Airport / Cape Town International Airport",
+            "cost": null,
+            "links": [
+              "https://www.google.com/travel/flights?hl=en&gl=us&curr=EUR&tfs=CBwQAhoeEgoyMDI2LTA2LTAxagcIARIDTVVDcgcIARIDQ1BUGh4SCjIwMjYtMDYtMjFqBwgBEgNDUFRyBwgBEgNNVUNAAUgBcAGYAQE&tfu=EgIIAQ"
+            ],
+            "notes": "Cost included in Day 1 round-trip flight slot."
+          },
+          {
+            "name": "Ride-hail airport transfer to hostel area",
+            "description": "Use Uber/Bolt or official metered taxi from CPT airport to Long Street / Green Point. Web-verified estimate: 20–50 min; MyCiTi airport shuttle reported suspended in recent data.",
+            "start_time": "2026-06-02T14:00:00",
+            "end_time": "2026-06-02T15:00:00",
+            "category": "transport",
+            "location": "Cape Town International Airport to central Cape Town",
+            "cost": 18.0,
+            "links": [
+              "https://www.rome2rio.com/s/Capetown-Airport-CPT/Long-Street",
+              "https://www.welcomepickups.com/cape-town/airport-transfer-to-city/"
+            ],
+            "notes": "Prefer app-based ride for safety and transparent pricing on arrival."
+          },
+          {
+            "name": "Check in: social budget hostel base",
+            "description": "Use Never at Home Green Point / similar social hostel as the planning base: dorm, Wi‑Fi, bar/common areas, good for meeting travellers. Estimated €30/night for 19 nights.",
+            "start_time": "2026-06-02T15:00:00",
+            "end_time": "2026-06-02T15:30:00",
+            "category": "lodging",
+            "location": "Green Point or Long Street, Cape Town",
+            "cost": 570.0,
+            "links": [
+              "https://www.hostelworld.com/hostels/africa/south-africa/cape-town/",
+              "https://www.hostelz.com/hostels/South-Africa/Cape-Town/green-point"
+            ],
+            "notes": "Book refundable dorm early; exact 2026 hostel rates can vary."
+          },
+          {
+            "name": "Dinner: Meeting Point East African Cuisine",
+            "description": "Cheap, central East African dinner near Long/Strand Street for an easy first night.",
+            "start_time": "2026-06-02T19:00:00",
+            "end_time": "2026-06-02T20:00:00",
+            "category": "meal",
+            "location": "67 Strand St, Cape Town City Centre",
+            "cost": 8.0,
+            "links": [
+              "http://www.ritasselection.co.za/"
+            ],
+            "notes": "Keep first evening low-key after long travel."
+          },
+          {
+            "name": "Late lunch: AfroDeli Eatery",
+            "description": "Inexpensive South African/African food in the city centre after check-in.",
+            "start_time": "2026-06-02T15:45:00",
+            "end_time": "2026-06-02T16:30:00",
+            "category": "meal",
+            "location": "AfroDeli Eatery, 41 Church St, Cape Town City Centre",
+            "cost": 7.0,
+            "links": [
+              "https://maps.google.com/?cid=14099884133451789582&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+            ],
+            "notes": "Rating 4.5; inexpensive."
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "calendar_date": "2026-06-03",
+        "label": "Table Mountain intro",
+        "slots": [
+          {
+            "name": "Transit to Table Mountain trailhead",
+            "description": "Use MyCiTi/taxi to Tafelberg Road. Routing API unavailable; web guidance confirms Lower Cable Station access via MyCiTi routes and shuttle, operations weather-dependent.",
+            "start_time": "2026-06-03T07:30:00",
+            "end_time": "2026-06-03T08:15:00",
+            "category": "transport",
+            "location": "Cape Town city centre to Tafelberg Road",
+            "cost": 6.0,
+            "links": [
+              "https://www.tablemountain.net/",
+              "https://www.tablemountaincablecar.com/visitor-info"
+            ],
+            "notes": "Check weather and cableway live status before leaving."
+          },
+          {
+            "name": "Guided/social Table Mountain hike: Platteklip Gorge",
+            "description": "Social morning ascent with local hiking community via Platteklip Gorge. Solo hiking is discouraged; join a group or guide. Trail is free, but budget included for group/guide contribution.",
+            "start_time": "2026-06-03T08:30:00",
+            "end_time": "2026-06-03T12:30:00",
+            "category": "attraction",
+            "location": "Hike Table Mountain, 37 Tafelberg Rd",
+            "cost": 20.0,
+            "links": [
+              "https://www.google.com/maps/search/Hike+Table+Mountain",
+              "https://www.tablemountain.net/our-blog/table-mountain-aerial-cableway-announces-2026-annual-maintenance-shutdown-dates"
+            ],
+            "notes": "No day-hike permit required; use SafetyMountain/WhatsApp tracking and avoid hiking alone."
+          },
+          {
+            "name": "Lunch: AfroDeli Eatery",
+            "description": "Cheap South African/African lunch after the hike.",
+            "start_time": "2026-06-03T13:30:00",
+            "end_time": "2026-06-03T14:30:00",
+            "category": "meal",
+            "location": "AfroDeli Eatery, 41 Church St",
+            "cost": 7.0,
+            "links": [
+              "https://maps.google.com/?cid=14099884133451789582&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+            ],
+            "notes": "Inexpensive central option."
+          },
+          {
+            "name": "Hostel common-room recovery / meet travellers",
+            "description": "Use the hostel common areas/bar to find hiking or surf buddies for later days.",
+            "start_time": "2026-06-03T17:00:00",
+            "end_time": "2026-06-03T18:30:00",
+            "category": "leisure",
+            "location": "Hostel common area, Green Point/Long Street",
+            "cost": 0.0,
+            "links": [
+              "https://www.hostelworld.com/hostels/africa/south-africa/cape-town/"
+            ],
+            "notes": "Good night to join hostel WhatsApp/event board."
+          },
+          {
+            "name": "Dinner: Bo-Kaap Kombuis",
+            "description": "Cape Malay dinner in Bo-Kaap; moderately priced but culturally worthwhile.",
+            "start_time": "2026-06-03T19:00:00",
+            "end_time": "2026-06-03T20:30:00",
+            "category": "meal",
+            "location": "Bo-Kaap Kombuis, 7 August St",
+            "cost": 18.0,
+            "links": [
+              "https://bokaapkombuis.co.za/"
+            ],
+            "notes": "Open Wed dinner 18:00–21:30 per restaurant search."
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "calendar_date": "2026-06-04",
+        "label": "First Thursdays culture",
+        "slots": [
+          {
+            "name": "Bo-Kaap colour streets and local history walk",
+            "description": "Self-guided Bo-Kaap walk; focus on Cape Malay history, mosque streets, and respectful photography.",
+            "start_time": "2026-06-04T10:00:00",
+            "end_time": "2026-06-04T12:00:00",
+            "category": "attraction",
+            "location": "Bo-Kaap, Cape Town",
+            "cost": 0.0,
+            "links": [
+              "https://bokaapkombuis.co.za/"
+            ],
+            "notes": "Ask before photographing residents; this is a living neighbourhood."
+          },
+          {
+            "name": "Lunch: AfroDeli Eatery",
+            "description": "Budget central lunch before afternoon galleries.",
+            "start_time": "2026-06-04T12:30:00",
+            "end_time": "2026-06-04T13:30:00",
+            "category": "meal",
+            "location": "AfroDeli Eatery, 41 Church St",
+            "cost": 7.0,
+            "links": [
+              "https://maps.google.com/?cid=14099884133451789582&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+            ],
+            "notes": "Close to CBD gallery streets."
+          },
+          {
+            "name": "First Thursdays gallery crawl",
+            "description": "Free monthly arts/culture crawl around Bree, Loop and Church Streets. Good for meeting locals and travellers.",
+            "start_time": "2026-06-04T17:00:00",
+            "end_time": "2026-06-04T21:00:00",
+            "category": "attraction",
+            "location": "Cape Town CBD: Bree, Loop and Church Streets",
+            "cost": 0.0,
+            "links": [
+              "https://www.getoutin.co.za/events/oranjezicht-city-farm-market-14",
+              "https://foodtruckfinder.co.za/blog/best-food-truck-markets-festivals-south-africa"
+            ],
+            "notes": "June 4 is the first Thursday of the month."
+          },
+          {
+            "name": "Dinner: Meeting Point East African Cuisine",
+            "description": "Cheap African dinner after First Thursdays galleries.",
+            "start_time": "2026-06-04T21:00:00",
+            "end_time": "2026-06-04T22:00:00",
+            "category": "meal",
+            "location": "67 Strand St, Cape Town City Centre",
+            "cost": 8.0,
+            "links": [
+              "http://www.ritasselection.co.za/"
+            ],
+            "notes": "Open until 22:30 per restaurant search."
+          }
+        ]
+      },
+      {
+        "index": 5,
+        "calendar_date": "2026-06-05",
+        "label": "Muizenberg surf day",
+        "slots": [
+          {
+            "name": "Train to Muizenberg Beach",
+            "description": "Take Southern Line from Cape Town Station to Muizenberg in daylight. Web-verified ride about 51 min plus ticket/buffer; use newer blue trains and avoid travel after dark.",
+            "start_time": "2026-06-05T08:00:00",
+            "end_time": "2026-06-05T09:15:00",
+            "category": "transport",
+            "location": "Cape Town Station to Muizenberg Station",
+            "cost": 2.0,
+            "links": [
+              "https://www.rome2rio.com/s/Cape-Town/Muizenberg",
+              "https://moovitapp.com/index/en-gb/public_transportation-Muizenberg_Beach-Cape_Town-site_18640040-1883"
+            ],
+            "notes": "Buy paper ticket at station; keep valuables hidden."
+          },
+          {
+            "name": "Beginner surf lesson at Muizenberg",
+            "description": "Beginner-friendly surf lesson at Muizenberg / Surfers Corner with a local surf school; June has consistent swell but cold water, so rent a wetsuit.",
+            "start_time": "2026-06-05T09:30:00",
+            "end_time": "2026-06-05T12:30:00",
+            "category": "attraction",
+            "location": "Paul's Surfing Lessons, Muizenberg Beach",
+            "cost": 30.0,
+            "links": [
+              "https://www.google.com/maps/search/Paul's+surfing+lessons",
+              "https://www.capetown.travel/muizenberg/"
+            ],
+            "notes": "Good social activity for meeting other travellers."
+          },
+          {
+            "name": "Train back before dark",
+            "description": "Return by Southern Line in daylight; avoid late trains after winter sunset.",
+            "start_time": "2026-06-05T16:00:00",
+            "end_time": "2026-06-05T17:15:00",
+            "category": "transport",
+            "location": "Muizenberg Station to Cape Town Station",
+            "cost": 2.0,
+            "links": [
+              "https://www.rome2rio.com/s/Cape-Town/Muizenberg"
+            ],
+            "notes": "Allow delays in winter rain."
+          },
+          {
+            "name": "Dinner: Meeting Point East African Cuisine",
+            "description": "Budget central dinner after surf day.",
+            "start_time": "2026-06-05T19:00:00",
+            "end_time": "2026-06-05T20:00:00",
+            "category": "meal",
+            "location": "67 Strand St, Cape Town City Centre",
+            "cost": 8.0,
+            "links": [
+              "http://www.ritasselection.co.za/"
+            ],
+            "notes": "Inexpensive and central."
+          },
+          {
+            "name": "Lunch: Muizenberg beachfront café / cheap takeaway",
+            "description": "Cheap post-surf lunch near Surfers Corner; use local cafés or takeaway to stay on budget.",
+            "start_time": "2026-06-05T13:00:00",
+            "end_time": "2026-06-05T14:00:00",
+            "category": "meal",
+            "location": "Muizenberg Beach / Surfers Corner",
+            "cost": 8.0,
+            "links": [
+              "https://www.capetown.travel/muizenberg/"
+            ],
+            "notes": "Dedicated restaurant tool returned off-area results, so use beachfront budget choice."
+          }
+        ]
+      },
+      {
+        "index": 6,
+        "calendar_date": "2026-06-06",
+        "label": "Woodstock market and creativity",
+        "slots": [
+          {
+            "name": "Neighbourgoods Market at Old Biscuit Mill",
+            "description": "Saturday market in Woodstock with local food, crafts, design, and strong traveller/social atmosphere.",
+            "start_time": "2026-06-06T09:30:00",
+            "end_time": "2026-06-06T12:00:00",
+            "category": "attraction",
+            "location": "The Old Biscuit Mill, 375 Albert Rd, Woodstock",
+            "cost": 0.0,
+            "links": [
+              "https://foodtruckfinder.co.za/blog/best-food-truck-markets-festivals-south-africa"
+            ],
+            "notes": "Free entry; budget separately for food."
+          },
+          {
+            "name": "Lunch: Neighbourgoods Market food stalls",
+            "description": "Use market stalls for a cheap, social lunch; choose local dishes over pricier imported options.",
+            "start_time": "2026-06-06T12:00:00",
+            "end_time": "2026-06-06T13:00:00",
+            "category": "meal",
+            "location": "Old Biscuit Mill / Neighbourgoods Market",
+            "cost": 10.0,
+            "links": [
+              "https://foodtruckfinder.co.za/blog/best-food-truck-markets-festivals-south-africa"
+            ],
+            "notes": "Market dishes estimated R80–R150."
+          },
+          {
+            "name": "Woodstock creative streets and street art",
+            "description": "Explore Woodstock Exchange, Albert/Victoria Road workshops and street art; stay on busier streets and go in daylight.",
+            "start_time": "2026-06-06T13:30:00",
+            "end_time": "2026-06-06T16:30:00",
+            "category": "attraction",
+            "location": "Woodstock, Cape Town",
+            "cost": 0.0,
+            "links": [
+              "https://www.google.com/maps/search/Ceramic+Art+Studio+-+Sculpture+&+Pottery+Classes"
+            ],
+            "notes": "Attraction search emphasized Woodstock’s industrial creative scene."
+          },
+          {
+            "name": "Early dinner: Altona Fisheries",
+            "description": "Traditional inexpensive fish-and-chips dinner in Woodstock before closing.",
+            "start_time": "2026-06-06T17:00:00",
+            "end_time": "2026-06-06T18:00:00",
+            "category": "meal",
+            "location": "Altona Fisheries, 127 Victoria Rd, Woodstock",
+            "cost": 8.0,
+            "links": [
+              "https://maps.google.com/?cid=11882353024054358707&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+            ],
+            "notes": "Saturday hours from restaurant search: closes 16:00; if closed, swap with market dinner/snack."
+          }
+        ]
+      },
+      {
+        "index": 7,
+        "calendar_date": "2026-06-07",
+        "label": "Kirstenbosch nature",
+        "slots": [
+          {
+            "name": "Transit to Kirstenbosch",
+            "description": "Use rideshare or City Sightseeing/connecting transit to Kirstenbosch; routing API unavailable, web sources estimate 15–20 min by car from CBD.",
+            "start_time": "2026-06-07T08:30:00",
+            "end_time": "2026-06-07T09:15:00",
+            "category": "transport",
+            "location": "Cape Town CBD to Kirstenbosch",
+            "cost": 8.0,
+            "links": [
+              "https://www.machupicchu.org/kirstenbosch-botanical-gardens-2026-cape-towns-unesco-floral-kingdom-guide.htm"
+            ],
+            "notes": "Sunday is a calmer nature day."
+          },
+          {
+            "name": "Kirstenbosch gardens and Boomslang walkway",
+            "description": "Explore the Cape Floral Kingdom, forest paths and Centenary Tree Canopy Walkway. Winter hours verified: 08:00–18:00; 2026 adult estimate R95.",
+            "start_time": "2026-06-07T09:15:00",
+            "end_time": "2026-06-07T12:30:00",
+            "category": "attraction",
+            "location": "Kirstenbosch National Botanical Garden, Rhodes Drive",
+            "cost": 5.0,
+            "links": [
+              "https://www.google.com/maps/search/Kirstenbosch+National+Botanical+Garden",
+              "https://www.machupicchu.org/kirstenbosch-botanical-gardens-2026-cape-towns-unesco-floral-kingdom-guide.htm"
+            ],
+            "notes": "Pack rain shell; June is winter."
+          },
+          {
+            "name": "Lunch: Kirstenbosch Tea Room / packed picnic",
+            "description": "Keep costs down with a packed supermarket picnic or basic tea-room lunch inside/near the gardens.",
+            "start_time": "2026-06-07T12:30:00",
+            "end_time": "2026-06-07T13:30:00",
+            "category": "meal",
+            "location": "Kirstenbosch National Botanical Garden",
+            "cost": 8.0,
+            "links": [
+              "https://www.machupicchu.org/kirstenbosch-botanical-gardens-2026-cape-towns-unesco-floral-kingdom-guide.htm"
+            ],
+            "notes": "Tea room exists but menu prices vary; picnic is cheapest."
+          },
+          {
+            "name": "Return to hostel and laundry/admin",
+            "description": "Return to hostel, do laundry, dry hiking gear, and join hostel board/WhatsApp for next week’s activities.",
+            "start_time": "2026-06-07T14:00:00",
+            "end_time": "2026-06-07T16:00:00",
+            "category": "leisure",
+            "location": "Hostel, Green Point/Long Street",
+            "cost": 5.0,
+            "links": [
+              "https://www.hostelworld.com/hostels/africa/south-africa/cape-town/"
+            ],
+            "notes": "Low-cost reset day."
+          },
+          {
+            "name": "Dinner: Ground Zero Cafe / Observatory cheap eats",
+            "description": "Inexpensive casual dinner option identified by restaurant search; if it closes early, use nearby Observatory cheap eats.",
+            "start_time": "2026-06-07T18:00:00",
+            "end_time": "2026-06-07T19:00:00",
+            "category": "meal",
+            "location": "122b Lower Main Rd, Observatory",
+            "cost": 8.0,
+            "links": [
+              "https://maps.google.com/?cid=14736803472437558803&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+            ],
+            "notes": "Search result says open until 19:00."
+          }
+        ]
+      },
+      {
+        "index": 8,
+        "calendar_date": "2026-06-08",
+        "label": "Cape Point and penguins",
+        "slots": [
+          {
+            "name": "Cape Explorer bus to Cape Point",
+            "description": "City Sightseeing Cape Point & Penguin Explorer from 81 Long Street. Web-verified daily 09:00 departure, return about 17:30; no direct municipal public transport to Cape Point.",
+            "start_time": "2026-06-08T08:45:00",
+            "end_time": "2026-06-08T11:00:00",
+            "category": "transport",
+            "location": "81 Long Street to Cape Point / Simon's Town route",
+            "cost": 34.0,
+            "links": [
+              "https://citysightseeing.co.za/en/cape-town/cape-point-penguin-explorer-tour"
+            ],
+            "notes": "Transport estimate R645; arrive 15 min early."
+          },
+          {
+            "name": "Boulders penguin colony stop",
+            "description": "Visit African penguins on boardwalks at Boulders. Winter hours around 08:00–17:00; estimated international entry R190–R245.",
+            "start_time": "2026-06-08T11:00:00",
+            "end_time": "2026-06-08T12:00:00",
+            "category": "attraction",
+            "location": "Boulders Beach, Simon's Town",
+            "cost": 12.0,
+            "links": [
+              "https://www.sanparks.org/parks/table_mountain/tourism/attractions.php#boulders"
+            ],
+            "notes": "Stay on boardwalks; do not touch/feed wildlife."
+          },
+          {
+            "name": "Packed lunch on Cape Peninsula tour",
+            "description": "Bring supermarket lunch/snacks to avoid expensive tourist cafés on the full-day tour.",
+            "start_time": "2026-06-08T12:00:00",
+            "end_time": "2026-06-08T12:45:00",
+            "category": "meal",
+            "location": "Simon's Town / Cape Peninsula",
+            "cost": 8.0,
+            "links": [
+              "https://citysightseeing.co.za/en/cape-town/cape-point-penguin-explorer-tour"
+            ],
+            "notes": "Keeps Cape Point day within budget."
+          },
+          {
+            "name": "Cape Point and Cape of Good Hope hiking",
+            "description": "Explore Cape Point/Cape of Good Hope with included guided walk options; watch for ostrich, baboons, antelope and coastal birdlife. Park winter gate hours 07:00–17:00.",
+            "start_time": "2026-06-08T13:00:00",
+            "end_time": "2026-06-08T16:00:00",
+            "category": "attraction",
+            "location": "Cape Point Nature Reserve / Cape of Good Hope",
+            "cost": 21.0,
+            "links": [
+              "https://capepoint.co.za/visitor-info/",
+              "https://www.google.com/maps/search/Olifantsbos+Beach"
+            ],
+            "notes": "Entry estimate R400–R455. Do not carry visible food around baboons."
+          },
+          {
+            "name": "Return Cape Explorer bus",
+            "description": "Return to central Cape Town by scheduled Cape Explorer bus.",
+            "start_time": "2026-06-08T16:00:00",
+            "end_time": "2026-06-08T17:30:00",
+            "category": "transport",
+            "location": "Cape Point to 81 Long Street",
+            "cost": null,
+            "links": [
+              "https://citysightseeing.co.za/en/cape-town/cape-point-penguin-explorer-tour"
+            ],
+            "notes": "Cost included in morning bus slot."
+          },
+          {
+            "name": "Dinner: Meeting Point East African Cuisine",
+            "description": "Cheap, filling dinner after the long Cape Peninsula day.",
+            "start_time": "2026-06-08T19:00:00",
+            "end_time": "2026-06-08T20:00:00",
+            "category": "meal",
+            "location": "67 Strand St, Cape Town City Centre",
+            "cost": 8.0,
+            "links": [
+              "http://www.ritasselection.co.za/"
+            ],
+            "notes": "Central and open late."
+          }
+        ]
+      },
+      {
+        "index": 9,
+        "calendar_date": "2026-06-09",
+        "label": "Langa community culture",
+        "slots": [
+          {
+            "name": "Transfer to Langa cultural centre",
+            "description": "Use rideshare or tour-arranged pickup to reach Langa safely and on time.",
+            "start_time": "2026-06-09T08:30:00",
+            "end_time": "2026-06-09T09:15:00",
+            "category": "transport",
+            "location": "Cape Town city centre to Guga S’thebe, Langa",
+            "cost": 8.0,
+            "links": [
+              "https://www.google.com/maps/search/Zuzie+Township+Tours"
+            ],
+            "notes": "Prefer local guide pickup/clear meeting point."
+          },
+          {
+            "name": "Langa respectful community walking tour",
+            "description": "Walk Langa with a resident guide focused on Guga S’Thebe Arts & Culture Centre, social enterprise, Ubuntu, and community context.",
+            "start_time": "2026-06-09T09:30:00",
+            "end_time": "2026-06-09T13:00:00",
+            "category": "attraction",
+            "location": "Zuzie Township Tours / Guga S’thebe Cultural Centre, Langa",
+            "cost": 40.0,
+            "links": [
+              "https://www.google.com/maps/search/Zuzie+Township+Tours"
+            ],
+            "notes": "Respectful guided format; avoid poverty-tourism behaviour."
+          },
+          {
+            "name": "Lunch with guide/local café in Langa",
+            "description": "Eat at a guide-recommended local spot if appropriate; otherwise return to town for AfroDeli.",
+            "start_time": "2026-06-09T13:00:00",
+            "end_time": "2026-06-09T14:00:00",
+            "category": "meal",
+            "location": "Langa or Cape Town CBD",
+            "cost": 9.0,
+            "links": [
+              "https://www.google.com/maps/search/Zuzie+Township+Tours"
+            ],
+            "notes": "Ask guide which businesses are locally owned."
+          },
+          {
+            "name": "Return to city and rest",
+            "description": "Return by rideshare/tour transfer and take a quiet afternoon after an intense cultural morning.",
+            "start_time": "2026-06-09T14:00:00",
+            "end_time": "2026-06-09T15:00:00",
+            "category": "transport",
+            "location": "Langa to Cape Town city centre",
+            "cost": 8.0,
+            "links": [
+              "https://www.google.com/maps/search/Zuzie+Township+Tours"
+            ],
+            "notes": "Stay flexible if tour includes transport."
+          },
+          {
+            "name": "Dinner: AfroDeli Eatery",
+            "description": "Low-cost central dinner with African/South African dishes.",
+            "start_time": "2026-06-09T19:00:00",
+            "end_time": "2026-06-09T20:00:00",
+            "category": "meal",
+            "location": "AfroDeli Eatery, 41 Church St",
+            "cost": 8.0,
+            "links": [
+              "https://maps.google.com/?cid=14099884133451789582&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+            ],
+            "notes": "Open until 22:00 per search."
+          }
+        ]
+      },
+      {
+        "index": 10,
+        "calendar_date": "2026-06-10",
+        "label": "Lion's Head and Sea Point",
+        "slots": [
+          {
+            "name": "Sunrise group hike: Lion's Head",
+            "description": "Join hostel travellers for a non-solo Lion’s Head hike if weather is clear. Keep to daylight and avoid isolated trails.",
+            "start_time": "2026-06-10T07:30:00",
+            "end_time": "2026-06-10T10:30:00",
+            "category": "attraction",
+            "location": "Lion's Head, Cape Town",
+            "cost": 0.0,
+            "links": [
+              "https://www.tablemountain.net/"
+            ],
+            "notes": "Use this as a safer social hike rather than going alone."
+          },
+          {
+            "name": "Lunch: Sea Point promenade cheap eats",
+            "description": "Casual lunch near Sea Point after the hike; use budget takeaway/café options.",
+            "start_time": "2026-06-10T12:00:00",
+            "end_time": "2026-06-10T13:00:00",
+            "category": "meal",
+            "location": "Sea Point, Cape Town",
+            "cost": 8.0,
+            "links": [
+              "https://www.capetown.travel/"
+            ],
+            "notes": "Restaurant tool returned off-area results for Sea Point, so keep this as flexible budget meal."
+          },
+          {
+            "name": "Sea Point promenade walk and tidal pools",
+            "description": "Free coastal walk, people-watching and traveller-friendly downtime after hiking.",
+            "start_time": "2026-06-10T13:00:00",
+            "end_time": "2026-06-10T15:30:00",
+            "category": "leisure",
+            "location": "Sea Point Promenade",
+            "cost": 0.0,
+            "links": [
+              "https://www.capetown.travel/"
+            ],
+            "notes": "Good low-cost afternoon."
+          },
+          {
+            "name": "Dinner: hostel braai / self-catered group meal",
+            "description": "Join or organize a hostel braai/shared kitchen dinner to meet travellers and save money.",
+            "start_time": "2026-06-10T19:00:00",
+            "end_time": "2026-06-10T20:30:00",
+            "category": "meal",
+            "location": "Hostel kitchen/common area",
+            "cost": 8.0,
+            "links": [
+              "https://www.hostelworld.com/hostels/africa/south-africa/cape-town/"
+            ],
+            "notes": "Good social-budget strategy."
+          }
+        ]
+      },
+      {
+        "index": 11,
+        "calendar_date": "2026-06-11",
+        "label": "Robben Island history",
+        "slots": [
+          {
+            "name": "Transit to Nelson Mandela Gateway",
+            "description": "Get to V&A Waterfront early for Robben Island check-in; arrive at least 30 min before ferry.",
+            "start_time": "2026-06-11T08:00:00",
+            "end_time": "2026-06-11T08:30:00",
+            "category": "transport",
+            "location": "Hostel to Nelson Mandela Gateway, V&A Waterfront",
+            "cost": 4.0,
+            "links": [
+              "https://www.getyourguide.com/cape-town-l103/robben-island-plus-ferry-ticket-t540455/"
+            ],
+            "notes": "Use MyCiTi/walk/rideshare depending on hostel location."
+          },
+          {
+            "name": "Robben Island ferry and museum tour",
+            "description": "Ferry from V&A Waterfront plus guided prison/island tour, often led by former political prisoners. Weather cancellations possible in June.",
+            "start_time": "2026-06-11T09:00:00",
+            "end_time": "2026-06-11T12:30:00",
+            "category": "attraction",
+            "location": "Robben Island Museum / Nelson Mandela Gateway",
+            "cost": 40.0,
+            "links": [
+              "https://www.getyourguide.com/cape-town-l103/robben-island-plus-ferry-ticket-t540455/",
+              "https://activities.marriott.com/africa/south-africa/western-cape/cape-town/activities/cape_town_half_day_robben_island_tour_with_ferry_ticket-XBF3NC"
+            ],
+            "notes": "Book official direct ticket 2–4 weeks ahead if available; bring passport/ID."
+          },
+          {
+            "name": "Lunch: V&A / Watershed budget food",
+            "description": "Choose cheaper market/food-court options around the Waterfront instead of sit-down tourist restaurants.",
+            "start_time": "2026-06-11T13:00:00",
+            "end_time": "2026-06-11T14:00:00",
+            "category": "meal",
+            "location": "V&A Waterfront / Watershed",
+            "cost": 10.0,
+            "links": [
+              "https://foodtruckfinder.co.za/blog/best-food-truck-markets-festivals-south-africa"
+            ],
+            "notes": "Keep to budget."
+          },
+          {
+            "name": "Watershed local design browse",
+            "description": "Free indoor browse of local African designers and crafts; useful rainy-day culture option.",
+            "start_time": "2026-06-11T14:00:00",
+            "end_time": "2026-06-11T16:00:00",
+            "category": "attraction",
+            "location": "The Watershed, V&A Waterfront",
+            "cost": 0.0,
+            "links": [
+              "https://foodtruckfinder.co.za/blog/best-food-truck-markets-festivals-south-africa"
+            ],
+            "notes": "Free entry, avoid impulse spending."
+          },
+          {
+            "name": "Dinner: Meeting Point East African Cuisine",
+            "description": "Inexpensive central dinner after history/waterfront day.",
+            "start_time": "2026-06-11T19:00:00",
+            "end_time": "2026-06-11T20:00:00",
+            "category": "meal",
+            "location": "67 Strand St, Cape Town City Centre",
+            "cost": 8.0,
+            "links": [
+              "http://www.ritasselection.co.za/"
+            ],
+            "notes": "Reliable budget dinner."
+          }
+        ]
+      },
+      {
+        "index": 12,
+        "calendar_date": "2026-06-12",
+        "label": "Surf progression",
+        "slots": [
+          {
+            "name": "Train to Muizenberg",
+            "description": "Daylight Southern Line train to Muizenberg for a second surf session.",
+            "start_time": "2026-06-12T08:00:00",
+            "end_time": "2026-06-12T09:15:00",
+            "category": "transport",
+            "location": "Cape Town Station to Muizenberg Station",
+            "cost": 2.0,
+            "links": [
+              "https://www.rome2rio.com/s/Cape-Town/Muizenberg"
+            ],
+            "notes": "Check PRASA status that morning."
+          },
+          {
+            "name": "Surf progression session / board rental",
+            "description": "Second Muizenberg surf session: either another group lesson or cheaper board/wetsuit rental if confident.",
+            "start_time": "2026-06-12T09:30:00",
+            "end_time": "2026-06-12T12:00:00",
+            "category": "attraction",
+            "location": "Muizenberg Beach / Surfers Corner",
+            "cost": 25.0,
+            "links": [
+              "https://www.google.com/maps/search/Paul's+surfing+lessons",
+              "https://www.capetown.travel/muizenberg/"
+            ],
+            "notes": "Stay within lifeguard/shark-spotter hours."
+          },
+          {
+            "name": "Lunch: Muizenberg cheap takeaway",
+            "description": "Budget lunch near Surfers Corner after surfing.",
+            "start_time": "2026-06-12T12:30:00",
+            "end_time": "2026-06-12T13:30:00",
+            "category": "meal",
+            "location": "Muizenberg Beach",
+            "cost": 8.0,
+            "links": [
+              "https://www.capetown.travel/muizenberg/"
+            ],
+            "notes": "Warm up after cold-water surf."
+          },
+          {
+            "name": "Return train before dark",
+            "description": "Return to Cape Town in daylight using Southern Line.",
+            "start_time": "2026-06-12T15:30:00",
+            "end_time": "2026-06-12T16:45:00",
+            "category": "transport",
+            "location": "Muizenberg Station to Cape Town Station",
+            "cost": 2.0,
+            "links": [
+              "https://www.rome2rio.com/s/Cape-Town/Muizenberg"
+            ],
+            "notes": "Winter sunset is early; avoid night rail."
+          },
+          {
+            "name": "Dinner: AfroDeli Eatery",
+            "description": "Cheap central dinner after surf day.",
+            "start_time": "2026-06-12T19:00:00",
+            "end_time": "2026-06-12T20:00:00",
+            "category": "meal",
+            "location": "AfroDeli Eatery, 41 Church St",
+            "cost": 8.0,
+            "links": [
+              "https://maps.google.com/?cid=14099884133451789582&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+            ],
+            "notes": "Open daily."
+          }
+        ]
+      },
+      {
+        "index": 13,
+        "calendar_date": "2026-06-13",
+        "label": "Oranjezicht market and Waterfront",
+        "slots": [
+          {
+            "name": "Oranjezicht City Farm Market",
+            "description": "Saturday local food/farm market at Granger Bay near V&A; free entry and very social.",
+            "start_time": "2026-06-13T09:00:00",
+            "end_time": "2026-06-13T11:30:00",
+            "category": "attraction",
+            "location": "OZCF Market, Granger Bay Blvd, V&A Waterfront",
+            "cost": 0.0,
+            "links": [
+              "https://www.getoutin.co.za/events/oranjezicht-city-farm-market-14"
+            ],
+            "notes": "Web result: Saturdays 08:00–14:00."
+          },
+          {
+            "name": "Lunch: Oranjezicht market stalls",
+            "description": "Prepared food from market stalls; good place to meet other travellers and locals.",
+            "start_time": "2026-06-13T11:30:00",
+            "end_time": "2026-06-13T12:30:00",
+            "category": "meal",
+            "location": "OZCF Market, V&A Waterfront",
+            "cost": 10.0,
+            "links": [
+              "https://www.getoutin.co.za/events/oranjezicht-city-farm-market-14"
+            ],
+            "notes": "Estimated R80–R150 per dish."
+          },
+          {
+            "name": "Two Oceans Aquarium / Waterfront rainy-day option",
+            "description": "Optional paid aquarium if weather is poor; otherwise free Waterfront/harbour walk.",
+            "start_time": "2026-06-13T13:00:00",
+            "end_time": "2026-06-13T15:00:00",
+            "category": "attraction",
+            "location": "V&A Waterfront",
+            "cost": 12.0,
+            "links": [
+              "https://www.capetown.travel/"
+            ],
+            "notes": "Keep optional; can save €12 by walking instead."
+          },
+          {
+            "name": "Hostel social night / free walking-tour meetups",
+            "description": "Use hostel events/free walking-tour networks to meet travellers for the next week.",
+            "start_time": "2026-06-13T17:00:00",
+            "end_time": "2026-06-13T18:30:00",
+            "category": "leisure",
+            "location": "Hostel common area",
+            "cost": 0.0,
+            "links": [
+              "https://www.hostelworld.com/hostels/africa/south-africa/cape-town/"
+            ],
+            "notes": "Ask about group hikes or shared rides."
+          },
+          {
+            "name": "Dinner: hostel self-catered meal",
+            "description": "Cook with other dorm travellers using supermarket ingredients.",
+            "start_time": "2026-06-13T19:00:00",
+            "end_time": "2026-06-13T20:00:00",
+            "category": "meal",
+            "location": "Hostel kitchen",
+            "cost": 7.0,
+            "links": [
+              "https://www.hostelworld.com/hostels/africa/south-africa/cape-town/"
+            ],
+            "notes": "Balances market-day spending."
+          }
+        ]
+      },
+      {
+        "index": 14,
+        "calendar_date": "2026-06-14",
+        "label": "Budget wildlife day",
+        "slots": [
+          {
+            "name": "Budget wildlife choice: West Coast NP shared car OR Aquila upgrade",
+            "description": "Primary budget plan: split a rental/shared hostel car to West Coast National Park for eland, zebra, birds and lagoon landscapes. Upgrade option: Aquila Big Five day trip is much pricier (€200+ with transport).",
+            "start_time": "2026-06-14T07:00:00",
+            "end_time": "2026-06-14T10:00:00",
+            "category": "transport",
+            "location": "Cape Town to West Coast National Park or Aquila",
+            "cost": 35.0,
+            "links": [
+              "https://www.safaribookings.com/tours/aquila",
+              "https://www.viator.com/Cape-Town-tours/Safaris/d318-g9-c37"
+            ],
+            "notes": "No public transit to West Coast NP; organize with hostel travellers."
+          },
+          {
+            "name": "West Coast National Park wildlife and lagoon walks",
+            "description": "Budget wildlife day: look for eland, red hartebeest, zebra and birdlife. June winter hours around 07:00–18:00; standard international entry estimated R110.",
+            "start_time": "2026-06-14T10:00:00",
+            "end_time": "2026-06-14T15:00:00",
+            "category": "attraction",
+            "location": "West Coast National Park, Langebaan area",
+            "cost": 6.0,
+            "links": [
+              "https://www.safaribookings.com/tours/aquila"
+            ],
+            "notes": "If unable to find a shared ride, switch to a local nature day in Cape Town and save money."
+          },
+          {
+            "name": "Packed lunch for wildlife day",
+            "description": "Packed supermarket late lunch after the park walk/game-viewing block.",
+            "start_time": "2026-06-14T15:00:00",
+            "end_time": "2026-06-14T15:45:00",
+            "category": "meal",
+            "location": "West Coast National Park picnic area",
+            "cost": 8.0,
+            "links": [
+              "https://www.safaribookings.com/tours/aquila"
+            ],
+            "notes": "Avoids tour-restaurant costs."
+          },
+          {
+            "name": "Return to Cape Town",
+            "description": "Return by shared car before dark; winter driving can be wet.",
+            "start_time": "2026-06-14T15:45:00",
+            "end_time": "2026-06-14T18:00:00",
+            "category": "transport",
+            "location": "West Coast National Park to Cape Town",
+            "cost": 0.0,
+            "links": [
+              "https://www.safaribookings.com/tours/aquila"
+            ],
+            "notes": "Cost included in morning shared-car estimate."
+          },
+          {
+            "name": "Dinner: Meeting Point East African Cuisine",
+            "description": "Filling inexpensive dinner after a long wildlife day.",
+            "start_time": "2026-06-14T19:30:00",
+            "end_time": "2026-06-14T20:30:00",
+            "category": "meal",
+            "location": "67 Strand St, Cape Town City Centre",
+            "cost": 8.0,
+            "links": [
+              "http://www.ritasselection.co.za/"
+            ],
+            "notes": "Open late."
+          }
+        ]
+      },
+      {
+        "index": 15,
+        "calendar_date": "2026-06-15",
+        "label": "Recovery and local museums",
+        "slots": [
+          {
+            "name": "Slow morning: Company’s Garden and city reset",
+            "description": "Free central garden walk and recovery morning after wildlife day.",
+            "start_time": "2026-06-15T10:00:00",
+            "end_time": "2026-06-15T12:00:00",
+            "category": "leisure",
+            "location": "Company’s Garden, Cape Town CBD",
+            "cost": 0.0,
+            "links": [
+              "https://www.capetown.travel/"
+            ],
+            "notes": "Keep Monday flexible."
+          },
+          {
+            "name": "Lunch: AfroDeli Eatery",
+            "description": "Budget central lunch.",
+            "start_time": "2026-06-15T12:30:00",
+            "end_time": "2026-06-15T13:30:00",
+            "category": "meal",
+            "location": "AfroDeli Eatery, 41 Church St",
+            "cost": 7.0,
+            "links": [
+              "https://maps.google.com/?cid=14099884133451789582&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+            ],
+            "notes": "Reliable cheap option."
+          },
+          {
+            "name": "District Six Museum / local history afternoon",
+            "description": "Affordable museum afternoon to understand forced removals and Cape Town’s social history.",
+            "start_time": "2026-06-15T14:00:00",
+            "end_time": "2026-06-15T16:00:00",
+            "category": "attraction",
+            "location": "District Six Museum, Cape Town",
+            "cost": 5.0,
+            "links": [
+              "https://www.capetown.travel/"
+            ],
+            "notes": "Check Monday opening before going; if closed, swap with free walking tour."
+          },
+          {
+            "name": "Dinner: hostel self-catered meal",
+            "description": "Cook at hostel to reset spending.",
+            "start_time": "2026-06-15T19:00:00",
+            "end_time": "2026-06-15T20:00:00",
+            "category": "meal",
+            "location": "Hostel kitchen",
+            "cost": 7.0,
+            "links": [
+              "https://www.hostelworld.com/hostels/africa/south-africa/cape-town/"
+            ],
+            "notes": "Budget control day."
+          }
+        ]
+      },
+      {
+        "index": 16,
+        "calendar_date": "2026-06-16",
+        "label": "Hout Bay and coastal hiking",
+        "slots": [
+          {
+            "name": "Shared ride / bus toward Hout Bay",
+            "description": "Use shared rideshare or local bus/tour connection toward Hout Bay for coastal scenery.",
+            "start_time": "2026-06-16T08:30:00",
+            "end_time": "2026-06-16T09:30:00",
+            "category": "transport",
+            "location": "Cape Town city centre to Hout Bay",
+            "cost": 8.0,
+            "links": [
+              "https://www.capetown.travel/"
+            ],
+            "notes": "Go in daylight; group up with hostel travellers if possible."
+          },
+          {
+            "name": "Hout Bay harbour and coastal walk",
+            "description": "Low-cost coastal morning around Hout Bay harbour and beach; add a short safe coastal walk if weather allows.",
+            "start_time": "2026-06-16T09:30:00",
+            "end_time": "2026-06-16T12:00:00",
+            "category": "attraction",
+            "location": "Hout Bay Harbour and beach",
+            "cost": 0.0,
+            "links": [
+              "https://www.capetown.travel/"
+            ],
+            "notes": "Do not hike isolated routes alone."
+          },
+          {
+            "name": "Lunch: Hout Bay fish and chips",
+            "description": "Classic budget fish-and-chips lunch near the harbour.",
+            "start_time": "2026-06-16T12:15:00",
+            "end_time": "2026-06-16T13:15:00",
+            "category": "meal",
+            "location": "Hout Bay Harbour",
+            "cost": 9.0,
+            "links": [
+              "https://www.capetown.travel/"
+            ],
+            "notes": "Keep seafood simple to stay under budget."
+          },
+          {
+            "name": "Optional seal-island boat or harbour browse",
+            "description": "Optional short seal-viewing boat if seas are calm, or free harbour/market browsing if saving money.",
+            "start_time": "2026-06-16T13:30:00",
+            "end_time": "2026-06-16T15:00:00",
+            "category": "attraction",
+            "location": "Hout Bay Harbour",
+            "cost": 10.0,
+            "links": [
+              "https://www.capetown.travel/"
+            ],
+            "notes": "Skip if weather is rough or budget feels tight."
+          },
+          {
+            "name": "Return to Cape Town",
+            "description": "Return before evening traffic/dark.",
+            "start_time": "2026-06-16T15:00:00",
+            "end_time": "2026-06-16T16:00:00",
+            "category": "transport",
+            "location": "Hout Bay to Cape Town city centre",
+            "cost": 8.0,
+            "links": [
+              "https://www.capetown.travel/"
+            ],
+            "notes": "Share rideshare if possible."
+          },
+          {
+            "name": "Dinner: AfroDeli Eatery",
+            "description": "Budget central dinner.",
+            "start_time": "2026-06-16T19:00:00",
+            "end_time": "2026-06-16T20:00:00",
+            "category": "meal",
+            "location": "AfroDeli Eatery, 41 Church St",
+            "cost": 8.0,
+            "links": [
+              "https://maps.google.com/?cid=14099884133451789582&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+            ],
+            "notes": "Open daily."
+          }
+        ]
+      },
+      {
+        "index": 17,
+        "calendar_date": "2026-06-17",
+        "label": "Bo-Kaap cooking and culture",
+        "slots": [
+          {
+            "name": "Cape Malay cooking/culture morning in Bo-Kaap",
+            "description": "Budget for a small-group Cape Malay cooking/culture experience if available, or self-guided Bo-Kaap museum/food walk as cheaper backup.",
+            "start_time": "2026-06-17T10:00:00",
+            "end_time": "2026-06-17T12:30:00",
+            "category": "attraction",
+            "location": "Bo-Kaap, Cape Town",
+            "cost": 35.0,
+            "links": [
+              "https://bokaapkombuis.co.za/"
+            ],
+            "notes": "Book a resident-led experience where possible."
+          },
+          {
+            "name": "Lunch: Cape Malay tasting / cooking class meal",
+            "description": "Meal included/paired with the Cape Malay culture session; if not included, use a small local curry/koesister stop.",
+            "start_time": "2026-06-17T12:30:00",
+            "end_time": "2026-06-17T13:30:00",
+            "category": "meal",
+            "location": "Bo-Kaap",
+            "cost": 8.0,
+            "links": [
+              "https://bokaapkombuis.co.za/"
+            ],
+            "notes": "Keep separate from activity cost for budget visibility."
+          },
+          {
+            "name": "Free afternoon: Greenmarket Square and CBD galleries",
+            "description": "Low-cost browse of central markets/galleries; avoid buying souvenirs until budget is clear.",
+            "start_time": "2026-06-17T14:00:00",
+            "end_time": "2026-06-17T16:30:00",
+            "category": "leisure",
+            "location": "Greenmarket Square / CBD",
+            "cost": 0.0,
+            "links": [
+              "https://www.capetown.travel/"
+            ],
+            "notes": "Good flexible slot."
+          },
+          {
+            "name": "Dinner: Bo-Kaap Kombuis",
+            "description": "Second Cape Malay dinner, worth budgeting for local cuisine and views.",
+            "start_time": "2026-06-17T19:00:00",
+            "end_time": "2026-06-17T20:30:00",
+            "category": "meal",
+            "location": "Bo-Kaap Kombuis, 7 August St",
+            "cost": 18.0,
+            "links": [
+              "https://bokaapkombuis.co.za/"
+            ],
+            "notes": "Open Wednesday dinner per restaurant search."
+          }
+        ]
+      },
+      {
+        "index": 18,
+        "calendar_date": "2026-06-18",
+        "label": "Table Mountain backup / Signal Hill",
+        "slots": [
+          {
+            "name": "Weather backup: Table Mountain cableway OR Signal Hill walk",
+            "description": "Use as Table Mountain weather backup. Cableway is not in annual maintenance during this June window, but operations are weather-dependent; if clouds/wind, do Signal Hill instead.",
+            "start_time": "2026-06-18T09:00:00",
+            "end_time": "2026-06-18T12:00:00",
+            "category": "attraction",
+            "location": "Table Mountain Cableway / Signal Hill",
+            "cost": 25.0,
+            "links": [
+              "https://www.tablemountain.net/",
+              "https://www.tablemountain.net/our-blog/table-mountain-aerial-cableway-announces-2026-annual-maintenance-shutdown-dates"
+            ],
+            "notes": "Check live status before paying; maintenance closure is July 27–Aug 9, 2026."
+          },
+          {
+            "name": "Lunch: AfroDeli Eatery",
+            "description": "Budget lunch after mountain backup morning.",
+            "start_time": "2026-06-18T12:30:00",
+            "end_time": "2026-06-18T13:30:00",
+            "category": "meal",
+            "location": "AfroDeli Eatery, 41 Church St",
+            "cost": 7.0,
+            "links": [
+              "https://maps.google.com/?cid=14099884133451789582&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+            ],
+            "notes": "Central."
+          },
+          {
+            "name": "Free afternoon: hostel social / trip buffer",
+            "description": "Buffer for weather cancellations, laundry, booking final surf, or meeting travellers.",
+            "start_time": "2026-06-18T15:00:00",
+            "end_time": "2026-06-18T17:00:00",
+            "category": "leisure",
+            "location": "Hostel / Cape Town CBD",
+            "cost": 0.0,
+            "links": [
+              "https://www.hostelworld.com/hostels/africa/south-africa/cape-town/"
+            ],
+            "notes": "Cape Town winter weather needs buffers."
+          },
+          {
+            "name": "Dinner: hostel self-catered meal",
+            "description": "Cook cheaply at hostel to preserve budget for final surf/markets.",
+            "start_time": "2026-06-18T19:00:00",
+            "end_time": "2026-06-18T20:00:00",
+            "category": "meal",
+            "location": "Hostel kitchen",
+            "cost": 7.0,
+            "links": [
+              "https://www.hostelworld.com/hostels/africa/south-africa/cape-town/"
+            ],
+            "notes": "Budget control."
+          }
+        ]
+      },
+      {
+        "index": 19,
+        "calendar_date": "2026-06-19",
+        "label": "Final surf and beach social",
+        "slots": [
+          {
+            "name": "Train to Muizenberg for final surf",
+            "description": "Daylight train to Muizenberg for final surf session.",
+            "start_time": "2026-06-19T08:00:00",
+            "end_time": "2026-06-19T09:15:00",
+            "category": "transport",
+            "location": "Cape Town Station to Muizenberg Station",
+            "cost": 2.0,
+            "links": [
+              "https://www.rome2rio.com/s/Cape-Town/Muizenberg"
+            ],
+            "notes": "Check service status."
+          },
+          {
+            "name": "Final surf session / social beach morning",
+            "description": "Final Muizenberg session: rent board/wetsuit or take a small-group lesson depending on confidence.",
+            "start_time": "2026-06-19T09:30:00",
+            "end_time": "2026-06-19T12:00:00",
+            "category": "attraction",
+            "location": "Muizenberg Beach / Surfers Corner",
+            "cost": 25.0,
+            "links": [
+              "https://www.google.com/maps/search/Paul's+surfing+lessons",
+              "https://www.capetown.travel/muizenberg/"
+            ],
+            "notes": "Good farewell ocean day."
+          },
+          {
+            "name": "Lunch: Muizenberg cheap takeaway",
+            "description": "Budget lunch near the beach.",
+            "start_time": "2026-06-19T12:30:00",
+            "end_time": "2026-06-19T13:30:00",
+            "category": "meal",
+            "location": "Muizenberg Beach",
+            "cost": 8.0,
+            "links": [
+              "https://www.capetown.travel/muizenberg/"
+            ],
+            "notes": "Warm food after surf."
+          },
+          {
+            "name": "Return train before dark",
+            "description": "Return by train in daylight.",
+            "start_time": "2026-06-19T15:30:00",
+            "end_time": "2026-06-19T16:45:00",
+            "category": "transport",
+            "location": "Muizenberg Station to Cape Town Station",
+            "cost": 2.0,
+            "links": [
+              "https://www.rome2rio.com/s/Cape-Town/Muizenberg"
+            ],
+            "notes": "Avoid late trains."
+          },
+          {
+            "name": "Dinner: hostel/traveller farewell braai",
+            "description": "Social self-catered/group dinner at the hostel to meet travellers and keep costs low.",
+            "start_time": "2026-06-19T19:00:00",
+            "end_time": "2026-06-19T20:30:00",
+            "category": "meal",
+            "location": "Hostel common area",
+            "cost": 8.0,
+            "links": [
+              "https://www.hostelworld.com/hostels/africa/south-africa/cape-town/"
+            ],
+            "notes": "Ask hostel about Friday events."
+          }
+        ]
+      },
+      {
+        "index": 20,
+        "calendar_date": "2026-06-20",
+        "label": "Last market day",
+        "slots": [
+          {
+            "name": "Last Saturday market: Neighbourgoods or Oranjezicht",
+            "description": "Choose the market you liked best for final local food, crafts and social atmosphere.",
+            "start_time": "2026-06-20T09:00:00",
+            "end_time": "2026-06-20T12:00:00",
+            "category": "attraction",
+            "location": "Old Biscuit Mill or OZCF Market",
+            "cost": 0.0,
+            "links": [
+              "https://www.getoutin.co.za/events/oranjezicht-city-farm-market-14",
+              "https://foodtruckfinder.co.za/blog/best-food-truck-markets-festivals-south-africa"
+            ],
+            "notes": "Free entry; keep souvenir spending capped."
+          },
+          {
+            "name": "Lunch: market food stalls",
+            "description": "Final market lunch; choose one local dish and avoid overspending.",
+            "start_time": "2026-06-20T12:00:00",
+            "end_time": "2026-06-20T13:00:00",
+            "category": "meal",
+            "location": "Selected Saturday market",
+            "cost": 10.0,
+            "links": [
+              "https://www.getoutin.co.za/events/oranjezicht-city-farm-market-14"
+            ],
+            "notes": "Budgeted at local prepared-food level."
+          },
+          {
+            "name": "Pack, laundry and check-in for return flight",
+            "description": "Pack wet surf gear, check flight status, and arrange Sunday airport ride.",
+            "start_time": "2026-06-20T14:00:00",
+            "end_time": "2026-06-20T16:00:00",
+            "category": "other",
+            "location": "Hostel",
+            "cost": 5.0,
+            "links": [
+              "https://www.google.com/travel/flights?hl=en&gl=us&curr=EUR&tfs=CBwQAhoeEgoyMDI2LTA2LTAxagcIARIDTVVDcgcIARIDQ1BUGh4SCjIwMjYtMDYtMjFqBwgBEgNDUFRyBwgBEgNNVUNAAUgBcAGYAQE&tfu=EgIIAQ"
+            ],
+            "notes": "Laundry/packing buffer."
+          },
+          {
+            "name": "Dinner: Bo-Kaap Kombuis or budget farewell meal",
+            "description": "Farewell Cape Malay dinner if budget remains; otherwise choose self-catered hostel dinner.",
+            "start_time": "2026-06-20T19:00:00",
+            "end_time": "2026-06-20T20:30:00",
+            "category": "meal",
+            "location": "Bo-Kaap Kombuis, 7 August St / Hostel kitchen",
+            "cost": 18.0,
+            "links": [
+              "https://bokaapkombuis.co.za/"
+            ],
+            "notes": "This is the splurge version; can cut to €7."
+          }
+        ]
+      },
+      {
+        "index": 21,
+        "calendar_date": "2026-06-21",
+        "label": "Departure from Cape Town",
+        "slots": [
+          {
+            "name": "Check out of hostel",
+            "description": "Check out and store luggage if needed before airport transfer.",
+            "start_time": "2026-06-21T09:30:00",
+            "end_time": "2026-06-21T10:00:00",
+            "category": "lodging",
+            "location": "Hostel, Cape Town",
+            "cost": 0.0,
+            "links": [
+              "https://www.hostelworld.com/hostels/africa/south-africa/cape-town/"
+            ],
+            "notes": "Most hostels check out around 10:00."
+          },
+          {
+            "name": "Early lunch before airport",
+            "description": "Eat before heading to airport to avoid airside prices.",
+            "start_time": "2026-06-21T10:30:00",
+            "end_time": "2026-06-21T11:15:00",
+            "category": "meal",
+            "location": "Cape Town city centre",
+            "cost": 8.0,
+            "links": [
+              "https://maps.google.com/?cid=14099884133451789582&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+            ],
+            "notes": "Use AfroDeli/cheap café/supermarket depending on timing."
+          },
+          {
+            "name": "Ride-hail transfer to Cape Town Airport",
+            "description": "Use Uber/Bolt or official taxi to CPT; allow extra buffer. MyCiTi airport route not relied upon.",
+            "start_time": "2026-06-21T11:15:00",
+            "end_time": "2026-06-21T12:15:00",
+            "category": "transport",
+            "location": "Cape Town city centre to Cape Town International Airport",
+            "cost": 18.0,
+            "links": [
+              "https://www.rome2rio.com/s/Capetown-Airport-CPT/Long-Street",
+              "https://www.welcomepickups.com/cape-town/airport-transfer-to-city/"
+            ],
+            "notes": "International departure at 13:50."
+          },
+          {
+            "name": "Return flight: Cape Town to Addis Ababa",
+            "description": "Ethiopian ET844 from CPT to ADD. Return itinerary included in round-trip flight cost on Day 1.",
+            "start_time": "2026-06-21T13:50:00",
+            "end_time": "2026-06-21T21:15:00",
+            "category": "transport",
+            "location": "Cape Town International Airport / Addis Ababa Bole",
+            "cost": null,
+            "links": [
+              "https://www.google.com/travel/flights?hl=en&gl=us&curr=EUR&tfs=CBwQAhoeEgoyMDI2LTA2LTAxagcIARIDTVVDcgcIARIDQ1BUGh4SCjIwMjYtMDYtMjFqBwgBEgNDUFRyBwgBEgNNVUNAAUgBcAGYAQE&tfu=EgIIAQ"
+            ],
+            "notes": "35-minute layover in ADD is tight; verify itinerary before booking."
+          },
+          {
+            "name": "Return flight: Addis Ababa to Abu Dhabi",
+            "description": "Ethiopian ET614 from ADD to AUH; overnight connection continues outside plan dates.",
+            "start_time": "2026-06-21T21:50:00",
+            "end_time": "2026-06-22T03:10:00",
+            "category": "transport",
+            "location": "Addis Ababa Bole / Abu Dhabi Zayed International",
+            "cost": null,
+            "links": [
+              "https://www.google.com/travel/flights?hl=en&gl=us&curr=EUR&tfs=CBwQAhoeEgoyMDI2LTA2LTAxagcIARIDTVVDcgcIARIDQ1BUGh4SCjIwMjYtMDYtMjFqBwgBEgNDUFRyBwgBEgNNVUNAAUgBcAGYAQE&tfu=EgIIAQ"
+            ],
+            "notes": "Final leg AUH–MUC on 2026-06-22 14:10–18:30, outside requested travel dates but part of return."
+          }
+        ]
+      }
+    ]
+  },
+  "validation_passed": true,
+  "validation_attempts": 1,
+  "validation_feedback": "The itinerary successfully meets all constraints and task requirements. It adheres to the €4,000 budget (estimated at ~€2,265), respects the solo traveler/hostel preference, and covers all requested activities including hiking Table Mountain and Cape Point, surfing at Muizenberg, and wildlife viewing. The schedule is logically ordered, accounts for seasonal weather in June (winter in Cape Town), and includes safety considerations for a solo traveler such as group hiking and daylight travel.",
+  "task_list": [
+    {
+      "name": "flight_search_munich_capetown",
+      "type": "flight",
+      "text": "Find round-trip flights from Munich (MUC) to Cape Town (CPT) departing June 1st and returning June 21st, 2026. Focus on budget options.",
+      "is_valid": true,
+      "validation_comment": null
+    },
+    {
+      "name": "hostel_search_capetown",
+      "type": "hotel",
+      "text": "Search for highly-rated social hostels in Cape Town for the duration of June 1st to June 21st, 2026, suitable for a solo traveler on a tight budget.",
+      "is_valid": true,
+      "validation_comment": null
+    },
+    {
+      "name": "attraction_table_mountain_hiking",
+      "type": "attraction",
+      "text": "Research hiking trails for Table Mountain and check for any required permits or safety guidelines for solo hikers.",
+      "is_valid": true,
+      "validation_comment": null
+    },
+    {
+      "name": "attraction_cape_point_wildlife",
+      "type": "attraction",
+      "text": "Identify wildlife viewing opportunities and hiking routes at Cape Point and the Cape of Good Hope.",
+      "is_valid": true,
+      "validation_comment": null
+    },
+    {
+      "name": "attraction_surfing_muizenberg",
+      "type": "attraction",
+      "text": "Find surfing spots and schools in Cape Town, specifically Muizenberg, suitable for June weather conditions.",
+      "is_valid": true,
+      "validation_comment": null
+    },
+    {
+      "name": "opening_times_table_mountain_cableway",
+      "type": "opening_times",
+      "text": "Check the operating hours and seasonal maintenance schedule for the Table Mountain Aerial Cableway for June 2026.",
+      "is_valid": true,
+      "validation_comment": null
+    },
+    {
+      "name": "routing_check_cape_point_transport",
+      "type": "routing-check",
+      "text": "Verify transport options and travel time from central Cape Town hostels to Cape Point for a solo traveler without a car.",
+      "is_valid": true,
+      "validation_comment": null
+    },
+    {
+      "name": "general_search_local_culture_events",
+      "type": "general-web-search",
+      "text": "Search for local cultural experiences, markets, and community events in Cape Town happening in June to meet other travelers.",
+      "is_valid": true,
+      "validation_comment": null
+    },
+    {
+      "name": "restaurant_budget_local_eats",
+      "type": "restaurant",
+      "text": "Find budget-friendly local eateries and food markets in Cape Town that offer authentic South African cuisine.",
+      "is_valid": true,
+      "validation_comment": null
+    },
+    {
+      "name": "general_search_wildlife_safari_budget",
+      "type": "general-web-search",
+      "text": "Research budget-friendly wildlife safari options or day trips from Cape Town (e.g., Aquila or West Coast National Park) suitable for a solo traveler.",
+      "is_valid": true,
+      "validation_comment": null
+    }
+  ]
+}

@@ -12,6 +12,7 @@ Tavily, while keeping the evaluator-specific reasoning isolated here.
 
 from __future__ import annotations
 
+import concurrent.futures
 import re
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Any, Callable
@@ -43,6 +44,7 @@ _SEARCH_MAX_RESULTS = 5
 _SEARCH_TIMEOUT_SECONDS = 20
 _FETCH_CONTENT_CHAR_BUDGET = 2000
 _MAX_PARALLEL_SLOT_VERIFICATIONS = 6
+_SLOT_VERIFICATION_TIMEOUT_SECS = 600
 
 
 # ─── Helpers ──────────────────────────────────────────────────────────────────
@@ -241,9 +243,8 @@ def verify_all_slots(
     total = len(jobs)
     done = 0
     results: list[RationaleVerificationModel | None] = [None] * len(jobs)
-    with ThreadPoolExecutor(
-        max_workers=min(len(jobs), _MAX_PARALLEL_SLOT_VERIFICATIONS)
-    ) as pool:
+    pool = ThreadPoolExecutor(max_workers=min(len(jobs), _MAX_PARALLEL_SLOT_VERIFICATIONS))
+    try:
         future_to_idx = {
             pool.submit(
                 verify_slot,
@@ -254,26 +255,49 @@ def verify_all_slots(
             ): idx
             for idx, (day_index, slot_position, slot) in enumerate(jobs)
         }
-        for future in as_completed(future_to_idx):
-            idx = future_to_idx[future]
-            day_index, slot_position, slot = jobs[idx]
-            try:
-                results[idx] = future.result()
-            except Exception as exc:
-                results[idx] = RationaleVerificationModel(
-                    day_index=day_index,
-                    slot_position=slot_position,
-                    slot_name=slot.name,
-                    source_type="skipped",
-                    source_urls=[],
-                    verdict="MISSING_INFO",
-                    reasoning=f"Unexpected error during verification: {exc}",
-                    claims_checked=[],
-                )
-            done += 1
-            if progress_callback is not None:
+        try:
+            for future in as_completed(future_to_idx, timeout=_SLOT_VERIFICATION_TIMEOUT_SECS):
+                idx = future_to_idx[future]
+                day_index, slot_position, slot = jobs[idx]
                 try:
-                    progress_callback(results[idx], done, total)
-                except Exception:
-                    pass
+                    results[idx] = future.result()
+                except Exception as exc:
+                    results[idx] = RationaleVerificationModel(
+                        day_index=day_index,
+                        slot_position=slot_position,
+                        slot_name=slot.name,
+                        source_type="skipped",
+                        source_urls=[],
+                        verdict="MISSING_INFO",
+                        reasoning=f"Unexpected error during verification: {exc}",
+                        claims_checked=[],
+                    )
+                done += 1
+                if progress_callback is not None:
+                    try:
+                        progress_callback(results[idx], done, total)
+                    except Exception:
+                        pass
+        except concurrent.futures.TimeoutError:
+            for future, idx in future_to_idx.items():
+                if results[idx] is None:
+                    day_index, slot_position, slot = jobs[idx]
+                    results[idx] = RationaleVerificationModel(
+                        day_index=day_index,
+                        slot_position=slot_position,
+                        slot_name=slot.name,
+                        source_type="skipped",
+                        source_urls=[],
+                        verdict="MISSING_INFO",
+                        reasoning=f"Slot verification timed out after {_SLOT_VERIFICATION_TIMEOUT_SECS}s",
+                        claims_checked=[],
+                    )
+                    done += 1
+                    if progress_callback is not None:
+                        try:
+                            progress_callback(results[idx], done, total)
+                        except Exception:
+                            pass
+    finally:
+        pool.shutdown(wait=False, cancel_futures=True)
     return [r for r in results if r is not None]

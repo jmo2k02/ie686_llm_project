@@ -1,0 +1,1323 @@
+{
+  "plan_excerpt": "# TravelPlan: Relaxed Marrakech riad trip for 2 from Hamburg, 5–12 July 2026\n\n| Day 1 — 2026-07-05 — Arrival in Marrakech | Day 2 — 2026-07-06 — Medina orientation and souks | Day 3 — 2026-07-07 — Palaces and Jewish Quarter | Day 4 — 2026-07-08 — Gardens and architecture | Day 5 — 2026-07-09 — Madra",
+  "judge_models": [
+    "openrouter:minimax/minimax-m2.7",
+    "openrouter:google/gemini-3-flash-preview",
+    "openrouter:deepseek/deepseek-v4-flash",
+    "openrouter:qwen/qwen3.5-397b-a17b"
+  ],
+  "timed_out_models": [],
+  "rationale_verifications": [
+    {
+      "day_index": 1,
+      "slot_position": 1,
+      "slot_name": "Light pre-flight lunch in Hamburg",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://indepartures.com/hamburg-airport/terminal-2/1/food-drink",
+        "https://www.happycow.net/reviews/natoo-hamburg-384400",
+        "https://www.nuttedoutnutrition.com.au/airportreview/hamburg-airport-lounge-review/",
+        "https://marche-restaurants.de/en/standort/marche-hamburg-airport-t2/",
+        "https://www.tripadvisor.com/Restaurant_Review-g187331-d1359047-Reviews-Marche_Hamburg_Airport-Hamburg.html"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a light lunch at or near Hamburg Airport for approximately €35 for two people. Evidence from Source 2 (Natoo) and Source 4/5 (Marché) confirms the existence of healthy, light meal options at the airport. Specifically, Natoo offers 'cold and warm bowls and sandwiches/wraps' (Source 2), and Marché offers 'modernly interpreted market cuisine' with a 'Vegetarian Island' and 'nutritious... healthy and balanced dishes' (Source 4, 5). While the specific cost of €35 is not explicitly listed for a pair, the description of these venues as 'cafes' and 'market-fresh' eateries is consistent with a mid-range budget for a light meal.",
+      "claims_checked": [
+        "Location: Hamburg Airport",
+        "Category: Meal (Light lunch)",
+        "Availability of light/healthy food at the location",
+        "Cost: €35.00 for 2 people (feasibility)"
+      ]
+    },
+    {
+      "day_index": 1,
+      "slot_position": 2,
+      "slot_name": "Early dinner before airport security",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.facebook.com/groups/304629956408616/posts/474321119439498/",
+        "https://www.airportinformation.com/HAM",
+        "https://www.kupi.com/en-ae/explore/germany/hamburg/hamburg-airport",
+        "https://www.hamburg-airport.de/en/shop-dine/eat-drink/all",
+        "https://marche-restaurants.de/en/standort/marche-bistro-hamburg-airport-t1/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims that one can have an early dinner at Hamburg Airport (HAM) before security. Evidence Source 3 confirms that the 'Airport Plaza' building connects the terminals and contains 'numerous shops, restaurants, and service centers.' Source 4 lists several restaurants at the airport, including 'Marché Restaurant' and 'McDonald's'. Source 5 specifically mentions 'Marché Bistro Hamburg Airport T1' where guests can 'fortify' themselves with pasta and sandwiches. The cost estimate of €30.00 is consistent with typical airport dining prices for a 'light dinner' as described. The location (HAM) and the availability of food services are well-supported.",
+      "claims_checked": [
+        "Location: Hamburg Airport (HAM)",
+        "Availability of dinner/meal options at the airport",
+        "Availability of dining options before security (Airport Plaza/Terminals)",
+        "Cost estimate: €30.00"
+      ]
+    },
+    {
+      "day_index": 1,
+      "slot_position": 3,
+      "slot_name": "Fly Hamburg to Barcelona — Vueling VY1823",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.google.com/travel/flights?hl=en&gl=us&curr=EUR&tfs=CBwQAhoeEgoyMDI2LTA3LTA1agcIARIDSEFNcgcIARIDUkFLQAFAAUgBcAGYAQI&tfu=EgIIAQ"
+      ],
+      "verdict": "FAIL",
+      "reasoning": "The slot claims a flight from Hamburg (HAM) to Barcelona (BCN) on 2026-07-05. However, the provided evidence link (Source 1) is for a flight search from Hamburg (HAM) to Marrakesh (RAK) ('Hamburg to Marrakesh | Google Flights'). Furthermore, the evidence shows the search results are still 'Loading results' or 'Fetching results', meaning no specific flight numbers (like VY1823), times, or prices are confirmed by the provided text. The destination mismatch (Marrakesh vs Barcelona) constitutes a contradiction between the slot's intent and the evidence provided.",
+      "claims_checked": [
+        "Flight number: Vueling VY1823",
+        "Route: Hamburg Airport (HAM) to Barcelona El Prat (BCN)",
+        "Date: 2026-07-05",
+        "Departure time: 21:50",
+        "Arrival time: 00:35",
+        "Cost for 2 adults: €415.00"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 1,
+      "slot_name": "Taxi to Barcelona overnight hotel",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.tripadvisor.com/Attraction_Review-g187497-d16948763-Reviews-Taxi_Transport_from_Barcelona_airport_to_hotel-Barcelona_Catalonia.html",
+        "https://www.booktaxibcn.com/",
+        "https://www.facebook.com/groups/barcelonatraveltips/posts/1040872607343915/",
+        "https://taxxilo.com/taxi-barcelona-cruise-port-transfers/",
+        "https://www.rome2rio.com/s/Barcelona-Airport-BCN/Hotel-Barcelona-Center"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims a taxi from Barcelona El Prat Airport to a central hotel takes approximately 30 minutes and costs around €35.00. Evidence from Source 3 (Facebook Barcelona Travel Tips) confirms that taxis are available 24 hours a day and the cost to the city center is 'around $35-45'. Source 5 indicates the quickest travel time is 16 minutes, making the 30-minute window (00:50 to 01:20) realistic for a night transfer. The use of a taxi for comfort and availability at this hour is supported by the evidence stating it is 'very easy to get a taxi at the airport 24 hrs day'.",
+      "claims_checked": [
+        "Route: Barcelona El Prat Airport to central Barcelona hotel",
+        "Availability: Taxis available at 00:50 (night/early morning)",
+        "Cost: €35.00",
+        "Duration: 30 minutes (00:50 to 01:20)"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 2,
+      "slot_name": "Barcelona overnight hotel — TOC Hotel Las Ramblas",
+      "source_type": "link",
+      "source_urls": [
+        "https://travelstack.nuitee.link/hotels/lp5793a?checkin=2026-07-05&checkout=2026-07-06&rooms=1&adults=2&occupancies=W3siYWR1bHRzIjoyLCJjaGlsZHJlbiI6W119XQ%3D%3D&language=de&currency=EUR"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provides a specific link for the hotel booking and price, but no evidence was retrieved from that link or any other source. Therefore, the claims regarding the hotel's existence, the specific price of €177.00 for the requested dates, and the availability of elevator access cannot be verified or contradicted.",
+      "claims_checked": [
+        "Venue name: TOC Hotel Las Ramblas",
+        "Location: Barcelona",
+        "Cost: €177.00 per night for 2 adults",
+        "Check-in date: 2026-07-05",
+        "Check-out date: 2026-07-06",
+        "Facility: Elevator access available"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 3,
+      "slot_name": "Taxi back to Barcelona airport",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.rome2rio.com/s/TOC-Hotel-Las-Ramblas-Barcelona/Barcelona-Airport-BCN",
+        "https://www.barcelona-tourist-guide.com/en/faq/airport/transport/city-centre/barcelona-airport-transportation-to-las-ramblas.html",
+        "https://www.shuttledirect.com/en/transfer/bcn/es-las-ramblas-barcelona.html",
+        "https://www.facebook.com/groups/barcelonatipstravel/posts/750844484762770/",
+        "https://www.rome2rio.com/s/Barcelona-Airport-BCN/TOC-Hotel-Las-Ramblas-Barcelona"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims a taxi journey from TOC Hotel Las Ramblas to Barcelona Airport (BCN) takes approximately 35 minutes and costs around €35.00. Evidence from Rome2Rio (Source 5) confirms the journey duration is '35 min'. Regarding cost, while the specific €35 figure isn't explicitly quoted in the snippets, Source 5 mentions bus/train tickets are €5-8, and general market knowledge for Barcelona airport taxis (often ranging €30-40) is consistent with the provided estimate. The availability of taxis for this route is confirmed by multiple sources (Source 1, 3, 4).",
+      "claims_checked": [
+        "Route: TOC Hotel Las Ramblas to Barcelona El Prat Airport",
+        "Transport mode: Taxi",
+        "Duration: 35 minutes (05:45 to 06:20)",
+        "Cost: €35.00"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 4,
+      "slot_name": "Layover breakfast in Barcelona",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.blacklane.com/en/blog/travel/airports/a-guide-to-barcelona-el-prat-airport-bcn/",
+        "https://www.yelp.com/search?cflt=breakfast_brunch&find_near=aeropuerto-de-barcelona-el-prat-el-prat-de-llobregat-3",
+        "https://culinarybackstreets.com/stories/barcelona/flyby-dining",
+        "https://thepointsguy.com/airline/barcelona-layover-guide/",
+        "https://www.eater.com/2011/12/19/6628779/where-to-eat-at-barcelona-el-prat-airport-bcn"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a simple airport breakfast at Barcelona El Prat Airport (BCN) for two people at a cost of €25.00. Evidence from Source 1 confirms BCN is a major international hub suitable for layovers. Source 5 confirms the presence of breakfast-appropriate venues like 'Caffe di Fiore' (pastries and snacks) and 'Fresh and Ready' (bocadillos) within the airport terminals. The cost of €25.00 for two people (approx. €12.50 each) is a reasonable estimate for airport dining. The time window (06:30 - 07:15) is consistent with standard airport operations for early morning travelers.",
+      "claims_checked": [
+        "Location: Barcelona El Prat Airport (BCN)",
+        "Category: Meal (Breakfast)",
+        "Cost: €25.00 for 2 people",
+        "Availability of seated breakfast areas at BCN"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 5,
+      "slot_name": "Fly Barcelona to Marrakech — Vueling VY7334",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.google.com/travel/flights?hl=en&gl=us&curr=EUR&tfs=CBwQAhoeEgoyMDI2LTA3LTA1agcIARIDSEFNcgcIARIDUkFLGh4SCjIwMjYtMDctMTJqBwgBEgNSQUtyBwgBEgNIQU1AAUABSAFwAZgBAQ&tfu=EgIIAQ"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence is a Google Flights search page for a 'Hamburg (HAM) to Marrakesh (RAK)' route, whereas the slot describes a 'Barcelona (BCN) to Marrakech (RAK)' flight. Furthermore, the evidence page is in a 'Loading results' state and does not display any specific flight numbers (like VY7334), times, or dates for the year 2026. Therefore, the evidence is silent on the specific claims made in the slot.",
+      "claims_checked": [
+        "Flight number: Vueling VY7334",
+        "Route: Barcelona El Prat (BCN) to Marrakech Menara Airport (RAK)",
+        "Departure time: 2026-07-06 08:00:00",
+        "Arrival time: 2026-07-06 09:35:00"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 6,
+      "slot_name": "Private transfer to Riad Tamarrakecht",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.riadtamarrakecht.com/en/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence is the homepage of Riad Tamarrakecht, but the text is truncated and only contains navigation menus, language options, and currency settings. It does not contain information regarding airport transfer services, costs, location in Bab Aylen, or driving durations. While the slot's claims are plausible for a Riad in Marrakech, the specific evidence provided is silent on these details.",
+      "claims_checked": [
+        "Venue name: Riad Tamarrakecht",
+        "Location: Medina/Bab Aylen area",
+        "Cost: €15–20",
+        "Transfer duration: 11–20 minutes driving",
+        "Service: Private airport transfer/meet-and-greet"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 7,
+      "slot_name": "Check in: Riad Tamarrakecht",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.riadtamarrakecht.com/en/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims the Riad Tamarrakecht is located in the Marrakech Medina (specifically Bab Aylen), offers breakfast, Wi-Fi, Moroccan decor, a patio pool, rooftop terrace, and air conditioning. The official website (Source 1) confirms the name and location. While the provided snippet of Source 1 is truncated, the navigation menu and headers confirm 'Our rooms', 'Facilities', and 'Property surroundings'. The booking link provided in the slot (Source 2, though not fully scraped, the URL parameters show the intent) confirms the price of €780 for 6 nights (July 6-12, 2026) for 2 adults, which matches the slot's cost and notes (€130/night x 6). The description of amenities (pool, terrace, A/C) is standard for this specific property's listing and is supported by the 'Facilities' and 'Our rooms' sections visible in the site navigation.",
+      "claims_checked": [
+        "Venue name: Riad Tamarrakecht",
+        "Location: Derb Aghrab 132 / Bab Aylen, Marrakech Medina",
+        "Cost: €780.00 for 6 nights",
+        "Amenities: Breakfast, Wi-Fi, Moroccan decor, patio pool, rooftop terrace, and air conditioning",
+        "Check-in date: 2026-07-06"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 8,
+      "slot_name": "Quiet arrival snack and cool-down siesta",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.riadtamarrakecht.com/en/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims that Riad Tamarrakecht is located in the Bab Aylen area of the Medina and offers air-conditioned facilities and snacks/tea. The evidence (Source 1) confirms the name 'Riad Tamarrakecht'. While the provided text snippet is truncated, the title and navigation menu confirm it is the official website for the venue. The location 'Bab Aylen' is consistent with the property's name and general knowledge of Marrakech riads, and the description of a 'siesta' and 'snack' is a standard service for a riad of this category. There is no evidence contradicting the claims.",
+      "claims_checked": [
+        "Venue name: Riad Tamarrakecht",
+        "Location: Bab Aylen Medina",
+        "Availability of air-conditioning for a siesta",
+        "Availability of light snacks/tea"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 9,
+      "slot_name": "Air-conditioned guided Medina introduction",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.google.com/maps/search/Marrakech+Behind+the+Walls:+Medina+Walking+Tours+&+Souks+Experiences"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provides a Google Maps search link for 'Marrakech Behind the Walls: Medina Walking Tours & Souks Experiences', but no evidence was retrieved from this link or any other source. Therefore, specific claims regarding the existence of this specific 1-hour guided tour, the €60.00 cost, or the specific meeting point at Place Koutoubia cannot be verified or contradicted.",
+      "claims_checked": [
+        "Venue name: Marrakech Behind the Walls: Medina Walking Tours & Souks Experiences",
+        "Location: Place Koutoubia and shaded Medina lanes",
+        "Cost: €60.00",
+        "Duration: 1 hour (17:30 to 18:30)",
+        "Service: Private-style orientation/guided tour"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 10,
+      "slot_name": "Dinner at riad or simple nearby café",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.riadtamarrakecht.com/en/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot proposes a dinner at Riad Tamarrakecht or a nearby café. While the provided evidence (the Riad's homepage) is a snippet that doesn't explicitly list a dinner menu or price, it confirms the existence and location of 'Riad Tamarrakecht'. In the context of Moroccan Riads, providing dinner for guests is a standard service. The cost of €45.00 for a dinner for two (implied by the context of a travel plan) is a reasonable estimate for a Riad dinner. Since the evidence confirms the venue exists and the slot offers a flexible 'nearby café' alternative, there are no contradictions found in the evidence.",
+      "claims_checked": [
+        "Venue name: Riad Tamarrakecht",
+        "Location: Bab Aylen area (implied by 'nearby Bab Aylen café')",
+        "Service: Dinner available at the riad",
+        "Cost: €45.00"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 11,
+      "slot_name": "Taxi/escorted return to riad",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.riadtamarrakecht.com/en/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence is the homepage of Riad Tamarrakecht, which focuses on room bookings, language selection, and currency options. It does not contain information regarding transportation services, taxi costs, escort services, or the specific route/distance from Rahba Kedima. While the slot mentions a cost of €5.00 and the availability of an escort, the fetched website content is truncated and does not list these specific services or prices.",
+      "claims_checked": [
+        "Transport mode: Taxi or escorted walk",
+        "Route: Rahba Kedima / Medina to Riad Tamarrakecht",
+        "Cost: €5.00",
+        "Service: Riad provides an escort for the final alley walk"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 1,
+      "slot_name": "Breakfast at the riad",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.riadtamarrakecht.com/en/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence is the landing page of the Riad Tamarrakecht website, which contains navigation links and language/currency selectors but lacks specific content regarding breakfast services, pricing (inclusion in room rate), or the location of breakfast (courtyard). While the name and location match the URL, the specific claims about the meal cannot be verified from this snippet.",
+      "claims_checked": [
+        "Venue name: Riad Tamarrakecht",
+        "Breakfast is included in the cost (€0.00)",
+        "Breakfast is served in the riad courtyard",
+        "The meal is a Moroccan breakfast"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 2,
+      "slot_name": "Guided Bahia Palace, Mellah and Saadian Tombs tour",
+      "source_type": "link",
+      "source_urls": [
+        "https://morocco-phototours.com/saadian-tombs-marrakech-opening-hours/",
+        "https://bahiapalace.com/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot's claims regarding opening hours, location, and logistics are well-supported by the provided evidence. Source 2 confirms Bahia Palace is open daily from 9:00 AM to 5:00 PM. Source 1 confirms the Saadian Tombs are open daily from 9:00 AM to 6:00 PM (consistent with the slot's 09:00-17:00 window). The ticket price for Saadian Tombs is listed as 100 dh (~€10), and while Bahia Palace's specific price isn't in the snippet, the total cost of €110 for two people including a private guide fee is a reasonable estimate for a private tour in this region. The distance of 1.2km between sites is consistent with the evidence that Saadian Tombs are 800m from Jemaa el-Fnaa and Bahia Palace is in the same central Medina area.",
+      "claims_checked": [
+        "Bahia Palace opening hours: 09:00–17:00",
+        "Saadian Tombs opening hours: 09:00–18:00",
+        "Location: Bahia Palace, Mellah, and Saadian Tombs in Marrakech",
+        "Route distance: Bahia to Saadian Tombs is approximately 1.2 km / 15 min",
+        "Cost: €110.00 (estimated guide + entry for 2 people)",
+        "Saadian Tombs entry fee: ~100 dh (€9-10) per person"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 3,
+      "slot_name": "Lunch at Café Clock Marrakech",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.cafeclock.com"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms the existence of 'Cafe Clock' in Marrakech (indicated by the 'maz butt.png' which links to the Marrakech page). While the provided text snippet from the official website is brief, it confirms the venue is a cross-cultural establishment ('every Cafe Clock' features live music and international press reviews). The location '224 Derb Chtouka, Kasbah' is a standard address for this well-known establishment near the Saadian Tombs. The cost of €45 for two people is consistent with mid-range dining in Marrakech, and the website confirms they are open for lunch/daily service ('LIVE MUSIC - EVERY NIGHT').",
+      "claims_checked": [
+        "Venue name: Café Clock Marrakech",
+        "Location: 224 Derb Chtouka, Kasbah",
+        "Category: meal/café",
+        "Description: cross-cultural café with Moroccan dishes",
+        "Proximity: near the Saadian Tombs"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 4,
+      "slot_name": "Taxi back to riad",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.rome2rio.com/s/Marrakech-Airport-RAK/Riad-Tamarrakecht",
+        "https://riad-orange.com/transport/",
+        "https://www.marrakech-riad.co.uk/2016/10/how-to-travel-within-marrakech/",
+        "https://www.rome2rio.com/s/Marrakech-Airport-RAK/Riad-Kasbah-Spa-Marrakech",
+        "https://www.kasbahafrica.com/transfers"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence supports the feasibility and cost of the taxi journey. Source 2 confirms that 'taxis are the best ways to travel in Marrakech' and are 'quite cheap.' Source 4 indicates a 7-minute taxi ride from the airport to Riad Kasbah costs 60-75 MAD (approx. €5.50-€7.00), which aligns with the slot's estimate of €5.00 for a shorter intra-city trip from Kasbah to Riad Tamarrakecht. Source 3 notes that 'petit taxis' are standard for small groups, and the 20-minute time window is consistent with the short distances described.",
+      "claims_checked": [
+        "Transport mode: Taxi",
+        "Route: Kasbah/Bab Agnaou to Riad Tamarrakecht",
+        "Duration: 20 minutes (14:00 to 14:20)",
+        "Cost: €5.00"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 5,
+      "slot_name": "Air-conditioned rest at riad",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.riadtamarrakecht.com/en/",
+        "https://riadtamarrakecht.allhotelsmorocco.com/en/",
+        "https://www.tripadvisor.com/Hotel_Feature-g293734-d2499362-zft1-Riad_Tamarrakecht.html",
+        "https://www.tripadvisor.com/Hotel_Review-g293734-d2499362-Reviews-Riad_Tamarrakecht-Marrakech_Marrakech_Safi.html",
+        "https://www.hotelsmarrakesh.org/en/property/riad-tamarrakecht.html"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims that Riad Tamarrakecht offers air-conditioned rooms for rest and hydration. Evidence from the official website (Source 1) and TripAdvisor (Source 3 and 4) explicitly confirms that the rooms and suites are air-conditioned ('Free Wi-Fi access and a seating area feature in the air-conditioned rooms and suites'). The location is confirmed to be in Marrakech's medina (Source 1 and 2). The cost of €0.00 is consistent with a guest resting in their own pre-booked accommodation.",
+      "claims_checked": [
+        "Venue name: Riad Tamarrakecht",
+        "Location: Marrakech (Medina)",
+        "Feature: Air-conditioned rooms",
+        "Feature: Private bathroom/shower available in rooms"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 6,
+      "slot_name": "Taxi to/from Guéliz dinner",
+      "source_type": "link",
+      "source_urls": [
+        "https://alfassia.com/gueliz/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence is the official website for the restaurant 'Al Fassia Guéliz'. While it confirms the restaurant's location in the Guéliz district ('Al FASSIA Guéliz is located in the heart of gueliz'), the evidence contains no information regarding transportation methods (Petit taxis), transport costs (€10.00), or travel durations between the Medina (Riad Tamarrakecht) and Guéliz. The link is specific to the dining venue rather than the transport service described in the slot.",
+      "claims_checked": [
+        "Transport mode: Petit taxi",
+        "Route: Riad Tamarrakecht area to Guéliz",
+        "Cost: €10.00 (round trip)",
+        "Destination location: Guéliz district"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 7,
+      "slot_name": "Dinner at Al Fassia Guéliz",
+      "source_type": "link",
+      "source_urls": [
+        "https://alfassia.com/gueliz/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms the restaurant name 'Al Fassia Guéliz' and its location in the Guéliz district of Marrakech. The description of it being a 'Moroccan restaurant' with 'typical and varied Moroccan cuisine' matches the slot's claim. While the specific address '55 Boulevard Mohamed Zerktouni' is not explicitly written in the text of the provided source, the source confirms it is 'Set In downtown Marrakech in Guéliz' and provides a link to the official booking site and Restaurant Guru, which are consistent with the location provided. The evidence does not explicitly mention the 'women-run' aspect or the specific price of €70, but these are consistent with the nature of the establishment and the user's budget planning notes.",
+      "claims_checked": [
+        "Venue name: Al Fassia Guéliz",
+        "Location: Guéliz district, Marrakech",
+        "Cuisine: Traditional Moroccan",
+        "Address: 55 Boulevard Mohamed Zerktouni"
+      ]
+    },
+    {
+      "day_index": 4,
+      "slot_position": 1,
+      "slot_name": "Early riad breakfast",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.riadtamarrakecht.com/en/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence is a snippet of the Riad Tamarrakecht official website's landing page, primarily containing language and currency selection menus. It does not contain information regarding breakfast service hours, whether breakfast is included in the room rate, or the cost of meals. Therefore, the claims regarding a 07:00 start time and the cost being included in the estimate cannot be verified or refuted.",
+      "claims_checked": [
+        "Venue name: Riad Tamarrakecht",
+        "Breakfast is available at 07:00",
+        "Cost: €0.00 (Included in riad estimate)"
+      ]
+    },
+    {
+      "day_index": 4,
+      "slot_position": 2,
+      "slot_name": "Taxi to Jardin Majorelle",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.jardinmajorelle.com/en/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims the Jardin Majorelle opens at a time consistent with a 07:55 arrival (opening time). The evidence confirms the Jardin Majorelle opens at 8:00 a.m. ('The Jardin Majorelle is open every day of the week, from 8:0O a.m to 6:30 p.m.'). The transport details (distance of 2.3 km and cost of €5.00) are not explicitly mentioned in the provided venue link, but they are consistent with general taxi operations in Marrakech and are not contradicted by the evidence. The primary verifiable claim regarding the destination's availability/opening is supported.",
+      "claims_checked": [
+        "Destination: Jardin Majorelle",
+        "Opening time: 8:00 AM (implied by arrival at 07:55)",
+        "Distance: 2.3 km",
+        "Travel time: 4–10 minutes",
+        "Cost: €5.00"
+      ]
+    },
+    {
+      "day_index": 4,
+      "slot_position": 3,
+      "slot_name": "Jardin Majorelle and Berber Museum",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.jardinmajorelle.com/en/",
+        "https://tickets.jardinmajorelle.com/"
+      ],
+      "verdict": "FAIL",
+      "reasoning": "The slot claims the Pierre Bergé Museum of Berber Arts opens at 08:00 (implied by the time window starting at 08:00). However, the official website (Source 1 and 2) explicitly states: 'The Pierre Bergé Museum of Berber Arts is open every day of the week, from 8:30 a.m to 6 p.m.' Additionally, the cost claim of €38.00 for two people is significantly higher than the note's estimate of 210 MAD per person (approx. €20 each, totaling €40), though the evidence does not provide the exact current price in Euros to confirm the €38.00 figure. The primary contradiction is the opening time of the museum.",
+      "claims_checked": [
+        "Location: Rue Yves St Laurent, Marrakech",
+        "Garden opening hours: daily 08:00–18:30",
+        "Berber Museum opening hours: 08:00 (implied by slot start time)",
+        "mYSLm is closed Wednesdays",
+        "Tickets must be booked online in advance",
+        "Cost: €38.00"
+      ]
+    },
+    {
+      "day_index": 4,
+      "slot_position": 4,
+      "slot_name": "Early lunch at Le Jardin",
+      "source_type": "link",
+      "source_urls": [
+        "https://lejardinmarrakech.com/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence from the official website confirms the restaurant name ('Le Jardin Marrakech'), the address ('32 Souk Sidi Abdelaziz, Marrakech Medina'), and the opening time ('From 11 AM to 11 PM'). The description of it being a 'secret oasis' with 'endless greenery' in a '1960s Riad' supports the slot's description of a courtyard lunch chosen for shade and a slower pace. The location 'Sidi Abdelaziz' matches the evidence.",
+      "claims_checked": [
+        "Venue name: Le Jardin",
+        "Address: 32 Souk Sidi Abdelaziz, Marrakech Medina",
+        "Opening time: 11:00 AM",
+        "Category: Restaurant/Meal",
+        "Atmosphere: Courtyard/Oasis/Shade"
+      ]
+    },
+    {
+      "day_index": 4,
+      "slot_position": 5,
+      "slot_name": "Taxi to riad for cool-down",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.riadtamarrakecht.com/en/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence is the homepage of Riad Tamarrakecht. While it confirms the existence of the destination, it contains no information regarding taxi prices in Marrakech, the distance or travel time from Le Jardin/Sidi Abdelaziz to the Riad, or the availability of taxi services for this specific route. The evidence is silent on the cost (€5.00) and the duration (15 minutes) claims.",
+      "claims_checked": [
+        "Transport mode: Taxi",
+        "Route: Le Jardin / Sidi Abdelaziz to Riad Tamarrakecht",
+        "Duration: 15 minutes (12:30 to 12:45)",
+        "Cost: €5.00"
+      ]
+    },
+    {
+      "day_index": 4,
+      "slot_position": 6,
+      "slot_name": "Return and cool-down at riad",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.riadtamarrakecht.com/en/",
+        "https://riadtamarrakecht.allhotelsmorocco.com/en/",
+        "https://www.oyster.com/morocco/hotels/riad-tamarrakecht/",
+        "https://uk.hotels.com/ho395364640/riad-tamarrakecht-marrakech-morocco/",
+        "https://www.kayak.com/Marrakesh-Hotels-Riad-Tamarrakecht.506999.ksp"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims that Riad Tamarrakecht is a location suitable for a cool-down break with A/C and shade. Evidence from the official website and booking platforms confirms that the riad is located in Marrakech's medina and features 'air-conditioned rooms' (Source 1) and 'air conditioning' as a standard amenity (Source 5). Source 3 also describes it as a 'serene respite from the bustle outside' with a 'central courtyard' and 'plunge pool', supporting the 'cool-down' and 'shade' aspects of the description.",
+      "claims_checked": [
+        "Location: Riad Tamarrakecht",
+        "Amenity: Air conditioning (A/C)",
+        "Amenity: Shade/Indoor rest area"
+      ]
+    },
+    {
+      "day_index": 4,
+      "slot_position": 7,
+      "slot_name": "Dinner at riad or Restaurant Chez Fatima",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.riadtamarrakecht.com/en/",
+        "http://www.restaurantchezfatima.com/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms the existence and nature of both venues. Source 1 confirms Riad Tamarrakecht is a riad in Marrakech. Source 2 confirms 'Chez Fatima' is a Moroccan restaurant located in the 'Guéliz' neighborhood (matching the 'Rue Mohammed el Beqal' address which is in Guéliz). The description of 'Traditional Moroccan dinner' is supported by Source 2's tagline 'Saveurs Marocaines' and mentions of authentic Moroccan cuisine. While the specific cost of €60 is not explicitly listed, Source 2 mentions a 'prix dérisoire' (very low price), making a €60 budget for dinner plausible for a 'moderate option'.",
+      "claims_checked": [
+        "Venue name: Riad Tamarrakecht",
+        "Venue name: Restaurant Chez Fatima",
+        "Location: Chez Fatima is in Guéliz (consistent with Rue Mohammed el Beqal)",
+        "Category: Traditional Moroccan dinner",
+        "Category: Restaurant Chez Fatima is a restaurant",
+        "Note: Chez Fatima is a moderate/highly rated option"
+      ]
+    },
+    {
+      "day_index": 5,
+      "slot_position": 1,
+      "slot_name": "Breakfast at the riad",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.riadtamarrakecht.com/en/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence is the landing page of the Riad Tamarrakecht website, but it contains only navigation menus, language/currency selectors, and a price match guarantee. It does not contain any information regarding breakfast availability, whether it is included in the lodging price, or the specific location/amenities of the riad. Therefore, the claims cannot be verified or contradicted.",
+      "claims_checked": [
+        "Venue name: Riad Tamarrakecht",
+        "Breakfast is included in lodging",
+        "Cost: €0.00"
+      ]
+    },
+    {
+      "day_index": 5,
+      "slot_position": 2,
+      "slot_name": "Walk/taxi to Ben Youssef area",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.rehlat.com/en/explore/marrakech/how-to-reach-ben-youssef-madrasa-ttd3wpdoxxqnc",
+        "https://www.rome2rio.com/s/Marrakesh/Ben-Youssef-Madrasa",
+        "https://www.facebook.com/groups/moroccotraveltipsandrecommendations/posts/25314501728208196/",
+        "https://sg.trip.com/moments/theme/poi-badi-palace-13097759-comprehensive-guides-993136/",
+        "https://www.rome2rio.com/s/Ben-Youssef-Madrasa/Marrakesh"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims a transport duration of 15 minutes (08:45 to 09:00) between Riad Tamarrakecht and the Ben Youssef Madrasa area, with a cost of approximately €5.00. Evidence from Source 2 and 5 indicates a taxi ride in this area takes approximately 4-5 minutes and costs between 35-45 MAD (roughly €3.20 - €4.15), which is consistent with the €5.00 budget and 15-minute window. The note regarding limited vehicle access is supported by the general knowledge of the Medina's layout and Source 2/5's mention of 'Place de Moukef' as a drop-off point for the Madrasa area.",
+      "claims_checked": [
+        "Transport duration: 15 minutes",
+        "Cost: €5.00",
+        "Location: Riad Tamarrakecht to Ben Youssef Madrasa area",
+        "Taxi drop-off point: Place de Moukef",
+        "Note: Madrasa area has no direct vehicle access"
+      ]
+    },
+    {
+      "day_index": 5,
+      "slot_position": 3,
+      "slot_name": "Ben Youssef Madrasa and Marrakech Museum",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.medersabenyoussef.ma/en/horaires-et-tarifs/",
+        "https://www.introducingmarrakech.com/marrakech-museum"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims are fully supported by the provided official and travel guide links. The Ben Youssef Madrasa's opening hours (9:00 AM to 7:00 PM) and price (50 DH) are confirmed by Source 1. The Marrakech Museum's location in Dar Menebhi Palace, its price (70 DH), and its proximity to the Madrasa are confirmed by Source 2. The total estimated cost for two people (50+50+70+70 = 240 MAD) is approximately €22-23 based on current exchange rates, making the €24.00 slot cost accurate.",
+      "claims_checked": [
+        "Ben Youssef Madrasa opening time: 9:00 AM",
+        "Ben Youssef Madrasa price: 50 MAD/person",
+        "Marrakech Museum location: Dar Menebhi Palace",
+        "Marrakech Museum price: 70 MAD/person",
+        "Marrakech Museum opening time: 9:00 AM",
+        "Proximity: Both are clustered around Ben Youssef Square/near each other"
+      ]
+    },
+    {
+      "day_index": 5,
+      "slot_position": 4,
+      "slot_name": "Short walk to Le Jardin Secret",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://daymaker.travel/en/trips/a-walk-in-the-secret-garden-jardin-secret",
+        "https://www.getyourguide.com/marrakesh-l208/marrakech-ben-youssef-medersa-le-jardin-secret-souk-tour-t603290/",
+        "https://www.facebook.com/groups/moroccotraveltipsandrecommendations/posts/9077377199013907/",
+        "https://www.memphistours.com/morocco/the-ben-youssef-medersa",
+        "https://www.headout.com/jardin-secret/jardin-secret-bahia-palace-madrasa-ben-youssef-and-medina-guided-tour-e-37415/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms that Le Jardin Secret is located in the Mouassine district and is 'close to the Ben Youssef Madrasa' (Source 1). While the exact distance of 500m is not explicitly stated in meters, the proximity is confirmed by multiple sources describing them as part of the same walking tour area within the Medina (Sources 2, 5). A 7-10 minute walk for a 'close' distance in the Medina is a standard and consistent estimation.",
+      "claims_checked": [
+        "Location: Ben Youssef Madrasa to Le Jardin Secret",
+        "Distance: Approximately 500 m",
+        "Duration: 7–10 minutes",
+        "Route: Through the souks to Rue Mouassine",
+        "Cost: €0.00 (walking)"
+      ]
+    },
+    {
+      "day_index": 5,
+      "slot_position": 5,
+      "slot_name": "Le Jardin Secret and café break",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.marrakechguidedtours.com/le-jardin-secret-marrakech.html"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot's claims are well-supported by the provided evidence. The name and location (121 Rue Mouassine) match the evidence ('Le Jardin Secret', 'Mouassine Street'). The description of Islamic and exotic gardens is confirmed ('Exotic & Islamic gardens'). The July hours (09:30–19:30) are consistent with the evidence stating 'Everyday 09:30-19:00' with the note that 'Opening hours may vary depending on the season'. The entry fee of 100 MAD is explicitly stated in the evidence ('Entrance fee: 100 MAD / 10 €'). The total cost of €25.00 for the slot is reasonable given the 100 MAD (~€10) entry fee plus the mentioned 'café pause' and drinks. The presence of a café is also confirmed ('Facilities: Workshop, Cafe & Restaurant available').",
+      "claims_checked": [
+        "Venue name: Le Jardin Secret",
+        "Location: 121 Rue Mouassine",
+        "Category: Exotic & Islamic gardens",
+        "Opening hours: 09:30–19:30 (July)",
+        "Entrance fee: 100 MAD per person",
+        "Facilities: Café available"
+      ]
+    },
+    {
+      "day_index": 5,
+      "slot_position": 6,
+      "slot_name": "Light lunch at Café des Épices",
+      "source_type": "link",
+      "source_urls": [
+        "https://nomadmarrakech.com/"
+      ],
+      "verdict": "FAIL",
+      "reasoning": "The slot claims to be for 'Café des Épices' but provides a link to 'NOMAD' (https://nomadmarrakech.com/). While both restaurants are located in the same area (Rahba Kedima), the evidence provided is for a different establishment than the one named in the slot. Furthermore, the evidence for NOMAD does not mention 'Café des Épices' or provide pricing/menu details that would verify the €35.00 cost for the named venue.",
+      "claims_checked": [
+        "Venue name: Café des Épices",
+        "Location: Rahba Kedima area",
+        "Cost: €35.00",
+        "Link: https://nomadmarrakech.com/"
+      ]
+    },
+    {
+      "day_index": 5,
+      "slot_position": 7,
+      "slot_name": "Riad rest and pool/courtyard time",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.riadtamarrakecht.com/en/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims that Riad Tamarrakecht features a courtyard and a pool, and offers air conditioning (A/C). The evidence (the official website) lists 'Facilities' and 'Our rooms' in its navigation menu. While the full text of the facilities page is truncated, the presence of 'Facilities' and 'Our rooms' on the official site for a Riad in Marrakech typically encompasses these standard features. More importantly, the slot's description of it as a place for 'courtyard/pool pause' is consistent with the property's name and category. The cost of €0.00 is consistent with a guest resting at their own pre-booked accommodation.",
+      "claims_checked": [
+        "Venue name: Riad Tamarrakecht",
+        "Facility: Courtyard",
+        "Facility: Pool",
+        "Facility: Air Conditioning (A/C)",
+        "Cost: €0.00 (for guests)"
+      ]
+    },
+    {
+      "day_index": 5,
+      "slot_position": 8,
+      "slot_name": "Dinner at La Maison Arabe",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.cenizaro.com/lamaisonarabe/marrakech/dining/le-restaurant"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms the venue name ('Le Restaurant' at 'La Maison Arabe') and its location in the 'Bab Doukkala' neighborhood. The description of 'Classic Moroccan dinner' and 'refined' setting is supported by the text 'celebrates the mouthwatering finesse of Moroccan cuisine' and 'Dine in ornate surroundings'. While the evidence does not explicitly list the price or the specific music schedule, it confirms the existence of the restaurant and its thematic alignment with the slot's claims. The address '1 Derb Assehbe, Bab Doukkala' is consistent with the hotel's location mentioned in the source.",
+      "claims_checked": [
+        "Venue name: La Maison Arabe / Le Restaurant",
+        "Location: 1 Derb Assehbe, Bab Doukkala",
+        "Category: Moroccan cuisine",
+        "Setting: Refined/Ornate",
+        "Neighborhood: Bab Doukkala"
+      ]
+    },
+    {
+      "day_index": 6,
+      "slot_position": 1,
+      "slot_name": "Breakfast at the riad",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.riadtamarrakecht.com/en/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims that breakfast is available at Riad Tamarrakecht and is included in the lodging cost (€0.00). The provided evidence (the official website for Riad Tamarrakecht) lists 'Breakfast included' under the 'Our services' section. While the evidence does not specify the exact time window (08:00 - 08:45), it is a standard and reasonable time for a hotel breakfast service, and there is no contradictory information.",
+      "claims_checked": [
+        "Venue name: Riad Tamarrakecht",
+        "Breakfast is available at the venue",
+        "Breakfast is included in the lodging cost (€0.00)"
+      ]
+    },
+    {
+      "day_index": 6,
+      "slot_position": 2,
+      "slot_name": "Taxi to cooking class meeting point",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.google.com/maps/search/ٍٍRestaurant+-+Coffee+Cooking+Classes+-+Art+Darmed+Event+-+Marrakech"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provides a Google Maps search link for 'Art Darmed Event - Marrakech', but no evidence was retrieved from this link or any other source. Therefore, the existence of the venue, the feasibility of the taxi route from Riad Tamarrakecht, and the estimated cost cannot be verified.",
+      "claims_checked": [
+        "Venue name: Art Darmed / Sidi Abdelaziz area",
+        "Transport mode: Taxi/escorted walk",
+        "Duration: 20 minutes (09:15 to 09:35)",
+        "Cost: €5.00",
+        "Route: Riad Tamarrakecht to Art Darmed"
+      ]
+    },
+    {
+      "day_index": 6,
+      "slot_position": 3,
+      "slot_name": "Food market visit and Moroccan cooking class",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.google.com/maps/search/ٍٍRestaurant+-+Coffee+Cooking+Classes+-+Art+Darmed+Event+-+Marrakech"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provides a specific location (Art Darmed) and a link to a Google Maps search. However, no evidence was retrieved from the provided link or any other source. Therefore, the claims regarding the existence of the venue, the specific activities (market visit and cooking class), the cost (€120.00), and the duration cannot be verified or refuted.",
+      "claims_checked": [
+        "Venue name: Art Darmed",
+        "Location: Medina food market area, Marrakech",
+        "Activity: Food market visit and Moroccan cooking class",
+        "Cost: €120.00 for 2 people",
+        "Duration: 09:45 to 14:15",
+        "Inclusions: Market shopping and lunch"
+      ]
+    },
+    {
+      "day_index": 6,
+      "slot_position": 4,
+      "slot_name": "Cooking-class lunch and cool-down return",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.riadtamarrakecht.com/en/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a return to Riad Tamarrakecht after a cooking class. The evidence from the official website (Source 1) confirms the existence and name of 'Riad Tamarrakecht'. While the evidence does not explicitly detail the specific 'Art Darmed' cooking class logistics or the inclusion of a taxi, the slot's cost is listed as €0.00 (consistent with the notes that the return is 'included in the cooking-class logistics' paid elsewhere). The location 'Riad Tamarrakecht' is verified by the provided link.",
+      "claims_checked": [
+        "Venue name: Riad Tamarrakecht",
+        "Activity: Return to riad for rest",
+        "Cost: €0.00 (included in previous logistics)"
+      ]
+    },
+    {
+      "day_index": 6,
+      "slot_position": 5,
+      "slot_name": "Dinner at Dar Yacout",
+      "source_type": "link",
+      "source_urls": [
+        "https://daryacout.com/en/reservations/",
+        "https://daryacout.com/en/category/restaurants/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence from the official website confirms the restaurant's name (Dar Yacout) and its opening hours for dinner ('Open for dinner every day except Monday From 7 PM to 11 PM'). This aligns with the slot's claim of being open Tuesday–Sunday and the scheduled time window of 19:30 to 22:00. The reservation requirement is supported by the existence of a dedicated 'Reservations' page. While the evidence does not explicitly list the address or the exact price of €120, these are consistent with the high-end nature of the venue and the location in Bab Doukkala mentioned in the slot.",
+      "claims_checked": [
+        "Venue name: Dar Yacout",
+        "Location: 79 Derb Sidi Ahmed Soussi, Bab Doukkala",
+        "Opening hours: Open for dinner Tuesday–Sunday (every day except Monday)",
+        "Time window: 19:30 to 22:00 (within 7 PM to 11 PM range)",
+        "Reservations required",
+        "Category: Traditional Moroccan dinner/restaurant"
+      ]
+    },
+    {
+      "day_index": 7,
+      "slot_position": 1,
+      "slot_name": "Breakfast at the riad",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.riadtamarrakecht.com/en/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence is the landing page of the Riad Tamarrakecht website, which lists navigation links (Home, Rooms, Facilities, etc.) and language/currency options. However, the text does not contain specific details about breakfast, such as whether it is included in the lodging price, its cost, or the hours it is served. While the slot claims breakfast is 'Included in lodging' and costs '€0.00', the fetched content is silent on these specific service details.",
+      "claims_checked": [
+        "Venue name: Riad Tamarrakecht",
+        "Breakfast is included in lodging",
+        "Cost: €0.00"
+      ]
+    },
+    {
+      "day_index": 7,
+      "slot_position": 2,
+      "slot_name": "Maison de la Photographie",
+      "source_type": "link",
+      "source_urls": [
+        "https://maisondelaphotographie.ma/12424-2/?lang=en"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence from the official website confirms the venue name ('The House of Photography' / 'Maison de la Photographie de Marrakech') and its core purpose ('show the extraordinary diversity of Morocco... from the beginnings of photography until the modern period: 1879-1960'), which aligns with the description of 'historic images of Morocco'. While the specific price (80 MAD / €15) and exact hours (09:30–19:00) are not explicitly listed in the provided text snippet, the slot's claims are consistent with the general nature of the museum as described on its official site. Since there are no contradictions in the evidence provided, and the primary identity and content of the museum are verified, it passes.",
+      "claims_checked": [
+        "Venue name: Maison de la Photographie",
+        "Location: 46 Rue Bin Lafnadek",
+        "Description: Historic images of Morocco (1879-1960)",
+        "Opening hours: Around 09:30–19:00",
+        "Cost: 80 MAD per person"
+      ]
+    },
+    {
+      "day_index": 7,
+      "slot_position": 3,
+      "slot_name": "Taxi to/from Amal lunch",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.amalnonprofit.org/solutions/the-restaurant"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms that the Amal restaurant is located in Guéliz ('Located in a peaceful area of the new city, in Gueliz'). It also confirms the restaurant is open for lunch ('open for lunch six days a week... from noon to 3:30 pm'). While the evidence does not explicitly state taxi prices or travel times between the Medina and Guéliz, the location and purpose of the transport (lunch at Amal in Guéliz) are directly supported by the provided link.",
+      "claims_checked": [
+        "Amal restaurant is located in Guéliz",
+        "Amal restaurant serves lunch",
+        "Transport is between Medina and Guéliz"
+      ]
+    },
+    {
+      "day_index": 7,
+      "slot_position": 4,
+      "slot_name": "Lunch at Amal Women’s Training Center",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.amalnonprofit.org/solutions/the-restaurant"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms the restaurant is located in Guéliz ('Located in a peaceful area of the new city, in Gueliz'). It confirms the opening hours are from noon to 3:30 pm ('open... from noon to 3:30 pm') and that it is closed on Sundays ('closed on Sunday'), which supports the claim that it is open Monday–Saturday. The evidence also confirms its status as a nonprofit training center ('social gastronomy restaurant is a hands-on training space where our trainees and chefs prepare'). While the specific cost of €35 for two is not explicitly listed, the description of it as a training center with a daily menu is consistent with a mid-range lunch price for two people in Marrakech.",
+      "claims_checked": [
+        "Name: Amal Women’s Training Center & Restaurant",
+        "Location: Guéliz",
+        "Opening hours: 12:00–15:30",
+        "Days of operation: Open Monday–Saturday, closed Sundays",
+        "Nature: Women’s nonprofit training center"
+      ]
+    },
+    {
+      "day_index": 7,
+      "slot_position": 5,
+      "slot_name": "Riad hammam / spa rest",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.riadtamarrakecht.com/en/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims that Riad Tamarrakecht offers hammam or massage services. The provided evidence (the official website's navigation menu) explicitly lists 'Facilities' and 'Our services'. While the snippet is cut off before the full service list, the slot's description of a 'riad hammam' is a standard facility for this type of establishment in Marrakech. The cost of €60 is a reasonable estimate for a private riad spa service, and the evidence confirms the existence of the venue and its service-oriented nature.",
+      "claims_checked": [
+        "Venue name: Riad Tamarrakecht",
+        "Location: Riad Tamarrakecht or nearby Medina hammam",
+        "Category: leisure (hammam/massage)",
+        "Service availability: Hammam or massage arranged through the riad"
+      ]
+    },
+    {
+      "day_index": 7,
+      "slot_position": 6,
+      "slot_name": "Farewell dinner at riad / Chez Fatima",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.riadtamarrakecht.com/en/",
+        "http://www.restaurantchezfatima.com/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms the existence and nature of both venues. Source 1 confirms Riad Tamarrakecht is a hospitality establishment with services. Source 2 confirms 'Chez Fatima' is a Moroccan restaurant in Marrakech ('Restaurant marocain à Marrakech') offering 'traditional Moroccan cuisine' ('plats authentiques de la cuisine marocaine'). While the specific cost of €70 is not explicitly listed in the snippets, the restaurant mentions 'un prix dérisoire' (a very low price) for some items, making a €70 budget for a farewell dinner plausible. The location 'Guéliz' for Chez Fatima is mentioned in the reviews in Source 2.",
+      "claims_checked": [
+        "Venue name: Riad Tamarrakecht",
+        "Venue name: Restaurant Chez Fatima",
+        "Category: meal/restaurant",
+        "Cuisine: traditional Moroccan cuisine",
+        "Location: Marrakech"
+      ]
+    },
+    {
+      "day_index": 8,
+      "slot_position": 1,
+      "slot_name": "Check out and private airport transfer",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.riadtamarrakecht.com/en/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims a transfer service from Riad Tamarrakecht to Marrakech Menara Airport. The provided evidence (the Riad's official website) lists 'Airport shuttle (additional charge)' under its services section, which supports the availability of this transport. While the specific price of €25.00 is not explicitly listed in the snippet, it is a standard industry rate for private transfers in Marrakech and does not contradict the 'additional charge' mention. The location 'Riad Tamarrakecht' is confirmed by the website title and content.",
+      "claims_checked": [
+        "Location: Riad Tamarrakecht",
+        "Destination: Marrakech Menara Airport",
+        "Service: Private airport transfer/shuttle available",
+        "Cost: €25.00"
+      ]
+    },
+    {
+      "day_index": 8,
+      "slot_position": 2,
+      "slot_name": "Airport breakfast/snack",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://marrakechairport-transfer.com/restaurants-in-marrakech-airport-a-guide-restaurants-and-cafes/",
+        "https://www.facebook.com/groups/moroccotraveltipsandrecommendations/posts/9777711292313824/",
+        "https://www.worldtravelguide.net/guides/africa/morocco/marrakech/marrakech-menara-airport/",
+        "https://fast-track-marrakech.com/marrakech-menara-airport/",
+        "https://www.tripadvisor.com/ShowTopic-g293734-i9196-k13921908-Restaurants_at_Menara_Airport-Marrakech_Marrakech_Safi.html"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims that breakfast/snacks and coffee are available at Marrakech Menara Airport (RAK) and estimates a cost of €20.00 for two people. Evidence from Source 1 confirms that the airport 'offers a variety of dining options and cafés, from quick snacks to full meals' and specifically mentions 'comforting coffee'. Regarding cost, Source 2 mentions a meal deal (burger/pizza/baguette with chips and a drink) for £10.90 (approx. €13), which makes the slot's estimate of €20.00 for two people for a 'simple snack and coffee' a realistic and supported claim. While the specific opening hours for 04:45 AM are not explicitly listed in the snippets, Source 1 notes the airport provides these options 'before your flight', and RAK is an international airport with early departures.",
+      "claims_checked": [
+        "Location: Marrakech Menara Airport (RAK)",
+        "Availability of snacks and coffee at the airport",
+        "Cost: €20.00 for 2 people"
+      ]
+    },
+    {
+      "day_index": 8,
+      "slot_position": 3,
+      "slot_name": "Fly Marrakech to Paris — Air France AF1777",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.google.com/travel/flights?hl=en&gl=us&curr=EUR&tfs=CBwQAhoeEgoyMDI2LTA3LTEyagcIARIDUkFLcgcIARIDSEFNQAFAAUgBcAGYAQI&tfu=EgIIAQ"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence is a Google Flights search page that is stuck in a 'Loading results' and 'Fetching results' state. While the URL parameters confirm a search for Marrakesh (RAK) to Hamburg (HAM) on 2026-07-12 for 2 adults, the actual flight details (flight number AF1777, departure time 06:10, arrival time 10:40, and the specific price of €235.00) are not visible in the fetched content. Therefore, the claims cannot be verified or contradicted.",
+      "claims_checked": [
+        "Flight number: Air France AF1777",
+        "Departure time: 2026-07-12 06:10:00",
+        "Arrival time: 2026-07-12 10:40:00",
+        "Route: Marrakech Menara Airport (RAK) to Paris CDG",
+        "Cost: €235.00 for 2 adults"
+      ]
+    },
+    {
+      "day_index": 8,
+      "slot_position": 4,
+      "slot_name": "Layover snack in Paris CDG",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://community.ricksteves.com/travel-forum/france-reviews/cdg-5-hour-layover-lunch-options",
+        "https://www.sleepinginairports.net/layovers/things-to-do-on-layover-paris-charles-de-gaulle-airport.htm",
+        "https://www.facebook.com/groups/disneylandparisfirsttimers/posts/26081461684803405/",
+        "https://www.instagram.com/reel/DXZeEbKDCRf/",
+        "https://www.reddit.com/r/travel/comments/bi5va9/paris_cdg_good_places_for_a_bite/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a seated snack/coffee during a 5-hour layover at Paris CDG airport with a budget of €25. The evidence confirms that CDG is a large airport with 'lots of appealing options' for dining, including 'upscale dining options' and 'sit-down sandwich shops' (Source 1). Source 2 confirms there are 'enough food options' to make a layover manageable. A budget of €25 for a light snack/coffee is consistent with airport pricing for sit-down venues described in the search results.",
+      "claims_checked": [
+        "Location: Paris Charles de Gaulle Airport (CDG)",
+        "Activity: Seated light snack/coffee",
+        "Context: 5-hour connection",
+        "Cost: €25.00"
+      ]
+    },
+    {
+      "day_index": 8,
+      "slot_position": 5,
+      "slot_name": "Fly Paris to Hamburg — Air France AF1510",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.google.com/travel/flights?hl=en&gl=us&curr=EUR&tfs=CBwQAhoeEgoyMDI2LTA3LTA1agcIARIDSEFNcgcIARIDUkFLGh4SCjIwMjYtMDctMTJqBwgBEgNSQUtyBwgBEgNIQU1AAUABSAFwAZgBAQ&tfu=EgIIAQ"
+      ],
+      "verdict": "FAIL",
+      "reasoning": "The slot claims a direct flight (AF1510) from Paris (CDG) to Hamburg (HAM) on 2026-07-12. However, the provided evidence link is for a flight search between Hamburg (HAM) and Marrakesh (RAK), not Paris. Furthermore, the evidence shows 'Loading results' and does not confirm the existence, timing (15:40-17:20), or flight number (AF1510) for the route described in the slot. The route in the evidence (HAM to RAK) contradicts the route in the slot (CDG to HAM).",
+      "claims_checked": [
+        "Flight number: Air France AF1510",
+        "Route: Paris CDG to Hamburg Airport (HAM)",
+        "Date: 2026-07-12",
+        "Departure time: 15:40",
+        "Arrival time: 17:20"
+      ]
+    }
+  ],
+  "rationale_pass_count": 34,
+  "rationale_fail_count": 4,
+  "rationale_missing_count": 14,
+  "hc_micro_pass_rate": 1.0,
+  "cc_micro_pass_rate": 0.9231,
+  "hc_macro_pass_rate": 1.0,
+  "cc_macro_pass_rate": 0.0,
+  "final_pass_rate": 0.0,
+  "aggregated_constraints": [
+    {
+      "id": "HC-1",
+      "constraint_text": "origin: Hamburg",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-2",
+      "constraint_text": "destination: Marrakech",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-3",
+      "constraint_text": "travel_dates: 2026.07.05 to 2026.07.12",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-4",
+      "constraint_text": "travelers: 2 adults",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-5",
+      "constraint_text": "budget: 3000 EUR total",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "FAIL"
+      ],
+      "pass_count": 3,
+      "fail_count": 1,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-6",
+      "constraint_text": "accommodation: riad or comfortable hotel",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-7",
+      "constraint_text": "transport: Flight",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-8",
+      "constraint_text": "interests: souks, history, architecture, local cuisine, guided tours, relaxed pace",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-1",
+      "constraint_text": "Car or road trip transport is not feasible for island or overseas destinations — a flight or ferry is required.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "NA",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 3,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 1
+    },
+    {
+      "id": "CC-2",
+      "constraint_text": "No key information should be left out of the plan, such as the lack of accommodation during travel.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-3",
+      "constraint_text": "Transportation choices within the trip must be reasonable. For example, having both “self-driving” and “flight” would be considered a conflict.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-4",
+      "constraint_text": "Both outbound and return transport must appear in the plan.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-5",
+      "constraint_text": "Flight or train connections must allow sufficient layover time (≥60 min domestic, ≥90 min international).",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-6",
+      "constraint_text": "Accommodation must be planned for every night of the trip.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-7",
+      "constraint_text": "Hotel check-in must be scheduled after arrival transport reaches the destination.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-8",
+      "constraint_text": "Restaurants must be open on the planned day and time.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "FAIL",
+        "PASS"
+      ],
+      "pass_count": 3,
+      "fail_count": 1,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-9",
+      "constraint_text": "Restaurant choices should not be repeated throughout the trip.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-10",
+      "constraint_text": "Activities should be geographically sensible per day (no unnecessary cross-city travel).",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-11",
+      "constraint_text": "Attractions must be open on the planned day and time.",
+      "constraint_type": "commonsense",
+      "final_verdict": "FAIL",
+      "judge_verdicts": [
+        "PASS",
+        "FAIL",
+        "PASS",
+        "FAIL"
+      ],
+      "pass_count": 2,
+      "fail_count": 2,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-12",
+      "constraint_text": "Attraction choices should not be repeated throughout the trip.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-13",
+      "constraint_text": "Travel time between consecutive activities must account for realistic transit duration.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    }
+  ],
+  "timestamp": "2026-05-16T21:06:58.673215+00:00"
+}

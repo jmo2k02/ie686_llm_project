@@ -1,480 +1,334 @@
 {
-  "title": "Munich to Vienna 5-day trip, July 10–14 2026",
+  "title": "Rome Hidden History & Street Food — July 5-7, 2026",
   "days": [
     {
       "index": 1,
-      "calendar_date": "2026-07-10",
-      "label": "Arrival and Innere Stadt",
+      "calendar_date": "2026-07-05",
+      "label": "Appian Way, aqueducts & Testaccio street food",
       "slots": [
         {
-          "name": "Direct Railjet train: Munich → Vienna",
-          "description": "Budget-friendly direct ÖBB/DB Railjet-style train from München Hbf to Wien Hbf. Exact July 2026 schedules are not finalized yet; typical direct journey is about 4 hours. Book Sparschiene/advance fares when released.",
-          "start_time": "2026-07-10T07:30:00",
-          "end_time": "2026-07-10T11:30:00",
+          "name": "Metro to Parco degli Acquedotti",
+          "description": "Use Metro A toward Subaugusta/Giulio Agricola, then walk to Parco degli Acquedotti. A 2026 BIT ticket is estimated at €2 and valid 100 minutes.",
+          "start_time": "2026-07-05T08:30:00",
+          "end_time": "2026-07-05T09:15:00",
           "category": "transport",
-          "location": "München Hbf → Wien Hbf",
-          "cost": 56.0,
+          "location": "Rome Metro Line A to Subaugusta/Giulio Agricola",
+          "cost": 2.0,
           "links": [
-            "https://www.oebb.at/en/tickets-kundenkarten/oesterreich-weit/sparschiene",
-            "https://www.austrianrailways.com/train-munich-to-vienna"
+            "https://romesite.com/transport.html"
           ],
-          "notes": "Estimated one-way cost for 2 adults: €25 each plus small seat reservation allowance."
+          "notes": "Exact start depends on hotel location; no hotel slot added per user constraint."
         },
         {
-          "name": "Transfer: Wien Hbf → Hotel Pension Walzerstadt",
-          "description": "Take Vienna public transport from Wien Hbf toward Zieglergasse/1070 district. Routing API unavailable due missing key, but hotel is near U3 Zieglergasse and Wien Hbf connects via U1/U-Bahn network.",
-          "start_time": "2026-07-10T11:30:00",
-          "end_time": "2026-07-10T12:15:00",
-          "category": "transport",
-          "location": "Wien Hbf → Zieglergasse 35, 1070 Vienna",
-          "cost": 0.0,
-          "links": [
-            "https://www.wien.info/en/travel-info/transport/tickets-361360"
-          ],
-          "notes": "Covered by 7-day Vienna digital ticket added separately."
-        },
-        {
-          "name": "Buy 7-day Vienna public transport tickets",
-          "description": "Buy two digital 7-day Vienna core-zone tickets. 2026 fare source indicates €25.20 per person and better value than abolished 48/72-hour tickets.",
-          "start_time": "2026-07-10T13:00:00",
-          "end_time": "2026-07-10T13:15:00",
-          "category": "transport",
-          "location": "WienMobil app / Wiener Linien",
-          "cost": 50.4,
-          "links": [
-            "https://www.wien.info/en/travel-info/transport/tickets-361360"
-          ],
-          "notes": "Covers city transit July 10–14, not intercity train."
-        },
-        {
-          "name": "Lunch: Trzesniewski open sandwiches",
-          "description": "Iconic Viennese standing snack bar with small open-faced sandwiches, ideal for an inexpensive first local meal.",
-          "start_time": "2026-07-10T13:30:00",
-          "end_time": "2026-07-10T14:15:00",
-          "category": "meal",
-          "location": "Trzesniewski, Dorotheergasse 1, 1010 Vienna",
-          "cost": 24.0,
-          "links": [
-            "https://www.speckmittei.at",
-            "https://www.travelsignposts.com/Austria/food/trzesniewski"
-          ],
-          "notes": "Flagship location; open Friday daytime."
-        },
-        {
-          "name": "Self-guided Innere Stadt walk",
-          "description": "Walk Stephansplatz, Graben, Kohlmarkt, Hofburg exterior, Michaelerplatz, and hidden courtyards/Durchhäuser around the old town. Low-cost orientation on foot.",
-          "start_time": "2026-07-10T14:15:00",
-          "end_time": "2026-07-10T17:00:00",
+          "name": "Walk the aqueducts and ancient-road landscape",
+          "description": "Explore Parco degli Acquedotti for Aqua Claudia, Anio Novus, and the open suburban edge of ancient Rome. Free, low-tourist-density, best before the midday heat.",
+          "start_time": "2026-07-05T09:15:00",
+          "end_time": "2026-07-05T11:45:00",
           "category": "attraction",
-          "location": "Innere Stadt, Vienna",
+          "location": "Parco degli Acquedotti, Via Lemonia, 221, Rome",
           "cost": 0.0,
           "links": [
-            "https://www.google.com/maps/search/St.+Stephen's+Cathedral+Vienna",
-            "https://www.google.com/maps/search/Schottendurchhaus"
+            "https://www.google.com/maps/search/Via+Appia+Antica+-+Appian+Way"
           ],
-          "notes": "Keep this flexible after travel."
+          "notes": "Park hours verified as daytime public access; bring water and sun protection."
         },
         {
-          "name": "Check in: Hotel Pension Walzerstadt",
-          "description": "Budget accommodation in the 7th district with Wi‑Fi, close to U3 Zieglergasse and Mariahilfer Straße. Quoted hotel search rate €96/night for 4 nights.",
-          "start_time": "2026-07-10T12:15:00",
-          "end_time": "2026-07-10T13:00:00",
-          "category": "lodging",
-          "location": "Hotel Pension Walzerstadt, Zieglergasse 35, 1070 Vienna",
-          "cost": 384.0,
-          "links": [
-            "https://travelstack.nuitee.link/hotels?placeId=ChIJbRAjM5uobUcRO98FQnxbmd0&placeTypes=&name=Vienna&checkin=2026-07-10&checkout=2026-07-14&rooms=1&adults=2&occupancies=W3siYWR1bHRzIjoyLCJjaGlsZHJlbiI6W119XQ%3D%3D&sorting=1&language=de&currency=EUR",
-            "https://www.booking.com/hotel/at/pension-walzerstadt.html"
-          ],
-          "notes": "Check-in time not verified; ask hotel for early luggage drop if room is not ready."
-        },
-        {
-          "name": "Dinner: Griechenbeisl",
-          "description": "Traditional Austrian dinner in one of Vienna’s oldest restaurants, near Schwedenplatz; historic rooms and classic dishes.",
-          "start_time": "2026-07-10T19:00:00",
-          "end_time": "2026-07-10T20:30:00",
+          "name": "Street-food lunch at Ce Stamo A Pensà",
+          "description": "Inexpensive Roman-style street-food stop: ideal for a quick solo lunch before heading to the Appian Way catacombs.",
+          "start_time": "2026-07-05T12:15:00",
+          "end_time": "2026-07-05T13:15:00",
           "category": "meal",
-          "location": "Griechenbeisl, Fleischmarkt 11, 1010 Vienna",
-          "cost": 70.0,
+          "location": "Ce Stamo A Pensà, Via Leonina, 81, 00184 Roma RM, Italy",
+          "cost": 15.0,
           "links": [
-            "https://www.griechenbeisl.at/",
-            "https://www.wien.info/en/griechenbeisl-132812"
+            "https://www.instagram.com/ce_stamo_a_pensa?igsh=cDcwbTEyeTY3aDI0"
           ],
-          "notes": "Reserve ahead; estimate assumes moderate mains and drinks for 2."
+          "notes": "Tool verified Sunday opening 11:00–01:00."
+        },
+        {
+          "name": "Transit to Catacombs of San Callisto",
+          "description": "Cross back toward the Appian Way by metro/bus. Use Bus 118 or 218 for the catacombs; allow buffer because Sunday services can be slower.",
+          "start_time": "2026-07-05T13:15:00",
+          "end_time": "2026-07-05T14:30:00",
+          "category": "transport",
+          "location": "Rome city center to Via Appia Antica, 110/126",
+          "cost": 2.0,
+          "links": [
+            "https://www.catacombesancallisto.it/en/dove-siamo.php"
+          ],
+          "notes": "A direct route graph could not be generated because the maps API key is unavailable; timing is conservatively padded."
+        },
+        {
+          "name": "Catacombs of San Callisto guided visit",
+          "description": "Guided underground visit of one of Rome’s major early Christian burial complexes. Sunday July 5 availability was verified for the afternoon window; ticket office cutoff is around 16:50.",
+          "start_time": "2026-07-05T15:00:00",
+          "end_time": "2026-07-05T16:15:00",
+          "category": "attraction",
+          "location": "Catacombs of San Callisto, Via Appia Antica, 110/126, Rome",
+          "cost": 10.0,
+          "links": [
+            "https://www.catacombesancallisto.it/en/orari.php"
+          ],
+          "notes": "Bring a light layer; no photography inside."
+        },
+        {
+          "name": "Slow Appian Way walk",
+          "description": "Walk a manageable stretch of Via Appia Antica after the catacombs, when the light is better and Sunday traffic is limited. Focus on road stones, tombs, and the rural feel inside the city.",
+          "start_time": "2026-07-05T16:15:00",
+          "end_time": "2026-07-05T18:00:00",
+          "category": "leisure",
+          "location": "Via Appia Antica, Rome",
+          "cost": 0.0,
+          "links": [
+            "https://www.google.com/maps/search/Via+Appia+Antica+-+Appian+Way"
+          ],
+          "notes": "Keep this flexible depending on heat and energy."
+        },
+        {
+          "name": "Dinner at La Nuova Piazzetta",
+          "description": "Moderate-budget, authentic Roman dinner option; convenient after returning from the Appian Way side of the city.",
+          "start_time": "2026-07-05T19:30:00",
+          "end_time": "2026-07-05T21:00:00",
+          "category": "meal",
+          "location": "La Nuova Piazzetta, Vicolo del Buon Consiglio, 23/a, Rome",
+          "cost": 32.0,
+          "links": [
+            "https://maps.google.com/?cid=5816990672718758843&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+          ],
+          "notes": "Tool verified Sunday opening all day."
+        },
+        {
+          "name": "Transit back toward Monti/Celio",
+          "description": "Return by Bus 118/218 and metro toward the central Rome dinner area.",
+          "start_time": "2026-07-05T18:00:00",
+          "end_time": "2026-07-05T19:00:00",
+          "category": "transport",
+          "location": "Appian Way to central Rome",
+          "cost": 2.0,
+          "links": [
+            "https://catacombsofrome.com/how-to-get-to-st-callixtus-catacombs/"
+          ],
+          "notes": "Use Tap&Go or BIT ticket."
         }
       ]
     },
     {
       "index": 2,
-      "calendar_date": "2026-07-11",
-      "label": "Hofburg and classic Vienna",
+      "calendar_date": "2026-07-06",
+      "label": "Underground Rome, Celio & Monti",
       "slots": [
         {
-          "name": "Breakfast at Café Sperl",
-          "description": "Historic Viennese coffee house breakfast before a museum-heavy day. Café Sperl is open Saturdays in July; avoid Sundays in July/August due to Sunday closure.",
-          "start_time": "2026-07-11T08:30:00",
-          "end_time": "2026-07-11T09:30:00",
-          "category": "meal",
-          "location": "Café Sperl, Gumpendorfer Straße 11, 1060 Vienna",
-          "cost": 28.0,
+          "name": "San Clemente underground layers",
+          "description": "Descend from the medieval basilica into the 4th-century church and Roman-era Mithraeum/house levels — one of the best compact ‘vertical Rome’ experiences.",
+          "start_time": "2026-07-06T10:00:00",
+          "end_time": "2026-07-06T11:30:00",
+          "category": "attraction",
+          "location": "Basilica di San Clemente, Via Labicana, 95, Rome",
+          "cost": 12.0,
           "links": [
-            "https://www.cafesperl.at",
-            "https://www.wien.info/en/caf%C3%A9-sperl-film-location-920732"
+            "https://www.basilicasanclemente.com/eng/opening-hours-and-info/"
           ],
-          "notes": "Estimated for 2 coffees and pastries/light breakfast."
+          "notes": "Book online; estimated €10 ticket plus booking fee. Dress code; no photos underground."
         },
         {
-          "name": "Walk/transit to Kunsthistorisches Museum",
-          "description": "From the hotel area to Maria-Theresien-Platz; hotel is about a 20–25 minute walk or short U3 ride to Volkstheater/MuseumsQuartier.",
-          "start_time": "2026-07-11T09:30:00",
-          "end_time": "2026-07-11T10:00:00",
+          "name": "Walk to Case Romane del Celio",
+          "description": "Short walk of roughly 450 m / 6–8 minutes via the quiet Celio streets and Clivus Scauri.",
+          "start_time": "2026-07-06T11:30:00",
+          "end_time": "2026-07-06T11:45:00",
           "category": "transport",
-          "location": "Hotel Pension Walzerstadt → Kunsthistorisches Museum",
+          "location": "San Clemente to Case Romane del Celio",
           "cost": 0.0,
           "links": [
-            "https://www.wien.info/en/travel-info/transport/tickets-361360"
+            "https://www.rome2rio.com/s/San-Clemente-al-Laterano/Rome"
           ],
-          "notes": "Routing API was unavailable; estimate based on verified hotel and museum transit proximity."
+          "notes": "Walking is faster than transit for this pair."
         },
         {
-          "name": "Kunsthistorisches Museum",
-          "description": "Focus on Bruegel, the Kunstkammer, Egyptian/Greek collections, and Klimt’s staircase decorations. Official July hours: daily 10:00–18:00.",
-          "start_time": "2026-07-11T10:00:00",
-          "end_time": "2026-07-11T13:00:00",
+          "name": "Case Romane del Celio",
+          "description": "Visit frescoed Roman houses beneath the Basilica of Santi Giovanni e Paolo: a quieter, residential counterpoint to the Forum and Colosseum.",
+          "start_time": "2026-07-06T11:45:00",
+          "end_time": "2026-07-06T13:00:00",
           "category": "attraction",
-          "location": "Kunsthistorisches Museum, Maria-Theresien-Platz, 1010 Vienna",
-          "cost": 44.0,
+          "location": "Case Romane del Celio, Piazza di Santi Giovanni e Paolo, 7, Rome",
+          "cost": 8.0,
           "links": [
-            "https://www.khm.at/en/visit"
+            "https://www.turbopass.com/en/rome/attractions/case-romane-del-celio"
           ],
-          "notes": "Estimated €22 per adult."
+          "notes": "Monday opening verified; ticket office may close before site closing."
         },
         {
-          "name": "Lunch: Figlmüller Bäckerstraße",
-          "description": "Classic schnitzel lunch in the old town; official hours daily 11:30–23:30, kitchen until 22:00.",
-          "start_time": "2026-07-11T13:15:00",
-          "end_time": "2026-07-11T14:30:00",
+          "name": "Street-food lunch at Supplì Roma",
+          "description": "Classic Roman street-food break with supplì/pizza al taglio. It is in Trastevere, so use this as a deliberate food detour after the Celio morning.",
+          "start_time": "2026-07-06T13:30:00",
+          "end_time": "2026-07-06T14:30:00",
           "category": "meal",
-          "location": "Figlmüller, Bäckerstraße 6, 1010 Vienna",
-          "cost": 55.0,
+          "location": "Supplì Roma, Via di S. Francesco a Ripa, 137, Rome",
+          "cost": 14.0,
           "links": [
-            "https://www.figlmueller.at/en/reservations/",
-            "https://www.figlmueller.at/en/location-contact/"
+            "http://www.suppliroma.it/"
           ],
-          "notes": "Reserve; estimate for 2 schnitzels/sides and soft drinks."
+          "notes": "Tool verified Monday opening 10:00–21:00."
         },
         {
-          "name": "Hofburg exterior and imperial lanes walk",
-          "description": "Walk through Graben/Kohlmarkt to Michaelerplatz, Hofburg courtyards, Volksgarten, and Ringstraße viewpoints. Keeps costs low while covering imperial Vienna on foot.",
-          "start_time": "2026-07-11T14:30:00",
-          "end_time": "2026-07-11T16:30:00",
+          "name": "Transit back to Santi Quattro Coronati",
+          "description": "Return from Trastevere toward Celio/Colosseum for the afternoon hidden-monastery stop.",
+          "start_time": "2026-07-06T14:30:00",
+          "end_time": "2026-07-06T15:15:00",
+          "category": "transport",
+          "location": "Trastevere to Santi Quattro Coronati",
+          "cost": 2.0,
+          "links": [
+            "https://romesite.com/transport.html"
+          ],
+          "notes": "Use tram/bus plus short walk; exact route depends on service that day."
+        },
+        {
+          "name": "Santi Quattro Coronati cloister and oratory",
+          "description": "A fortified medieval complex hidden near the Colosseum, with a quiet cloister and San Silvestro frescoes. Ring/bell protocol and small donation expected.",
+          "start_time": "2026-07-06T15:15:00",
+          "end_time": "2026-07-06T16:45:00",
           "category": "attraction",
-          "location": "Hofburg Palace area, 1010 Vienna",
-          "cost": 0.0,
+          "location": "Basilica dei Santi Quattro Coronati, Via dei Santi Quattro, 20, Rome",
+          "cost": 3.0,
           "links": [
-            "https://www.google.com/maps/search/Hofburg+Palace+Vienna"
+            "https://www.tripadvisor.com/Attraction_Review-g187791-d246188-Reviews-Ss_Quattro_Coronati-Rome_Lazio.html"
           ],
-          "notes": "Optional paid Sisi Museum if budget allows, but not included in cost."
+          "notes": "Afternoon basilica window verified from 15:15; access to cloister/oratory can be at nuns’ discretion."
         },
         {
-          "name": "Coffee and cake break",
-          "description": "Pause for Melange and cake in the historic center. Café Central is expected closed for renovation in 2026, so use Café Museum or another open café nearby.",
-          "start_time": "2026-07-11T16:30:00",
-          "end_time": "2026-07-11T17:15:00",
+          "name": "Dinner at Nerone",
+          "description": "Moderate-budget Roman dinner near Viminale/Monti; good for pasta and classic Roman dishes after the hidden-history day.",
+          "start_time": "2026-07-06T19:00:00",
+          "end_time": "2026-07-06T20:30:00",
           "category": "meal",
-          "location": "Café Museum or nearby historic café",
-          "cost": 24.0,
+          "location": "Nerone, Via del Viminale, 7A, Rome",
+          "cost": 32.0,
           "links": [
-            "https://www.cafemuseum.at/en/cafe-museum.html"
+            "http://neronealviminale.it/"
           ],
-          "notes": "Café Central renovation noted in research; not scheduled."
+          "notes": "Tool verified Monday dinner opening 16:30–22:00."
         },
         {
-          "name": "Dinner: Plachutta Wollzeile",
-          "description": "Traditional Tafelspitz dinner at a classic Vienna restaurant; open daily 11:30–23:30.",
-          "start_time": "2026-07-11T19:00:00",
-          "end_time": "2026-07-11T20:45:00",
-          "category": "meal",
-          "location": "Plachutta Wollzeile, Wollzeile 38, 1010 Vienna",
-          "cost": 90.0,
-          "links": [
-            "https://www.plachutta.at/en/restaurant/wollzeile/"
-          ],
-          "notes": "Reserve; this is the splurge dinner of the trip."
+          "name": "Rest / aperitivo buffer in Monti",
+          "description": "Unscheduled recovery time in Monti/Celio after two underground sites. Use for a coffee, a shaded walk, or returning to your hotel before dinner.",
+          "start_time": "2026-07-06T16:45:00",
+          "end_time": "2026-07-06T18:45:00",
+          "category": "leisure",
+          "location": "Monti / Celio, Rome",
+          "cost": 8.0,
+          "links": [],
+          "notes": "Budget includes coffee/aperitivo; keep flexible."
         }
       ]
     },
     {
       "index": 3,
-      "calendar_date": "2026-07-12",
-      "label": "Belvedere and Naschmarkt",
+      "calendar_date": "2026-07-07",
+      "label": "Ostia Antica & Roman-Jewish Rome",
       "slots": [
         {
-          "name": "Breakfast at Café Museum",
-          "description": "Classic Vienna café near Karlsplatz; breakfast is served daily until 11:30.",
-          "start_time": "2026-07-12T08:30:00",
-          "end_time": "2026-07-12T09:30:00",
-          "category": "meal",
-          "location": "Café Museum, Operngasse 7, 1010 Vienna",
-          "cost": 30.0,
-          "links": [
-            "https://www.cafemuseum.at/en/cafe-museum.html"
-          ],
-          "notes": "Good start before Stadtpark and Belvedere."
-        },
-        {
-          "name": "Lunch: Meierei im Stadtpark",
-          "description": "Casual bistro/café in Stadtpark from the Steirereck group; note official research suggests Sunday opening may vary, so verify/reserve or substitute Café Museum if closed.",
-          "start_time": "2026-07-12T11:00:00",
-          "end_time": "2026-07-12T12:15:00",
-          "category": "meal",
-          "location": "Meierei im Stadtpark, Am Heumarkt 2a, 1030 Vienna",
-          "cost": 60.0,
-          "links": [
-            "https://www.steirereck.at/meierei.html"
-          ],
-          "notes": "If Sunday closure is confirmed, replace with Café Museum or trude at Wien Museum."
-        },
-        {
-          "name": "Stadtpark morning walk",
-          "description": "Walk through Stadtpark to see the Johann Strauss monument and green spaces before lunch; free and central.",
-          "start_time": "2026-07-12T09:30:00",
-          "end_time": "2026-07-12T10:30:00",
-          "category": "attraction",
-          "location": "Stadtpark, Vienna",
-          "cost": 0.0,
-          "links": [
-            "https://www.google.com/maps/search/Stadtpark+Vienna"
-          ],
-          "notes": "Pairs naturally with Meierei in Stadtpark."
-        },
-        {
-          "name": "Transfer/walk to Upper Belvedere",
-          "description": "Walk or take tram toward Prinz-Eugen-Straße for Belvedere. The site is south-east of the Ring; allow about 30 minutes from Stadtpark area.",
-          "start_time": "2026-07-12T12:15:00",
-          "end_time": "2026-07-12T12:45:00",
+          "name": "Transit to Ostia Antica",
+          "description": "Take Metro B to Piramide/Porta San Paolo, then Roma-Lido/Metromare to Ostia Antica; walk 5–10 minutes to the entrance.",
+          "start_time": "2026-07-07T08:00:00",
+          "end_time": "2026-07-07T09:00:00",
           "category": "transport",
-          "location": "Stadtpark → Upper Belvedere",
-          "cost": 0.0,
+          "location": "Rome center to Ostia Antica Archaeological Park",
+          "cost": 2.0,
           "links": [
-            "https://www.wien.info/en/travel-info/transport/tickets-361360"
+            "https://www.rometoolkit.com/whattodo/ostia_antica.html"
           ],
-          "notes": "Covered by Vienna transport ticket if using tram."
+          "notes": "Estimated 45–60 minutes from central Rome; BIT ticket should cover the urban rail journey within validity."
         },
         {
-          "name": "Upper Belvedere museum",
-          "description": "Visit Klimt’s The Kiss, Austrian art collections, and Baroque palace rooms. Official visitor info: Upper Belvedere opens daily, typically 09:00–18:00.",
-          "start_time": "2026-07-12T13:00:00",
-          "end_time": "2026-07-12T16:00:00",
+          "name": "Ostia Antica archaeological park",
+          "description": "Explore Rome’s ancient port city: theater, baths, insulae, warehouses, Decumanus Maximus, and quieter side streets. Pompeii-like feel without leaving the Rome transit zone.",
+          "start_time": "2026-07-07T09:00:00",
+          "end_time": "2026-07-07T12:45:00",
           "category": "attraction",
-          "location": "Upper Belvedere, Prinz-Eugen-Straße 27, 1030 Vienna",
-          "cost": 40.0,
-          "links": [
-            "https://www.belvederepalace.at/en/visiting-hours",
-            "https://www.google.com/maps/search/Austrian+Gallery+Belvedere"
-          ],
-          "notes": "Estimated €20 per adult; book timed entry."
-        },
-        {
-          "name": "Belvedere Gardens walk",
-          "description": "Walk the free formal gardens between Upper and Lower Belvedere for city views and photos.",
-          "start_time": "2026-07-12T16:00:00",
-          "end_time": "2026-07-12T17:00:00",
-          "category": "attraction",
-          "location": "Belvedere Gardens, Vienna",
-          "cost": 0.0,
-          "links": [
-            "https://www.belvederepalace.at/en/visiting-hours"
-          ],
-          "notes": "Free outdoor component."
-        },
-        {
-          "name": "Dinner: Bitzinger Würstelstand Albertina",
-          "description": "Budget-friendly Viennese street food: Käsekrainer or bratwurst near the Opera/Albertina. Open daily 08:00–04:00.",
-          "start_time": "2026-07-12T18:30:00",
-          "end_time": "2026-07-12T19:15:00",
-          "category": "meal",
-          "location": "Bitzinger Würstelstand, Albertinaplatz 1, 1010 Vienna",
-          "cost": 22.0,
-          "links": [
-            "https://bitzinger.wien/en/wuerstelstand/impressum/"
-          ],
-          "notes": "Keeps the day budget balanced after museum tickets."
-        }
-      ]
-    },
-    {
-      "index": 4,
-      "calendar_date": "2026-07-13",
-      "label": "Schönbrunn and MuseumsQuartier",
-      "slots": [
-        {
-          "name": "Breakfast near Mariahilfer Straße",
-          "description": "Simple café/bakery breakfast near the hotel before taking U4/U-Bahn connections toward Schönbrunn.",
-          "start_time": "2026-07-13T08:00:00",
-          "end_time": "2026-07-13T08:45:00",
-          "category": "meal",
-          "location": "Near Hotel Pension Walzerstadt / Mariahilfer Straße",
-          "cost": 20.0,
-          "links": [
-            "https://www.wien.info/en/travel-info/transport/tickets-361360"
-          ],
-          "notes": "Use local bakery/café to preserve budget."
-        },
-        {
-          "name": "Schönbrunn Palace Park and Gloriette walk",
-          "description": "Explore the free palace gardens, Great Parterre, fountains, and walk up to the Gloriette. Palace park July hours researched as 06:30–21:00; palace interiors are optional if budget allows.",
-          "start_time": "2026-07-13T09:30:00",
-          "end_time": "2026-07-13T12:00:00",
-          "category": "attraction",
-          "location": "Schönbrunn Palace Park, Schönbrunner Schloßstraße 47, 1130 Vienna",
-          "cost": 0.0,
-          "links": [
-            "https://schonbrunn-palace.org/opening-hours-best-time/",
-            "https://www.google.com/maps/search/Schönbrunn+Palace+Park"
-          ],
-          "notes": "Free garden-focused option preserves total budget."
-        },
-        {
-          "name": "Lunch: Joseph II Schloss-Restaurant Schönbrunn",
-          "description": "Convenient Austrian lunch inside the Schönbrunn complex; official research found daily opening 11:00–20:30, hot food 11:30–19:30.",
-          "start_time": "2026-07-13T12:00:00",
-          "end_time": "2026-07-13T13:15:00",
-          "category": "meal",
-          "location": "Joseph II, Schönbrunner Schloßstraße 47, 1130 Vienna",
-          "cost": 50.0,
-          "links": [
-            "https://www.restaurant-schoenbrunn.at/en"
-          ],
-          "notes": "Estimate for moderate lunch for 2; reserve if possible."
-        },
-        {
-          "name": "Transfer to Karlsplatz / MuseumsQuartier",
-          "description": "Transit back toward central Vienna for free/low-cost museum and MQ time.",
-          "start_time": "2026-07-13T13:15:00",
-          "end_time": "2026-07-13T14:00:00",
-          "category": "transport",
-          "location": "Schönbrunn → Karlsplatz / MuseumsQuartier",
-          "cost": 0.0,
-          "links": [
-            "https://www.wien.info/en/travel-info/transport/tickets-361360"
-          ],
-          "notes": "Covered by Vienna ticket."
-        },
-        {
-          "name": "Wien Museum Karlsplatz and MuseumsQuartier walk",
-          "description": "Visit the free permanent exhibition at Wien Museum Karlsplatz if open and continue on foot through Karlsplatz, Secession exterior, Naschmarkt edge, and MuseumsQuartier courtyards. Note: Wien Museum is normally closed Mondays, so if closed use MQ courtyards/Spittelberg walk instead.",
-          "start_time": "2026-07-13T14:00:00",
-          "end_time": "2026-07-13T17:00:00",
-          "category": "attraction",
-          "location": "Karlsplatz → MuseumsQuartier, Vienna",
-          "cost": 0.0,
-          "links": [
-            "https://whichmuseum.com/museum/wien-museum-karlsplatz-vienna-5358/opening-hours",
-            "https://www.mqw.at/en/"
-          ],
-          "notes": "Monday closure likely; the walk/MQ courtyards remain valid and free."
-        },
-        {
-          "name": "Transfer to Schönbrunn",
-          "description": "Use Vienna public transport from the 7th district toward U4 Schönbrunn/Hietzing for the palace park. Exact live route unavailable, but Schönbrunn is directly served by U4.",
-          "start_time": "2026-07-13T08:45:00",
-          "end_time": "2026-07-13T09:30:00",
-          "category": "transport",
-          "location": "Hotel Pension Walzerstadt → Schönbrunn Palace Park",
-          "cost": 0.0,
-          "links": [
-            "https://www.wien.info/en/travel-info/transport/tickets-361360"
-          ],
-          "notes": "Covered by 7-day Vienna ticket."
-        },
-        {
-          "name": "Dinner: Glacis Beisl",
-          "description": "Traditional Viennese Beisl cuisine with garden atmosphere beside MuseumsQuartier; official source found daily opening 12:00–00:00.",
-          "start_time": "2026-07-13T18:30:00",
-          "end_time": "2026-07-13T20:00:00",
-          "category": "meal",
-          "location": "Glacis Beisl, Breite Gasse 4, 1070 Vienna",
-          "cost": 55.0,
-          "links": [
-            "https://glacisbeisl.at/en/",
-            "https://www.mqw.at/en/catering/glacis-beisl/"
-          ],
-          "notes": "Good fit after MQ/Spittelberg walk."
-        }
-      ]
-    },
-    {
-      "index": 5,
-      "calendar_date": "2026-07-14",
-      "label": "Departure",
-      "slots": [
-        {
-          "name": "Early hotel checkout and station breakfast",
-          "description": "Check out, leave luggage if possible, and grab an easy breakfast near Zieglergasse or at Wien Hbf.",
-          "start_time": "2026-07-14T08:30:00",
-          "end_time": "2026-07-14T09:15:00",
-          "category": "meal",
-          "location": "Hotel Pension Walzerstadt / Wien Hauptbahnhof",
-          "cost": 22.0,
-          "links": [
-            "https://www.bahnhof.de/muenchen-hbf",
-            "https://www.oebb.at/en/reiseplanung-services/am-bahnhof/unsere-bahnhoefe/wien-hauptbahnhof"
-          ],
-          "notes": "Exact hotel checkout time unavailable; confirm with property."
-        },
-        {
-          "name": "Optional final city walk / souvenir stop",
-          "description": "Light final walk around Mariahilfer Straße or the hotel neighborhood; keep it flexible for luggage and checkout timing.",
-          "start_time": "2026-07-14T09:15:00",
-          "end_time": "2026-07-14T11:30:00",
-          "category": "leisure",
-          "location": "Mariahilfer Straße / 7th district, Vienna",
-          "cost": 0.0,
-          "links": [
-            "https://www.google.com/maps/search/Mariahilfer+Straße+Vienna"
-          ],
-          "notes": "Free buffer before train."
-        },
-        {
-          "name": "Lunch: casual Austrian bite near station",
-          "description": "Simple budget lunch before departure, either at Wien Hbf food court or an inexpensive bakery/snack spot.",
-          "start_time": "2026-07-14T11:45:00",
-          "end_time": "2026-07-14T12:30:00",
-          "category": "meal",
-          "location": "Wien Hauptbahnhof / nearby",
+          "location": "Parco Archeologico di Ostia Antica, Viale dei Romagnoli, 717, Rome",
           "cost": 18.0,
           "links": [
-            "https://www.oebb.at/en/reiseplanung-services/am-bahnhof/unsere-bahnhoefe/wien-hauptbahnhof"
+            "https://ostiaantica.cultura.gov.it/en/info/archaeological-area-of-ostia-antica-visitor-information/"
           ],
-          "notes": "Lower-cost placeholder for 2 people to keep total trip under €1,200."
+          "notes": "Tuesday opening verified from 08:30; bring water and sun protection."
         },
         {
-          "name": "Transfer to Wien Hauptbahnhof",
-          "description": "Collect bags and use public transport to Wien Hbf for the return train.",
-          "start_time": "2026-07-14T12:30:00",
-          "end_time": "2026-07-14T13:15:00",
-          "category": "transport",
-          "location": "Hotel Pension Walzerstadt → Wien Hbf",
+          "name": "Lunch at Arianna al Borghetto",
+          "description": "Traditional lunch in the medieval borgo by Ostia Antica, close enough to avoid a long midday transfer after the ruins.",
+          "start_time": "2026-07-07T13:00:00",
+          "end_time": "2026-07-07T14:15:00",
+          "category": "meal",
+          "location": "Arianna al Borghetto, Via del Forno, 11, Ostia Antica, Rome",
+          "cost": 28.0,
+          "links": [
+            "https://maps.google.com/?cid=6194301250260823979&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+          ],
+          "notes": "Tool verified Tuesday lunch opening 12:30–15:00."
+        },
+        {
+          "name": "Borgo and Castle of Julius II exterior stroll",
+          "description": "Short post-lunch look at the medieval borgo and exterior of Castello di Giulio II. Interior weekday access is uncertain, so treat it as an exterior hidden-gem add-on.",
+          "start_time": "2026-07-07T14:15:00",
+          "end_time": "2026-07-07T15:00:00",
+          "category": "leisure",
+          "location": "Borgo di Ostia Antica / Castello di Giulio II",
           "cost": 0.0,
           "links": [
-            "https://www.wien.info/en/travel-info/transport/tickets-361360"
+            "https://ostiaantica.cultura.gov.it/en/"
           ],
-          "notes": "Covered by Vienna ticket."
+          "notes": "Castle interior opening on Tuesday is unreliable; no paid slot planned."
         },
         {
-          "name": "Direct Railjet train: Vienna → Munich",
-          "description": "Return by direct ÖBB/DB Railjet-style service from Wien Hbf to München Hbf. Exact July 2026 schedule not yet finalized; typical direct journey about 4 hours.",
-          "start_time": "2026-07-14T14:00:00",
-          "end_time": "2026-07-14T18:00:00",
+          "name": "Return to central Rome",
+          "description": "Return from Ostia Antica by Metromare/Roma-Lido to Piramide, then continue by metro/bus or walk/taxi depending on energy and hotel location.",
+          "start_time": "2026-07-07T15:00:00",
+          "end_time": "2026-07-07T16:00:00",
           "category": "transport",
-          "location": "Wien Hbf → München Hbf",
-          "cost": 56.0,
+          "location": "Ostia Antica to central Rome",
+          "cost": 2.0,
           "links": [
-            "https://www.oebb.at/en/tickets-kundenkarten/oesterreich-weit/sparschiene",
-            "https://www.austrianrailways.com/train-munich-to-vienna"
+            "https://www.rometoolkit.com/whattodo/ostia_antica.html"
           ],
-          "notes": "Estimated one-way cost for 2 adults: €25 each plus seat reservation allowance."
+          "notes": "Conservative 60-minute estimate."
+        },
+        {
+          "name": "Roman-Jewish dinner at Yotvata",
+          "description": "Dinner in the Jewish Ghetto area with Roman-Jewish specialties; a good place to try carciofi alla giudia if available/seasonal alternatives.",
+          "start_time": "2026-07-07T18:30:00",
+          "end_time": "2026-07-07T20:00:00",
+          "category": "meal",
+          "location": "Yotvata, Piazza Cenci, 70, Rome",
+          "cost": 35.0,
+          "links": [
+            "http://www.yotvata.it/"
+          ],
+          "notes": "Tool verified Tuesday dinner opening 18:30–23:00."
+        },
+        {
+          "name": "Jewish Ghetto and Portico d’Ottavia walk",
+          "description": "Self-guided hidden-history walk around Portico d’Ottavia, Teatro di Marcello, Via del Portico d’Ottavia, and the Roman-Jewish quarter before dinner.",
+          "start_time": "2026-07-07T16:30:00",
+          "end_time": "2026-07-07T18:00:00",
+          "category": "attraction",
+          "location": "Portico d’Ottavia / Jewish Ghetto, Rome",
+          "cost": 0.0,
+          "links": [
+            "https://www.turismoroma.it/en/places/portico-dottavia"
+          ],
+          "notes": "Outdoor sites; best in late afternoon after the Ostia heat."
+        },
+        {
+          "name": "Campo de’ Fiori evening stroll or gelato",
+          "description": "Unstructured final evening nearby: wander toward Campo de’ Fiori or Largo di Torre Argentina and use the remaining budget for gelato or a drink.",
+          "start_time": "2026-07-07T20:00:00",
+          "end_time": "2026-07-07T21:00:00",
+          "category": "leisure",
+          "location": "Campo de’ Fiori / Largo di Torre Argentina, Rome",
+          "cost": 8.0,
+          "links": [
+            "https://www.turismoroma.it/en/places/largo-di-torre-argentina"
+          ],
+          "notes": "Keep flexible; no booking needed."
         }
       ]
     }

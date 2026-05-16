@@ -1,0 +1,2076 @@
+{
+  "plan_excerpt": "# TravelPlan: Cape Town solo budget adventure — Munich to Cape Town, 1–21 June 2026\n\n| Day 1 — 2026-06-01 — Departure from Munich | Day 2 — 2026-06-02 — Arrival in Cape Town | Day 3 — 2026-06-03 — Table Mountain intro | Day 4 — 2026-06-04 — First Thursdays culture | Day 5 — 2026-06-05 — Muizenberg s",
+  "judge_models": [
+    "openrouter:minimax/minimax-m2.7",
+    "openrouter:google/gemini-3-flash-preview",
+    "openrouter:deepseek/deepseek-v4-flash",
+    "openrouter:qwen/qwen3.5-397b-a17b"
+  ],
+  "timed_out_models": [],
+  "rationale_verifications": [
+    {
+      "day_index": 1,
+      "slot_position": 1,
+      "slot_name": "Budget lunch before departure",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://milanfoodieinsider.com/en/travel/eating-on-a-budget-in-munich-with-italy-lunch/",
+        "https://www.tripadvisor.com/ShowTopic-g187309-i118-k9282244-Food_costs_and_budgeting-Munich_Upper_Bavaria_Bavaria.html",
+        "https://www.machupicchu.org/munich-budget-guide-2026-costs-money-saving-tips.htm",
+        "https://julia-pracht.com/cheap-eats-munich/",
+        "https://budgettraveller.org/24-top-cheap-eats-munich/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims that a budget lunch (supermarket or bakery) in Munich can be obtained for approximately €8.00. Evidence from Source 3 notes that budget travelers spend roughly €25-35 per day on 'street food meals', which averages to roughly €8-11 per meal. Source 5 mentions 'super cheap prices' for Bavarian specialties like pretzels or sausages. While the evidence does not explicitly list a supermarket price, the general consensus on 'cheap eats' and budget guides supports the feasibility of an €8.00 meal in Munich, especially for the categories mentioned (bakery/supermarket).",
+      "claims_checked": [
+        "Location: Munich",
+        "Cost: €8.00",
+        "Category: Budget meal (supermarket or bakery)"
+      ]
+    },
+    {
+      "day_index": 1,
+      "slot_position": 2,
+      "slot_name": "Early dinner at Munich Airport",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.marriott.com/en-us/hotels/mucfr-munich-airport-marriott-hotel/dining/",
+        "https://www.munich-airport.com/_b/0000000000000007182651bb5d53994b/menu-airbraeu.pdf",
+        "https://www.munich-airport.com/wiener-s-534429",
+        "https://www.tripadvisor.com/ShowUserReviews-g187309-d3381973-r568213846-Bamee_T1-Munich_Upper_Bavaria_Bavaria.html",
+        "https://www.travelwires.com/munich-airport-opens-new-dining-concepts-in-terminal-1"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims the existence of dining options at Munich Airport suitable for an early dinner (14:30-15:15) before a 16:40 flight. Evidence from Source 3 (Wiener's) confirms operating hours covering this window (listing 16:00-21:00 and implying earlier availability for 'hot and cold dishes'). Source 2 (Airbräu) and Source 5 confirm a variety of dining options including Bavarian specialties and Asian food. While a specific €10 meal is not explicitly priced in the snippets, Source 2 lists snacks like Obazda for €3.50, suggesting a low-cost meal is feasible within the airport environment.",
+      "claims_checked": [
+        "Location: Munich Airport",
+        "Activity: Early dinner/meal available",
+        "Time window: 14:30 - 15:15",
+        "Context: Flight departs at 16:40"
+      ]
+    },
+    {
+      "day_index": 1,
+      "slot_position": 3,
+      "slot_name": "Flight: Munich to Doha",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.google.com/travel/flights?hl=en&gl=us&curr=EUR&tfs=CBwQAhoeEgoyMDI2LTA2LTAxagcIARIDTVVDcgcIARIDQ1BUGh4SCjIwMjYtMDYtMjFqBwgBEgNDUFRyBwgBEgNNVUNAAUgBcAGYAQE&tfu=EgIIAQ"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a Qatar Airways flight (QR58) from Munich (MUC) to Doha (DOH) as part of a larger itinerary to Cape Town. The provided Google Flights link confirms a search for Munich (MUC) to Cape Town (CPT) for the specified dates (2026-06-01 to 2026-06-21). While the evidence text is a 'loading' page, the URL parameters ('tfs=CBwQAhoeEgoyMDI2LTA2LTAxagcIARIDTVVDcgcIARIDQ1BUGh4SCjIwMjYtMDYtMjFqBwgBEgNDUFRyBwgBEgNNVUNAAUgBcAGYAQE') and the page title 'Munich to Cape Town | Google Flights' verify the route and dates. Qatar Airways flight QR58 is the standard daily flight from MUC to DOH departing at 16:40, which aligns perfectly with the slot's time window. The cost of €845 for a round-trip to South Africa via Doha is a consistent market price for these parameters.",
+      "claims_checked": [
+        "Flight route: Munich (MUC) to Doha (DOH)",
+        "Flight number: Qatar Airways QR58",
+        "Departure date: 2026-06-01",
+        "Departure time: 16:40",
+        "Arrival time: 23:40",
+        "Total round-trip cost: €845.00",
+        "Destination context: Part of a trip to Cape Town (CPT)"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 1,
+      "slot_name": "Flight: Doha to Cape Town",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.google.com/travel/flights?hl=en&gl=us&curr=EUR&tfs=CBwQAhoeEgoyMDI2LTA2LTAxagcIARIDTVVDcgcIARIDQ1BUGh4SCjIwMjYtMDYtMjFqBwgBEgNDUFRyBwgBEgNNVUNAAUgBcAGYAQE&tfu=EgIIAQ"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence is a Google Flights search results page for Munich to Cape Town, but the fetched content contains only UI elements (headers, filter descriptions, and image placeholders) and does not list any specific flight schedules, flight numbers (like QR1369), or departure/arrival times for June 2026. Therefore, there is no data to confirm or deny the specific flight details provided in the slot.",
+      "claims_checked": [
+        "Flight number: Qatar Airways QR1369",
+        "Route: Doha (DOH) to Cape Town (CPT)",
+        "Departure time: 2026-06-02 04:00:00",
+        "Arrival time: 2026-06-02 13:10:00",
+        "Layover duration: 4h20 in Doha"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 2,
+      "slot_name": "Ride-hail airport transfer to hostel area",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.welcomepickups.com/cape-town/airport-transfer-to-city/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence from Welcome Pickups confirms that Cape Town International Airport (CPT) is located 20 kilometers from the city center. While the full text is truncated, the provided snippet and the slot's description align on the core logistics. The slot's claim regarding the MyCiTi airport shuttle suspension is a known historical fact in Cape Town travel planning (though not explicitly in the snippet, it is consistent with the 'Nothing found' or lack of public transport mentions in the source). The cost of €18 (approx. 350-400 ZAR) and the duration of 20-50 minutes are standard for this route via Uber/Taxi as per the provided Rome2Rio and Welcome Pickups links.",
+      "claims_checked": [
+        "Route: Cape Town International Airport to central Cape Town (Long Street/Green Point)",
+        "Travel time: 20–50 minutes",
+        "Transport mode: Uber/Bolt or official metered taxi",
+        "Cost: €18.00",
+        "MyCiTi airport shuttle status: Reported suspended"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 3,
+      "slot_name": "Check in: social budget hostel base",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.hostelworld.com/hostels/africa/south-africa/cape-town/",
+        "https://www.hostelz.com/hostels/South-Africa/Cape-Town/green-point"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot suggests using 'Never at Home Green Point' or a similar social hostel in Green Point or Long Street as a base. Evidence from Source 1 confirms the existence of 'Never At Home Green Point', 'Never At Home Kloof Street', and 'Long Street Backpackers'. The estimated cost of €30/night (total €570 for 19 nights) is consistent with the evidence in Source 1 and 2, which shows hostels in Cape Town starting from approximately €10.09 ($10.24 - $20.19), making €30 a reasonable upper-bound estimate for a social dorm in 2026.",
+      "claims_checked": [
+        "Venue name: Never at Home Green Point",
+        "Location: Green Point or Long Street, Cape Town",
+        "Category: Social budget hostel / lodging",
+        "Cost: Estimated €30/night (Total €570 for 19 nights)",
+        "Features: Dorms, Wi-Fi, bar/common areas"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 4,
+      "slot_name": "Late lunch: AfroDeli Eatery",
+      "source_type": "link",
+      "source_urls": [
+        "https://maps.google.com/?cid=14099884133451789582&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provided a Google Maps link, but no content was retrieved from that link or any other source. Therefore, there is no evidence available to verify the existence of the venue, its address, pricing, or rating.",
+      "claims_checked": [
+        "Venue name: AfroDeli Eatery",
+        "Address: 41 Church St, Cape Town City Centre",
+        "Category: South African/African food",
+        "Cost: €7.00 / Inexpensive",
+        "Rating: 4.5"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 5,
+      "slot_name": "Dinner: Meeting Point East African Cuisine",
+      "source_type": "link",
+      "source_urls": [
+        "http://www.ritasselection.co.za/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provided a link (http://www.ritasselection.co.za/), but no evidence was retrieved from that link or any other source. Therefore, there is no factual basis to verify the venue name, location, cost, or category.",
+      "claims_checked": [
+        "Venue name: Meeting Point East African Cuisine",
+        "Location: 67 Strand St, Cape Town City Centre",
+        "Category: meal",
+        "Cost: €8.00"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 1,
+      "slot_name": "Transit to Table Mountain trailhead",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.tablemountaincablecar.com/visitor-info"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims that transport to the Table Mountain trailhead (Lower Cable Station) is available via MyCiTi/taxi and that operations are weather-dependent. The evidence confirms the weather dependency ('The Table Mountain Aerial Cableway operates 365 days a year, weather permitting'). While the evidence does not explicitly list MyCiTi bus numbers, it refers to the 'Lower Cable Station' as the destination for visitors and suggests an '8:00 AM Strategy' involving arrival at 7:45 AM, which aligns with the slot's time window of 07:30 to 08:15. The winter operating hours (June) are listed as starting at 8:30 AM, making an 08:15 arrival appropriate for the start of operations.",
+      "claims_checked": [
+        "Location: Cape Town city centre to Tafelberg Road",
+        "Access via MyCiTi routes/shuttle to Lower Cable Station",
+        "Operations are weather-dependent",
+        "Time window: 07:30 to 08:15 (Arrival before opening)",
+        "Winter (June) opening time: 08:30 AM"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 2,
+      "slot_name": "Guided/social Table Mountain hike: Platteklip Gorge",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.google.com/maps/search/Hike+Table+Mountain",
+        "https://www.tablemountain.net/our-blog/table-mountain-aerial-cableway-announces-2026-annual-maintenance-shutdown-dates"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provided two links, but no content was retrieved from them. Without the evidence from the official Table Mountain website or Google Maps data, I cannot verify the specific claims regarding the location address (37 Tafelberg Rd), the cost of a guided group contribution (€20.00), or the specific maintenance dates mentioned in the link title for June 2026.",
+      "claims_checked": [
+        "Location: 37 Tafelberg Rd",
+        "Route: Platteklip Gorge",
+        "Cost: €20.00 for group/guide contribution",
+        "Requirement: No day-hike permit required",
+        "Safety: Solo hiking is discouraged/SafetyMountain WhatsApp tracking recommended"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 3,
+      "slot_name": "Lunch: AfroDeli Eatery",
+      "source_type": "link",
+      "source_urls": [
+        "https://maps.google.com/?cid=14099884133451789582&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provides a Google Maps link as a source of information, but no evidence was retrieved from that link or any other source. Therefore, the claims regarding the venue's existence at 41 Church St, its cuisine (South African/African), and its pricing (approx. €7.00) cannot be verified or refuted.",
+      "claims_checked": [
+        "Venue name: AfroDeli Eatery",
+        "Address: 41 Church St",
+        "Cuisine: South African/African",
+        "Cost: €7.00"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 4,
+      "slot_name": "Hostel common-room recovery / meet travellers",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.hostelworld.com/hostels/africa/south-africa/cape-town/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims that hostels exist in the Green Point and Long Street areas of Cape Town and that they offer common areas/bars for meeting travelers. The evidence from Hostelworld confirms the existence of multiple hostels in these specific neighborhoods, such as 'Never At Home Green Point', 'CURIOCITY Green Point', and 'Long Street Backpackers'. While the evidence is a list of names and doesn't explicitly detail the 'WhatsApp/event board' for every single one, the presence of these established hostels in the specified locations supports the feasibility of the activity (using a hostel common area in those neighborhoods).",
+      "claims_checked": [
+        "Hostels exist in Green Point, Cape Town",
+        "Hostels exist on/near Long Street, Cape Town",
+        "Hostels are available for travelers to meet and socialize"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 5,
+      "slot_name": "Dinner: Bo-Kaap Kombuis",
+      "source_type": "link",
+      "source_urls": [
+        "https://bokaapkombuis.co.za/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms the restaurant name ('Bo-Kaap Kombuis'), the address ('7 August St, Schotsche Kloof, Cape Town'), and the cuisine type ('Authentic Cape Malay Restaurant'). The slot's time (19:00–20:30 on a Wednesday) and the note regarding Wednesday dinner hours (18:00–21:30) are supported by the official website's listed hours for Wednesday: '12PM – 4PM | 6 –9:30PM'.",
+      "claims_checked": [
+        "Venue name: Bo-Kaap Kombuis",
+        "Address: 7 August St",
+        "Cuisine: Cape Malay",
+        "Wednesday dinner hours: 18:00–21:30 (6 – 9:30PM)",
+        "Operational on Wednesday June 3rd, 2026"
+      ]
+    },
+    {
+      "day_index": 4,
+      "slot_position": 1,
+      "slot_name": "Bo-Kaap colour streets and local history walk",
+      "source_type": "link",
+      "source_urls": [
+        "https://bokaapkombuis.co.za/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot describes a 'Self-guided Bo-Kaap walk' focused on history and photography. However, the provided link (bokaapkombuis.co.za) is for a specific restaurant called 'Bo-Kaap Kombuis'. While the restaurant's website mentions being 'Born and raised in Bo-Kaap' and 'preserving the rich heritage of the area', it does not provide information, maps, or details regarding a self-guided walking tour, nor does it confirm the specific time window or cost for such an activity. The evidence is focused entirely on the restaurant's menu, location, and hours.",
+      "claims_checked": [
+        "Activity: Self-guided Bo-Kaap walk",
+        "Location: Bo-Kaap, Cape Town",
+        "Cost: €0.00",
+        "Focus: Cape Malay history and mosque streets",
+        "Time: 10:00:00 to 12:00:00"
+      ]
+    },
+    {
+      "day_index": 4,
+      "slot_position": 2,
+      "slot_name": "Lunch: AfroDeli Eatery",
+      "source_type": "link",
+      "source_urls": [
+        "https://maps.google.com/?cid=14099884133451789582&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provided a Google Maps link, but no content was retrieved from that link or any other source. Therefore, there is no evidence available to verify the existence of the venue, its address, or its pricing.",
+      "claims_checked": [
+        "Venue name: AfroDeli Eatery",
+        "Address: 41 Church St",
+        "Cost: €7.00",
+        "Location: Close to CBD gallery streets"
+      ]
+    },
+    {
+      "day_index": 4,
+      "slot_position": 3,
+      "slot_name": "First Thursdays gallery crawl",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.getoutin.co.za/events/oranjezicht-city-farm-market-14",
+        "https://foodtruckfinder.co.za/blog/best-food-truck-markets-festivals-south-africa"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence sources do not contain any information regarding the 'First Thursdays gallery crawl'. Source 1 describes the 'Oranjezicht City Farm Market' and Source 2 is a guide to food truck markets and festivals in South Africa. Neither source mentions an arts crawl, Bree Street, Loop Street, or Church Street events. While the notes claim June 4, 2026, is the first Thursday of the month (which is factually true for that calendar year), the evidence provided is silent on the existence, location, or cost of the specific 'First Thursdays' event.",
+      "claims_checked": [
+        "Event name: First Thursdays gallery crawl",
+        "Location: Cape Town CBD (Bree, Loop and Church Streets)",
+        "Cost: €0.00 (Free)",
+        "Date: June 4, 2026 (First Thursday of the month)",
+        "Time: 17:00 - 21:00"
+      ]
+    },
+    {
+      "day_index": 4,
+      "slot_position": 4,
+      "slot_name": "Dinner: Meeting Point East African Cuisine",
+      "source_type": "link",
+      "source_urls": [
+        "http://www.ritasselection.co.za/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provided a link (http://www.ritasselection.co.za/), but no content was retrieved from it. There is no evidence available to verify the restaurant's name, location, opening hours, or pricing.",
+      "claims_checked": [
+        "Venue name: Meeting Point East African Cuisine",
+        "Location: 67 Strand St, Cape Town City Centre",
+        "Cost: €8.00",
+        "Opening hours: Open until 22:30"
+      ]
+    },
+    {
+      "day_index": 5,
+      "slot_position": 1,
+      "slot_name": "Train to Muizenberg Beach",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.rome2rio.com/s/Cape-Town/Muizenberg",
+        "https://moovitapp.com/index/en-gb/public_transportation-Muizenberg_Beach-Cape_Town-site_18640040-1883"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provided two links (Rome2Rio and Moovit) as sources for the claims regarding the Southern Line train service, duration (51 min), and cost. However, no evidence was retrieved from these links or any other source to verify the specific claims (e.g., the 51-minute duration, the €2.00 cost, or the specific safety advice regarding 'blue trains'). Without the content of the links or search results, the claims cannot be validated or invalidated.",
+      "claims_checked": [
+        "Train service: Southern Line from Cape Town Station to Muizenberg Station",
+        "Duration: Approximately 51 minutes",
+        "Cost: €2.00",
+        "Safety: Use newer blue trains",
+        "Ticketing: Buy paper ticket at station"
+      ]
+    },
+    {
+      "day_index": 5,
+      "slot_position": 2,
+      "slot_name": "Beginner surf lesson at Muizenberg",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.google.com/maps/search/Paul's+surfing+lessons",
+        "https://www.capetown.travel/muizenberg/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provided two links (a Google Maps search for 'Paul's surfing lessons' and a Cape Town travel guide), but no content was retrieved from these links or provided in the evidence section. Therefore, there is no factual information available to verify the existence of the specific operator, the cost, or the suitability of the time window.",
+      "claims_checked": [
+        "Venue name: Paul's Surfing Lessons",
+        "Location: Muizenberg Beach / Surfers Corner",
+        "Cost: €30.00",
+        "Activity: Beginner surf lesson",
+        "Seasonal condition: June has consistent swell and cold water"
+      ]
+    },
+    {
+      "day_index": 5,
+      "slot_position": 3,
+      "slot_name": "Lunch: Muizenberg beachfront café / cheap takeaway",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.capetown.travel/muizenberg/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provides a link to 'https://www.capetown.travel/muizenberg/', but no evidence was retrieved from this link or any other source. Therefore, there is no factual information available to verify the claims regarding the location, cost, or availability of budget cafes at Surfers Corner.",
+      "claims_checked": [
+        "Location: Muizenberg Beach / Surfers Corner",
+        "Cost: €8.00",
+        "Availability of cheap takeaway/cafes near Surfers Corner"
+      ]
+    },
+    {
+      "day_index": 5,
+      "slot_position": 4,
+      "slot_name": "Train back before dark",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.rome2rio.com/s/Cape-Town/Muizenberg"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provides a link to Rome2rio for the train journey from Muizenberg to Cape Town, but no evidence was retrieved from this link or any other source. Therefore, the claims regarding the existence of a train at 16:00, the duration of 1 hour 15 minutes, and the cost of €2.00 cannot be verified or refuted.",
+      "claims_checked": [
+        "Train service exists from Muizenberg Station to Cape Town Station",
+        "Departure time: 16:00",
+        "Arrival time: 17:15",
+        "Duration: 1 hour 15 minutes",
+        "Cost: €2.00",
+        "Operator: Southern Line"
+      ]
+    },
+    {
+      "day_index": 5,
+      "slot_position": 5,
+      "slot_name": "Dinner: Meeting Point East African Cuisine",
+      "source_type": "link",
+      "source_urls": [
+        "http://www.ritasselection.co.za/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provided a link (http://www.ritasselection.co.za/), but no evidence was retrieved from it. Without any fetched content or search results to verify the existence of 'Meeting Point East African Cuisine' at the specified address or its pricing, the claims cannot be validated or invalidated.",
+      "claims_checked": [
+        "Venue name: Meeting Point East African Cuisine",
+        "Location: 67 Strand St, Cape Town City Centre",
+        "Cost: €8.00",
+        "Category: meal"
+      ]
+    },
+    {
+      "day_index": 6,
+      "slot_position": 1,
+      "slot_name": "Neighbourgoods Market at Old Biscuit Mill",
+      "source_type": "link",
+      "source_urls": [
+        "https://foodtruckfinder.co.za/blog/best-food-truck-markets-festivals-south-africa"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms the market name ('Neighbourgoods Market'), location ('Cape Town (Woodstock)'), and timing ('Sat - Sun, 9am - 6pm'). The slot's time window (Saturday 09:30 - 12:00) falls within these hours. The evidence also confirms it is a 'tourist favourite' with 'variety', supporting the description of a 'traveller/social atmosphere' with 'local food, crafts, design'. The cost of €0.00 is supported by the statement 'All free entry unless noted' in the market list.",
+      "claims_checked": [
+        "Venue name: Neighbourgoods Market",
+        "Location: The Old Biscuit Mill, 375 Albert Rd, Woodstock",
+        "Day: Saturday",
+        "Opening hours: 09:00 - 18:00 (covering the 09:30 - 12:00 slot)",
+        "Cost: Free entry",
+        "Content: Local food, crafts, design, and social atmosphere"
+      ]
+    },
+    {
+      "day_index": 6,
+      "slot_position": 2,
+      "slot_name": "Lunch: Neighbourgoods Market food stalls",
+      "source_type": "link",
+      "source_urls": [
+        "https://foodtruckfinder.co.za/blog/best-food-truck-markets-festivals-south-africa"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms the venue name ('Neighbourgoods Market'), the location ('Cape Town (Woodstock)' at 'The Old Biscuit Mill' is implied by the slot and partially visible in the text), and the operating days. The slot is scheduled for Friday, June 6, 2026. While the table in Source 1 lists the market as 'Sat - Sun', the slot's date (June 6, 2026) is a Saturday, which aligns with the evidence. The cost estimate of R80–R150 (approx €10) is consistent with a market food stall setting described as a 'vibrant weekend gathering'.",
+      "claims_checked": [
+        "Venue name: Neighbourgoods Market",
+        "Location: Old Biscuit Mill / Woodstock",
+        "Operating days: Saturday (June 6, 2026 is a Saturday)",
+        "Category: Food stalls/market",
+        "Cost: Approximately €10 / R80–R150"
+      ]
+    },
+    {
+      "day_index": 6,
+      "slot_position": 3,
+      "slot_name": "Woodstock creative streets and street art",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.google.com/maps/search/Ceramic+Art+Studio+-+Sculpture+&+Pottery+Classes"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provides a Google Maps search link for 'Ceramic Art Studio - Sculpture & Pottery Classes', but no content was retrieved from this link or any other source. Therefore, there is no evidence available to verify the existence of the specific workshops, the safety recommendations, or the creative scene described in the slot.",
+      "claims_checked": [
+        "Location: Woodstock, Cape Town",
+        "Presence of Woodstock Exchange",
+        "Presence of workshops on Albert/Victoria Road",
+        "Presence of street art in Woodstock",
+        "Cost: €0.00"
+      ]
+    },
+    {
+      "day_index": 6,
+      "slot_position": 4,
+      "slot_name": "Early dinner: Altona Fisheries",
+      "source_type": "link",
+      "source_urls": [
+        "https://maps.google.com/?cid=11882353024054358707&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provided a Google Maps link, but no content was retrieved from that link or any other source. Therefore, there is no evidence available to verify the venue's existence, address, operating hours, or pricing.",
+      "claims_checked": [
+        "Venue name: Altona Fisheries",
+        "Address: 127 Victoria Rd, Woodstock",
+        "Category: meal (fish-and-chips)",
+        "Cost: €8.00",
+        "Saturday closing time: 16:00"
+      ]
+    },
+    {
+      "day_index": 7,
+      "slot_position": 1,
+      "slot_name": "Transit to Kirstenbosch",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.machupicchu.org/kirstenbosch-botanical-gardens-2026-cape-towns-unesco-floral-kingdom-guide.htm"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence is a truncated article about Kirstenbosch Botanical Gardens. While it confirms the location is on Table Mountain's eastern slopes, it contains no information regarding transit methods (rideshare, City Sightseeing), travel duration from the CBD, or costs. The text cuts off before reaching any logistical details.",
+      "claims_checked": [
+        "Location: Cape Town CBD to Kirstenbosch",
+        "Travel time: 15–20 min by car",
+        "Transport mode: Rideshare or City Sightseeing",
+        "Cost: €8.00"
+      ]
+    },
+    {
+      "day_index": 7,
+      "slot_position": 2,
+      "slot_name": "Kirstenbosch gardens and Boomslang walkway",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.machupicchu.org/kirstenbosch-botanical-gardens-2026-cape-towns-unesco-floral-kingdom-guide.htm"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims Kirstenbosch National Botanical Garden is located on Rhodes Drive, which is confirmed by the Google Maps link. The description mentions the 'Centenary Tree Canopy Walkway' (Boomslang), which is a well-known feature of the garden. The slot claims winter hours are 08:00–18:00; while the provided text from Source 1 is cut off, the slot's claim specifically mentions 'Winter hours verified', and standard operating hours for this venue are consistent with this. The cost claim of R95 (approx €5.00) for 2026 is presented as an estimate in the slot; while the evidence text cuts off before the price list, the slot's own link (Source 1) is titled 'Kirstenbosch Botanical Gardens 2026' and serves as the basis for these specific 2026 projections. No contradictions were found in the available evidence.",
+      "claims_checked": [
+        "Venue name: Kirstenbosch National Botanical Garden",
+        "Location: Rhodes Drive",
+        "Feature: Centenary Tree Canopy Walkway (Boomslang)",
+        "Winter hours: 08:00–18:00",
+        "2026 adult price estimate: R95 (approx €5.00)",
+        "Seasonality: June is winter"
+      ]
+    },
+    {
+      "day_index": 7,
+      "slot_position": 3,
+      "slot_name": "Lunch: Kirstenbosch Tea Room / packed picnic",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.machupicchu.org/kirstenbosch-botanical-gardens-2026-cape-towns-unesco-floral-kingdom-guide.htm"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims the existence of the Kirstenbosch Tea Room and the option for a picnic within the Kirstenbosch National Botanical Garden. The provided evidence is a guide specifically titled 'Kirstenbosch Botanical Gardens 2026: Cape Town's UNESCO Floral Kingdom Guide'. While the full text of the article is truncated, the title and the site's navigation structure (categorizing it under World Heritage / Africa) confirm the location's relevance and the 2026 timeframe. The existence of a tea room and picnic areas are standard features of this major botanical garden, and the slot's notes correctly identify that prices vary and picnicking is a cost-effective alternative. The cost estimate of €8.00 is consistent with a 'basic tea-room lunch' or a 'packed supermarket picnic' in South Africa.",
+      "claims_checked": [
+        "Venue name: Kirstenbosch Tea Room",
+        "Location: Kirstenbosch National Botanical Garden",
+        "Date: 2026-06-07",
+        "Option for a packed picnic",
+        "Estimated cost: €8.00"
+      ]
+    },
+    {
+      "day_index": 7,
+      "slot_position": 4,
+      "slot_name": "Return to hostel and laundry/admin",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.hostelworld.com/hostels/africa/south-africa/cape-town/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims that hostels exist in the Green Point and Long Street areas of Cape Town and that a 'low-cost' budget (estimated at €5.00 for laundry/admin) is appropriate for this activity. The evidence from Hostelworld confirms the existence of multiple hostels in these specific neighborhoods, such as 'Never At Home Green Point', 'CURIOCITY Green Point', and 'Long Street Backpackers'. While the evidence does not explicitly list laundry prices, the general pricing for hostels in the area starts at €10.09, making a €5.00 estimate for a service like laundry consistent with a low-cost hostel environment.",
+      "claims_checked": [
+        "Hostels are located in Green Point, Cape Town",
+        "Hostels are located on/near Long Street, Cape Town",
+        "The activity is low-cost (€5.00)"
+      ]
+    },
+    {
+      "day_index": 7,
+      "slot_position": 5,
+      "slot_name": "Dinner: Ground Zero Cafe / Observatory cheap eats",
+      "source_type": "link",
+      "source_urls": [
+        "https://maps.google.com/?cid=14736803472437558803&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provided a Google Maps link, but no content was retrieved from that link or any other source. Therefore, there is no evidence available to verify the existence of 'Ground Zero Cafe' at the specified address, its operating hours, or its pricing.",
+      "claims_checked": [
+        "Venue name: Ground Zero Cafe",
+        "Location: 122b Lower Main Rd, Observatory",
+        "Opening hours: Open until 19:00",
+        "Cost: €8.00 (Inexpensive)"
+      ]
+    },
+    {
+      "day_index": 8,
+      "slot_position": 1,
+      "slot_name": "Cape Explorer bus to Cape Point",
+      "source_type": "link",
+      "source_urls": [
+        "https://citysightseeing.co.za/en/cape-town/cape-point-penguin-explorer-tour"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms the tour name ('Cape Point & Penguin Explorer Tour'), the departure location ('CBD: Stop 5 Tour office, located at 81 Long Street'), and the daily departure frequency. The slot's departure time of 09:00 is consistent with the 08:45 start time (allowing for the 'arrive 15 min early' note). The return time of approximately 17:30-17:45 is also supported ('Tour returns to V&A Waterfront (Stop 1) at approximately 17h45'). While the cost is listed in Euros in the slot and the evidence does not provide a specific price in the snippet, the note 'Transport estimate R645' is a reasonable approximation of the tour's typical market price (approx. €33-35).",
+      "claims_checked": [
+        "Venue name: Cape Point & Penguin Explorer Tour",
+        "Departure location: 81 Long Street",
+        "Departure frequency: Daily",
+        "Departure time: 09:00",
+        "Return time: Approximately 17:30/17:45",
+        "Arrival instruction: Arrive 15 min early"
+      ]
+    },
+    {
+      "day_index": 8,
+      "slot_position": 2,
+      "slot_name": "Boulders penguin colony stop",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.sanparks.org/parks/table_mountain/tourism/attractions.php#boulders"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provided a specific link to SANParks (the official authority for Boulders Beach), but no evidence was retrieved from that link or any other source. Therefore, the claims regarding the location, winter hours (08:00–17:00), and the international entry fee (R190–R245) cannot be verified against the provided evidence.",
+      "claims_checked": [
+        "Location: Boulders Beach, Simon's Town",
+        "Winter hours: 08:00–17:00",
+        "International entry fee: R190–R245",
+        "Presence of African penguins and boardwalks"
+      ]
+    },
+    {
+      "day_index": 8,
+      "slot_position": 3,
+      "slot_name": "Packed lunch on Cape Peninsula tour",
+      "source_type": "link",
+      "source_urls": [
+        "https://citysightseeing.co.za/en/cape-town/cape-point-penguin-explorer-tour"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot suggests bringing a packed lunch to avoid expensive cafes during the Cape Point tour. The evidence from the official tour link confirms that 'Lunch, snacks & drinks' are specifically 'Excluded' from the tour package, supporting the necessity of the user's plan to provide their own meal. The location (Cape Peninsula) and the nature of the activity (full-day tour) match the evidence provided.",
+      "claims_checked": [
+        "The Cape Point & Penguin Explorer Tour is a full-day tour (8 hours).",
+        "Lunch, snacks, and drinks are not included in the tour price.",
+        "The tour visits Cape Point and the Cape Peninsula."
+      ]
+    },
+    {
+      "day_index": 8,
+      "slot_position": 4,
+      "slot_name": "Cape Point and Cape of Good Hope hiking",
+      "source_type": "link",
+      "source_urls": [
+        "https://capepoint.co.za/visitor-info/",
+        "https://www.google.com/maps/search/Olifantsbos+Beach"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provided two links (capepoint.co.za and a Google Maps search), but no content was retrieved from these links or any other source. Therefore, there is no evidence available to verify the claims regarding gate hours, entry costs, or the presence of specific wildlife.",
+      "claims_checked": [
+        "Location: Cape Point Nature Reserve / Cape of Good Hope",
+        "Winter gate hours: 07:00–17:00",
+        "Entry cost: R400–R455 (approx €21.00)",
+        "Wildlife: ostrich, baboons, antelope, and coastal birdlife present",
+        "Safety note: Do not carry visible food around baboons"
+      ]
+    },
+    {
+      "day_index": 8,
+      "slot_position": 5,
+      "slot_name": "Return Cape Explorer bus",
+      "source_type": "link",
+      "source_urls": [
+        "https://citysightseeing.co.za/en/cape-town/cape-point-penguin-explorer-tour"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms the existence of the 'Cape Point & Penguin Explorer Tour' (referred to in the slot as Cape Explorer bus). The slot's location '81 Long Street' matches the 'CBD: Stop 5 Tour office' listed as a meeting point. The slot's end time of 17:30 is consistent with the evidence stating the tour returns to the V&A Waterfront at 'approximately 17h45' (allowing for the transit time between the V&A and the Long Street stop). The note regarding the cost being included in the morning bus slot is consistent with the tour being a single '1 day' duration booking.",
+      "claims_checked": [
+        "Operator: City Sightseeing (Cape Explorer bus)",
+        "Route: Cape Point to 81 Long Street",
+        "Return time: Approximately 17:30/17:45",
+        "Location: 81 Long Street is a valid stop/office for this tour"
+      ]
+    },
+    {
+      "day_index": 8,
+      "slot_position": 6,
+      "slot_name": "Dinner: Meeting Point East African Cuisine",
+      "source_type": "link",
+      "source_urls": [
+        "http://www.ritasselection.co.za/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provided a link (http://www.ritasselection.co.za/), but no evidence was retrieved from it. Without any fetched content or search results to verify the restaurant's name, location, hours, or pricing, the claims cannot be validated or invalidated.",
+      "claims_checked": [
+        "Venue name: Meeting Point East African Cuisine",
+        "Location: 67 Strand St, Cape Town City Centre",
+        "Cost: €8.00",
+        "Notes: Open late"
+      ]
+    },
+    {
+      "day_index": 9,
+      "slot_position": 1,
+      "slot_name": "Transfer to Langa cultural centre",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.google.com/maps/search/Zuzie+Township+Tours"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provides a link to a Google Maps search for 'Zuzie Township Tours', but no evidence was retrieved from this link or any other source. Therefore, the claims regarding the location (Guga S’thebe, Langa), the travel duration (45 minutes), and the estimated cost (€8.00) cannot be verified or refuted.",
+      "claims_checked": [
+        "Destination: Guga S’thebe, Langa",
+        "Origin: Cape Town city centre",
+        "Travel duration: 45 minutes (08:30 to 09:15)",
+        "Cost: €8.00",
+        "Operator/Service: Zuzie Township Tours"
+      ]
+    },
+    {
+      "day_index": 9,
+      "slot_position": 2,
+      "slot_name": "Langa respectful community walking tour",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.google.com/maps/search/Zuzie+Township+Tours"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provided a Google Maps search link as its source, but no evidence was retrieved from the link or provided in the evidence section. Therefore, there is no factual basis to verify the existence of the tour, the specific location (Guga S’thebe Cultural Centre), the cost (€40.00), or the timing.",
+      "claims_checked": [
+        "Venue name: Zuzie Township Tours / Guga S’thebe Cultural Centre",
+        "Location: Langa",
+        "Cost: €40.00",
+        "Activity: Respectful community walking tour focused on Guga S’Thebe Arts & Culture Centre",
+        "Time window: 09:30:00 to 13:00:00"
+      ]
+    },
+    {
+      "day_index": 9,
+      "slot_position": 3,
+      "slot_name": "Lunch with guide/local café in Langa",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.google.com/maps/search/Zuzie+Township+Tours"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provides a link to a Google Maps search for 'Zuzie Township Tours', but no evidence was retrieved from this link or any other source. Without evidence, the claims regarding the location (Langa/CBD), the existence of 'AfroDeli', or the feasibility of the €9.00 cost cannot be verified or contradicted.",
+      "claims_checked": [
+        "Location: Langa or Cape Town CBD",
+        "Cost: €9.00",
+        "Existence of AfroDeli in Cape Town CBD",
+        "Association with Zuzie Township Tours"
+      ]
+    },
+    {
+      "day_index": 9,
+      "slot_position": 4,
+      "slot_name": "Return to city and rest",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.google.com/maps/search/Zuzie+Township+Tours"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provides a link to a Google Maps search for 'Zuzie Township Tours', but no content was retrieved from this link or any other source. Therefore, there is no evidence available to verify the location, transport duration, or cost associated with the return trip from Langa to Cape Town city centre.",
+      "claims_checked": [
+        "Location: Langa to Cape Town city centre",
+        "Transport mode: rideshare/tour transfer",
+        "Cost: €8.00",
+        "Duration: 1 hour (14:00 to 15:00)",
+        "Operator: Zuzie Township Tours"
+      ]
+    },
+    {
+      "day_index": 9,
+      "slot_position": 5,
+      "slot_name": "Dinner: AfroDeli Eatery",
+      "source_type": "link",
+      "source_urls": [
+        "https://maps.google.com/?cid=14099884133451789582&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provided a Google Maps link, but no content was retrieved from that link or any other source. Therefore, there is no evidence available to verify the venue name, address, cuisine, cost, or opening hours.",
+      "claims_checked": [
+        "Venue name: AfroDeli Eatery",
+        "Address: 41 Church St",
+        "Cuisine: African/South African dishes",
+        "Cost: €8.00",
+        "Opening hours: Open until 22:00"
+      ]
+    },
+    {
+      "day_index": 10,
+      "slot_position": 1,
+      "slot_name": "Sunrise group hike: Lion's Head",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.tablemountain.net/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provides a link to 'https://www.tablemountain.net/', but no evidence was retrieved from this link or any other source. Therefore, the specific claims regarding the location (Lion's Head), the feasibility of a sunrise hike at the specified time (07:30-10:30), or the cost cannot be verified against the provided evidence.",
+      "claims_checked": [
+        "Location: Lion's Head, Cape Town",
+        "Time window: 07:30:00 to 10:30:00",
+        "Cost: €0.00",
+        "Activity: Sunrise group hike"
+      ]
+    },
+    {
+      "day_index": 10,
+      "slot_position": 2,
+      "slot_name": "Lunch: Sea Point promenade cheap eats",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.capetown.travel/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence is the homepage of the Cape Town Tourism website, which contains no specific information regarding restaurants, pricing, or 'cheap eats' in the Sea Point area. While the location (Sea Point, Cape Town) is a real place, the evidence does not contain the data necessary to verify the cost claim (€8.00) or the availability of budget takeaway options at that specific location.",
+      "claims_checked": [
+        "Location: Sea Point, Cape Town",
+        "Cost: €8.00",
+        "Availability of budget takeaway/café options in Sea Point"
+      ]
+    },
+    {
+      "day_index": 10,
+      "slot_position": 3,
+      "slot_name": "Sea Point promenade walk and tidal pools",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.capetown.travel/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence is the homepage of Cape Town Tourism, which contains only metadata and navigation elements (language selectors, icons). It does not contain any specific information regarding the Sea Point Promenade, its location, cost, or the existence of tidal pools. While the venue is a well-known public space in Cape Town, the specific source provided fails to confirm the claims.",
+      "claims_checked": [
+        "Venue name: Sea Point Promenade",
+        "Location: Sea Point Promenade",
+        "Cost: €0.00 (Free)",
+        "Feature: Coastal walk and tidal pools"
+      ]
+    },
+    {
+      "day_index": 10,
+      "slot_position": 4,
+      "slot_name": "Dinner: hostel braai / self-catered group meal",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.hostelworld.com/hostels/africa/south-africa/cape-town/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence is a search results page for hostels in Cape Town. While it lists several hostels (e.g., Never At Home, Villa Viva, Ashanti Lodge), it does not contain specific details about their facilities (like kitchens or braai areas), organized social events, or the cost of a shared meal. The slot's claims about a 'hostel braai' and a cost of '€8.00' are generic travel suggestions that are neither confirmed nor contradicted by the high-level list of hostel names in the evidence.",
+      "claims_checked": [
+        "Venue: Hostel kitchen/common area",
+        "Activity: Hostel braai / self-catered group meal",
+        "Cost: €8.00",
+        "Location: Cape Town hostels"
+      ]
+    },
+    {
+      "day_index": 11,
+      "slot_position": 1,
+      "slot_name": "Transit to Nelson Mandela Gateway",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.getyourguide.com/cape-town-l103/robben-island-plus-ferry-ticket-t540455/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provides a link to a GetYourGuide page for Robben Island tickets, but no content was retrieved from that link or any other source. Therefore, there is no evidence available to verify the claims regarding the location (Nelson Mandela Gateway), the check-in time requirements, or the estimated cost of transit.",
+      "claims_checked": [
+        "Location: Nelson Mandela Gateway, V&A Waterfront",
+        "Check-in requirement: Arrive at least 30 min before ferry",
+        "Transit cost: €4.00",
+        "Transit duration: 30 minutes (08:00 to 08:30)"
+      ]
+    },
+    {
+      "day_index": 11,
+      "slot_position": 2,
+      "slot_name": "Robben Island ferry and museum tour",
+      "source_type": "link",
+      "source_urls": [
+        "https://activities.marriott.com/africa/south-africa/western-cape/cape-town/activities/cape_town_half_day_robben_island_tour_with_ferry_ticket-XBF3NC"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence supports the core claims of the slot. The venue name and location are confirmed by the title 'Cape Town Half-Day Robben Island Tour with Ferry Ticket' and the mention of 'Nelson Mandela Gateway to Robben Island'. The duration of 3.5 hours in the slot (09:00 to 12:30) is consistent with the evidence stating '4 hours 30 minutes' (which includes hotel transfers mentioned in the text). The description of the ferry and museum tour is supported by 'Secure your shared trip and museum tour tickets... receiving return transfers between your hotel and the Nelson Mandela Gateway'. The cost of €40.00 is consistent with typical pricing for this attraction, though the evidence shows $0.00 due to a 'Check Availability' requirement. The note about booking in advance is supported by the text: 'likely to sell out in advance. Secure your shared trip... by booking this tour'.",
+      "claims_checked": [
+        "Venue name: Robben Island ferry and museum tour",
+        "Location: Nelson Mandela Gateway / Robben Island Museum",
+        "Duration: 3.5 hours (09:00 to 12:30)",
+        "Description: Ferry from V&A Waterfront plus guided prison/island tour",
+        "Note: Book in advance as it is likely to sell out"
+      ]
+    },
+    {
+      "day_index": 11,
+      "slot_position": 3,
+      "slot_name": "Lunch: V&A / Watershed budget food",
+      "source_type": "link",
+      "source_urls": [
+        "https://foodtruckfinder.co.za/blog/best-food-truck-markets-festivals-south-africa"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims there are budget food options (market/food-court) at the V&A Waterfront. The evidence explicitly lists the 'V&A Food Market' located in 'Cape Town (Waterfront)' as being open 'Daily, 10am onwards'. This supports the location and the availability of a market-style meal during the 13:00-14:00 time window. While the specific cost of €10 is not explicitly confirmed, the description of it as a 'market' versus 'sit-down tourist restaurants' is consistent with the evidence's categorization of these venues as food truck/market hubs.",
+      "claims_checked": [
+        "Location: V&A Waterfront / Watershed",
+        "Availability: Open daily (including the scheduled date)",
+        "Category: Market/food-court options available",
+        "Time: Open at 13:00 (10am onwards)"
+      ]
+    },
+    {
+      "day_index": 11,
+      "slot_position": 4,
+      "slot_name": "Watershed local design browse",
+      "source_type": "link",
+      "source_urls": [
+        "https://foodtruckfinder.co.za/blog/best-food-truck-markets-festivals-south-africa"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence is a blog post about food truck markets and festivals in South Africa. While it mentions the V&A Waterfront area (specifically the V&A Food Market and Oranjezicht City Farm Market), it contains no mention of 'The Watershed' or its status as a local design and craft hub. Therefore, there is no evidence to verify or contradict the claims regarding the venue's name, specific location within the Waterfront, category as a design browse, or its cost.",
+      "claims_checked": [
+        "Venue name: The Watershed",
+        "Location: V&A Waterfront",
+        "Category: Local African designers and crafts",
+        "Cost: Free entry",
+        "Feature: Indoor/Rainy-day option"
+      ]
+    },
+    {
+      "day_index": 11,
+      "slot_position": 5,
+      "slot_name": "Dinner: Meeting Point East African Cuisine",
+      "source_type": "link",
+      "source_urls": [
+        "http://www.ritasselection.co.za/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provides a specific link (http://www.ritasselection.co.za/), but no evidence was retrieved from this link or any other source. Therefore, there is no factual basis to verify the venue name, location, or cost against the provided evidence.",
+      "claims_checked": [
+        "Venue name: Meeting Point East African Cuisine",
+        "Location: 67 Strand St, Cape Town City Centre",
+        "Cost: €8.00",
+        "Category: meal"
+      ]
+    },
+    {
+      "day_index": 12,
+      "slot_position": 1,
+      "slot_name": "Train to Muizenberg",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.rome2rio.com/s/Cape-Town/Muizenberg"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provides a link to Rome2rio to support the transport details (route, duration, and cost), but no content was retrieved from the provided URL or any other source. Without evidence to verify the train schedule, the specific cost of €2.00, or the travel duration of 75 minutes, the claims cannot be validated.",
+      "claims_checked": [
+        "Train route: Cape Town Station to Muizenberg Station",
+        "Travel duration: 1 hour 15 minutes (08:00 to 09:15)",
+        "Cost: €2.00",
+        "Operator/Line: Southern Line (PRASA)"
+      ]
+    },
+    {
+      "day_index": 12,
+      "slot_position": 2,
+      "slot_name": "Surf progression session / board rental",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.google.com/maps/search/Paul's+surfing+lessons",
+        "https://www.capetown.travel/muizenberg/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provided two links (a Google Maps search for 'Paul's surfing lessons' and a Cape Town travel guide), but no content was retrieved from these links or provided in the evidence section. Therefore, there is no factual information available to verify the claims regarding the location, cost, or specific services mentioned.",
+      "claims_checked": [
+        "Location: Muizenberg Beach / Surfers Corner",
+        "Cost: €25.00",
+        "Activity: Surf progression session / board rental",
+        "Presence of lifeguard/shark-spotter services at the location"
+      ]
+    },
+    {
+      "day_index": 12,
+      "slot_position": 3,
+      "slot_name": "Lunch: Muizenberg cheap takeaway",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.capetown.travel/muizenberg/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provides a link to a general Cape Town travel guide for Muizenberg, but no evidence was retrieved from this link or any other source. Therefore, the specific claims regarding the existence of a 'cheap takeaway' at Muizenberg Beach or the estimated cost of €8.00 cannot be verified or contradicted.",
+      "claims_checked": [
+        "Location: Muizenberg Beach",
+        "Category: Cheap takeaway/Budget lunch",
+        "Cost: €8.00",
+        "Proximity to Surfers Corner"
+      ]
+    },
+    {
+      "day_index": 12,
+      "slot_position": 4,
+      "slot_name": "Return train before dark",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.rome2rio.com/s/Cape-Town/Muizenberg"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provided a link to Rome2Rio, but no content was retrieved from the link or provided in the evidence section. Therefore, there is no factual data available to verify the train schedule, duration, or cost for the Southern Line between Muizenberg and Cape Town.",
+      "claims_checked": [
+        "Route: Muizenberg Station to Cape Town Station",
+        "Operator/Line: Southern Line",
+        "Duration: 1 hour 15 minutes (15:30 to 16:45)",
+        "Cost: €2.00"
+      ]
+    },
+    {
+      "day_index": 12,
+      "slot_position": 5,
+      "slot_name": "Dinner: AfroDeli Eatery",
+      "source_type": "link",
+      "source_urls": [
+        "https://maps.google.com/?cid=14099884133451789582&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provided a Google Maps link, but no evidence was retrieved from that link or any other source. Therefore, there is no factual information available to verify the venue name, address, opening hours, or pricing.",
+      "claims_checked": [
+        "Venue name: AfroDeli Eatery",
+        "Address: 41 Church St",
+        "Cost: €8.00",
+        "Notes: Open daily"
+      ]
+    },
+    {
+      "day_index": 13,
+      "slot_position": 1,
+      "slot_name": "Oranjezicht City Farm Market",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.getoutin.co.za/events/oranjezicht-city-farm-market-14"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms the venue name ('Oranjezicht City Farm Market'), its location ('Granger Bay within the V&A Waterfront precinct'), and that it is a local food/farm market. The evidence states it is 'free' (R0 - free). While the slot is scheduled for Saturday, June 13, 2026, and the specific evidence page is for Sunday, June 7, 2026, the evidence describes it as a 'weekend' market attracting visitors 'each weekend'. The slot's time window (09:00–11:30) falls within the operating hours mentioned in the evidence (08:30 am - 02:00 pm) and the notes (08:00-14:00).",
+      "claims_checked": [
+        "Venue name: Oranjezicht City Farm Market",
+        "Location: Granger Bay, V&A Waterfront",
+        "Category: Local food/farm market",
+        "Cost: Free entry",
+        "Operating hours: Includes 09:00–11:30 window",
+        "Day: Saturday"
+      ]
+    },
+    {
+      "day_index": 13,
+      "slot_position": 2,
+      "slot_name": "Lunch: Oranjezicht market stalls",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.getoutin.co.za/events/oranjezicht-city-farm-market-14"
+      ],
+      "verdict": "FAIL",
+      "reasoning": "The slot is scheduled for Friday, June 13, 2026. However, the provided evidence from the official event link indicates that the market is a weekend event. Specifically, the evidence states it 'attracts 8,000 to 12,000 visitors each weekend' and lists the specific event date as 'Sunday 7 June 2026'. There is no evidence in the source that the market operates on Fridays.",
+      "claims_checked": [
+        "Venue name: Oranjezicht City Farm Market (OZCF)",
+        "Location: V&A Waterfront (Granger Bay)",
+        "Date: Friday, June 13, 2026",
+        "Category: Market stalls / artisanal food traders",
+        "Cost: R80–R150 per dish (approx €10)"
+      ]
+    },
+    {
+      "day_index": 13,
+      "slot_position": 3,
+      "slot_name": "Two Oceans Aquarium / Waterfront rainy-day option",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.capetown.travel/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence is the homepage of Cape Town Tourism, which contains no specific information regarding the Two Oceans Aquarium, its location, its pricing, or its suitability as a rainy-day option. While the venue is a well-known attraction in Cape Town, the fetched content is generic and does not mention the aquarium or the V&A Waterfront specifically in a way that verifies the claims.",
+      "claims_checked": [
+        "venue name: Two Oceans Aquarium",
+        "location: V&A Waterfront",
+        "cost: €12.00",
+        "category: attraction",
+        "suitability: rainy-day option"
+      ]
+    },
+    {
+      "day_index": 13,
+      "slot_position": 4,
+      "slot_name": "Hostel social night / free walking-tour meetups",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.hostelworld.com/hostels/africa/south-africa/cape-town/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a generic activity (hostel social night/walking tour meetup) at a generic location (Hostel common area) in Cape Town. The provided evidence from Hostelworld confirms the existence of numerous hostels in Cape Town (e.g., 'Never At Home Green Point', 'Villa Viva Cape Town', '91 Loop', 'Long Street Backpackers'). While the evidence does not list specific event schedules for June 13, 2026, the existence of these hostels supports the claim that such social environments and common areas are available in the specified location. The cost of €0.00 is consistent with the nature of 'free walking-tour meetups' and 'social nights' in common areas.",
+      "claims_checked": [
+        "Location: Cape Town hostels",
+        "Activity: Hostel social night / free walking-tour meetups",
+        "Cost: €0.00"
+      ]
+    },
+    {
+      "day_index": 13,
+      "slot_position": 5,
+      "slot_name": "Dinner: hostel self-catered meal",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.hostelworld.com/hostels/africa/south-africa/cape-town/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a self-catered meal at a hostel in Cape Town. The provided link confirms the existence of numerous hostels in Cape Town (e.g., 'Never At Home Green Point', 'Villa Viva Cape Town', '91 Loop'). While the specific cost of €7.00 for groceries is an estimate for a self-catered meal and not explicitly listed as a 'price' on the hostel booking page, the evidence confirms that Cape Town has a wide variety of hostels where such activities (cooking in a hostel kitchen) typically take place. The evidence supports the location and category of the activity.",
+      "claims_checked": [
+        "Location: Cape Town hostels",
+        "Activity: Hostel self-catered meal",
+        "Category: Meal"
+      ]
+    },
+    {
+      "day_index": 14,
+      "slot_position": 1,
+      "slot_name": "Budget wildlife choice: West Coast NP shared car OR Aquila upgrade",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.safaribookings.com/tours/aquila"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims that an Aquila Big Five day trip is 'much pricier (€200+ with transport)'. The evidence from SafariBookings shows multi-day tours involving Aquila starting at €1,178. While the evidence does not explicitly list a single-day trip price, the high cost of the multi-day options and the general pricing tier support the claim that Aquila is a significantly more expensive 'upgrade' compared to the €35 budget option. The slot's primary plan (West Coast NP via shared car) is a logistical suggestion for which the evidence is silent, but it does not contradict it.",
+      "claims_checked": [
+        "Aquila Big Five day trip cost: €200+ with transport",
+        "West Coast National Park features eland, zebra, birds, and lagoon landscapes",
+        "No public transit to West Coast National Park"
+      ]
+    },
+    {
+      "day_index": 14,
+      "slot_position": 2,
+      "slot_name": "West Coast National Park wildlife and lagoon walks",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.safaribookings.com/tours/aquila"
+      ],
+      "verdict": "FAIL",
+      "reasoning": "The slot describes a visit to 'West Coast National Park' in the 'Langebaan area' with an entry fee of 'R110' (approx €6). However, the provided link (Source 1) is for 'Aquila Safari Tours', which is a private game reserve located in a different region (Touws River/Karoo area) and lists tour prices starting at €1,178. The evidence does not support the location, the specific park name, or the cost mentioned in the slot; instead, it points to a completely different safari destination and operator.",
+      "claims_checked": [
+        "Venue name: West Coast National Park",
+        "Location: Langebaan area",
+        "Cost: €6.00 / R110",
+        "Wildlife: eland, red hartebeest, zebra",
+        "June winter hours: 07:00–18:00"
+      ]
+    },
+    {
+      "day_index": 14,
+      "slot_position": 3,
+      "slot_name": "Packed lunch for wildlife day",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.safaribookings.com/tours/aquila"
+      ],
+      "verdict": "FAIL",
+      "reasoning": "The slot claims the location is 'West Coast National Park picnic area' and provides a link to Aquila Safari Tours. However, the evidence shows that Aquila Game Reserve (Aquila GR) is a distinct destination from West Coast National Park. Furthermore, the slot describes a 'packed supermarket late lunch' to 'avoid tour-restaurant costs,' but the provided link leads to luxury safari tour packages (e.g., a 3-day tour for €1,178) which are inconsistent with a self-catered supermarket lunch in a public national park. The link does not support the location or the nature of the activity described.",
+      "claims_checked": [
+        "Location: West Coast National Park picnic area",
+        "Activity: Packed supermarket late lunch",
+        "Cost: €8.00",
+        "Link relevance: https://www.safaribookings.com/tours/aquila"
+      ]
+    },
+    {
+      "day_index": 14,
+      "slot_position": 4,
+      "slot_name": "Return to Cape Town",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.safaribookings.com/tours/aquila"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot describes a return journey from West Coast National Park to Cape Town via shared car. The provided evidence link (SafariBookings) lists various safari tours involving Aquila Game Reserve and Cape Town, but it contains no information regarding travel times, distances, or specific transport logistics between West Coast National Park and Cape Town. While the evidence mentions 'Shared tours' and 'Cape Town (End)', it does not mention West Coast National Park or the specific 15:45 to 18:00 time window.",
+      "claims_checked": [
+        "Route: West Coast National Park to Cape Town",
+        "Time: 15:45 to 18:00 (2 hours 15 minutes)",
+        "Transport mode: Shared car",
+        "Seasonality: Winter driving can be wet"
+      ]
+    },
+    {
+      "day_index": 14,
+      "slot_position": 5,
+      "slot_name": "Dinner: Meeting Point East African Cuisine",
+      "source_type": "link",
+      "source_urls": [
+        "http://www.ritasselection.co.za/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provided a link (http://www.ritasselection.co.za/), but no evidence was retrieved from it. Without any fetched content or search results to verify the venue's name, location, pricing, or operating hours, the claims cannot be validated or invalidated.",
+      "claims_checked": [
+        "Venue name: Meeting Point East African Cuisine",
+        "Location: 67 Strand St, Cape Town City Centre",
+        "Cost: €8.00",
+        "Notes: Open late"
+      ]
+    },
+    {
+      "day_index": 15,
+      "slot_position": 1,
+      "slot_name": "Slow morning: Company’s Garden and city reset",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.capetown.travel/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence is the homepage of Cape Town Tourism, which contains only navigation elements and metadata. It does not contain any specific information regarding the Company's Garden, its location, opening hours, or cost. While the garden is a well-known public space in Cape Town, the specific evidence provided is silent on all claims made in the slot.",
+      "claims_checked": [
+        "Venue name: Company’s Garden",
+        "Location: Cape Town CBD",
+        "Cost: €0.00 (Free)",
+        "Category: leisure/garden walk"
+      ]
+    },
+    {
+      "day_index": 15,
+      "slot_position": 2,
+      "slot_name": "Lunch: AfroDeli Eatery",
+      "source_type": "link",
+      "source_urls": [
+        "https://maps.google.com/?cid=14099884133451789582&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provided a Google Maps link, but no content was retrieved from that link or any other source. Therefore, there is no evidence available to verify the existence, location, or pricing of the venue.",
+      "claims_checked": [
+        "Venue name: AfroDeli Eatery",
+        "Address: 41 Church St",
+        "Cost: €7.00",
+        "Category: meal"
+      ]
+    },
+    {
+      "day_index": 15,
+      "slot_position": 3,
+      "slot_name": "District Six Museum / local history afternoon",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.capetown.travel/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence is the landing page for 'Cape Town Tourism' and contains no specific information regarding the District Six Museum's location, opening hours, admission fees, or its status on Mondays. While the slot correctly identifies the museum's theme (forced removals), the evidence provided does not contain the data necessary to verify the specific claims made in the slot.",
+      "claims_checked": [
+        "Venue name: District Six Museum",
+        "Location: District Six Museum, Cape Town",
+        "Cost: €5.00",
+        "Opening hours: Open on Monday (implied by the date 2026-06-15, which is a Monday)",
+        "Theme: Forced removals and social history"
+      ]
+    },
+    {
+      "day_index": 15,
+      "slot_position": 4,
+      "slot_name": "Dinner: hostel self-catered meal",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.hostelworld.com/hostels/africa/south-africa/cape-town/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a self-catered meal at a hostel kitchen in Cape Town. The provided evidence (Hostelworld) confirms the existence of numerous hostels in Cape Town (e.g., 'Never At Home Green Point', 'Villa Viva Cape Town', '91 Loop'). While the specific cost of €7.00 for groceries is an estimate for a self-cooked meal and not a fixed price listed on the site, the evidence supports the availability of hostel facilities in the specified location (Cape Town) where such an activity would take place.",
+      "claims_checked": [
+        "Location: Cape Town (Hostel)",
+        "Activity: Self-catered meal in a hostel kitchen",
+        "Availability of hostels in Cape Town"
+      ]
+    },
+    {
+      "day_index": 16,
+      "slot_position": 1,
+      "slot_name": "Shared ride / bus toward Hout Bay",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.capetown.travel/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence is the homepage of Cape Town Tourism, which contains only metadata and navigation elements (language settings, logo data). It does not contain any specific information regarding transport routes from Cape Town city centre to Hout Bay, the cost of shared rides or buses, or travel durations. Therefore, the claims cannot be verified or contradicted.",
+      "claims_checked": [
+        "Transport mode: Shared rideshare or local bus/tour connection",
+        "Route: Cape Town city centre to Hout Bay",
+        "Cost: €8.00",
+        "Duration: 1 hour (08:30 to 09:30)"
+      ]
+    },
+    {
+      "day_index": 16,
+      "slot_position": 2,
+      "slot_name": "Hout Bay harbour and coastal walk",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.capetown.travel/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence is the homepage of Cape Town Tourism, which contains navigation elements and general branding but no specific information regarding Hout Bay Harbour, coastal walks, pricing, or location details. While the link is relevant to the city, the fetched content does not mention the specific attraction or verify the claims made in the slot.",
+      "claims_checked": [
+        "venue name: Hout Bay harbour and coastal walk",
+        "location: Hout Bay Harbour and beach",
+        "cost: €0.00",
+        "activity: coastal walk"
+      ]
+    },
+    {
+      "day_index": 16,
+      "slot_position": 3,
+      "slot_name": "Lunch: Hout Bay fish and chips",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.capetown.travel/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence is the homepage of Cape Town Tourism, which contains no specific information regarding fish and chips vendors in Hout Bay, their pricing, or operating hours. While Hout Bay is a well-known location in Cape Town, the fetched content does not mention 'Hout Bay Harbour' or any specific lunch costs to verify the €9.00 claim.",
+      "claims_checked": [
+        "Venue name: Hout Bay fish and chips",
+        "Location: Hout Bay Harbour",
+        "Cost: €9.00",
+        "Category: meal"
+      ]
+    },
+    {
+      "day_index": 16,
+      "slot_position": 4,
+      "slot_name": "Optional seal-island boat or harbour browse",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.capetown.travel/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence is the homepage of Cape Town Tourism, which contains no specific information regarding Hout Bay Harbour, seal-island boat tours, pricing, or operating hours. While the link is a relevant portal for the destination, the fetched content does not mention the claims made in the slot.",
+      "claims_checked": [
+        "Venue name: Hout Bay Harbour",
+        "Activity: Seal-island boat tour",
+        "Activity: Harbour/market browsing",
+        "Cost: €10.00",
+        "Location: Hout Bay Harbour"
+      ]
+    },
+    {
+      "day_index": 16,
+      "slot_position": 5,
+      "slot_name": "Return to Cape Town",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.capetown.travel/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence is the homepage of the Cape Town Tourism website, which contains no specific information regarding transport costs, travel durations between Hout Bay and the city centre, or rideshare pricing. While the location and general destination are consistent with the website's theme (Cape Town), there is no data to verify the €8.00 cost or the 1-hour travel window.",
+      "claims_checked": [
+        "Route: Hout Bay to Cape Town city centre",
+        "Cost: €8.00",
+        "Duration: 1 hour (15:00 to 16:00)"
+      ]
+    },
+    {
+      "day_index": 16,
+      "slot_position": 6,
+      "slot_name": "Dinner: AfroDeli Eatery",
+      "source_type": "link",
+      "source_urls": [
+        "https://maps.google.com/?cid=14099884133451789582&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provided a Google Maps link, but no evidence was retrieved from that link or any other source. Therefore, there is no factual information available to verify the claims regarding the venue's name, location, cost, or operating hours.",
+      "claims_checked": [
+        "Venue name: AfroDeli Eatery",
+        "Location: 41 Church St",
+        "Cost: €8.00",
+        "Notes: Open daily"
+      ]
+    },
+    {
+      "day_index": 17,
+      "slot_position": 1,
+      "slot_name": "Cape Malay cooking/culture morning in Bo-Kaap",
+      "source_type": "link",
+      "source_urls": [
+        "https://bokaapkombuis.co.za/"
+      ],
+      "verdict": "FAIL",
+      "reasoning": "The slot claims to be for a 'Cape Malay cooking/culture morning' and provides a link to Bo-Kaap Kombuis. However, the evidence from the provided link explicitly identifies Bo-Kaap Kombuis as an 'Authentic Cape Malay Restaurant' with a menu featuring 'Signature Cape Malay Delights' like Boboti and Curry. There is no mention of cooking classes, workshops, or cultural tours being offered at this venue; it is a dining establishment. Furthermore, the slot lists a cost of €35.00, but the evidence provides no pricing information for meals or any other services.",
+      "claims_checked": [
+        "Venue name: Bo-Kaap Kombuis",
+        "Activity: Cape Malay cooking/culture morning",
+        "Location: Bo-Kaap, Cape Town",
+        "Cost: €35.00"
+      ]
+    },
+    {
+      "day_index": 17,
+      "slot_position": 2,
+      "slot_name": "Lunch: Cape Malay tasting / cooking class meal",
+      "source_type": "link",
+      "source_urls": [
+        "https://bokaapkombuis.co.za/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims a Cape Malay meal/tasting in the Bo-Kaap neighborhood. The provided link (bokaapkombuis.co.za) confirms the existence of 'Bo-Kaap Kombuis', an 'Authentic Cape Malay Restaurant' located in Bo-Kaap. The evidence specifically lists 'Tasting Platters' and various Cape Malay dishes (Boboti, Curry, Denning Vleis) which aligns with the 'Cape Malay tasting' description. While the specific price of €8.00 is not explicitly listed in the snippet, the restaurant's existence and theme are verified.",
+      "claims_checked": [
+        "Venue name: Bo-Kaap Kombuis",
+        "Location: Bo-Kaap",
+        "Category: Cape Malay Restaurant/Tasting",
+        "Offerings: Tasting platters and traditional Cape Malay meals"
+      ]
+    },
+    {
+      "day_index": 17,
+      "slot_position": 3,
+      "slot_name": "Free afternoon: Greenmarket Square and CBD galleries",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.capetown.travel/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided link (capetown.travel) is the homepage for Cape Town Tourism, but the fetched content consists only of metadata and image data (SVG code). It contains no text or information regarding Greenmarket Square, CBD galleries, opening hours, or costs. While these are well-known locations in Cape Town, the evidence provided is silent on the specific claims.",
+      "claims_checked": [
+        "Location: Greenmarket Square / CBD",
+        "Category: Market/Galleries",
+        "Cost: €0.00 (Free to browse)",
+        "Time: 14:00 - 16:30"
+      ]
+    },
+    {
+      "day_index": 17,
+      "slot_position": 4,
+      "slot_name": "Dinner: Bo-Kaap Kombuis",
+      "source_type": "link",
+      "source_urls": [
+        "https://bokaapkombuis.co.za/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms the venue name ('Bo-Kaap Kombuis') and its specialty in Cape Malay cuisine ('Authentic Cape Malay Restaurant'). While the provided evidence snippet does not explicitly list the address or specific Wednesday hours, the slot's claims regarding the nature of the establishment and its name are directly supported by the official website. There is no contradictory information in the evidence regarding the location, cost, or timing.",
+      "claims_checked": [
+        "Venue name: Bo-Kaap Kombuis",
+        "Category: meal/restaurant",
+        "Cuisine: Cape Malay",
+        "Location: 7 August St",
+        "Open Wednesday dinner"
+      ]
+    },
+    {
+      "day_index": 18,
+      "slot_position": 1,
+      "slot_name": "Weather backup: Table Mountain cableway OR Signal Hill walk",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.tablemountain.net/",
+        "https://www.tablemountain.net/our-blog/table-mountain-aerial-cableway-announces-2026-annual-maintenance-shutdown-dates"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provides two specific links to the official Table Mountain website to verify maintenance dates and operational status. However, no content was retrieved from these links or any other source. Therefore, the claims regarding the maintenance window (July 27–Aug 9, 2026) and the cost (€25.00) cannot be verified against evidence.",
+      "claims_checked": [
+        "Table Mountain Aerial Cableway is not in annual maintenance on June 18, 2026.",
+        "Annual maintenance closure is July 27–Aug 9, 2026.",
+        "The cost is approximately €25.00.",
+        "Cableway operations are weather-dependent."
+      ]
+    },
+    {
+      "day_index": 18,
+      "slot_position": 2,
+      "slot_name": "Lunch: AfroDeli Eatery",
+      "source_type": "link",
+      "source_urls": [
+        "https://maps.google.com/?cid=14099884133451789582&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provided a Google Maps link, but no content was retrieved from that link or any other source. Therefore, there is no evidence available to verify the existence of the venue, its address, or its pricing.",
+      "claims_checked": [
+        "Venue name: AfroDeli Eatery",
+        "Address: 41 Church St",
+        "Cost: €7.00",
+        "Category: meal"
+      ]
+    },
+    {
+      "day_index": 18,
+      "slot_position": 3,
+      "slot_name": "Free afternoon: hostel social / trip buffer",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.hostelworld.com/hostels/africa/south-africa/cape-town/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a free afternoon for social activities or administrative tasks at a hostel in Cape Town CBD. The evidence from Hostelworld confirms the existence of numerous hostels in Cape Town, specifically mentioning several in the CBD area (e.g., 'Never At Home Kloof Street', 'Long Street Backpackers', '91 Loop', and 'Urban Hive Backpackers'). The cost of €0.00 is consistent with a 'free afternoon' or 'buffer' time. The note about winter weather is consistent with the June date (winter in the Southern Hemisphere).",
+      "claims_checked": [
+        "Location: Hostel / Cape Town CBD",
+        "Cost: €0.00",
+        "Category: leisure",
+        "Availability of hostels in Cape Town"
+      ]
+    },
+    {
+      "day_index": 18,
+      "slot_position": 4,
+      "slot_name": "Dinner: hostel self-catered meal",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.hostelworld.com/hostels/africa/south-africa/cape-town/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a self-catered meal at a hostel kitchen in Cape Town. The provided evidence (Hostelworld) confirms the existence of numerous hostels in Cape Town (e.g., 'Never At Home Green Point', 'Villa Viva Cape Town', 'Long Street Backpackers'). While the evidence does not explicitly list kitchen facilities for every individual hostel, the concept of a 'hostel self-catered meal' is a standard activity for the category of accommodation shown. The cost of €7.00 for a self-cooked meal is consistent with the budget nature of the hostels listed (starting from €10.09).",
+      "claims_checked": [
+        "Location: Hostel kitchen in Cape Town",
+        "Category: Meal (self-catered)",
+        "Cost: €7.00"
+      ]
+    },
+    {
+      "day_index": 19,
+      "slot_position": 1,
+      "slot_name": "Train to Muizenberg for final surf",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.rome2rio.com/s/Cape-Town/Muizenberg"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provides a link to Rome2rio to support the transport details (route, duration, and cost), but no content was retrieved from the provided URL. Without the evidence content, the claims regarding the train duration (75 minutes), the cost (€2.00), and the specific route availability cannot be verified.",
+      "claims_checked": [
+        "Train route from Cape Town Station to Muizenberg Station",
+        "Travel duration: 1 hour 15 minutes (08:00 to 09:15)",
+        "Cost: €2.00"
+      ]
+    },
+    {
+      "day_index": 19,
+      "slot_position": 2,
+      "slot_name": "Final surf session / social beach morning",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.google.com/maps/search/Paul's+surfing+lessons",
+        "https://www.capetown.travel/muizenberg/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provides two links (a Google Maps search for 'Paul's surfing lessons' and a Cape Town travel guide for Muizenberg), but no evidence was retrieved from these links or any other source. Therefore, the claims regarding the location (Muizenberg Beach), the availability of surfing lessons/rentals, and the estimated cost (€25.00) cannot be verified against the provided evidence.",
+      "claims_checked": [
+        "Location: Muizenberg Beach / Surfers Corner",
+        "Activity: Surf board/wetsuit rental or small-group lesson",
+        "Cost: €25.00",
+        "Operator: Paul's surfing lessons"
+      ]
+    },
+    {
+      "day_index": 19,
+      "slot_position": 3,
+      "slot_name": "Lunch: Muizenberg cheap takeaway",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.capetown.travel/muizenberg/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provides a link to a general Cape Town tourism page for Muizenberg, but no evidence was retrieved from this link or any other source. Therefore, there is no factual information available to verify the existence of a specific 'cheap takeaway' venue, its location at Muizenberg Beach, or the estimated cost of €8.00.",
+      "claims_checked": [
+        "Venue name: Muizenberg cheap takeaway",
+        "Location: Muizenberg Beach",
+        "Cost: €8.00",
+        "Category: meal"
+      ]
+    },
+    {
+      "day_index": 19,
+      "slot_position": 4,
+      "slot_name": "Return train before dark",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.rome2rio.com/s/Cape-Town/Muizenberg"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provides a link to Rome2rio for the train journey from Muizenberg to Cape Town, but no evidence was retrieved from the link or provided in the evidence section. Therefore, the specific claims regarding the existence of a train at 15:30, the duration of 1 hour 15 minutes, and the cost of €2.00 cannot be verified against the provided evidence.",
+      "claims_checked": [
+        "Train service exists from Muizenberg Station to Cape Town Station",
+        "Departure time: 15:30",
+        "Arrival time: 16:45",
+        "Duration: 1 hour 15 minutes",
+        "Cost: €2.00"
+      ]
+    },
+    {
+      "day_index": 19,
+      "slot_position": 5,
+      "slot_name": "Dinner: hostel/traveller farewell braai",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.hostelworld.com/hostels/africa/south-africa/cape-town/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence is a search results page for hostels in Cape Town. While it lists several hostels (e.g., Never At Home, Villa Viva, Ashanti Lodge), it does not contain specific details about a 'farewell braai' event, its cost (€8.00), or its timing (Friday at 19:00) at any particular hostel. The evidence is generic and does not confirm or contradict the specific claims of the slot.",
+      "claims_checked": [
+        "Event: Farewell braai at hostel common area",
+        "Cost: €8.00",
+        "Time: Friday, 19:00 - 20:30",
+        "Location: Hostel common area in Cape Town"
+      ]
+    },
+    {
+      "day_index": 20,
+      "slot_position": 1,
+      "slot_name": "Last Saturday market: Neighbourgoods or Oranjezicht",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.getoutin.co.za/events/oranjezicht-city-farm-market-14",
+        "https://foodtruckfinder.co.za/blog/best-food-truck-markets-festivals-south-africa"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims that both the Neighbourgoods Market and the Oranjezicht City Farm (OZCF) Market operate on Saturdays. Source 2 confirms Neighbourgoods Market in Woodstock (Old Biscuit Mill) runs 'Sat - Sun, 9am - 6pm' and OZCF Market runs 'Sat - Sun morning'. Source 1 confirms OZCF Market is located at the V&A Waterfront precinct (Granger Bay) and lists the entry price as 'R0 - free', supporting the slot's €0.00 cost and 'Free entry' note. The slot's time window (09:00 - 12:00) falls within the operating hours provided by both sources.",
+      "claims_checked": [
+        "Neighbourgoods Market operates on Saturdays",
+        "Oranjezicht City Farm (OZCF) Market operates on Saturdays",
+        "Neighbourgoods Market is located at the Old Biscuit Mill",
+        "OZCF Market is located at the V&A Waterfront precinct",
+        "Entry to the markets is free (R0 / €0.00)",
+        "Neighbourgoods Market hours include 09:00 - 12:00",
+        "OZCF Market hours include 09:00 - 12:00"
+      ]
+    },
+    {
+      "day_index": 20,
+      "slot_position": 2,
+      "slot_name": "Lunch: market food stalls",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.getoutin.co.za/events/oranjezicht-city-farm-market-14"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot proposes a lunch at a 'Selected Saturday market' on June 20, 2026. The provided link refers to the Oranjezicht City Farm Market. The evidence confirms this market is a 'farmers market' with '80 artisanal food traders' and is 'the largest of its kind in Cape Town,' supporting the 'market food stalls' description. While the specific event page in the evidence is for Sunday, June 7, the description notes it 'attracts 8,000 to 12,000 visitors each weekend,' implying it is open on Saturdays as well. The time (12:00-13:00) falls within the market's operating hours (08:30 am - 02:00 pm). The cost of €10 (approx. R200) is consistent with 'local prepared-food level' at an artisanal market where entry is free (R0).",
+      "claims_checked": [
+        "Venue: Oranjezicht City Farm Market (via link)",
+        "Category: Market food stalls/meal",
+        "Date: Saturday (Weekend)",
+        "Time: 12:00 - 13:00",
+        "Cost: €10.00 (Budgeted for local prepared food)"
+      ]
+    },
+    {
+      "day_index": 20,
+      "slot_position": 3,
+      "slot_name": "Pack, laundry and check-in for return flight",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.google.com/travel/flights?hl=en&gl=us&curr=EUR&tfs=CBwQAhoeEgoyMDI2LTA2LTAxagcIARIDTVVDcgcIARIDQ1BUGh4SCjIwMjYtMDYtMjFqBwgBEgNDUFRyBwgBEgNNVUNAAUgBcAGYAQE&tfu=EgIIAQ"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a preparation period for a return flight on June 20th, 2026. The provided Google Flights link confirms a search for a return flight from Cape Town (CPT) to Munich (MUC) on June 21, 2026 ('2026-06-21jBwgBEgNDUFRyBwgBEgNNVUN'). Checking in on the afternoon of June 20th (the slot time) for a flight departing on June 21st is consistent with standard 24-hour airline check-in windows. The cost of €5.00 for laundry is a reasonable estimate for hostel services, though not explicitly detailed in the flight search evidence. The location 'Hostel' is consistent with the activity of packing and laundry.",
+      "claims_checked": [
+        "Return flight date (June 21, 2026)",
+        "Check-in activity timing (June 20, 2026)",
+        "Flight route (Cape Town to Munich)"
+      ]
+    },
+    {
+      "day_index": 20,
+      "slot_position": 4,
+      "slot_name": "Dinner: Bo-Kaap Kombuis or budget farewell meal",
+      "source_type": "link",
+      "source_urls": [
+        "https://bokaapkombuis.co.za/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms the venue name 'Bo-Kaap Kombuis' and its identity as an 'Authentic Cape Malay Restaurant'. While the specific address '7 August St' is not explicitly written in the text of the homepage, the restaurant's existence and specialty are confirmed. The cost and specific operating hours for June 2026 are not detailed in the provided snippet, but the primary claim regarding the venue's nature and name is supported by the official website.",
+      "claims_checked": [
+        "Venue name: Bo-Kaap Kombuis",
+        "Category: Cape Malay restaurant",
+        "Location: Bo-Kaap area",
+        "Website: https://bokaapkombuis.co.za/"
+      ]
+    },
+    {
+      "day_index": 21,
+      "slot_position": 1,
+      "slot_name": "Check out of hostel",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.hostelworld.com/hostels/africa/south-africa/cape-town/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence is a search results page from Hostelworld listing various hostels in Cape Town (e.g., Never At Home Green Point, Villa Viva, 91 Loop). However, the evidence does not contain specific check-out times for any of these hostels, nor does it confirm the general claim that 'Most hostels check out around 10:00'. The evidence is essentially a list of names without policy details.",
+      "claims_checked": [
+        "Check-out time is around 10:00",
+        "Location: Hostel, Cape Town",
+        "Luggage storage is available"
+      ]
+    },
+    {
+      "day_index": 21,
+      "slot_position": 2,
+      "slot_name": "Early lunch before airport",
+      "source_type": "link",
+      "source_urls": [
+        "https://maps.google.com/?cid=14099884133451789582&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provides a Google Maps link as a reference, but no content was retrieved from that link or any other source. Therefore, there is no evidence available to verify the existence, location, or pricing of the suggested venue (AfroDeli or similar).",
+      "claims_checked": [
+        "Venue name: AfroDeli/cheap café/supermarket",
+        "Location: Cape Town city centre",
+        "Cost: €8.00",
+        "Opening time: 10:30 AM"
+      ]
+    },
+    {
+      "day_index": 21,
+      "slot_position": 3,
+      "slot_name": "Ride-hail transfer to Cape Town Airport",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.welcomepickups.com/cape-town/airport-transfer-to-city/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims a ride-hail/taxi transfer from Cape Town city centre to the airport takes approximately 1 hour (11:15 to 12:15) and costs roughly €18.00. The evidence from Welcome Pickups confirms the distance is 20 km. While the provided snippet is cut off, the Rome2Rio link (referenced in the slot) and general travel data for this route typically show a 20-30 minute drive time, making a 1-hour window a safe 'buffer' as requested in the description. The cost of €18 (approx. 350-400 ZAR) is consistent with standard Uber/Bolt rates for this 20km journey in Cape Town.",
+      "claims_checked": [
+        "Route: Cape Town city centre to Cape Town International Airport",
+        "Distance: Approximately 20 km",
+        "Transport mode: Uber/Bolt or official taxi",
+        "Duration: 1 hour (including buffer)",
+        "Cost: €18.00"
+      ]
+    },
+    {
+      "day_index": 21,
+      "slot_position": 4,
+      "slot_name": "Return flight: Cape Town to Addis Ababa",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.google.com/travel/flights?hl=en&gl=us&curr=EUR&tfs=CBwQAhoeEgoyMDI2LTA2LTAxagcIARIDTVVDcgcIARIDQ1BUGh4SCjIwMjYtMDYtMjFqBwgBEgNDUFRyBwgBEgNNVUNAAUgBcAGYAQE&tfu=EgIIAQ"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence is a Google Flights search page for Munich to Cape Town, but the fetched content contains only UI elements (filters, headers, and image placeholders) and no specific flight data, schedules, or flight numbers for the requested date (June 21, 2026). There is no mention of Ethiopian Airlines flight ET844, its departure time (13:50), or its arrival time (21:15) in the evidence.",
+      "claims_checked": [
+        "Flight number: Ethiopian ET844",
+        "Route: Cape Town (CPT) to Addis Ababa (ADD)",
+        "Departure time: 2026-06-21 13:50:00",
+        "Arrival time: 2026-06-21 21:15:00"
+      ]
+    },
+    {
+      "day_index": 21,
+      "slot_position": 5,
+      "slot_name": "Return flight: Addis Ababa to Abu Dhabi",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.google.com/travel/flights?hl=en&gl=us&curr=EUR&tfs=CBwQAhoeEgoyMDI2LTA2LTAxagcIARIDTVVDcgcIARIDQ1BUGh4SCjIwMjYtMDYtMjFqBwgBEgNDUFRyBwgBEgNNVUNAAUgBcAGYAQE&tfu=EgIIAQ"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence is a Google Flights search page for 'Munich to Cape Town' which does not contain any specific flight schedules, flight numbers, or airline details for the route Addis Ababa (ADD) to Abu Dhabi (AUH). The text content of the evidence is generic and does not list the flight ET614 or the specific times mentioned in the slot.",
+      "claims_checked": [
+        "Flight number: Ethiopian ET614",
+        "Route: Addis Ababa (ADD) to Abu Dhabi (AUH)",
+        "Departure time: 2026-06-21 21:50",
+        "Arrival time: 2026-06-22 03:10",
+        "Connection: AUH–MUC on 2026-06-22 14:10–18:30"
+      ]
+    }
+  ],
+  "rationale_pass_count": 32,
+  "rationale_fail_count": 4,
+  "rationale_missing_count": 62,
+  "hc_micro_pass_rate": 1.0,
+  "cc_micro_pass_rate": 0.6154,
+  "hc_macro_pass_rate": 1.0,
+  "cc_macro_pass_rate": 0.0,
+  "final_pass_rate": 0.0,
+  "aggregated_constraints": [
+    {
+      "id": "HC-1",
+      "constraint_text": "origin: Munich",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-2",
+      "constraint_text": "destination: Cape Town",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-3",
+      "constraint_text": "travel_dates: 2026.06.01 to 2026.06.21",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-4",
+      "constraint_text": "travelers: 1 adult",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-5",
+      "constraint_text": "budget: 4000 EUR total",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-6",
+      "constraint_text": "accommodation: hostel",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-7",
+      "constraint_text": "transport: Flight",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-8",
+      "constraint_text": "interests: hiking, wildlife, local culture, surf, budget travel, meeting people",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-1",
+      "constraint_text": "Car or road trip transport is not feasible for island or overseas destinations — a flight or ferry is required.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-2",
+      "constraint_text": "No key information should be left out of the plan, such as the lack of accommodation during travel.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-3",
+      "constraint_text": "Transportation choices within the trip must be reasonable. For example, having both “self-driving” and “flight” would be considered a conflict.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-4",
+      "constraint_text": "Both outbound and return transport must appear in the plan.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-5",
+      "constraint_text": "Flight or train connections must allow sufficient layover time (≥60 min domestic, ≥90 min international).",
+      "constraint_type": "commonsense",
+      "final_verdict": "FAIL",
+      "judge_verdicts": [
+        "FAIL",
+        "PASS",
+        "FAIL",
+        "FAIL"
+      ],
+      "pass_count": 1,
+      "fail_count": 3,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-6",
+      "constraint_text": "Accommodation must be planned for every night of the trip.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-7",
+      "constraint_text": "Hotel check-in must be scheduled after arrival transport reaches the destination.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-8",
+      "constraint_text": "Restaurants must be open on the planned day and time.",
+      "constraint_type": "commonsense",
+      "final_verdict": "FAIL",
+      "judge_verdicts": [
+        "FAIL",
+        "FAIL",
+        "FAIL",
+        "FAIL"
+      ],
+      "pass_count": 0,
+      "fail_count": 4,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-9",
+      "constraint_text": "Restaurant choices should not be repeated throughout the trip.",
+      "constraint_type": "commonsense",
+      "final_verdict": "FAIL",
+      "judge_verdicts": [
+        "FAIL",
+        "FAIL",
+        "FAIL",
+        "FAIL"
+      ],
+      "pass_count": 0,
+      "fail_count": 4,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-10",
+      "constraint_text": "Activities should be geographically sensible per day (no unnecessary cross-city travel).",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-11",
+      "constraint_text": "Attractions must be open on the planned day and time.",
+      "constraint_type": "commonsense",
+      "final_verdict": "FAIL",
+      "judge_verdicts": [
+        "FAIL",
+        "FAIL",
+        "FAIL",
+        "PASS"
+      ],
+      "pass_count": 1,
+      "fail_count": 3,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-12",
+      "constraint_text": "Attraction choices should not be repeated throughout the trip.",
+      "constraint_type": "commonsense",
+      "final_verdict": "FAIL",
+      "judge_verdicts": [
+        "PASS",
+        "FAIL",
+        "FAIL",
+        "PASS"
+      ],
+      "pass_count": 2,
+      "fail_count": 2,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-13",
+      "constraint_text": "Travel time between consecutive activities must account for realistic transit duration.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    }
+  ],
+  "timestamp": "2026-05-16T20:09:12.503636+00:00"
+}

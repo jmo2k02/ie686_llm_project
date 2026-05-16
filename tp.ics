@@ -3,439 +3,316 @@ VERSION:2.0
 PRODID:-//TravelPlanner//TravelPlan//EN
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
-X-WR-CALNAME:Munich to Vienna 5-day trip\, July 10–14 2026
+X-WR-CALNAME:Rome Hidden History & Street Food — July 5-7\, 2026
 BEGIN:VEVENT
-SUMMARY:Direct Railjet train: Munich → Vienna
-DTSTART:20260710T073000
-DTEND:20260710T113000
-DTSTAMP:20260515T104012Z
-UID:625a5d7efe0cd450@travelplanner.local
-DESCRIPTION:Budget-friendly direct ÖBB/DB Railjet-style train from Münch
- en Hbf to Wien Hbf. Exact July 2026 schedules are not finalized yet\; typi
- cal direct journey is about 4 hours. Book Sparschiene/advance fares when r
- eleased.\nCost: €56.00\nCategory: transport\nLink 1: https://www.oebb.at
- /en/tickets-kundenkarten/oesterreich-weit/sparschiene\nLink 2: https://www
- .austrianrailways.com/train-munich-to-vienna\nNotes: Estimated one-way cos
- t for 2 adults: €25 each plus small seat reservation allowance.
-LOCATION:München Hbf → Wien Hbf
+SUMMARY:Metro to Parco degli Acquedotti
+DTSTART:20260705T083000
+DTEND:20260705T091500
+DTSTAMP:20260516T163814Z
+UID:39b91ad4c7a4f4a5@travelplanner.local
+DESCRIPTION:Use Metro A toward Subaugusta/Giulio Agricola\, then walk to P
+ arco degli Acquedotti. A 2026 BIT ticket is estimated at €2 and valid 10
+ 0 minutes.\nCost: €2.00\nCategory: transport\nLink 1: https://romesite.c
+ om/transport.html\nNotes: Exact start depends on hotel location\; no hotel
+  slot added per user constraint.
+LOCATION:Rome Metro Line A to Subaugusta/Giulio Agricola
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Transfer: Wien Hbf → Hotel Pension Walzerstadt
-DTSTART:20260710T113000
-DTEND:20260710T121500
-DTSTAMP:20260515T104012Z
-UID:63322cd861506c5a@travelplanner.local
-DESCRIPTION:Take Vienna public transport from Wien Hbf toward Zieglergasse
- /1070 district. Routing API unavailable due missing key\, but hotel is nea
- r U3 Zieglergasse and Wien Hbf connects via U1/U-Bahn network.\nCost: €0
- .00\nCategory: transport\nLink 1: https://www.wien.info/en/travel-info/tra
- nsport/tickets-361360\nNotes: Covered by 7-day Vienna digital ticket added
-  separately.
-LOCATION:Wien Hbf → Zieglergasse 35\, 1070 Vienna
+SUMMARY:Walk the aqueducts and ancient-road landscape
+DTSTART:20260705T091500
+DTEND:20260705T114500
+DTSTAMP:20260516T163814Z
+UID:095b5af8ed1df04d@travelplanner.local
+DESCRIPTION:Explore Parco degli Acquedotti for Aqua Claudia\, Anio Novus\,
+  and the open suburban edge of ancient Rome. Free\, low-tourist-density\, 
+ best before the midday heat.\nCost: €0.00\nCategory: attraction\nLink 1:
+  https://www.google.com/maps/search/Via+Appia+Antica+-+Appian+Way\nNotes: 
+ Park hours verified as daytime public access\; bring water and sun protect
+ ion.
+LOCATION:Parco degli Acquedotti\, Via Lemonia\, 221\, Rome
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Check in: Hotel Pension Walzerstadt
-DTSTART:20260710T121500
-DTEND:20260710T130000
-DTSTAMP:20260515T104012Z
-UID:4874b79b8966ef78@travelplanner.local
-DESCRIPTION:Budget accommodation in the 7th district with Wi‑Fi\, close 
- to U3 Zieglergasse and Mariahilfer Straße. Quoted hotel search rate €96
- /night for 4 nights.\nCost: €384.00\nCategory: lodging\nLink 1: https://
- travelstack.nuitee.link/hotels?placeId=ChIJbRAjM5uobUcRO98FQnxbmd0&placeTy
- pes=&name=Vienna&checkin=2026-07-10&checkout=2026-07-14&rooms=1&adults=2&o
- ccupancies=W3siYWR1bHRzIjoyLCJjaGlsZHJlbiI6W119XQ%3D%3D&sorting=1&language
- =de&currency=EUR\nLink 2: https://www.booking.com/hotel/at/pension-walzers
- tadt.html\nNotes: Check-in time not verified\; ask hotel for early luggage
-  drop if room is not ready.
-LOCATION:Hotel Pension Walzerstadt\, Zieglergasse 35\, 1070 Vienna
+SUMMARY:Street-food lunch at Ce Stamo A Pensà
+DTSTART:20260705T121500
+DTEND:20260705T131500
+DTSTAMP:20260516T163814Z
+UID:adad7dfe4e12cbc2@travelplanner.local
+DESCRIPTION:Inexpensive Roman-style street-food stop: ideal for a quick so
+ lo lunch before heading to the Appian Way catacombs.\nCost: €15.00\nCate
+ gory: meal\nLink 1: https://www.instagram.com/ce_stamo_a_pensa?igsh=cDcwbT
+ EyeTY3aDI0\nNotes: Tool verified Sunday opening 11:00–01:00.
+LOCATION:Ce Stamo A Pensà\, Via Leonina\, 81\, 00184 Roma RM\, Italy
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Buy 7-day Vienna public transport tickets
-DTSTART:20260710T130000
-DTEND:20260710T131500
-DTSTAMP:20260515T104012Z
-UID:fc159d2c2cb7fe51@travelplanner.local
-DESCRIPTION:Buy two digital 7-day Vienna core-zone tickets. 2026 fare sour
- ce indicates €25.20 per person and better value than abolished 48/72-hou
- r tickets.\nCost: €50.40\nCategory: transport\nLink 1: https://www.wien.
- info/en/travel-info/transport/tickets-361360\nNotes: Covers city transit J
- uly 10–14\, not intercity train.
-LOCATION:WienMobil app / Wiener Linien
+SUMMARY:Transit to Catacombs of San Callisto
+DTSTART:20260705T131500
+DTEND:20260705T143000
+DTSTAMP:20260516T163814Z
+UID:054da5055d306933@travelplanner.local
+DESCRIPTION:Cross back toward the Appian Way by metro/bus. Use Bus 118 or 
+ 218 for the catacombs\; allow buffer because Sunday services can be slower
+ .\nCost: €2.00\nCategory: transport\nLink 1: https://www.catacombesancal
+ listo.it/en/dove-siamo.php\nNotes: A direct route graph could not be gener
+ ated because the maps API key is unavailable\; timing is conservatively pa
+ dded.
+LOCATION:Rome city center to Via Appia Antica\, 110/126
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Lunch: Trzesniewski open sandwiches
-DTSTART:20260710T133000
-DTEND:20260710T141500
-DTSTAMP:20260515T104012Z
-UID:d3da9f8dc69fb265@travelplanner.local
-DESCRIPTION:Iconic Viennese standing snack bar with small open-faced sandw
- iches\, ideal for an inexpensive first local meal.\nCost: €24.00\nCatego
- ry: meal\nLink 1: https://www.speckmittei.at\nLink 2: https://www.travelsi
- gnposts.com/Austria/food/trzesniewski\nNotes: Flagship location\; open Fri
- day daytime.
-LOCATION:Trzesniewski\, Dorotheergasse 1\, 1010 Vienna
+SUMMARY:Catacombs of San Callisto guided visit
+DTSTART:20260705T150000
+DTEND:20260705T161500
+DTSTAMP:20260516T163814Z
+UID:53c18e7f5a637c54@travelplanner.local
+DESCRIPTION:Guided underground visit of one of Rome’s major early Christ
+ ian burial complexes. Sunday July 5 availability was verified for the afte
+ rnoon window\; ticket office cutoff is around 16:50.\nCost: €10.00\nCate
+ gory: attraction\nLink 1: https://www.catacombesancallisto.it/en/orari.php
+ \nNotes: Bring a light layer\; no photography inside.
+LOCATION:Catacombs of San Callisto\, Via Appia Antica\, 110/126\, Rome
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Self-guided Innere Stadt walk
-DTSTART:20260710T141500
-DTEND:20260710T170000
-DTSTAMP:20260515T104012Z
-UID:2d5403186da6bce4@travelplanner.local
-DESCRIPTION:Walk Stephansplatz\, Graben\, Kohlmarkt\, Hofburg exterior\, M
- ichaelerplatz\, and hidden courtyards/Durchhäuser around the old town. Lo
- w-cost orientation on foot.\nCost: €0.00\nCategory: attraction\nLink 1: 
- https://www.google.com/maps/search/St.+Stephen's+Cathedral+Vienna\nLink 2:
-  https://www.google.com/maps/search/Schottendurchhaus\nNotes: Keep this fl
- exible after travel.
-LOCATION:Innere Stadt\, Vienna
+SUMMARY:Slow Appian Way walk
+DTSTART:20260705T161500
+DTEND:20260705T180000
+DTSTAMP:20260516T163814Z
+UID:57ddf9d977bef76f@travelplanner.local
+DESCRIPTION:Walk a manageable stretch of Via Appia Antica after the cataco
+ mbs\, when the light is better and Sunday traffic is limited. Focus on roa
+ d stones\, tombs\, and the rural feel inside the city.\nCost: €0.00\nCat
+ egory: leisure\nLink 1: https://www.google.com/maps/search/Via+Appia+Antic
+ a+-+Appian+Way\nNotes: Keep this flexible depending on heat and energy.
+LOCATION:Via Appia Antica\, Rome
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Dinner: Griechenbeisl
-DTSTART:20260710T190000
-DTEND:20260710T203000
-DTSTAMP:20260515T104012Z
-UID:795d4b306d07d1ee@travelplanner.local
-DESCRIPTION:Traditional Austrian dinner in one of Vienna’s oldest restau
- rants\, near Schwedenplatz\; historic rooms and classic dishes.\nCost: €
- 70.00\nCategory: meal\nLink 1: https://www.griechenbeisl.at/\nLink 2: http
- s://www.wien.info/en/griechenbeisl-132812\nNotes: Reserve ahead\; estimate
-  assumes moderate mains and drinks for 2.
-LOCATION:Griechenbeisl\, Fleischmarkt 11\, 1010 Vienna
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Breakfast at Café Sperl
-DTSTART:20260711T083000
-DTEND:20260711T093000
-DTSTAMP:20260515T104012Z
-UID:c1032e599910a83b@travelplanner.local
-DESCRIPTION:Historic Viennese coffee house breakfast before a museum-heavy
-  day. Café Sperl is open Saturdays in July\; avoid Sundays in July/August
-  due to Sunday closure.\nCost: €28.00\nCategory: meal\nLink 1: https://w
- ww.cafesperl.at\nLink 2: https://www.wien.info/en/caf%C3%A9-sperl-film-loc
- ation-920732\nNotes: Estimated for 2 coffees and pastries/light breakfast.
-LOCATION:Café Sperl\, Gumpendorfer Straße 11\, 1060 Vienna
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Walk/transit to Kunsthistorisches Museum
-DTSTART:20260711T093000
-DTEND:20260711T100000
-DTSTAMP:20260515T104012Z
-UID:c9f03f258b733e9a@travelplanner.local
-DESCRIPTION:From the hotel area to Maria-Theresien-Platz\; hotel is about 
- a 20–25 minute walk or short U3 ride to Volkstheater/MuseumsQuartier.\nC
- ost: €0.00\nCategory: transport\nLink 1: https://www.wien.info/en/travel
- -info/transport/tickets-361360\nNotes: Routing API was unavailable\; estim
- ate based on verified hotel and museum transit proximity.
-LOCATION:Hotel Pension Walzerstadt → Kunsthistorisches Museum
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Kunsthistorisches Museum
-DTSTART:20260711T100000
-DTEND:20260711T130000
-DTSTAMP:20260515T104012Z
-UID:849b124fa34cd1b2@travelplanner.local
-DESCRIPTION:Focus on Bruegel\, the Kunstkammer\, Egyptian/Greek collection
- s\, and Klimt’s staircase decorations. Official July hours: daily 10:00
- –18:00.\nCost: €44.00\nCategory: attraction\nLink 1: https://www.khm.a
- t/en/visit\nNotes: Estimated €22 per adult.
-LOCATION:Kunsthistorisches Museum\, Maria-Theresien-Platz\, 1010 Vienna
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Lunch: Figlmüller Bäckerstraße
-DTSTART:20260711T131500
-DTEND:20260711T143000
-DTSTAMP:20260515T104012Z
-UID:7bf57cfb4d878203@travelplanner.local
-DESCRIPTION:Classic schnitzel lunch in the old town\; official hours daily
-  11:30–23:30\, kitchen until 22:00.\nCost: €55.00\nCategory: meal\nLin
- k 1: https://www.figlmueller.at/en/reservations/\nLink 2: https://www.figl
- mueller.at/en/location-contact/\nNotes: Reserve\; estimate for 2 schnitzel
- s/sides and soft drinks.
-LOCATION:Figlmüller\, Bäckerstraße 6\, 1010 Vienna
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Hofburg exterior and imperial lanes walk
-DTSTART:20260711T143000
-DTEND:20260711T163000
-DTSTAMP:20260515T104012Z
-UID:3595584d7bde38e9@travelplanner.local
-DESCRIPTION:Walk through Graben/Kohlmarkt to Michaelerplatz\, Hofburg cour
- tyards\, Volksgarten\, and Ringstraße viewpoints. Keeps costs low while c
- overing imperial Vienna on foot.\nCost: €0.00\nCategory: attraction\nLin
- k 1: https://www.google.com/maps/search/Hofburg+Palace+Vienna\nNotes: Opti
- onal paid Sisi Museum if budget allows\, but not included in cost.
-LOCATION:Hofburg Palace area\, 1010 Vienna
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Coffee and cake break
-DTSTART:20260711T163000
-DTEND:20260711T171500
-DTSTAMP:20260515T104012Z
-UID:86c9371be14439a2@travelplanner.local
-DESCRIPTION:Pause for Melange and cake in the historic center. Café Centr
- al is expected closed for renovation in 2026\, so use Café Museum or anot
- her open café nearby.\nCost: €24.00\nCategory: meal\nLink 1: https://ww
- w.cafemuseum.at/en/cafe-museum.html\nNotes: Café Central renovation noted
-  in research\; not scheduled.
-LOCATION:Café Museum or nearby historic café
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Dinner: Plachutta Wollzeile
-DTSTART:20260711T190000
-DTEND:20260711T204500
-DTSTAMP:20260515T104012Z
-UID:99827196f0b4db46@travelplanner.local
-DESCRIPTION:Traditional Tafelspitz dinner at a classic Vienna restaurant\;
-  open daily 11:30–23:30.\nCost: €90.00\nCategory: meal\nLink 1: https:
- //www.plachutta.at/en/restaurant/wollzeile/\nNotes: Reserve\; this is the 
- splurge dinner of the trip.
-LOCATION:Plachutta Wollzeile\, Wollzeile 38\, 1010 Vienna
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Breakfast at Café Museum
-DTSTART:20260712T083000
-DTEND:20260712T093000
-DTSTAMP:20260515T104012Z
-UID:dfd97f5238b24ee7@travelplanner.local
-DESCRIPTION:Classic Vienna café near Karlsplatz\; breakfast is served dai
- ly until 11:30.\nCost: €30.00\nCategory: meal\nLink 1: https://www.cafem
- useum.at/en/cafe-museum.html\nNotes: Good start before Stadtpark and Belve
- dere.
-LOCATION:Café Museum\, Operngasse 7\, 1010 Vienna
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Stadtpark morning walk
-DTSTART:20260712T093000
-DTEND:20260712T103000
-DTSTAMP:20260515T104012Z
-UID:b1d1d1ed27d35f2f@travelplanner.local
-DESCRIPTION:Walk through Stadtpark to see the Johann Strauss monument and 
- green spaces before lunch\; free and central.\nCost: €0.00\nCategory: at
- traction\nLink 1: https://www.google.com/maps/search/Stadtpark+Vienna\nNot
- es: Pairs naturally with Meierei in Stadtpark.
-LOCATION:Stadtpark\, Vienna
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Lunch: Meierei im Stadtpark
-DTSTART:20260712T110000
-DTEND:20260712T121500
-DTSTAMP:20260515T104012Z
-UID:be7df0a3ff10e57d@travelplanner.local
-DESCRIPTION:Casual bistro/café in Stadtpark from the Steirereck group\; n
- ote official research suggests Sunday opening may vary\, so verify/reserve
-  or substitute Café Museum if closed.\nCost: €60.00\nCategory: meal\nLi
- nk 1: https://www.steirereck.at/meierei.html\nNotes: If Sunday closure is 
- confirmed\, replace with Café Museum or trude at Wien Museum.
-LOCATION:Meierei im Stadtpark\, Am Heumarkt 2a\, 1030 Vienna
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Transfer/walk to Upper Belvedere
-DTSTART:20260712T121500
-DTEND:20260712T124500
-DTSTAMP:20260515T104012Z
-UID:445c06c15de24eda@travelplanner.local
-DESCRIPTION:Walk or take tram toward Prinz-Eugen-Straße for Belvedere. Th
- e site is south-east of the Ring\; allow about 30 minutes from Stadtpark a
- rea.\nCost: €0.00\nCategory: transport\nLink 1: https://www.wien.info/en
- /travel-info/transport/tickets-361360\nNotes: Covered by Vienna transport 
- ticket if using tram.
-LOCATION:Stadtpark → Upper Belvedere
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Upper Belvedere museum
-DTSTART:20260712T130000
-DTEND:20260712T160000
-DTSTAMP:20260515T104012Z
-UID:1f2b70defba161f1@travelplanner.local
-DESCRIPTION:Visit Klimt’s The Kiss\, Austrian art collections\, and Baro
- que palace rooms. Official visitor info: Upper Belvedere opens daily\, typ
- ically 09:00–18:00.\nCost: €40.00\nCategory: attraction\nLink 1: https
- ://www.belvederepalace.at/en/visiting-hours\nLink 2: https://www.google.co
- m/maps/search/Austrian+Gallery+Belvedere\nNotes: Estimated €20 per adult
- \; book timed entry.
-LOCATION:Upper Belvedere\, Prinz-Eugen-Straße 27\, 1030 Vienna
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Belvedere Gardens walk
-DTSTART:20260712T160000
-DTEND:20260712T170000
-DTSTAMP:20260515T104012Z
-UID:41f14d3e26c12d9f@travelplanner.local
-DESCRIPTION:Walk the free formal gardens between Upper and Lower Belvedere
-  for city views and photos.\nCost: €0.00\nCategory: attraction\nLink 1: 
- https://www.belvederepalace.at/en/visiting-hours\nNotes: Free outdoor comp
- onent.
-LOCATION:Belvedere Gardens\, Vienna
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Dinner: Bitzinger Würstelstand Albertina
-DTSTART:20260712T183000
-DTEND:20260712T191500
-DTSTAMP:20260515T104012Z
-UID:0f11d2cd5bf12604@travelplanner.local
-DESCRIPTION:Budget-friendly Viennese street food: Käsekrainer or bratwurs
- t near the Opera/Albertina. Open daily 08:00–04:00.\nCost: €22.00\nCat
- egory: meal\nLink 1: https://bitzinger.wien/en/wuerstelstand/impressum/\nN
- otes: Keeps the day budget balanced after museum tickets.
-LOCATION:Bitzinger Würstelstand\, Albertinaplatz 1\, 1010 Vienna
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Breakfast near Mariahilfer Straße
-DTSTART:20260713T080000
-DTEND:20260713T084500
-DTSTAMP:20260515T104012Z
-UID:68055b69c88bbbf7@travelplanner.local
-DESCRIPTION:Simple café/bakery breakfast near the hotel before taking U4/
- U-Bahn connections toward Schönbrunn.\nCost: €20.00\nCategory: meal\nLi
- nk 1: https://www.wien.info/en/travel-info/transport/tickets-361360\nNotes
- : Use local bakery/café to preserve budget.
-LOCATION:Near Hotel Pension Walzerstadt / Mariahilfer Straße
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Transfer to Schönbrunn
-DTSTART:20260713T084500
-DTEND:20260713T093000
-DTSTAMP:20260515T104012Z
-UID:438a47374779028b@travelplanner.local
-DESCRIPTION:Use Vienna public transport from the 7th district toward U4 Sc
- hönbrunn/Hietzing for the palace park. Exact live route unavailable\, but
-  Schönbrunn is directly served by U4.\nCost: €0.00\nCategory: transport
- \nLink 1: https://www.wien.info/en/travel-info/transport/tickets-361360\nN
- otes: Covered by 7-day Vienna ticket.
-LOCATION:Hotel Pension Walzerstadt → Schönbrunn Palace Park
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Schönbrunn Palace Park and Gloriette walk
-DTSTART:20260713T093000
-DTEND:20260713T120000
-DTSTAMP:20260515T104012Z
-UID:4331255525812073@travelplanner.local
-DESCRIPTION:Explore the free palace gardens\, Great Parterre\, fountains\,
-  and walk up to the Gloriette. Palace park July hours researched as 06:30
- –21:00\; palace interiors are optional if budget allows.\nCost: €0.00\
- nCategory: attraction\nLink 1: https://schonbrunn-palace.org/opening-hours
- -best-time/\nLink 2: https://www.google.com/maps/search/Schönbrunn+Palace
- +Park\nNotes: Free garden-focused option preserves total budget.
-LOCATION:Schönbrunn Palace Park\, Schönbrunner Schloßstraße 47\, 1130 
- Vienna
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Lunch: Joseph II Schloss-Restaurant Schönbrunn
-DTSTART:20260713T120000
-DTEND:20260713T131500
-DTSTAMP:20260515T104012Z
-UID:b8547727c4c3eb3b@travelplanner.local
-DESCRIPTION:Convenient Austrian lunch inside the Schönbrunn complex\; off
- icial research found daily opening 11:00–20:30\, hot food 11:30–19:30.
- \nCost: €50.00\nCategory: meal\nLink 1: https://www.restaurant-schoenbru
- nn.at/en\nNotes: Estimate for moderate lunch for 2\; reserve if possible.
-LOCATION:Joseph II\, Schönbrunner Schloßstraße 47\, 1130 Vienna
-END:VEVENT
-BEGIN:VEVENT
-SUMMARY:Transfer to Karlsplatz / MuseumsQuartier
-DTSTART:20260713T131500
-DTEND:20260713T140000
-DTSTAMP:20260515T104012Z
-UID:8307399019bcf2b8@travelplanner.local
-DESCRIPTION:Transit back toward central Vienna for free/low-cost museum an
- d MQ time.\nCost: €0.00\nCategory: transport\nLink 1: https://www.wien.i
- nfo/en/travel-info/transport/tickets-361360\nNotes: Covered by Vienna tick
+SUMMARY:Transit back toward Monti/Celio
+DTSTART:20260705T180000
+DTEND:20260705T190000
+DTSTAMP:20260516T163814Z
+UID:67262219a203cc82@travelplanner.local
+DESCRIPTION:Return by Bus 118/218 and metro toward the central Rome dinner
+  area.\nCost: €2.00\nCategory: transport\nLink 1: https://catacombsofrom
+ e.com/how-to-get-to-st-callixtus-catacombs/\nNotes: Use Tap&Go or BIT tick
  et.
-LOCATION:Schönbrunn → Karlsplatz / MuseumsQuartier
+LOCATION:Appian Way to central Rome
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Wien Museum Karlsplatz and MuseumsQuartier walk
-DTSTART:20260713T140000
-DTEND:20260713T170000
-DTSTAMP:20260515T104012Z
-UID:c9438a40041f7f89@travelplanner.local
-DESCRIPTION:Visit the free permanent exhibition at Wien Museum Karlsplatz 
- if open and continue on foot through Karlsplatz\, Secession exterior\, Nas
- chmarkt edge\, and MuseumsQuartier courtyards. Note: Wien Museum is normal
- ly closed Mondays\, so if closed use MQ courtyards/Spittelberg walk instea
- d.\nCost: €0.00\nCategory: attraction\nLink 1: https://whichmuseum.com/m
- useum/wien-museum-karlsplatz-vienna-5358/opening-hours\nLink 2: https://ww
- w.mqw.at/en/\nNotes: Monday closure likely\; the walk/MQ courtyards remain
-  valid and free.
-LOCATION:Karlsplatz → MuseumsQuartier\, Vienna
+SUMMARY:Dinner at La Nuova Piazzetta
+DTSTART:20260705T193000
+DTEND:20260705T210000
+DTSTAMP:20260516T163814Z
+UID:c3c8a71093a2bb26@travelplanner.local
+DESCRIPTION:Moderate-budget\, authentic Roman dinner option\; convenient a
+ fter returning from the Appian Way side of the city.\nCost: €32.00\nCate
+ gory: meal\nLink 1: https://maps.google.com/?cid=5816990672718758843&g_mp=
+ Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA\nNotes: To
+ ol verified Sunday opening all day.
+LOCATION:La Nuova Piazzetta\, Vicolo del Buon Consiglio\, 23/a\, Rome
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Dinner: Glacis Beisl
-DTSTART:20260713T183000
-DTEND:20260713T200000
-DTSTAMP:20260515T104012Z
-UID:a3612c5ae0bfbb25@travelplanner.local
-DESCRIPTION:Traditional Viennese Beisl cuisine with garden atmosphere besi
- de MuseumsQuartier\; official source found daily opening 12:00–00:00.\nC
- ost: €55.00\nCategory: meal\nLink 1: https://glacisbeisl.at/en/\nLink 2:
-  https://www.mqw.at/en/catering/glacis-beisl/\nNotes: Good fit after MQ/Sp
- ittelberg walk.
-LOCATION:Glacis Beisl\, Breite Gasse 4\, 1070 Vienna
+SUMMARY:San Clemente underground layers
+DTSTART:20260706T100000
+DTEND:20260706T113000
+DTSTAMP:20260516T163814Z
+UID:bef26e10f9218638@travelplanner.local
+DESCRIPTION:Descend from the medieval basilica into the 4th-century church
+  and Roman-era Mithraeum/house levels — one of the best compact ‘verti
+ cal Rome’ experiences.\nCost: €12.00\nCategory: attraction\nLink 1: ht
+ tps://www.basilicasanclemente.com/eng/opening-hours-and-info/\nNotes: Book
+  online\; estimated €10 ticket plus booking fee. Dress code\; no photos 
+ underground.
+LOCATION:Basilica di San Clemente\, Via Labicana\, 95\, Rome
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Early hotel checkout and station breakfast
-DTSTART:20260714T083000
-DTEND:20260714T091500
-DTSTAMP:20260515T104012Z
-UID:e07f30a219a5ebf3@travelplanner.local
-DESCRIPTION:Check out\, leave luggage if possible\, and grab an easy break
- fast near Zieglergasse or at Wien Hbf.\nCost: €22.00\nCategory: meal\nLi
- nk 1: https://www.bahnhof.de/muenchen-hbf\nLink 2: https://www.oebb.at/en/
- reiseplanung-services/am-bahnhof/unsere-bahnhoefe/wien-hauptbahnhof\nNotes
- : Exact hotel checkout time unavailable\; confirm with property.
-LOCATION:Hotel Pension Walzerstadt / Wien Hauptbahnhof
+SUMMARY:Walk to Case Romane del Celio
+DTSTART:20260706T113000
+DTEND:20260706T114500
+DTSTAMP:20260516T163814Z
+UID:b6968a080e5b5eea@travelplanner.local
+DESCRIPTION:Short walk of roughly 450 m / 6–8 minutes via the quiet Celi
+ o streets and Clivus Scauri.\nCost: €0.00\nCategory: transport\nLink 1: 
+ https://www.rome2rio.com/s/San-Clemente-al-Laterano/Rome\nNotes: Walking i
+ s faster than transit for this pair.
+LOCATION:San Clemente to Case Romane del Celio
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Optional final city walk / souvenir stop
-DTSTART:20260714T091500
-DTEND:20260714T113000
-DTSTAMP:20260515T104012Z
-UID:d3e0f5daf36466dd@travelplanner.local
-DESCRIPTION:Light final walk around Mariahilfer Straße or the hotel neigh
- borhood\; keep it flexible for luggage and checkout timing.\nCost: €0.00
- \nCategory: leisure\nLink 1: https://www.google.com/maps/search/Mariahilfe
- r+Straße+Vienna\nNotes: Free buffer before train.
-LOCATION:Mariahilfer Straße / 7th district\, Vienna
+SUMMARY:Case Romane del Celio
+DTSTART:20260706T114500
+DTEND:20260706T130000
+DTSTAMP:20260516T163814Z
+UID:d0e685ab8df1cd91@travelplanner.local
+DESCRIPTION:Visit frescoed Roman houses beneath the Basilica of Santi Giov
+ anni e Paolo: a quieter\, residential counterpoint to the Forum and Coloss
+ eum.\nCost: €8.00\nCategory: attraction\nLink 1: https://www.turbopass.c
+ om/en/rome/attractions/case-romane-del-celio\nNotes: Monday opening verifi
+ ed\; ticket office may close before site closing.
+LOCATION:Case Romane del Celio\, Piazza di Santi Giovanni e Paolo\, 7\, Ro
+ me
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Lunch: casual Austrian bite near station
-DTSTART:20260714T114500
-DTEND:20260714T123000
-DTSTAMP:20260515T104012Z
-UID:e552c7608ec620d7@travelplanner.local
-DESCRIPTION:Simple budget lunch before departure\, either at Wien Hbf food
-  court or an inexpensive bakery/snack spot.\nCost: €18.00\nCategory: mea
- l\nLink 1: https://www.oebb.at/en/reiseplanung-services/am-bahnhof/unsere-
- bahnhoefe/wien-hauptbahnhof\nNotes: Lower-cost placeholder for 2 people to
-  keep total trip under €1\,200.
-LOCATION:Wien Hauptbahnhof / nearby
+SUMMARY:Street-food lunch at Supplì Roma
+DTSTART:20260706T133000
+DTEND:20260706T143000
+DTSTAMP:20260516T163814Z
+UID:d6acfdd4096ba99d@travelplanner.local
+DESCRIPTION:Classic Roman street-food break with supplì/pizza al taglio. 
+ It is in Trastevere\, so use this as a deliberate food detour after the Ce
+ lio morning.\nCost: €14.00\nCategory: meal\nLink 1: http://www.supplirom
+ a.it/\nNotes: Tool verified Monday opening 10:00–21:00.
+LOCATION:Supplì Roma\, Via di S. Francesco a Ripa\, 137\, Rome
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Transfer to Wien Hauptbahnhof
-DTSTART:20260714T123000
-DTEND:20260714T131500
-DTSTAMP:20260515T104012Z
-UID:9467f2194b827df5@travelplanner.local
-DESCRIPTION:Collect bags and use public transport to Wien Hbf for the retu
- rn train.\nCost: €0.00\nCategory: transport\nLink 1: https://www.wien.in
- fo/en/travel-info/transport/tickets-361360\nNotes: Covered by Vienna ticke
- t.
-LOCATION:Hotel Pension Walzerstadt → Wien Hbf
+SUMMARY:Transit back to Santi Quattro Coronati
+DTSTART:20260706T143000
+DTEND:20260706T151500
+DTSTAMP:20260516T163814Z
+UID:dac5fe4e101a1453@travelplanner.local
+DESCRIPTION:Return from Trastevere toward Celio/Colosseum for the afternoo
+ n hidden-monastery stop.\nCost: €2.00\nCategory: transport\nLink 1: http
+ s://romesite.com/transport.html\nNotes: Use tram/bus plus short walk\; exa
+ ct route depends on service that day.
+LOCATION:Trastevere to Santi Quattro Coronati
 END:VEVENT
 BEGIN:VEVENT
-SUMMARY:Direct Railjet train: Vienna → Munich
-DTSTART:20260714T140000
-DTEND:20260714T180000
-DTSTAMP:20260515T104012Z
-UID:1ebbf49c62f8acee@travelplanner.local
-DESCRIPTION:Return by direct ÖBB/DB Railjet-style service from Wien Hbf t
- o München Hbf. Exact July 2026 schedule not yet finalized\; typical direc
- t journey about 4 hours.\nCost: €56.00\nCategory: transport\nLink 1: htt
- ps://www.oebb.at/en/tickets-kundenkarten/oesterreich-weit/sparschiene\nLin
- k 2: https://www.austrianrailways.com/train-munich-to-vienna\nNotes: Estim
- ated one-way cost for 2 adults: €25 each plus seat reservation allowance
- .
-LOCATION:Wien Hbf → München Hbf
+SUMMARY:Santi Quattro Coronati cloister and oratory
+DTSTART:20260706T151500
+DTEND:20260706T164500
+DTSTAMP:20260516T163814Z
+UID:ef516e93c9f4b45f@travelplanner.local
+DESCRIPTION:A fortified medieval complex hidden near the Colosseum\, with 
+ a quiet cloister and San Silvestro frescoes. Ring/bell protocol and small 
+ donation expected.\nCost: €3.00\nCategory: attraction\nLink 1: https://w
+ ww.tripadvisor.com/Attraction_Review-g187791-d246188-Reviews-Ss_Quattro_Co
+ ronati-Rome_Lazio.html\nNotes: Afternoon basilica window verified from 15:
+ 15\; access to cloister/oratory can be at nuns’ discretion.
+LOCATION:Basilica dei Santi Quattro Coronati\, Via dei Santi Quattro\, 20\
+ , Rome
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Rest / aperitivo buffer in Monti
+DTSTART:20260706T164500
+DTEND:20260706T184500
+DTSTAMP:20260516T163814Z
+UID:3bfa335053b1d9dc@travelplanner.local
+DESCRIPTION:Unscheduled recovery time in Monti/Celio after two underground
+  sites. Use for a coffee\, a shaded walk\, or returning to your hotel befo
+ re dinner.\nCost: €8.00\nCategory: leisure\nNotes: Budget includes coffe
+ e/aperitivo\; keep flexible.
+LOCATION:Monti / Celio\, Rome
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Dinner at Nerone
+DTSTART:20260706T190000
+DTEND:20260706T203000
+DTSTAMP:20260516T163814Z
+UID:de38ec3d1cdaef16@travelplanner.local
+DESCRIPTION:Moderate-budget Roman dinner near Viminale/Monti\; good for pa
+ sta and classic Roman dishes after the hidden-history day.\nCost: €32.00
+ \nCategory: meal\nLink 1: http://neronealviminale.it/\nNotes: Tool verifie
+ d Monday dinner opening 16:30–22:00.
+LOCATION:Nerone\, Via del Viminale\, 7A\, Rome
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Transit to Ostia Antica
+DTSTART:20260707T080000
+DTEND:20260707T090000
+DTSTAMP:20260516T163814Z
+UID:8efab78ded388a17@travelplanner.local
+DESCRIPTION:Take Metro B to Piramide/Porta San Paolo\, then Roma-Lido/Metr
+ omare to Ostia Antica\; walk 5–10 minutes to the entrance.\nCost: €2.0
+ 0\nCategory: transport\nLink 1: https://www.rometoolkit.com/whattodo/ostia
+ _antica.html\nNotes: Estimated 45–60 minutes from central Rome\; BIT tic
+ ket should cover the urban rail journey within validity.
+LOCATION:Rome center to Ostia Antica Archaeological Park
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Ostia Antica archaeological park
+DTSTART:20260707T090000
+DTEND:20260707T124500
+DTSTAMP:20260516T163814Z
+UID:1b344c53b7be6b2f@travelplanner.local
+DESCRIPTION:Explore Rome’s ancient port city: theater\, baths\, insulae\
+ , warehouses\, Decumanus Maximus\, and quieter side streets. Pompeii-like 
+ feel without leaving the Rome transit zone.\nCost: €18.00\nCategory: att
+ raction\nLink 1: https://ostiaantica.cultura.gov.it/en/info/archaeological
+ -area-of-ostia-antica-visitor-information/\nNotes: Tuesday opening verifie
+ d from 08:30\; bring water and sun protection.
+LOCATION:Parco Archeologico di Ostia Antica\, Viale dei Romagnoli\, 717\, 
+ Rome
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Lunch at Arianna al Borghetto
+DTSTART:20260707T130000
+DTEND:20260707T141500
+DTSTAMP:20260516T163814Z
+UID:6b078c0a4eb521e9@travelplanner.local
+DESCRIPTION:Traditional lunch in the medieval borgo by Ostia Antica\, clos
+ e enough to avoid a long midday transfer after the ruins.\nCost: €28.00\
+ nCategory: meal\nLink 1: https://maps.google.com/?cid=6194301250260823979&
+ g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA\nNote
+ s: Tool verified Tuesday lunch opening 12:30–15:00.
+LOCATION:Arianna al Borghetto\, Via del Forno\, 11\, Ostia Antica\, Rome
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Borgo and Castle of Julius II exterior stroll
+DTSTART:20260707T141500
+DTEND:20260707T150000
+DTSTAMP:20260516T163814Z
+UID:78b69259b12d4d62@travelplanner.local
+DESCRIPTION:Short post-lunch look at the medieval borgo and exterior of Ca
+ stello di Giulio II. Interior weekday access is uncertain\, so treat it as
+  an exterior hidden-gem add-on.\nCost: €0.00\nCategory: leisure\nLink 1:
+  https://ostiaantica.cultura.gov.it/en/\nNotes: Castle interior opening on
+  Tuesday is unreliable\; no paid slot planned.
+LOCATION:Borgo di Ostia Antica / Castello di Giulio II
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Return to central Rome
+DTSTART:20260707T150000
+DTEND:20260707T160000
+DTSTAMP:20260516T163814Z
+UID:d9516fcf7b4fc997@travelplanner.local
+DESCRIPTION:Return from Ostia Antica by Metromare/Roma-Lido to Piramide\, 
+ then continue by metro/bus or walk/taxi depending on energy and hotel loca
+ tion.\nCost: €2.00\nCategory: transport\nLink 1: https://www.rometoolkit
+ .com/whattodo/ostia_antica.html\nNotes: Conservative 60-minute estimate.
+LOCATION:Ostia Antica to central Rome
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Jewish Ghetto and Portico d’Ottavia walk
+DTSTART:20260707T163000
+DTEND:20260707T180000
+DTSTAMP:20260516T163814Z
+UID:a0848bf960b42c8c@travelplanner.local
+DESCRIPTION:Self-guided hidden-history walk around Portico d’Ottavia\, T
+ eatro di Marcello\, Via del Portico d’Ottavia\, and the Roman-Jewish qua
+ rter before dinner.\nCost: €0.00\nCategory: attraction\nLink 1: https://
+ www.turismoroma.it/en/places/portico-dottavia\nNotes: Outdoor sites\; best
+  in late afternoon after the Ostia heat.
+LOCATION:Portico d’Ottavia / Jewish Ghetto\, Rome
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Roman-Jewish dinner at Yotvata
+DTSTART:20260707T183000
+DTEND:20260707T200000
+DTSTAMP:20260516T163814Z
+UID:e90f16a550bd2be0@travelplanner.local
+DESCRIPTION:Dinner in the Jewish Ghetto area with Roman-Jewish specialties
+ \; a good place to try carciofi alla giudia if available/seasonal alternat
+ ives.\nCost: €35.00\nCategory: meal\nLink 1: http://www.yotvata.it/\nNot
+ es: Tool verified Tuesday dinner opening 18:30–23:00.
+LOCATION:Yotvata\, Piazza Cenci\, 70\, Rome
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Campo de’ Fiori evening stroll or gelato
+DTSTART:20260707T200000
+DTEND:20260707T210000
+DTSTAMP:20260516T163814Z
+UID:810b340cb27656b0@travelplanner.local
+DESCRIPTION:Unstructured final evening nearby: wander toward Campo de’ F
+ iori or Largo di Torre Argentina and use the remaining budget for gelato o
+ r a drink.\nCost: €8.00\nCategory: leisure\nLink 1: https://www.turismor
+ oma.it/en/places/largo-di-torre-argentina\nNotes: Keep flexible\; no booki
+ ng needed.
+LOCATION:Campo de’ Fiori / Largo di Torre Argentina\, Rome
 END:VEVENT
 END:VCALENDAR

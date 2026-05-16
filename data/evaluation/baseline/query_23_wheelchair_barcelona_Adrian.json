@@ -1,0 +1,8 @@
+{
+  "id": "query_23_wheelchair_barcelona_Adrian",
+  "source": "baseline",
+  "status": "error",
+  "error": "ValidationError: 1 validation error for TravelPlan\ndays.5.slots.1.category\n  Input should be 'meal', 'attraction', 'transport', 'lodging', 'leisure' or 'other' [type=literal_error, input_value='accommodation', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/literal_error",
+  "duration_seconds": 56.5,
+  "plan_path": "data/travelplans/baseline/query_23_wheelchair_barcelona_Adrian.md"
+}

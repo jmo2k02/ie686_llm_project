@@ -19,10 +19,10 @@
     "interests": "museums, food, city walks"
   },
   "model_name": "openrouter:google/gemini-3-flash-preview",
-  "generated_at": "2026-05-15T10:40:13.613945+00:00",
-  "duration_seconds": 428.49,
+  "generated_at": "2026-05-16T13:10:46.617512+00:00",
+  "duration_seconds": 486.85,
   "travelplan": {
-    "title": "Munich to Vienna 5-day trip, July 10–14 2026",
+    "title": "Munich to Vienna, 5 days, July 10–14 2026",
     "days": [
       {
         "index": 1,
@@ -30,508 +30,464 @@
         "label": "Arrival and Innere Stadt",
         "slots": [
           {
-            "name": "Direct Railjet train: Munich → Vienna",
-            "description": "Budget-friendly direct ÖBB/DB Railjet-style train from München Hbf to Wien Hbf. Exact July 2026 schedules are not finalized yet; typical direct journey is about 4 hours. Book Sparschiene/advance fares when released.",
-            "start_time": "2026-07-10T07:30:00",
-            "end_time": "2026-07-10T11:30:00",
+            "name": "Outbound train: Munich Hbf → Wien Hbf",
+            "description": "Budget-conscious rail transfer from Munich to Vienna. Target a direct ÖBB Railjet/DB service when July 2026 tickets open; current official-style guidance indicates about 4 hours, with advance fares from about €19.99 per person each way. Exact train number/timetable should be booked once released.",
+            "start_time": "2026-07-10T08:00:00",
+            "end_time": "2026-07-10T12:30:00",
             "category": "transport",
-            "location": "München Hbf → Wien Hbf",
-            "cost": 56.0,
+            "location": "Munich Hbf to Wien Hbf",
+            "cost": 46.0,
             "links": [
-              "https://www.oebb.at/en/tickets-kundenkarten/oesterreich-weit/sparschiene",
-              "https://www.austrianrailways.com/train-munich-to-vienna"
+              "https://www.oebb.at/",
+              "https://www.bahn.com/"
             ],
-            "notes": "Estimated one-way cost for 2 adults: €25 each plus small seat reservation allowance."
+            "notes": "Cost estimate for 2 people one-way using advance Sparschiene/Super Sparpreis-style fares plus small reservation buffer; exact fare not guaranteed."
           },
           {
-            "name": "Transfer: Wien Hbf → Hotel Pension Walzerstadt",
-            "description": "Take Vienna public transport from Wien Hbf toward Zieglergasse/1070 district. Routing API unavailable due missing key, but hotel is near U3 Zieglergasse and Wien Hbf connects via U1/U-Bahn network.",
-            "start_time": "2026-07-10T11:30:00",
-            "end_time": "2026-07-10T12:15:00",
-            "category": "transport",
-            "location": "Wien Hbf → Zieglergasse 35, 1070 Vienna",
-            "cost": 0.0,
-            "links": [
-              "https://www.wien.info/en/travel-info/transport/tickets-361360"
-            ],
-            "notes": "Covered by 7-day Vienna digital ticket added separately."
-          },
-          {
-            "name": "Buy 7-day Vienna public transport tickets",
-            "description": "Buy two digital 7-day Vienna core-zone tickets. 2026 fare source indicates €25.20 per person and better value than abolished 48/72-hour tickets.",
-            "start_time": "2026-07-10T13:00:00",
+            "name": "Transfer to Hotel Pension Walzerstadt",
+            "description": "Take U-Bahn/tram from Wien Hauptbahnhof toward Neubau/Zieglergasse and drop bags at the hotel. Routing tool was unavailable, so timing is a conservative estimate.",
+            "start_time": "2026-07-10T12:30:00",
             "end_time": "2026-07-10T13:15:00",
             "category": "transport",
-            "location": "WienMobil app / Wiener Linien",
-            "cost": 50.4,
+            "location": "Wien Hbf → Hotel Pension Walzerstadt, 1070 Vienna",
+            "cost": 0.0,
             "links": [
-              "https://www.wien.info/en/travel-info/transport/tickets-361360"
+              "https://www.wienerlinien.at/web/wl-en"
             ],
-            "notes": "Covers city transit July 10–14, not intercity train."
+            "notes": "Covered by planned Vienna public-transport pass; route timing not API-verified due missing routing key."
           },
           {
-            "name": "Lunch: Trzesniewski open sandwiches",
-            "description": "Iconic Viennese standing snack bar with small open-faced sandwiches, ideal for an inexpensive first local meal.",
-            "start_time": "2026-07-10T13:30:00",
-            "end_time": "2026-07-10T14:15:00",
+            "name": "Check-in: Hotel Pension Walzerstadt",
+            "description": "Suggested accommodation: Hotel Pension Walzerstadt, a budget-friendly 1070/Neubau option with WiFi and strong hotel-search rating. Quoted search result: €96/night for 4 nights.",
+            "start_time": "2026-07-10T13:15:00",
+            "end_time": "2026-07-10T14:00:00",
+            "category": "lodging",
+            "location": "Hotel Pension Walzerstadt, Vienna",
+            "cost": 384.0,
+            "links": [
+              "https://travelstack.nuitee.link/hotels/lp6586ac75?checkin=2026-07-10&checkout=2026-07-14&rooms=1&adults=2&occupancies=W3siYWR1bHRzIjoyLCJjaGlsZHJlbiI6W119XQ%3D%3D&language=de&currency=EUR"
+            ],
+            "notes": "Total lodging estimate for 2 adults, 4 nights. Alternative: Hotel Schani Salon at about €106/night if availability changes."
+          },
+          {
+            "name": "Lunch: Vollpension Johannesgasse",
+            "description": "Late lunch/cake at Vollpension, a local Viennese café/social business where seniors bake traditional cakes. Johannesgasse branch is central and open daily 08:00–18:00.",
+            "start_time": "2026-07-10T14:00:00",
+            "end_time": "2026-07-10T15:00:00",
             "category": "meal",
-            "location": "Trzesniewski, Dorotheergasse 1, 1010 Vienna",
-            "cost": 24.0,
+            "location": "Vollpension Johannesgasse 4A, 1010 Vienna",
+            "cost": 35.0,
             "links": [
-              "https://www.speckmittei.at",
-              "https://www.travelsignposts.com/Austria/food/trzesniewski"
+              "https://www.vollpension.wien/en/grannys-public-living-room/4th-district/",
+              "https://www.vollpension.wien/en/faq/"
             ],
-            "notes": "Flagship location; open Friday daytime."
+            "notes": "Estimated €35 for 2 for light lunch/cake and coffee."
           },
           {
-            "name": "Self-guided Innere Stadt walk",
-            "description": "Walk Stephansplatz, Graben, Kohlmarkt, Hofburg exterior, Michaelerplatz, and hidden courtyards/Durchhäuser around the old town. Low-cost orientation on foot.",
-            "start_time": "2026-07-10T14:15:00",
-            "end_time": "2026-07-10T17:00:00",
+            "name": "Self-guided Innere Stadt courtyard walk",
+            "description": "Explore the old city on foot: Stephansplatz, quiet lanes, hidden Durchhäuser/courtyards, Blutgasse area, and elegant Ringstraße edges. Keep it flexible after the train journey.",
+            "start_time": "2026-07-10T15:15:00",
+            "end_time": "2026-07-10T17:30:00",
             "category": "attraction",
             "location": "Innere Stadt, Vienna",
             "cost": 0.0,
             "links": [
-              "https://www.google.com/maps/search/St.+Stephen's+Cathedral+Vienna",
               "https://www.google.com/maps/search/Schottendurchhaus"
             ],
-            "notes": "Keep this flexible after travel."
+            "notes": "Low-cost walking-focused arrival activity; stay respectful in semi-private courtyards."
           },
           {
-            "name": "Check in: Hotel Pension Walzerstadt",
-            "description": "Budget accommodation in the 7th district with Wi‑Fi, close to U3 Zieglergasse and Mariahilfer Straße. Quoted hotel search rate €96/night for 4 nights.",
-            "start_time": "2026-07-10T12:15:00",
-            "end_time": "2026-07-10T13:00:00",
-            "category": "lodging",
-            "location": "Hotel Pension Walzerstadt, Zieglergasse 35, 1070 Vienna",
-            "cost": 384.0,
-            "links": [
-              "https://travelstack.nuitee.link/hotels?placeId=ChIJbRAjM5uobUcRO98FQnxbmd0&placeTypes=&name=Vienna&checkin=2026-07-10&checkout=2026-07-14&rooms=1&adults=2&occupancies=W3siYWR1bHRzIjoyLCJjaGlsZHJlbiI6W119XQ%3D%3D&sorting=1&language=de&currency=EUR",
-              "https://www.booking.com/hotel/at/pension-walzerstadt.html"
-            ],
-            "notes": "Check-in time not verified; ask hotel for early luggage drop if room is not ready."
-          },
-          {
-            "name": "Dinner: Griechenbeisl",
-            "description": "Traditional Austrian dinner in one of Vienna’s oldest restaurants, near Schwedenplatz; historic rooms and classic dishes.",
-            "start_time": "2026-07-10T19:00:00",
-            "end_time": "2026-07-10T20:30:00",
+            "name": "Dinner: Gasthaus Pöschl",
+            "description": "Traditional central Viennese Beisl dinner. Gasthaus Pöschl is near Stephansplatz and typically open Monday–Saturday 12:00–23:00; good for classic Austrian dishes.",
+            "start_time": "2026-07-10T18:30:00",
+            "end_time": "2026-07-10T20:00:00",
             "category": "meal",
-            "location": "Griechenbeisl, Fleischmarkt 11, 1010 Vienna",
-            "cost": 70.0,
+            "location": "Weihburggasse 17, 1010 Vienna",
+            "cost": 60.0,
             "links": [
-              "https://www.griechenbeisl.at/",
-              "https://www.wien.info/en/griechenbeisl-132812"
+              "https://www.gasthauspöschl.com"
             ],
-            "notes": "Reserve ahead; estimate assumes moderate mains and drinks for 2."
+            "notes": "Estimated €60 for 2 with mains and drinks; reserve ahead."
+          },
+          {
+            "name": "Buy/activate 7-day Vienna public transport ticket",
+            "description": "Activate the digital 7-day Vienna public transport ticket instead of the 72-hour/Vienna City Card option. Validator repair: this cheaper ticket covers all city trams/U-Bahn/buses through the Day 5 departure transfer and reduces total cost versus €29 per person 72-hour coverage.",
+            "start_time": "2026-07-10T20:15:00",
+            "end_time": "2026-07-10T20:30:00",
+            "category": "transport",
+            "location": "Wiener Linien / ivie app",
+            "cost": 50.4,
+            "links": [
+              "https://www.wienerlinien.at/web/wl-en/news/new-fare-structure-from-1-january-2026",
+              "https://www.wien.info/en/travel-info/transport/tickets-361360"
+            ],
+            "notes": "Estimated €25.20 per person x 2 = €50.40; buy digitally after checking 2026 fare terms."
           }
         ]
       },
       {
         "index": 2,
         "calendar_date": "2026-07-11",
-        "label": "Hofburg and classic Vienna",
+        "label": "Imperial Vienna museums",
         "slots": [
           {
-            "name": "Breakfast at Café Sperl",
-            "description": "Historic Viennese coffee house breakfast before a museum-heavy day. Café Sperl is open Saturdays in July; avoid Sundays in July/August due to Sunday closure.",
+            "name": "Breakfast: local bakery/café near Neubau",
+            "description": "Simple Viennese bakery breakfast before the museum day: coffee, pastries, or rolls near the hotel.",
             "start_time": "2026-07-11T08:30:00",
-            "end_time": "2026-07-11T09:30:00",
+            "end_time": "2026-07-11T09:15:00",
             "category": "meal",
-            "location": "Café Sperl, Gumpendorfer Straße 11, 1060 Vienna",
-            "cost": 28.0,
-            "links": [
-              "https://www.cafesperl.at",
-              "https://www.wien.info/en/caf%C3%A9-sperl-film-location-920732"
-            ],
-            "notes": "Estimated for 2 coffees and pastries/light breakfast."
+            "location": "Neubau / Zieglergasse area, Vienna",
+            "cost": 20.0,
+            "links": [],
+            "notes": "No specific booking needed; estimated €20 for 2."
           },
           {
             "name": "Walk/transit to Kunsthistorisches Museum",
-            "description": "From the hotel area to Maria-Theresien-Platz; hotel is about a 20–25 minute walk or short U3 ride to Volkstheater/MuseumsQuartier.",
-            "start_time": "2026-07-11T09:30:00",
+            "description": "Travel from Neubau to Maria-Theresien-Platz. This is a central, walkable segment or short tram/U-Bahn ride; exact routing could not be API-verified.",
+            "start_time": "2026-07-11T09:15:00",
             "end_time": "2026-07-11T10:00:00",
             "category": "transport",
-            "location": "Hotel Pension Walzerstadt → Kunsthistorisches Museum",
+            "location": "Hotel Pension Walzerstadt → Kunsthistorisches Museum Wien",
             "cost": 0.0,
             "links": [
-              "https://www.wien.info/en/travel-info/transport/tickets-361360"
+              "https://www.wienerlinien.at/web/wl-en"
             ],
-            "notes": "Routing API was unavailable; estimate based on verified hotel and museum transit proximity."
+            "notes": "Covered by transport pass; approximate timing."
           },
           {
-            "name": "Kunsthistorisches Museum",
-            "description": "Focus on Bruegel, the Kunstkammer, Egyptian/Greek collections, and Klimt’s staircase decorations. Official July hours: daily 10:00–18:00.",
+            "name": "Kunsthistorisches Museum Wien",
+            "description": "Visit Vienna’s major art-history museum: Bruegel, Kunstkammer treasures, imperial collections, and the grand Semper building. July schedule found: daily 10:00–18:00; adult admission about €22 online.",
             "start_time": "2026-07-11T10:00:00",
             "end_time": "2026-07-11T13:00:00",
             "category": "attraction",
-            "location": "Kunsthistorisches Museum, Maria-Theresien-Platz, 1010 Vienna",
+            "location": "Maria-Theresien-Platz, 1010 Vienna",
             "cost": 44.0,
             "links": [
-              "https://www.khm.at/en/visit"
+              "https://www.khm.at/",
+              "https://www.google.com/maps/search/Kunsthistorisches+Museum+Wien"
             ],
-            "notes": "Estimated €22 per adult."
+            "notes": "Book tickets/timed options ahead in high season."
           },
           {
-            "name": "Lunch: Figlmüller Bäckerstraße",
-            "description": "Classic schnitzel lunch in the old town; official hours daily 11:30–23:30, kitchen until 22:00.",
+            "name": "Lunch: Glacis Beisl at MuseumsQuartier",
+            "description": "Classic Viennese lunch in the leafy MuseumsQuartier garden. Official MQ hours found: daily 12:00–24:00.",
             "start_time": "2026-07-11T13:15:00",
             "end_time": "2026-07-11T14:30:00",
             "category": "meal",
-            "location": "Figlmüller, Bäckerstraße 6, 1010 Vienna",
-            "cost": 55.0,
+            "location": "Breite Gasse 4, 1070 Vienna",
+            "cost": 50.0,
             "links": [
-              "https://www.figlmueller.at/en/reservations/",
-              "https://www.figlmueller.at/en/location-contact/"
+              "https://www.mqw.at/en/visit/opening-hours/",
+              "https://glacisbeisl.at/en/"
             ],
-            "notes": "Reserve; estimate for 2 schnitzels/sides and soft drinks."
+            "notes": "Estimated €50 for 2; reserve garden seating if weather is good."
           },
           {
-            "name": "Hofburg exterior and imperial lanes walk",
-            "description": "Walk through Graben/Kohlmarkt to Michaelerplatz, Hofburg courtyards, Volksgarten, and Ringstraße viewpoints. Keeps costs low while covering imperial Vienna on foot.",
+            "name": "MuseumsQuartier courtyards and Neubau walk",
+            "description": "Stroll the MQ courtyards, then wander Spittelberg/Neubau streets for galleries, small shops, and people-watching. The MQ grounds are free and open around the clock; museum entries optional.",
             "start_time": "2026-07-11T14:30:00",
             "end_time": "2026-07-11T16:30:00",
-            "category": "attraction",
-            "location": "Hofburg Palace area, 1010 Vienna",
+            "category": "leisure",
+            "location": "MuseumsQuartier and Spittelberg, Vienna",
             "cost": 0.0,
             "links": [
-              "https://www.google.com/maps/search/Hofburg+Palace+Vienna"
+              "https://www.mqw.at/en/"
             ],
-            "notes": "Optional paid Sisi Museum if budget allows, but not included in cost."
+            "notes": "Keeps the day walkable after the KHM visit."
           },
           {
-            "name": "Coffee and cake break",
-            "description": "Pause for Melange and cake in the historic center. Café Central is expected closed for renovation in 2026, so use Café Museum or another open café nearby.",
-            "start_time": "2026-07-11T16:30:00",
-            "end_time": "2026-07-11T17:15:00",
+            "name": "Dinner: Figlmüller Wollzeile",
+            "description": "Classic schnitzel dinner at Figlmüller’s original Wollzeile location. Official hours found: daily 11:00–22:30, kitchen until 21:30.",
+            "start_time": "2026-07-11T18:30:00",
+            "end_time": "2026-07-11T20:00:00",
             "category": "meal",
-            "location": "Café Museum or nearby historic café",
-            "cost": 24.0,
+            "location": "Wollzeile 5, 1010 Vienna",
+            "cost": 65.0,
             "links": [
-              "https://www.cafemuseum.at/en/cafe-museum.html"
+              "https://www.figlmueller.at/en/wollzeile/",
+              "https://www.figlmueller.at/en/reservations/"
             ],
-            "notes": "Café Central renovation noted in research; not scheduled."
-          },
-          {
-            "name": "Dinner: Plachutta Wollzeile",
-            "description": "Traditional Tafelspitz dinner at a classic Vienna restaurant; open daily 11:30–23:30.",
-            "start_time": "2026-07-11T19:00:00",
-            "end_time": "2026-07-11T20:45:00",
-            "category": "meal",
-            "location": "Plachutta Wollzeile, Wollzeile 38, 1010 Vienna",
-            "cost": 90.0,
-            "links": [
-              "https://www.plachutta.at/en/restaurant/wollzeile/"
-            ],
-            "notes": "Reserve; this is the splurge dinner of the trip."
+            "notes": "Reserve several weeks ahead; budget includes schnitzel, sides, and drinks for 2."
           }
         ]
       },
       {
         "index": 3,
         "calendar_date": "2026-07-12",
-        "label": "Belvedere and Naschmarkt",
+        "label": "Belvedere and food culture",
         "slots": [
           {
-            "name": "Breakfast at Café Museum",
-            "description": "Classic Vienna café near Karlsplatz; breakfast is served daily until 11:30.",
+            "name": "Sunday breakfast: Café Museum near Karlsplatz",
+            "description": "Sunday-safe breakfast option before the Karlsplatz walk. Café Museum is a historic Viennese café near Karlsplatz/Opera; web verification found it open Sundays from about 08:00, while Naschmarkt produce stalls are closed on Sundays.",
             "start_time": "2026-07-12T08:30:00",
             "end_time": "2026-07-12T09:30:00",
             "category": "meal",
             "location": "Café Museum, Operngasse 7, 1010 Vienna",
-            "cost": 30.0,
+            "cost": 25.0,
             "links": [
-              "https://www.cafemuseum.at/en/cafe-museum.html"
+              "https://www.cafemuseum.at/en/cafe-museum.html",
+              "https://www.naschmarkt-wien.at/en/naschmarkt-vienna-opening-hours/"
             ],
-            "notes": "Good start before Stadtpark and Belvedere."
+            "notes": "Use this instead of Naschmarkt stalls on Sunday; Naschmarkt gastronomy may operate Sunday 10:00–21:00, but produce/market stalls are closed."
           },
           {
-            "name": "Lunch: Meierei im Stadtpark",
-            "description": "Casual bistro/café in Stadtpark from the Steirereck group; note official research suggests Sunday opening may vary, so verify/reserve or substitute Café Museum if closed.",
-            "start_time": "2026-07-12T11:00:00",
-            "end_time": "2026-07-12T12:15:00",
-            "category": "meal",
-            "location": "Meierei im Stadtpark, Am Heumarkt 2a, 1030 Vienna",
-            "cost": 60.0,
-            "links": [
-              "https://www.steirereck.at/meierei.html"
-            ],
-            "notes": "If Sunday closure is confirmed, replace with Café Museum or trude at Wien Museum."
-          },
-          {
-            "name": "Stadtpark morning walk",
-            "description": "Walk through Stadtpark to see the Johann Strauss monument and green spaces before lunch; free and central.",
-            "start_time": "2026-07-12T09:30:00",
-            "end_time": "2026-07-12T10:30:00",
-            "category": "attraction",
-            "location": "Stadtpark, Vienna",
+            "name": "Karlsplatz and Stadtpark architecture walk",
+            "description": "Free self-guided walk around Karlsplatz, Otto Wagner pavilion exteriors, Secession area, and Stadtpark edges before lunch. This keeps Sunday lower-cost while still museum/architecture themed.",
+            "start_time": "2026-07-12T10:00:00",
+            "end_time": "2026-07-12T12:00:00",
+            "category": "leisure",
+            "location": "Karlsplatz / Stadtpark, Vienna",
             "cost": 0.0,
             "links": [
-              "https://www.google.com/maps/search/Stadtpark+Vienna"
+              "https://www.wienmuseum.at/admission"
             ],
-            "notes": "Pairs naturally with Meierei in Stadtpark."
+            "notes": "Wien Museum remains a paid optional add-on if budget allows; this slot uses exterior/public spaces."
           },
           {
-            "name": "Transfer/walk to Upper Belvedere",
-            "description": "Walk or take tram toward Prinz-Eugen-Straße for Belvedere. The site is south-east of the Ring; allow about 30 minutes from Stadtpark area.",
+            "name": "Lunch: Vollpension Schleifmühlgasse",
+            "description": "Lunch/cake stop at the original Vollpension near Naschmarkt. Sunday availability checked: official-style web result confirms Schleifmühlgasse is open daily including Sundays, 08:00–20:00; reserve ahead for a July Sunday.",
             "start_time": "2026-07-12T12:15:00",
-            "end_time": "2026-07-12T12:45:00",
-            "category": "transport",
-            "location": "Stadtpark → Upper Belvedere",
-            "cost": 0.0,
-            "links": [
-              "https://www.wien.info/en/travel-info/transport/tickets-361360"
-            ],
-            "notes": "Covered by Vienna transport ticket if using tram."
-          },
-          {
-            "name": "Upper Belvedere museum",
-            "description": "Visit Klimt’s The Kiss, Austrian art collections, and Baroque palace rooms. Official visitor info: Upper Belvedere opens daily, typically 09:00–18:00.",
-            "start_time": "2026-07-12T13:00:00",
-            "end_time": "2026-07-12T16:00:00",
-            "category": "attraction",
-            "location": "Upper Belvedere, Prinz-Eugen-Straße 27, 1030 Vienna",
+            "end_time": "2026-07-12T13:15:00",
+            "category": "meal",
+            "location": "Schleifmühlgasse 16, 1040 Vienna",
             "cost": 40.0,
             "links": [
-              "https://www.belvederepalace.at/en/visiting-hours",
-              "https://www.google.com/maps/search/Austrian+Gallery+Belvedere"
+              "https://www.vollpension.wien/en/grannys-public-living-room/4th-district/",
+              "https://www.vollpension.wien/en/reservation/",
+              "https://www.vollpension.wien/en/faq/"
             ],
-            "notes": "Estimated €20 per adult; book timed entry."
+            "notes": "Sunday closing-law check completed: this café is open Sunday; Johannesgasse branch is a backup with daily 08:00–18:00 hours."
           },
           {
-            "name": "Belvedere Gardens walk",
-            "description": "Walk the free formal gardens between Upper and Lower Belvedere for city views and photos.",
-            "start_time": "2026-07-12T16:00:00",
-            "end_time": "2026-07-12T17:00:00",
-            "category": "attraction",
-            "location": "Belvedere Gardens, Vienna",
+            "name": "Walk/tram to Belvedere",
+            "description": "Move from Karlsplatz/Naschmarkt area toward the Upper Belvedere, by walking plus tram or a short public-transport hop.",
+            "start_time": "2026-07-12T13:15:00",
+            "end_time": "2026-07-12T14:00:00",
+            "category": "transport",
+            "location": "Karlsplatz / Schleifmühlgasse → Upper Belvedere",
             "cost": 0.0,
             "links": [
-              "https://www.belvederepalace.at/en/visiting-hours"
+              "https://www.wienerlinien.at/web/wl-en"
             ],
-            "notes": "Free outdoor component."
+            "notes": "Covered by transport pass; timing approximate."
           },
           {
-            "name": "Dinner: Bitzinger Würstelstand Albertina",
-            "description": "Budget-friendly Viennese street food: Käsekrainer or bratwurst near the Opera/Albertina. Open daily 08:00–04:00.",
-            "start_time": "2026-07-12T18:30:00",
-            "end_time": "2026-07-12T19:15:00",
-            "category": "meal",
-            "location": "Bitzinger Würstelstand, Albertinaplatz 1, 1010 Vienna",
-            "cost": 22.0,
+            "name": "Upper Belvedere and gardens",
+            "description": "See Klimt’s The Kiss and the Upper Belvedere collection, then walk the free Baroque gardens. Sunday availability checked for July 12: Upper Belvedere is open daily/Sunday 09:00–18:00; reserve timed entry, noting possible renovation impacts in 2026.",
+            "start_time": "2026-07-12T14:00:00",
+            "end_time": "2026-07-12T17:30:00",
+            "category": "attraction",
+            "location": "Prinz-Eugen-Straße 27, 1030 Vienna",
+            "cost": 46.0,
             "links": [
-              "https://bitzinger.wien/en/wuerstelstand/impressum/"
+              "https://www.belvederepalace.at/en/visiting-hours",
+              "https://www.google.com/maps/search/Upper+Belvedere+Vienna"
             ],
-            "notes": "Keeps the day budget balanced after museum tickets."
+            "notes": "Sunday check completed: 14:00–17:30 fits within 09:00–18:00 opening; last admission may be 30–60 minutes before closing."
+          },
+          {
+            "name": "Dinner: Café Sacher light meal and Original Sacher-Torte",
+            "description": "Traditional Viennese café evening near the Opera with cake and coffee/light meal. Sunday availability checked: Café Sacher is expected to be open daily on Sunday July 12, with current verified hours around 08:00–23:00; Sacher Eck/shop are backups if queues are long. Café Central is excluded because it is expected to be closed for renovation in July 2026.",
+            "start_time": "2026-07-12T18:30:00",
+            "end_time": "2026-07-12T20:00:00",
+            "category": "meal",
+            "location": "Philharmoniker Straße 4, 1010 Vienna",
+            "cost": 60.0,
+            "links": [
+              "https://www.sacher.com/en/faqs/"
+            ],
+            "notes": "Sunday check completed: dinner slot fits within daily hours; expect queues and consider Sacher Eck if main café is full."
           }
         ]
       },
       {
         "index": 4,
         "calendar_date": "2026-07-13",
-        "label": "Schönbrunn and MuseumsQuartier",
+        "label": "Leopoldstadt and Prater",
         "slots": [
           {
-            "name": "Breakfast near Mariahilfer Straße",
-            "description": "Simple café/bakery breakfast near the hotel before taking U4/U-Bahn connections toward Schönbrunn.",
-            "start_time": "2026-07-13T08:00:00",
-            "end_time": "2026-07-13T08:45:00",
+            "name": "Breakfast: local bakery/café near Neubau",
+            "description": "Simple breakfast near the hotel before heading to Leopoldstadt/Prater.",
+            "start_time": "2026-07-13T08:30:00",
+            "end_time": "2026-07-13T09:15:00",
             "category": "meal",
-            "location": "Near Hotel Pension Walzerstadt / Mariahilfer Straße",
+            "location": "Neubau / Zieglergasse area, Vienna",
             "cost": 20.0,
-            "links": [
-              "https://www.wien.info/en/travel-info/transport/tickets-361360"
-            ],
-            "notes": "Use local bakery/café to preserve budget."
+            "links": [],
+            "notes": "Estimated €20 for 2."
           },
           {
-            "name": "Schönbrunn Palace Park and Gloriette walk",
-            "description": "Explore the free palace gardens, Great Parterre, fountains, and walk up to the Gloriette. Palace park July hours researched as 06:30–21:00; palace interiors are optional if budget allows.",
-            "start_time": "2026-07-13T09:30:00",
-            "end_time": "2026-07-13T12:00:00",
-            "category": "attraction",
-            "location": "Schönbrunn Palace Park, Schönbrunner Schloßstraße 47, 1130 Vienna",
+            "name": "Transit to Praterstern / Prater",
+            "description": "Use U-Bahn/tram to reach Praterstern, then walk into the Prater. Routing tool unavailable; timing is conservative.",
+            "start_time": "2026-07-13T09:15:00",
+            "end_time": "2026-07-13T10:00:00",
+            "category": "transport",
+            "location": "Hotel Pension Walzerstadt → Praterstern / Prater",
             "cost": 0.0,
             "links": [
-              "https://schonbrunn-palace.org/opening-hours-best-time/",
-              "https://www.google.com/maps/search/Schönbrunn+Palace+Park"
+              "https://www.wienerlinien.at/web/wl-en"
             ],
-            "notes": "Free garden-focused option preserves total budget."
+            "notes": "Covered by public-transport pass."
           },
           {
-            "name": "Lunch: Joseph II Schloss-Restaurant Schönbrunn",
-            "description": "Convenient Austrian lunch inside the Schönbrunn complex; official research found daily opening 11:00–20:30, hot food 11:30–19:30.",
-            "start_time": "2026-07-13T12:00:00",
-            "end_time": "2026-07-13T13:15:00",
-            "category": "meal",
-            "location": "Joseph II, Schönbrunner Schloßstraße 47, 1130 Vienna",
-            "cost": 50.0,
+            "name": "Prater Hauptallee walk",
+            "description": "Free walk along the Prater Hauptallee and quieter green edges before lunch, focusing on local leisure culture and city walking.",
+            "start_time": "2026-07-13T10:00:00",
+            "end_time": "2026-07-13T12:30:00",
+            "category": "leisure",
+            "location": "Prater Hauptallee, 1020 Vienna",
+            "cost": 0.0,
             "links": [
-              "https://www.restaurant-schoenbrunn.at/en"
+              "https://www.google.com/maps/search/Prater+Hauptallee+Vienna"
             ],
-            "notes": "Estimate for moderate lunch for 2; reserve if possible."
+            "notes": "Optional bowling at Kugeltanz can be added only if there is spare budget."
           },
           {
-            "name": "Transfer to Karlsplatz / MuseumsQuartier",
-            "description": "Transit back toward central Vienna for free/low-cost museum and MQ time.",
-            "start_time": "2026-07-13T13:15:00",
+            "name": "Lunch: Schweizerhaus Prater",
+            "description": "Classic Prater beer garden lunch. Official-season info found: open daily in July, 11:00–23:00, kitchen until 22:30; known for Stelze and beer garden atmosphere.",
+            "start_time": "2026-07-13T12:45:00",
             "end_time": "2026-07-13T14:00:00",
-            "category": "transport",
-            "location": "Schönbrunn → Karlsplatz / MuseumsQuartier",
-            "cost": 0.0,
-            "links": [
-              "https://www.wien.info/en/travel-info/transport/tickets-361360"
-            ],
-            "notes": "Covered by Vienna ticket."
-          },
-          {
-            "name": "Wien Museum Karlsplatz and MuseumsQuartier walk",
-            "description": "Visit the free permanent exhibition at Wien Museum Karlsplatz if open and continue on foot through Karlsplatz, Secession exterior, Naschmarkt edge, and MuseumsQuartier courtyards. Note: Wien Museum is normally closed Mondays, so if closed use MQ courtyards/Spittelberg walk instead.",
-            "start_time": "2026-07-13T14:00:00",
-            "end_time": "2026-07-13T17:00:00",
-            "category": "attraction",
-            "location": "Karlsplatz → MuseumsQuartier, Vienna",
-            "cost": 0.0,
-            "links": [
-              "https://whichmuseum.com/museum/wien-museum-karlsplatz-vienna-5358/opening-hours",
-              "https://www.mqw.at/en/"
-            ],
-            "notes": "Monday closure likely; the walk/MQ courtyards remain valid and free."
-          },
-          {
-            "name": "Transfer to Schönbrunn",
-            "description": "Use Vienna public transport from the 7th district toward U4 Schönbrunn/Hietzing for the palace park. Exact live route unavailable, but Schönbrunn is directly served by U4.",
-            "start_time": "2026-07-13T08:45:00",
-            "end_time": "2026-07-13T09:30:00",
-            "category": "transport",
-            "location": "Hotel Pension Walzerstadt → Schönbrunn Palace Park",
-            "cost": 0.0,
-            "links": [
-              "https://www.wien.info/en/travel-info/transport/tickets-361360"
-            ],
-            "notes": "Covered by 7-day Vienna ticket."
-          },
-          {
-            "name": "Dinner: Glacis Beisl",
-            "description": "Traditional Viennese Beisl cuisine with garden atmosphere beside MuseumsQuartier; official source found daily opening 12:00–00:00.",
-            "start_time": "2026-07-13T18:30:00",
-            "end_time": "2026-07-13T20:00:00",
             "category": "meal",
-            "location": "Glacis Beisl, Breite Gasse 4, 1070 Vienna",
-            "cost": 55.0,
+            "location": "Prater 116, 1020 Vienna",
+            "cost": 65.0,
             "links": [
-              "https://glacisbeisl.at/en/",
-              "https://www.mqw.at/en/catering/glacis-beisl/"
+              "https://www.schweizerhaus.at/en/",
+              "https://prater.at/en/schweizerhaus-season-opening-2026/"
             ],
-            "notes": "Good fit after MQ/Spittelberg walk."
+            "notes": "Estimated €65 for 2; order one shared Stelze if portions are large."
+          },
+          {
+            "name": "Leopoldstadt canal and Augarten walk",
+            "description": "Walk north/west through Leopoldstadt toward the Danube Canal or Augarten for a quieter neighborhood afternoon. Free, pedestrian-friendly exploration.",
+            "start_time": "2026-07-13T14:15:00",
+            "end_time": "2026-07-13T16:30:00",
+            "category": "leisure",
+            "location": "Leopoldstadt / Augarten / Danube Canal, Vienna",
+            "cost": 0.0,
+            "links": [
+              "https://www.wien.info/en"
+            ],
+            "notes": "Flexible walking block; shorten if hot."
+          },
+          {
+            "name": "Dinner: Bauernbräu",
+            "description": "Traditional Austrian dinner at the moderate-budget Bauernbräu. Restaurant search returned high rating and Monday hours 17:00–23:00.",
+            "start_time": "2026-07-13T18:00:00",
+            "end_time": "2026-07-13T19:30:00",
+            "category": "meal",
+            "location": "Gumpendorfer Str. 134/136, 1060 Vienna",
+            "cost": 60.0,
+            "links": [
+              "https://lokaltipp.at/lokal/qPK4WlG/bauernbrau"
+            ],
+            "notes": "Good fit near Gumpendorf/Neubau for final full evening."
           }
         ]
       },
       {
         "index": 5,
         "calendar_date": "2026-07-14",
-        "label": "Departure",
+        "label": "Departure day",
         "slots": [
           {
-            "name": "Early hotel checkout and station breakfast",
-            "description": "Check out, leave luggage if possible, and grab an easy breakfast near Zieglergasse or at Wien Hbf.",
-            "start_time": "2026-07-14T08:30:00",
-            "end_time": "2026-07-14T09:15:00",
+            "name": "Breakfast and check-out",
+            "description": "Simple breakfast, pack, and check out of Hotel Pension Walzerstadt.",
+            "start_time": "2026-07-14T08:00:00",
+            "end_time": "2026-07-14T09:00:00",
             "category": "meal",
-            "location": "Hotel Pension Walzerstadt / Wien Hauptbahnhof",
-            "cost": 22.0,
+            "location": "Hotel Pension Walzerstadt / Neubau area",
+            "cost": 20.0,
             "links": [
-              "https://www.bahnhof.de/muenchen-hbf",
-              "https://www.oebb.at/en/reiseplanung-services/am-bahnhof/unsere-bahnhoefe/wien-hauptbahnhof"
+              "https://travelstack.nuitee.link/hotels/lp6586ac75?checkin=2026-07-10&checkout=2026-07-14&rooms=1&adults=2&occupancies=W3siYWR1bHRzIjoyLCJjaGlsZHJlbiI6W119XQ%3D%3D&language=de&currency=EUR"
             ],
-            "notes": "Exact hotel checkout time unavailable; confirm with property."
+            "notes": "Estimated breakfast for 2."
           },
           {
-            "name": "Optional final city walk / souvenir stop",
-            "description": "Light final walk around Mariahilfer Straße or the hotel neighborhood; keep it flexible for luggage and checkout timing.",
-            "start_time": "2026-07-14T09:15:00",
-            "end_time": "2026-07-14T11:30:00",
+            "name": "Naschmarkt morning food walk",
+            "description": "Final local-food stroll through Naschmarkt. Official market hours found: Monday–Friday 06:00–21:00; food items vary by vendor.",
+            "start_time": "2026-07-14T09:30:00",
+            "end_time": "2026-07-14T11:00:00",
             "category": "leisure",
-            "location": "Mariahilfer Straße / 7th district, Vienna",
-            "cost": 0.0,
+            "location": "Naschmarkt, Wienzeile, 1060 Vienna",
+            "cost": 20.0,
             "links": [
-              "https://www.google.com/maps/search/Mariahilfer+Straße+Vienna"
+              "https://www.naschmarkt-wien.at/en/naschmarkt-vienna-opening-hours/"
             ],
-            "notes": "Free buffer before train."
+            "notes": "Budget for snacks/souvenirs; Tuesday market should be open."
           },
           {
-            "name": "Lunch: casual Austrian bite near station",
-            "description": "Simple budget lunch before departure, either at Wien Hbf food court or an inexpensive bakery/snack spot.",
-            "start_time": "2026-07-14T11:45:00",
-            "end_time": "2026-07-14T12:30:00",
+            "name": "Lunch: Naschmarkt casual stalls",
+            "description": "Casual final lunch from Naschmarkt stalls or market restaurants before collecting luggage.",
+            "start_time": "2026-07-14T11:00:00",
+            "end_time": "2026-07-14T12:00:00",
             "category": "meal",
-            "location": "Wien Hauptbahnhof / nearby",
-            "cost": 18.0,
+            "location": "Naschmarkt, 1060 Vienna",
+            "cost": 35.0,
             "links": [
-              "https://www.oebb.at/en/reiseplanung-services/am-bahnhof/unsere-bahnhoefe/wien-hauptbahnhof"
+              "https://www.naschmarkt-wien.at/en/naschmarkt-vienna-opening-hours/"
             ],
-            "notes": "Lower-cost placeholder for 2 people to keep total trip under €1,200."
+            "notes": "Estimated €35 for 2."
           },
           {
             "name": "Transfer to Wien Hauptbahnhof",
-            "description": "Collect bags and use public transport to Wien Hbf for the return train.",
-            "start_time": "2026-07-14T12:30:00",
-            "end_time": "2026-07-14T13:15:00",
+            "description": "Collect bags and transfer to Wien Hauptbahnhof for the return train. Timing is conservative and not API-verified.",
+            "start_time": "2026-07-14T12:00:00",
+            "end_time": "2026-07-14T12:45:00",
             "category": "transport",
-            "location": "Hotel Pension Walzerstadt → Wien Hbf",
+            "location": "Hotel Pension Walzerstadt / Naschmarkt → Wien Hauptbahnhof",
             "cost": 0.0,
             "links": [
-              "https://www.wien.info/en/travel-info/transport/tickets-361360"
+              "https://www.wienerlinien.at/web/wl-en"
             ],
-            "notes": "Covered by Vienna ticket."
+            "notes": "Covered by transport pass if still valid; otherwise budget a single ticket."
           },
           {
-            "name": "Direct Railjet train: Vienna → Munich",
-            "description": "Return by direct ÖBB/DB Railjet-style service from Wien Hbf to München Hbf. Exact July 2026 schedule not yet finalized; typical direct journey about 4 hours.",
-            "start_time": "2026-07-14T14:00:00",
+            "name": "Return train: Wien Hbf → Munich Hbf",
+            "description": "Return to Munich by direct rail if available. Official-style rail research indicates about 4 hours and budget advance fares from around €19.99 per person; exact July 2026 timetable/fare must be booked once released.",
+            "start_time": "2026-07-14T13:30:00",
             "end_time": "2026-07-14T18:00:00",
             "category": "transport",
-            "location": "Wien Hbf → München Hbf",
-            "cost": 56.0,
+            "location": "Wien Hbf to Munich Hbf",
+            "cost": 46.0,
             "links": [
-              "https://www.oebb.at/en/tickets-kundenkarten/oesterreich-weit/sparschiene",
-              "https://www.austrianrailways.com/train-munich-to-vienna"
+              "https://www.oebb.at/",
+              "https://www.bahn.com/"
             ],
-            "notes": "Estimated one-way cost for 2 adults: €25 each plus seat reservation allowance."
+            "notes": "Cost estimate for 2 people one-way with reservation buffer; exact price not guaranteed."
           }
         ]
       }
     ]
   },
   "validation_passed": true,
-  "validation_attempts": 1,
-  "validation_feedback": "The itinerary successfully meets all constraints and tasks. It covers the requested dates (July 10-14, 2026), stays within the €1,200 budget (€1,198.40 total), and includes the requested interests of museums, local food, and walking tours. Accommodations and transport are appropriately scheduled and priced for two travelers.",
+  "validation_attempts": 2,
+  "validation_feedback": "The itinerary successfully meets all constraints and tasks. It respects the €1,200 budget for two people (totaling €1,191.40), covers the requested dates in July 2026, and includes all requested activities such as museums (Kunsthistorisches, Belvedere), local food (Schnitzel, Sachertorte), and walking tours. The logistics are sound, utilizing a cost-effective 7-day transport pass and budget-friendly accommodation in the Neubau district. Opening hours for Sundays and specific 2026 closures (like Café Central) were proactively addressed.",
   "task_list": [
     {
       "name": "transportation_munich_vienna",
       "type": "general-web-search",
-      "text": "Find train or flight options from Munich to Vienna for July 10th and returning July 14th, 2026 for 2 people. Prioritize budget-friendly options like the OBB Railjet to preserve the €1,200 total budget.",
+      "text": "Find train or flight options from Munich to Vienna for July 10th and returning July 14th, 2026 for 2 people within a budget-conscious range.",
       "is_valid": true,
       "validation_comment": null
     },
     {
       "name": "vienna_accommodation",
       "type": "hotel",
-      "text": "Search for accommodations in Vienna for 4 nights (July 10-14, 2026) for 2 adults with a total budget under €600 to allow for other expenses.",
+      "text": "Search for accommodations in Vienna for 4 nights (July 10-14) for 2 adults with a total budget under €600 to allow for other expenses.",
       "is_valid": true,
       "validation_comment": null
     },
     {
       "name": "vienna_museums",
       "type": "attraction",
-      "text": "Identify top-rated museums in Vienna, such as the Kunsthistorisches Museum or Belvedere, suitable for a 5-day trip.",
+      "text": "Identify top-rated museums in Vienna, such as the Kunsthistorisches Museum or Belvedere, suitable for a 5-day itinerary.",
       "is_valid": true,
       "validation_comment": null
     },
     {
       "name": "vienna_walking_tours",
       "type": "attraction",
-      "text": "Find scenic walking routes or pedestrian-friendly areas in Vienna's Innere Stadt and surrounding districts.",
+      "text": "Find self-guided walking routes or pedestrian-friendly areas in Vienna's Innere Stadt and surrounding districts.",
       "is_valid": true,
       "validation_comment": null
     },
@@ -543,16 +499,16 @@
       "validation_comment": null
     },
     {
-      "name": "museum_hours_check",
+      "name": "museum_opening_hours",
       "type": "opening_times",
-      "text": "Verify the opening hours for major Vienna museums for the dates July 10-14, 2026.",
+      "text": "Check the opening hours for major Vienna museums for the dates July 10-14, 2026.",
       "is_valid": true,
       "validation_comment": null
     },
     {
       "name": "itinerary_routing_check",
       "type": "routing-check",
-      "text": "Check the walking distances and transit times between selected museums, restaurants, and the city center to ensure a feasible daily itinerary.",
+      "text": "Verify the walking distances between selected museums, restaurants, and the chosen accommodation to ensure a walkable itinerary.",
       "is_valid": true,
       "validation_comment": null
     }

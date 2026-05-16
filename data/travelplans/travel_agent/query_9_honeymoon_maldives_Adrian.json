@@ -1,0 +1,845 @@
+{
+  "id": "query_9_honeymoon_maldives_Adrian",
+  "description": "Normal case: honeymoon, luxury, long-haul",
+  "query": "My partner and I are going on our honeymoon to the Maldives from October 10th to 20th, 2026. We have a budget of €8,000 and want a luxury overwater bungalow or high-end beach resort. We love snorkelling, diving, spa treatments, and romantic sunset dinners. Please plan the full trip including flights from Berlin.",
+  "hard_constraints": {
+    "origin": "Berlin",
+    "destination": "Maldives",
+    "date_from": "2026.10.10",
+    "date_to": "2026.10.20",
+    "travelers": {
+      "adults": 2,
+      "children_under_6": 0,
+      "children_6_to_16": 0
+    },
+    "budget_amount": 8000,
+    "budget_currency": "EUR",
+    "accommodation": "overwater bungalow or luxury beach resort",
+    "transport": "Flight",
+    "interests": "snorkelling, diving, romantic dinners, spa, relaxation, private beach"
+  },
+  "model_name": "openrouter:google/gemini-3-flash-preview",
+  "generated_at": "2026-05-16T15:21:21.520155+00:00",
+  "duration_seconds": 1106.8,
+  "travelplan": {
+    "title": "Maldives Honeymoon: Berlin to Centara Ras Fushi Resort & Spa, 10–20 Oct 2026",
+    "days": [
+      {
+        "index": 1,
+        "calendar_date": "2026-10-10",
+        "label": "Departure from Berlin",
+        "slots": [
+          {
+            "name": "Flight BER → MUC → BAH → MLE",
+            "description": "Outbound flights for 2 adults: Lufthansa LH1929 Berlin–Munich, Gulf Air GF86 Munich–Bahrain, Gulf Air GF144 Bahrain–Malé. Total round-trip fare for both travelers estimated at €2,056.",
+            "start_time": "2026-10-10T08:50:00",
+            "end_time": "2026-10-11T06:30:00",
+            "category": "transport",
+            "location": "Berlin Brandenburg Airport / Munich / Bahrain / Velana International Airport",
+            "cost": 1028.0,
+            "links": [
+              "https://www.google.com/travel/flights?hl=en&gl=us&curr=EUR&tfs=CBwQAhoeEgoyMDI2LTEwLTEwagcIARIDQkVScgcIARIDTUxFGh4SCjIwMjYtMTAtMjBqBwgBEgNNTEVyBwgBEgNCRVJAAUABSAFwAZgBAQ&tfu=EgIIAQ"
+            ],
+            "notes": "Outbound half of round-trip fare; return half assigned to Day 11."
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "calendar_date": "2026-10-11",
+        "label": "Arrival in Maldives / Resort check-in",
+        "slots": [
+          {
+            "name": "Airport arrival and Centara meet-and-greet",
+            "description": "Land at Velana International Airport, clear immigration/customs, collect luggage, and meet the Centara Ras Fushi representative at arrivals.",
+            "start_time": "2026-10-11T06:30:00",
+            "end_time": "2026-10-11T08:00:00",
+            "category": "transport",
+            "location": "Velana International Airport, Malé",
+            "cost": 0.0,
+            "links": [
+              "https://www.centarahotelsresorts.com/centara/crf/transfer"
+            ],
+            "notes": "Send flight details to the resort before arrival for coordinated transfer."
+          },
+          {
+            "name": "Shared speedboat transfer to Centara Ras Fushi",
+            "description": "Mandatory shared speedboat transfer from MLE airport jetty to Giraavaru Island / Centara Ras Fushi. Official duration about 14–15 minutes; official price USD 180 net per person round trip.",
+            "start_time": "2026-10-11T08:00:00",
+            "end_time": "2026-10-11T08:30:00",
+            "category": "transport",
+            "location": "Velana International Airport → Centara Ras Fushi Resort & Spa Maldives",
+            "cost": 334.0,
+            "links": [
+              "https://www.centarahotelsresorts.com/centara/crf/transfer"
+            ],
+            "notes": "Approximate conversion of USD 360 total for two adults round trip; return leg included here."
+          },
+          {
+            "name": "Check-in and beach/resort settling-in",
+            "description": "Check in and settle into Centara Ras Fushi Resort & Spa, a high-end North Malé adults-oriented beach/island resort with overwater-villa options, spa, diving, and house reef access.",
+            "start_time": "2026-10-11T14:00:00",
+            "end_time": "2026-10-11T15:30:00",
+            "category": "lodging",
+            "location": "Centara Ras Fushi Resort & Spa Maldives, Giraavaru Island",
+            "cost": 0.0,
+            "links": [
+              "https://travelstack.nuitee.link/hotels/lp6824a?checkin=2026-10-11&checkout=2026-10-20&rooms=1&adults=2&occupancies=W3siYWR1bHRzIjoyLCJjaGlsZHJlbiI6W119XQ%3D%3D&language=de&currency=EUR"
+            ],
+            "notes": "Arrive early; ask about early check-in or use resort facilities until room is ready."
+          },
+          {
+            "name": "Centara Ras Fushi stay — 9 nights",
+            "description": "Nine-night honeymoon stay at Centara Ras Fushi Resort & Spa Maldives from 11–20 Oct. Hotel search returned approx. €245/night for 2 adults, allowing room in the €8,000 budget for flights, transfers, spa, diving, and romantic dining.",
+            "start_time": "2026-10-11T15:30:00",
+            "end_time": "2026-10-11T16:00:00",
+            "category": "lodging",
+            "location": "Centara Ras Fushi Resort & Spa Maldives, Giraavaru Island",
+            "cost": 2205.0,
+            "links": [
+              "https://travelstack.nuitee.link/hotels/lp6824a?checkin=2026-10-11&checkout=2026-10-20&rooms=1&adults=2&occupancies=W3siYWR1bHRzIjoyLCJjaGlsZHJlbiI6W119XQ%3D%3D&language=de&currency=EUR"
+            ],
+            "notes": "Book an overwater villa if the live room-category quote remains within budget; otherwise use a high-end beach/villa category."
+          },
+          {
+            "name": "Resort dining allowance for the stay",
+            "description": "Allowance for lunches, dinners, drinks, and a few specialty meals across Oceans, Suan Bua, La Brezza, and other resort venues. Breakfast may be included depending on the booked rate.",
+            "start_time": "2026-10-11T16:00:00",
+            "end_time": "2026-10-11T16:30:00",
+            "category": "meal",
+            "location": "Centara Ras Fushi dining venues",
+            "cost": 1350.0,
+            "links": [
+              "https://www.centarahotelsresorts.com/centara/crf",
+              "https://amaldives.com/blog/centara-ras-fushi-resort-spa-maldives"
+            ],
+            "notes": "Consider upgrading to all-inclusive/Gold All-Inclusive if the package quote is lower than à la carte dining."
+          },
+          {
+            "name": "Welcome dinner at Oceans Restaurant",
+            "description": "Relaxed first-night dinner at Oceans Restaurant, the resort’s main international dining venue.",
+            "start_time": "2026-10-11T19:00:00",
+            "end_time": "2026-10-11T21:00:00",
+            "category": "meal",
+            "location": "Oceans Restaurant, Centara Ras Fushi",
+            "cost": 0.0,
+            "links": [
+              "https://amaldives.com/blog/centara-ras-fushi-resort-spa-maldives"
+            ],
+            "notes": "Covered by dining allowance; standard dinner hours around 19:00–22:00."
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "calendar_date": "2026-10-12",
+        "label": "House reef & spa welcome",
+        "slots": [
+          {
+            "name": "Breakfast at Oceans Restaurant",
+            "description": "Breakfast before the first full resort day.",
+            "start_time": "2026-10-12T07:30:00",
+            "end_time": "2026-10-12T09:00:00",
+            "category": "meal",
+            "location": "Oceans Restaurant, Centara Ras Fushi",
+            "cost": 0.0,
+            "links": [
+              "https://amaldives.com/blog/centara-ras-fushi-resort-spa-maldives"
+            ],
+            "notes": "Breakfast may be included depending on final booking."
+          },
+          {
+            "name": "House reef orientation and self-guided snorkelling",
+            "description": "Easy first snorkel at Centara Ras Fushi’s nearby house reef; snorkeling gear is reported as complimentary for guests, and the reef is close to shore.",
+            "start_time": "2026-10-12T09:30:00",
+            "end_time": "2026-10-12T11:30:00",
+            "category": "attraction",
+            "location": "Centara Ras Fushi House Reef",
+            "cost": 0.0,
+            "links": [
+              "https://www.zubludiving.com/resort/maldives/centara-ras-fushi"
+            ],
+            "notes": "Best done in daylight; check currents with the dive/watersports team."
+          },
+          {
+            "name": "Lunch at Oceans or Suan Bua",
+            "description": "Resort lunch at Oceans or Thai-specialty Suan Bua.",
+            "start_time": "2026-10-12T12:30:00",
+            "end_time": "2026-10-12T14:00:00",
+            "category": "meal",
+            "location": "Centara Ras Fushi dining venues",
+            "cost": 0.0,
+            "links": [
+              "https://amaldives.com/blog/centara-ras-fushi-resort-spa-maldives"
+            ],
+            "notes": "Covered by dining allowance."
+          },
+          {
+            "name": "SPA Cenvaree couples welcome massage",
+            "description": "Couples spa treatment at SPA Cenvaree, the resort’s Thai-inspired wellness spa, to recover from travel.",
+            "start_time": "2026-10-12T16:00:00",
+            "end_time": "2026-10-12T18:00:00",
+            "category": "leisure",
+            "location": "SPA Cenvaree, Centara Ras Fushi",
+            "cost": 280.0,
+            "links": [
+              "https://www.centarahotelsresorts.com/centara/crf",
+              "https://amaldives.com/blog/centara-ras-fushi-resort-spa-maldives"
+            ],
+            "notes": "Spa hours reported around 09:00–21:00; reserve sunset-adjacent slots in advance."
+          },
+          {
+            "name": "Dinner at Oceans Restaurant",
+            "description": "Relaxed dinner at Oceans after the spa session.",
+            "start_time": "2026-10-12T19:00:00",
+            "end_time": "2026-10-12T21:00:00",
+            "category": "meal",
+            "location": "Oceans Restaurant, Centara Ras Fushi",
+            "cost": 0.0,
+            "links": [
+              "https://amaldives.com/blog/centara-ras-fushi-resort-spa-maldives"
+            ],
+            "notes": "Covered by dining allowance."
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "calendar_date": "2026-10-13",
+        "label": "Diving day",
+        "slots": [
+          {
+            "name": "Breakfast at Oceans Restaurant",
+            "description": "Early breakfast before dive-center check-in.",
+            "start_time": "2026-10-13T07:30:00",
+            "end_time": "2026-10-13T08:30:00",
+            "category": "meal",
+            "location": "Oceans Restaurant, Centara Ras Fushi",
+            "cost": 0.0,
+            "links": [
+              "https://amaldives.com/blog/centara-ras-fushi-resort-spa-maldives"
+            ],
+            "notes": "Breakfast may be included depending on final booking."
+          },
+          {
+            "name": "PADI dive trip / 2-tank dive with Best Dives",
+            "description": "Morning dive trip with the resort’s PADI-affiliated Best Dives centre. If one partner is not certified, swap to Discover Scuba or guided snorkelling.",
+            "start_time": "2026-10-13T08:45:00",
+            "end_time": "2026-10-13T12:30:00",
+            "category": "attraction",
+            "location": "Best Dives, Centara Ras Fushi",
+            "cost": 340.0,
+            "links": [
+              "https://www.zubludiving.com/resort/maldives/centara-ras-fushi"
+            ],
+            "notes": "Dive-centre hours reported around 08:30–18:00; estimate for two people."
+          },
+          {
+            "name": "Lunch at La Brezza or Oceans",
+            "description": "Post-dive lunch; La Brezza offers Italian/seafood and lagoon views, while Oceans is the main venue.",
+            "start_time": "2026-10-13T12:45:00",
+            "end_time": "2026-10-13T14:00:00",
+            "category": "meal",
+            "location": "La Brezza or Oceans, Centara Ras Fushi",
+            "cost": 0.0,
+            "links": [
+              "https://amaldives.com/blog/centara-ras-fushi-resort-spa-maldives"
+            ],
+            "notes": "Covered by dining allowance."
+          },
+          {
+            "name": "Pool and villa recovery time",
+            "description": "Low-key recovery after diving: pool, beach loungers, hydration, and rest.",
+            "start_time": "2026-10-13T15:00:00",
+            "end_time": "2026-10-13T17:30:00",
+            "category": "leisure",
+            "location": "Centara Ras Fushi Resort & Spa",
+            "cost": 0.0,
+            "links": [
+              "https://www.centarahotelsresorts.com/centara/crf"
+            ],
+            "notes": "Return flight is a week later, so no flight-after-diving conflict."
+          },
+          {
+            "name": "Dinner at La Brezza",
+            "description": "Romantic lagoon-view dinner at La Brezza, the resort’s Italian/seafood restaurant.",
+            "start_time": "2026-10-13T19:00:00",
+            "end_time": "2026-10-13T21:00:00",
+            "category": "meal",
+            "location": "La Brezza, Centara Ras Fushi",
+            "cost": 0.0,
+            "links": [
+              "https://amaldives.com/blog/centara-ras-fushi-resort-spa-maldives"
+            ],
+            "notes": "Covered by dining allowance; request a table with the best sunset/lagoon view."
+          }
+        ]
+      },
+      {
+        "index": 5,
+        "calendar_date": "2026-10-14",
+        "label": "Sunset romance",
+        "slots": [
+          {
+            "name": "Breakfast at Oceans Restaurant",
+            "description": "Leisurely breakfast before sunset-romance day.",
+            "start_time": "2026-10-14T08:00:00",
+            "end_time": "2026-10-14T09:30:00",
+            "category": "meal",
+            "location": "Oceans Restaurant, Centara Ras Fushi",
+            "cost": 0.0,
+            "links": [
+              "https://amaldives.com/blog/centara-ras-fushi-resort-spa-maldives"
+            ],
+            "notes": "Breakfast may be included depending on final booking."
+          },
+          {
+            "name": "Couples lagoon swim and self-guided snorkel",
+            "description": "Unstructured lagoon swim and easy snorkelling near the resort before a romantic evening.",
+            "start_time": "2026-10-14T10:00:00",
+            "end_time": "2026-10-14T11:30:00",
+            "category": "attraction",
+            "location": "Centara Ras Fushi lagoon / house reef",
+            "cost": 0.0,
+            "links": [
+              "https://www.zubludiving.com/resort/maldives/centara-ras-fushi"
+            ],
+            "notes": "No additional excursion cost."
+          },
+          {
+            "name": "Lunch at Suan Bua",
+            "description": "Thai-specialty lunch at Suan Bua.",
+            "start_time": "2026-10-14T12:30:00",
+            "end_time": "2026-10-14T14:00:00",
+            "category": "meal",
+            "location": "Suan Bua, Centara Ras Fushi",
+            "cost": 0.0,
+            "links": [
+              "https://amaldives.com/blog/centara-ras-fushi-resort-spa-maldives"
+            ],
+            "notes": "Covered by dining allowance."
+          },
+          {
+            "name": "Shared sunset cruise / romantic ocean excursion",
+            "description": "Shared sunset cruise or resort-arranged romantic ocean excursion timed for golden hour. Choose shared rather than private charter to protect the budget.",
+            "start_time": "2026-10-14T17:00:00",
+            "end_time": "2026-10-14T19:00:00",
+            "category": "attraction",
+            "location": "Centara Ras Fushi jetty / North Malé Atoll lagoon",
+            "cost": 180.0,
+            "links": [
+              "https://www.centarahotelsresorts.com/centara/crf"
+            ],
+            "notes": "Confirm exact excursion schedule and weather policy after check-in."
+          },
+          {
+            "name": "Dinner at Oceans Restaurant",
+            "description": "Easy resort dinner after the sunset cruise.",
+            "start_time": "2026-10-14T19:30:00",
+            "end_time": "2026-10-14T21:30:00",
+            "category": "meal",
+            "location": "Oceans Restaurant, Centara Ras Fushi",
+            "cost": 0.0,
+            "links": [
+              "https://amaldives.com/blog/centara-ras-fushi-resort-spa-maldives"
+            ],
+            "notes": "Covered by dining allowance."
+          }
+        ]
+      },
+      {
+        "index": 6,
+        "calendar_date": "2026-10-15",
+        "label": "Slow luxury resort day",
+        "slots": [
+          {
+            "name": "Breakfast at Oceans Restaurant",
+            "description": "Slow honeymoon breakfast by the ocean.",
+            "start_time": "2026-10-15T08:30:00",
+            "end_time": "2026-10-15T10:00:00",
+            "category": "meal",
+            "location": "Oceans Restaurant, Centara Ras Fushi",
+            "cost": 0.0,
+            "links": [
+              "https://amaldives.com/blog/centara-ras-fushi-resort-spa-maldives"
+            ],
+            "notes": "Breakfast may be included depending on final booking."
+          },
+          {
+            "name": "Morning yoga / meditation and beach time",
+            "description": "Slow wellness morning with resort yoga/meditation or quiet beach practice.",
+            "start_time": "2026-10-15T10:30:00",
+            "end_time": "2026-10-15T11:30:00",
+            "category": "leisure",
+            "location": "Centara Ras Fushi Resort & Spa",
+            "cost": 0.0,
+            "links": [
+              "https://www.centarahotelsresorts.com/centara/crf"
+            ],
+            "notes": "Confirm daily activity board on arrival."
+          },
+          {
+            "name": "Lunch at Oceans Restaurant",
+            "description": "Relaxed lunch at the main restaurant.",
+            "start_time": "2026-10-15T12:30:00",
+            "end_time": "2026-10-15T14:00:00",
+            "category": "meal",
+            "location": "Oceans Restaurant, Centara Ras Fushi",
+            "cost": 0.0,
+            "links": [
+              "https://amaldives.com/blog/centara-ras-fushi-resort-spa-maldives"
+            ],
+            "notes": "Covered by dining allowance."
+          },
+          {
+            "name": "Beach cabana / pool afternoon",
+            "description": "Unscheduled luxury time: beach cabana, pool, reading, and couple photos around the island.",
+            "start_time": "2026-10-15T14:30:00",
+            "end_time": "2026-10-15T17:30:00",
+            "category": "leisure",
+            "location": "Centara Ras Fushi Resort & Spa",
+            "cost": 0.0,
+            "links": [
+              "https://www.centarahotelsresorts.com/centara/crf"
+            ],
+            "notes": "Keeps the honeymoon from becoming over-programmed."
+          },
+          {
+            "name": "Dinner at Suan Bua",
+            "description": "Thai-specialty dinner at Suan Bua for variety within the resort dining plan.",
+            "start_time": "2026-10-15T19:00:00",
+            "end_time": "2026-10-15T21:00:00",
+            "category": "meal",
+            "location": "Suan Bua, Centara Ras Fushi",
+            "cost": 0.0,
+            "links": [
+              "https://amaldives.com/blog/centara-ras-fushi-resort-spa-maldives"
+            ],
+            "notes": "Covered by dining allowance."
+          }
+        ]
+      },
+      {
+        "index": 7,
+        "calendar_date": "2026-10-16",
+        "label": "Manta/turtle excursion",
+        "slots": [
+          {
+            "name": "Breakfast at Oceans Restaurant",
+            "description": "Early breakfast before marine-life excursion.",
+            "start_time": "2026-10-16T07:30:00",
+            "end_time": "2026-10-16T08:30:00",
+            "category": "meal",
+            "location": "Oceans Restaurant, Centara Ras Fushi",
+            "cost": 0.0,
+            "links": [
+              "https://amaldives.com/blog/centara-ras-fushi-resort-spa-maldives"
+            ],
+            "notes": "Breakfast may be included depending on final booking."
+          },
+          {
+            "name": "Manta/turtle snorkel or best-reef boat excursion",
+            "description": "Boat excursion through the resort dive/watersports team targeting manta/turtle sightings or the best available reef conditions. October sightings depend on weather and daily marine-life reports.",
+            "start_time": "2026-10-16T09:00:00",
+            "end_time": "2026-10-16T12:30:00",
+            "category": "attraction",
+            "location": "Best Dives / North Malé Atoll reefs",
+            "cost": 280.0,
+            "links": [
+              "https://www.zubludiving.com/resort/maldives/centara-ras-fushi"
+            ],
+            "notes": "Wildlife not guaranteed; let the dive centre choose the best site that day."
+          },
+          {
+            "name": "Lunch at Oceans or La Brezza",
+            "description": "Lunch after the marine-life excursion.",
+            "start_time": "2026-10-16T13:00:00",
+            "end_time": "2026-10-16T14:30:00",
+            "category": "meal",
+            "location": "Oceans or La Brezza, Centara Ras Fushi",
+            "cost": 0.0,
+            "links": [
+              "https://amaldives.com/blog/centara-ras-fushi-resort-spa-maldives"
+            ],
+            "notes": "Covered by dining allowance."
+          },
+          {
+            "name": "Free afternoon: nap, pool, reef watching",
+            "description": "Recovery time after the morning boat excursion.",
+            "start_time": "2026-10-16T15:00:00",
+            "end_time": "2026-10-16T17:30:00",
+            "category": "leisure",
+            "location": "Centara Ras Fushi Resort & Spa",
+            "cost": 0.0,
+            "links": [
+              "https://www.centarahotelsresorts.com/centara/crf"
+            ],
+            "notes": "Good buffer if the excursion returns late."
+          },
+          {
+            "name": "Dinner at Oceans Restaurant",
+            "description": "Relaxed dinner after the excursion day.",
+            "start_time": "2026-10-16T19:00:00",
+            "end_time": "2026-10-16T21:00:00",
+            "category": "meal",
+            "location": "Oceans Restaurant, Centara Ras Fushi",
+            "cost": 0.0,
+            "links": [
+              "https://amaldives.com/blog/centara-ras-fushi-resort-spa-maldives"
+            ],
+            "notes": "Covered by dining allowance."
+          }
+        ]
+      },
+      {
+        "index": 8,
+        "calendar_date": "2026-10-17",
+        "label": "Wellness and private dinner",
+        "slots": [
+          {
+            "name": "Breakfast at Oceans Restaurant",
+            "description": "Relaxed breakfast before a wellness-focused day.",
+            "start_time": "2026-10-17T08:30:00",
+            "end_time": "2026-10-17T10:00:00",
+            "category": "meal",
+            "location": "Oceans Restaurant, Centara Ras Fushi",
+            "cost": 0.0,
+            "links": [
+              "https://amaldives.com/blog/centara-ras-fushi-resort-spa-maldives"
+            ],
+            "notes": "Breakfast may be included depending on final booking."
+          },
+          {
+            "name": "Late-morning spa facilities / beach relaxation",
+            "description": "Relaxed wellness morning before the private dinner evening: spa facilities, beach, or quiet couple time.",
+            "start_time": "2026-10-17T10:30:00",
+            "end_time": "2026-10-17T12:00:00",
+            "category": "leisure",
+            "location": "SPA Cenvaree / Centara Ras Fushi beach",
+            "cost": 0.0,
+            "links": [
+              "https://www.centarahotelsresorts.com/centara/crf"
+            ],
+            "notes": "Keep paid spa spend focused on Day 3 to stay within budget."
+          },
+          {
+            "name": "Lunch at La Brezza",
+            "description": "Lagoon-view Italian/seafood lunch before the private dinner evening.",
+            "start_time": "2026-10-17T12:30:00",
+            "end_time": "2026-10-17T14:00:00",
+            "category": "meal",
+            "location": "La Brezza, Centara Ras Fushi",
+            "cost": 0.0,
+            "links": [
+              "https://amaldives.com/blog/centara-ras-fushi-resort-spa-maldives"
+            ],
+            "notes": "Covered by dining allowance."
+          },
+          {
+            "name": "Private beach sunset dinner",
+            "description": "Honeymoon centerpiece: private or semi-private sunset beach dinner arranged by the resort, with a romantic table setup and special menu. Weather backup: La Brezza or another romantic resort venue.",
+            "start_time": "2026-10-17T18:30:00",
+            "end_time": "2026-10-17T21:00:00",
+            "category": "meal",
+            "location": "Centara Ras Fushi private beach / lagoonfront dining setup",
+            "cost": 400.0,
+            "links": [
+              "https://www.centarahotelsresorts.com/centara/crf"
+            ],
+            "notes": "Reserve at least 24 hours ahead and confirm final taxes/service charge."
+          }
+        ]
+      },
+      {
+        "index": 9,
+        "calendar_date": "2026-10-18",
+        "label": "Coral conservation / snorkel",
+        "slots": [
+          {
+            "name": "Breakfast at Oceans Restaurant",
+            "description": "Breakfast before reef and snorkelling activities.",
+            "start_time": "2026-10-18T08:00:00",
+            "end_time": "2026-10-18T09:30:00",
+            "category": "meal",
+            "location": "Oceans Restaurant, Centara Ras Fushi",
+            "cost": 0.0,
+            "links": [
+              "https://amaldives.com/blog/centara-ras-fushi-resort-spa-maldives"
+            ],
+            "notes": "Breakfast may be included depending on final booking."
+          },
+          {
+            "name": "Coral / marine-biology reef briefing",
+            "description": "Low-impact reef-awareness activity: ask the dive/watersports team for a reef-health briefing, coral talk, or marine-biology-style snorkel orientation before the afternoon guided snorkel.",
+            "start_time": "2026-10-18T10:00:00",
+            "end_time": "2026-10-18T12:00:00",
+            "category": "attraction",
+            "location": "Centara Ras Fushi dive/watersports centre",
+            "cost": 60.0,
+            "links": [
+              "https://www.zubludiving.com/resort/maldives/centara-ras-fushi"
+            ],
+            "notes": "If no formal coral program is available, use this as a guided reef-education briefing."
+          },
+          {
+            "name": "Lunch at Suan Bua",
+            "description": "Thai-specialty lunch after the reef briefing.",
+            "start_time": "2026-10-18T12:30:00",
+            "end_time": "2026-10-18T14:00:00",
+            "category": "meal",
+            "location": "Suan Bua, Centara Ras Fushi",
+            "cost": 0.0,
+            "links": [
+              "https://amaldives.com/blog/centara-ras-fushi-resort-spa-maldives"
+            ],
+            "notes": "Covered by dining allowance."
+          },
+          {
+            "name": "Guided afternoon reef snorkel",
+            "description": "Guided snorkel session with the dive/watersports team, focusing on reef safety, fish identification, and the best house-reef areas.",
+            "start_time": "2026-10-18T15:00:00",
+            "end_time": "2026-10-18T17:00:00",
+            "category": "attraction",
+            "location": "Centara Ras Fushi house reef / Best Dives",
+            "cost": 120.0,
+            "links": [
+              "https://www.zubludiving.com/resort/maldives/centara-ras-fushi"
+            ],
+            "notes": "Choose self-guided snorkelling if you want to reduce spend further."
+          },
+          {
+            "name": "Dinner at La Brezza",
+            "description": "Romantic lagoon-view dinner after a reef-focused day.",
+            "start_time": "2026-10-18T19:00:00",
+            "end_time": "2026-10-18T21:00:00",
+            "category": "meal",
+            "location": "La Brezza, Centara Ras Fushi",
+            "cost": 0.0,
+            "links": [
+              "https://amaldives.com/blog/centara-ras-fushi-resort-spa-maldives"
+            ],
+            "notes": "Covered by dining allowance."
+          }
+        ]
+      },
+      {
+        "index": 10,
+        "calendar_date": "2026-10-19",
+        "label": "Final full resort day",
+        "slots": [
+          {
+            "name": "Breakfast at Oceans Restaurant",
+            "description": "Final full-day resort breakfast.",
+            "start_time": "2026-10-19T08:30:00",
+            "end_time": "2026-10-19T10:00:00",
+            "category": "meal",
+            "location": "Oceans Restaurant, Centara Ras Fushi",
+            "cost": 0.0,
+            "links": [
+              "https://amaldives.com/blog/centara-ras-fushi-resort-spa-maldives"
+            ],
+            "notes": "Breakfast may be included depending on final booking."
+          },
+          {
+            "name": "Final house reef snorkel / honeymoon photos",
+            "description": "Last easy snorkel and couple photos around the lagoon and resort beaches.",
+            "start_time": "2026-10-19T10:30:00",
+            "end_time": "2026-10-19T12:00:00",
+            "category": "attraction",
+            "location": "Centara Ras Fushi house reef / beach",
+            "cost": 0.0,
+            "links": [
+              "https://www.zubludiving.com/resort/maldives/centara-ras-fushi"
+            ],
+            "notes": "Keep the final day relaxed and avoid late strenuous diving before travel."
+          },
+          {
+            "name": "Lunch at Oceans Restaurant",
+            "description": "Final full-day resort lunch.",
+            "start_time": "2026-10-19T12:30:00",
+            "end_time": "2026-10-19T14:00:00",
+            "category": "meal",
+            "location": "Oceans Restaurant, Centara Ras Fushi",
+            "cost": 0.0,
+            "links": [
+              "https://amaldives.com/blog/centara-ras-fushi-resort-spa-maldives"
+            ],
+            "notes": "Covered by dining allowance."
+          },
+          {
+            "name": "Open afternoon: beach, pool, packing buffer",
+            "description": "Unscheduled final luxury afternoon with time for packing, last swim, and checkout arrangements.",
+            "start_time": "2026-10-19T14:30:00",
+            "end_time": "2026-10-19T17:30:00",
+            "category": "leisure",
+            "location": "Centara Ras Fushi Resort & Spa",
+            "cost": 0.0,
+            "links": [
+              "https://www.centarahotelsresorts.com/centara/crf"
+            ],
+            "notes": "Confirm 20 Oct transfer timing with reception."
+          },
+          {
+            "name": "Farewell dinner at Oceans or La Brezza",
+            "description": "Final dinner at the resort; choose La Brezza if you want a more romantic last-night setting, or Oceans for a relaxed option.",
+            "start_time": "2026-10-19T19:00:00",
+            "end_time": "2026-10-19T21:00:00",
+            "category": "meal",
+            "location": "Oceans or La Brezza, Centara Ras Fushi",
+            "cost": 0.0,
+            "links": [
+              "https://amaldives.com/blog/centara-ras-fushi-resort-spa-maldives"
+            ],
+            "notes": "Covered by dining allowance; settle extras and confirm luggage pickup."
+          }
+        ]
+      },
+      {
+        "index": 11,
+        "calendar_date": "2026-10-20",
+        "label": "Checkout and flight home",
+        "slots": [
+          {
+            "name": "Breakfast and check-out prep",
+            "description": "Final breakfast and packing before checkout.",
+            "start_time": "2026-10-20T08:00:00",
+            "end_time": "2026-10-20T09:30:00",
+            "category": "meal",
+            "location": "Oceans Restaurant, Centara Ras Fushi",
+            "cost": 0.0,
+            "links": [
+              "https://amaldives.com/blog/centara-ras-fushi-resort-spa-maldives"
+            ],
+            "notes": "Breakfast may be included depending on final booking."
+          },
+          {
+            "name": "Check out of Centara Ras Fushi",
+            "description": "Check out and store luggage if the speedboat departs later.",
+            "start_time": "2026-10-20T11:00:00",
+            "end_time": "2026-10-20T12:00:00",
+            "category": "lodging",
+            "location": "Centara Ras Fushi Resort & Spa",
+            "cost": 0.0,
+            "links": [
+              "https://www.centarahotelsresorts.com/centara/crf/transfer"
+            ],
+            "notes": "Ask for late checkout availability due to evening international flight."
+          },
+          {
+            "name": "Lunch before departure",
+            "description": "Final resort lunch before transfer back to Malé.",
+            "start_time": "2026-10-20T12:30:00",
+            "end_time": "2026-10-20T14:00:00",
+            "category": "meal",
+            "location": "Centara Ras Fushi dining venue",
+            "cost": 0.0,
+            "links": [
+              "https://amaldives.com/blog/centara-ras-fushi-resort-spa-maldives"
+            ],
+            "notes": "Covered by dining allowance; choose venue depending on transfer timing."
+          },
+          {
+            "name": "Speedboat transfer back to Velana International Airport",
+            "description": "Return shared speedboat transfer to MLE, already budgeted in the round-trip transfer cost on arrival day.",
+            "start_time": "2026-10-20T16:30:00",
+            "end_time": "2026-10-20T17:00:00",
+            "category": "transport",
+            "location": "Centara Ras Fushi → Velana International Airport",
+            "cost": 0.0,
+            "links": [
+              "https://www.centarahotelsresorts.com/centara/crf/transfer"
+            ],
+            "notes": "15-minute transfer; timing should be coordinated by resort for 19:25 departure."
+          },
+          {
+            "name": "Flight MLE → BAH → IST → BER",
+            "description": "Return flights for 2 adults: Gulf Air GF145 Malé–Bahrain, Gulf Air GF45 Bahrain–Istanbul, Turkish Airlines TK1721 Istanbul–Berlin.",
+            "start_time": "2026-10-20T19:25:00",
+            "end_time": "2026-10-21T09:15:00",
+            "category": "transport",
+            "location": "Velana International Airport / Bahrain / Istanbul / Berlin Brandenburg Airport",
+            "cost": 1028.0,
+            "links": [
+              "https://www.google.com/travel/flights?hl=en&gl=us&curr=EUR&tfs=CBwQAhoeEgoyMDI2LTEwLTEwagcIARIDQkVScgcIARIDTUxFGh4SCjIwMjYtMTAtMjBqBwgBEgNNTEVyBwgBEgNCRVJAAUABSAFwAZgBAQ&tfu=EgIIAQ"
+            ],
+            "notes": "Return half of the €2,056 round-trip fare for both travelers."
+          }
+        ]
+      },
+      {
+        "index": 12,
+        "calendar_date": "2026-10-21",
+        "label": "Arrival back in Berlin",
+        "slots": [
+          {
+            "name": "Arrive in Berlin",
+            "description": "Arrive back at Berlin Brandenburg Airport and collect luggage.",
+            "start_time": "2026-10-21T09:15:00",
+            "end_time": "2026-10-21T10:00:00",
+            "category": "transport",
+            "location": "Berlin Brandenburg Airport",
+            "cost": 0.0,
+            "links": [
+              "https://www.google.com/travel/flights?hl=en&gl=us&curr=EUR&tfs=CBwQAhoeEgoyMDI2LTEwLTEwagcIARIDQkVScgcIARIDTUxFGh4SCjIwMjYtMTAtMjBqBwgBEgNNTEVyBwgBEgNCRVJAAUABSAFwAZgBAQ&tfu=EgIIAQ"
+            ],
+            "notes": "Trip complete."
+          }
+        ]
+      }
+    ]
+  },
+  "validation_passed": true,
+  "validation_attempts": 1,
+  "validation_feedback": "The itinerary successfully meets all user constraints and task requirements. It provides a luxury honeymoon experience in the Maldives within the €8,000 budget (totaling €7,605). The plan includes round-trip flights from Berlin, a high-end resort stay at Centara Ras Fushi, and all requested activities: snorkeling, diving, spa treatments, and romantic sunset dinners. Logistics such as speedboat transfers and flight connections are logically scheduled.",
+  "task_list": [
+    {
+      "name": "flight_search_ber_mle",
+      "type": "flight",
+      "text": "Search for round-trip flights from Berlin (BER) to Male (MLE) for 2 people, departing October 10th and returning October 20th, 2026.",
+      "is_valid": true,
+      "validation_comment": null
+    },
+    {
+      "name": "hotel_search_luxury_resort",
+      "type": "hotel",
+      "text": "Find luxury overwater bungalows or high-end beach resorts in the Maldives for 10 nights within the remaining budget (total budget €8,000).",
+      "is_valid": true,
+      "validation_comment": null
+    },
+    {
+      "name": "attraction_snorkeling_diving",
+      "type": "attraction",
+      "text": "Identify top-rated diving and snorkeling spots or centers near the selected luxury resorts.",
+      "is_valid": true,
+      "validation_comment": null
+    },
+    {
+      "name": "attraction_spa_services",
+      "type": "attraction",
+      "text": "Research high-end spa treatments and wellness packages available at luxury resorts in the Maldives.",
+      "is_valid": true,
+      "validation_comment": null
+    },
+    {
+      "name": "restaurant_sunset_dinners",
+      "type": "restaurant",
+      "text": "Find romantic sunset dining options or private beach dinner experiences in the Maldives.",
+      "is_valid": true,
+      "validation_comment": null
+    },
+    {
+      "name": "routing_check_transfer",
+      "type": "routing-check",
+      "text": "Check seaplane or speedboat transfer logistics and costs from Male International Airport to the chosen resort, as these are often significant costs in the Maldives.",
+      "is_valid": true,
+      "validation_comment": null
+    },
+    {
+      "name": "opening_times_activities",
+      "type": "opening_times",
+      "text": "Verify the seasonal availability and operating hours for diving centers and spa facilities in October.",
+      "is_valid": true,
+      "validation_comment": null
+    }
+  ]
+}

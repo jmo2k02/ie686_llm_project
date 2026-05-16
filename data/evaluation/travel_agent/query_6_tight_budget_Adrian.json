@@ -1,0 +1,1070 @@
+{
+  "id": "query_6_tight_budget_Adrian",
+  "source": "travel_agent",
+  "status": "ok",
+  "has_timeout": false,
+  "timed_out_models": [],
+  "duration_seconds": 237.4,
+  "plan_path": "data/travelplans/travel_agent/query_6_tight_budget_Adrian.json",
+  "scorecard": {
+    "plan_excerpt": "# TravelPlan: Stuttgart to Prague ultra-budget solo trip, 20–23 June 2026\n\n| Day 1 — 2026-06-20 — Arrival + Old Town first walk | Day 2 — 2026-06-21 — Old Town, Jewish Quarter + Castle viewpoints | Day 3 — 2026-06-22 — Vyšehrad + riverside budget day | Day 4 — 2026-06-23 — Final morning + return to ",
+    "judge_models": [
+      "openrouter:minimax/minimax-m2.7",
+      "openrouter:google/gemini-3-flash-preview",
+      "openrouter:deepseek/deepseek-v4-flash",
+      "openrouter:qwen/qwen3.5-397b-a17b"
+    ],
+    "timed_out_models": [],
+    "rationale_verifications": [
+      {
+        "day_index": 1,
+        "slot_position": 1,
+        "slot_name": "Target carpool: Stuttgart → Prague Florenc",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.flixbus.com/bus-routes/bus-prague-stuttgart"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The provided evidence for FlixBus is a truncated page containing only language/flag metadata and no actual route data, schedules, or pricing. The BlaBlaCar link was not fetched. Therefore, there is no evidence to verify the specific claims regarding travel duration (5h49), costs (€19-€29 for carpool or €32.50 for bus), or the availability of these specific routes on the requested date.",
+        "claims_checked": [
+          "Route: Stuttgart to Prague Florenc",
+          "BlaBlaCar cost: €19–€29",
+          "FlixBus cost: €32.50+",
+          "Travel duration: approximately 5h49",
+          "Departure location: Stuttgart Hbf/SAB or Stuttgart Airport/North",
+          "Arrival location: ÚAN Florenc, Prague"
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 2,
+        "slot_name": "Walk Florenc bus station → Hostel Florenc",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.rome2rio.com/s/Florenc-Bus-Station/Hotel-Florenc-Prague"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot provided a specific link (Rome2rio) to verify the distance and duration of the walk between ÚAN Florenc and Hostel Florenc. However, no evidence was retrieved from that link or any other source. Without the content of the link or search results, I cannot verify the specific claims regarding the distance (331–359 m) or the walking duration (5 minutes).",
+        "claims_checked": [
+          "Walking distance is approximately 331–359 m",
+          "Walking duration is approximately 5 minutes",
+          "Location of the hostel is on Pod výtopnou",
+          "Cost is €0.00"
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 3,
+        "slot_name": "Check in: Hostel Florenc shared dorm",
+        "source_type": "link",
+        "source_urls": [
+          "https://travelstack.nuitee.link/hotels/lp4eae0?checkin=2026-06-20&checkout=2026-06-23&rooms=1&adults=1&occupancies=W3siYWR1bHRzIjoxLCJjaGlsZHJlbiI6W119XQ%3D%3D&language=de&currency=EUR"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot provides a specific URL for booking and price verification, but no evidence was retrieved from that link or any other source. Therefore, the claims regarding the location (Pod výtopnou 163/10), the price (€93.00 for 3 nights), and the availability of shared dorms cannot be verified or contradicted.",
+        "claims_checked": [
+          "Venue name: Hostel Florenc",
+          "Address: Pod výtopnou 163/10, Prague",
+          "Cost: €93.00 total (approx €31/night x 3 nights)",
+          "Category: lodging/shared dorm",
+          "Location proximity: Next to Florenc bus station"
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 4,
+        "slot_name": "Prague city tax reserve",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://reserving.com/hotels/europe/czech-republic/hlavni-mesto-praha/prague/hostel-florenc",
+          "https://hostelflorenc.com-rental.com/et/",
+          "https://travelinsider.blog/czech-republic-tourist-tax-2026/",
+          "https://www.tripadvisor.com/Hotel_Review-g274707-d1232566-Reviews-Florenc-Prague_Bohemia.html",
+          "https://florenc.insta-hostel.com/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims a local stay tax in Prague of approximately 50 CZK / €2 per person per night for 2026. Evidence Source 3 explicitly confirms the 'Tourist Tax Rates by City – Czech Republic 2026' for Prague is 'CZK 50 (~€2) per person/night' for 'Hotels, hostels, Airbnb'. The slot calculates a total cost of €6.00 for 3 nights, which aligns perfectly with the €2/night rate (3 nights x €2 = €6). The location 'Hostel Florenc' is confirmed to exist in Prague by Sources 1, 2, 4, and 5.",
+        "claims_checked": [
+          "Location: Hostel Florenc exists in Prague.",
+          "Tax rate: Prague tourist tax is approximately 50 CZK / €2 per person per night in 2026.",
+          "Total cost: €6.00 for a 3-night stay (3 x €2)."
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 5,
+        "slot_name": "Cheap transit lunch: bakery/supermarket food",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://florenceforfree.wordpress.com/2013/09/27/supermarkets-in-florences-city-center/",
+          "https://www.reddit.com/r/ItalyTravel/comments/1fwn3wd/cheap_food_in_florence/",
+          "https://ultimatetravelscrapbook.com/blog/eating-on-a-budget-in-florence-where-i-ate-breakfast-lunch-and-dinner",
+          "https://www.yelp.com/search?find_desc=Supermarkt&find_loc=Florence%2C+Firenze",
+          "https://theflorenceinsider.com/where-to-eat-in-florence-on-a-budget/"
+        ],
+        "verdict": "FAIL",
+        "reasoning": "The slot describes a location in Prague, Czech Republic (Florenc, Na Poříčí, and a budget in CZK/Czech Koruna), but the search results provided are exclusively for Florence, Italy. The evidence discusses 'supermarkets in Florence's city center' and 'Mercato Centrale' in Italy, which contradicts the geographic context of the slot (Prague's Florenc district). Furthermore, the slot mentions 'chlebíček', which is a traditional Czech open-faced sandwich, not an Italian food item.",
+        "claims_checked": [
+          "Location: Florenc / Na Poříčí",
+          "Cost: Under 125 CZK",
+          "Food type: chlebíček-style snack",
+          "Category: supermarket or bakery"
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 6,
+        "slot_name": "Walk Hostel Florenc → Old Town Square",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.rome2rio.com/s/Florenc/Old-Town-Square-Residence-by-Emblem-Prague"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot provided a link to Rome2rio, but no evidence was retrieved from that link or any other source. Therefore, the claims regarding the distance (1.4–1.5 km) and the walking duration (16–17 minutes) cannot be verified against the provided evidence.",
+        "claims_checked": [
+          "Walking distance is approximately 1.4–1.5 km",
+          "Walking duration is typically 16–17 minutes",
+          "The route connects Hostel Florenc to Old Town Square (Staroměstské náměstí)",
+          "The cost is €0.00"
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 7,
+        "slot_name": "Old Town Square + Astronomical Clock exterior",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.tours-prague.eu/tour-oldtown-free.phtml"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a visit to the Old Town Square and the Astronomical Clock. The evidence from the provided link confirms that the Astronomical Clock is a key feature of the Old Town area ('Learn how to read the Prague Astronomical Clock'). While the evidence focuses on a guided tour, it confirms the location and the presence of the clock. The slot's claim that the clock show runs hourly is a standard fact for this attraction, and the evidence mentions a 5 PM tour start time in June (matching the slot's date of June 20), which supports the availability of the site during the 15:40–17:20 window. The cost of €0.00 is consistent with viewing a public square and clock exterior.",
+        "claims_checked": [
+          "Location: Old Town Square, Prague",
+          "Attraction: Astronomical Clock exterior",
+          "Attraction: Týn Church exterior",
+          "Cost: €0.00 (Free)",
+          "Time window: 15:40 to 17:20 on 2026-06-20",
+          "Clock show runs hourly"
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 8,
+        "slot_name": "Cheap dinner: chlebíčky / street-food style meal",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.youtube.com/watch?v=AewjWGA88xE",
+          "https://www.yelp.com/search?find_desc=Cheap+Food&find_loc=Florence%2C+Firenze",
+          "https://www.klook.com/blog/florence-street-food-guide/",
+          "https://www.tiktok.com/@kacierose4/video/7462841596141260078",
+          "https://www.youtube.com/watch?v=RCgM7MV9iC0"
+        ],
+        "verdict": "FAIL",
+        "reasoning": "The slot describes a meal in Prague, Czech Republic, specifically mentioning 'chlebíčky' (a traditional Czech open-faced sandwich), 'Czech takeaway meal', and a budget in 'CZK' (Czech Koruna) near 'Old Town / Florenc'. However, the search results provided are exclusively for Florence, Italy (Firenze), discussing Italian street food like pizza and sandwiches in Euros. The evidence confirms that 'Florenc' (a neighborhood/transport hub in Prague) was likely confused with 'Florence' (the city in Italy) during the search or planning process, leading to a total mismatch between the location/cuisine in the slot and the evidence provided.",
+        "claims_checked": [
+          "Location: Old Town / Florenc",
+          "Cuisine: chlebíčky / Czech takeaway meal",
+          "Cost: 200 CZK or less",
+          "Avoid: trdelník stands (Czech pastry)"
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 9,
+        "slot_name": "Charles Bridge sunset walk",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.google.com/maps/search/Karlův+most+Prague"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The provided evidence is a raw Google Maps search result page containing only image metadata and map tiles. It does not contain any text-based information regarding the bridge's opening hours, cost, distance from Old Town Square, or the status of the bridge towers. While the location 'Karlův most' is confirmed by the URL and title, the specific claims made in the slot cannot be verified or refuted by this evidence.",
+        "claims_checked": [
+          "Location: Karlův most, Prague",
+          "Distance from Old Town Square: 600–700 m",
+          "Walking duration: 8–12 minutes",
+          "Cost: €0.00 (Free)",
+          "Opening hours: 24/7",
+          "Bridge towers are paid"
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 10,
+        "slot_name": "Return walk to hostel",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.rome2rio.com/s/Florenc-Bus-Station/Charles-Bridge-Hostel-Apartments-Prague",
+          "https://charlesbridgehostel.com/directionsmnu-2/",
+          "https://charlesbridgehostel.com/shuttle/",
+          "https://www.rome2rio.com/s/Charles-Bridge/Florenc-Bus-Station",
+          "https://www.rome2rio.com/s/Florenc/Charles-Bridge"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims a walking route from Charles Bridge to Hostel Florenc is possible and takes approximately 40 minutes (19:30 to 20:10). While the provided evidence focuses heavily on public transport, Source [1] explicitly lists 'foot' as one of the ways to get between Florenc and the Charles Bridge area. Standard mapping logic for Prague's central districts (Old Town/New Town) supports that a walk between these two major landmarks is feasible and consistent with the 40-minute window provided. The cost claim of €0 is consistent with walking.",
+        "claims_checked": [
+          "Route: Charles Bridge to Hostel Florenc",
+          "Transport mode: Walking",
+          "Duration: 40 minutes",
+          "Cost: €0.00",
+          "Location: Through Old Town/New Town"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 1,
+        "slot_name": "Hostel/simple breakfast",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://reserving.com/hotels/europe/czech-republic/hlavni-mesto-praha/prague/hostel-florenc",
+          "https://www.hostelsclub.com/en/hostel/hostel-florenc",
+          "https://extravaganzafreetour.com/hostel-florenc/",
+          "https://www.tripadvisor.com/Hotel_Review-g274707-d1232566-Reviews-Florenc-Prague_Bohemia.html",
+          "https://hostelflorenc.com-rental.com/et/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms that Hostel Florenc offers breakfast options ('The accommodation offers a continental or buffet breakfast'). Regarding the alternative of a supermarket, the evidence notes that the hostel is located 'on the area of Central Bus Terminal' and within a '3-5 min walk' of 'shops', which supports the feasibility of finding a supermarket in the Florenc area. The cost claim of €4.00 (approx. 100 CZK) is consistent with the hostel's description as 'cheap accommodation' and the nature of 'simple' supermarket items like rolls and yogurt.",
+        "claims_checked": [
+          "Venue name: Hostel Florenc",
+          "Location: Florenc / Central Bus Terminal area",
+          "Availability of breakfast at Hostel Florenc",
+          "Proximity to shops/supermarkets in Florenc",
+          "Cost: €4.00 / 100 CZK"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 2,
+        "slot_name": "Walk to free walking tour meeting area",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://freewalkingtoursbylocals.com/prague/prague-extravaganza-free-tour/",
+          "https://praguewalkingtours.eu/",
+          "https://www.guruwalk.com/walks/61118-free-walking-tour-prague-s-old-town-and-jewish-quarter",
+          "https://freewalkingtourprague.eu/",
+          "https://www.bigboytravel.com/czechrepublic/prague/free-walking-tour/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims a walking distance of under 20 minutes from Hostel Florenc to the Old Town/Powder Tower area. According to standard mapping (implied by the proximity of Florenc to the Powder Tower/Old Town), this is a verifiable distance. Evidence Source 1 confirms that free walking tours (Prague Extravaganza) start at the Powder Tower. Source 2 mentions meeting points on Na Příkopě (near the Powder Tower). Source 3 confirms tours cover the Powder Gate (Powder Tower) and Old Town Square. The cost of €0.00 is consistent with the 'free walking tour' category (tip-based). The suggestion to reserve online and choose English is supported by Sources 3 and 4, which mention availability in English and the ability to make reservations.",
+        "claims_checked": [
+          "Walking duration from Florenc to Old Town/Powder Tower is under 20 minutes",
+          "Free walking tours meet in the Old Town / Powder Tower area",
+          "Tours are tip-based (cost €0.00 for the walk/booking)",
+          "Tours are available in English",
+          "Online reservation is possible/recommended"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 3,
+        "slot_name": "Tip-based Old Town + Jewish Quarter walking tour",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.google.com/maps/search/Guruwalk+S.L.",
+          "https://freewalkingtourprague.eu/en/schedule"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence from the official website (Source 2) confirms that 'Free Walking Tour Prague' operates on a 'pay-what-you-wish model' (tip-based). While the specific 2026 schedule is not visible in the snippet, the provider is a legitimate entity offering these tours. The location (Old Town/Jewish Quarter) and content (historical walk) are standard for this operator's 'Free Tour' category as indicated by the 'Free Tour Community' membership which focuses on local historical highlights.",
+        "claims_checked": [
+          "Venue name: Tip-based Old Town + Jewish Quarter walking tour (Free Walking Tour Prague)",
+          "Category: attraction/tour",
+          "Cost: Tip-based (no upfront fee)",
+          "Location: Old Town Square / Josefov, Prague",
+          "Description: Covers Old Town and Jewish Quarter exteriors"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 4,
+        "slot_name": "Budget lunch: supermarket picnic / chlebíčky",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.reddit.com/r/Prague/comments/1djlr2z/traveling_to_prague_on_a_budget_cheap_economic/",
+          "https://www.tripadvisor.com/ShowTopic-g274707-i96-k10458961-Chlebicky-Prague_Bohemia.html",
+          "https://www.youtube.com/watch?v=68CZ1qSsRUM",
+          "https://www.youtube.com/watch?v=tvo-VfbtnA8&vl=en",
+          "https://undiscoveredpathhome.com/10-best-cheap-eats-in-prague/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence supports the availability and affordability of 'chlebíčky' and supermarket food in Prague's Old Town area. Source 3 (Honest Guide) specifically identifies 'Albert supermarket' as the cheapest option and 'Zlatý kříž' (located near Old Town) as a traditional spot for these sandwiches. Source 2 confirms they are 'cheap fast/comfort food.' Regarding the cost, Source 3 refers to them as '1 € street food,' which makes the slot's budget of €7.00 (approx. 175 CZK) highly realistic and well within the supported price range for a budget lunch.",
+        "claims_checked": [
+          "Availability of chlebíčky/deli sandwiches in Old Town/Prague 1",
+          "Availability of supermarket picnic food as a budget option",
+          "Cost estimate of €7.00 (175 CZK) for a deli/supermarket lunch"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 5,
+        "slot_name": "Walk Charles Bridge → Prague Castle district",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.rome2rio.com/s/Charles-Bridge/Prague-Castle"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot provided a specific link (Rome2rio) to support the claims regarding distance, duration, and transport fallbacks. However, no evidence was retrieved from that link or any other source. Therefore, the claims regarding the 2.9 km distance, the 34-minute duration, and the specific tram fallback (Tram 22) cannot be verified or refuted.",
+        "claims_checked": [
+          "Distance from Charles Bridge to Prague Castle is roughly 2.9 km",
+          "Walking duration is approximately 34 minutes",
+          "Route options include Malá Strana/Nerudova or Old Castle Stairs",
+          "Tram 22 is a fallback transport option",
+          "Cost of the walk is €0.00"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 6,
+        "slot_name": "Prague Castle courtyards + St. Vitus exterior/free nave",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.google.com/maps/search/Prague+Castle+Hradčany"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The provided evidence is a Google Maps search result page which contains only map imagery and metadata. It does not contain any text-based information regarding opening hours, ticket prices, free access areas, or security checks for Prague Castle. Therefore, there is no factual content in the evidence to either support or contradict the claims made in the slot.",
+        "claims_checked": [
+          "Location: Prague Castle, Hradčany",
+          "Cost: €0.00 (for courtyards and free nave)",
+          "Castle grounds opening hours: 06:00–22:00",
+          "Historical buildings opening hours: 09:00–17:00 in summer",
+          "Availability of free limited cathedral nave access",
+          "Presence of security checks"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 7,
+        "slot_name": "Nový Svět + Hradčany backstreets",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.google.com/maps/search/Kandelábr+plynového+pouličního+osvětlení+-+Hradčanské+nám."
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot provided a Google Maps link for the gas lamps at Hradčanské náměstí, but no evidence was retrieved from the link or provided in the evidence section. Therefore, the claims regarding the location, the presence of gas lamps, and the nature of the 'Nový Svět' area cannot be verified against the provided evidence.",
+        "claims_checked": [
+          "Location: Nový Svět / Hradčanské náměstí, Prague",
+          "Presence of gas-lamp area",
+          "Cost: €0.00 (Free)",
+          "Atmosphere: Medieval/quieter lanes"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 8,
+        "slot_name": "Cheap Czech pub dinner: U Černého vola",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.facebook.com/hostinecucernehovola"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot provided a Facebook link as a source of information, but no content was retrieved from that link or any other source. Therefore, there is no evidence available to verify the claims regarding the venue's location, opening hours, or pricing.",
+        "claims_checked": [
+          "Venue name: U Černého vola",
+          "Location: Loretánské nám. 107/1, Prague",
+          "Opening hours: Open daily 10:00–22:00",
+          "Category: Inexpensive traditional Czech pub",
+          "Cost: €11.00"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 9,
+        "slot_name": "Downhill walk via Lesser Town + Lennon Wall",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.google.com/maps/search/John+Lennon+Wall+Prague"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot provided a Google Maps search link for the John Lennon Wall, but no content was retrieved from the link or provided in the evidence section. Therefore, there is no factual evidence to verify the location, cost, or accessibility of the landmark.",
+        "claims_checked": [
+          "Location: Malá Strana / John Lennon Wall",
+          "Cost: €0.00",
+          "Lennon Wall is a free public landmark"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 10,
+        "slot_name": "Return walk to Hostel Florenc",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://moovitapp.com/index/en/public_transit-Hostel_Florenc_Prague-Prague-site_197077462-1684",
+          "https://www.rome2rio.com/s/Florenc/Hostel-Little-Quarter-Prague",
+          "https://www.rome2rio.com/s/Florenc/Mal%C3%A1-Strana",
+          "https://www.rome2rio.com/s/Florenc-Bus-Station/Hotel-Florenc-Prague",
+          "https://www.rome2rio.com/s/Florenc-Bus-Station/Mal%C3%A1-Strana"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a walk from Malá Strana/Old Town to Hostel Florenc with a duration of 45 minutes and a cost of €0.00. Evidence from Source 3 and Source 5 confirms that walking is a valid transport option between Florenc and Malá Strana ('There are 4 ways to get from Florenc to Malá Strana by bus, tram, taxi, or foot'). Source 2 confirms the existence of a 'PID' (Pražská integrovaná doprava) system with tickets costing 'Kč 29–40' (approximately €1.20-€1.60), which aligns with the note about using a 'PID 30-min ticket' as a backup. While the exact walking duration isn't explicitly stated in the snippets, a 45-minute window for a ~2.5km walk across the city center is a standard and verifiable travel claim for this route.",
+        "claims_checked": [
+          "Walking is a possible transport mode between Malá Strana and Florenc",
+          "The cost of walking is €0.00",
+          "A PID ticket is an alternative transport option for this route",
+          "Hostel Florenc is located in the Florenc area"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 1,
+        "slot_name": "Hostel/simple breakfast",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://reserving.com/hotels/europe/czech-republic/hlavni-mesto-praha/prague/hostel-florenc",
+          "https://www.hostelsclub.com/en/hostel/hostel-florenc",
+          "https://extravaganzafreetour.com/hostel-florenc/",
+          "https://www.tripadvisor.com/Hotel_Review-g274707-d1232566-Reviews-Florenc-Prague_Bohemia.html",
+          "https://hostelflorenc.com-rental.com/et/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims that Hostel Florenc offers breakfast and is located near a supermarket/transport hub (Florenc). Evidence Source 1 confirms that 'The accommodation offers a continental or buffet breakfast.' Source 2 and 3 confirm the location is at the 'central bus station Florenc' and within a '3-5 min walk' of shops and fast food. Regarding the cost claim of €4.00 (under 100 CZK), while the evidence does not explicitly state the price of the breakfast, 100 CZK is a standard budget for a 'simple breakfast' or supermarket meal in Prague, and the evidence describes the hostel as 'cheap accommodation.' Since the evidence supports the existence of the breakfast and the location, and does not contradict the budget, it passes.",
+        "claims_checked": [
+          "Hostel Florenc offers breakfast",
+          "Location is at/near Florenc",
+          "Breakfast options include continental/buffet or supermarket items",
+          "Cost is approximately €4.00 / 100 CZK"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 2,
+        "slot_name": "Walk Hostel Florenc → Vítkov Hill",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.hostelsclub.com/en/hostel/hostel-florenc",
+          "https://www.rome2rio.com/s/Florenc/V%C3%ADtkov-130-00-Praha-Praha-3-Czechia",
+          "https://www.tripadvisor.com/Hotel_Review-g274707-d1232566-Reviews-Florenc-Prague_Bohemia.html",
+          "https://www.hostelworld.com/hostels/europe/czech-republic/prague/d/florenc-bus-station/",
+          "https://moovitapp.com/index/en/public_transit-Hostel_Florenc_Prague-Prague-site_197077462-1684"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms that Hostel Florenc is located at the central bus station Florenc (Source 1). Rome2rio confirms that walking is a viable transport mode between Florenc and Vítkov (Source 2). The distance is short enough that a 30-minute window is realistic for a walk, and the description of it being an 'uphill section' is consistent with Vítkov Hill's geography as a known viewpoint. The cost of €0.00 is consistent with a walking route.",
+        "claims_checked": [
+          "Starting point: Hostel Florenc",
+          "Destination: Vítkov Hill",
+          "Transport mode: Walk",
+          "Duration: 30 minutes (08:30 to 09:00)",
+          "Cost: €0.00",
+          "Terrain: Uphill section"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 3,
+        "slot_name": "Vítkov Hill + National Monument exterior",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.google.com/maps/search/Vítkov"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot provided a Google Maps search link, but no content was retrieved from the evidence source. Without fetched text or search results to verify the location, the existence of the Jan Žižka statue, the cost of the exterior/park, or the specific views mentioned, a factual determination cannot be made.",
+        "claims_checked": [
+          "Location: Vítkov, Žižkov, Prague",
+          "Cost: €0.00 (Free) for outdoor park/viewpoint",
+          "Presence of Jan Žižka equestrian statue",
+          "Presence of National Monument exterior",
+          "Viewpoint over Žižkov and Karlín"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 4,
+        "slot_name": "Budget lunch: Karlín bakery / supermarket picnic",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://prague.eu/en/akce/enjoy-a-picnic-in-karlin/",
+          "https://cdn.prague-guide.co.uk/Discover_Prague.pdf",
+          "https://www.tripadvisor.com/Restaurants-g274707-zfn15621712-zfp16-Prague_Bohemia.html",
+          "https://www.tasteofprague.com/pragueblog/prague-escapes-karlin-district",
+          "https://yun.vpsxb.net/ebook/DK%20English%E7%B3%BB%E5%88%97/DK%20Eyewitness%20Travel%20136%E6%9C%AC/Prague%202011.pdf"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot suggests a budget lunch in the Karlín/Florenc area for approximately 175 CZK (€7). Evidence from Source 3 (Tripadvisor) confirms the existence of 'Cheap Eats' in Karlín, and Source 4 (Taste of Prague) explicitly mentions 'affordable lunch specials' in the Karlín district. While the evidence doesn't list a specific bakery name, it confirms Karlín as a district with affordable dining options consistent with the 'budget' and 'cheap' claims. The price point of 175 CZK is consistent with 'Cheap Eats' in Prague, which Source 2 notes remains an 'affordable' destination.",
+        "claims_checked": [
+          "Location: Karlín / Florenc",
+          "Category: Budget lunch / Cheap eats",
+          "Cost: €7.00 / 175 CZK",
+          "Availability of bakeries/supermarkets/affordable food in Karlín"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 5,
+        "slot_name": "Free self-guided New Town walk",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.google.com/maps/search/Powder+Tower+Prague"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The provided evidence is a Google Maps search result page for 'Powder Tower Prague' which contains only metadata and image links. It does not contain text confirming the route (Florenc to Wenceslas Square), the cost of entry vs. exterior viewing, or the specific locations of the Municipal House and Republic Square. While the link confirms the existence of the Powder Tower in Prague, it provides no factual details to verify the specific claims of the walking tour.",
+        "claims_checked": [
+          "Route: Florenc to Náměstí Republiky to Wenceslas Square",
+          "Cost: €0.00 for exterior sightseeing",
+          "Powder Tower entry is paid, but exterior is free",
+          "Municipal House and Powder Tower are located near Republic Square"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 6,
+        "slot_name": "Letná Park free viewpoint walk",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.google.com/maps/search/Letná+Park+Prague"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot provided a Google Maps search link, but no content was retrieved from the link or provided in the evidence section. Therefore, there is no factual information available to verify the claims regarding the location, cost, or views.",
+        "claims_checked": [
+          "Location: Letná Park, Prague",
+          "Cost: €0.00",
+          "Description: Offers classic Vltava bridge views",
+          "Category: Attraction"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 7,
+        "slot_name": "30-minute PID ticket reserve to Vyšehrad area",
+        "source_type": "link",
+        "source_urls": [
+          "https://pidlitacka.cz/en/article/tarifni_zmeny"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence from the official PID Lítačka website confirms the 2026 pricing for a 30-minute ticket. It states: 'The 30-minute ticket will cost 36 CZK in the PID Lítačka app, 39 CZK in paper form'. The slot's cost of €2.00 is a reasonable conversion for 39 CZK (approx. €1.50-€1.60), and the specific CZK values match the evidence exactly.",
+        "claims_checked": [
+          "Official 2026 30-min ticket price in PID Lítačka app is 36 CZK",
+          "Official 2026 30-min ticket price for paper/contactless is 39 CZK",
+          "The ticket is valid for 30 minutes",
+          "The cost is approximately €2.00"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 8,
+        "slot_name": "Cheap Czech dinner: Pod Vyšehradem",
+        "source_type": "link",
+        "source_urls": [
+          "http://www.podvysehradem.eu/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms the restaurant name ('Restaurace pod Vyšehradem'), the location ('located at the beginning of Vratislavova Street'), and the category ('Czech home cooking'). While the specific house number '32' is not explicitly in the text, the description of being 'adjacent to the First Republic Pharmacy' and the 'former Vyšehrad Town Hall' matches the known location of Vratislavova 32. The evidence mentions it is 'under Vyšehrad' and 'halfway to the historic dominant fort', supporting the description. The note regarding Monday hours (11:00–22:00) is consistent with typical restaurant operations, though the specific hours aren't listed on the homepage, the link provided is the official source. The cost of €11 is consistent with the 'inexpensive' and 'budget' claims for a traditional Czech meal.",
+        "claims_checked": [
+          "Venue name: Pod Vyšehradem",
+          "Location: Vratislavova, Prague (near Vyšehrad)",
+          "Category: Czech restaurant/meal",
+          "Price level: Inexpensive/Budget",
+          "Proximity: Near Vyšehrad fortress"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 9,
+        "slot_name": "Vyšehrad ramparts sunset walk",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.google.com/maps/search/Vyšehrad+Prague"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot provided a Google Maps search link, but no evidence was retrieved from the link or provided in the evidence section. Therefore, the claims regarding the location, cost (free), and accessibility of the ramparts cannot be verified against the provided evidence.",
+        "claims_checked": [
+          "Location: Vyšehrad, Prague",
+          "Cost: €0.00 (Free)",
+          "Activity: Historical fort ramparts and river views",
+          "Accessibility: Ramparts are accessible for a sunset walk (18:00-19:30)"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 10,
+        "slot_name": "30-minute PID ticket reserve back to Florenc",
+        "source_type": "link",
+        "source_urls": [
+          "https://pidlitacka.cz/en/article/tarifni_zmeny"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims a 30-minute PID ticket for travel in Prague in June 2026 costs approximately €2.00. The evidence from the official PID Lítačka website confirms that as of January 1, 2026, a 30-minute ticket will cost 36 CZK (app), 39 CZK (paper), or 42 CZK (SMS). At current exchange rates, 36-42 CZK is approximately €1.42-€1.66, which is consistent with and well within the €2.00 budget specified in the slot.",
+        "claims_checked": [
+          "Availability of a 30-minute PID ticket in 2026",
+          "Cost of approximately €2.00 for the ticket",
+          "Ticket validity for travel within Prague (Vyšehrad to Florenc)"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 1,
+        "slot_name": "Hostel/simple breakfast",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://reserving.com/hotels/europe/czech-republic/hlavni-mesto-praha/prague/hostel-florenc",
+          "https://www.hostelsclub.com/en/hostel/hostel-florenc",
+          "https://extravaganzafreetour.com/hostel-florenc/",
+          "https://www.tripadvisor.com/Hotel_Review-g274707-d1232566-Reviews-Florenc-Prague_Bohemia.html",
+          "https://hostelflorenc.com-rental.com/et/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims that Hostel Florenc offers a breakfast option and is located near supermarkets/shops. Evidence Source 1 explicitly states 'The accommodation offers a continental or buffet breakfast.' Evidence Source 3 confirms the location is 'near the centre of the city, on the area of Central Bus Terminal' and is a '3-5 min walk' from 'shops' and 'fast food,' supporting the 'Florenc supermarket' alternative. While the specific price of €4.00 (approx. 100 CZK) is not explicitly listed in the snippets, the hostel is described as 'cheap accommodation' (Source 2) and the availability of the service at the specified location is confirmed.",
+        "claims_checked": [
+          "Venue name: Hostel Florenc",
+          "Location: Near Florenc bus terminal/supermarket",
+          "Service: Offers breakfast (continental or buffet)",
+          "Category: Meal/Cheap accommodation"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 2,
+        "slot_name": "Check out and store/keep backpack",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.booking.com/hostels/city/it/florence.html",
+          "https://www.hostelz.com/hostels/Italy/Florence/hostels-for-backpacker",
+          "https://www.tripadvisor.com/HotelsList-Florence-Backpacker-Hostels-zfp12719022.html",
+          "https://www.theflorentine.net/2024/08/01/6-backpacker-approved-budget-friendly-hostels-florence-italy/",
+          "https://budgettraveller.org/best-hostel-in-florence-check-out-plus-florence/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot refers to 'Hostel Florenc' and its specific check-out policies and luggage storage availability. The provided evidence discusses hostels in Florence, Italy (YellowSquare, Plus Florence, a&o Firenze), but does not contain any information regarding a 'Hostel Florenc' (which is a well-known hostel in Prague, Czech Republic, not Florence, Italy). Because the evidence is silent on the specific venue named in the slot, I cannot verify the check-out times or the cost/availability of luggage storage for that location.",
+        "claims_checked": [
+          "Venue name: Hostel Florenc",
+          "Check-out time: around 10:00–11:00",
+          "Cost: €0.00 (Free luggage storage)",
+          "Location: Hostel Florenc"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 3,
+        "slot_name": "Final free Old Town wander / souvenir-free morning",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.google.com/maps/search/Old+Town+Square+Prague"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot provides a Google Maps search link for 'Old Town Square Prague', but no content was retrieved from this link or any other source. Therefore, there is no evidence available to verify the existence of the locations (Powder Tower, Municipal House, Na Příkopě) or their accessibility/cost as described.",
+        "claims_checked": [
+          "Location: Florenc to Old Town / Na Příkopě / riverside",
+          "Exterior access to Powder Tower is free",
+          "Exterior access to Municipal House is free",
+          "Cost: €0.00"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 4,
+        "slot_name": "Cheap lunch before departure",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.tripadvisor.com/Restaurant_Review-g274707-d7383725-Reviews-Bageterie_Boulevard-Prague_Bohemia.html",
+          "https://www.facebook.com/groups/praguetraveltips/posts/862006232174940/",
+          "https://www.yelp.com/search?cflt=restaurants&find_near=autobusov%C3%A9-n%C3%A1dra%C5%BE%C3%AD-florenc-praha-karl%C3%ADn",
+          "https://www.reddit.com/r/Prague/comments/1pdzoq3/recommendations_near_florenc/",
+          "https://www.youtube.com/watch?v=tvo-VfbtnA8&vl=en"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot suggests finding a low-cost lunch (bakery or supermarket) near Florenc / Na Poříčí for under 175 CZK (€7.00). Evidence from Source 1 confirms 'Bageterie Boulevard' at Na Poříčí 42 is 'Cheap and good for on the go!'. Source 2 mentions 'Lacinka na Florenci' offers 'traditional Czech buffet lunch' at a 'very affordable price'. Source 3 lists affordable options near Florenc, including summer rolls. While specific supermarket prices aren't listed, the existence of multiple 'very affordable' and 'cheap' food options in the exact specified location (Na Poříčí / Florenc) supports the feasibility of a meal under the 175 CZK / €7.00 budget.",
+        "claims_checked": [
+          "Location: Florenc / Na Poříčí area",
+          "Category: Low-cost meal/bakery/supermarket",
+          "Cost: Under 175 CZK (€7.00)"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 5,
+        "slot_name": "Walk to ÚAN Florenc and check departure point",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.rome2rio.com/s/Florenc-Bus-Station/Hotel-Florenc-Prague"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot provides a link to Rome2rio, but no content was retrieved from that link or any other source. Therefore, there is no evidence available to verify the location of ÚAN Florenc, its proximity to the hostel, or the feasibility of the 15-minute walk time.",
+        "claims_checked": [
+          "ÚAN Florenc is Prague’s main bus/carpool hub",
+          "Florenc terminal is next to the hostel",
+          "The walk takes approximately 15 minutes (12:15 to 12:30)"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 6,
+        "slot_name": "Packed dinner/snacks for the road",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.youtube.com/watch?v=F6Pse1MvSVg",
+          "https://www.livingonadime.com/packing-food-road-trips/",
+          "https://www.facebook.com/groups/cheapmealideas/posts/6607122246013554/",
+          "https://www.youtube.com/watch?v=PuVN7ITUgvU",
+          "https://www.youtube.com/watch?v=_8mBawHcS_g"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The provided evidence consists of general advice on packing food for road trips and saving money on vacation meals. It does not contain any specific information regarding the existence of a supermarket or bakery at or near 'Florenc' (Prague's central bus station), nor does it verify local pricing in CZK or the feasibility of the €8.00/200 CZK budget at that specific location. While the general concept of saving money by packing snacks is supported by the evidence, the specific verifiable claims about the venue 'Florenc supermarket / bakery' are not addressed.",
+        "claims_checked": [
+          "Existence of a supermarket or bakery at Florenc",
+          "Cost of snacks/water is approximately €8.00 or 200 CZK",
+          "Location: Florenc supermarket / bakery"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 7,
+        "slot_name": "Target carpool: Prague Florenc → Stuttgart",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.flixbus.com/bus-routes/bus-prague-stuttgart"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The provided evidence for FlixBus is a truncated list of language/flag assets from the website's header and does not contain any route information, schedules, or pricing for the Prague to Stuttgart route. The BlaBlaCar link was not fetched. Therefore, there is no evidence to verify the cost, duration, or availability claims.",
+        "claims_checked": [
+          "Route: Prague Florenc to Stuttgart",
+          "BlaBlaCar cost: €19–€29",
+          "FlixBus cost: from around €26.50",
+          "Travel duration: 6 hours (13:00 to 19:00)"
+        ]
+      }
+    ],
+    "rationale_pass_count": 16,
+    "rationale_fail_count": 2,
+    "rationale_missing_count": 19,
+    "hc_micro_pass_rate": 1.0,
+    "cc_micro_pass_rate": 0.9231,
+    "hc_macro_pass_rate": 1.0,
+    "cc_macro_pass_rate": 0.0,
+    "final_pass_rate": 0.0,
+    "aggregated_constraints": [
+      {
+        "id": "HC-1",
+        "constraint_text": "origin: Stuttgart",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-2",
+        "constraint_text": "destination: Prague",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-3",
+        "constraint_text": "travel_dates: 2026.06.20 to 2026.06.23",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-4",
+        "constraint_text": "travelers: 1 adult",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-5",
+        "constraint_text": "budget: 250 EUR total",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-6",
+        "constraint_text": "accommodation: hostel shared dorm",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-7",
+        "constraint_text": "transport: Car",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-8",
+        "constraint_text": "interests: free attractions, street food, city history, budget travel",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-1",
+        "constraint_text": "Car or road trip transport is not feasible for island or overseas destinations — a flight or ferry is required.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "NA",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 3,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 1
+      },
+      {
+        "id": "CC-2",
+        "constraint_text": "No key information should be left out of the plan, such as the lack of accommodation during travel.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-3",
+        "constraint_text": "Transportation choices within the trip must be reasonable. For example, having both “self-driving” and “flight” would be considered a conflict.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-4",
+        "constraint_text": "Both outbound and return transport must appear in the plan.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-5",
+        "constraint_text": "Flight or train connections must allow sufficient layover time (≥60 min domestic, ≥90 min international).",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-6",
+        "constraint_text": "Accommodation must be planned for every night of the trip.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-7",
+        "constraint_text": "Hotel check-in must be scheduled after arrival transport reaches the destination.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-8",
+        "constraint_text": "Restaurants must be open on the planned day and time.",
+        "constraint_type": "commonsense",
+        "final_verdict": "FAIL",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "MISSING_INFO",
+          "FAIL"
+        ],
+        "pass_count": 2,
+        "fail_count": 1,
+        "missing_count": 1,
+        "na_count": 0
+      },
+      {
+        "id": "CC-9",
+        "constraint_text": "Restaurant choices should not be repeated throughout the trip.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-10",
+        "constraint_text": "Activities should be geographically sensible per day (no unnecessary cross-city travel).",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-11",
+        "constraint_text": "Attractions must be open on the planned day and time.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "MISSING_INFO",
+          "PASS"
+        ],
+        "pass_count": 3,
+        "fail_count": 0,
+        "missing_count": 1,
+        "na_count": 0
+      },
+      {
+        "id": "CC-12",
+        "constraint_text": "Attraction choices should not be repeated throughout the trip.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "FAIL",
+          "PASS"
+        ],
+        "pass_count": 3,
+        "fail_count": 1,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-13",
+        "constraint_text": "Travel time between consecutive activities must account for realistic transit duration.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      }
+    ],
+    "timestamp": "2026-05-16T21:26:49.140862+00:00"
+  }
+}

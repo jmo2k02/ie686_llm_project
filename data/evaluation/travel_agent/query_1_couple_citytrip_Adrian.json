@@ -2,165 +2,168 @@
   "id": "query_1_couple_citytrip_Adrian",
   "source": "travel_agent",
   "status": "ok",
-  "duration_seconds": 237.7,
+  "has_timeout": false,
+  "timed_out_models": [],
+  "duration_seconds": 242.2,
   "plan_path": "data/travelplans/travel_agent/query_1_couple_citytrip_Adrian.json",
   "scorecard": {
-    "plan_excerpt": "# TravelPlan: Munich to Vienna 5-day trip, July 10–14 2026\n\n| Day 1 — 2026-07-10 — Arrival and Innere Stadt | Day 2 — 2026-07-11 — Hofburg and classic Vienna | Day 3 — 2026-07-12 — Belvedere and Naschmarkt | Day 4 — 2026-07-13 — Schönbrunn and MuseumsQuartier | Day 5 — 2026-07-14 — Departure |\n| ---",
+    "plan_excerpt": "# TravelPlan: Munich to Vienna, 5 days, July 10–14 2026\n\n| Day 1 — 2026-07-10 — Arrival and Innere Stadt | Day 2 — 2026-07-11 — Imperial Vienna museums | Day 3 — 2026-07-12 — Belvedere and food culture | Day 4 — 2026-07-13 — Leopoldstadt and Prater | Day 5 — 2026-07-14 — Departure day |\n| --- | --- ",
     "judge_models": [
       "openrouter:minimax/minimax-m2.7",
       "openrouter:google/gemini-3-flash-preview",
       "openrouter:deepseek/deepseek-v4-flash",
       "openrouter:qwen/qwen3.5-397b-a17b"
     ],
+    "timed_out_models": [],
     "rationale_verifications": [
       {
         "day_index": 1,
         "slot_position": 1,
-        "slot_name": "Direct Railjet train: Munich → Vienna",
+        "slot_name": "Outbound train: Munich Hbf → Wien Hbf",
         "source_type": "link",
         "source_urls": [
-          "https://www.austrianrailways.com/train-munich-to-vienna"
+          "https://www.oebb.at/",
+          "https://www.bahn.com/"
         ],
-        "verdict": "PASS",
-        "reasoning": "The evidence confirms that the OBB Railjet high-speed train operates from Munich Hauptbahnhof to Vienna Hauptbahnhof. It explicitly states the travel time is 'just 4 hours', which matches the slot's 4-hour window (07:30 to 11:30). The evidence also mentions that schedules are typically announced 12 weeks in advance, supporting the slot's note that July 2026 schedules are not yet finalized. While the evidence lists a price of $104, it also advises booking in advance for cheaper tickets and the slot's own link to the OBB Sparschiene page (though not fully scraped) is the standard source for the €25-type fares mentioned in the notes.",
+        "verdict": "MISSING_INFO",
+        "reasoning": "The provided evidence consists of the landing pages for ÖBB and Deutsche Bahn. While these are the correct official operators for the route, the evidence does not contain specific timetable data, travel durations, or pricing for the Munich to Vienna route in 2026. The slot's claims regarding a ~4-hour duration and €19.99 starting fares are consistent with general knowledge of these rail operators, but the fetched text is silent on these specific details.",
         "claims_checked": [
-          "Operator: ÖBB/DB Railjet",
-          "Route: München Hbf to Wien Hbf",
-          "Duration: Approximately 4 hours",
-          "Availability of advance/Sparschiene fares",
-          "July 2026 schedules are not yet finalized"
+          "Route: Munich Hbf to Wien Hbf",
+          "Operators: ÖBB Railjet/DB",
+          "Duration: approximately 4 hours",
+          "Advance fare: from about €19.99 per person",
+          "Total cost for 2 people: €46.00 (including reservation buffer)"
         ]
       },
       {
         "day_index": 1,
         "slot_position": 2,
-        "slot_name": "Transfer: Wien Hbf → Hotel Pension Walzerstadt",
+        "slot_name": "Transfer to Hotel Pension Walzerstadt",
         "source_type": "link",
         "source_urls": [
-          "https://www.wien.info/en/travel-info/transport/tickets-361360"
+          "https://www.wienerlinien.at/web/wl-en"
         ],
-        "verdict": "PASS",
-        "reasoning": "The slot claims the existence of a '7-day Vienna digital ticket' which covers the cost of public transport. The evidence explicitly confirms this: 'Flexible 7-day VIENNA Ticket (digital ticket and non-transferable): Valid from the time of validation for seven consecutive calendar days: € 25.20'. The evidence also confirms that these tickets are valid on 'subway trains' and 'commuter trains (S-Bahn) operated by Wiener Linien in the Vienna core zone', which supports the claim that the transfer from Wien Hbf (Vienna Central Station) to the hotel via the U-Bahn network is covered.",
+        "verdict": "MISSING_INFO",
+        "reasoning": "The provided evidence is the homepage of Wiener Linien (the Vienna public transport operator). While it confirms that Wiener Linien operates public transport in Vienna (U-Bahn, trams, buses), the evidence does not contain specific route information, station locations, or travel times between 'Wien Hbf' and 'Hotel Pension Walzerstadt'. Therefore, I cannot verify if the specific route (U-Bahn/tram toward Neubau/Zieglergasse) or the 45-minute duration is accurate based solely on the provided text.",
         "claims_checked": [
-          "Existence of a 7-day Vienna digital ticket",
-          "Public transport ticket covers travel from Wien Hbf via U-Bahn network",
-          "Cost is covered by the digital ticket (effectively €0.00 at point of use)"
+          "Transport mode: U-Bahn/tram",
+          "Route: Wien Hauptbahnhof toward Neubau/Zieglergasse",
+          "Destination: Hotel Pension Walzerstadt, 1070 Vienna",
+          "Duration: 45 minutes (12:30 to 13:15)",
+          "Operator: Wiener Linien"
         ]
       },
       {
         "day_index": 1,
         "slot_position": 3,
-        "slot_name": "Check in: Hotel Pension Walzerstadt",
+        "slot_name": "Check-in: Hotel Pension Walzerstadt",
         "source_type": "link",
         "source_urls": [
-          "https://www.booking.com/hotel/at/pension-walzerstadt.html"
+          "https://travelstack.nuitee.link/hotels/lp6586ac75?checkin=2026-07-10&checkout=2026-07-14&rooms=1&adults=2&occupancies=W3siYWR1bHRzIjoyLCJjaGlsZHJlbiI6W119XQ%3D%3D&language=de&currency=EUR"
         ],
-        "verdict": "PASS",
-        "reasoning": "The evidence confirms the hotel's name ('Hotel Pension Walzerstadt'), its location in the 7th district ('The location is excellent in the 7th district of Vienna'), and the availability of Wi-Fi ('Free Wifi'). While the specific address 'Zieglergasse 35' is not explicitly written in the text snippet, the snippet confirms it is 'a short walk away from the metro' (consistent with the claim of being close to U3 Zieglergasse). The price and specific check-in time are not explicitly detailed in the snippet, but the slot notes that the check-in time is unverified and the price is a quoted search rate, which is consistent with the nature of the booking link provided.",
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot provides a specific link to a booking platform (Nuitee) for the Hotel Pension Walzerstadt with specific dates and pricing. However, no evidence was retrieved from this link or any other source. Therefore, the claims regarding the price (€384 total / €96 per night), the location (1070/Neubau), and the availability of WiFi cannot be verified or contradicted.",
         "claims_checked": [
           "Venue name: Hotel Pension Walzerstadt",
-          "Location: 7th district of Vienna",
-          "Proximity: Close to metro/U3 Zieglergasse",
-          "Facility: Wi-Fi available",
-          "Category: Budget accommodation/Pension"
+          "Location: 1070/Neubau, Vienna",
+          "Price: €384.00 total for 4 nights (€96/night)",
+          "Amenities: WiFi",
+          "Alternative: Hotel Schani Salon at €106/night"
         ]
       },
       {
         "day_index": 1,
         "slot_position": 4,
-        "slot_name": "Buy 7-day Vienna public transport tickets",
+        "slot_name": "Lunch: Vollpension Johannesgasse",
         "source_type": "link",
         "source_urls": [
-          "https://www.wien.info/en/travel-info/transport/tickets-361360"
+          "https://www.vollpension.wien/en/grannys-public-living-room/4th-district/",
+          "https://www.vollpension.wien/en/faq/"
         ],
-        "verdict": "PASS",
-        "reasoning": "The evidence from the official Vienna tourism board (wien.info) confirms the existence and price of the digital 7-day ticket. Specifically, it states: 'Flexible 7-day VIENNA Ticket (digital ticket and non-transferable): Valid from the time of validation for seven consecutive calendar days: € 25.20'. The slot's claim of €50.40 for two people matches this exactly (€25.20 * 2 = €50.40). The evidence also confirms the tickets are valid for the 'Vienna core zone' and can be purchased as a 'digital ticket', which aligns with the slot's mention of the WienMobil app.",
+        "verdict": "MISSING_INFO",
+        "reasoning": "The provided evidence consists only of navigation menus and headers from the Vollpension website. While the menus confirm the existence of a 'Café 1st district' and a 'Café 4th district', the actual content of those pages (which would contain the address, opening hours, and pricing) was not included in the fetched text. Therefore, I cannot verify the specific address 'Johannesgasse 4A', the opening hours '08:00–18:00', or the cost.",
         "claims_checked": [
-          "Ticket type: Digital 7-day Vienna core-zone ticket",
-          "Price per person: €25.20",
-          "Total cost for two: €50.40",
-          "Validity: 7 consecutive days",
-          "Purchase method: Digital/App (WienMobil)",
-          "Coverage: Vienna core zone"
+          "Venue name: Vollpension Johannesgasse",
+          "Location: Johannesgasse 4A, 1010 Vienna",
+          "Opening hours: daily 08:00–18:00",
+          "Category: social business where seniors bake traditional cakes",
+          "Cost: €35.00 for 2 people"
         ]
       },
       {
         "day_index": 1,
         "slot_position": 5,
-        "slot_name": "Lunch: Trzesniewski open sandwiches",
+        "slot_name": "Self-guided Innere Stadt courtyard walk",
         "source_type": "link",
         "source_urls": [
-          "https://www.speckmittei.at",
-          "https://www.travelsignposts.com/Austria/food/trzesniewski"
+          "https://www.google.com/maps/search/Schottendurchhaus"
         ],
         "verdict": "MISSING_INFO",
-        "reasoning": "The slot provided two specific URLs (speckmittei.at and travelsignposts.com) as sources for its claims. However, no content was retrieved from these links or any other source. Without evidence to verify the location, opening hours, or pricing, a verdict of PASS or FAIL cannot be determined.",
+        "reasoning": "The slot provides a link to a Google Maps search for 'Schottendurchhaus', but no content was retrieved from this link or any other source. Therefore, there is no evidence available to verify the existence of the specific locations mentioned (Stephansplatz, Blutgasse, Schottendurchhaus) or the feasibility of the walking route within the specified time window.",
         "claims_checked": [
-          "Venue name: Trzesniewski",
-          "Address: Dorotheergasse 1, 1010 Vienna",
-          "Category: Standing snack bar with open-faced sandwiches",
-          "Open Friday daytime",
-          "Cost: €24.00"
+          "Location: Innere Stadt, Vienna",
+          "Cost: €0.00",
+          "Existence of hidden Durchhäuser/courtyards in the area",
+          "Existence of the Blutgasse area",
+          "Existence of the Schottendurchhaus"
         ]
       },
       {
         "day_index": 1,
         "slot_position": 6,
-        "slot_name": "Self-guided Innere Stadt walk",
+        "slot_name": "Dinner: Gasthaus Pöschl",
         "source_type": "link",
         "source_urls": [
-          "https://www.google.com/maps/search/St.+Stephen's+Cathedral+Vienna"
+          "https://www.gasthauspöschl.com"
         ],
         "verdict": "MISSING_INFO",
-        "reasoning": "The provided evidence consists of Google Maps search result pages for 'St. Stephen's Cathedral' and 'Schottendurchhaus'. However, the fetched content contains only metadata and image links for the map interface; it does not contain text confirming the location (Innere Stadt), the cost (free), the specific walking route (Graben, Kohlmarkt, Hofburg, Michaelerplatz), or the feasibility of the time window. While the links themselves are relevant to the activity, the evidence text is silent on the verifiable claims made in the slot.",
+        "reasoning": "The slot provided a specific URL (https://www.gasthauspöschl.com), but no content was retrieved from this link or any other source. Therefore, there is no evidence available to verify the claims regarding the address, opening hours, or pricing.",
         "claims_checked": [
-          "Location: Innere Stadt, Vienna",
-          "Cost: €0.00",
-          "Route includes Stephansplatz",
-          "Route includes Graben",
-          "Route includes Kohlmarkt",
-          "Route includes Hofburg exterior",
-          "Route includes Michaelerplatz",
-          "Route includes hidden courtyards/Durchhäuser"
+          "Venue name: Gasthaus Pöschl",
+          "Location: Weihburggasse 17, 1010 Vienna",
+          "Opening hours: Monday–Saturday 12:00–23:00",
+          "Category: Traditional Viennese Beisl",
+          "Cost: Estimated €60 for 2"
         ]
       },
       {
         "day_index": 1,
         "slot_position": 7,
-        "slot_name": "Dinner: Griechenbeisl",
+        "slot_name": "Buy/activate 7-day Vienna public transport ticket",
         "source_type": "link",
         "source_urls": [
-          "https://www.griechenbeisl.at/",
-          "https://www.wien.info/en/griechenbeisl-132812"
+          "https://www.wienerlinien.at/web/wl-en/news/new-fare-structure-from-1-january-2026",
+          "https://www.wien.info/en/travel-info/transport/tickets-361360"
         ],
         "verdict": "PASS",
-        "reasoning": "The restaurant's official website confirms it is the 'oldest Inn in town' and serves traditional Viennese cuisine (Wiener Schnitzel, Tafelspitz). The location at Fleischmarkt 11 is consistent with the description of being near Schwedenplatz. The opening hours for the date in question (July 10, 2026, which is a Friday) are 12:00pm – 11:00pm, which accommodates the 7:00pm – 8:30pm time slot. The cost estimate is reasonable for a traditional sit-down dinner with mains and drinks in central Vienna.",
+        "reasoning": "The slot claims a 7-day digital Vienna public transport ticket costs €25.20 per person (total €50.40 for two) and covers trams, U-Bahn, and buses. Evidence from Source 2 (wien.info) explicitly confirms the price: 'Flexible 7-day VIENNA Ticket (digital ticket and non-transferable): Valid from the time of validation for seven consecutive calendar days: € 25.20'. It also confirms coverage: 'The tickets are valid on all streetcars, buses and night buses, subway trains and commuter trains (S-Bahn) operated by Wiener Linien in the Vienna core zone.' While Source 1 mentions a fare adjustment starting January 1, 2026, it does not list specific new prices, so the current verified price of €25.20 remains the most accurate data point available in the provided evidence.",
         "claims_checked": [
-          "Venue name: Griechenbeisl",
-          "Location: Fleischmarkt 11, 1010 Vienna",
-          "Category: Traditional Austrian/Viennese restaurant",
-          "Historical status: One of Vienna’s oldest restaurants",
-          "Opening hours: Open at 19:00 on Friday, July 10, 2026",
-          "Menu: Classic dishes like Wiener Schnitzel and Tafelspitz"
+          "Cost of digital 7-day Vienna ticket is €25.20 per person",
+          "Total cost for two people is €50.40",
+          "Ticket covers trams, U-Bahn, and buses",
+          "Ticket is available digitally (ivie app/Wiener Linien)",
+          "Ticket is valid for 7 consecutive days"
         ]
       },
       {
         "day_index": 2,
         "slot_position": 1,
-        "slot_name": "Breakfast at Café Sperl",
-        "source_type": "link",
+        "slot_name": "Breakfast: local bakery/café near Neubau",
+        "source_type": "web_search",
         "source_urls": [
-          "https://www.wien.info/en/caf%C3%A9-sperl-film-location-920732",
-          "https://www.cafesperl.at"
+          "https://m.yelp.com/search?cflt=bakeries&find_loc=Neubau%2C+Vienne%2C+Wien",
+          "https://www.yelp.com/search?cflt=breakfast_brunch&find_loc=Neubaugasse+7%2C+9%2C+1070+Wien",
+          "https://www.tripadvisor.com/Restaurants-g190454-zfn7714399-zfp2-Vienna.html",
+          "https://www.nytimes.com/2025/12/22/travel/vienna-new-cafes-coffee-shops-bakeries.html",
+          "https://www.tripadvisor.com/Restaurant_Review-g190454-d8318360-Reviews-Felzl_Backerei_Cafe_Kaiserstrasse-Vienna.html"
         ],
-        "verdict": "FAIL",
-        "reasoning": "The slot claims that Café Sperl is closed on Sundays in July and August ('avoid Sundays in July/August due to Sunday closure'). However, the official website (Source 2) explicitly states that in July and August, the cafe is closed on Saturdays ('Im Juli & August haben wir am Samstag geschlossen'). The slot's date (2026-07-11) is a Saturday in July, meaning the cafe would be closed according to the evidence, contradicting the slot's claim that it is open on Saturdays.",
+        "verdict": "PASS",
+        "reasoning": "The slot describes a generic breakfast at a local bakery/café in the Neubau/Zieglergasse area of Vienna. Evidence from Source 1 and Source 5 confirms the existence of multiple bakeries and cafes in this specific district (Neubau), such as 'Felber' on Mariahilfer Str. and 'Felzl Backerei Cafe' at Kaiserstrasse. Source 5 specifically mentions 'Great breakfasts' and pastries like chocolate croissants at these locations. Regarding cost, Source 4 mentions pastries from €7.50 and breakfast dishes from €7, making the estimate of €20 for two people (approx. €10 each) realistic and consistent with local pricing for a 'simple' bakery breakfast.",
         "claims_checked": [
-          "Venue name: Café Sperl",
-          "Address: Gumpendorfer Straße 11, 1060 Vienna",
-          "Opening hours: Open Saturdays in July",
-          "Opening hours: Closed Sundays in July/August",
-          "Opening time: 08:30 AM"
+          "Location: Neubau / Zieglergasse area, Vienna",
+          "Category: local bakery/café",
+          "Offerings: coffee, pastries, or rolls",
+          "Cost: €20.00 for 2 people"
         ]
       },
       {
@@ -169,403 +172,363 @@
         "slot_name": "Walk/transit to Kunsthistorisches Museum",
         "source_type": "link",
         "source_urls": [
-          "https://www.wien.info/en/travel-info/transport/tickets-361360"
+          "https://www.wienerlinien.at/web/wl-en"
         ],
-        "verdict": "MISSING_INFO",
-        "reasoning": "The provided evidence is a general information page about public transport tickets in Vienna. It confirms the existence of the U3 line (subway trains) and ticket prices, but it contains no information regarding the specific locations mentioned (Hotel Pension Walzerstadt, Kunsthistorisches Museum, Maria-Theresien-Platz, Volkstheater, or MuseumsQuartier). Therefore, it cannot verify the walking duration (20–25 minutes) or the transit proximity between these specific points.",
+        "verdict": "PASS",
+        "reasoning": "The slot describes a transit segment in Vienna using public transport (Wiener Linien). The evidence provided is the official Wiener Linien website, which confirms the operator's existence and its role in providing public transport services in Vienna (trams, buses, U-Bahn). While the specific route between the hotel and the museum is not detailed in the evidence, the slot correctly identifies the operator and the general nature of the service (covered by transport pass). The timing (45 minutes) is a reasonable estimate for a short city transit, and the evidence mentions ongoing operations and construction updates through 2026, supporting the feasibility of the service during the planned travel date.",
         "claims_checked": [
-          "Hotel Pension Walzerstadt is a 20–25 minute walk to Maria-Theresien-Platz",
-          "Hotel is a short U3 ride to Volkstheater/MuseumsQuartier",
-          "Cost is €0.00 (implies walking or pre-purchased pass)",
-          "Transit duration is approximately 30 minutes (09:30 to 10:00)"
+          "Operator: Wiener Linien",
+          "Location: Vienna (Neubau to Maria-Theresien-Platz)",
+          "Transport mode: Walk/transit (tram/U-Bahn)",
+          "Cost: €0.00 (covered by transport pass)",
+          "Date: July 2026 (within the operational window mentioned in evidence)"
         ]
       },
       {
         "day_index": 2,
         "slot_position": 3,
-        "slot_name": "Kunsthistorisches Museum",
+        "slot_name": "Kunsthistorisches Museum Wien",
         "source_type": "link",
         "source_urls": [
-          "https://www.khm.at/en/visit"
+          "https://www.khm.at/"
         ],
-        "verdict": "FAIL",
-        "reasoning": "The slot claims the museum is open 'daily 10:00–18:00' in July. However, the official website (Source 1) states the standard opening hours are 'Tue - Sun, 10 a.m. - 6 p.m.' and 'Thu until 9 pm'. While the museum does open on certain Mondays for holidays (as seen in the May, October, and November schedules), there is no evidence provided that it is open daily (including Mondays) in July 2026. Furthermore, the slot claims a cost of €44.00 for the visit (with a note of €22 per adult), but the provided evidence from the official site does not list ticket prices to verify this amount.",
+        "verdict": "MISSING_INFO",
+        "reasoning": "The provided evidence from the official website (khm.at) is a landing page that confirms the museum's name and the existence of world-famous collections, but it does not contain specific details regarding opening hours, ticket prices, or the exact address. While the slot claims a cost of €44.00 (total for two people based on the €22 description) and a 10:00-18:00 schedule, the fetched text cuts off before reaching the practical visitor information section. Therefore, there is no evidence to either confirm or contradict the specific claims.",
         "claims_checked": [
-          "Venue name: Kunsthistorisches Museum",
+          "Venue name: Kunsthistorisches Museum Wien",
           "Location: Maria-Theresien-Platz, 1010 Vienna",
-          "Opening hours: daily 10:00–18:00 in July",
-          "Cost: €44.00 total / €22.00 per adult",
-          "Collections: Bruegel, Kunstkammer, Egyptian/Greek, Klimt staircase"
+          "Opening hours: daily 10:00–18:00",
+          "Adult admission: about €22 online",
+          "Total cost: €44.00",
+          "Collections include: Bruegel, Kunstkammer treasures, imperial collections"
         ]
       },
       {
         "day_index": 2,
         "slot_position": 4,
-        "slot_name": "Lunch: Figlmüller Bäckerstraße",
+        "slot_name": "Lunch: Glacis Beisl at MuseumsQuartier",
         "source_type": "link",
         "source_urls": [
-          "https://www.figlmueller.at/en/reservations/",
-          "https://www.figlmueller.at/en/location-contact/"
+          "https://www.mqw.at/en/visit/opening-hours/",
+          "https://glacisbeisl.at/en/"
         ],
         "verdict": "PASS",
-        "reasoning": "The evidence from the official website confirms the location (Bäckerstraße 6, 1010 Vienna) and the operating hours (daily 11:30am – 11:30pm, kitchen until 10pm). Source 1 explicitly states: 'Figlmüller Bäckerstraße: Bäckerstraße 6, 1010 Vienna. Open daily 11:30am – 11:30pm. Kitchen daily 11:30am – 10pm.' The cost estimate and reservation note are consistent with the nature of the establishment as described on the site.",
+        "reasoning": "The evidence confirms the venue name and its location within the MuseumsQuartier/7th district. Source 2 confirms it serves 'Classic Viennese cuisine' and features a 'wonderful garden'. Regarding the opening hours, Source 1 states that restaurants at the MuseumsQuartier can be visited 'at any time' (referring to the grounds being open 24/7) and Source 2 mentions taking phone reservations from 10:30 a.m., which is consistent with a 13:15 lunch slot. Source 2 also explicitly supports the note to reserve garden seating: 'If the weather is nice, we reserve your table in the guest garden!'.",
         "claims_checked": [
-          "Venue name: Figlmüller Bäckerstraße",
-          "Address: Bäckerstraße 6, 1010 Vienna",
-          "Opening hours: daily 11:30–23:30",
-          "Kitchen hours: until 22:00"
+          "Venue name: Glacis Beisl",
+          "Location: MuseumsQuartier / 7th district",
+          "Cuisine: Classic Viennese",
+          "Feature: Leafy garden seating",
+          "Opening hours: Daily 12:00–24:00 (consistent with 13:15 slot)",
+          "Reservation policy: Garden seating can be reserved if weather is good"
         ]
       },
       {
         "day_index": 2,
         "slot_position": 5,
-        "slot_name": "Hofburg exterior and imperial lanes walk",
+        "slot_name": "MuseumsQuartier courtyards and Neubau walk",
         "source_type": "link",
         "source_urls": [
-          "https://www.google.com/maps/search/Hofburg+Palace+Vienna"
+          "https://www.mqw.at/en/"
         ],
-        "verdict": "MISSING_INFO",
-        "reasoning": "The provided evidence is a set of Google Maps image tiles and metadata which do not contain text-based information regarding the specific walking route (Graben, Kohlmarkt, Volksgarten), the cost of the Sisi Museum, or the accessibility of the Hofburg courtyards. While the location 'Hofburg Palace' is confirmed by the URL title, the specific claims about the walking tour's components and costs cannot be verified from the visual map data provided.",
+        "verdict": "PASS",
+        "reasoning": "The slot claims that the MuseumsQuartier (MQ) grounds are free and open around the clock. While the provided evidence from the official website (mqw.at) does not explicitly state 'open 24/7' in the snippet, it describes the MQ as a public space with 'Venues & Spaces' and 'Current Exhibitions' occurring in open areas like 'MQ Freiraum'. The description of the activity as a 'stroll' through 'courtyards' and 'streets' for 'people-watching' is consistent with the nature of the MuseumsQuartier as a public cultural complex. The cost of €0.00 for walking through courtyards and streets is a standard characteristic of public urban spaces and is not contradicted by the evidence which lists specific paid exhibitions separately. The location (MuseumsQuartier and Spittelberg/Neubau) is confirmed by the official website name and the context of the exhibitions listed (e.g., 'Vision and Resistance: How the MuseumsQuartier Changed Vienna').",
         "claims_checked": [
-          "Venue name: Hofburg Palace",
-          "Location: 1010 Vienna",
-          "Route includes Graben/Kohlmarkt to Michaelerplatz",
-          "Route includes Hofburg courtyards and Volksgarten",
-          "Cost: €0.00 (Free exterior walk)",
-          "Optional paid Sisi Museum exists"
+          "Venue name: MuseumsQuartier",
+          "Location: MuseumsQuartier and Spittelberg, Vienna",
+          "Cost: €0.00 (for courtyards/walk)",
+          "MQ grounds are free and open around the clock",
+          "Museum entries are optional"
         ]
       },
       {
         "day_index": 2,
         "slot_position": 6,
-        "slot_name": "Coffee and cake break",
+        "slot_name": "Dinner: Figlmüller Wollzeile",
         "source_type": "link",
         "source_urls": [
-          "https://www.cafemuseum.at/en/cafe-museum.html"
+          "https://www.figlmueller.at/en/wollzeile/",
+          "https://www.figlmueller.at/en/reservations/"
         ],
         "verdict": "PASS",
-        "reasoning": "The evidence confirms the existence and location of Café Museum at Operngasse 7, 1010 Wien (historic center/Karlsplatz). The opening hours are listed as 'Mon - Sun 8 a.m. - 9 p.m.', which covers the requested time slot of 16:30 to 17:15. The evidence explicitly mentions 'coffee specialities' and 'pastries', supporting the 'Melange and cake' claim. While the evidence does not mention the Café Central renovation, the slot's primary recommendation (Café Museum) is fully validated by the provided link.",
+        "reasoning": "The evidence from the official website confirms the venue name ('Figlmüller Wollzeile'), the address ('Wollzeile 5, 1010 Vienna'), and the operating hours ('Open daily 11am – 10:30pm, kitchen daily 11am – 9:30pm'). The slot's time window (18:30-20:00) falls within these hours. The description of it being the 'original' location is supported by the text 'Birthplace of Viennas most famous schnitzel' and the reference to the founder starting there in 1905.",
         "claims_checked": [
-          "Venue name: Café Museum",
-          "Location: Operngasse 7, 1010 Wien (historic center)",
-          "Opening hours: 8 a.m. - 9 p.m. (covers 16:30-17:15)",
-          "Offerings: Coffee and pastries (cake)"
-        ]
-      },
-      {
-        "day_index": 2,
-        "slot_position": 7,
-        "slot_name": "Dinner: Plachutta Wollzeile",
-        "source_type": "link",
-        "source_urls": [
-          "https://www.plachutta.at/en/restaurant/wollzeile/"
-        ],
-        "verdict": "PASS",
-        "reasoning": "The evidence (Source 1) confirms the restaurant name 'Plachutta Wollzeile' and its location in 'Vienna’s City Center' (1010). The title explicitly mentions 'Famous Tafelspitz', supporting the description. While the fetched text is partially truncated, the URL and title confirm the specific venue and its primary offering. The opening hours and address are standard for this well-known establishment and consistent with the provided link.",
-        "claims_checked": [
-          "Venue name: Plachutta Wollzeile",
-          "Location: Wollzeile 38, 1010 Vienna",
-          "Category: meal/restaurant",
-          "Specialty: Tafelspitz",
-          "Opening hours: 11:30–23:30"
+          "Venue name: Figlmüller Wollzeile",
+          "Address: Wollzeile 5, 1010 Vienna",
+          "Opening hours: daily 11:00–22:30",
+          "Kitchen hours: until 21:30",
+          "Location status: Original location"
         ]
       },
       {
         "day_index": 3,
         "slot_position": 1,
-        "slot_name": "Breakfast at Café Museum",
+        "slot_name": "Sunday breakfast: Café Museum near Karlsplatz",
         "source_type": "link",
         "source_urls": [
-          "https://www.cafemuseum.at/en/cafe-museum.html"
+          "https://www.cafemuseum.at/en/cafe-museum.html",
+          "https://www.naschmarkt-wien.at/en/naschmarkt-vienna-opening-hours/"
         ],
         "verdict": "PASS",
-        "reasoning": "The evidence confirms the venue name ('Café Museum'), the address ('Operngasse 7, 1010 Wien'), and the location near Karlsplatz ('The \"brilliant\" coffee house at Karlsplatz'). The opening hours are listed as 'Mon - Sun 8 a.m. - 9 p.m.', which supports the 08:30 start time. While the specific breakfast cutoff of 11:30 is not explicitly mentioned in the provided text snippet, the venue is open and serves 'Viennese cuisine' during that window. The cost of €30 is a reasonable estimate for a high-end Viennese café breakfast.",
+        "reasoning": "The evidence from the official Café Museum website confirms the location (Operngasse 7, 1010 Wien) and the opening hours (Mon - Sun 8 a.m. - 9 p.m.), which supports the 08:30 Sunday breakfast slot. The evidence from the Naschmarkt website confirms that market stalls are permitted to operate Monday to Friday (and implies they are closed Sundays as the text cuts off after 'S' but explicitly mentions 'Tuesday to Friday' and 'Monday to Friday' for standard operations), supporting the note that produce stalls are closed on Sundays.",
         "claims_checked": [
           "Venue name: Café Museum",
           "Address: Operngasse 7, 1010 Vienna",
-          "Location: Near Karlsplatz",
-          "Opening time: 08:30 (within 8 a.m. - 9 p.m. range)",
-          "Category: Café/Meal"
+          "Opening hours: Open Sundays from 08:00",
+          "Location proximity: Near Karlsplatz/Opera",
+          "Naschmarkt status: Produce/market stalls are closed on Sundays"
         ]
       },
       {
         "day_index": 3,
         "slot_position": 2,
-        "slot_name": "Stadtpark morning walk",
+        "slot_name": "Karlsplatz and Stadtpark architecture walk",
         "source_type": "link",
         "source_urls": [
-          "https://www.google.com/maps/search/Stadtpark+Vienna"
+          "https://www.wienmuseum.at/admission"
         ],
-        "verdict": "PASS",
-        "reasoning": "The evidence provided is a Google Maps search for 'Stadtpark Vienna'. While the text content is minimal, the map metadata and search results confirm the existence and location of 'Stadtpark' in Vienna. The presence of 'Meierei im Stadtpark' and the 'Johann Strauss Monument' are standard features of this specific park in Vienna, and the park is a public municipal space which is free to enter. The location 'Stadtpark, Vienna' is directly supported by the search result title and URL.",
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot provides a link to the Wien Museum admission page, but no content was retrieved from that link or any other source. Therefore, there is no evidence available to verify the claims regarding the location, the existence of the Otto Wagner pavilion exteriors, the Secession area, or the cost of the self-guided walk.",
         "claims_checked": [
-          "Venue name: Stadtpark",
-          "Location: Vienna",
-          "Presence of Johann Strauss monument",
-          "Presence of Meierei in Stadtpark",
-          "Cost: €0.00 (Free)"
+          "Location: Karlsplatz / Stadtpark, Vienna",
+          "Cost: €0.00",
+          "Activity: Free self-guided walk around Karlsplatz, Otto Wagner pavilion exteriors, Secession area, and Stadtpark edges",
+          "Wien Museum is a paid optional add-on"
         ]
       },
       {
         "day_index": 3,
         "slot_position": 3,
-        "slot_name": "Lunch: Meierei im Stadtpark",
+        "slot_name": "Lunch: Vollpension Schleifmühlgasse",
         "source_type": "link",
         "source_urls": [
-          "https://www.steirereck.at/meierei.html"
+          "https://www.vollpension.wien/en/grannys-public-living-room/4th-district/",
+          "https://www.vollpension.wien/en/reservation/",
+          "https://www.vollpension.wien/en/faq/"
         ],
-        "verdict": "FAIL",
-        "reasoning": "The slot is scheduled for Sunday, July 12, 2026, from 11:00 to 12:15. However, the official website (Source 1) explicitly states that the venue is closed on Sundays: 'Sonntags & Feiertags geschlossen'. While the slot description acknowledges that Sunday opening may vary and suggests a backup, the primary scheduling of the slot on a day the venue is definitively closed according to its own website constitutes a failure.",
+        "verdict": "MISSING_INFO",
+        "reasoning": "The provided evidence consists only of the navigation menus and headers for the Vollpension website. While the titles of the pages confirm the existence of the 'Schleifmühlgasse' (4th district) and 'Johannesgasse' (1st district) locations, the actual content of the pages (opening hours, specific addresses, and reservation policies) was not captured in the fetched text. Therefore, I cannot verify the specific claims regarding Sunday opening hours (08:00–20:00) or the exact address.",
         "claims_checked": [
-          "Venue name: Meierei im Stadtpark",
-          "Location: Am Heumarkt 2a, 1030 Vienna",
-          "Operator: Steirereck group",
-          "Opening hours: Open on Sunday, July 12, 2026"
+          "Venue name: Vollpension Schleifmühlgasse",
+          "Address: Schleifmühlgasse 16, 1040 Vienna",
+          "Opening hours: Daily including Sundays, 08:00–20:00",
+          "Johannesgasse branch hours: Daily 08:00–18:00",
+          "Location: Near Naschmarkt"
         ]
       },
       {
         "day_index": 3,
         "slot_position": 4,
-        "slot_name": "Transfer/walk to Upper Belvedere",
+        "slot_name": "Walk/tram to Belvedere",
         "source_type": "link",
         "source_urls": [
-          "https://www.wien.info/en/travel-info/transport/tickets-361360"
+          "https://www.wienerlinien.at/web/wl-en"
         ],
-        "verdict": "PASS",
-        "reasoning": "The evidence confirms that 'A valid ticket is required to travel by public transport in Vienna' and that these tickets are 'valid on all streetcars, buses... subway trains and commuter trains (S-Bahn) operated by Wiener Linien in the Vienna core zone.' This supports the note that the tram journey is covered by a Vienna transport ticket. While the evidence does not explicitly map the distance between Stadtpark and Upper Belvedere, it confirms the general validity of the transport system mentioned in the slot.",
+        "verdict": "MISSING_INFO",
+        "reasoning": "The provided evidence is the homepage of Wiener Linien (Vienna's public transport operator). While it confirms that Wiener Linien operates trams and buses in Vienna and mentions ongoing construction sites through 2026, it does not contain specific route information, stop names (Karlsplatz, Schleifmühlgasse, or Upper Belvedere), or travel durations for the requested journey. Therefore, the specific claims regarding the start/end points and the feasibility of the 45-minute window cannot be verified or contradicted by this specific text.",
         "claims_checked": [
-          "Tram travel is covered by a Vienna transport ticket.",
-          "The site is south-east of the Ring.",
-          "Travel time from Stadtpark area is approximately 30 minutes.",
-          "Cost is €0.00 (assuming walking or pre-purchased ticket)."
+          "Route starts at Karlsplatz / Schleifmühlgasse",
+          "Route ends at Upper Belvedere",
+          "Transport mode is walking plus tram or public transport",
+          "Travel time is approximately 45 minutes (13:15 to 14:00)",
+          "Operator is Wiener Linien"
         ]
       },
       {
         "day_index": 3,
         "slot_position": 5,
-        "slot_name": "Upper Belvedere museum",
-        "source_type": "link",
-        "source_urls": [
-          "https://www.belvederepalace.at/en/visiting-hours",
-          "https://www.google.com/maps/search/Austrian+Gallery+Belvedere"
-        ],
-        "verdict": "PASS",
-        "reasoning": "The evidence confirms the location as 'Prinz-Eugen-Straße 27, 1030 Wien, Austria'. The opening hours for Sunday (the day of the visit, 2026-07-12) are listed as 09:00 AM - 06:00 PM, which accommodates the planned slot of 13:00 to 16:00. The description regarding Klimt's 'The Kiss' and the Baroque palace is supported by the title and content of the official website. While the cost in the slot is €40.00 and the notes estimate €20 per adult, the evidence does not explicitly list current ticket prices, but it does emphasize booking timed entries, which aligns with the slot's notes.",
-        "claims_checked": [
-          "Venue name: Upper Belvedere museum",
-          "Address: Prinz-Eugen-Straße 27, 1030 Vienna",
-          "Opening hours: Daily 09:00–18:00",
-          "Visit date/time: 2026-07-12 from 13:00 to 16:00",
-          "Content: Klimt’s The Kiss and Baroque palace rooms",
-          "Requirement: Book timed entry"
-        ]
-      },
-      {
-        "day_index": 3,
-        "slot_position": 6,
-        "slot_name": "Belvedere Gardens walk",
+        "slot_name": "Upper Belvedere and gardens",
         "source_type": "link",
         "source_urls": [
           "https://www.belvederepalace.at/en/visiting-hours"
         ],
-        "verdict": "PASS",
-        "reasoning": "The slot claims the Belvedere Gardens are located in Vienna, are free to access, and are open during the specified time (16:00 - 17:00 on a Sunday in July). The evidence confirms the location (Prinz-Eugen-Straße 27, 1030 Wien, Austria). The opening hours for Sunday are listed as 09:00 AM - 06:00 PM, which covers the 16:00 - 17:00 window. While the evidence does not explicitly state the gardens are free, it mentions 'gardens without the crush' and the slot specifically notes the 'Free outdoor component', which is a standard characteristic of these public gardens and is not contradicted by the provided ticket-focused link.",
+        "verdict": "FAIL",
+        "reasoning": "The slot claims a cost of €46.00. However, the provided evidence from the official website (Source 1) does not mention a price of €46.00; while it doesn't explicitly list the price, standard Upper Belvedere tickets are historically significantly lower (typically €16-€20). More importantly, the slot claims the venue is open until 18:00 on July 12, 2026. While the 'Regular Opening Hours' table supports 09:00 AM - 06:00 PM for Sundays, the 'Seasonal Timetable' section specifically states that for the period '07/15 – 08/31' (Summer extended), hours are 09:00 AM - 07:00 PM. Since July 12 falls just three days before this extended window, the 18:00 closing time is technically consistent with the 'Regular' schedule, but the cost claim of €46.00 is highly suspect and unsupported by the evidence provided, which focuses on hours. Furthermore, the slot claims 'Sunday availability checked for July 12' and 'Upper Belvedere is open daily/Sunday 09:00–18:00', which matches the 'Regular Opening Hours' in the evidence ('Sunday | 09:00 AM - 06:00 PM | Open'). However, the cost of €46.00 is a specific verifiable claim that is not supported by the official link provided and appears to be an error (likely double the actual price or including a tour not specified). Because the cost claim is a primary verifiable field and is not supported/is likely incorrect based on standard venue operations, it fails the verification against the provided evidence which is silent on price but implies a standard museum visit.",
         "claims_checked": [
-          "Location: Belvedere Gardens, Vienna",
-          "Time: 16:00 - 17:00 on Sunday, July 12, 2026",
-          "Cost: €0.00 (Free outdoor component)",
-          "Description: Formal gardens between Upper and Lower Belvedere"
+          "Venue name: Upper Belvedere",
+          "Address: Prinz-Eugen-Straße 27, 1030 Vienna",
+          "Opening hours: Sunday 09:00–18:00",
+          "Date: July 12, 2026 (Sunday)",
+          "Cost: €46.00",
+          "Collection includes: Klimt’s The Kiss"
         ]
       },
       {
         "day_index": 3,
-        "slot_position": 7,
-        "slot_name": "Dinner: Bitzinger Würstelstand Albertina",
+        "slot_position": 6,
+        "slot_name": "Dinner: Café Sacher light meal and Original Sacher-Torte",
         "source_type": "link",
         "source_urls": [
-          "https://bitzinger.wien/en/wuerstelstand/impressum/"
+          "https://www.sacher.com/en/faqs/"
         ],
         "verdict": "PASS",
-        "reasoning": "The evidence confirms the venue name and location (Sausage stand at the Albertina, 1010 Vienna, Augustinerstraße 1 /Hanuschgasse). While the slot uses 'Albertinaplatz 1' and the evidence uses 'Augustinerstraße 1', these are adjacent/intersecting points for the same physical stand at the Albertina. The evidence does not explicitly list opening hours or specific menu prices, but it confirms the venue's existence and location as described.",
+        "reasoning": "The evidence confirms the location of Hotel Sacher (which houses Café Sacher) as Philharmoniker Str. 4, 1010 Wien. While the provided FAQ link does not explicitly list the 2026 opening hours or the specific price of a meal, the slot's claims regarding the address are directly supported. The description's mention of the location being 'near the Opera' is consistent with the address provided in the evidence. The claims regarding Sunday availability and the closure of Café Central are presented as 'expected' or 'checked' projections for 2026, which are not contradicted by the current FAQ evidence.",
         "claims_checked": [
-          "Venue name: Bitzinger Würstelstand Albertina",
-          "Location: Albertinaplatz 1 / Augustinerstraße 1, 1010 Vienna",
-          "Category: meal (Gastronomy)",
-          "Description: Viennese street food near the Opera/Albertina",
-          "Opening hours: Open daily 08:00–04:00"
+          "Location: Philharmoniker Straße 4, 1010 Vienna",
+          "Venue name: Café Sacher / Hotel Sacher",
+          "Proximity: Near the Opera",
+          "Opening hours: Expected daily 08:00–23:00",
+          "Alternative: Sacher Eck/shop as backups",
+          "Café Central status: Expected closed for renovation in July 2026"
         ]
       },
       {
         "day_index": 4,
         "slot_position": 1,
-        "slot_name": "Breakfast near Mariahilfer Straße",
-        "source_type": "link",
+        "slot_name": "Breakfast: local bakery/café near Neubau",
+        "source_type": "web_search",
         "source_urls": [
-          "https://www.wien.info/en/travel-info/transport/tickets-361360"
+          "https://m.yelp.com/search?cflt=bakeries&find_loc=Neubau%2C+Vienne%2C+Wien",
+          "https://www.yelp.com/search?cflt=breakfast_brunch&find_loc=Neubaugasse+7%2C+9%2C+1070+Wien",
+          "https://www.tripadvisor.com/Restaurants-g190454-zfn7714399-zfp2-Vienna.html",
+          "https://www.nytimes.com/2025/12/22/travel/vienna-new-cafes-coffee-shops-bakeries.html",
+          "https://www.tripadvisor.com/Restaurant_Review-g190454-d8318360-Reviews-Felzl_Backerei_Cafe_Kaiserstrasse-Vienna.html"
         ],
-        "verdict": "MISSING_INFO",
-        "reasoning": "The provided evidence is a page about public transport tickets in Vienna (Wiener Linien). It contains no information regarding cafes, bakeries, or breakfast options near Mariahilfer Straße or Hotel Pension Walzerstadt. While it confirms the existence of subway trains (U-Bahn), it does not verify the specific location or availability of the meal slot described.",
+        "verdict": "PASS",
+        "reasoning": "The slot describes a generic 'local bakery/café' in the Neubau/Zieglergasse area. Evidence from Source 1 and Source 5 confirms the existence of multiple bakeries and cafes in this specific district (Neubau), such as 'Felber' on Mariahilfer Str. and 'Felzl Backerei Cafe' at Kaiserstrasse. Source 4 mentions breakfast dishes from €7 and pastries from €7.50, making the estimated cost of €20 for two people (approx. €10 each) a realistic and verifiable claim for a 'simple breakfast' in this area.",
         "claims_checked": [
-          "Location: Near Hotel Pension Walzerstadt / Mariahilfer Straße",
-          "Category: Simple café/bakery breakfast",
-          "Cost: €20.00",
-          "Transport: U4/U-Bahn connections toward Schönbrunn"
+          "Existence of bakeries/cafés in the Neubau/Zieglergasse area",
+          "Feasibility of a €20 breakfast for two in this area"
         ]
       },
       {
         "day_index": 4,
         "slot_position": 2,
-        "slot_name": "Transfer to Schönbrunn",
+        "slot_name": "Transit to Praterstern / Prater",
         "source_type": "link",
         "source_urls": [
-          "https://www.wien.info/en/travel-info/transport/tickets-361360"
+          "https://www.wienerlinien.at/web/wl-en"
         ],
         "verdict": "PASS",
-        "reasoning": "The evidence confirms the existence of a '7-day VIENNA Ticket' (both paper and digital versions) which covers all public transport in the Vienna core zone ('valid on all streetcars, buses... subway trains... operated by Wiener Linien'). This supports the claim that the transfer is covered by a 7-day ticket. While the evidence does not explicitly map the route from Hotel Pension Walzerstadt to Schönbrunn, it confirms the validity of the ticket type mentioned in the notes for the transport category described.",
+        "reasoning": "The slot claims that public transport (U-Bahn/tram) is available to reach Praterstern and that Wiener Linien is the operator. The evidence from the official Wiener Linien website confirms they are the public transport provider for Vienna, mentioning 'perfectly tailored public transport service' and the operation of 'buses and trams'. While the specific route from Hotel Pension Walzerstadt to Praterstern is not detailed in the provided landing page text, the existence of the network and the operator's role in providing mobility across the city is confirmed. The cost of €0.00 is consistent with the note that it is 'Covered by public-transport pass', a standard feature of Vienna's transit system managed by the linked operator.",
         "claims_checked": [
-          "Schönbrunn is served by public transport",
-          "A 7-day Vienna ticket exists and covers public transport",
-          "The cost for the specific trip is €0.00 (incremental cost) if covered by the 7-day ticket"
+          "Operator is Wiener Linien",
+          "Transport mode includes U-Bahn/tram",
+          "Destination is Praterstern",
+          "Public transport services are operational in 2026"
         ]
       },
       {
         "day_index": 4,
         "slot_position": 3,
-        "slot_name": "Schönbrunn Palace Park and Gloriette walk",
+        "slot_name": "Prater Hauptallee walk",
         "source_type": "link",
         "source_urls": [
-          "https://schonbrunn-palace.org/opening-hours-best-time/",
-          "https://www.google.com/maps/search/Schönbrunn+Palace+Park"
+          "https://www.google.com/maps/search/Prater+Hauptallee+Vienna"
         ],
-        "verdict": "PASS",
-        "reasoning": "The evidence confirms that the park opens at 06:30 daily ('The park always opens at 6:30 am'). While the specific closing time for July is not explicitly listed in the truncated text, the evidence notes that 'Summer gives you the longest palace day' and the slot's claim of 21:00 is consistent with typical seasonal extensions mentioned. The location and the existence of free areas (Great Parterre, fountains, and park) are supported by the description of seasonal paid attractions versus the general park access.",
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot provided a Google Maps search link, but no content was retrieved from the link or provided in the evidence section. Without evidence describing the location, accessibility, or the existence of 'Kugeltanz' at this location, the claims cannot be verified.",
         "claims_checked": [
-          "Venue name: Schönbrunn Palace Park and Gloriette",
-          "Location: Schönbrunner Schloßstraße 47, 1130 Vienna",
-          "Opening time: 06:30",
-          "Cost: €0.00 (for free palace gardens/park)",
-          "July closing time: 21:00"
+          "Location: Prater Hauptallee, 1020 Vienna",
+          "Cost: €0.00",
+          "Activity: Free walk along the Prater Hauptallee",
+          "Optional activity: Bowling at Kugeltanz"
         ]
       },
       {
         "day_index": 4,
         "slot_position": 4,
-        "slot_name": "Lunch: Joseph II Schloss-Restaurant Schönbrunn",
+        "slot_name": "Lunch: Schweizerhaus Prater",
         "source_type": "link",
         "source_urls": [
-          "https://www.restaurant-schoenbrunn.at/en"
+          "https://www.schweizerhaus.at/en/",
+          "https://prater.at/en/schweizerhaus-season-opening-2026/"
         ],
         "verdict": "PASS",
-        "reasoning": "The slot claims the restaurant is open daily from 11:00–20:30 with hot food from 11:30–19:30. The evidence confirms that until March 2026, these hours apply, but for the date of the visit (July 13, 2026), the hours actually expand to 'Open daily from 10:00 to 22:00' and 'Kitchen hours from 11:30 to 20:30'. Since the planned time (12:00–13:15) falls within both the claimed and the expanded actual hours, the slot is valid. The location 'inside the Schönbrunn complex' is supported by the text 'Located in the heart of the UNESCO World Heritage Site of Schönbrunn Palace'.",
+        "reasoning": "The evidence confirms the venue name (Schweizerhaus), location (Prater 1020 Wien), and seasonal availability (Open daily March 15 to October 31, which includes the July 13 date). The operating hours are confirmed as 11 AM to 11 PM ('HOURS OF OPERATION 11 AM TO 11 PM'). The specialty dish 'Stelze' (pork knuckles) is explicitly mentioned as a staple ('Where the beer cheers and pork knuckles chuckle all day long'). The 2026 season opening date is confirmed as March 15th, 2026.",
         "claims_checked": [
-          "Venue name: Joseph II Schloss-Restaurant Schönbrunn",
-          "Location: Schönbrunner Schloßstraße 47, 1130 Vienna (inside Schönbrunn complex)",
-          "Opening hours: Daily 11:00–20:30 (or better)",
-          "Hot food hours: 11:30–19:30 (or better)",
-          "Cuisine: Austrian/Viennese"
+          "Venue name: Schweizerhaus Prater",
+          "Location: Prater 116, 1020 Vienna",
+          "Open daily in July",
+          "Opening hours: 11:00–23:00",
+          "Known for Stelze",
+          "Beer garden atmosphere",
+          "Season opening 2026: March 15th"
         ]
       },
       {
         "day_index": 4,
         "slot_position": 5,
-        "slot_name": "Transfer to Karlsplatz / MuseumsQuartier",
+        "slot_name": "Leopoldstadt canal and Augarten walk",
         "source_type": "link",
         "source_urls": [
-          "https://www.wien.info/en/travel-info/transport/tickets-361360"
+          "https://www.wien.info/en"
         ],
-        "verdict": "PASS",
-        "reasoning": "The slot claims that the transfer from Schönbrunn to Karlsplatz/MuseumsQuartier is 'Covered by Vienna ticket' and lists a cost of €0.00 (implying no additional cost beyond the existing ticket). The evidence confirms the existence of various 'Vienna network tickets' (24-hour, 7-day) which are 'valid on all streetcars, buses... subway trains and commuter trains (S-Bahn) operated by Wiener Linien in the Vienna core zone.' Since both Schönbrunn and Karlsplatz are within the Vienna core zone, the use of a pre-purchased Vienna ticket covers this journey.",
+        "verdict": "MISSING_INFO",
+        "reasoning": "The provided evidence is the homepage of Vienna's official travel guide (wien.info). While it mentions general topics like the Eurovision Song Contest 2026, the Prater, and Viennese cuisine, it contains no specific information regarding Leopoldstadt, the Danube Canal, or Augarten as walking destinations, nor does it confirm the cost or pedestrian-friendly nature of these specific locations. The evidence is too generic to verify the specific claims of the slot.",
         "claims_checked": [
-          "Route: Schönbrunn to Karlsplatz / MuseumsQuartier",
-          "Cost: €0.00 (covered by Vienna ticket)",
-          "Transport mode: Public transit (implied by 'Vienna ticket' and 'Wiener Linien')"
+          "Location: Leopoldstadt / Augarten / Danube Canal, Vienna",
+          "Cost: €0.00",
+          "Activity: Walk north/west through Leopoldstadt toward the Danube Canal or Augarten",
+          "Description: Pedestrian-friendly exploration"
         ]
       },
       {
         "day_index": 4,
         "slot_position": 6,
-        "slot_name": "Wien Museum Karlsplatz and MuseumsQuartier walk",
+        "slot_name": "Dinner: Bauernbräu",
         "source_type": "link",
         "source_urls": [
-          "https://whichmuseum.com/museum/wien-museum-karlsplatz-vienna-5358/opening-hours",
-          "https://www.mqw.at/en/"
+          "https://lokaltipp.at/lokal/qPK4WlG/bauernbrau"
         ],
         "verdict": "PASS",
-        "reasoning": "The slot correctly identifies that the Wien Museum Karlsplatz is closed on Mondays (Source 1: 'Monday: Closed'). The slot also correctly notes that the permanent exhibition is free (Source 1 mentions 'Wien Museum Karlsplatz' and the slot description accounts for the closure by suggesting an alternative walk). The MuseumsQuartier (MQ) is a public space with courtyards, and Source 2 confirms it is a venue with various spaces and exhibitions, supporting the 'walk through courtyards' claim. The cost of €0.00 is consistent with a public walk and the museum's free permanent exhibition policy (though the museum is closed on the specific date).",
+        "reasoning": "The slot claims the venue name is 'Bauernbräu', which is confirmed by the source title 'Bauernbräu beim Raimundtheater'. The slot claims it serves traditional Austrian food, which is supported by the evidence mentioning 'Ausgesuchtes aus den Österreichischen Genussregionen' (Selections from Austrian gourmet regions). While the specific address and exact Monday hours are not explicitly listed in the text of the provided evidence (the 'Öffnungszeiten' section is present but empty in the text dump), the slot's claims are consistent with the venue identified in the link, and there is no contradictory information provided in the evidence to warrant a FAIL.",
         "claims_checked": [
-          "Wien Museum Karlsplatz is closed on Mondays",
-          "Wien Museum Karlsplatz has a free permanent exhibition",
-          "MuseumsQuartier has courtyards accessible for a walk",
-          "The activity (walking/MQ courtyards) is free of charge"
-        ]
-      },
-      {
-        "day_index": 4,
-        "slot_position": 7,
-        "slot_name": "Dinner: Glacis Beisl",
-        "source_type": "link",
-        "source_urls": [
-          "https://glacisbeisl.at/en/",
-          "https://www.mqw.at/en/catering/glacis-beisl/"
-        ],
-        "verdict": "PASS",
-        "reasoning": "The evidence confirms the venue name (Glacis Beisl), its location within the MuseumsQuartier/7th district, and its cuisine (traditional Viennese). Source 2 explicitly confirms the opening hours as 'Mon. – Sun., 12:00 – 24:00', which matches the slot's claim of daily opening 12:00–00:00. The garden atmosphere is also highlighted in both sources ('wonderful garden', 'spacious outdoor seating area beneath old walnut trees'). While the specific address 'Breite Gasse 4' is not explicitly written in the text, Source 1 places it in the 7th district between Spittelberg and the Museumsquartier, which is consistent with that address.",
-        "claims_checked": [
-          "Venue name: Glacis Beisl",
-          "Location: Breite Gasse 4, 1070 Vienna (beside MuseumsQuartier)",
-          "Cuisine: Traditional Viennese Beisl cuisine",
-          "Opening hours: Daily 12:00–00:00",
-          "Atmosphere: Garden atmosphere"
+          "Venue name: Bauernbräu",
+          "Category: Traditional Austrian dinner",
+          "Location: Gumpendorfer Str. 134/136, 1060 Vienna",
+          "Monday hours: 17:00–23:00"
         ]
       },
       {
         "day_index": 5,
         "slot_position": 1,
-        "slot_name": "Early hotel checkout and station breakfast",
+        "slot_name": "Breakfast and check-out",
         "source_type": "link",
         "source_urls": [
-          "https://www.bahnhof.de/muenchen-hbf"
+          "https://travelstack.nuitee.link/hotels/lp6586ac75?checkin=2026-07-10&checkout=2026-07-14&rooms=1&adults=2&occupancies=W3siYWR1bHRzIjoyLCJjaGlsZHJlbiI6W119XQ%3D%3D&language=de&currency=EUR"
         ],
-        "verdict": "PASS",
-        "reasoning": "The slot claims that breakfast can be obtained at Wien Hauptbahnhof. While the provided evidence for München Hbf is irrelevant, the slot's second link (though not fully scraped in the evidence text provided, it is listed in the slot) points to the official ÖBB page for Wien Hauptbahnhof. General knowledge of major European train stations like Wien Hbf supports the claim that breakfast options are available. The slot also mentions Hotel Pension Walzerstadt, which is a real establishment in Vienna near Zieglergasse. The cost and timing are reasonable estimates for a station breakfast and checkout process. Since the evidence provided for the specific station link (Source 1) was for the wrong city (Munich), but the slot itself correctly identifies Wien Hauptbahnhof and provides the correct URL for it, and there are no contradictions to the claims made, it passes based on the consistency of the location names and the presence of the correct official link for the intended destination.",
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot provides a specific link for Hotel Pension Walzerstadt, but no evidence was retrieved from that link or any other source. Therefore, I cannot verify the location, the availability of breakfast, the cost, or the check-out procedures for this specific hotel.",
         "claims_checked": [
-          "Location: Hotel Pension Walzerstadt",
-          "Location: Wien Hauptbahnhof",
-          "Activity: Breakfast available at Wien Hbf",
-          "Activity: Hotel checkout",
-          "Link provided: https://www.oebb.at/en/reiseplanung-services/am-bahnhof/unsere-bahnhoefe/wien-hauptbahnhof"
+          "Venue name: Hotel Pension Walzerstadt",
+          "Location: Neubau area",
+          "Service: Breakfast available",
+          "Cost: €20.00 for two people"
         ]
       },
       {
         "day_index": 5,
         "slot_position": 2,
-        "slot_name": "Optional final city walk / souvenir stop",
+        "slot_name": "Naschmarkt morning food walk",
         "source_type": "link",
         "source_urls": [
-          "https://www.google.com/maps/search/Mariahilfer+Straße+Vienna"
+          "https://www.naschmarkt-wien.at/en/naschmarkt-vienna-opening-hours/"
         ],
-        "verdict": "MISSING_INFO",
-        "reasoning": "The slot provides a Google Maps search link for 'Mariahilfer Straße Vienna', but no evidence was retrieved from this link or any other source. Therefore, there is no factual data to verify the existence of the location, its suitability for a walk, or the cost associated with it.",
+        "verdict": "PASS",
+        "reasoning": "The slot claims the Naschmarkt is open Monday–Friday from 06:00–21:00. The evidence from the official website confirms this, stating: 'Monday to Friday: 6:00 AM – 9:00 PM (max.)'. The slot is scheduled for Tuesday, July 14, 2026, at 09:30 AM, which falls within these permitted hours. The location (Wienzeile, 1060 Vienna) is consistent with the general knowledge of the Naschmarkt's location provided in the source title and context.",
         "claims_checked": [
-          "Location: Mariahilfer Straße / 7th district, Vienna",
-          "Cost: €0.00",
-          "Activity: Final city walk / souvenir stop"
+          "Venue name: Naschmarkt",
+          "Location: Wienzeile, 1060 Vienna",
+          "Opening hours: Monday–Friday 06:00–21:00",
+          "Tuesday availability: Market should be open"
         ]
       },
       {
         "day_index": 5,
         "slot_position": 3,
-        "slot_name": "Lunch: casual Austrian bite near station",
+        "slot_name": "Lunch: Naschmarkt casual stalls",
         "source_type": "link",
         "source_urls": [
-          "https://www.oebb.at/en/reiseplanung-services/am-bahnhof/unsere-bahnhoefe/wien-hauptbahnhof"
+          "https://www.naschmarkt-wien.at/en/naschmarkt-vienna-opening-hours/"
         ],
-        "verdict": "MISSING_INFO",
-        "reasoning": "The slot provides a link to the official ÖBB page for Wien Hauptbahnhof, but no content was retrieved from that link or any other source. Therefore, there is no evidence available to verify the existence of food courts or specific pricing at this location.",
+        "verdict": "PASS",
+        "reasoning": "The slot proposes a lunch at Naschmarkt on Monday, July 14, 2026, at 11:00 AM. The evidence from the official Naschmarkt website confirms that market stalls are permitted to operate on Mondays from 6:00 AM to 9:00 PM ('Monday to Friday: 6:00 AM – 9:00 PM (max.)'). The location (1060 Vienna) is consistent with the general knowledge of the Naschmarkt's location, and the evidence confirms the existence of both market stalls and catering establishments (restaurants/cafes) at this site.",
         "claims_checked": [
-          "Location: Wien Hauptbahnhof / nearby",
-          "Availability of a food court or inexpensive bakery/snack spot at Wien Hbf",
-          "Cost: €18.00 for 2 people"
+          "Venue name: Naschmarkt",
+          "Location: 1060 Vienna",
+          "Opening hours: Open on Monday at 11:00 AM",
+          "Category: Market stalls and restaurants available"
         ]
       },
       {
@@ -574,43 +537,45 @@
         "slot_name": "Transfer to Wien Hauptbahnhof",
         "source_type": "link",
         "source_urls": [
-          "https://www.wien.info/en/travel-info/transport/tickets-361360"
+          "https://www.wienerlinien.at/web/wl-en"
         ],
-        "verdict": "PASS",
-        "reasoning": "The slot claims that public transport to Wien Hbf can be covered by a 'Vienna ticket' and lists a cost of €0.00 (implying it is pre-paid or included in a pass). The evidence confirms that various 'Vienna network tickets' (24-hour, 7-day) exist and are valid on 'all streetcars, buses... subway trains and commuter trains (S-Bahn) operated by Wiener Linien in the Vienna core zone.' Since both the starting point (Hotel Pension Walzerstadt) and the destination (Wien Hbf) are within the city of Vienna, they fall under this core zone coverage. The evidence supports the existence of tickets that cover this journey.",
+        "verdict": "MISSING_INFO",
+        "reasoning": "The provided evidence is the homepage of Wiener Linien, which confirms they are the public transport operator in Vienna ('With Wiener Linien, you are always well travelled'). However, the evidence does not contain specific route information, travel times, or distances between 'Hotel Pension Walzerstadt / Naschmarkt' and 'Wien Hauptbahnhof'. It also does not list specific ticket prices to verify the €0.00 cost or the validity of transport passes for this specific journey. While the link is relevant to the operator, it is silent on the specific claims of the transfer.",
         "claims_checked": [
-          "Public transport to Wien Hbf is covered by a Vienna ticket.",
-          "The journey is within the Vienna core zone (implied by the use of a Vienna ticket for city transport).",
-          "Tickets are valid on streetcars, buses, subways, and commuter trains."
+          "Transfer from Hotel Pension Walzerstadt / Naschmarkt to Wien Hauptbahnhof",
+          "Travel duration: 45 minutes (12:00 to 12:45)",
+          "Cost: €0.00",
+          "Operator: Wiener Linien"
         ]
       },
       {
         "day_index": 5,
         "slot_position": 5,
-        "slot_name": "Direct Railjet train: Vienna → Munich",
+        "slot_name": "Return train: Wien Hbf → Munich Hbf",
         "source_type": "link",
         "source_urls": [
-          "https://www.austrianrailways.com/train-munich-to-vienna"
+          "https://www.oebb.at/",
+          "https://www.bahn.com/"
         ],
-        "verdict": "PASS",
-        "reasoning": "The evidence confirms that the OBB Railjet high-speed train operates between Munich Hauptbahnhof and Vienna Hauptbahnhof. It explicitly states the travel time is 'just 4 hours' and the distance is 455 km. While the slot is for Vienna to Munich and the evidence title is Munich to Vienna, the route details confirm the connection between 'Munich Hauptbahnhof to Vienna Hauptbahnhof'. The cost of €56.00 for two adults is consistent with the 'Sparschiene' link provided (which typically offers discounted fares starting around €20-25 per person) and the evidence's mention of 'discount tickets' and 'cheaper train tickets' for those who book in advance.",
+        "verdict": "MISSING_INFO",
+        "reasoning": "The provided evidence consists of the landing pages for ÖBB and Deutsche Bahn. While these are the correct official operators for the route, the evidence does not contain specific timetable data, travel durations, or pricing for the July 2026 period. The slot correctly acknowledges that the 'exact July 2026 timetable/fare must be booked once released,' but the current evidence is silent on the specific claims regarding the 4-hour duration and the €19.99 starting price.",
         "claims_checked": [
-          "Operator: ÖBB/DB Railjet-style service",
-          "Route: Wien Hbf to München Hbf",
-          "Duration: Approximately 4 hours",
-          "Direct service availability",
-          "Cost: €56.00 (approx. €25 per person plus reservation)"
+          "Route: Wien Hbf to Munich Hbf",
+          "Travel duration: approximately 4 hours",
+          "Budget advance fares start from around €19.99 per person",
+          "Direct rail service is available",
+          "Operators: ÖBB and Deutsche Bahn"
         ]
       }
     ],
-    "rationale_pass_count": 23,
-    "rationale_fail_count": 3,
-    "rationale_missing_count": 7,
+    "rationale_pass_count": 14,
+    "rationale_fail_count": 1,
+    "rationale_missing_count": 15,
     "hc_micro_pass_rate": 1.0,
-    "cc_micro_pass_rate": 0.9231,
+    "cc_micro_pass_rate": 1.0,
     "hc_macro_pass_rate": 1.0,
-    "cc_macro_pass_rate": 0.0,
-    "final_pass_rate": 0.0,
+    "cc_macro_pass_rate": 1.0,
+    "final_pass_rate": 1.0,
     "aggregated_constraints": [
       {
         "id": "HC-1",
@@ -794,15 +759,15 @@
         "constraint_type": "commonsense",
         "final_verdict": "PASS",
         "judge_verdicts": [
-          "PASS",
+          "NA",
           "PASS",
           "PASS",
           "PASS"
         ],
-        "pass_count": 4,
+        "pass_count": 3,
         "fail_count": 0,
         "missing_count": 0,
-        "na_count": 0
+        "na_count": 1
       },
       {
         "id": "CC-6",
@@ -840,16 +805,16 @@
         "id": "CC-8",
         "constraint_text": "Restaurants must be open on the planned day and time.",
         "constraint_type": "commonsense",
-        "final_verdict": "FAIL",
+        "final_verdict": "PASS",
         "judge_verdicts": [
-          "FAIL",
-          "FAIL",
-          "FAIL",
-          "FAIL"
+          "PASS",
+          "PASS",
+          "MISSING_INFO",
+          "PASS"
         ],
-        "pass_count": 0,
-        "fail_count": 4,
-        "missing_count": 0,
+        "pass_count": 3,
+        "fail_count": 0,
+        "missing_count": 1,
         "na_count": 0
       },
       {
@@ -859,8 +824,8 @@
         "final_verdict": "PASS",
         "judge_verdicts": [
           "PASS",
-          "PASS",
           "FAIL",
+          "PASS",
           "PASS"
         ],
         "pass_count": 3,
@@ -891,34 +856,18 @@
         "final_verdict": "PASS",
         "judge_verdicts": [
           "PASS",
-          "FAIL",
           "PASS",
+          "MISSING_INFO",
           "PASS"
         ],
         "pass_count": 3,
-        "fail_count": 1,
-        "missing_count": 0,
+        "fail_count": 0,
+        "missing_count": 1,
         "na_count": 0
       },
       {
         "id": "CC-12",
         "constraint_text": "Attraction choices should not be repeated throughout the trip.",
-        "constraint_type": "commonsense",
-        "final_verdict": "PASS",
-        "judge_verdicts": [
-          "PASS",
-          "PASS",
-          "FAIL",
-          "PASS"
-        ],
-        "pass_count": 3,
-        "fail_count": 1,
-        "missing_count": 0,
-        "na_count": 0
-      },
-      {
-        "id": "CC-13",
-        "constraint_text": "Travel time between consecutive activities must account for realistic transit duration.",
         "constraint_type": "commonsense",
         "final_verdict": "PASS",
         "judge_verdicts": [
@@ -931,8 +880,24 @@
         "fail_count": 0,
         "missing_count": 0,
         "na_count": 0
+      },
+      {
+        "id": "CC-13",
+        "constraint_text": "Travel time between consecutive activities must account for realistic transit duration.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "FAIL",
+          "PASS"
+        ],
+        "pass_count": 3,
+        "fail_count": 1,
+        "missing_count": 0,
+        "na_count": 0
       }
     ],
-    "timestamp": "2026-05-16T08:06:16.267722+00:00"
+    "timestamp": "2026-05-16T19:24:18.550949+00:00"
   }
 }

@@ -1,0 +1,888 @@
+{
+  "plan_excerpt": "# TravelPlan: Cologne to Copenhagen weekend, 6–8 June 2026\n\n| Day 1 — 2026-06-06 — Fly in, design-first Copenhagen, New Nordic dinner | Day 2 — 2026-06-07 — Designmuseum, cycling, modern smørrebrød, New Nordic dinner | Day 3 — 2026-06-08 — Harbor architecture, design shopping, fly home |\n| --- | ---",
+  "judge_models": [
+    "openrouter:minimax/minimax-m2.7",
+    "openrouter:google/gemini-3-flash-preview",
+    "openrouter:deepseek/deepseek-v4-flash",
+    "openrouter:qwen/qwen3.5-397b-a17b"
+  ],
+  "timed_out_models": [],
+  "rationale_verifications": [
+    {
+      "day_index": 1,
+      "slot_position": 1,
+      "slot_name": "Fly Cologne Bonn Airport to Copenhagen Airport",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.rome2rio.com/s/Cologne-Bonn-Airport-CGN/Copenhagen-Airport-CPH",
+        "https://www.rome2rio.com/s/Cologne-Bonn-Airport/Copenhagen-Airport-CPH",
+        "https://www.omio.com/trains/cologne-bonn-airport/copenhagen-airport-engfn",
+        "https://www.google.com/travel/flights/flights-from-bonn-to-copenhagen.html",
+        "https://www.lufthansa.com/lhg/dk/en/o-d/cy-cy/cologne-bonn-copenhagen"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims a flight from Cologne Bonn Airport (CGN) to Copenhagen Airport (CPH) with a duration of 3.5 hours (07:00 to 10:30) and a cost estimate of €350–€500 for two return tickets. Evidence from Source 2 confirms the flight takes approximately '3h 11m', which fits within the 3.5-hour window. Source 5 confirms Lufthansa offers flights starting at '249 EUR', which aligns with the slot's estimate of €500 for two tickets (approx. €250 each). Source 4 confirms that airlines like Eurowings operate this route.",
+      "claims_checked": [
+        "Flight route: Cologne Bonn Airport (CGN) to Copenhagen Airport (CPH)",
+        "Duration: 3.5 hours (07:00 to 10:30)",
+        "Cost: €500 for two return tickets (approx. €250 each)",
+        "Availability: Morning departures exist"
+      ]
+    },
+    {
+      "day_index": 1,
+      "slot_position": 2,
+      "slot_name": "Metro/train to city centre",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.cph.dk/en/parking-transport/bus-train-metro-taxi/metro"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence explicitly supports the claim that the journey between Nørreport Station and the airport takes 15 minutes ('It takes 15 minutes from Nørreport Station to the airport by metro'). The location of the metro station in Terminal 3 is also confirmed. While the evidence does not explicitly state the price in Euros, the slot's estimate of €16–€25 for two people is a reasonable projection for a standard airport-to-city fare, and the evidence confirms tickets are sold at the station. The time window of 45 minutes (10:30 to 11:15) is consistent with a 15-minute transit time plus walking/waiting buffers.",
+      "claims_checked": [
+        "Metro/train connects Copenhagen Airport to city centre",
+        "Nørreport–airport takes about 15 minutes",
+        "Metro station is located at the airport (Terminal 3)",
+        "Estimated cost for 2 people is €16–€25"
+      ]
+    },
+    {
+      "day_index": 1,
+      "slot_position": 3,
+      "slot_name": "Drop bags at Hotel SP34",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.brochner-hotels.com/our-locations/hotel-sp34"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms the hotel name ('Hotel SP34'), its location in the 'Latin Quarter' (per the page title), and the 'Nordic touch' design description ('all of them designed with a Nordic touch'). While the evidence does not explicitly mention a luggage drop or early check-in policy, these are standard hotel services and do not contradict the provided information. The link provided in the slot is the official website for the venue.",
+      "claims_checked": [
+        "Venue name: Hotel SP34",
+        "Location: Latin Quarter",
+        "Description: Nordic-touch boutique option",
+        "Link: https://www.brochner-hotels.com/our-locations/hotel-sp34"
+      ]
+    },
+    {
+      "day_index": 1,
+      "slot_position": 4,
+      "slot_name": "Casual arrival lunch",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.tripadvisor.com/Restaurants-g189541-zfn8623671-zfp30-Copenhagen_Zealand.html",
+        "https://www.facebook.com/groups/WonderfulCopenhagen/posts/4253739951507807/",
+        "https://community.ricksteves.com/travel-forum/france-reviews/restaurant-recommendations-for-paris-in-the-latin-quarter",
+        "https://m.yelp.com/search?cflt=food&find_loc=Freetown+Christiania",
+        "https://m.yelp.com/search?cflt=restaurants&find_loc=Freetown+Christiania%2C+Freetown+Christiania"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a generic 'Casual arrival lunch' in the Indre By / Latin Quarter area of Copenhagen with a budget of €45–€70 for two people. Evidence Source 1 confirms the existence of casual lunch options in Indre By, such as Cafe Flottenheimer. Regarding the cost, Source 2 mentions a dinner for two at Restaurant PUK for 1025 DKK (~€137), suggesting that a casual lunch for two within the €45–€70 range (approx. 335–520 DKK) is a realistic and consistent estimate for the area.",
+      "claims_checked": [
+        "Location: Indre By / Latin Quarter, Copenhagen",
+        "Category: meal (lunch)",
+        "Cost: €45–€70 for 2 people"
+      ]
+    },
+    {
+      "day_index": 1,
+      "slot_position": 5,
+      "slot_name": "Danish Architecture Center at BLOX",
+      "source_type": "link",
+      "source_urls": [
+        "https://dac.dk/en/plan-your-visit",
+        "https://www.visitcopenhagen.com/copenhagen/planning/danish-architecture-center-gdk414885"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims the Danish Architecture Center is located at BLOX on the Copenhagen waterfront, which is confirmed by the official website and VisitCopenhagen. The time window (13:30–15:30 on a Saturday) is valid as the evidence states Saturday hours are 10:00–18:00. The cost claim of €60.00 (with a note of €45–€60 for two) is consistent with the adult price of 135 DKK (approx. €18 per person, totaling ~€36 for two, which falls within/under the estimated range). The description of exhibitions, design shop, and views is supported by the venue's name and the mention of 'exhibitions' and 'DAC Design Shop' in the source text.",
+      "claims_checked": [
+        "Name: Danish Architecture Center",
+        "Location: BLOX, Copenhagen waterfront",
+        "Opening hours: Open on Saturday (June 6, 2026) during 13:30–15:30",
+        "Cost: €60.00 (Note: €45–€60 for 2)",
+        "Features: Exhibitions, DAC Design Shop, and rooftop/café views"
+      ]
+    },
+    {
+      "day_index": 1,
+      "slot_position": 6,
+      "slot_name": "Architecture walk",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.visitcopenhagen.com/copenhagen/planning/blox-gdk1079718",
+        "https://www.wallpaper.com/architecture/ellen-van-loon-oma-architectural-ascent-and-the-blox-building-copenhagen",
+        "https://www.facebook.com/denmark.dk/posts/copenhagens-new-top-destination-for-design-and-architecture-enthusiasts-blox-ope/10155330169551674/",
+        "https://www.tripadvisor.com/Attraction_Review-g189541-d14097945-Reviews-Blox-Copenhagen_Zealand.html",
+        "https://www.alamy.com/stock-photo/the-blox-building.html"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms that BLOX is a 'modern harbourfront area' and a 'distinctive building on Copenhagen’s harbour' (Source 1). It specifically mentions that BLOX features 'public squares, urban living and bike bridge' and is an example of 'sustainable urban planning' (Source 1). While the evidence does not explicitly name 'Lille Langebro' or 'Christianshavn edge', it describes the area as a 'unique designed urban complex' (Source 5) and a 'top destination for design and architecture enthusiasts' (Source 3) located on the harborfront. The cost of €0.00 is consistent with a walk through 'public squares' and 'recreational areas' (Source 1, 4).",
+      "claims_checked": [
+        "Location: BLOX / harborfront",
+        "Description: Walk the harborfront around BLOX for contemporary urban design",
+        "Category: leisure",
+        "Cost: €0.00",
+        "Notes: Outdoor architecture route"
+      ]
+    },
+    {
+      "day_index": 1,
+      "slot_position": 7,
+      "slot_name": "Hotel check-in / rest",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.trip.com/hotels/copenhagen-hotel-detail-2215652/hotel-sp34/",
+        "https://www.guestreservations.com/hotel-sp34-copenhagen/booking",
+        "https://www.hotels.com/ho188360/hotel-sp34-by-br-chner-hotels-copenhagen-denmark/",
+        "https://www.expedia.com/Copenhagen-Hotels-Hotel-SP34.h14797.Hotel-Information",
+        "https://www.tripadvisor.com/Hotel_Review-g189541-d5888190-Reviews-Hotel_SP34-Copenhagen_Zealand.html"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims a check-in time at Hotel SP34 starting at 16:15 (4:15 PM). Multiple sources (1, 2, 3, 4, and 5) confirm that the standard check-in time for Hotel SP34 begins at 15:00 (3:00 PM). Source 2 states: 'Check-in begins at 3:00 PM... at Hotel SP34.' Source 3 confirms: 'Check-in start time: 3:00 PM; Check-in end time: anytime.' Since the slot's scheduled time of 16:15 is after the official start time of 15:00, the claim is supported by the evidence.",
+      "claims_checked": [
+        "Venue name: Hotel SP34",
+        "Check-in time: 16:15 (4:15 PM) is valid based on hotel policy"
+      ]
+    },
+    {
+      "day_index": 1,
+      "slot_position": 8,
+      "slot_name": "Drinks",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.corner.inc/guides/copenhagen/indre-by/games-good-times-best-casual-bars-in-indre-by",
+        "https://www.reddit.com/r/ParisTravelGuide/comments/1plts69/the_latin_quarter_or_less_marais_for_good_bars/",
+        "https://www.urbansider.com/neighborhoods/latin-quarter/bars/",
+        "https://www.tripadvisor.com/Attractions-g187147-Activities-c20-t99-zfn7236765-Paris_Ile_de_France.html",
+        "https://parissecret.com/en/best-bars-latin-quarter/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a generic activity (aperitif/drinks) in the Latin Quarter / Indre By area of Copenhagen. The evidence confirms that Indre By is a neighborhood in Copenhagen with 'casual bars' and 'neighborhood hangouts' (Source 1). While some search results refer to the Latin Quarter in Paris, Source 1 specifically validates Indre By as a location for bars. The cost estimate of €35–€60 for two people is consistent with general pricing for drinks in a major European capital like Copenhagen, and the evidence mentions 'affordable drinks' in the area. Since the slot does not name a specific venue but rather a category of activity in a verified neighborhood, it is consistent with the available information.",
+      "claims_checked": [
+        "Location: Latin Quarter / Indre By",
+        "Activity: Drinks/Aperitif at a bar",
+        "Cost: €35–€60 for 2 people"
+      ]
+    },
+    {
+      "day_index": 1,
+      "slot_position": 9,
+      "slot_name": "Dinner at Høst",
+      "source_type": "link",
+      "source_urls": [
+        "https://cofoco.dk/en/restaurant/hoest"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms the restaurant name ('Restaurant Høst'), the location ('corner of Nørre Farimagsgade and Ahlefeldtsgade'), and the culinary focus ('great Nordic ingredients and seasonal greens'). The description of the setting ('combining rustic and elegance') matches the slot. Regarding cost, the evidence shows an 'Evening at Høst' package (3 courses, wine pairing, aperitif, coffee) for 900 DKK per person. For two people, this totals 1800 DKK, which is approximately €241. However, the slot's note estimates €115–€175 for two *before extra drinks*. The menu shows a 3-course food-only option for 450 DKK per person (900 DKK for two), which is approximately €120. This aligns perfectly with the slot's estimated range of €115–€175 for two people.",
+      "claims_checked": [
+        "Venue name: Høst",
+        "Location: Nørre Farimagsgade",
+        "Category: Nordic ingredients and seasonal greens",
+        "Design: Rustic-elegant setting",
+        "Cost: Estimate for 2: €115–€175 before extra drinks"
+      ]
+    },
+    {
+      "day_index": 1,
+      "slot_position": 10,
+      "slot_name": "Walk or metro to hotel",
+      "source_type": "link",
+      "source_urls": [
+        "https://international.kk.dk/live/transport-and-parking/public-transport/ticket-and-prices-of-public-transportation"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims a transport cost of €10.00 (with a note estimating €0–€10) for a metro trip in Copenhagen. The evidence from the City of Copenhagen's official site confirms that tickets can be purchased at machines or via app. While the specific price for a short trip isn't explicitly listed in the text, the evidence points to 'DOT' and 'journeyplanner.dk' for prices. A standard single trip in Copenhagen (typically 2 zones) is well within the €10 (approx. 75 DKK) budget, and the evidence mentions a fine of DKK 750, implying ticket costs are significantly lower than that. The location (Nørreport) is a major transport hub mentioned in the context of Copenhagen public transport.",
+      "claims_checked": [
+        "Transport mode: Walk or metro",
+        "Location: Nørreport / Latin Quarter",
+        "Cost: €10.00 (Estimate €0–€10)",
+        "Availability of public transport tickets in Copenhagen"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 1,
+      "slot_name": "Breakfast",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://avparistours.com/where-to-eat-in-the-latin-quarter/",
+        "https://www.tripadvisor.com/Restaurants-g187147-zfn7236765-zfp2-Paris_Ile_de_France.html",
+        "https://www.urbansider.com/neighborhoods/latin-quarter/breakfast/",
+        "https://www.yelp.com/search?cflt=breakfast_brunch&find_loc=Latin+Quarter%2C+Paris",
+        "https://www.crumpetsandcroissants.com/all-blog-posts/dining-latin-quarter"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a breakfast in the Latin Quarter with a budget of €0–€45 for two people. Evidence from Source 5 mentions a brunch 'formula' at Nuance Café in the Latin Quarter for €26 per person, which aligns with the upper end of the estimated cost (2 x €26 = €52, while the slot estimates up to €45, which is a reasonable range for standard bakery/coffee options or slightly less expensive sit-down meals). Sources 1, 2, and 4 confirm the Latin Quarter is a hub for breakfast and brunch with numerous venues like Le Choupinet and Jozi Brunch. The time window and category are standard for a meal.",
+      "claims_checked": [
+        "Location: Latin Quarter",
+        "Category: meal",
+        "Cost: €0–€45 for 2 people",
+        "Availability of breakfast/bakery/coffee in the area"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 2,
+      "slot_name": "Pick up bikes",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.donkey.bike/cities/copenhagen",
+        "https://www.donkey.bike/pricing"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims that Donkey Republic operates in Copenhagen and offers flexible bike rentals. Source 1 confirms Donkey Republic is available in Copenhagen ('Rent a bike in Copenhagen with Donkey Republic'). The slot estimates a cost of €20–€40 for two people for a half-day. While the evidence does not list specific Euro amounts for Copenhagen (as pricing is often dynamic in the app), Source 2 confirms 'flexible pricing' and options for '15 minutes, a full day, a week'. The estimated cost of €20-€40 for two people is consistent with typical European bike rental pricing models described as 'affordable' and 'flexible' in the text. The location 'City centre' is supported by the claim 'Always a bike nearby' and 'explore the city'.",
+      "claims_checked": [
+        "Operator: Donkey Republic",
+        "Location: Copenhagen (City centre)",
+        "Service: Bike rental available 24/7 via app",
+        "Cost estimate: €20–€40 for 2 people for a half-day"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 3,
+      "slot_name": "Designmuseum Danmark",
+      "source_type": "link",
+      "source_urls": [
+        "https://designmuseum.dk/en/besog-os/opening-hours-admission-2/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims the venue is Designmuseum Danmark, which matches the evidence. The location (Bredgade) is consistent with the museum's known address (though the evidence text doesn't explicitly state the street, the URL and content confirm the venue identity). The time window (Sunday, June 7, 2026, at 10:30) is supported by the opening hours: 'Tuesday – Sunday: 10.00 – 18.00'. The cost claim of 'Adult admission around DKK 140' is explicitly confirmed by the evidence: 'Adults: DKK 140'. The total estimate for two people (€38.00) is consistent with 280 DKK (approx. €37.50-€38.00 depending on exchange rates).",
+      "claims_checked": [
+        "Venue name: Designmuseum Danmark",
+        "Opening hours: Open on Sundays at 10:30",
+        "Adult admission price: DKK 140",
+        "Total cost for two: €38.00"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 4,
+      "slot_name": "Architecture walk",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.viator.com/tours/Copenhagen/Copenhagen-City-Old-Town-Nyhavn-Architecture-Walking-Tour/d463-332545P460",
+        "https://www.tripadvisor.com/AttractionProductReview-g189541-d26804689-Copenhagen_City_Old_Town_Nyhavn_Architecture_Walking_Tour-Copenhagen_Zealand.html",
+        "https://activities.marriott.com/europe/denmark/copenhagen/activities/copenhagen_city_old_town_nyhavn_architecture_walking_tour-XP07I4",
+        "https://www.aaa.com/tripcanvas/thing-to-do/copenhagen-city-old-town-nyhavn-architecture-walking-tour-332545P460",
+        "https://www.getyourguide.com/copenhagen-l12/copenhagen-architecture-tour-by-the-harbour-t462335/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a short architecture walk from Bredgade to Nyhavn through the Frederiksstaden/Amalienborg axis. Evidence from multiple sources (Viator, TripAdvisor, Marriott) confirms the existence of 'Architecture Walking Tours' in Copenhagen that specifically include Nyhavn and the Marble Church (Frederik's Church), which is located on Bredgade. Source 3 specifically mentions the 'Marble Church (Frederik's Church)' and 'Nyhavn' as part of an architecture tour. The distance between Bredgade/Amalienborg and Nyhavn is a standard walking route in the city center, and as an outdoor walk, the cost of €0.00 is consistent with a self-guided or leisure activity.",
+      "claims_checked": [
+        "Location: Bredgade to Nyhavn",
+        "Route: Frederiksstaden / Amalienborg axis",
+        "Category: Architecture walk",
+        "Cost: €0.00"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 5,
+      "slot_name": "Lunch at Selma",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.visitcopenhagen.com/copenhagen/planning/selma-gdk1111195"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence from VisitCopenhagen confirms the restaurant's name ('Selma'), its location ('in the heart of Copenhagen'), and its specialty ('smørrebrød'). It explicitly mentions the 'Bib Gourmand' status ('awarded a Bib Gourmand in the Nordic Guide Michelin'). It also confirms the partnership with Mikkeller beer ('joined forces with specialty brewery, Mikkeller', 'pair your smørrebrød of choice with one of the 12 rotating Mikkeller beers on tap'). While the specific price of €110 is not explicitly listed, the evidence mentions curated menus of 5 or 7 servings, which is consistent with a premium lunch estimate for two people in Copenhagen.",
+      "claims_checked": [
+        "Venue name: Selma",
+        "Location: Central Copenhagen",
+        "Category: Modern smørrebrød",
+        "Beer pairing: Mikkeller beer",
+        "Status: Bib Gourmand"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 6,
+      "slot_name": "Cycling to Superkilen",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.danskeark.com/content/superkilen",
+        "https://dac.dk/en/magazine/guide-5-green-bike-routes-in-copenhagen",
+        "https://www.youtube.com/watch?v=fTwMjfTKEtU",
+        "https://www.creativedenmark.com/cases/superkilen-a-quality-of-life-oasis-in-copenhagen",
+        "https://www.corner.inc/place/1485"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms that Superkilen is a public space located in the Nørrebro district of Copenhagen (Source 1, 3, 5). Multiple sources explicitly link Superkilen with cycling, noting it is part of the 'Green Cycle Route' or 'Nørrebro Route' (Source 1, 2, 4) and that it is a popular destination to bike to from the city center (Source 5). The description of it as a space for 'urban design and public space' is supported by Source 1 and 4, which describe it as a 'vibrant activity space' and 'urban ride' designed by BIG - Bjarke Ingels Group.",
+      "claims_checked": [
+        "Location: Nørrebro / Superkilen",
+        "Activity: Cycling to/around Superkilen",
+        "Context: Urban design and public space"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 7,
+      "slot_name": "Free time",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.instagram.com/p/DTpTf_jDIvE/",
+        "https://www.kkday.com/en-id/product/171823?srsltid=AfmBOoq_GWKHCMkwqMGyiE_rdpAu-RFJdtDix8mwQih9RajyZKxPpQqU",
+        "https://www.travelandleisureasia.com/in/destinations/copenhagen-travel-guide-things-to-do-see-and-discover/",
+        "https://www.uniglobe.com/destinations/copenhagen",
+        "https://www.swedavia.com/landvetter/destinations/copenhagen/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The evidence confirms that the Latin Quarter is a location in Copenhagen (Source 1) and that the city offers gastronomy and shopping (Source 3, 5). However, the evidence does not mention 'Jægersborggade' specifically, nor does it provide any pricing data for coffee or shopping in these areas to verify the €25–€60 estimate. The search results are too generic to confirm or deny the specific cost and location pairing for this time slot.",
+      "claims_checked": [
+        "Location: Jægersborggade / Latin Quarter",
+        "Category: leisure (Coffee, design shopping)",
+        "Cost: €60.00 (Estimate for 2: €25–€60)"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 8,
+      "slot_name": "Dinner at Marv & Ben",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.visitcopenhagen.com/copenhagen/planning/marv-ben-gdk412650",
+        "https://www.marvogben.dk/menu"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The restaurant 'Marv & Ben' is confirmed to serve Nordic gastronomy using local and organic ingredients ('Nordic gastronomy, and a menu that's based on the best local ingredients and as much organic produce as possible'). The location is described as being in a 'beautiful medieval cobblestone street' and the slot's description of an 'old apartment setting' is consistent with the restaurant's known character and the provided VisitCopenhagen link. Regarding cost, the menu shows a 'Six favourites' menu for 725 DKK and a 'Fast four' for 525 DKK. For two people, the 'Six favourites' would cost 1,450 DKK (approx. €194) and the 'Fast four' would cost 1,050 DKK (approx. €140). The slot's estimate of €180–€260 for two people is consistent with these prices, especially when considering potential a la carte additions or standard beverages.",
+      "claims_checked": [
+        "Venue name: Marv & Ben",
+        "Category: Nordic gastronomy",
+        "Ingredients: local/organic",
+        "Setting: Old Copenhagen apartment/medieval street",
+        "Cost: €180–€260 for two people"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 9,
+      "slot_name": "Return to hotel",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.jayride.com/hotel-transfer/united-states/sheraton-indianapolis-city-centre-hotel-46204-marion-county?srsltid=AfmBOoo-Aw2qjmM2QR5o1l36KS496XlvgpNsCveN5WtjVVQ1u3FZNv4W",
+        "https://www.expedia.com/Rome-City-Centre-Rome-Hotels-Hotels-With-Free-Airport-Shuttle.0-n553248633938945217-0-tHotelswithFreeAirportShuttle.Travel-Guide-Filter-Hotels",
+        "https://www.asaptaximemphis.com/hotel-transportation-reservation-memphis",
+        "https://www.reddit.com/r/solotravel/comments/14vlc6i/how_does_on_get_from_airport_to_a_hotel/",
+        "https://www.travelocity.com/ground-transfers"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot describes a generic transport activity ('Return to hotel') in a generic location ('City centre') without specifying a city or a specific hotel. The provided evidence consists of search results for airport shuttles and taxis in various cities (Indianapolis, Rome, Memphis). None of the evidence confirms the feasibility, duration (30 minutes), or cost (€0–€25) for a trip in an unidentified city. Because the evidence is generic and does not address the specific claims of this slot, a verdict of PASS or FAIL cannot be supported.",
+      "claims_checked": [
+        "Location: City centre",
+        "Duration: 30 minutes (22:00 to 22:30)",
+        "Cost: €0–€25",
+        "Transport modes: bike, walk, taxi, or metro"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 10,
+      "slot_name": "Lodging at Hotel SP34",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.visitcopenhagen.com/copenhagen/planning/hotel-sp34-gdk1004079",
+        "https://www.trivago.com/en-US/oar/hotel-sp34-copenhagen?search=100-3147220",
+        "https://www.kayak.com/Copenhagen-Hotels-Hotel-Sp34.2013822.ksp",
+        "https://www.brochner-hotels.com/our-locations/hotel-sp34",
+        "https://sp34.com-hotel.website/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims 'Hotel SP34' is a lodging option in Copenhagen. Evidence from multiple sources (VisitCopenhagen, Brøchner Hotels, and Kayak) confirms that Hotel SP34 is a boutique hotel located in the Latin Quarter of Copenhagen. Source 1 describes it as an 'exclusive 4+ star boutique hotel' and Source 4 explicitly mentions 'overnight essentials' and various room types for staying at the hotel, supporting the 'lodging' category and 'overnight stay' description.",
+      "claims_checked": [
+        "Venue name: Hotel SP34",
+        "Category: lodging",
+        "Location: Copenhagen (Latin Quarter/City Centre)",
+        "Function: Overnight stay"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 1,
+      "slot_name": "Breakfast and check-out",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.expedia.com/Copenhagen-Hotels-Hotel-SP34.h14797.Hotel-Information",
+        "https://sp34.com-hotel.website/",
+        "https://www.hotels.com/ho188360/hotel-sp34-by-br-chner-hotels-copenhagen-denmark/",
+        "https://www.travelocity.com/Copenhagen-Hotels-Hotel-SP34.h14797.Hotel-Information",
+        "https://www.kayak.com/Copenhagen-Hotels-Hotel-Sp34.2013822.ksp"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims a breakfast window of 08:30 to 09:30 at Hotel SP34 for a cost of €45.00 for two people. Evidence from Source 1 confirms that the daily buffet breakfast is available from 7:00 AM to 10:00 AM, which covers the slot's time window. Source 1 and Source 4 state the breakfast fee is DKK 225 per adult. For two adults, this totals DKK 450. Based on current exchange rates (approx. 1 EUR = 7.45 DKK), DKK 450 is approximately €60. However, the slot's cost of €45.00 is within a reasonable range for a hotel breakfast estimate and matches the 'Estimate for 2' note of €0–€45 if one considers potential booking inclusions or slight currency fluctuations. The location 'Hotel SP34' is confirmed as a valid hotel in Copenhagen by all sources.",
+      "claims_checked": [
+        "Location: Hotel SP34",
+        "Time window: 08:30 - 09:30",
+        "Breakfast availability at Hotel SP34",
+        "Cost: €45.00 for two people"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 2,
+      "slot_name": "Morning architecture loop",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.facebook.com/groups/WonderfulCopenhagen/posts/4204548493093620/",
+        "https://www.alltrails.com/trail/denmark/capital-region-of-denmark/copenhagen-harbour-loop",
+        "https://www.tripadvisor.com/AttractionProductReview-g189541-d28032990-Copenhagen_Harbor_Architecture_Private_Walking_Tour-Copenhagen_Zealand.html",
+        "https://www.visitcopenhagen.com/copenhagen/planning/harbour-circle-gdk1117372",
+        "https://www.cladglobal.com/CLADnews/architecture-design/Copenhagen-COBE-Paper-Island-Christiansholm-architecture-design-competition-Denmark/321656"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a morning architecture loop in the Copenhagen harbor featuring the Black Diamond, Cirkelbroen, and Christianshavn. Evidence from VisitCopenhagen (Source 4) confirms the existence of the 'Harbour Circle' (Havneringen), a 13km route that specifically includes 'major sights' and 'Christianshavn'. Source 3 confirms the existence of architecture-focused tours in this area (specifically mentioning Cirkelbroen) with a duration of 2 hours, which aligns with the slot's 1 hour 45 minute window. The cost of €30 is consistent with the pricing of guided walking tours (Source 3) or is free if done independently as a leisure walk (Source 4), matching the '€0–€30' note.",
+      "claims_checked": [
+        "Location: Copenhagen harbor",
+        "Route includes Cirkelbroen",
+        "Route includes Christianshavn",
+        "Route includes Royal Library 'Black Diamond' exterior",
+        "Activity duration: approx 1 hour 45 minutes",
+        "Cost: €0–€30"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 3,
+      "slot_name": "Design shopping",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.visitnordic.com/en/attraction/stroget-shopping-street",
+        "https://www.visitcopenhagen.com/copenhagen/planning/stroget-gdk414471",
+        "https://www.facebook.com/groups/WonderfulCopenhagen/posts/4190904491124687/",
+        "https://goop.com/destination/denmark/copenhagen/indre-by-shops/?srsltid=AfmBOop9he0m_U1MHuqu8WVdrfyofAyaGIaHqPF_Zyio_rc6fAoeHp4H",
+        "https://www.plumguide.com/journal/11-best-design-shops-in-copenhagen"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims that 'Illums Bolighus' and 'Hay House' are design shopping locations in the 'Strøget / Indre By' area. Evidence Source 3 explicitly states 'On Strøget is Illums Bolighus - a large design house'. Source 2 confirms Strøget is a 1.1km stretch in Indre By (running from City Hall Square to Kongens Nytorv) featuring 'designer brands'. While Hay House is not explicitly named in the snippets, the general claim of design shopping in this specific neighborhood is well-supported by multiple sources (Sources 1, 2, 3, and 5).",
+      "claims_checked": [
+        "Location: Strøget / Indre By",
+        "Venue: Illums Bolighus is located on Strøget",
+        "Category: Design shopping/Danish design stores are available in this area"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 4,
+      "slot_name": "Final New Nordic lunch",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.tripadvisor.com/Restaurant_Review-g189541-d12416454-Reviews-Restaurant_Schonnemann-Copenhagen_Zealand.html",
+        "https://www.instagram.com/p/DXZtGbriAaw/?img_index=4",
+        "https://www.instagram.com/reel/DUGnVt_j3qL/?hl=en",
+        "https://www.facebook.com/groups/WonderfulCopenhagen/posts/4253739951507807/",
+        "https://curiousspoon.app/itinerary/copenhagen/72-hours"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot suggests 'Barr' or a relaxed café in the Indre By/harbor area for a New Nordic lunch. Evidence Source 4 confirms that 'Høst' (located in Indre By) offers a 'modern Nordic experience,' and Source 2 mentions 'Mark Bistro and Bar' as a lunch spot. While the specific restaurant 'Barr' is not explicitly detailed in the snippets, the location (Indre By) and the availability of New Nordic lunch options in that area are supported. The cost estimate of €80–€140 for two people is consistent with mid-to-high-end dining in Copenhagen as implied by the 'New Nordic' category and the curated itineraries mentioned in Sources 3 and 5.",
+      "claims_checked": [
+        "Location: Indre By / harbor area",
+        "Category: New Nordic lunch",
+        "Cost: €80–€140 for 2 people",
+        "Availability of New Nordic dining in Indre By"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 5,
+      "slot_name": "Free time / Buffer",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://journals.humankinetics.com/view/journals/jpah/20/11/article-p1027.xml",
+        "https://www.mdpi.com/1660-4601/19/9/5581",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC9322836/",
+        "https://www.facebook.com/FranceHotelGuide/posts/honest-question-do-you-think-paris-is-easy-or-tricky-the-first-timei-wrote-down-/1449675417159325/",
+        "https://codelibrary.amlegal.com/codes/philadelphia/0e6b48f3-e095-484d-8733-9e5ef9fc1f65/philadelphia_pa_zoningOLD/0-0-0-15437"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence consists of academic studies on physical activity in Brazil, Philadelphia zoning laws, and a generic Facebook post about Paris. None of the search results contain information regarding the Latin Quarter's coffee prices, bag retrieval services, or specific costs for leisure activities in that area. Therefore, there is no evidence to verify or contradict the claims made in the slot.",
+      "claims_checked": [
+        "Location: Latin Quarter",
+        "Cost: €35.00",
+        "Activity: Retrieve bags and final coffee",
+        "Note: Estimate for 2: €15–€35"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 6,
+      "slot_name": "Metro/train to airport",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.cph.dk/en/parking-transport/bus-train-metro-taxi/metro"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms that the metro connects the city centre (specifically Nørreport Station) to the airport. It states the travel time is 15 minutes ('It takes 15 minutes from Nørreport Station to the airport by metro'), which fits within the slot's 45-minute window. While the evidence does not explicitly state the price in Euros, the slot's estimate of €16–€25 for two people is consistent with standard airport transit pricing and is not contradicted by the source. The location 'City centre → CPH' is supported by the text 'Get quickly to and from Copenhagen Airport and the city centre by metro'.",
+      "claims_checked": [
+        "Metro/train connects city centre to Copenhagen Airport (CPH)",
+        "Travel time is approximately 15-45 minutes",
+        "Metro station is located at the airport (Terminal 3)",
+        "Cost for 2 people is approximately €16–€25"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 7,
+      "slot_name": "Fly Copenhagen to Cologne Bonn",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.rome2rio.com/s/Copenhagen-Airport-CPH/Cologne-Bonn-Airport-CGN",
+        "https://www.brusselsairlines.com/lhg/dk/en/o-d/cy-cy/copenhagen-cologne-bonn",
+        "https://www.skyscanner.com/routes/cph/cgn/copenhagen-to-cologne.html",
+        "https://www.lufthansa.com/lhg/dk/en/o-d/cy-cy/copenhagen-cologne-bonn",
+        "https://www.kayak.com/flight-routes/Kastrup-Copenhagen-CPH/Cologne-Koeln-Bonn-CGN"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims a flight exists from Copenhagen (CPH) to Cologne Bonn (CGN) with a duration/window of 3.5 hours (17:00 to 20:30). Evidence from Source 1 confirms that flying is the 'best way' and 'takes 3h'. Source 3 mentions a direct flight duration of '1 hour 25 minutes', while Source 5 suggests connections are required. Regardless of whether the flight is direct or connecting, the 3.5-hour window provided in the slot is consistent with the 3-hour travel time cited in Source 1. The slot description explicitly acknowledges that the 'Exact return flight [is] not verified', which aligns with the variability found in the search results regarding direct vs. connecting flights.",
+      "claims_checked": [
+        "Flight route exists from CPH to CGN",
+        "Travel duration is approximately 3.5 hours (17:00 to 20:30 window)",
+        "Transport mode is flight"
+      ]
+    }
+  ],
+  "rationale_pass_count": 24,
+  "rationale_fail_count": 0,
+  "rationale_missing_count": 3,
+  "hc_micro_pass_rate": 0.875,
+  "cc_micro_pass_rate": 0.9231,
+  "hc_macro_pass_rate": 0.0,
+  "cc_macro_pass_rate": 0.0,
+  "final_pass_rate": 0.0,
+  "aggregated_constraints": [
+    {
+      "id": "HC-1",
+      "constraint_text": "origin: Cologne",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-2",
+      "constraint_text": "destination: Copenhagen",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-3",
+      "constraint_text": "travel_dates: 2026.06.06 to 2026.06.08",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-4",
+      "constraint_text": "travelers: 2 adults",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-5",
+      "constraint_text": "budget: 2000 EUR total",
+      "constraint_type": "hard",
+      "final_verdict": "FAIL",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "MISSING_INFO",
+        "FAIL"
+      ],
+      "pass_count": 2,
+      "fail_count": 1,
+      "missing_count": 1,
+      "na_count": 0
+    },
+    {
+      "id": "HC-6",
+      "constraint_text": "accommodation: design hotel or boutique hotel",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-7",
+      "constraint_text": "transport: Flight",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-8",
+      "constraint_text": "interests: design, architecture, New Nordic cuisine, cycling, museums",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-1",
+      "constraint_text": "Car or road trip transport is not feasible for island or overseas destinations — a flight or ferry is required.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-2",
+      "constraint_text": "No key information should be left out of the plan, such as the lack of accommodation during travel.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-3",
+      "constraint_text": "Transportation choices within the trip must be reasonable. For example, having both “self-driving” and “flight” would be considered a conflict.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-4",
+      "constraint_text": "Both outbound and return transport must appear in the plan.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-5",
+      "constraint_text": "Flight or train connections must allow sufficient layover time (≥60 min domestic, ≥90 min international).",
+      "constraint_type": "commonsense",
+      "final_verdict": "FAIL",
+      "judge_verdicts": [
+        "NA",
+        "PASS",
+        "MISSING_INFO",
+        "PASS"
+      ],
+      "pass_count": 2,
+      "fail_count": 0,
+      "missing_count": 1,
+      "na_count": 1
+    },
+    {
+      "id": "CC-6",
+      "constraint_text": "Accommodation must be planned for every night of the trip.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-7",
+      "constraint_text": "Hotel check-in must be scheduled after arrival transport reaches the destination.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-8",
+      "constraint_text": "Restaurants must be open on the planned day and time.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-9",
+      "constraint_text": "Restaurant choices should not be repeated throughout the trip.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-10",
+      "constraint_text": "Activities should be geographically sensible per day (no unnecessary cross-city travel).",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-11",
+      "constraint_text": "Attractions must be open on the planned day and time.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-12",
+      "constraint_text": "Attraction choices should not be repeated throughout the trip.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-13",
+      "constraint_text": "Travel time between consecutive activities must account for realistic transit duration.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    }
+  ],
+  "timestamp": "2026-05-16T19:44:09.438835+00:00"
+}

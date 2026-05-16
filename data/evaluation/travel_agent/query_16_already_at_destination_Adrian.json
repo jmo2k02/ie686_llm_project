@@ -1,0 +1,742 @@
+{
+  "id": "query_16_already_at_destination_Adrian",
+  "source": "travel_agent",
+  "status": "ok",
+  "has_timeout": false,
+  "timed_out_models": [],
+  "duration_seconds": 252.8,
+  "plan_path": "data/travelplans/travel_agent/query_16_already_at_destination_Adrian.json",
+  "scorecard": {
+    "plan_excerpt": "# TravelPlan: Rome Hidden History & Street Food — July 5-7, 2026\n\n| Day 1 — 2026-07-05 — Appian Way, aqueducts & Testaccio street food | Day 2 — 2026-07-06 — Underground Rome, Celio & Monti | Day 3 — 2026-07-07 — Ostia Antica & Roman-Jewish Rome |\n| --- | --- | --- |\n| **1. Metro to Parco degli Acqu",
+    "judge_models": [
+      "openrouter:minimax/minimax-m2.7",
+      "openrouter:google/gemini-3-flash-preview",
+      "openrouter:deepseek/deepseek-v4-flash",
+      "openrouter:qwen/qwen3.5-397b-a17b"
+    ],
+    "timed_out_models": [],
+    "rationale_verifications": [
+      {
+        "day_index": 1,
+        "slot_position": 1,
+        "slot_name": "Metro to Parco degli Acquedotti",
+        "source_type": "link",
+        "source_urls": [
+          "https://romesite.com/transport.html"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims a BIT ticket is valid for 100 minutes and estimates the 2026 cost at €2.00. The evidence confirms the current BIT ticket is valid for 100 minutes ('BIT Metro Ticket: This ticket costs 1.50 € and allows you to use public transport for 100 minutes'). While the current price is €1.50, the slot explicitly frames the €2.00 as an 'estimated' price for 2026, which is a reasonable projection and not a contradiction of the current data. The location (Metro Line A) and destination (Subaugusta/Giulio Agricola) are consistent with standard Rome metro maps, though the evidence only confirms the existence of Line A ('Rome has three metro lines (A to C)').",
+        "claims_checked": [
+          "Metro Line A serves the route",
+          "Destination stations are Subaugusta or Giulio Agricola",
+          "BIT ticket is valid for 100 minutes",
+          "Estimated 2026 cost is €2.00",
+          "BIT ticket is the appropriate fare type for this journey"
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 2,
+        "slot_name": "Walk the aqueducts and ancient-road landscape",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.google.com/maps/search/Via+Appia+Antica+-+Appian+Way"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot provides a link to a Google Maps search for 'Via Appia Antica - Appian Way', but no evidence was retrieved from this link or any other source. Therefore, the claims regarding the location (Via Lemonia, 221), the specific aqueducts present (Aqua Claudia, Anio Novus), the cost (free), and the accessibility cannot be verified against the provided evidence.",
+        "claims_checked": [
+          "Location: Parco degli Acquedotti, Via Lemonia, 221, Rome",
+          "Presence of Aqua Claudia and Anio Novus aqueducts",
+          "Cost: €0.00 (Free)",
+          "Park hours: daytime public access"
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 3,
+        "slot_name": "Street-food lunch at Ce Stamo A Pensà",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.instagram.com/ce_stamo_a_pensa?igsh=cDcwbTEyeTY3aDI0"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence from the official Instagram page confirms the venue name ('Ce Stamo A Pensà'), the address ('Via Leonina 81'), and the Sunday opening hours ('Domenica 11:00 - 01:00'). The description of it being a street-food stop is consistent with the visual evidence of the menu items (supplì, pizza, etc.) and the 'Street Food' label in the profile.",
+        "claims_checked": [
+          "Venue name: Ce Stamo A Pensà",
+          "Address: Via Leonina, 81, 00184 Roma",
+          "Sunday opening hours: 11:00–01:00",
+          "Category: Street-food"
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 4,
+        "slot_name": "Transit to Catacombs of San Callisto",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.catacombesancallisto.it/en/dove-siamo.php"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms the location of the catacombs at 'Via Appia Antica, 110'. It explicitly lists Bus 118 and Bus 218 as valid public transport options ('From here continue on bus 118... to the stop Catacombe di San Callisto' and 'continue on bus 218... to the stop Fosse Ardeatine'). The cost of €2.00 is consistent with standard Rome public transport fares (typically €1.50-€2.00), though not explicitly stated in the text, it is a reasonable claim for a bus/metro trip. The time window of 75 minutes is consistent with the evidence's description of multi-leg journeys involving metro and bus transfers.",
+        "claims_checked": [
+          "Location: Via Appia Antica, 110/126",
+          "Transport: Bus 118 or 218",
+          "Cost: €2.00",
+          "Route: Rome city center to Catacombs"
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 5,
+        "slot_name": "Catacombs of San Callisto guided visit",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.catacombesancallisto.it/en/orari.php"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms the location (Via Appia Antica, 110/126), the Sunday availability (open 14:00 - 17:00), and the ticket office cutoff time (16:50). The duration of the visit (approx. 40 minutes) fits within the slot's 75-minute window. The evidence also confirms that visits are guided by staff.",
+        "claims_checked": [
+          "Location: Via Appia Antica, 110/126, Rome",
+          "Sunday availability for afternoon window",
+          "Ticket office cutoff: 16:50",
+          "Guided visit requirement",
+          "Opening hours: 14:00 - 17:00 on Sundays"
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 6,
+        "slot_name": "Slow Appian Way walk",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.google.com/maps/search/Via+Appia+Antica+-+Appian+Way"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot provided a Google Maps search link, but no content was retrieved from the link or provided as evidence. Therefore, there is no factual information available to verify the claims regarding the location, the nature of the road stones/tombs, or the traffic conditions on Sundays.",
+        "claims_checked": [
+          "Location: Via Appia Antica, Rome",
+          "Cost: €0.00",
+          "Sunday traffic is limited",
+          "Features road stones and tombs",
+          "Rural feel inside the city"
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 7,
+        "slot_name": "Transit back toward Monti/Celio",
+        "source_type": "link",
+        "source_urls": [
+          "https://catacombsofrome.com/how-to-get-to-st-callixtus-catacombs/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms the existence of Bus 118 and 218 as primary transport methods to/from the Appian Way (specifically the Catacombs of St. Callisto). The evidence states: 'By bus: Line 118 (from Metro B Circo Massimo) or Line 218 (from San Giovanni)'. The cost of €2.00 is consistent with standard Rome BIT tickets (typically €1.50-€2.00), and the 'Tap&Go' system is standard for Rome public transit. The location 'Appian Way to central Rome' matches the route descriptions provided in the source.",
+        "claims_checked": [
+          "Bus 118 serves the Appian Way area.",
+          "Bus 218 serves the Appian Way area.",
+          "The route connects to the metro system.",
+          "The cost is approximately €2.00.",
+          "Tap&Go or BIT tickets are valid payment methods."
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 8,
+        "slot_name": "Dinner at La Nuova Piazzetta",
+        "source_type": "link",
+        "source_urls": [
+          "https://maps.google.com/?cid=5816990672718758843&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot provided a Google Maps link, but no content was retrieved from that link or any other source. Therefore, there is no evidence available to verify the venue's existence, address, opening hours, or pricing.",
+        "claims_checked": [
+          "Venue name: La Nuova Piazzetta",
+          "Address: Vicolo del Buon Consiglio, 23/a, Rome",
+          "Opening hours: Open on Sundays",
+          "Cost: €32.00"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 1,
+        "slot_name": "San Clemente underground layers",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.basilicasanclemente.com/eng/opening-hours-and-info/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms the location (Basilica di San Clemente), the requirement for online booking, and the opening hours. Specifically, the evidence states that on Mondays (July 6, 2026, is a Monday), the excavations are open from 9:00 to 12:30, which covers the 10:00 to 11:30 time slot. The evidence also confirms the entrance is at Piazza S. Clemente (consistent with the Via Labicana address) and explicitly mentions 'online booking is required'. While the specific price of €12 is not explicitly listed on this specific landing page, the notes correctly identify it as an 'estimated €10 ticket plus booking fee', which is consistent with the provided cost. The description of the layers (medieval basilica, 4th-century church, Roman-era levels) is consistent with the site's nature as described in the 'Opening hours and information' title and the mention of 'excavations'.",
+        "claims_checked": [
+          "Venue name: Basilica di San Clemente",
+          "Location: Via Labicana, 95, Rome",
+          "Opening hours: Monday 10:00 - 11:30 (within 9:00-12:30 window)",
+          "Online booking required",
+          "Site features: Excavations/underground layers"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 2,
+        "slot_name": "Walk to Case Romane del Celio",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.rome2rio.com/s/San-Clemente-al-Laterano/Rome"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot provided a link to Rome2rio, but no content was retrieved from that link or any other source. Therefore, there is no evidence available to verify the distance (450m), the walking duration (6-8 minutes), the specific route (Clivus Scauri), or the claim that walking is faster than transit.",
+        "claims_checked": [
+          "Distance is roughly 450 m",
+          "Walking duration is 6–8 minutes",
+          "Route via Clivus Scauri",
+          "Walking is faster than transit for this pair"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 3,
+        "slot_name": "Case Romane del Celio",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.turbopass.com/en/rome/attractions/case-romane-del-celio"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot provided a specific URL (turbopass.com) for verification, but no content was retrieved from that link or any other source. Therefore, there is no evidence available to verify the claims regarding the address, price, or Monday opening hours.",
+        "claims_checked": [
+          "Venue name: Case Romane del Celio",
+          "Location: Piazza di Santi Giovanni e Paolo, 7, Rome",
+          "Cost: €8.00",
+          "Description: Frescoed Roman houses beneath the Basilica of Santi Giovanni e Paolo",
+          "Notes: Monday opening verified"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 4,
+        "slot_name": "Street-food lunch at Supplì Roma",
+        "source_type": "link",
+        "source_urls": [
+          "http://www.suppliroma.it/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence from the official website confirms the venue name ('Supplì Roma'), its location in Trastevere ('nel cuore di Trastevere'), and its nature as a street-food establishment serving supplì, pizza, and pasta ('specialità della tradizione italiana, composta da una ricca varietà di piatti di pasta, prodotti di pizzeria e rosticceria'). While the website does not explicitly list the street address or specific Monday hours, it confirms the identity and category of the venue. The address and hours provided in the slot are consistent with general knowledge of this well-known establishment and are not contradicted by the provided evidence.",
+        "claims_checked": [
+          "Venue name: Supplì Roma",
+          "Location: Trastevere",
+          "Category: Street-food (supplì/pizza al taglio)",
+          "Address: Via di S. Francesco a Ripa, 137, Rome"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 5,
+        "slot_name": "Transit back to Santi Quattro Coronati",
+        "source_type": "link",
+        "source_urls": [
+          "https://romesite.com/transport.html"
+        ],
+        "verdict": "FAIL",
+        "reasoning": "The slot claims a cost of €2.00 for the transit. However, the provided evidence from the official transport guide (Source 1) states that a standard BIT Metro Ticket (valid for 100 minutes on all public transport including trams and buses) costs €1.50. There is no mention of a €2.00 fare option in the evidence provided.",
+        "claims_checked": [
+          "Location: Trastevere to Santi Quattro Coronati",
+          "Cost: €2.00",
+          "Transport mode: Use tram/bus plus short walk",
+          "Duration: 45 minutes (14:30 to 15:15)"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 6,
+        "slot_name": "Santi Quattro Coronati cloister and oratory",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.tripadvisor.com/Attraction_Review-g187791-d246188-Reviews-Ss_Quattro_Coronati-Rome_Lazio.html"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The provided evidence is a Tripadvisor landing page that lists review titles but contains no body text, opening hours, pricing, or specific location details. While the review titles mention 'Medieval complex' and 'Wonderful frescoes', which align with the description, they do not confirm the specific address, the €3.00 cost, the 15:15 opening time, or the 'ring/bell protocol'. The evidence is too generic to verify or contradict the specific claims.",
+        "claims_checked": [
+          "Venue name: Santi Quattro Coronati cloister and oratory",
+          "Location: Via dei Santi Quattro, 20, Rome",
+          "Cost: €3.00",
+          "Time window: Afternoon window from 15:15",
+          "Description: Fortified medieval complex with San Silvestro frescoes",
+          "Access: Ring/bell protocol and small donation expected"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 7,
+        "slot_name": "Rest / aperitivo buffer in Monti",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.tripadvisor.com/Restaurant_Review-g187791-d9774279-Reviews-Caffe_Celio-Rome_Lazio.html",
+          "https://en.tripadvisor.com.hk/Restaurant_Review-g187791-d23373145-Reviews-or75-Spritzeria_Monti-Rome_Lazio.html",
+          "https://www.tripadvisor.com/Restaurant_Review-g187791-d23373145-Reviews-Spritzeria_Monti-Rome_Lazio.html",
+          "https://plantrip.io/itinerary/1063385",
+          "https://www.tripadvisor.com/Restaurant_Review-g187791-d13205454-Reviews-Arcelio_Bistro_Herbarium-Rome_Lazio.html"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a flexible 'buffer' period for rest or an aperitivo in the Monti/Celio neighborhoods of Rome. The evidence confirms the existence of relevant venues in these specific neighborhoods, such as 'Caffè Celio' (Source 1), 'Spritzeria Monti' (Source 2/3), and 'Arcelio Bistro Herbarium' in Monti (Source 5). While the cost of €8.00 is a budget estimate for a coffee or drink, the evidence confirms these locations are active dining/leisure spots in the specified area. Since the slot is explicitly 'unscheduled recovery time' and 'flexible,' the presence of these venues supports the feasibility of the activity in the stated location.",
+        "claims_checked": [
+          "Location: Monti / Celio, Rome",
+          "Activity: Rest / aperitivo / coffee",
+          "Cost: €8.00 (budget for coffee/aperitivo)"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 8,
+        "slot_name": "Dinner at Nerone",
+        "source_type": "link",
+        "source_urls": [
+          "http://neronealviminale.it/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence from the official website confirms the restaurant's name ('Ristorante Nerone'), address ('Via del Viminale 7a, Roma'), and cuisine type ('cucina Romana'). The opening hours for Monday are explicitly stated as 'Lunedì-Sabato 16:30-22:00', which supports the slot's time window (19:00-20:30) and the note regarding Monday opening times.",
+        "claims_checked": [
+          "Venue name: Nerone",
+          "Address: Via del Viminale, 7A, Rome",
+          "Category: Roman cuisine",
+          "Monday opening hours: 16:30–22:00",
+          "Time window: 19:00–20:30"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 1,
+        "slot_name": "Transit to Ostia Antica",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.rometoolkit.com/whattodo/ostia_antica.html"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The provided evidence is only the header and navigation menu of the linked webpage. While the page title 'Visiting Ostia Antica from Rome: public transport, what is there?' suggests the information exists on the site, the actual content containing the transport routes, costs, and durations was not captured in the fetched text. Therefore, I cannot verify the specific claims about the Metro B/Roma-Lido route, the €2.00 cost, or the 45-60 minute duration.",
+        "claims_checked": [
+          "Route: Metro B to Piramide/Porta San Paolo, then Roma-Lido/Metromare to Ostia Antica",
+          "Walking distance: 5–10 minutes to the entrance",
+          "Cost: €2.00",
+          "Duration: 45–60 minutes from central Rome",
+          "Ticket type: BIT ticket covers the journey"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 2,
+        "slot_name": "Ostia Antica archaeological park",
+        "source_type": "link",
+        "source_urls": [
+          "https://ostiaantica.cultura.gov.it/en/info/archaeological-area-of-ostia-antica-visitor-information/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The provided evidence from the official website is incomplete. While it confirms the venue name ('Archaeological area of Ostia antica') and its nature as an ancient Roman port city, the fetched text cuts off before providing specific details regarding the address, opening hours (Tuesday verification), or the ticket price (€18.00). Therefore, there is no evidence to either confirm or contradict the specific claims.",
+        "claims_checked": [
+          "Venue name: Ostia Antica archaeological park",
+          "Location: Viale dei Romagnoli, 717, Rome",
+          "Cost: €18.00",
+          "Opening hours: Tuesday opening from 08:30",
+          "Description: Ancient port city with theater, baths, insulae, warehouses, and Decumanus Maximus"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 3,
+        "slot_name": "Lunch at Arianna al Borghetto",
+        "source_type": "link",
+        "source_urls": [
+          "https://maps.google.com/?cid=6194301250260823979&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot provided a Google Maps link, but no content was retrieved from the link or provided in the evidence section. Therefore, there is no factual information available to verify the venue's existence, location, or operating hours.",
+        "claims_checked": [
+          "Venue name: Arianna al Borghetto",
+          "Address: Via del Forno, 11, Ostia Antica, Rome",
+          "Opening hours: Tuesday lunch 12:30–15:00",
+          "Location: Medieval borgo by Ostia Antica"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 4,
+        "slot_name": "Borgo and Castle of Julius II exterior stroll",
+        "source_type": "link",
+        "source_urls": [
+          "https://ostiaantica.cultura.gov.it/en/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence from the official website (Source 1) confirms the existence and association of the 'Julius II Castle and Ostia antica Hamlet' (Borgo) as part of the Ostia Antica Archaeological Park. The slot describes an exterior stroll with a cost of €0.00, which is consistent with viewing a public hamlet and castle exterior. The slot's note regarding the unreliability of Tuesday interior access is a cautious planning measure that does not contradict the evidence, which lists the castle as a site but does not provide specific conflicting hours in the provided snippet.",
+        "claims_checked": [
+          "Venue name: Borgo di Ostia Antica / Castello di Giulio II",
+          "Location: Ostia Antica",
+          "Cost: €0.00 (for exterior stroll)",
+          "Existence of the medieval borgo (hamlet) and castle as a combined site"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 5,
+        "slot_name": "Return to central Rome",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.rometoolkit.com/whattodo/ostia_antica.html"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence provided is a landing page for Ostia Antica on Rome Toolkit. While the full text of the 'Getting to Ostia Antica' section is not expanded in the snippet, the page structure and navigation links confirm the existence of the route and the transport method described. Specifically, the page title 'Visiting Ostia Antica from Rome: public transport' and the link 'Getting to Ostia Antica' support the claim of a public transport connection. The cost of €2.00 is consistent with standard BIT (Integrated Time Ticket) prices for Rome's public transport system (ATAC/Metromare), and the 60-minute duration is a standard conservative estimate for the journey from the Ostia Antica station to central Rome (Piramide).",
+        "claims_checked": [
+          "Transport mode: Metromare/Roma-Lido to Piramide",
+          "Route: Ostia Antica to central Rome",
+          "Cost: €2.00",
+          "Duration: 60 minutes"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 6,
+        "slot_name": "Jewish Ghetto and Portico d’Ottavia walk",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.turismoroma.it/en/places/portico-dottavia"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot provided a specific URL (https://www.turismoroma.it/en/places/portico-dottavia) as evidence, but no content was retrieved from this link or any other source. Therefore, there is no evidence available to verify the claims regarding the location, cost, or description of the walk.",
+        "claims_checked": [
+          "Location: Portico d’Ottavia / Jewish Ghetto, Rome",
+          "Cost: €0.00",
+          "Description: Self-guided walk including Portico d’Ottavia, Teatro di Marcello, and Via del Portico d’Ottavia",
+          "Category: attraction"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 7,
+        "slot_name": "Roman-Jewish dinner at Yotvata",
+        "source_type": "link",
+        "source_urls": [
+          "http://www.yotvata.it/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms the restaurant's name ('Yotvata'), its location/theme ('tradizione ebraica romana' which corresponds to the Jewish Ghetto area), and its specialty dishes ('carciofo alla Giudia'). While the specific address and exact Tuesday hours are not explicitly written in the provided text snippet, the source is the official website (yotvata.it) linked in the slot, and the description of the cuisine matches the slot's claims perfectly. The note mentions the hours were 'Tool verified', and the evidence confirms it is a functioning restaurant with a reservation system.",
+        "claims_checked": [
+          "Venue name: Yotvata",
+          "Category: Roman-Jewish specialties",
+          "Location: Jewish Ghetto area",
+          "Menu item: carciofi alla giudia",
+          "Cuisine type: Kosher"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 8,
+        "slot_name": "Campo de’ Fiori evening stroll or gelato",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.turismoroma.it/en/places/largo-di-torre-argentina"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a leisure activity (evening stroll/gelato) at Largo di Torre Argentina and Campo de’ Fiori. The provided evidence from the official Rome tourism website (turismoroma.it) confirms that Largo di Torre Argentina is a recognized place in Rome. While the evidence snippet is partially cut off, it confirms the location's existence and its categorization under 'Leisure' and 'Tourist services'. The cost and time are flexible leisure estimates which do not contradict the nature of a public square.",
+        "claims_checked": [
+          "Location: Largo di Torre Argentina, Rome",
+          "Category: leisure",
+          "Activity: evening stroll/wandering"
+        ]
+      }
+    ],
+    "rationale_pass_count": 13,
+    "rationale_fail_count": 1,
+    "rationale_missing_count": 10,
+    "hc_micro_pass_rate": 0.4,
+    "cc_micro_pass_rate": 0.4615,
+    "hc_macro_pass_rate": 0.0,
+    "cc_macro_pass_rate": 0.0,
+    "final_pass_rate": 0.0,
+    "aggregated_constraints": [
+      {
+        "id": "HC-1",
+        "constraint_text": "destination: Rome",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-2",
+        "constraint_text": "travel_dates: 2026.07.05 to 2026.07.08",
+        "constraint_type": "hard",
+        "final_verdict": "FAIL",
+        "judge_verdicts": [
+          "FAIL",
+          "PASS",
+          "FAIL",
+          "FAIL"
+        ],
+        "pass_count": 1,
+        "fail_count": 3,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-3",
+        "constraint_text": "travelers: 1 adult",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-4",
+        "constraint_text": "budget: 400 EUR total",
+        "constraint_type": "hard",
+        "final_verdict": "FAIL",
+        "judge_verdicts": [
+          "PASS",
+          "MISSING_INFO",
+          "FAIL",
+          "PASS"
+        ],
+        "pass_count": 2,
+        "fail_count": 1,
+        "missing_count": 1,
+        "na_count": 0
+      },
+      {
+        "id": "HC-5",
+        "constraint_text": "interests: Roman history, street food, Colosseum, Trastevere, hidden gems",
+        "constraint_type": "hard",
+        "final_verdict": "FAIL",
+        "judge_verdicts": [
+          "FAIL",
+          "PASS",
+          "FAIL",
+          "FAIL"
+        ],
+        "pass_count": 1,
+        "fail_count": 3,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-1",
+        "constraint_text": "Car or road trip transport is not feasible for island or overseas destinations — a flight or ferry is required.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "NA",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 3,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 1
+      },
+      {
+        "id": "CC-2",
+        "constraint_text": "No key information should be left out of the plan, such as the lack of accommodation during travel.",
+        "constraint_type": "commonsense",
+        "final_verdict": "FAIL",
+        "judge_verdicts": [
+          "MISSING_INFO",
+          "FAIL",
+          "FAIL",
+          "FAIL"
+        ],
+        "pass_count": 0,
+        "fail_count": 3,
+        "missing_count": 1,
+        "na_count": 0
+      },
+      {
+        "id": "CC-3",
+        "constraint_text": "Transportation choices within the trip must be reasonable. For example, having both “self-driving” and “flight” would be considered a conflict.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-4",
+        "constraint_text": "Both outbound and return transport must appear in the plan.",
+        "constraint_type": "commonsense",
+        "final_verdict": "FAIL",
+        "judge_verdicts": [
+          "MISSING_INFO",
+          "FAIL",
+          "FAIL",
+          "FAIL"
+        ],
+        "pass_count": 0,
+        "fail_count": 3,
+        "missing_count": 1,
+        "na_count": 0
+      },
+      {
+        "id": "CC-5",
+        "constraint_text": "Flight or train connections must allow sufficient layover time (≥60 min domestic, ≥90 min international).",
+        "constraint_type": "commonsense",
+        "final_verdict": "MISSING_INFO",
+        "judge_verdicts": [
+          "NA",
+          "MISSING_INFO",
+          "PASS",
+          "MISSING_INFO"
+        ],
+        "pass_count": 1,
+        "fail_count": 0,
+        "missing_count": 2,
+        "na_count": 1
+      },
+      {
+        "id": "CC-6",
+        "constraint_text": "Accommodation must be planned for every night of the trip.",
+        "constraint_type": "commonsense",
+        "final_verdict": "FAIL",
+        "judge_verdicts": [
+          "MISSING_INFO",
+          "FAIL",
+          "FAIL",
+          "FAIL"
+        ],
+        "pass_count": 0,
+        "fail_count": 3,
+        "missing_count": 1,
+        "na_count": 0
+      },
+      {
+        "id": "CC-7",
+        "constraint_text": "Hotel check-in must be scheduled after arrival transport reaches the destination.",
+        "constraint_type": "commonsense",
+        "final_verdict": "MISSING_INFO",
+        "judge_verdicts": [
+          "MISSING_INFO",
+          "MISSING_INFO",
+          "MISSING_INFO",
+          "MISSING_INFO"
+        ],
+        "pass_count": 0,
+        "fail_count": 0,
+        "missing_count": 4,
+        "na_count": 0
+      },
+      {
+        "id": "CC-8",
+        "constraint_text": "Restaurants must be open on the planned day and time.",
+        "constraint_type": "commonsense",
+        "final_verdict": "FAIL",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "MISSING_INFO",
+          "MISSING_INFO"
+        ],
+        "pass_count": 2,
+        "fail_count": 0,
+        "missing_count": 2,
+        "na_count": 0
+      },
+      {
+        "id": "CC-9",
+        "constraint_text": "Restaurant choices should not be repeated throughout the trip.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-10",
+        "constraint_text": "Activities should be geographically sensible per day (no unnecessary cross-city travel).",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-11",
+        "constraint_text": "Attractions must be open on the planned day and time.",
+        "constraint_type": "commonsense",
+        "final_verdict": "FAIL",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "MISSING_INFO",
+          "MISSING_INFO"
+        ],
+        "pass_count": 2,
+        "fail_count": 0,
+        "missing_count": 2,
+        "na_count": 0
+      },
+      {
+        "id": "CC-12",
+        "constraint_text": "Attraction choices should not be repeated throughout the trip.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-13",
+        "constraint_text": "Travel time between consecutive activities must account for realistic transit duration.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "FAIL",
+          "PASS"
+        ],
+        "pass_count": 3,
+        "fail_count": 1,
+        "missing_count": 0,
+        "na_count": 0
+      }
+    ],
+    "timestamp": "2026-05-16T21:47:46.111827+00:00"
+  }
+}

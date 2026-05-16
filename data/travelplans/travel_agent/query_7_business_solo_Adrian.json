@@ -1,0 +1,327 @@
+{
+  "id": "query_7_business_solo_Adrian",
+  "description": "Normal case: solo business trip, no budget limit",
+  "query": "I need to travel from Frankfurt to New York for a business trip from June 15th to 17th, 2026. No strict budget — company covers it. I need a central business hotel, a direct or short-connection flight, and restaurant recommendations suitable for client dinners.",
+  "hard_constraints": {
+    "origin": "Frankfurt",
+    "destination": "New York",
+    "date_from": "2026.06.15",
+    "date_to": "2026.06.17",
+    "travelers": {
+      "adults": 1,
+      "children_under_6": 0,
+      "children_6_to_16": 0
+    },
+    "budget_amount": null,
+    "budget_currency": "EUR",
+    "accommodation": "business hotel, city centre",
+    "transport": "Flight",
+    "interests": "business meetings, efficient transport, good restaurants for client dinners"
+  },
+  "model_name": "openrouter:google/gemini-3-flash-preview",
+  "generated_at": "2026-05-16T13:24:15.433794+00:00",
+  "duration_seconds": 321.63,
+  "travelplan": {
+    "title": "Frankfurt to New York Business Trip, June 15–17, 2026",
+    "days": [
+      {
+        "index": 1,
+        "calendar_date": "2026-06-15",
+        "label": "Arrival and client dinner",
+        "slots": [
+          {
+            "name": "Condor DE2016 flight: Frankfurt to New York JFK",
+            "description": "Direct transatlantic flight selected for the business trip: Condor DE 2016 from Frankfurt (FRA) Terminal 1 to New York JFK. Scheduled 11:40 CEST departure and 14:25 EDT arrival; duration shown by flight search as 525 minutes. JFK arrival terminal may be Terminal 7 or Terminal 6 depending on Condor’s 2026 move, so verify 24 hours before travel.",
+            "start_time": "2026-06-15T11:40:00",
+            "end_time": "2026-06-15T14:25:00",
+            "category": "transport",
+            "location": "Frankfurt Airport Terminal 1 → JFK Airport",
+            "cost": 330.0,
+            "links": [
+              "https://www.google.com/travel/flights?hl=en&gl=us&curr=EUR&tfs=CBwQAhoeEgoyMDI2LTA2LTE1agcIARIDRlJBcgcIARIDSkZLGh4SCjIwMjYtMDYtMTdqBwgBEgNKRktyBwgBEgNGUkFAAUgBcAGYAQE&tfu=EgIIAQ",
+              "https://www.flightaware.com/live/flight/CFG2016",
+              "https://aviability.com/en/flight/de2016-condor"
+            ],
+            "notes": "Round-trip fare from flight search totals EUR 660; allocated half here. Check-in counters typically open about 3 hours before departure."
+          },
+          {
+            "name": "Private car/taxi transfer: JFK to Park Terrace Hotel",
+            "description": "Door-to-door transfer from JFK to Midtown after immigration and baggage. Typical taxi/private-car timing to Bryant Park is about 45–60 minutes in standard NYC traffic; choose taxi or pre-booked private transfer for business reliability.",
+            "start_time": "2026-06-15T15:30:00",
+            "end_time": "2026-06-15T16:30:00",
+            "category": "transport",
+            "location": "JFK Airport → Park Terrace Hotel, 18 W 40th St, New York, NY 10018",
+            "cost": 95.0,
+            "links": [
+              "https://www.uber.com/global/en/r/routes/jfk-to-bryant-park/",
+              "https://www.rome2rio.com/s/New-York-JFK-Airport-JFK/Bryant-Park-Hotel-New-York"
+            ],
+            "notes": "Routing API was unavailable due to missing Google Maps API key; web sources indicate taxi flat fare/surcharges typically total about USD 85–100."
+          },
+          {
+            "name": "Check in: Park Terrace Hotel on Bryant Park",
+            "description": "Check in at a central Midtown business hotel directly by Bryant Park, close to subway lines and Grand Central. Selected for business location over cheaper alternatives. Facilities listed in hotel search include restaurant, non-smoking rooms, fitness facilities, safety deposit box, and housekeeping on request.",
+            "start_time": "2026-06-15T16:30:00",
+            "end_time": "2026-06-15T17:00:00",
+            "category": "lodging",
+            "location": "Park Terrace Hotel, 18 W 40th St, New York, NY 10018",
+            "cost": 1174.0,
+            "links": [
+              "https://travelstack.nuitee.link/hotels/lpa5464?checkin=2026-06-15&checkout=2026-06-17&rooms=1&adults=1&occupancies=W3siYWR1bHRzIjoxLCJjaGlsZHJlbiI6W119XQ%3D%3D&language=de&currency=EUR",
+              "https://parkterracehotel.com/"
+            ],
+            "notes": "Hotel search price: EUR 587/night for 2 nights. Web verification found check-in time inconsistencies (3 PM vs 4 PM); arrival after 4:30 PM avoids both."
+          },
+          {
+            "name": "Client dinner: STK Steakhouse Midtown",
+            "description": "High-end steakhouse dinner suitable for a professional client meeting. STK Midtown is very close to the hotel/Bryant Park area and open Monday 11:00 AM–11:00 PM. Reserve ahead via the official site/OpenTable; private dining is available for larger client groups.",
+            "start_time": "2026-06-15T19:30:00",
+            "end_time": "2026-06-15T21:30:00",
+            "category": "meal",
+            "location": "STK Steakhouse Midtown, 1114 Avenue of the Americas, New York, NY 10036",
+            "cost": 160.0,
+            "links": [
+              "https://stksteakhouse.com/venues/nyc-midtown/",
+              "https://stksteakhouse.com/en-us/location/nyc-midtown/"
+            ],
+            "notes": "Search returned 4.8 rating and PRICE_LEVEL_EXPENSIVE. Good first-night choice because it is near the hotel, minimizing post-flight transfer risk."
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "calendar_date": "2026-06-16",
+        "label": "Business meetings and client dinner",
+        "slots": [
+          {
+            "name": "Hotel breakfast / meeting prep",
+            "description": "Breakfast and preparation time at or near the hotel before meetings. The hotel’s Terrazzo Lounge has been reported as serving breakfast in the morning, but hours should be confirmed at check-in.",
+            "start_time": "2026-06-16T07:30:00",
+            "end_time": "2026-06-16T08:30:00",
+            "category": "meal",
+            "location": "Park Terrace Hotel on Bryant Park, 18 W 40th St, New York, NY 10018",
+            "cost": 35.0,
+            "links": [
+              "https://parkterracehotel.com/"
+            ],
+            "notes": "Use this as a quiet prep block; exact breakfast inclusion depends on room rate."
+          },
+          {
+            "name": "Morning business meetings",
+            "description": "Reserved working block for meetings in Midtown Manhattan. Hotel location near Bryant Park/Grand Central keeps most central offices reachable quickly.",
+            "start_time": "2026-06-16T09:00:00",
+            "end_time": "2026-06-16T11:30:00",
+            "category": "other",
+            "location": "Midtown Manhattan / client offices",
+            "cost": null,
+            "links": [],
+            "notes": "Exact meeting venue to be inserted once confirmed."
+          },
+          {
+            "name": "Business lunch: The Modern Dining Room",
+            "description": "Refined Michelin-starred Midtown lunch at The Modern, suitable for a high-stakes business discussion. Lunch service is Monday–Saturday, 12:00 PM–2:30 PM; reservations open 28 days in advance at 12:00 PM ET.",
+            "start_time": "2026-06-16T12:00:00",
+            "end_time": "2026-06-16T14:00:00",
+            "category": "meal",
+            "location": "The Modern, 9 W 53rd St, New York, NY 10019",
+            "cost": 220.0,
+            "links": [
+              "https://www.themodernnyc.com/reservations-11/",
+              "https://www.opentable.com/r/the-modern-dining-room"
+            ],
+            "notes": "Quiet dining room overlooking MoMA sculpture garden; better business-lunch fit than louder casual venues. Book around May 19, 2026."
+          },
+          {
+            "name": "Afternoon business meetings / work block",
+            "description": "Reserved afternoon block for client meetings, calls, or focused work. The hotel and Midtown location keep this logistically efficient.",
+            "start_time": "2026-06-16T14:30:00",
+            "end_time": "2026-06-16T17:30:00",
+            "category": "other",
+            "location": "Midtown Manhattan / client offices",
+            "cost": null,
+            "links": [],
+            "notes": "Leave 30 minutes after lunch for walking/taxi buffer."
+          },
+          {
+            "name": "Transfer to West Village client dinner",
+            "description": "Taxi/private car from Park Terrace Hotel/Midtown to Boucherie West Village. Routing API was unavailable; based on Manhattan traffic and location, allocate about 25–40 minutes for this crosstown/downtown transfer.",
+            "start_time": "2026-06-16T18:30:00",
+            "end_time": "2026-06-16T19:10:00",
+            "category": "transport",
+            "location": "Park Terrace Hotel → Boucherie West Village, 99 7th Ave S",
+            "cost": 35.0,
+            "links": [
+              "https://www.boucherieus.com/west-village-ny-reservations/"
+            ],
+            "notes": "Allow extra buffer in evening traffic; subway via Bryant Park/W 4 St can be a reliable alternative if preferred."
+          },
+          {
+            "name": "Client dinner: Boucherie West Village",
+            "description": "Upscale French brasserie dinner in the West Village. Open Tuesday 11:00 AM–12:00 AM; reservations are highly recommended via the official site/OpenTable/Resy. Professional but less formal than STK, with strong client-dinner appeal.",
+            "start_time": "2026-06-16T19:30:00",
+            "end_time": "2026-06-16T21:30:00",
+            "category": "meal",
+            "location": "Boucherie West Village, 99 7th Ave S, New York, NY 10014",
+            "cost": 150.0,
+            "links": [
+              "https://www.boucherieus.com/west-village-menus/",
+              "https://www.boucherieus.com/west-village-ny-reservations/",
+              "https://www.opentable.com/r/boucherie-new-york"
+            ],
+            "notes": "Search returned 4.8 rating and PRICE_LEVEL_EXPENSIVE. Consider requesting a quieter table on the second-floor gallery for business conversation."
+          },
+          {
+            "name": "Return transfer to hotel",
+            "description": "Taxi/private car back to Park Terrace Hotel after client dinner.",
+            "start_time": "2026-06-16T21:30:00",
+            "end_time": "2026-06-16T22:10:00",
+            "category": "transport",
+            "location": "Boucherie West Village → Park Terrace Hotel on Bryant Park",
+            "cost": 35.0,
+            "links": [],
+            "notes": "Allocate 25–40 minutes depending on traffic."
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "calendar_date": "2026-06-17",
+        "label": "Final meetings and return flight",
+        "slots": [
+          {
+            "name": "Hotel breakfast and checkout prep",
+            "description": "Breakfast and packing before final meetings. Keep luggage at the hotel after checkout if needed.",
+            "start_time": "2026-06-17T07:30:00",
+            "end_time": "2026-06-17T08:30:00",
+            "category": "meal",
+            "location": "Park Terrace Hotel on Bryant Park, 18 W 40th St, New York, NY 10018",
+            "cost": 35.0,
+            "links": [
+              "https://parkterracehotel.com/"
+            ],
+            "notes": "Confirm late checkout or luggage storage at reception."
+          },
+          {
+            "name": "Final business meetings",
+            "description": "Short final meeting block before departure to JFK. Keep schedule conservative to protect the international flight check-in window.",
+            "start_time": "2026-06-17T09:00:00",
+            "end_time": "2026-06-17T10:30:00",
+            "category": "other",
+            "location": "Midtown Manhattan / client offices",
+            "cost": null,
+            "links": [],
+            "notes": "Avoid meetings running beyond 10:30 because LH401 departs at 15:40."
+          },
+          {
+            "name": "Check out: Park Terrace Hotel",
+            "description": "Check out of Park Terrace Hotel and retrieve luggage. Verified checkout sources vary between 11:00 AM and noon; this slot uses the earlier time to be safe.",
+            "start_time": "2026-06-17T10:30:00",
+            "end_time": "2026-06-17T11:00:00",
+            "category": "lodging",
+            "location": "Park Terrace Hotel, 18 W 40th St, New York, NY 10018",
+            "cost": null,
+            "links": [
+              "https://parkterracehotel.com/contact/"
+            ],
+            "notes": "Ask the hotel to store bags during final meetings if needed."
+          },
+          {
+            "name": "Early business lunch: Bryant Park Grill",
+            "description": "Convenient business lunch directly at Bryant Park before departure. Lunch service runs daily 11:30 AM–3:30 PM; reservations recommended for the main dining room.",
+            "start_time": "2026-06-17T11:30:00",
+            "end_time": "2026-06-17T12:30:00",
+            "category": "meal",
+            "location": "Bryant Park Grill, 25 W 40th St, New York, NY 10018",
+            "cost": 90.0,
+            "links": [
+              "https://bryantparkgrillnyc.com/",
+              "https://bryantparkgrillnyc.com/menus_cat/garden-lunch-menu/"
+            ],
+            "notes": "Chosen for minimal transfer risk before the airport run; good option for one final client lunch near the hotel."
+          },
+          {
+            "name": "Private car/taxi transfer: Midtown to JFK Terminal 1",
+            "description": "Depart Midtown for JFK Terminal 1 for Lufthansa LH401. Web-verified typical taxi timing is about 45–60 minutes, with peak traffic risk; this timing targets arrival roughly 2 hours before departure.",
+            "start_time": "2026-06-17T12:30:00",
+            "end_time": "2026-06-17T13:30:00",
+            "category": "transport",
+            "location": "Park Terrace Hotel / Bryant Park → JFK Terminal 1",
+            "cost": 95.0,
+            "links": [
+              "https://www.rome2rio.com/s/Bryant-Park/JFK-Airport-Terminal-4",
+              "https://www.shuttlefinder.com/jfk/l/bryant-park"
+            ],
+            "notes": "For lower traffic risk, consider LIRR from Grand Central Madison to Jamaica plus AirTrain JFK; total about 50–60 minutes."
+          },
+          {
+            "name": "JFK Terminal 1 check-in / Lufthansa lounge buffer",
+            "description": "Check in, clear security, and use the Lufthansa Business/Senator Lounge if eligible. Lufthansa LH401 departs from JFK Terminal 1; lounge access is available to eligible Business/First/Star Alliance Gold passengers and may be purchasable subject to availability.",
+            "start_time": "2026-06-17T13:30:00",
+            "end_time": "2026-06-17T15:10:00",
+            "category": "leisure",
+            "location": "JFK Terminal 1, Lufthansa check-in and lounge",
+            "cost": 50.0,
+            "links": [
+              "https://aviability.com/en/flight/lh401-lufthansa/jfk-fra"
+            ],
+            "notes": "Cost is a placeholder for possible paid lounge access; included if traveling in eligible cabin/status."
+          },
+          {
+            "name": "Lufthansa LH401 return flight: New York JFK to Frankfurt",
+            "description": "Direct return flight from New York JFK to Frankfurt: Lufthansa LH 401. Flight search shows 465 minutes airborne/elapsed and scheduled arrival in Frankfurt the next morning. Departs JFK Terminal 1.",
+            "start_time": "2026-06-17T15:40:00",
+            "end_time": "2026-06-18T05:25:00",
+            "category": "transport",
+            "location": "JFK Terminal 1 → Frankfurt Airport",
+            "cost": 330.0,
+            "links": [
+              "https://www.google.com/travel/flights?hl=en&gl=us&curr=EUR&tfs=CBwQAhoeEgoyMDI2LTA2LTE1agcIARIDRlJBcgcIARIDSkZLGh4SCjIwMjYtMDYtMTdqBwgBEgNKRktyBwgBEgNGUkFAAUgBcAGYAQE&tfu=EgIIAQ",
+              "https://aviability.com/en/flight/lh401-lufthansa/jfk-fra"
+            ],
+            "notes": "Round-trip fare from flight search totals EUR 660; allocated half here."
+          }
+        ]
+      }
+    ]
+  },
+  "validation_passed": true,
+  "validation_attempts": 1,
+  "validation_feedback": "The itinerary successfully meets all constraints and task requirements. It provides direct flights between Frankfurt and New York, a centrally located business hotel (Park Terrace Hotel on Bryant Park), and high-end restaurant recommendations (STK Midtown, The Modern, Boucherie West Village) suitable for client dinners. The schedule is logically ordered with appropriate travel times and respects the requested dates of June 15th to 17th, 2026.",
+  "task_list": [
+    {
+      "name": "search_flights_fra_nyc",
+      "type": "flight",
+      "text": "Find direct or short-connection flights from Frankfurt (FRA) to New York (JFK/EWR) departing June 15th and returning June 17th, 2026.",
+      "is_valid": true,
+      "validation_comment": null
+    },
+    {
+      "name": "search_business_hotels_nyc",
+      "type": "hotel",
+      "text": "Find central business-oriented hotels in New York City for the nights of June 15th and 16th, 2026.",
+      "is_valid": true,
+      "validation_comment": null
+    },
+    {
+      "name": "search_client_dinner_restaurants",
+      "type": "restaurant",
+      "text": "Find high-end restaurant recommendations in Manhattan suitable for professional client dinners.",
+      "is_valid": true,
+      "validation_comment": null
+    },
+    {
+      "name": "check_restaurant_availability",
+      "type": "opening_times",
+      "text": "Verify the opening hours and reservation availability for the selected client dinner restaurants for June 15th and 16th.",
+      "is_valid": true,
+      "validation_comment": null
+    },
+    {
+      "name": "verify_commute_times",
+      "type": "routing-check",
+      "text": "Check the travel time between the selected business hotel and the recommended restaurants to ensure feasibility.",
+      "is_valid": true,
+      "validation_comment": null
+    }
+  ]
+}

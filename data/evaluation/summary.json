@@ -1,47 +1,167 @@
 {
-  "n_total": 2,
-  "n_ok": 2,
-  "n_error": 0,
+  "n_total": 30,
+  "n_ok": 22,
+  "n_error": 8,
+  "n_timeout": 0,
+  "timeout_ids": [],
   "summary_by_source": {
     "travel_agent": {
-      "n": 1,
-      "hc_micro_mean": 1.0,
-      "hc_macro_mean": 1.0,
-      "cc_micro_mean": 0.9231,
-      "cc_macro_mean": 0.0,
-      "final_pass_rate_mean": 0.0,
-      "rationale_pass_rate_mean": 0.696969696969697,
-      "overall_score": 0.7240139393939394
+      "n": 15,
+      "hc_micro_mean": 0.9516666666666667,
+      "hc_macro_mean": 0.8666666666666667,
+      "cc_micro_mean": 0.7897466666666667,
+      "cc_macro_mean": 0.06666666666666667,
+      "final_pass_rate_mean": 0.06666666666666667,
+      "rationale_pass_rate_mean": 0.5601455979157475
     },
     "baseline": {
-      "n": 1,
-      "hc_micro_mean": 0.7143,
-      "hc_macro_mean": 0.0,
-      "cc_micro_mean": 0.5385,
+      "n": 7,
+      "hc_micro_mean": 0.9071428571428571,
+      "hc_macro_mean": 0.5714285714285714,
+      "cc_micro_mean": 0.6813285714285714,
       "cc_macro_mean": 0.0,
       "final_pass_rate_mean": 0.0,
-      "rationale_pass_rate_mean": 0.475,
-      "overall_score": 0.34556
+      "rationale_pass_rate_mean": 0.7343739608414384
     }
   },
   "per_query_comparison": [
     {
-      "id": "query_1_couple_citytrip_Adrian",
+      "id": "query_13_weekend_copenhagen_Adrian",
+      "travel_agent": {
+        "hc_micro_pass_rate": 1.0,
+        "hc_macro_pass_rate": 1.0,
+        "cc_micro_pass_rate": 0.8462,
+        "cc_macro_pass_rate": 0.0,
+        "final_pass_rate": 0.0,
+        "rationale_pass_rate": 0.5555555555555556
+      },
+      "baseline": {
+        "hc_micro_pass_rate": 0.875,
+        "hc_macro_pass_rate": 0.0,
+        "cc_micro_pass_rate": 0.9231,
+        "cc_macro_pass_rate": 0.0,
+        "final_pass_rate": 0.0,
+        "rationale_pass_rate": 0.8888888888888888
+      },
+      "delta_final_pass_rate": 0.0
+    },
+    {
+      "id": "query_16_already_at_destination_Adrian",
+      "travel_agent": {
+        "hc_micro_pass_rate": 0.4,
+        "hc_macro_pass_rate": 0.0,
+        "cc_micro_pass_rate": 0.4615,
+        "cc_macro_pass_rate": 0.0,
+        "final_pass_rate": 0.0,
+        "rationale_pass_rate": 0.5416666666666666
+      },
+      "baseline": {
+        "hc_micro_pass_rate": 0.6,
+        "hc_macro_pass_rate": 0.0,
+        "cc_micro_pass_rate": 0.5385,
+        "cc_macro_pass_rate": 0.0,
+        "final_pass_rate": 0.0,
+        "rationale_pass_rate": 0.75
+      },
+      "delta_final_pass_rate": 0.0
+    },
+    {
+      "id": "query_2_family_Adrian",
+      "travel_agent": {
+        "hc_micro_pass_rate": 1.0,
+        "hc_macro_pass_rate": 1.0,
+        "cc_micro_pass_rate": 0.7692,
+        "cc_macro_pass_rate": 0.0,
+        "final_pass_rate": 0.0,
+        "rationale_pass_rate": 0.4117647058823529
+      },
+      "baseline": {
+        "hc_micro_pass_rate": 1.0,
+        "hc_macro_pass_rate": 1.0,
+        "cc_micro_pass_rate": 0.7692,
+        "cc_macro_pass_rate": 0.0,
+        "final_pass_rate": 0.0,
+        "rationale_pass_rate": 0.7307692307692307
+      },
+      "delta_final_pass_rate": 0.0
+    },
+    {
+      "id": "query_5_special_interest_vegan_Adrian",
+      "travel_agent": {
+        "hc_micro_pass_rate": 1.0,
+        "hc_macro_pass_rate": 1.0,
+        "cc_micro_pass_rate": 0.8462,
+        "cc_macro_pass_rate": 0.0,
+        "final_pass_rate": 0.0,
+        "rationale_pass_rate": 0.8148148148148148
+      },
+      "baseline": {
+        "hc_micro_pass_rate": 1.0,
+        "hc_macro_pass_rate": 1.0,
+        "cc_micro_pass_rate": 0.3846,
+        "cc_macro_pass_rate": 0.0,
+        "final_pass_rate": 0.0,
+        "rationale_pass_rate": 0.8064516129032258
+      },
+      "delta_final_pass_rate": 0.0
+    },
+    {
+      "id": "query_6_tight_budget_Adrian",
       "travel_agent": {
         "hc_micro_pass_rate": 1.0,
         "hc_macro_pass_rate": 1.0,
         "cc_micro_pass_rate": 0.9231,
         "cc_macro_pass_rate": 0.0,
         "final_pass_rate": 0.0,
-        "rationale_pass_rate": 0.696969696969697
+        "rationale_pass_rate": 0.43243243243243246
       },
       "baseline": {
-        "hc_micro_pass_rate": 0.7143,
+        "hc_micro_pass_rate": 0.875,
         "hc_macro_pass_rate": 0.0,
+        "cc_micro_pass_rate": 0.7692,
+        "cc_macro_pass_rate": 0.0,
+        "final_pass_rate": 0.0,
+        "rationale_pass_rate": 0.7419354838709677
+      },
+      "delta_final_pass_rate": 0.0
+    },
+    {
+      "id": "query_7_business_solo_Adrian",
+      "travel_agent": {
+        "hc_micro_pass_rate": 1.0,
+        "hc_macro_pass_rate": 1.0,
+        "cc_micro_pass_rate": 0.9231,
+        "cc_macro_pass_rate": 0.0,
+        "final_pass_rate": 0.0,
+        "rationale_pass_rate": 0.9444444444444444
+      },
+      "baseline": {
+        "hc_micro_pass_rate": 1.0,
+        "hc_macro_pass_rate": 1.0,
+        "cc_micro_pass_rate": 0.8462,
+        "cc_macro_pass_rate": 0.0,
+        "final_pass_rate": 0.0,
+        "rationale_pass_rate": 0.7307692307692307
+      },
+      "delta_final_pass_rate": 0.0
+    },
+    {
+      "id": "query_9_honeymoon_maldives_Adrian",
+      "travel_agent": {
+        "hc_micro_pass_rate": 1.0,
+        "hc_macro_pass_rate": 1.0,
+        "cc_micro_pass_rate": 0.6154,
+        "cc_macro_pass_rate": 0.0,
+        "final_pass_rate": 0.0,
+        "rationale_pass_rate": 0.6730769230769231
+      },
+      "baseline": {
+        "hc_micro_pass_rate": 1.0,
+        "hc_macro_pass_rate": 1.0,
         "cc_micro_pass_rate": 0.5385,
         "cc_macro_pass_rate": 0.0,
         "final_pass_rate": 0.0,
-        "rationale_pass_rate": 0.475
+        "rationale_pass_rate": 0.4918032786885246
       },
       "delta_final_pass_rate": 0.0
     }

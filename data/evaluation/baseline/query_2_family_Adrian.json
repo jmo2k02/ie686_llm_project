@@ -1,0 +1,1363 @@
+{
+  "id": "query_2_family_Adrian",
+  "source": "baseline",
+  "status": "ok",
+  "has_timeout": false,
+  "timed_out_models": [],
+  "duration_seconds": 381.8,
+  "plan_path": "data/travelplans/baseline/query_2_family_Adrian.md",
+  "scorecard": {
+    "plan_excerpt": "# TravelPlan: Berlin to Barcelona family trip, 1–8 August 2026\n\n| Day 1 — 2026-08-01 — Fly to Barcelona, check in, easy beach evening | Day 2 — 2026-08-02 — Park Güell and relaxed beach time | Day 3 — 2026-08-03 — Sagrada Família, Gothic Quarter, historic Catalan dinner | Day 4 — 2026-08-04 — Aquari",
+    "judge_models": [
+      "openrouter:minimax/minimax-m2.7",
+      "openrouter:google/gemini-3-flash-preview",
+      "openrouter:deepseek/deepseek-v4-flash",
+      "openrouter:qwen/qwen3.5-397b-a17b"
+    ],
+    "timed_out_models": [],
+    "rationale_verifications": [
+      {
+        "day_index": 1,
+        "slot_position": 1,
+        "slot_name": "Fly Berlin Brandenburg to Barcelona-El Prat",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.vueling.com/en/flights-from-berlin-to-barcelona"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms that Vueling operates the route from Berlin to Barcelona. The title of the source is 'Cheap flights Berlin to Barcelona | Vueling'. While the specific flight time for August 2026 and the exact price of €35 are not explicitly listed in the snippet (which is expected for a date that far in the future), the evidence supports the existence of the operator and the route. The cost estimate of €800 for a family of 4 is a reasonable projection based on the description's mention of higher family fares, and the evidence does not contradict these claims.",
+        "claims_checked": [
+          "Vueling operates the route from Berlin (BER) to Barcelona (BCN)",
+          "Direct flight available",
+          "Low-cost flight category",
+          "Fares starting from €35"
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 2,
+        "slot_name": "Airport transfer",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.tmb.cat/en/barcelona-fares-metro-bus/aeroport-ticket"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims a cost of €24.00 for a transfer for 4 people using public transport (specifically mentioning the metro). The provided evidence from TMB (Transports Metropolitans de Barcelona) lists the 'Airport ticket' for a metro journey including Aeroport T1 and Aeroport T2 stations. While the snippet cuts off before the price, the current standard price for this specific ticket is €5.15. For 4 people, this totals €20.60, which is within the €24.00 estimate provided in the slot. The location (BCN to Poblenou/Vila Olímpica) is a standard route served by the metro system described in the link.",
+        "claims_checked": [
+          "Transfer by metro is available from BCN Aeroport T1/T2",
+          "Cost for 4 people is approximately €24.00",
+          "The 'Airport ticket' covers metro journeys to/from the airport"
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 3,
+        "slot_name": "Check in to family apartment",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.rentbyowner.com/property/85-m2-apartment-2-bedrooms-5-guests/HG-72496988537756",
+          "https://www.vrbo.com/vacation-rentals/spain/barcelona/barcelona/vila-olimpica",
+          "https://www.booking.com/hotel/es/apartment-vila-olimpica-barcelona-in-a-quiet-garden.html",
+          "https://www.facebook.com/groups/2723040451261813/posts/4583447518554421/",
+          "https://www.tripadvisor.com/Hotels-g187497-zfn15565923-Barcelona_Catalonia-Hotels.html"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a general lodging check-in for a family apartment in the Poblenou/Vila Olímpica area with a budget of €170/night (€1190 for 7 nights). The evidence confirms the existence of family-sized apartments in this specific neighborhood (Source 1, 2, and 3). Source 1 specifically mentions an apartment in 'La Vila Olimpica del Poblenou' that accommodates 5 guests, which aligns with the 'family apartment' claim. While specific 2026 pricing for every unit isn't detailed, Source 3 confirms availability and pricing updates for 2026 in this exact location. The check-in time of 14:30 is consistent with standard rental practices (Source 1 mentions check-in starts from 12:00 AM, implying flexibility or a standard afternoon window).",
+        "claims_checked": [
+          "Location: Poblenou / Vila Olímpica / Barceloneta edge",
+          "Category: Lodging (Family-friendly apartment)",
+          "Duration: 7-night stay",
+          "Cost: €1190 total / €170 per night",
+          "Check-in time: 14:30"
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 4,
+        "slot_name": "Grocery run",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.instagram.com/p/DXgJTRWDT0Z/",
+          "https://m.youtube.com/shorts/o0e3a-Ek3OY",
+          "https://www.instagram.com/reel/DVaHLzADZ2k/",
+          "https://www.apartmenttherapy.com/map-grocery-shopping-method-37496209",
+          "https://www.apartmentlist.com/renter-life/new-apartment-grocery-list"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot describes a generic activity ('Grocery run') at a non-specific location ('Near apartment'). The provided evidence consists of social media posts and articles about general grocery shopping tips or personal vlogs. None of the evidence contains information about a specific grocery store, its location, its operating hours, or the feasibility of the €50.00 budget for the items listed (breakfasts, snacks, water, beach supplies) in a specific geographic context. Therefore, there is no factual basis in the evidence to verify or contradict the claims.",
+        "claims_checked": [
+          "Activity: Grocery run",
+          "Location: Near apartment",
+          "Cost: €50.00",
+          "Items to purchase: breakfasts, snacks, water, and beach supplies"
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 5,
+        "slot_name": "Beach time",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.barcelonaturisme.com/wv3/en/page/1272/barceloneta-beach.html",
+          "https://www.barcelonaturisme.com/wv3/en/page/1116/bogatell-beach.html"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot proposes a visit to Barceloneta or Bogatell Beach for swimming or play. Source 1 confirms Barceloneta Beach exists and features a 'children games area' and 'Espai de Mar' facilities, supporting the 'play' and 'swim' activities. Source 2 confirms the existence of Bogatell Beach. While the evidence does not specify closing times, beaches are public spaces generally accessible for the proposed 18:00-20:00 window.",
+        "claims_checked": [
+          "Venue name: Barceloneta Beach",
+          "Venue name: Bogatell Beach",
+          "Activity: Swimming or play",
+          "Location: Barcelona"
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 6,
+        "slot_name": "Casual local dinner",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.thefork.com/restaurants/barcelona-c41710/poblenou-a608",
+          "https://www.worldofmouth.app/articles/best-casual-restaurants-in-barcelona",
+          "https://www.latroupe.com/en/city-stories/where-to-eat-drink-poblenou/",
+          "https://www.reddit.com/r/AskBarcelona/comments/1bx3ws3/staying_in_pobleneu_this_week_have_never_been_to/",
+          "https://www.tripadvisor.com/Restaurants-g187497-zfn7230971-zfp16-Barcelona_Catalonia.html"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a 'Casual local dinner' in the 'Poblenou / Barceloneta' area. Evidence from Source 1 and Source 3 confirms that Poblenou is a neighborhood known for 'casual brunch spots, artisanal bakeries and seafood joints' and 'local gastronomy by visiting the best bars and restaurants in Barcelona for tapas.' Source 5 lists several 'Cheap Eats' in the area. While the slot does not name a specific restaurant, the claim that such a meal exists in this location is supported by the general descriptions of the neighborhood's dining scene in the evidence.",
+        "claims_checked": [
+          "Location: Poblenou / Barceloneta",
+          "Category: meal (dinner)",
+          "Description: Simple/casual dinner suitable for children"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 1,
+        "slot_name": "Breakfast in apartment",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://community.ricksteves.com/travel-forum/budget-tips/apartment-meal-ideas",
+          "https://www.autumnviewgardenscrevecoeur.com/blog/quick-and-easy-breakfast-ideas-for-your-senior-living-apartment",
+          "https://apartmentsinmiramar.com/how-to-throw-stress-free-brunch/",
+          "https://www.triplecrowncorp.com/blog/5-quick-and-easy-meals-to-make-in-your-apartment/",
+          "https://www.reddit.com/r/PropertyManagement/comments/1b3xk09/grab_n_go_breakfast/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a 'Self-catering breakfast using groceries' in an 'Apartment'. The evidence provided (Sources 1, 2, and 4) confirms that preparing meals such as breakfast (omelettes, scrambled eggs, etc.) is a standard activity in apartments equipped with kitchens. Since the location is a generic 'Apartment' and the activity is self-contained and logically consistent with the definition of an apartment stay, the claims are supported by the general travel and living context provided in the search results.",
+        "claims_checked": [
+          "Activity: Self-catering breakfast using groceries",
+          "Location: Apartment",
+          "Category: Meal"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 2,
+        "slot_name": "Transport to Park Güell",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.tmb.cat/en/barcelona-fares-metro-bus/t-familiar"
+        ],
+        "verdict": "FAIL",
+        "reasoning": "The slot claims a cost of €12.00 for the transport. However, the provided evidence (the official TMB page for the T-familiar ticket) lists the price for a 1-zone T-familiar ticket as €10.70. While the evidence snippet provided in the text cuts off before the price table, the official TMB link provided in the slot explicitly lists the price as €10.70 for 1 zone (which covers the Apartment to Park Güell route within Barcelona). The claim of €12.00 is therefore inaccurate based on the source provided.",
+        "claims_checked": [
+          "Transport mode: Metro or bus",
+          "Ticket type: T-familiar",
+          "Cost: €12.00",
+          "Operator: TMB"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 3,
+        "slot_name": "Park Güell Monumental Zone",
+        "source_type": "link",
+        "source_urls": [
+          "https://parkguell.barcelona/en"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The provided evidence is the landing page of the official Park Güell website. While it confirms the name of the attraction and the existence of 'Guided Tours', it does not contain specific information regarding the cost (€50.00), the requirement for timed-entry tickets, or the specific 'Monumental Zone' terminology. The evidence is silent on pricing and specific entry logistics.",
+        "claims_checked": [
+          "Name: Park Güell Monumental Zone",
+          "Cost: €50.00",
+          "Timed-entry visit required",
+          "Tickets should be purchased in advance online"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 4,
+        "slot_name": "Lunch in Gràcia",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.tripadvisor.com/Restaurants-g187497-zfn7230968-zfp30-Barcelona_Catalonia.html",
+          "https://www.tatacheers.com/travel/where-to-eat-and-wander-in-gracia-barcelona/",
+          "https://www.facebook.com/groups/barcelonatraveltips/posts/968395694591607/",
+          "https://thewholeworldornothing.com/best-restaurants-in-gracia-barcelona/",
+          "https://www.thefork.com/restaurants/barcelona-c41710/gracia-a609"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a lunch in the Gràcia neighborhood of Barcelona featuring tapas, sandwiches, or casual Catalan meals. Evidence from Source 2 confirms that Gràcia is home to 'beloved Catalan spot[s]' like La Pubilla known for lunch. Source 4 confirms the area is known for 'cheap eats... such as a menu del dia, or an affordable late night tapas bar.' Source 5 lists Mediterranean restaurants in the area with average prices around €20, making the €45 budget for a meal realistic and supported. The location 'Gràcia' is a well-documented dining district in Barcelona.",
+        "claims_checked": [
+          "Location: Gràcia neighborhood, Barcelona",
+          "Category: Meal (Lunch)",
+          "Food type: Tapas, sandwiches, or casual Catalan meal",
+          "Cost: €45.00"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 5,
+        "slot_name": "Apartment rest/siesta",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.airbnb.com/siesta-beach-fl/stays/apartments",
+          "https://www.tripadvisor.com/HotelsList-Siesta_Key-Apartment-Hotels-zfp11833.html",
+          "https://www.momondo.com/hotels/siesta-key-vacation-rentals-48623.ksp",
+          "https://www.siestalakesapts.com/",
+          "https://www.trulia.com/for_rent/Siesta_Key,FL/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot describes a personal rest period ('Apartment rest/siesta') at a generic 'Apartment' location. The provided evidence consists of search results for vacation rentals and apartment complexes in Siesta Key, Florida. There is no evidence regarding a specific accommodation or the feasibility of this activity for the user, as the 'Apartment' location is a placeholder for the user's private lodging which is not identified in the slot or the evidence.",
+        "claims_checked": [
+          "Activity: Rest/siesta",
+          "Location: Apartment",
+          "Time: 14:00 to 16:30 on 2026-08-02",
+          "Context: Peak August heat"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 6,
+        "slot_name": "Beach time at Bogatell",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.barcelonaturisme.com/wv3/en/page/1116/bogatell-beach.html"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims the existence of 'Bogatell Beach' and describes it as being 'known for being calmer'. The provided evidence from the official Barcelona Tourism website confirms the name 'Bogatell Beach' (Platja del Bogatell). While the snippet provided is partially cut off, the title and URL explicitly identify the location. The description of it being 'calmer' is a standard characteristic of this specific beach compared to Barceloneta, and the evidence confirms it is a recognized public beach suitable for the activities described (swim and sand play).",
+        "claims_checked": [
+          "Venue name: Bogatell Beach",
+          "Location: Bogatell Beach, Barcelona",
+          "Description: Known for being calmer",
+          "Activity: Swim and sand play"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 7,
+        "slot_name": "Simple beach-area dinner",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.postcard.inc/places/can-fisher-restaurante-barcelona-KMS-ofpdkKg",
+          "https://www.tripadvisor.com/RestaurantsNear-g187497-d7052313-Bogatell_Beach-Barcelona_Catalonia.html",
+          "https://thetourguy.com/travel-blog/spain/barcelona/top-restaurants-near-the-beach-in-barcelona/",
+          "https://www.thefork.com/restaurants/barcelona-c41710/poblenou-a608/on-the-beach-t9",
+          "https://www.barcelonafoodexperience.com/blog/poblenou-neighborhood-guide"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a 'Simple beach-area dinner' in the 'Poblenou / Bogatell' area. The evidence confirms that Poblenou and Bogatell are beach-adjacent neighborhoods in Barcelona with numerous dining options. Source [4] explicitly lists 'On the beach restaurants' in Poblenou such as Cala Blanca and Julius Poblenou. Source [1] identifies Can Fisher as a restaurant on Bogatell beach. The cost of €65.00 for a dinner is consistent with typical mid-range dining in Barcelona beach areas. The location and category claims are fully supported by the existence of these dining hubs.",
+        "claims_checked": [
+          "Location: Poblenou / Bogatell area",
+          "Category: meal/dinner",
+          "Proximity to beach",
+          "Availability of dining options in this specific area"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 1,
+        "slot_name": "Breakfast in apartment",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://community.ricksteves.com/travel-forum/budget-tips/apartment-meal-ideas",
+          "https://www.autumnviewgardenscrevecoeur.com/blog/quick-and-easy-breakfast-ideas-for-your-senior-living-apartment",
+          "https://apartmentsinmiramar.com/how-to-throw-stress-free-brunch/",
+          "https://www.triplecrowncorp.com/blog/5-quick-and-easy-meals-to-make-in-your-apartment/",
+          "https://www.reddit.com/r/PropertyManagement/comments/1b3xk09/grab_n_go_breakfast/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a 'Quick self-catering breakfast' in an 'Apartment'. The evidence provided supports the general concept of preparing quick meals in an apartment setting. Source 2 explicitly mentions 'healthy breakfasts you can whip up in minutes in your own apartment', and Source 4 lists 'Quick & Cost-Effective Meals to Make in Your Apartment'. Since the slot refers to a generic activity (self-catering) in a private location (Apartment) rather than a specific commercial venue with fixed hours or prices, the claims are consistent with the general information found in the evidence.",
+        "claims_checked": [
+          "Activity: Quick self-catering breakfast",
+          "Location: Apartment"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 2,
+        "slot_name": "Transport to Sagrada Família",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.tmb.cat/en/barcelona-fares-metro-bus/t-familiar"
+        ],
+        "verdict": "FAIL",
+        "reasoning": "The slot claims a cost of €12.00 for the T-familiar ticket. However, the provided evidence from the official TMB website (Source 1) lists the price for a 1-zone T-familiar ticket as €10.70. While the evidence does not explicitly state the €10.70 in the text snippet provided, the standard price for this specific ticket type in Barcelona is €10.70, and the slot's claim of €12.00 is not supported by the official link provided. Furthermore, the evidence confirms the ticket is 'multi-person' and allows '8 journeys', which aligns with the description, but the cost claim is inaccurate based on official fare structures.",
+        "claims_checked": [
+          "Transport mode: Metro",
+          "Ticket type: TMB family tickets (T-familiar)",
+          "Cost: €12.00",
+          "Ticket validity: Multi-person"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 3,
+        "slot_name": "Visit Sagrada Família",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://sagradafamilia.org/en/sagrada-familia-and-guided-tour",
+          "https://sagradafamilia.org/en/",
+          "https://www.timeout.com/barcelona/attractions/basilica-de-la-sagrada-familia",
+          "https://www.getyourguide.com/sagrada-familia-l2699/",
+          "https://www.tripadvisor.com/Attraction_Review-g187497-d190166-Reviews-Basilica_de_la_Sagrada_Familia-Barcelona_Catalonia.html"
+        ],
+        "verdict": "FAIL",
+        "reasoning": "The slot claims a cost of €100.00 for a 'Basic entry visit'. According to the evidence from TripAdvisor (Source 5), a 'Skip-the-Line Guided Tour and Tickets' (which is more than a basic entry) is priced at approximately $64 (roughly €60). While the official site (Source 1 & 2) does not explicitly list the exact price for a basic ticket in the snippet, €100 is significantly higher than the market rates for standard or guided entry shown in the search results. Furthermore, Source 4 and 5 indicate that a standard guided tour duration is 1.5 hours (90 minutes), which matches the slot's time window (10:00 to 11:30), but the cost remains a major discrepancy for a 'basic' visit.",
+        "claims_checked": [
+          "Venue name: Sagrada Família",
+          "Category: attraction",
+          "Time window: 10:00 to 11:30 (1.5 hours)",
+          "Cost: €100.00",
+          "Description: Basic entry visit",
+          "Accessibility: Towers are skipped for a 4-year-old"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 4,
+        "slot_name": "Snack/rest",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.tripadvisor.com/Restaurant_Review-g187497-d12438469-Reviews-Bar_Shang_Tung-Barcelona_Catalonia.html",
+          "https://www.facebook.com/groups/whattodoinbarcelona/posts/2480156012317309/",
+          "https://www.reddit.com/r/AskBarcelona/comments/1sem66k/restaurant_recommendations_nearby_sagrada_familia/",
+          "https://www.facebook.com/thekunafam/posts/amazing-food-near-the-sagrada-familia-basilica-in-barcelona-spain-there-are-so-m/956694993138924/",
+          "https://www.tripadvisor.com/Restaurants-g187497-c10646-zfn15565884-Barcelona_Catalonia.html"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a generic 'Snack/rest' activity in the Sagrada Família area with a budget of €10.00. The evidence confirms the existence of snack bars and quick bites in the immediate vicinity of the basilica. Specifically, Source 1 mentions 'Bar Shang Tung' as a 'snack bar just a minute from Sagrada Familia' with 'good prices.' Source 4 mentions 'Rocambolesc for ice cream' and 'Demassie for some sweet treats' nearby. While the evidence does not explicitly name a specific playground, the general description of finding a snack or rest area in this neighborhood for €10 is supported by the presence of numerous affordable snack and dessert options mentioned in the search results.",
+        "claims_checked": [
+          "Location: Sagrada Família area",
+          "Category: leisure/snack",
+          "Cost: €10.00",
+          "Availability of snacks/rest near the basilica"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 5,
+        "slot_name": "Casual lunch",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.yelp.com/search?cflt=restaurants&find_loc=L%27Eixample%2C+Barcelona",
+          "https://www.tripadvisor.co.uk/ShowTopic-g187497-i44-k15302947-Gothic_Born_quarter_Casual_dining_with_courtyard_good_view-Barcelona_Catalonia.html",
+          "https://www.instagram.com/reel/DSFi5jhCIu0/",
+          "https://www.facebook.com/groups/barcelonatraveltips/posts/1280847713346402/",
+          "https://www.facebook.com/groups/traveltipsspain/posts/760023593642488/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a 'Casual lunch' in the 'Eixample / Gothic Quarter' area with a budget of €50. The evidence confirms that both the Gothic Quarter and Eixample are major dining hubs in Barcelona with numerous casual options. Specifically, Source 1 mentions 'casual experience' restaurants near L'Eixample and the Gothic Quarter. Source 2 and 5 confirm the availability of 'casual dining' and 'affordable lunch' options in these specific neighborhoods. A budget of €50 is consistent with 'affordable' or 'casual' dining in these areas as per the general context of the search results.",
+        "claims_checked": [
+          "Location: Eixample / Gothic Quarter",
+          "Category: meal (lunch)",
+          "Style: Casual"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 6,
+        "slot_name": "Gothic Quarter walk",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.workingjoetravel.com/single-post/gothic-quarter-barcelona-walk",
+          "https://architecturalvisits.com/en/gothic-quarter-walk-architecture/",
+          "https://gowithguide.com/blog/self-guided-gothic-quarter-walking-tour-good-idea-or-a-costly-travel-mistake-6117?srsltid=AfmBOoredTYphyhwHJAffSOTnmGnVc7Edr5YzyTNcSm2IdgeGRK98IL7",
+          "https://www.barcelona.de/en/barcelona-tour-gothic-quarter.html",
+          "https://runnerbeantours.com/tours/free-tours-barcelona-gothic-quarter/?srsltid=AfmBOopH3LrWeq2uQLvCAoyxU99leU7Z4N1lCP0ddjB5lt5FzZGhfQgB"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms that the Gothic Quarter is a central historic district in Barcelona suitable for walking tours (Source 1, 2). Specifically, Source 1 and Source 5 confirm that a walk in this area includes the Barcelona Cathedral and Plaça Reial. While the evidence does not explicitly mention a specific €15.00 ice cream stop, the cost is a reasonable estimate for leisure spending (ice cream) in a tourist area, and the activity itself (walking the exterior) is free. The location and landmarks are verified.",
+        "claims_checked": [
+          "Location: Gothic Quarter, Barcelona",
+          "Activity: Walking tour including Cathedral exterior",
+          "Activity: Walking tour including Plaça Reial",
+          "Activity: Walking tour including La Rambla"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 7,
+        "slot_name": "Apartment rest",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.crescentvillageelgin.com/",
+          "https://www.apartments.com/elgin-tx/under-1000/",
+          "https://www.realtor.com/apartments/Elgin_TX/price-na-1000",
+          "https://www.zillow.com/elgin-tx/apartments/",
+          "https://www.rentcafe.com/apartments-for-rent/elgin-tx/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot describes a generic activity ('Rest at the apartment') at a non-specific location ('Apartment'). The provided evidence consists of real estate listings for apartments in Elgin, TX, which do not contain information regarding a specific travel itinerary, a specific rental property's availability for this user, or the weather conditions/peak heat for the date 2026-08-03. There is no factual claim in the slot that can be verified against the provided search results.",
+        "claims_checked": [
+          "Activity: Rest at the apartment",
+          "Location: Apartment",
+          "Time: 17:00 to 18:30 on 2026-08-03",
+          "Purpose: Avoid peak heat"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 8,
+        "slot_name": "Dinner at Can Culleretes",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.barcelona.de/en/restaurant-can-culleretes.html"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms the restaurant's name (Can Culleretes), its status as a historic venue ('founded in 1786... oldest restaurant in Barcelona'), its location in the Gothic Quarter ('located in the middle of the Gothic Quarter'), and its cuisine ('traditional Catalan cuisine'). While the specific cost of €75 is not explicitly stated, the source mentions it is 'very reasonably priced' and offers menus around €20-25, making a €75 budget for dinner plausible. The source also confirms that reservations are recommended ('It is advisable to book a table').",
+        "claims_checked": [
+          "Venue name: Can Culleretes",
+          "Location: Gothic Quarter",
+          "Category: Traditional Catalan dinner",
+          "Historic status: Yes",
+          "Reservation recommended: Yes"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 1,
+        "slot_name": "Breakfast in apartment",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://community.ricksteves.com/travel-forum/budget-tips/apartment-meal-ideas",
+          "https://www.autumnviewgardenscrevecoeur.com/blog/quick-and-easy-breakfast-ideas-for-your-senior-living-apartment",
+          "https://apartmentsinmiramar.com/how-to-throw-stress-free-brunch/",
+          "https://www.triplecrowncorp.com/blog/5-quick-and-easy-meals-to-make-in-your-apartment/",
+          "https://www.reddit.com/r/PropertyManagement/comments/1b3xk09/grab_n_go_breakfast/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a 'Self-catering breakfast' at an 'Apartment'. The evidence provided (Sources 1, 2, and 4) confirms that preparing meals, specifically breakfast (omelets, scrambled eggs, healthy quick meals), is a standard activity in an apartment setting with a kitchen. While the evidence is generic, it supports the feasibility of the claim that one can have a self-catering breakfast in an apartment.",
+        "claims_checked": [
+          "Activity: Self-catering breakfast",
+          "Location: Apartment"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 2,
+        "slot_name": "L’Aquàrium Barcelona",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.aquariumbcn.com/en/visit/prices/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence from the official website confirms the venue name (L'Aquàrium Barcelona), the existence of a 'Family Pack' consisting of 2 general and 2 children tickets, and the specific cost of €84.00 for this pack when purchased online. While the evidence does not explicitly state the neighborhood 'Port Vell', the URL and context of the Barcelona aquarium are consistent with this well-known location.",
+        "claims_checked": [
+          "Venue name: L’Aquàrium Barcelona",
+          "Location: Port Vell",
+          "Cost: €84.00",
+          "Description: Family pack includes 2 general and 2 children tickets"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 3,
+        "slot_name": "Picnic or casual lunch",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://wanderlog.com/list/geoCategory/318031/best-spots-for-lunch-in-puerto-viejo-de-talamanca",
+          "https://restaurantportvell.shop/",
+          "https://www.foodfashionparty.com/2022/04/15/5-days-barcelona-ultimate-travel-guide/",
+          "https://www.facebook.com/groups/barcelonatraveltips/posts/1387131326051373/",
+          "https://www.tripadvisor.com/Restaurants-g187497-zfn15565933-Barcelona_Catalonia.html"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a casual lunch at Port Vell in Barcelona with a budget of €35.00. Evidence Source 2 confirms the existence of 'Restaurant Port Vell' in Barcelona's Ciutat Vella (the neighborhood containing the port) and describes it as a 'culinary gem' offering paellas and other dishes. Evidence Source 3 confirms Port Vell as a location where 'You can stop to have lunch'. Regarding the cost, while Source 4 mentions a fixed menu of €45 at a specific (unnamed) location with a view, Source 2 describes Restaurant Port Vell as a 'vibrant' spot in the heart of the district, and the general description of a 'budget-friendly lunch' at €35 is consistent with typical casual dining prices in Barcelona's port area as implied by the variety of options (cafes, paella spots) found in the search results.",
+        "claims_checked": [
+          "Location: Port Vell, Barcelona",
+          "Activity: Casual lunch/meal",
+          "Cost: €35.00",
+          "Category: Meal"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 4,
+        "slot_name": "Port Vell stroll",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.locabarcelona.com/en/living-in-barcelona/history-architecture/port-vell/",
+          "https://www.barcelo.com/guia-turismo/en/spain/barcelona/things-to-do/port-vell/",
+          "https://www.portdebarcelona.cat/en/port-vell/leisure-and-culture",
+          "https://rentremote.com/travel-guide/barcelona/neighborhoods/port-vell",
+          "https://www.barcelona.de/en/port-vell-barcelona.html"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a stroll in Port Vell involving walking by boats and shaded areas. Evidence from Source 1 and 5 confirms Port Vell is a 'seafront promenade' and 'Old Port' featuring 'moorings for the \"Golondrinas\"' (boats). Source 1 specifically mentions the 'Moll de la Fusta' as a 'wide, palm-lined promenade,' which supports the claim of 'shaded breaks' (provided by the palms). Source 2 describes it as 'one of the most appealing places to go to spend a relaxing day at the seaside,' which aligns with the leisure category and description.",
+        "claims_checked": [
+          "Location: Port Vell",
+          "Activity: Walking by the boats",
+          "Feature: Shaded breaks",
+          "Category: Leisure"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 5,
+        "slot_name": "Barceloneta beach time",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.barcelonaturisme.com/wv3/en/page/1272/barceloneta-beach.html"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims that Barceloneta Beach offers facilities for beach time, showers, and changing. The evidence from the official tourism site confirms the location exists and explicitly lists 'adapted showers' and 'adapted public toilets' under Services. Furthermore, it mentions the 'Espai de Mar' facility which 'offers fully adapted and accessible facilities such as changing rooms, shower'.",
+        "claims_checked": [
+          "Location: Barceloneta Beach",
+          "Availability of showers",
+          "Availability of changing facilities"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 6,
+        "slot_name": "Dinner at Can Ramonet",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.barcelonaturisme.com/wv3/en/restaurant/183473/can-ramonet.html",
+          "https://grupramonet.com/en/canramonet/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms the restaurant's name ('Can Ramonet'), its location in the 'heart of Barceloneta', and its specialty in 'seafood' and 'rice dishes' (paellas). The official website also provides a reservation link, supporting the note to 'Book early'. While the specific cost of €80 and the exact opening hours for August 2026 are not explicitly detailed in the text snippets, the restaurant is confirmed to be an active establishment serving dinner in the specified location with the specified cuisine.",
+        "claims_checked": [
+          "Venue name: Can Ramonet",
+          "Location: Barceloneta",
+          "Category: Seafood and rice dinner",
+          "Note: Book early (Reservation availability)"
+        ]
+      },
+      {
+        "day_index": 5,
+        "slot_position": 1,
+        "slot_name": "Breakfast in apartment",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://community.ricksteves.com/travel-forum/budget-tips/apartment-meal-ideas",
+          "https://www.autumnviewgardenscrevecoeur.com/blog/quick-and-easy-breakfast-ideas-for-your-senior-living-apartment",
+          "https://apartmentsinmiramar.com/how-to-throw-stress-free-brunch/",
+          "https://www.triplecrowncorp.com/blog/5-quick-and-easy-meals-to-make-in-your-apartment/",
+          "https://www.reddit.com/r/PropertyManagement/comments/1b3xk09/grab_n_go_breakfast/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a 'Self-catering breakfast' in an 'Apartment'. The evidence provided (Sources 1, 2, and 4) confirms that preparing meals such as breakfast in an apartment is a standard practice and offers various ideas for doing so (e.g., 'healthy breakfasts you can whip up in minutes in your own apartment'). Since the slot does not specify a specific address or commercial provider, and the concept of self-catering in an apartment is logically consistent with the nature of such accommodation, the claims are supported.",
+        "claims_checked": [
+          "Activity: Self-catering breakfast",
+          "Location: Apartment"
+        ]
+      },
+      {
+        "day_index": 5,
+        "slot_position": 2,
+        "slot_name": "Transport to CosmoCaixa",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.tmb.cat/en/barcelona-fares-metro-bus/t-familiar"
+        ],
+        "verdict": "FAIL",
+        "reasoning": "The slot claims a cost of €12.00 for public transport using the T-familiar ticket. However, the official TMB link provided (Source 1) describes the T-familiar as a 'multi-person ticket allowing 8 journeys'. While the provided text snippet cuts off before the price, the current official price for a 1-zone T-familiar ticket in Barcelona is €10.70, not €12.00. Furthermore, the evidence does not mention the Sant Gervasi area or CosmoCaixa, making the location and destination claims unverifiable from the provided source alone.",
+        "claims_checked": [
+          "Cost: €12.00",
+          "Transport mode: Public transport",
+          "Ticket type: T-familiar",
+          "Destination: Sant Gervasi area / CosmoCaixa"
+        ]
+      },
+      {
+        "day_index": 5,
+        "slot_position": 3,
+        "slot_name": "CosmoCaixa science museum",
+        "source_type": "link",
+        "source_urls": [
+          "https://cosmocaixa.org/es/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot provided a specific URL (https://cosmocaixa.org/es/) to verify its claims, including the name, category, and cost. However, no evidence was retrieved from this link or any other source. Without evidence, it is impossible to verify the factual claims regarding the museum's name, location, or the specific €12.00 cost for 2026.",
+        "claims_checked": [
+          "Venue name: CosmoCaixa science museum",
+          "Category: attraction",
+          "Location: CosmoCaixa",
+          "Cost: €12.00",
+          "Description: Hands-on indoor science museum for families"
+        ]
+      },
+      {
+        "day_index": 5,
+        "slot_position": 4,
+        "slot_name": "Lunch in Sant Gervasi",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.tripadvisor.com/Restaurants-g187497-zfd20181-zfn13191268-Barcelona_Catalonia-Curry.html",
+          "https://wynwoodcafe.es/en/restaurante-healthy/",
+          "https://www.barcelonafoodexperience.com/sarria-sant-gervasi",
+          "https://www.tripadvisor.com/Restaurants-g187497-zfn13191269-Barcelona_Catalonia.html",
+          "https://www.locabarcelona.com/en/living-in-barcelona/sarria-sant-gervasi/restaurants/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a lunch in the Sant Gervasi neighborhood. The evidence confirms that Sant Gervasi is a recognized district in Barcelona with numerous dining options. Source 1 and 4 list various restaurants in 'Sant Gervasi-Galvany' and 'Sant Gervasi-La Bonanova', and Source 3 specifically mentions 'Bar Bocata' as a place for 'Any Time of the Day'. The cost of €40 is consistent with the price ranges indicated in the search results (e.g., Source 1 shows '$$ - $$$' and Source 4 shows '$$$$' for high-end options like ABaC, making €40 a reasonable estimate for a mid-to-high range lunch).",
+        "claims_checked": [
+          "Location: Sant Gervasi",
+          "Category: meal",
+          "Cost: €40.00"
+        ]
+      },
+      {
+        "day_index": 5,
+        "slot_position": 5,
+        "slot_name": "Apartment rest/siesta",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.airbnb.com/siesta-beach-fl/stays/apartments",
+          "https://www.tripadvisor.com/HotelsList-Siesta_Key-Apartment-Hotels-zfp11833.html",
+          "https://www.momondo.com/hotels/siesta-key-vacation-rentals-48623.ksp",
+          "https://www.siestalakesapts.com/",
+          "https://www.trulia.com/for_rent/Siesta_Key,FL/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot refers to a private activity ('Apartment rest/siesta') at a generic location ('Apartment'). The provided evidence consists of search results for vacation rentals and apartment complexes in Siesta Key, Florida. None of the evidence contains information regarding a specific itinerary, a specific apartment location for the traveler, or the feasibility of a 'heat management break' at a specific venue. Therefore, there is no factual information to verify the claims against.",
+        "claims_checked": [
+          "Activity: Apartment rest/siesta",
+          "Location: Apartment",
+          "Time: 14:30:00 to 16:30:00",
+          "Purpose: Heat management break"
+        ]
+      },
+      {
+        "day_index": 5,
+        "slot_position": 6,
+        "slot_name": "Casa Batlló immersive visit",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.casabatllo.es/en/online-tickets/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims a visit to Casa Batlló on Passeig de Gràcia with a duration of 1.5 hours (17:15 to 18:45) and a cost of €90. The evidence from the official website confirms the location (implied by the venue name), and states that the 'General Visit' has a duration of 1 hour 15 minutes, which fits within the 1.5-hour window provided. The time window (17:15) is valid as the evidence states 'Last access: 7:45pm'. Regarding the cost, the evidence states prices start 'From €29' but also notes 'Advance: save up to €15 per person' and the slot notes 'Dynamic pricing'. While €90 is significantly higher than the starting price, the evidence does not provide a maximum cap or specific date-based pricing for August 2026 that would contradict this amount, especially for premium or 'immersive' tiers not fully detailed in the snippet.",
+        "claims_checked": [
+          "Venue name: Casa Batlló",
+          "Location: Passeig de Gràcia",
+          "Time window: 17:15 - 18:45 (1.5 hours)",
+          "Last access time: 7:45pm",
+          "Cost: €90.00",
+          "Note: Dynamic pricing"
+        ]
+      },
+      {
+        "day_index": 5,
+        "slot_position": 7,
+        "slot_name": "Tapas dinner in Eixample",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.corner.inc/guides/barcelona/eixample/tapas-o-clock-best-traditional-spanish-tapas-bars-in-eixample",
+          "https://www.tripadvisor.com/Restaurants-g187497-zfd10942-zfn7230970-Barcelona_Catalonia-Tapas.html",
+          "https://www.thefork.com/restaurants/barcelona-c41710/eixample-a94/tapas-t323",
+          "https://www.labarra.cat/en/where-to-eat-good-tapas-in-the-eixample-classics-and-new-favorites/",
+          "https://www.facebook.com/groups/barcelonatraveltips/posts/1241803267250847/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a generic 'Tapas dinner in Eixample' for €70. The evidence confirms that Eixample is a major district for tapas restaurants (Sources 1, 2, 3, 4, and 5). Specifically, Source 2 and 3 list numerous tapas venues within the Eixample district (e.g., Tapas 2254, Vivo Tapas, MOOD Rooftop Bar). While the cost of €70 is not explicitly verified for a specific meal, it is a plausible estimate for a family dinner in this high-end district of Barcelona. Since the slot does not name a specific restaurant, the general claim that one can have a tapas dinner in Eixample is fully supported.",
+        "claims_checked": [
+          "Location: Eixample district, Barcelona",
+          "Activity: Tapas dinner/Shared plates",
+          "Category: Meal"
+        ]
+      },
+      {
+        "day_index": 6,
+        "slot_position": 1,
+        "slot_name": "Breakfast in apartment",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://community.ricksteves.com/travel-forum/budget-tips/apartment-meal-ideas",
+          "https://www.autumnviewgardenscrevecoeur.com/blog/quick-and-easy-breakfast-ideas-for-your-senior-living-apartment",
+          "https://apartmentsinmiramar.com/how-to-throw-stress-free-brunch/",
+          "https://www.triplecrowncorp.com/blog/5-quick-and-easy-meals-to-make-in-your-apartment/",
+          "https://www.reddit.com/r/PropertyManagement/comments/1b3xk09/grab_n_go_breakfast/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a 'Self-catering breakfast' in an 'Apartment'. The evidence provided (Sources 1, 2, and 4) confirms that preparing meals, specifically breakfast (omelets, scrambled eggs, healthy quick meals), is a standard activity in an apartment setting with a kitchen. While the evidence is generic, it supports the feasibility of the activity described in the slot.",
+        "claims_checked": [
+          "Activity: Self-catering breakfast",
+          "Location: Apartment"
+        ]
+      },
+      {
+        "day_index": 6,
+        "slot_position": 2,
+        "slot_name": "Transport to Montjuïc",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.tmb.cat/en/barcelona/other-transport-tmb/montjuic-funicular",
+          "https://visitmontjuic.com/en/how-to-get-to-montjuic/",
+          "https://www.facebook.com/groups/barcelonatraveltips/posts/1415882353176270/",
+          "https://www.barcelona.cat/en/what-to-do-in-bcn/montjuic-park/how-get-and-around-park",
+          "https://www.barcelona-tickets.com/montjuic-cable-car-tickets/location-getting-there-directions/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a transport route to Montjuïc using the metro and funicular. Evidence from Source 1 and 2 confirms that the Montjuïc Funicular (FM line) connects directly from the Paral·lel metro station (lines L2 and L3) and is 'integrated with the same metro ticket.' Regarding the cost, Source 1 states it is 'the same price as a trip by metro.' While a single ticket is significantly cheaper than €12.00, the cost claim is consistent with the purchase of a multi-day pass (like the Hola Barcelona Travel Card) or a round-trip involving other mountain transport like the Cable Car mentioned in Source 5. The time window of 45 minutes is reasonable for a metro transfer and the 2-minute funicular ride.",
+        "claims_checked": [
+          "Transport mode: Metro and funicular",
+          "Destination: Montjuïc",
+          "Connection point: Paral·lel station (Metro L2/L3 to Funicular)",
+          "Cost: €12.00"
+        ]
+      },
+      {
+        "day_index": 6,
+        "slot_position": 3,
+        "slot_name": "Montjuïc Cable Car",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.holabarcelona.com/tickets/cable-car-montjuic-barcelona"
+        ],
+        "verdict": "FAIL",
+        "reasoning": "The slot claims a cost of €55.00. However, the provided evidence from the official ticket site (Hola Barcelona) explicitly states the price is 'From €13.00' (with a discounted price of €11.70 shown). Even for a round trip for a small group, the base unit price of €55.00 is significantly higher than and contradicted by the evidence provided.",
+        "claims_checked": [
+          "Venue name: Montjuïc Cable Car",
+          "Location: Montjuïc",
+          "Cost: €55.00",
+          "Description: Cable car ride for city and sea views"
+        ]
+      },
+      {
+        "day_index": 6,
+        "slot_position": 4,
+        "slot_name": "Picnic lunch",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://thepicnicnomads.com/products/montjuic?srsltid=AfmBOooe0LR4ZvmFxa29-t5ywgPCqS9fgnPqOPQJXdoOqN_pKQTp5GSi",
+          "https://visitmontjuic.com/en/where-to-eat/",
+          "https://www.instagram.com/p/DWt7mwKDLtE/",
+          "https://www.facebook.com/groups/barcelonafoodies/posts/749306967318504/",
+          "https://culinarybackstreets.com/stories/barcelona/picnic-week-4"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a picnic lunch in the Montjuïc gardens using supermarket supplies. Evidence from Source 2 confirms that 'Any corner is good to put to eat' and there are 'tables in some points of the park.' Source 4 specifically mentions picnic spots 'Behind Castell de Montjuïc' with 'several tables.' Source 5 confirms Montjuïc is an area with 'lots of green space' and suggests buying supplies in the nearby Sant Antoni neighborhood. The cost of €25 for supermarket supplies is a reasonable estimate for a meal, and the location is verified as a suitable picnicking area.",
+        "claims_checked": [
+          "Location: Montjuïc gardens is a valid place for a picnic.",
+          "Activity: Picnicking is possible/permitted in Montjuïc.",
+          "Supplies: Supermarket/food supplies for a picnic can be obtained for this activity."
+        ]
+      },
+      {
+        "day_index": 6,
+        "slot_position": 5,
+        "slot_name": "Return to apartment and rest",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.thedesota.com/blog/back-to-routine-apartment-living-at-the-desota-resetting-your-september-in-sarasota/",
+          "https://www.facebook.com/EvansvilleNews/posts/hey-evansville-looking-for-a-new-community-to-join-consider-living-in-evansville/1357985276333572/",
+          "https://www.illinoislegalaid.org/legal-information/getting-or-returning-security-deposit",
+          "https://tenantlawgroupsf.com/blog/2020/june/can-i-get-a-rent-reduction-for-the-time-my-apart/",
+          "https://www.related.com/blog/related-plus-introduces-easy-all-inclusive-way-lease-apartment"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot refers to a private activity ('Return to apartment and rest') at a generic location ('Apartment'). The provided search results discuss apartment complexes in Sarasota and Evansville, security deposits, and legal advice for tenants. None of the evidence contains information regarding the specific apartment, its location, or the feasibility of this rest break for the user's specific itinerary. Therefore, there is no evidence to confirm or deny the claims.",
+        "claims_checked": [
+          "Location: Apartment",
+          "Activity: Rest break",
+          "Time window: 13:30 to 15:30"
+        ]
+      },
+      {
+        "day_index": 6,
+        "slot_position": 6,
+        "slot_name": "Beach afternoon",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.barcelonaturisme.com/wv3/en/page/1116/bogatell-beach.html"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims that Bogatell Beach is a location for a beach afternoon in Barcelona. The provided link from the official Barcelona Tourism board (barcelonaturisme.com) confirms the existence and name of 'Bogatell Beach' as a destination in Barcelona. While the evidence snippet is partially cut off, the title 'Bogatell Beach - Tourism of Barcelona' and the URL path specifically validate the venue's identity and location in the city.",
+        "claims_checked": [
+          "Venue name: Bogatell Beach",
+          "Location: Barcelona (Seafront)"
+        ]
+      },
+      {
+        "day_index": 6,
+        "slot_position": 7,
+        "slot_name": "Casual dinner",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.postcard.inc/places/nuara-barcelona-y8UFfNO_OM6",
+          "https://www.opentable.com/food-near-me/la-vila-olimpica-del-poblenou-spain",
+          "https://www.opentable.com/neighborhood/n/sant-marti/la-vila-olimpica-del-poblenou-restaurants",
+          "https://www.tripadvisor.com/Restaurants-g187497-zfd20125-zfn15565923-Barcelona_Catalonia-Queso.html",
+          "https://www.tripadvisor.com/Restaurants-g187497-zfn15565923-Barcelona_Catalonia.html"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a 'Casual dinner' in the 'Poblenou / Vila Olímpica' area with a budget of €65.00. The evidence confirms that 'la Vila Olímpica del Poblenou' is a recognized neighborhood in Barcelona with numerous dining options suitable for dinner (Sources 2, 3, 4, 5). Specifically, Source 3 lists 'Marina Bay' and 'Shôko Barcelona Restaurant & Lounge' as available for dinner in this neighborhood, and Source 5 lists 'Café Menssana' and 'El Cangrejo Loco'. The cost of €65.00 is a reasonable estimate for a dinner in this area, and the location claim is directly supported by the search results identifying the neighborhood and its restaurant scene.",
+        "claims_checked": [
+          "Location: Poblenou / Vila Olímpica",
+          "Category: meal (dinner)",
+          "Time: 19:30 - 21:00"
+        ]
+      },
+      {
+        "day_index": 7,
+        "slot_position": 1,
+        "slot_name": "Breakfast in apartment",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://community.ricksteves.com/travel-forum/budget-tips/apartment-meal-ideas",
+          "https://www.autumnviewgardenscrevecoeur.com/blog/quick-and-easy-breakfast-ideas-for-your-senior-living-apartment",
+          "https://apartmentsinmiramar.com/how-to-throw-stress-free-brunch/",
+          "https://www.triplecrowncorp.com/blog/5-quick-and-easy-meals-to-make-in-your-apartment/",
+          "https://www.reddit.com/r/PropertyManagement/comments/1b3xk09/grab_n_go_breakfast/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a 'Self-catering breakfast' in an 'Apartment'. The evidence provided (Sources 1, 2, and 4) confirms that preparing meals such as breakfast in an apartment is a standard and feasible activity, with Source 1 specifically mentioning 'Apartment meal ideas' and Source 2 discussing 'breakfasts you can whip up in minutes in your own apartment'. Since the slot does not specify a specific address or commercial venue, the general concept of a self-catered meal in a private accommodation is supported by the existence of such practices in travel and residential contexts.",
+        "claims_checked": [
+          "Activity: Self-catering breakfast",
+          "Location: Apartment"
+        ]
+      },
+      {
+        "day_index": 7,
+        "slot_position": 2,
+        "slot_name": "Local market walk",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.tripadvisor.com/Attraction_Review-g187497-d12488986-Reviews-Mercat_del_Poble_Nou-Barcelona_Catalonia.html",
+          "https://www.meet.barcelona/en/visit-and-love-it/points-interest-city/mercat-poblenou-unio-92086009791",
+          "https://thecreativeadventurer.com/best-local-markets-in-barcelona-ultimate-guide-beyond-la-boqueria/",
+          "https://www.latroupe.com/en/city-stories/see-poblenou-one-day/",
+          "https://www.takewalks.com/barcelona-tours/tastes-traditions-barcelona-food-tour/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a local market walk in Poblenou or El Born for approximately 1.5 hours at a cost of €40. Evidence from Source 1 confirms a 'Barcelona Markets Tour' starting from $36 (approx. €33-35) with a duration of 2-3 hours, which is consistent with the slot's price point and timing. Source 5 confirms the existence of food and market tours specifically in El Born. Source 2 confirms the existence of the Mercat del Poblenou as a viable location for such an activity.",
+        "claims_checked": [
+          "Location: Poblenou / Born / local market",
+          "Activity: Local market walk/tour",
+          "Cost: €40.00",
+          "Duration: 1.5 hours (10:00 to 11:30)"
+        ]
+      },
+      {
+        "day_index": 7,
+        "slot_position": 3,
+        "slot_name": "Parc de la Ciutadella",
+        "source_type": "link",
+        "source_urls": [
+          "https://zoobarcelona.cat/en/plan-your-visit"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims that Parc de la Ciutadella is a green space and that the Zoo is nearby. The provided evidence is the official 'Plan your visit' page for the Barcelona Zoo. While the evidence does not explicitly describe the park's features, the URL and site structure (managed by the Barcelona City Council) confirm the existence and location of the Zoo. In the context of Barcelona geography, the Zoo is located within the grounds of Parc de la Ciutadella; the evidence supports the 'nearby' claim by providing planning information for the Zoo which is the primary neighbor/occupant of that specific green space. The description of the park as a 'low-cost alternative' is consistent with it being a public municipal park compared to the ticketed Zoo mentioned in the link.",
+        "claims_checked": [
+          "Venue name: Parc de la Ciutadella",
+          "Location: Ciutadella / Born",
+          "Category: leisure / green space",
+          "Proximity: Zoo is nearby"
+        ]
+      },
+      {
+        "day_index": 7,
+        "slot_position": 4,
+        "slot_name": "Picnic or casual lunch",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.tripadvisor.com/Restaurant_Review-g187497-d997377-Reviews-Picnic_Restaurant-Barcelona_Catalonia.html",
+          "https://www.menorcadiferente.com/en/the-best-restaurants-of-ciutadella/",
+          "https://www.tripadvisor.com/Restaurants-g187465-zfp30-Ciutadella_Menorca_Balearic_Islands.html",
+          "https://www.taneliving.com/2025/09/19/good-and-affordable-restaurants-in-ciutadella/",
+          "https://wanderlog.com/list/geoCategory/58558/best-spots-for-lunch-in-ciutadella"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a casual lunch or picnic in the 'Ciutadella / Born' area with a budget of €30. The evidence confirms that 'Ciutadella' and 'Born' are adjacent areas (Source 1 mentions a restaurant in the 'Borne Neighborhood near the Park de la Ciutadella'). Regarding the cost, Source 2 lists several restaurants in this specific area (Plaça del Born and Ciutadella old town) with price points around €30, such as 'Cas Cònsol' (€35), 'Cuk-Cuk' (€9-36), and 'Grill Es Caliu' (€30). Source 4 also mentions 'Bar Imperi' in Plaça del Born as an affordable option for sandwiches (llonguets), which is consistent with a 'casual lunch'.",
+        "claims_checked": [
+          "Location: Ciutadella / Born",
+          "Category: meal (lunch)",
+          "Cost: €30.00"
+        ]
+      },
+      {
+        "day_index": 7,
+        "slot_position": 5,
+        "slot_name": "Rest/packing",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.swamprabbitmoving.com/blog/packing-tips-apartment/",
+          "https://clancymoving.com/blog/2025/may/moving-apartments-try-these-6-pro-packing-tips-and-when-to-call-in-the-experts/",
+          "https://www.lemon8-app.com/@bribunny1/7523415255226024503?region=us",
+          "https://www.apartmenttherapy.com/packing-inventory-audit-checklist-trick-37518334",
+          "https://www.facebook.com/remax/posts/make-your-move-less-stressful-with-these-quick-and-effective-packing-tips-/1358481396322259/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a personal activity (resting and packing) at a private location ('Apartment'). The claims are logical and do not involve specific public venues, operating hours, or costs that could be contradicted by external evidence. The provided evidence confirms that packing for an apartment move or departure is a standard activity and offers tips on how to do so efficiently (e.g., Source 1: 'Unveiling the Art of Apartment Packing', Source 4: 'My Packing Trick Helps Me Pack Perfectly Every Time'). Since the activity is self-contained and consistent with the general concept of travel preparation, it passes verification.",
+        "claims_checked": [
+          "Activity: Rest and prepare for departure",
+          "Location: Apartment",
+          "Time window: 15:00 to 17:00",
+          "Category: Leisure"
+        ]
+      },
+      {
+        "day_index": 7,
+        "slot_position": 6,
+        "slot_name": "Final sunset beach session",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.barcelonaturisme.com/wv3/en/page/1272/barceloneta-beach.html",
+          "https://www.barcelonaturisme.com/wv3/en/page/1116/bogatell-beach.html"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot proposes a visit to either Barceloneta or Bogatell beach. The provided evidence from the official Barcelona Tourism website confirms the existence and location of both 'Barceloneta Beach' (Source 1) and 'Bogatell Beach' (Source 2) in Barcelona. While the evidence does not explicitly mention sunset times or specific operating hours for the beach itself (as they are public spaces), it confirms they are established leisure locations with services like restaurants and showers, supporting the 'leisure' category and the location claims.",
+        "claims_checked": [
+          "Venue name: Barceloneta Beach",
+          "Venue name: Bogatell Beach",
+          "Location: Barcelona",
+          "Category: leisure"
+        ]
+      },
+      {
+        "day_index": 7,
+        "slot_position": 7,
+        "slot_name": "Final Barcelona dinner",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.barcelonaturisme.com/wv3/en/restaurant/183473/can-ramonet.html"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot proposes a dinner at Can Ramonet (via the provided link) in the Barceloneta neighborhood. The evidence confirms the restaurant's name is 'CAN RAMONET'. While the full address is cut off in the snippet, the URL and title are from the official Barcelona Tourism site for this specific venue. The description of 'Paella, seafood, or tapas' is consistent with the typical offerings of this historic Barceloneta establishment, and the location 'Barceloneta' matches the restaurant's well-known location. The cost and time are reasonable for a dinner at this venue.",
+        "claims_checked": [
+          "Venue name: Can Ramonet",
+          "Location: Barceloneta",
+          "Cuisine: Paella, seafood, or tapas"
+        ]
+      },
+      {
+        "day_index": 8,
+        "slot_position": 1,
+        "slot_name": "Breakfast and final packing",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.reddit.com/r/Cooking/comments/168i7tw/what_are_some_good_movingandiwanttopackeverything/",
+          "https://www.mymove.com/moving/planning/meals-to-make-before-you-move/",
+          "https://aaamoversinc.com/blog/tips-ideas-for-cooking-during-a-move-quick-easy-meals/",
+          "https://www.stimovers.com/best-easy-meals-for-moving/",
+          "https://joyfullymad.com/easy-dinners-for-new-home/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot describes a personal activity (breakfast and packing at an unspecified 'Apartment') on a specific future date. The provided evidence consists of generic blog posts and Reddit threads about meal ideas for moving week. None of the evidence contains information about the specific location, the existence of a bakery nearby, or the feasibility of the €20.00 cost for this specific itinerary. Since the evidence is generic and silent on the specific claims of the slot, a verdict of PASS or FAIL cannot be supported.",
+        "claims_checked": [
+          "Location: Apartment",
+          "Time: 2026-08-08T07:30:00 to 08:30:00",
+          "Cost: €20.00",
+          "Activity: Use remaining groceries with a small bakery top-up"
+        ]
+      },
+      {
+        "day_index": 8,
+        "slot_position": 2,
+        "slot_name": "Check out",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.stayapt.com/hotels/stayapt-suites-louisville-north-clarksville/",
+          "https://www.airbnb.com/louisville-ky/stays/apartments",
+          "https://www.hellolanding.com/s/louisville-ky/apartments/extended-stay",
+          "https://www.kayak.com/Louisville-Vacation-Rentals.7286.rental.ksp",
+          "https://www.tripadvisor.com/Hotels-g39604-c3-zff28-Louisville_Kentucky-Hotels.html"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a standard 'Check out' procedure from an apartment at 9:00 AM. While the specific apartment is not named, the evidence from Source [1] (stayAPT Suites) indicates a standard check-out time of 11:00 AM ('Check-out time for departing guests is 11am'). Checking out at 9:00 AM is consistent with and falls within the typical operational window for apartment-style lodgings in the area.",
+        "claims_checked": [
+          "Check-out time: 09:00:00 - 10:00:00",
+          "Category: lodging",
+          "Location: Apartment"
+        ]
+      },
+      {
+        "day_index": 8,
+        "slot_position": 3,
+        "slot_name": "Transport to BCN",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.tmb.cat/en/barcelona-fares-metro-bus/aeroport-ticket"
+        ],
+        "verdict": "FAIL",
+        "reasoning": "The slot claims a cost of €24.00 for transport to the airport, citing the TMB airport ticket link. However, the evidence (the TMB website) shows that the 'Airport ticket' is for a single metro journey. While the provided text snippet cuts off before the price, the standard price for a TMB Airport Ticket is significantly lower than €24.00 (typically around €5.15-€5.50). Furthermore, the slot's cost of €24.00 does not align with the specific public transport ticket it links to, nor is it a standard flat rate for a taxi (which is usually higher, around €30-€35 minimum from the city center). The cost claim is unsupported and likely incorrect relative to the provided source.",
+        "claims_checked": [
+          "Transport mode: Public transport or taxi",
+          "Route: Barcelona to BCN airport",
+          "Cost: €24.00",
+          "Operator: TMB (via link)"
+        ]
+      },
+      {
+        "day_index": 8,
+        "slot_position": 4,
+        "slot_name": "Fly Barcelona to Berlin",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.skyscanner.com/routes/bcn/ber/barcelona-to-berlin-brandenburg.html",
+          "https://www.rome2rio.com/s/Barcelona-Airport-BCN/Berlin-Brandenburg-Airport-BER",
+          "https://www.edreams.net/us/flights/barcelona-berlin/BCN/BER/",
+          "https://www.omio.com/flights/barcelona/berlin",
+          "https://www.expedia.com/lp/flights/bcn/ber/barcelona-to-berlin"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims a flight route from Barcelona (BCN) to Berlin (BER). Evidence from Skyscanner, Rome2rio, eDreams, Omio, and Expedia all confirm that direct flights exist between Barcelona Airport (BCN) and Berlin Brandenburg Airport (BER). For example, Source 1 mentions 'Voos baratos de aeroporto de Barcelona (BCN) para aeroporto de Berlim Brandenburg (BER)' and Source 4 notes 'There are 7 flights per day.' While the specific 2-hour duration (13:00 to 15:00) is slightly shorter than the typical 2.5 to 3-hour flight time for this route, it is a reasonable estimate for a transport slot and not contradicted by the evidence provided.",
+        "claims_checked": [
+          "Flight route exists from Barcelona (BCN) to Berlin (BER)",
+          "The airports involved are BCN and BER"
+        ]
+      }
+    ],
+    "rationale_pass_count": 38,
+    "rationale_fail_count": 6,
+    "rationale_missing_count": 8,
+    "hc_micro_pass_rate": 1.0,
+    "cc_micro_pass_rate": 0.7692,
+    "hc_macro_pass_rate": 1.0,
+    "cc_macro_pass_rate": 0.0,
+    "final_pass_rate": 0.0,
+    "aggregated_constraints": [
+      {
+        "id": "HC-1",
+        "constraint_text": "origin: Berlin",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-2",
+        "constraint_text": "destination: Barcelona",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-3",
+        "constraint_text": "travel_dates: 2026.08.01 to 2026.08.08",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-4",
+        "constraint_text": "travelers: 2 adults, 1 child under 6, 1 child 6 to 16",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-5",
+        "constraint_text": "budget: 3500 EUR total",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "FAIL",
+          "PASS"
+        ],
+        "pass_count": 3,
+        "fail_count": 1,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-6",
+        "constraint_text": "accommodation: family room or apartment",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-7",
+        "constraint_text": "transport: Flight",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-8",
+        "constraint_text": "interests: beach, family-friendly attractions, local food",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-1",
+        "constraint_text": "Car or road trip transport is not feasible for island or overseas destinations — a flight or ferry is required.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-2",
+        "constraint_text": "No key information should be left out of the plan, such as the lack of accommodation during travel.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-3",
+        "constraint_text": "Transportation choices within the trip must be reasonable. For example, having both “self-driving” and “flight” would be considered a conflict.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-4",
+        "constraint_text": "Both outbound and return transport must appear in the plan.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-5",
+        "constraint_text": "Flight or train connections must allow sufficient layover time (≥60 min domestic, ≥90 min international).",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "NA",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 3,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 1
+      },
+      {
+        "id": "CC-6",
+        "constraint_text": "Accommodation must be planned for every night of the trip.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-7",
+        "constraint_text": "Hotel check-in must be scheduled after arrival transport reaches the destination.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-8",
+        "constraint_text": "Restaurants must be open on the planned day and time.",
+        "constraint_type": "commonsense",
+        "final_verdict": "FAIL",
+        "judge_verdicts": [
+          "MISSING_INFO",
+          "PASS",
+          "MISSING_INFO",
+          "PASS"
+        ],
+        "pass_count": 2,
+        "fail_count": 0,
+        "missing_count": 2,
+        "na_count": 0
+      },
+      {
+        "id": "CC-9",
+        "constraint_text": "Restaurant choices should not be repeated throughout the trip.",
+        "constraint_type": "commonsense",
+        "final_verdict": "FAIL",
+        "judge_verdicts": [
+          "FAIL",
+          "PASS",
+          "FAIL",
+          "FAIL"
+        ],
+        "pass_count": 1,
+        "fail_count": 3,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-10",
+        "constraint_text": "Activities should be geographically sensible per day (no unnecessary cross-city travel).",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-11",
+        "constraint_text": "Attractions must be open on the planned day and time.",
+        "constraint_type": "commonsense",
+        "final_verdict": "FAIL",
+        "judge_verdicts": [
+          "MISSING_INFO",
+          "PASS",
+          "MISSING_INFO",
+          "PASS"
+        ],
+        "pass_count": 2,
+        "fail_count": 0,
+        "missing_count": 2,
+        "na_count": 0
+      },
+      {
+        "id": "CC-12",
+        "constraint_text": "Attraction choices should not be repeated throughout the trip.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-13",
+        "constraint_text": "Travel time between consecutive activities must account for realistic transit duration.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "FAIL"
+        ],
+        "pass_count": 3,
+        "fail_count": 1,
+        "missing_count": 0,
+        "na_count": 0
+      }
+    ],
+    "timestamp": "2026-05-16T19:30:40.360767+00:00"
+  }
+}

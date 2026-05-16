@@ -41,7 +41,7 @@ agents:
     answer_temperature: 0.0
 
   baseline_agent:
-    model_name: "openrouter:minimax/minimax-m2.5"
+    model_name: "openrouter:openai/gpt-5.5"
     temperature: 0.2
     recursion_limit: 20
     min_tool_calls: 1

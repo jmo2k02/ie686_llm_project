@@ -1,0 +1,49 @@
+{
+  "n_total": 2,
+  "n_ok": 2,
+  "n_error": 0,
+  "summary_by_source": {
+    "travel_agent": {
+      "n": 1,
+      "hc_micro_mean": 1.0,
+      "hc_macro_mean": 1.0,
+      "cc_micro_mean": 0.9231,
+      "cc_macro_mean": 0.0,
+      "final_pass_rate_mean": 0.0,
+      "rationale_pass_rate_mean": 0.696969696969697,
+      "overall_score": 0.7240139393939394
+    },
+    "baseline": {
+      "n": 1,
+      "hc_micro_mean": 0.7143,
+      "hc_macro_mean": 0.0,
+      "cc_micro_mean": 0.5385,
+      "cc_macro_mean": 0.0,
+      "final_pass_rate_mean": 0.0,
+      "rationale_pass_rate_mean": 0.475,
+      "overall_score": 0.34556
+    }
+  },
+  "per_query_comparison": [
+    {
+      "id": "query_1_couple_citytrip_Adrian",
+      "travel_agent": {
+        "hc_micro_pass_rate": 1.0,
+        "hc_macro_pass_rate": 1.0,
+        "cc_micro_pass_rate": 0.9231,
+        "cc_macro_pass_rate": 0.0,
+        "final_pass_rate": 0.0,
+        "rationale_pass_rate": 0.696969696969697
+      },
+      "baseline": {
+        "hc_micro_pass_rate": 0.7143,
+        "hc_macro_pass_rate": 0.0,
+        "cc_micro_pass_rate": 0.5385,
+        "cc_macro_pass_rate": 0.0,
+        "final_pass_rate": 0.0,
+        "rationale_pass_rate": 0.475
+      },
+      "delta_final_pass_rate": 0.0
+    }
+  ]
+}

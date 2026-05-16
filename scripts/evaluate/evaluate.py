@@ -44,7 +44,7 @@ PLANS_DIR = REPO_ROOT / "data" / "travelplans"
 EVAL_DIR = REPO_ROOT / "data" / "evaluation"
 SUMMARY_PATH = EVAL_DIR / "summary.json"
 
-DEFAULT_MAX_WORKERS = 10
+DEFAULT_MAX_WORKERS = 4
 
 SOURCES: dict[str, dict[str, str]] = {
     "travel_agent": {"plan_suffix": ".json", "plan_format": "json"},

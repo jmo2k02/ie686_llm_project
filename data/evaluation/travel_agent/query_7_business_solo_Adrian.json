@@ -1,0 +1,684 @@
+{
+  "id": "query_7_business_solo_Adrian",
+  "source": "travel_agent",
+  "status": "ok",
+  "has_timeout": false,
+  "timed_out_models": [],
+  "duration_seconds": 204.5,
+  "plan_path": "data/travelplans/travel_agent/query_7_business_solo_Adrian.json",
+  "scorecard": {
+    "plan_excerpt": "# TravelPlan: Frankfurt to New York Business Trip, June 15–17, 2026\n\n| Day 1 — 2026-06-15 — Arrival and client dinner | Day 2 — 2026-06-16 — Business meetings and client dinner | Day 3 — 2026-06-17 — Final meetings and return flight |\n| --- | --- | --- |\n| **1. Condor DE2016 flight: Frankfurt to New",
+    "judge_models": [
+      "openrouter:minimax/minimax-m2.7",
+      "openrouter:google/gemini-3-flash-preview",
+      "openrouter:deepseek/deepseek-v4-flash",
+      "openrouter:qwen/qwen3.5-397b-a17b"
+    ],
+    "timed_out_models": [],
+    "rationale_verifications": [
+      {
+        "day_index": 1,
+        "slot_position": 1,
+        "slot_name": "Condor DE2016 flight: Frankfurt to New York JFK",
+        "source_type": "link",
+        "source_urls": [
+          "https://aviability.com/en/flight/de2016-condor",
+          "https://www.flightaware.com/live/flight/CFG2016",
+          "https://www.google.com/travel/flights?hl=en&gl=us&curr=EUR&tfs=CBwQAhoeEgoyMDI2LTA2LTE1agcIARIDRlJBcgcIARIDSkZLGh4SCjIwMjYtMDYtMTdqBwgBEgNKRktyBwgBEgNGUkFAAUgBcAGYAQE&tfu=EgIIAQ"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence from Aviability (Source 1) confirms that Condor flight DE2016 operates from Frankfurt (FRA) Terminal 1 to New York (JFK) Terminal 7. It also confirms the flight is direct and operates daily. While the specific 2026 schedule and price are not explicitly detailed in the snippets (as they are future-dated), the flight number, route, and terminal information align with the slot's claims. The slot's note about a potential terminal move at JFK is a reasonable caution given the current arrival at Terminal 7 mentioned in the evidence.",
+        "claims_checked": [
+          "Flight number: Condor DE2016",
+          "Route: Frankfurt (FRA) to New York (JFK)",
+          "Departure Terminal: Frankfurt Terminal 1",
+          "Arrival Terminal: JFK Terminal 7 (with note on potential change)",
+          "Flight type: Direct",
+          "Duration: Approximately 8h 40 min (520-525 minutes)"
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 2,
+        "slot_name": "Private car/taxi transfer: JFK to Park Terrace Hotel",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.uber.com/global/en/r/routes/jfk-to-bryant-park/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims a travel time of 45–60 minutes, which is supported by Source 1 stating an 'Average Travel Time' of '48 minutes'. The location 'Park Terrace Hotel, 18 W 40th St' is consistent with the 'Bryant Park' destination in the evidence (the hotel is located directly across from the park). The cost claim of €95.00 (approximately $100 USD) is consistent with the evidence: Source 1 cites an 'Average Route Price' of '$79' for Uber, while the slot's notes correctly identify that taxi flat fares plus surcharges typically total '$85–100'.",
+        "claims_checked": [
+          "Travel time: 45–60 minutes",
+          "Destination: Park Terrace Hotel (Bryant Park area)",
+          "Cost: €95.00 (approx. $100 USD)",
+          "Distance: ~17 miles (implied by route)",
+          "Transport mode: Private car/taxi/Uber"
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 3,
+        "slot_name": "Check in: Park Terrace Hotel on Bryant Park",
+        "source_type": "link",
+        "source_urls": [
+          "https://parkterracehotel.com/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms the hotel name ('Park Terrace Hotel'), the address ('18 West 40th Street, New York, NY 10018'), and its location directly by Bryant Park ('overlooking Bryant Park'). The facilities mentioned (restaurant, fitness) are supported by the site navigation links ('Dining', 'Wellness'). While the specific price for 2026 and the 'housekeeping on request' detail are not explicitly detailed in the provided text snippet, the core location and identity claims are verified by the official website.",
+        "claims_checked": [
+          "Hotel name: Park Terrace Hotel on Bryant Park",
+          "Address: 18 W 40th St, New York, NY 10018",
+          "Location: Directly by Bryant Park / Midtown Manhattan",
+          "Facilities: Restaurant",
+          "Facilities: Fitness facilities"
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 4,
+        "slot_name": "Client dinner: STK Steakhouse Midtown",
+        "source_type": "link",
+        "source_urls": [
+          "https://stksteakhouse.com/en-us/location/nyc-midtown/",
+          "https://stksteakhouse.com/venues/nyc-midtown/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The provided evidence from the official website links (Source 1 and Source 2) contains only navigation menus, social media icons, and a list of states/countries. It does not display the specific address, operating hours, pricing, or private dining details for the NYC Midtown location. While the venue name and general location (NYC Midtown) are consistent with the website titles, the specific claims (1114 Avenue of the Americas, Monday hours 11:00 AM–11:00 PM, etc.) cannot be verified or contradicted by the fetched content.",
+        "claims_checked": [
+          "Venue name: STK Steakhouse Midtown",
+          "Address: 1114 Avenue of the Americas, New York, NY 10036",
+          "Monday opening hours: 11:00 AM–11:00 PM",
+          "Suitability for professional client meetings",
+          "Availability of private dining",
+          "Proximity to Bryant Park area"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 1,
+        "slot_name": "Hotel breakfast / meeting prep",
+        "source_type": "link",
+        "source_urls": [
+          "https://parkterracehotel.com/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms the hotel name and address ('Park Terrace Hotel', '18 West 40th Street, New York, NY 10018'). The slot's claim about the Terrazzo Lounge and breakfast is consistent with the hotel's own website structure which includes a 'Dining' section, and the slot correctly notes that hours and inclusion should be confirmed, which is a safe handling of the provided evidence. While the specific cost of €35.00 is not explicitly listed in the snippet, the slot notes that inclusion depends on the room rate, making the cost an estimate rather than a hard claim contradicted by the text.",
+        "claims_checked": [
+          "Venue name: Park Terrace Hotel on Bryant Park",
+          "Address: 18 W 40th St, New York, NY 10018",
+          "The hotel has a dining/breakfast offering",
+          "The hotel is located near Bryant Park"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 2,
+        "slot_name": "Morning business meetings",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://workspaces.nyc/hourly-meeting-rooms-in-nyc-midtown/",
+          "https://www.virgobc.com/midtown-team-meeting-rooms",
+          "https://www.space530.com/",
+          "https://www.yelp.com/search?find_desc=Business+Meeting+Places&find_loc=Midtown+West%2C+Manhattan%2C+NY",
+          "https://bevmaxoffice.com/location/midtown-east-office-space/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a block for business meetings in Midtown Manhattan, noting that the location near Bryant Park/Grand Central provides quick access to central offices. The evidence confirms that Midtown Manhattan is a major hub for business meetings and office spaces. Specifically, Source 4 lists the 'Library Hotel' at 299 Madison Ave (near Grand Central/Bryant Park) as a top business meeting place. Source 5 confirms that locations in Midtown (like 1501 Broadway) offer 'exceptional transportation access.' The existence of numerous hourly meeting rooms and flexible workspaces in Midtown (Sources 1, 2, 3) supports the feasibility of conducting business meetings in this specific area.",
+        "claims_checked": [
+          "Location: Midtown Manhattan",
+          "Proximity: Near Bryant Park/Grand Central",
+          "Function: Availability of client offices/meeting spaces in Midtown Manhattan"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 3,
+        "slot_name": "Business lunch: The Modern Dining Room",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.themodernnyc.com/reservations-11/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms the venue name ('The Modern'), the location overlooking the 'MoMA’s Abby Aldrich Rockefeller Sculpture Garden', and the reservation policy ('accepts reservations up to 28 days in advance at noon ET'). While the evidence does not explicitly list the lunch hours or the specific price of €220, the slot's claims regarding the booking window and the nature of the 'Dining Room' vs 'Bar Room' are directly supported by the official website. The location '9 W 53rd St' is the standard address for MoMA/The Modern, and the description of it being a refined setting for business is consistent with the 'refined, contemporary cooking' and 'beautiful setting' mentioned in the text.",
+        "claims_checked": [
+          "Venue name: The Modern",
+          "Location: 9 W 53rd St, New York (MoMA)",
+          "Setting: Overlooking MoMA sculpture garden",
+          "Reservation window: 28 days in advance at 12:00 PM ET",
+          "Category: Refined/Michelin-starred dining",
+          "Booking date for June 16: Around May 19 (28 days prior)"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 4,
+        "slot_name": "Afternoon business meetings / work block",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://3westclub.com/meeting-space-in-midtown-manhattan/",
+          "https://www.space530.com/",
+          "https://www.tagvenue.com/us/hire/meeting-rooms/new-york-city/midtown-manhattan",
+          "https://www.peerspace.com/neighborhood/midtown-manhattan--new-york--ny/coworking-space",
+          "https://www.yelp.com/search?find_desc=Business+Meeting+Places&find_loc=Midtown+West%2C+Manhattan%2C+NY"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a generic block for business meetings or work in Midtown Manhattan. The evidence confirms that Midtown Manhattan is a primary hub for business meetings and flexible workspaces, with multiple sources (3 West Club, SPACE 530, Tagvenue) listing meeting rooms and corporate facilities in this specific neighborhood. The logistical efficiency mentioned in the description is supported by the high density of such venues in the area. While the specific 'client offices' cannot be verified without a specific name, the existence and suitability of Midtown Manhattan for this activity block are well-supported.",
+        "claims_checked": [
+          "Location: Midtown Manhattan is a suitable area for business meetings/work.",
+          "Availability of meeting spaces/offices in Midtown Manhattan.",
+          "Logistical feasibility of conducting business in this neighborhood."
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 5,
+        "slot_name": "Transfer to West Village client dinner",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.boucherieus.com/west-village-ny-reservations/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims the destination is 'Boucherie West Village' located at '99 7th Ave S'. The evidence confirms the name and address: 'Boucherie West Village... 99 7th Avenue South, New York, NY 10014'. The slot also claims the venue is open for a dinner transfer at 18:30 (6:30 PM) on a Monday (2026-06-16); the evidence confirms Monday hours are '11:00 AM - 12:00 AM'. Other claims regarding transport duration and cost are estimates not directly covered by the venue's website, but the core destination details are accurate.",
+        "claims_checked": [
+          "Venue name: Boucherie West Village",
+          "Address: 99 7th Ave S",
+          "Opening hours: Open at 18:30 on a Monday"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 6,
+        "slot_name": "Client dinner: Boucherie West Village",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.boucherieus.com/west-village-ny-reservations/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms the venue name ('Boucherie West Village'), the address ('99 7th Avenue South, New York, NY 10014'), and the operating hours for a Tuesday ('Monday – Friday 11:00 AM - 12:00 AM'). It also confirms that reservations are recommended and can be made via OpenTable and Resy. The existence of a 'second-floor gallery' mentioned in the notes is also explicitly supported by the evidence ('the intimate second-floor gallery').",
+        "claims_checked": [
+          "Venue name: Boucherie West Village",
+          "Address: 99 7th Ave S, New York, NY 10014",
+          "Opening hours: Tuesday 11:00 AM–12:00 AM",
+          "Reservations: Recommended via official site/OpenTable/Resy",
+          "Feature: Second-floor gallery exists"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 7,
+        "slot_name": "Return transfer to hotel",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://moovitapp.com/index/en/public_transit-Park_Terrace_Hotel-NYCNJ-site_152090262-121",
+          "https://www.facebook.com/groups/what.to.do.in.new.york/posts/2351025461896747/",
+          "https://www.rome2rio.com/s/Bryant-Park/West-Village",
+          "https://www.rome2rio.com/Bus/West-Village/Bryant-Park",
+          "https://relier.com/airport-to-hotel-transportation/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims a transfer from Boucherie West Village to Park Terrace Hotel on Bryant Park via taxi/private car takes approximately 25–40 minutes. Evidence from Rome2Rio (Source 3) confirms that taxi is a valid mode of transport between Bryant Park and West Village. While the specific duration for a taxi is not explicitly stated in the snippets, Source 4 notes a bus takes as little as 6 minutes, and Source 3 lists taxi as one of the 6 ways to travel. A 40-minute window for a ~2.5 mile trip in Manhattan at 9:30 PM is consistent with typical urban transit times and the availability of taxis/rideshares mentioned in Source 2 and 5. The cost of €35 (~$38 USD) is consistent with standard NYC taxi/rideshare rates for this distance.",
+        "claims_checked": [
+          "Location: Boucherie West Village to Park Terrace Hotel on Bryant Park",
+          "Transport mode: Taxi/private car",
+          "Duration: 25–40 minutes",
+          "Cost: €35.00"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 1,
+        "slot_name": "Hotel breakfast and checkout prep",
+        "source_type": "link",
+        "source_urls": [
+          "https://parkterracehotel.com/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms the hotel name and address ('Park Terrace Hotel', '18 West 40th Street, New York, NY 10018'). The evidence also confirms the availability of dining facilities ('Dining' link in the navigation menu) and meeting facilities ('Groups & Meetings' link), which supports the description of having breakfast and preparing for meetings. While the specific cost of breakfast is not listed on the homepage, the existence of the venue and its location are verified.",
+        "claims_checked": [
+          "Venue name: Park Terrace Hotel on Bryant Park",
+          "Address: 18 W 40th St, New York, NY 10018",
+          "Availability of dining/breakfast",
+          "Availability of meeting facilities"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 2,
+        "slot_name": "Final business meetings",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://liquidspace.com/us/ny/new-york/521-midtown-manhattan/conference-room-a",
+          "https://www.virgobc.com/midtown-team-meeting-rooms",
+          "https://www.yelp.com/search?find_desc=Business+Meeting+Places&find_loc=Manhattan%2C+NY&start=60",
+          "https://www.tagvenue.com/us/hire/meeting-rooms/new-york-city/midtown-manhattan",
+          "https://www.instagram.com/reel/DYPe0ZYPHso/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a business meeting in Midtown Manhattan ending at 10:30 AM to accommodate a 3:40 PM (15:40) flight (LH401) from JFK. The evidence confirms that Midtown Manhattan is a primary hub for business meetings and client offices (Sources 2, 4, and 5). Regarding the flight claim, while the evidence provided does not explicitly list the flight schedule for LH401, the timing is logically consistent with international travel standards (a 10:30 AM departure from Midtown for a 3:40 PM flight allows approximately 5 hours for transit and the recommended 3-hour international check-in window). No claims in the slot are contradicted by the search results.",
+        "claims_checked": [
+          "Location: Midtown Manhattan is a valid area for client offices/business meetings.",
+          "Timing: Meeting ends at 10:30 AM.",
+          "Flight: LH401 departs at 15:40 (3:40 PM)."
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 3,
+        "slot_name": "Check out: Park Terrace Hotel",
+        "source_type": "link",
+        "source_urls": [
+          "https://parkterracehotel.com/contact/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms the hotel name ('Park Terrace Hotel') and the address ('18 West 40th Street, New York, NY 10018'). While the provided link does not explicitly state the checkout time, the slot's description acknowledges that sources vary between 11:00 AM and noon and chooses the earlier time (11:00 AM) for safety, which is a standard industry practice and consistent with the evidence provided for the location.",
+        "claims_checked": [
+          "Venue name: Park Terrace Hotel",
+          "Address: 18 W 40th St, New York, NY 10018",
+          "Checkout time: 11:00 AM"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 4,
+        "slot_name": "Early business lunch: Bryant Park Grill",
+        "source_type": "link",
+        "source_urls": [
+          "https://bryantparkgrillnyc.com/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms the venue name (Bryant Park Grill), the address (25 W 40th St, New York, NY 10018), and the lunch hours (11:30 AM – 3:30 PM daily). It also confirms that the dining room is suitable for business lunches and that reservations are accepted for the indoor Grill area.",
+        "claims_checked": [
+          "Venue name: Bryant Park Grill",
+          "Address: 25 W 40th St, New York, NY 10018",
+          "Lunch service hours: 11:30 AM–3:30 PM daily",
+          "Reservations recommended/accepted for the main dining room",
+          "Suitability for business lunch"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 5,
+        "slot_name": "Private car/taxi transfer: Midtown to JFK Terminal 1",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.shuttlefinder.com/jfk/l/bryant-park"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims a taxi/private car transfer from Midtown (Bryant Park) to JFK takes approximately 45–60 minutes. Source 1 (ShuttleFinder) confirms that private van or town car services are available for this specific route ('Find shuttle transportation to or from Bryant Park... private van or town car service'). While the evidence does not explicitly state the €95 price, it is consistent with standard private car service rates for this distance. The timing of 60 minutes (12:30 to 13:30) aligns with the '45-60 minutes' claim in the description. The note regarding the LIRR/AirTrain alternative taking 50-60 minutes is a common travel fact, though not explicitly detailed in the provided text, the primary transport mode (private car) is supported as a valid option for this route.",
+        "claims_checked": [
+          "Private car/town car service exists from Bryant Park to JFK",
+          "Travel time is approximately 45–60 minutes",
+          "Route: Midtown/Bryant Park to JFK"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 6,
+        "slot_name": "JFK Terminal 1 check-in / Lufthansa lounge buffer",
+        "source_type": "link",
+        "source_urls": [
+          "https://aviability.com/en/flight/lh401-lufthansa/jfk-fra"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms that Lufthansa flight LH401 departs from JFK Terminal 1. The scheduled departure time is 15:40 (3:40 pm), which makes the slot's time window (13:30 to 15:10) a logical buffer for check-in and lounge use prior to departure. The evidence also lists codeshare partners like United and Brussels Airlines, supporting the claim regarding Star Alliance eligibility for the lounge.",
+        "claims_checked": [
+          "Lufthansa LH401 departs from JFK Terminal 1",
+          "Lufthansa LH401 scheduled departure time is 15:40",
+          "Lufthansa operates from JFK Terminal 1",
+          "Lufthansa is associated with Star Alliance partners (implied by codeshares)"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 7,
+        "slot_name": "Lufthansa LH401 return flight: New York JFK to Frankfurt",
+        "source_type": "link",
+        "source_urls": [
+          "https://aviability.com/en/flight/lh401-lufthansa/jfk-fra",
+          "https://www.google.com/travel/flights?hl=en&gl=us&curr=EUR&tfs=CBwQAhoeEgoyMDI2LTA2LTE1agcIARIDRlJBcgcIARIDSkZLGh4SCjIwMjYtMDYtMTdqBwgBEgNKRktyBwgBEgNGUkFAAUgBcAGYAQE&tfu=EgIIAQ"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence from Aviability (Source 1) confirms the flight number LH401, the departure airport (JFK Terminal 1), the arrival airport (Frankfurt), and the scheduled times. Specifically, it confirms a scheduled departure at 15:40 and arrival at 05:25 the next morning. While the evidence shows a specific date of May 16, it explicitly states this is based on the 'long-term schedule for flight LH401', supporting the time window and route claims for the requested June 17 date. The flight duration of 7h 45m (465 minutes) matches the slot's description. The cost is consistent with typical round-trip pricing logic mentioned in the notes, though the specific price is not explicitly in the text of the evidence, the flight details themselves are verified.",
+        "claims_checked": [
+          "Flight number: Lufthansa LH401",
+          "Route: New York JFK to Frankfurt",
+          "Departure Terminal: JFK Terminal 1",
+          "Departure Time: 15:40",
+          "Arrival Time: 05:25 (next day)",
+          "Flight duration: 465 minutes (7h 45m)"
+        ]
+      }
+    ],
+    "rationale_pass_count": 17,
+    "rationale_fail_count": 0,
+    "rationale_missing_count": 1,
+    "hc_micro_pass_rate": 1.0,
+    "cc_micro_pass_rate": 0.9231,
+    "hc_macro_pass_rate": 1.0,
+    "cc_macro_pass_rate": 0.0,
+    "final_pass_rate": 0.0,
+    "aggregated_constraints": [
+      {
+        "id": "HC-1",
+        "constraint_text": "origin: Frankfurt",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-2",
+        "constraint_text": "destination: New York",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-3",
+        "constraint_text": "travel_dates: 2026.06.15 to 2026.06.17",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-4",
+        "constraint_text": "travelers: 1 adult",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-5",
+        "constraint_text": "accommodation: business hotel, city centre",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-6",
+        "constraint_text": "transport: Flight",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-7",
+        "constraint_text": "interests: business meetings, efficient transport, good restaurants for client dinners",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-1",
+        "constraint_text": "Car or road trip transport is not feasible for island or overseas destinations — a flight or ferry is required.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-2",
+        "constraint_text": "No key information should be left out of the plan, such as the lack of accommodation during travel.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-3",
+        "constraint_text": "Transportation choices within the trip must be reasonable. For example, having both “self-driving” and “flight” would be considered a conflict.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-4",
+        "constraint_text": "Both outbound and return transport must appear in the plan.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-5",
+        "constraint_text": "Flight or train connections must allow sufficient layover time (≥60 min domestic, ≥90 min international).",
+        "constraint_type": "commonsense",
+        "final_verdict": "FAIL",
+        "judge_verdicts": [
+          "NA",
+          "PASS",
+          "NA",
+          "PASS"
+        ],
+        "pass_count": 2,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 2
+      },
+      {
+        "id": "CC-6",
+        "constraint_text": "Accommodation must be planned for every night of the trip.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-7",
+        "constraint_text": "Hotel check-in must be scheduled after arrival transport reaches the destination.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-8",
+        "constraint_text": "Restaurants must be open on the planned day and time.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-9",
+        "constraint_text": "Restaurant choices should not be repeated throughout the trip.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-10",
+        "constraint_text": "Activities should be geographically sensible per day (no unnecessary cross-city travel).",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-11",
+        "constraint_text": "Attractions must be open on the planned day and time.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "NA",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 3,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 1
+      },
+      {
+        "id": "CC-12",
+        "constraint_text": "Attraction choices should not be repeated throughout the trip.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "NA",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 3,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 1
+      },
+      {
+        "id": "CC-13",
+        "constraint_text": "Travel time between consecutive activities must account for realistic transit duration.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      }
+    ],
+    "timestamp": "2026-05-16T19:33:39.567856+00:00"
+  }
+}

@@ -1,0 +1,869 @@
+{
+  "plan_excerpt": "# TravelPlan: Baseline itinerary: 3 days in Rome\n\n| Day 1 — 2026-07-05 — Nero, the Colosseum, and Trastevere | Day 2 — 2026-07-06 — Testaccio and the Appian Way | Day 3 — 2026-07-07 — Rome underground, industrial antiquity, and the Ghetto |\n| --- | --- | --- |\n| **1. Coffee and cornetto near your ho",
+  "judge_models": [
+    "openrouter:minimax/minimax-m2.7",
+    "openrouter:google/gemini-3-flash-preview",
+    "openrouter:deepseek/deepseek-v4-flash",
+    "openrouter:qwen/qwen3.5-397b-a17b"
+  ],
+  "timed_out_models": [],
+  "rationale_verifications": [
+    {
+      "day_index": 1,
+      "slot_position": 1,
+      "slot_name": "Coffee and cornetto near your hotel",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.tripadvisor.com/Restaurant_Review-g187791-d1734223-Reviews-or15-Arte_del_caffe_Er_Baretto-Rome_Lazio.html",
+        "https://www.yelp.com/search?cflt=coffee&find_loc=Monti%2C+Rome%2C+Roma&start=60",
+        "https://www.yelp.com/search?cflt=coffee&find_loc=Monti%2C+Rome%2C+Roma",
+        "https://www.facebook.com/Romewise/posts/best-coffee-near-the-pantheon-hidden-gems-iconic-caf%C3%A9slooking-for-the-best-coffe/1248249537302742/",
+        "https://www.tripadvisor.com/Restaurant_Review-g187791-d3801515-Reviews-or30-Taliani-Rome_Lazio.html"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a breakfast of coffee and a cornetto in the Monti neighborhood for approximately €5.00. Evidence from Source 1 (Arte del Caffe - Er Baretto) confirms that breakfast consisting of a 'cornetto' and 'coffee' is a standard offering in Monti. Source 5 confirms the presence of cafes in the 'Monti neighborhood' with 'fantastic pastries'. Regarding cost, while specific 2026 pricing isn't explicitly listed, a €5.00 estimate for a coffee and pastry is consistent with typical Roman cafe prices for a quick standing breakfast. The location 'Monti' is verified as a hub for such cafes by multiple sources (Sources 1, 2, 3, and 5).",
+      "claims_checked": [
+        "Location: Monti neighborhood, Rome",
+        "Availability of coffee and cornetto in Monti",
+        "Category: Meal (Breakfast)",
+        "Cost estimate: €5.00"
+      ]
+    },
+    {
+      "day_index": 1,
+      "slot_position": 2,
+      "slot_name": "Domus Aurea guided visit",
+      "source_type": "link",
+      "source_urls": [
+        "https://colosseo.it/en/tickets/domus-aurea/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provided a specific URL (https://colosseo.it/en/tickets/domus-aurea/) to verify claims regarding the venue name, location, cost (€26.00), and the nature of the visit (Guided/VR). However, no evidence was retrieved from the provided link or any other source. Without the content of the webpage, it is impossible to confirm or contradict the factual claims made in the slot.",
+      "claims_checked": [
+        "Venue name: Domus Aurea",
+        "Location: Colle Oppio / near Colosseum",
+        "Cost: €26.00",
+        "Activity: Guided/VR ticket",
+        "Availability: Limited access/requires booking ahead"
+      ]
+    },
+    {
+      "day_index": 1,
+      "slot_position": 3,
+      "slot_name": "Walk through Colle Oppio toward the Colosseum",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.youtube.com/watch?v=HT8QSUb6flQ",
+        "https://www.gpsmycity.com/attractions/parco-di-colle-oppio-(colle-oppio-park)-7654.html",
+        "https://renatoprosciutto.com/colle-oppio-park-rome/",
+        "https://www.instagram.com/reel/DQ-HfIAE6B5/",
+        "https://www.unaguidaturisticaroma.com/en/blog2/post/74675/il-colle-oppio:-affacciarsi-sul-colosseo"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms that Colle Oppio Park is located near the Colosseum and offers views of the amphitheatre (Source 1, 3, 5). Source 3 specifically mentions that the park contains the ruins of the Domus Aurea, supporting the claim that it is a sensible route between the two. Source 2 and 3 describe it as a public park with ruins, and Source 5 refers to it as a 'green corner,' which is consistent with a €0.00 cost and no ticket requirement for a walk.",
+      "claims_checked": [
+        "Location: Colle Oppio",
+        "View over the Colosseum/amphitheatre",
+        "Route between Domus Aurea and Colosseum",
+        "Cost: €0.00",
+        "No ticket needed"
+      ]
+    },
+    {
+      "day_index": 1,
+      "slot_position": 4,
+      "slot_name": "Monti street-food lunch",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.instagram.com/reel/DW4GlxTtsWu/",
+        "https://www.getyourguide.com/en-gb/rione-monti-l30545/street-food-tc248/",
+        "https://www.tripadvisor.com/Restaurants-g187791-c10686-zfn7230909-Rome_Lazio.html",
+        "https://mamalovesrome.com/where-to-eat-in-monti-restaurants/",
+        "https://anamericaninrome.com/2024/02/zia-rosetta-roman-street-food-in-monti/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms that Monti is a well-known neighborhood for street food. Source [2] specifically lists 'Panini with porchetta', 'Supplì', and 'Roman-style pizza' as street food staples in Rione Monti, matching the slot's description. Source [4] confirms Monti is a location for 'lunch or a quick bite'. Regarding the location's practicality, standard geography (and the context of Monti being a central Rione) places it between the Domus Aurea and the Colosseum. The cost of €15 is consistent with 'Street Food' price points ($) indicated in Source [3].",
+      "claims_checked": [
+        "Location: Monti neighborhood",
+        "Food types available: Pizza al taglio, supplì, porchetta sandwich",
+        "Suitability for lunch",
+        "Proximity: Between Domus Aurea and Colosseum",
+        "Cost: Approximately €15.00"
+      ]
+    },
+    {
+      "day_index": 1,
+      "slot_position": 5,
+      "slot_name": "Colosseum + Roman Forum + Palatine Hill",
+      "source_type": "link",
+      "source_urls": [
+        "https://colosseo.it/en/opening-times-and-tickets/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence is a navigation menu for the official website but does not contain specific ticket prices, booking windows (30 days), or detailed opening hours for July 2026. While it confirms the existence of the 'Colosseum', 'Roman Forum', and 'Palatine' as linked monuments, the specific claim of a €24.00 cost and the 30-day booking window cannot be verified or contradicted by the text provided.",
+      "claims_checked": [
+        "Venue name: Colosseum + Roman Forum + Palatine Hill",
+        "Cost: €24.00",
+        "Tickets open 30 days before visit",
+        "Location: Colosseum / Forum / Palatine"
+      ]
+    },
+    {
+      "day_index": 1,
+      "slot_position": 6,
+      "slot_name": "Gelato / cold drink break",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.afr.com/life-and-luxury/travel/our-guide-to-monti-where-to-find-romes-best-gelato-and-other-wellkept-secrets-20180510-h0zwsd",
+        "https://www.yelp.com/search?cflt=gelato&find_loc=Monti%2C+Rome%2C+Roma",
+        "https://americanragazzoinitaly.wordpress.com/2012/06/17/monti-cool-place-hip-vibe-and-the-best-gelato-in-rome/",
+        "https://www.eatingeurope.com/blog/guide-to-gelato-in-rome/",
+        "https://www.facebook.com/groups/romeitalytravel/posts/4184724965101998/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a gelato/drink break in the Monti or Via dei Fori Imperiali area. Evidence from Source 2 and 3 confirms that Monti is a well-known area for gelato, specifically mentioning 'The Best 10 Gelato near Monti' and 'Monti: Cool place, hip vibe, and the best gelato in Rome'. Source 1 confirms the proximity of Via dei Fori Imperiali to the Monti district. While the cost of €7.00 is an estimate, it is consistent with typical prices for artisanal gelato or drinks in Rome as implied by the 'guilt-free indulgence' and 'artisanal heritage' mentioned in Source 4. The location and activity are well-supported by the search results.",
+      "claims_checked": [
+        "Location: Monti or Via dei Fori Imperiali",
+        "Activity: Gelato / cold drink break",
+        "Context: Rest stop after archaeological circuit (Via dei Fori Imperiali is adjacent to the Roman Forum/Colosseum)",
+        "Cost: €7.00 estimate"
+      ]
+    },
+    {
+      "day_index": 1,
+      "slot_position": 7,
+      "slot_name": "Capitoline Hill viewpoint",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://en.wikipedia.org/wiki/Capitoline_Hill",
+        "https://www.turismoroma.it/en/page/capitoline-hill-place-legends",
+        "https://en.wikipedia.org/wiki/Capitoline_Museums",
+        "https://capitolinemuseums.com/",
+        "https://www.merriam-webster.com/dictionary/Capitoline"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms that the Capitoline Hill (Campidoglio) is a central location in Rome (Source 1, 4). While the provided search results focus heavily on the museums and history, Source 4 mentions the 'magnificent Piazza del Campidoglio designed by Michelangelo' as a public space. General knowledge of the site (consistent with the 'free outdoor viewpoint' claim) aligns with the fact that the hill overlooks the Roman Forum. The evidence does not contradict the claim that there is a free viewpoint or that it is accessible without opening-time dependencies, as it is a public hill/piazza.",
+      "claims_checked": [
+        "Name: Capitoline Hill viewpoint",
+        "Location: Campidoglio",
+        "Cost: €0.00",
+        "Description: Viewpoint over the Forum",
+        "Notes: Free outdoor viewpoint; no opening-time dependency"
+      ]
+    },
+    {
+      "day_index": 1,
+      "slot_position": 8,
+      "slot_name": "Head to Trastevere",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.turismoroma.it/en/places/basilica-santa-cecilia-trastevere"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a transport/walking activity to Trastevere with a suggestion to see the exterior of Santa Cecilia. The provided link (Turismo Roma) confirms the existence and location of the 'Basilica of Santa Cecilia in Trastevere'. While the evidence text is partially truncated, the title and URL explicitly verify the name and neighborhood ('Trastevere'). The cost of €2.00 for transit is consistent with standard Roman public transport pricing (BIT tickets are currently €1.50, but €2.00 is a reasonable estimate for a single journey/pass context and not contradicted). The time window is a planning preference and not a verifiable 'fact' of the venue itself.",
+      "claims_checked": [
+        "Venue name: Basilica of Santa Cecilia",
+        "Location: Trastevere",
+        "Cost: €2.00 for transit"
+      ]
+    },
+    {
+      "day_index": 1,
+      "slot_position": 9,
+      "slot_name": "Casual Trastevere dinner",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.trapizzino.it/en/trapizzino/trapizzino-roma-trastevere/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms the location is in Trastevere at Piazza Trilussa 46 ('In the heart of Trastevere, piazza Trilussa'). The menu explicitly lists Trapizzini and Supplì ('Trapizzini... Supplì... All for 5€... All for 2€'). The availability of Lazio wine is confirmed ('The restaurant offers a wine list dedicated to Lazio’s vintners'). The opening hours for a Sunday (July 5, 2026) are 12PM-01AM, which covers the 20:00-21:30 time slot. The cost estimate of €25 is realistic given the individual prices of €5 per Trapizzino and €2 per Supplì.",
+      "claims_checked": [
+        "Location: Trastevere / Piazza Trilussa",
+        "Menu items: Trapizzino and Supplì available",
+        "Beverage: Lazio wine available",
+        "Opening hours: Open Sunday at 20:00",
+        "Cost: €25.00 estimate"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 1,
+      "slot_name": "Buy/use a 72-hour Rome public transport pass",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.atac.roma.it/en/tickets-and-passes"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The evidence confirms the existence of a 'ROMA72H' ticket and lists several apps (MooneyGo, Wetaxi, etc.) where it can be purchased, supporting the 'app' location claim. However, the provided evidence from the ATAC website contains placeholders (e.g., 'Price: {{item.price}}') rather than the actual numerical price, so the €16.00 cost cannot be verified. Additionally, while the evidence mentions apps and metro turnstiles, it does not explicitly mention 'tobacconists' as a purchase location, though it implies 'traditional payment methods' exist.",
+      "claims_checked": [
+        "Existence of a 72-hour Rome public transport pass",
+        "Cost of the pass is €18.00",
+        "Pass can be purchased via app",
+        "Pass can be purchased at Metro stations",
+        "Pass can be purchased at tobacconists"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 2,
+      "slot_name": "Non-Catholic Cemetery",
+      "source_type": "link",
+      "source_urls": [
+        "https://cemeteryrome.it/en/information/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms the venue name ('Cimitero acattolico di Roma'), the location in the Testaccio district ('Via Caio Cestio, 6 in the Testaccio district of Rome'), and the opening hours (Monday-Saturday from 9.00 am to 5.00 pm), which covers the slot's 9:00 AM start time on a Monday (2026-07-06). The description regarding the Pyramid of Cestius is supported by the address 'Via Caio Cestio'. While the specific cost of €5.00 is not explicitly listed in the provided snippet, the slot notes it as an 'estimated donation/entry', which is consistent with the nature of this specific site's funding model.",
+      "claims_checked": [
+        "Venue name: Non-Catholic Cemetery",
+        "Location: Testaccio",
+        "Opening hours: 9:00 AM start time on a Monday",
+        "Proximity to Pyramid of Cestius",
+        "Cost: €5.00 (estimated donation)"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 3,
+      "slot_name": "Mercato Testaccio brunch",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://myannoyingopinions.com/2023/07/21/mercato-testaccio-rome-june-2023/",
+        "https://www.lavitaroma.com/blog/2017/03/17/testaccio-market-rome",
+        "https://theromanguy.com/tours/italy/rome/testaccio-market-food-tour",
+        "https://www.yelp.com/biz/mercato-di-testaccio-roma",
+        "https://www.instagram.com/reel/DV1KLIsjf2G/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms the existence of Mercato Testaccio in the Testaccio neighborhood (Source 1, 2). It supports the availability of the specific food items mentioned: sandwiches (Source 2 mentions 'Mordi e Vai' sandwiches), supplì (Source 3), fresh fruit and produce (Source 4, 5). Regarding the notes, Source 4 and 5 describe it as a covered/indoor market, and while the specific hours 07:00-15:30 are not explicitly detailed in the snippets, Source 3 confirms it is a 'Morning Food Tour' location, and the slot's note includes a 'verify locally' disclaimer which is consistent with general market operations. The cost of €16.00 is a reasonable estimate for market snacks/street food in this context.",
+      "claims_checked": [
+        "Venue name: Mercato Testaccio",
+        "Location: Testaccio Market",
+        "Food items: Roman market snacks, sandwiches, supplì, and fresh fruit",
+        "Market type: Covered/Indoor market",
+        "General availability: Morning/Brunch time"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 4,
+      "slot_name": "Walk by Monte dei Cocci",
+      "source_type": "link",
+      "source_urls": [
+        "https://turismoroma.it/en/places/monte-dei-cocci"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence from the official tourism website (Source 1) is incomplete. It contains the page header, social media links, and navigation menus, but the actual content describing 'Monte dei Cocci' (its location, history, cost, or access rules) is missing from the text snippet. Therefore, I cannot verify the claims about its location in Testaccio, its history as an amphora-shard hill, or its cost.",
+      "claims_checked": [
+        "Name: Monte dei Cocci",
+        "Location: Testaccio",
+        "Cost: €0.00",
+        "Description: Ancient amphora-shard hill explaining Roman port/food history",
+        "Notes: Free outdoor site"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 5,
+      "slot_name": "Travel toward the Appian Way",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.rome2rio.com/s/Testaccio/Appian-Way",
+        "https://www.fodors.com/community/europe/using-public-transport-to-get-from-rome-to-appian-way-1013855/",
+        "https://www.rome2rio.com/s/Appian-Way/Ostia-Antica",
+        "https://www.justroma.it/en/parks-villas-and-gardens/appian-way-park/",
+        "https://community.ricksteves.com/travel-forum/italy/appian-way-advice"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims a transit time of 45 minutes (11:45 to 12:30) from Testaccio to Appia Antica. Source 1 (Rome2rio) confirms that the 'line 670 bus... takes 44 min' for this specific route, which aligns perfectly with the slot's duration. The slot notes the trip is covered by a 72h pass; while the evidence doesn't explicitly name the '72h pass', Source 1 identifies the transport as a 'line 670 bus' (a standard Rome city bus) and Source 4 mentions the park is reached by 'public transportation', which in Rome is covered by standard time-limited passes (BIT/72h).",
+      "claims_checked": [
+        "Transit from Testaccio to Appia Antica is possible via public transport.",
+        "The travel duration is approximately 45 minutes.",
+        "The route is served by city buses (e.g., line 670)."
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 6,
+      "slot_name": "Appian Way walk or bike ride",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.catacombe.org/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provided a specific link (https://www.catacombe.org/) to verify the claims regarding the Catacombs of San Sebastiano, including its location on the Via Appia Antica and the associated costs. However, no evidence was retrieved from this link or any other source. Without the fetched content, it is impossible to verify the opening hours, the €14.00 cost, or the specific location details for the year 2026.",
+      "claims_checked": [
+        "Venue name: Catacombs of San Sebastiano",
+        "Location: Via Appia Antica",
+        "Cost: €14.00",
+        "Activity: Walk or bike ride on Appian Way",
+        "Availability: Open on July 6, 2026"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 7,
+      "slot_name": "Continue along the Appian Way",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.parcoarcheologicoappiaantica.it/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes visiting the Appia Antica archaeological park, specifically mentioning the Villa dei Quintili. The provided official website link (Source 1) confirms the existence of the 'Parco Archeologico dell'Appia Antica' and its status as an outdoor museum. While the evidence does not explicitly list the €10.00 price or specific 2026 hours, the slot notes these are estimates and unverified. The location and category are consistent with the official site's description of the park as a cultural and historical site ('Un’indimenticabile esperienza in un museo all’aperto').",
+      "claims_checked": [
+        "Venue name: Appia Antica / Parco Archeologico dell'Appia Antica",
+        "Location: Appia Antica",
+        "Category: attraction",
+        "Inclusion of Villa dei Quintili as part of the park",
+        "Official website: https://www.parcoarcheologicoappiaantica.it/"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 8,
+      "slot_name": "Return to hotel and cool down",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://luccombehall.co.uk/leisure/",
+        "https://www.travlerz.com/en/useful-hotel-hacks-seamless-vacation",
+        "https://www.travelandleisure.com/hotels-resorts",
+        "https://chatlyn.com/en/glossary/leisure-guest/",
+        "https://www.travelandleisure.com/hotels-resorts/cool-hotel-amenities"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a period of rest and cooling down at a hotel during a July afternoon. The evidence provided confirms that hotels are used by 'leisure guests' for 'relaxation' (Source 4) and that hotels often provide facilities such as pools to 'cool off on sunny days' (Source 1). While the specific hotel is not named, the general concept of returning to a hotel for leisure and cooling down is a standard travel practice supported by the descriptions of hotel amenities and guest types in the evidence.",
+      "claims_checked": [
+        "Activity: Return to hotel and cool down",
+        "Category: leisure",
+        "Time: July afternoon (17:00 - 18:30)",
+        "Purpose: Rest period/heat buffer"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 9,
+      "slot_name": "Dinner in Testaccio or Garbatella",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.tripadvisor.com/ShowTopic-g187791-i22-k2119545-Testaccio_garbatella_restaurants-Rome_Lazio.html",
+        "https://luggageandlife.com/where-to-eat-in-the-testaccio-neighborhood-of-rome/",
+        "https://www.reddit.com/r/rome/comments/1g3zxas/recommendations_for_food_and_how_to_experience/",
+        "https://www.wanderingitaly.com/reviews/testaccio-restaurants.html",
+        "https://www.neverendingvoyage.com/testaccio-off-the-beaten-track-in-rome/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims that Testaccio and Garbatella are neighborhoods suitable for an 'off-tourist-trail food focus' featuring traditional Roman dishes like Carbonara and Coda alla Vaccinara. Evidence from Source 3 confirms Garbatella is 'hardly mentioned in tourist guides' and Source 5 describes Testaccio as 'off the beaten track'. Source 4 explicitly links Testaccio to 'Real Roman Food' and the 'quinto quarto' (offal), which includes Coda alla Vaccinara. The cost estimate of €35 is consistent with typical trattoria pricing mentioned in general travel contexts for these non-touristy areas, though not explicitly detailed in the snippets.",
+      "claims_checked": [
+        "Location: Testaccio / Garbatella",
+        "Food focus: Off-tourist-trail",
+        "Cuisine: Traditional Roman (Carbonara, coda alla vaccinara)",
+        "Category: Simple Roman trattoria meal"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 1,
+      "slot_name": "Breakfast",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.facebook.com/groups/1585102931716275/posts/4128282370731639/",
+        "https://www.opentable.com/cuisine/best-breakfast-restaurants-the-d-hotel-and-casino-nv",
+        "https://www.yelp.com/search?find_desc=Hotel+Breakfast&find_loc=Las+Vegas%2C+NV",
+        "https://www.venetianlasvegas.com/dining/categories/breakfast.html",
+        "https://www.thebrokenyolkcafe.com/location/broken-yolk-cafe-las-vegas-nv/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot describes a generic breakfast (espresso, pastry, water) 'near hotel' without specifying a city, hotel name, or specific venue. The provided evidence contains search results for breakfast near various hotels in Las Vegas (The Plaza, The D, The Venetian), but since the slot does not specify a location or a specific establishment, it is impossible to verify the cost (€6.00) or the availability of these items at a specific location. The evidence is generic relative to the undefined location in the slot.",
+      "claims_checked": [
+        "Location: Near hotel",
+        "Cost: €6.00",
+        "Description: Espresso, pastry, water for the day"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 2,
+      "slot_name": "Basilica di San Clemente excavations",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.basilicasanclemente.com/eng/opening-hours-and-info/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms the location (Piazza S. Clemente), the requirement for online booking ('online booking is required'), and the opening hours for a Tuesday (Monday to Saturday: 9.00 to 12.30). The slot's time window (09:15 to 10:30) falls within these hours. The description of the site layers is consistent with the general nature of the Basilica di San Clemente excavations mentioned in the source. While the exact price is not explicitly stated in the provided text, the slot correctly identifies it as an 'estimate'.",
+      "claims_checked": [
+        "Venue name: Basilica di San Clemente excavations",
+        "Location: San Clemente / Celio (Piazza S. Clemente)",
+        "Opening hours: Open at 09:15 on a Tuesday (July 7, 2026)",
+        "Booking requirement: Online booking is required",
+        "Site features: Medieval basilica, earlier church, Roman rooms, Mithraeum"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 3,
+      "slot_name": "Baths of Caracalla",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.tripadvisor.com/AttractionProductReview-g187791-d19685445-The_Baths_of_Caracalla_Ancient_Roman_Spa_Tour-Rome_Lazio.html",
+        "https://www.tripadvisor.com/AttractionProductReview-g187791-d20298962-Baths_of_Caracalla_ticket_or_3D_tour_or_audioguide-Rome_Lazio.html",
+        "https://www.getyourguide.com/baths-of-caracalla-l4845/entry-tickets-tc123/",
+        "https://airial.travel/attractions/italy/roma/baths-of-caracalla-yFnGLijN",
+        "https://www.facebook.com/photo.php?fbid=122152615460667413&set=a.122094540506667413&type=3"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms the existence and nature of the Baths of Caracalla as a monumental imperial bath complex in Rome. Source 4 describes it as 'ancient Rome's grandest public bath complex, a testament to imperial luxury,' which supports the description of it being a 'monumental imperial leisure complex.' Source 3 mentions stepping 'back into the daily life of ancient Romans,' supporting the claim about showing 'everyday elite/public life.' While the specific 2026 price of €12.00 is not explicitly stated in the snippets (which focus on tours and general entry), the slot notes that this is a 'cost estimate' and should be verified, making the claim a projection rather than a hard assertion. The location 'Caracalla' is consistent with the site's name and general location in Rome.",
+      "claims_checked": [
+        "Venue name: Baths of Caracalla",
+        "Category: attraction",
+        "Location: Caracalla (Rome)",
+        "Description: Monumental imperial leisure complex",
+        "Description: Shows everyday elite/public life",
+        "Cost: €12.00 (estimated)"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 4,
+      "slot_name": "Transport / break",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.rome2rio.com/s/Terme-di-Caracalla/Roma-Ostiense",
+        "https://moovitapp.com/index/en/public_transit-Testaccio-Roma_e_Lazio-site_141662518-61",
+        "https://www.youtube.com/watch?v=njgUngf1YJQ",
+        "https://www.atac.roma.it/en",
+        "https://www.greenlinetours.com/en/tours/rome-bus-tours/hop-on-hop-off"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims a transport duration of 45 minutes (12:30 to 13:15) between Caracalla and Ostiense/Testaccio, which is consistent with Rome2Rio's data (Source 1) showing a taxi takes 28 minutes, implying public transit or walking would fit within the 45-minute window. The cost of €4.00 is consistent with standard Rome public transit pricing (Source 4 mentions ATAC, where a single ticket is typically €1.50, leaving room for a drink as described). Source 2 confirms multiple bus lines (23, 280, 30, 75) serve the Testaccio area.",
+      "claims_checked": [
+        "Transport mode: Bus or walk",
+        "Route: Caracalla to Ostiense/Testaccio",
+        "Duration: 45 minutes (12:30 to 13:15)",
+        "Cost: €4.00 (including drink stop)"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 5,
+      "slot_name": "Second Testaccio/Ostiense food stop",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://tiberland.it/en/experience/food-tour-in-testaccio-and-ostiense/",
+        "https://www.budgettravel.com/article/rome-testaccio-and-ostiense_3132",
+        "https://www.neverendingvoyage.com/testaccio-off-the-beaten-track-in-rome/",
+        "https://www.mondomulia.com/2019/10/08/testaccio-food-tour-rome/",
+        "https://carpediemtours.com/blog/testaccio-guide"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a food stop in the Testaccio/Ostiense area featuring pizza by the slice, snacks like trapizzino or supplì, or a market-style lunch. Evidence from Source 2 confirms Testaccio has an 'authentic covered food market.' Source 3 explicitly mentions 'pizza slices' and 'Sicilian street food' as available options in Testaccio. Source 4 notes that food tours in the area typically run until 2pm, which aligns with the slot's time window of 13:15 to 14:15. The cost of €16.00 is a reasonable estimate for street food/market snacks in Rome, though not explicitly cited as a fixed price in the evidence.",
+      "claims_checked": [
+        "Location: Testaccio / Ostiense",
+        "Category: meal (street food/market style)",
+        "Availability of pizza by the slice and snacks in the area",
+        "Availability of a food market in the area",
+        "Time window: 13:15 - 14:15"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 6,
+      "slot_name": "Centrale Montemartini",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.centralemontemartini.org/en/biglietti-e-prenotazioni/tickets-0"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence from the official website link is incomplete. While the page title confirms it is the 'Tickets' page for 'Centrale Montemartini', the fetched content cuts off after displaying a list of museum logos and does not include the actual ticket prices, opening hours, or location details. Therefore, I cannot verify the €11.00 cost or the Ostiense location from this specific evidence.",
+      "claims_checked": [
+        "Venue name: Centrale Montemartini",
+        "Location: Ostiense",
+        "Cost: €11.00",
+        "Description: Ancient Roman sculpture inside a former power plant"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 7,
+      "slot_name": "Aventine Hill",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://en.wikipedia.org/wiki/Aventine_Hill",
+        "https://www.wanderingitaly.com/places/aventine-hill.html",
+        "https://aventinehilltravel.com/",
+        "https://mamalovesrome.com/aventine-hill-visit/",
+        "https://www.youtube.com/watch?v=9xr46HYY8UU"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms that the Aventine Hill is a quiet residential area in Rome (Source 2, 4) known for its gardens and stunning views (Source 4, 5). Specifically, Source 4 mentions it as a 'leafy residential area' with 'stunning views over Rome' and 'hidden gems,' which aligns with the description of the Orange Garden and the keyhole area. While the specific cost of €0.00 is not explicitly stated in the text snippets, the description of it as a 'leafy residential area' and a 'hill' with 'gardens' is consistent with a free outdoor public space.",
+      "claims_checked": [
+        "Location: Aventine Hill, Rome",
+        "Category: Leisure/Outdoor",
+        "Features: Orange Garden and keyhole area",
+        "Atmosphere: Quieter/Tranquil",
+        "Cost: Free/€0.00"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 8,
+      "slot_name": "Largo di Torre Argentina archaeological area",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.tickets-rome.com/largo-argentina/about/",
+        "https://en.wikipedia.org/wiki/Largo_di_Torre_Argentina",
+        "https://www.charmainewanders.com/post/travel-guide-largo-di-torre-argentina",
+        "https://www.barcelo.com/guia-turismo/en/italy/roma/things-to-do/largo-di-torre-argentina/",
+        "https://www.archeoroma.org/sites/largo-di-torre-argentina/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims the site is an archaeological area in the historic center of Rome, which is confirmed by Source 1 ('Largo di Torre Argentina is located in the historic center of Rome'). The slot mentions a cost of €5.00 and notes daily hours of 09:00-19:00; while the provided evidence confirms the site is open to the public (Source 1: 'open from Tuesdays to Sundays'), it does not explicitly list the current ticket price or exact closing time. However, the slot's description correctly notes that ruins can be viewed 'from street level for free,' which is consistent with the nature of the open square described in all sources. Since the evidence supports the location and nature of the attraction and does not contradict the price or hours (merely omitting them), the verdict is PASS.",
+      "claims_checked": [
+        "Name: Largo di Torre Argentina archaeological area",
+        "Location: Historic center of Rome",
+        "Category: Attraction",
+        "Description: View ruins from street level for free",
+        "Notes: Open to the public (implied by 'enter if open')"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 9,
+      "slot_name": "History walk",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.getyourguide.com/campo-de-fiori-l4763/jewish-history-tours-tc2065/",
+        "https://romanjews.com/jewish-walking-tour/",
+        "https://activities.marriott.com/europe/italy/lazio/rome/activities/campo_de_fiori_jewish_ghetto_rome_street_food_walking_tour-X2C6JF",
+        "https://www.viator.com/tours/Rome/Jewish-Ghetto-and-Campo-de-fiori-Wine-Sightseeing-and-Food-Tour/d511-71453P1",
+        "https://www.facebook.com/groups/1917734431758558/posts/2547847082080620/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a self-guided walking route between the Jewish Ghetto (specifically the Portico d’Ottavia) and Campo de’ Fiori. Evidence from Source 1 confirms the Portico d'Ottavia is 'in the heart of the Jewish Ghetto.' Source 2 confirms that Campo de' Fiori is a 'few minutes south' of the historic areas associated with the Jewish walking tour, supporting the feasibility of walking between these two locations. Source 5 mentions that Campo de' Fiori is a '5 minute walk' from the surrounding area, confirming the proximity. As it is a self-guided walk in public spaces, the cost of €0.00 is consistent with public access to these neighborhoods.",
+      "claims_checked": [
+        "Location: Jewish Ghetto / Campo de’ Fiori",
+        "Route: Portico d’Ottavia area toward Campo de’ Fiori",
+        "Cost: €0.00 (self-guided walk)",
+        "Feasibility: Walking distance between the two locations"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 10,
+      "slot_name": "Final dinner",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.eatingeurope.com/rome/private-rome-jewish-ghetto-food-tour/",
+        "https://www.byfood.com/experiences/tasty-roman-dinner-food-tour-around-piazza-navona-campo-marzio-and-jewish-ghetto-27293",
+        "https://www.tripadvisor.com/AttractionProductReview-g187791-d14045094-or10-Jewish_Ghetto_and_Campo_De_Fiori_By_Night_Food_Wine_and_Sightseeing_Tour-Rome.html",
+        "https://www.viator.com/tours/Rome/Jewish-Ghetto-and-Campo-de-fiori-Wine-Sightseeing-and-Food-Tour/d511-71453P1",
+        "https://foodtoursofrome.com/italy/rome-and-vatican/taste-local-food-and-wine-by-night-in-the-jewish-ghetto-and-campo-de-fiori/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a Jewish-Roman/street-food-style dinner in the Jewish Ghetto and Campo de’ Fiori area, featuring items like fried artichokes, supplì, and pizza. Evidence from multiple sources confirms this area is a primary hub for these specific culinary experiences. Source [1] mentions 'evening tours take you to a historic location for Roman street food, where you’ll enjoy a traditional fried delicacy' in the Jewish Ghetto/Campo de’ Fiori. Source [5] confirms the availability of 'classic Roman pizza' and 'fresh vegetables' (which would include artichokes) in this specific neighborhood. The cost estimate of €38.00 is consistent with the 'street-food-style' or 'casual osteria' description, as guided food tours in the same area are priced higher (e.g., $53.44 in Source [4]) because they include guide services, whereas a standalone meal would naturally be less.",
+      "claims_checked": [
+        "Location: Jewish Ghetto / Campo de’ Fiori",
+        "Cuisine type: Jewish-Roman / street-food-style",
+        "Food items: fried artichoke, supplì, pizza bianca",
+        "Availability: Evening/Dinner time"
+      ]
+    }
+  ],
+  "rationale_pass_count": 21,
+  "rationale_fail_count": 0,
+  "rationale_missing_count": 7,
+  "hc_micro_pass_rate": 0.6,
+  "cc_micro_pass_rate": 0.5385,
+  "hc_macro_pass_rate": 0.0,
+  "cc_macro_pass_rate": 0.0,
+  "final_pass_rate": 0.0,
+  "aggregated_constraints": [
+    {
+      "id": "HC-1",
+      "constraint_text": "destination: Rome",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-2",
+      "constraint_text": "travel_dates: 2026.07.05 to 2026.07.08",
+      "constraint_type": "hard",
+      "final_verdict": "FAIL",
+      "judge_verdicts": [
+        "FAIL",
+        "PASS",
+        "FAIL",
+        "FAIL"
+      ],
+      "pass_count": 1,
+      "fail_count": 3,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-3",
+      "constraint_text": "travelers: 1 adult",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-4",
+      "constraint_text": "budget: 400 EUR total",
+      "constraint_type": "hard",
+      "final_verdict": "FAIL",
+      "judge_verdicts": [
+        "PASS",
+        "FAIL",
+        "MISSING_INFO",
+        "PASS"
+      ],
+      "pass_count": 2,
+      "fail_count": 1,
+      "missing_count": 1,
+      "na_count": 0
+    },
+    {
+      "id": "HC-5",
+      "constraint_text": "interests: Roman history, street food, Colosseum, Trastevere, hidden gems",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-1",
+      "constraint_text": "Car or road trip transport is not feasible for island or overseas destinations — a flight or ferry is required.",
+      "constraint_type": "commonsense",
+      "final_verdict": "FAIL",
+      "judge_verdicts": [
+        "NA",
+        "PASS",
+        "NA",
+        "PASS"
+      ],
+      "pass_count": 2,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 2
+    },
+    {
+      "id": "CC-2",
+      "constraint_text": "No key information should be left out of the plan, such as the lack of accommodation during travel.",
+      "constraint_type": "commonsense",
+      "final_verdict": "FAIL",
+      "judge_verdicts": [
+        "MISSING_INFO",
+        "FAIL",
+        "MISSING_INFO",
+        "FAIL"
+      ],
+      "pass_count": 0,
+      "fail_count": 2,
+      "missing_count": 2,
+      "na_count": 0
+    },
+    {
+      "id": "CC-3",
+      "constraint_text": "Transportation choices within the trip must be reasonable. For example, having both “self-driving” and “flight” would be considered a conflict.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-4",
+      "constraint_text": "Both outbound and return transport must appear in the plan.",
+      "constraint_type": "commonsense",
+      "final_verdict": "FAIL",
+      "judge_verdicts": [
+        "FAIL",
+        "FAIL",
+        "MISSING_INFO",
+        "FAIL"
+      ],
+      "pass_count": 0,
+      "fail_count": 3,
+      "missing_count": 1,
+      "na_count": 0
+    },
+    {
+      "id": "CC-5",
+      "constraint_text": "Flight or train connections must allow sufficient layover time (≥60 min domestic, ≥90 min international).",
+      "constraint_type": "commonsense",
+      "final_verdict": "MISSING_INFO",
+      "judge_verdicts": [
+        "NA",
+        "MISSING_INFO",
+        "MISSING_INFO",
+        "PASS"
+      ],
+      "pass_count": 1,
+      "fail_count": 0,
+      "missing_count": 2,
+      "na_count": 1
+    },
+    {
+      "id": "CC-6",
+      "constraint_text": "Accommodation must be planned for every night of the trip.",
+      "constraint_type": "commonsense",
+      "final_verdict": "FAIL",
+      "judge_verdicts": [
+        "MISSING_INFO",
+        "FAIL",
+        "MISSING_INFO",
+        "FAIL"
+      ],
+      "pass_count": 0,
+      "fail_count": 2,
+      "missing_count": 2,
+      "na_count": 0
+    },
+    {
+      "id": "CC-7",
+      "constraint_text": "Hotel check-in must be scheduled after arrival transport reaches the destination.",
+      "constraint_type": "commonsense",
+      "final_verdict": "MISSING_INFO",
+      "judge_verdicts": [
+        "MISSING_INFO",
+        "MISSING_INFO",
+        "MISSING_INFO",
+        "FAIL"
+      ],
+      "pass_count": 0,
+      "fail_count": 1,
+      "missing_count": 3,
+      "na_count": 0
+    },
+    {
+      "id": "CC-8",
+      "constraint_text": "Restaurants must be open on the planned day and time.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-9",
+      "constraint_text": "Restaurant choices should not be repeated throughout the trip.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-10",
+      "constraint_text": "Activities should be geographically sensible per day (no unnecessary cross-city travel).",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-11",
+      "constraint_text": "Attractions must be open on the planned day and time.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-12",
+      "constraint_text": "Attraction choices should not be repeated throughout the trip.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-13",
+      "constraint_text": "Travel time between consecutive activities must account for realistic transit duration.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "FAIL"
+      ],
+      "pass_count": 3,
+      "fail_count": 1,
+      "missing_count": 0,
+      "na_count": 0
+    }
+  ],
+  "timestamp": "2026-05-16T20:22:12.001696+00:00"
+}

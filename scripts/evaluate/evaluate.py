@@ -12,7 +12,7 @@ progress — rerun the script and finished tasks are skipped. Use
 
 Usage:
     python scripts/evaluate/evaluate.py
-    python scripts/evaluate/evaluate.py --max-workers 4
+    python scripts/evaluate/evaluate.py --max-workers 2
     python scripts/evaluate/evaluate.py --aggregate-only
     python scripts/evaluate/evaluate.py --force
 """
@@ -44,7 +44,7 @@ PLANS_DIR = REPO_ROOT / "data" / "travelplans"
 EVAL_DIR = REPO_ROOT / "data" / "evaluation"
 SUMMARY_PATH = EVAL_DIR / "summary.json"
 
-DEFAULT_MAX_WORKERS = 4
+DEFAULT_MAX_WORKERS = 2
 
 SOURCES: dict[str, dict[str, str]] = {
     "travel_agent": {"plan_suffix": ".json", "plan_format": "json"},
@@ -239,16 +239,6 @@ def _source_metrics(group: list[dict]) -> dict:
     }
     rrs = [r for r in (_rationale_pass_rate(s) for s in scs) if r is not None]
     means["rationale_pass_rate_mean"] = mean(rrs) if rrs else None
-
-    components = [
-        means["hc_micro_mean"],
-        means["hc_macro_mean"],
-        means["cc_micro_mean"],
-        means["cc_macro_mean"],
-    ]
-    if means["rationale_pass_rate_mean"] is not None:
-        components.append(means["rationale_pass_rate_mean"])
-    means["overall_score"] = mean(components)
     return {"n": len(group), **means}
 
 
@@ -325,7 +315,6 @@ def print_summary(summary: dict) -> None:
         ("CC macro mean",          "cc_macro_mean"),
         ("Rationale pass-rate mean", "rationale_pass_rate_mean"),
         ("Final pass-rate mean",   "final_pass_rate_mean"),
-        ("OVERALL score",          "overall_score"),
     ]
     for label, key in rows:
         ta_v, bs_v = ta.get(key), bs.get(key)

@@ -1,0 +1,844 @@
+{
+  "plan_excerpt": "# TravelPlan: Cologne to Copenhagen Design & New Nordic Weekend, June 6–8 2026\n\n| Day 1 — 2026-06-06 — Arrival, design district, New Nordic dinner | Day 2 — 2026-06-07 — Design museums, architecture, destination dining | Day 3 — 2026-06-08 — Final design stops and return to Cologne |\n| --- | --- | -",
+  "judge_models": [
+    "openrouter:minimax/minimax-m2.7",
+    "openrouter:google/gemini-3-flash-preview",
+    "openrouter:deepseek/deepseek-v4-flash",
+    "openrouter:qwen/qwen3.5-397b-a17b"
+  ],
+  "timed_out_models": [],
+  "rationale_verifications": [
+    {
+      "day_index": 1,
+      "slot_position": 1,
+      "slot_name": "Outbound flight: Cologne → Copenhagen via Munich",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.google.com/travel/flights?hl=en&gl=us&curr=EUR&tfs=CBwQAhoeEgoyMDI2LTA2LTA2agcIARIDQ0dOcgcIARIDQ1BIGh4SCjIwMjYtMDYtMDhqBwgBEgNDUEhyBwgBEgNDR05AAUABSAFwAZgBAQ&tfu=EgIIAQ"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence is a Google Flights search page that failed to render any specific flight data, schedules, or prices. The text contains only UI elements (e.g., 'Top departing options', 'Price insights') and placeholders for images, but does not list the Lufthansa itinerary, the specific times (08:30, 09:35, 10:20, 11:55), or the fare mentioned in the slot.",
+      "claims_checked": [
+        "Lufthansa flight CGN 08:30 → MUC 09:35",
+        "45-minute layover in Munich",
+        "Lufthansa flight MUC 10:20 → CPH 11:55",
+        "Round-trip fare of €498 for two (€249 per person)",
+        "Date: 2026-06-06"
+      ]
+    },
+    {
+      "day_index": 1,
+      "slot_position": 2,
+      "slot_name": "Airport transfer to Hotel Ottilia",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.cph.dk/en"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence from the Copenhagen Airport (CPH) website is limited to general information about food ordering and baggage rules. It contains no information regarding transport routes to Hotel Ottilia, train schedules, ticket prices (DKK or Euro), or the location of Hotel Ottilia. The second link (Rome2rio) was not provided in the evidence text. Therefore, there is no evidence to verify or contradict the claims about the specific transit route, duration, or cost.",
+      "claims_checked": [
+        "Route: Regional train from CPH to København H, then S-train to Carlsberg Station",
+        "Destination address: Bryggernes Plads 7",
+        "Duration: 25–30 minutes",
+        "Cost: €8.00 / ~30 DKK",
+        "Ticket type: 3-zone public transport ticket"
+      ]
+    },
+    {
+      "day_index": 1,
+      "slot_position": 3,
+      "slot_name": "Luggage drop and boutique hotel check-in: Hotel Ottilia",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.brochner-hotels.com/our-locations/hotel-ottilia/contact"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot's claims regarding the hotel name, address, and sustainability features are directly supported by the official contact page. The address 'Bryggernes Plads 7, 1799 Copenhagen' matches the evidence exactly. The claim about sustainability features is supported by the 'Sustainable Badges Of Honour' section showing B Corp and Green Key logos. While the evidence does not explicitly state the check-in time or the specific price, the slot correctly identifies 15:00 as the 'official' check-in time (a standard industry practice) and provides a specific booking link for the price claim, which is consistent with the provided evidence's context as an official hotel site.",
+      "claims_checked": [
+        "Venue name: Hotel Ottilia",
+        "Address: Bryggernes Plads 7, 1799 Copenhagen",
+        "Location: Carlsberg City District",
+        "Sustainability features: B Corp and Green Key certified",
+        "Official check-in time: 15:00"
+      ]
+    },
+    {
+      "day_index": 1,
+      "slot_position": 4,
+      "slot_name": "Lunch: Vækst",
+      "source_type": "link",
+      "source_urls": [
+        "https://cofoco.dk/vaekst/?utm_source=google&utm_medium=organic&utm_campaign=gmb-website&utm_content=vaekst",
+        "https://guide.michelin.com/us/en/capital-region/copenhagen/restaurant/vaekst"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot's claims are fully supported by the provided evidence. The restaurant name and address match Source 2 ('Vækst', 'Sankt Peders Stræde 34, Copenhagen, 1453 K'). The location in the Latin Quarter is confirmed by Source 1 ('midt i det københavnske latinerkvarter'). The greenhouse-inspired design and New Nordic/Modern cuisine are confirmed by both sources ('serveret i byens smukkeste drivhus', 'Modern Cuisine'). The Saturday service hours (12:00–23:00) are explicitly listed in Source 2. The cost estimate of €120 for two is consistent with the menu in Source 1, which lists a 3-course menu for 400 DKK per person (approx. €54 each, totaling ~€108 for two), leaving room for the 'moderate pricing' and 'without heavy wine' note.",
+      "claims_checked": [
+        "Venue name: Vækst",
+        "Address: Sankt Peders Stræde 34, 1453 Copenhagen",
+        "Category: Greenhouse-inspired New Nordic lunch",
+        "Location: Latin Quarter",
+        "Saturday service hours: 12:00–23:00",
+        "Cost: €120.00 (estimated for two)"
+      ]
+    },
+    {
+      "day_index": 1,
+      "slot_position": 5,
+      "slot_name": "Transfer to Designmuseum Danmark",
+      "source_type": "link",
+      "source_urls": [
+        "https://designmuseum.dk/en/besog-os/getting-here/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms that the closest Metro stop to Designmuseum Danmark is Marmorkirken, located 300 meters away ('Closest stop is Marmorkirken, 300 meters to the museum'). The museum's address is confirmed as Bredgade 68 in central Copenhagen. While the evidence does not explicitly state the ticket price or the exact travel time from 'Central Copenhagen', the museum's own website suggests using the Journey Planner for transit, and the provided details (Metro to Marmorkirken + short walk) are directly supported by the museum's 'Getting here' page.",
+      "claims_checked": [
+        "Location: Designmuseum Danmark is in central Copenhagen (Bredgade 68).",
+        "Transport mode: Metro toward Marmorkirken.",
+        "Walking distance: Short walk from Marmorkirken (300 meters).",
+        "Travel time: Approximately 25–30 minutes from central Copenhagen.",
+        "Cost: €6.50 for approx. 2-zone tickets for two."
+      ]
+    },
+    {
+      "day_index": 1,
+      "slot_position": 6,
+      "slot_name": "Designmuseum Danmark: Danish chairs and Scandinavian design",
+      "source_type": "link",
+      "source_urls": [
+        "https://designmuseum.dk/en/besog-os/opening-hours-admission-2/",
+        "https://designmuseum.dk/en/besog-os/getting-here/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The museum's official website confirms the location as Bredgade 68, 1260 Copenhagen. The opening hours for Saturday (June 6, 2026) are confirmed as 10:00–18:00 ('Tuesday – Sunday: 10.00 – 18.00'). The ticket office closing time is confirmed as one hour before the museum ('The ticket office closes one hour before the museum (17:00 Tuesday–Sunday)'). The adult ticket price is listed as 140 DKK, which is very close to the slot's estimate of 130 DKK and well within the provided budget of €35.00 (approx. 260 DKK).",
+      "claims_checked": [
+        "Location: Bredgade 68, 1260 Copenhagen",
+        "Saturday opening hours: 10:00–18:00",
+        "Adult ticket price: 130 DKK (estimated)",
+        "Ticket office closes 60 minutes before closing",
+        "Focus: Danish furniture, craft, and Scandinavian design"
+      ]
+    },
+    {
+      "day_index": 1,
+      "slot_position": 7,
+      "slot_name": "Walk/Metro to Høst",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.rome2rio.com/s/Copenhagen/Designmuseum-Denmark"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provided a link to Rome2rio, but no content was retrieved from that link or any other source. Therefore, there is no evidence available to verify the claims regarding the walking duration (20–22 minutes), the metro duration (18 minutes), or the specific routes mentioned (Store Kongensgade/Gothersgade or Marmorkirken/Nørreport).",
+      "claims_checked": [
+        "Walking route from Designmuseum Danmark to Høst is about 20–22 minutes via Store Kongensgade/Gothersgade",
+        "Metro option via Marmorkirken and Nørreport is about 18 minutes",
+        "Cost is €0.00"
+      ]
+    },
+    {
+      "day_index": 1,
+      "slot_position": 8,
+      "slot_name": "Dinner: Høst",
+      "source_type": "link",
+      "source_urls": [
+        "https://cofoco.dk/hoest/?utm_source=google&utm_medium=organic&utm_campaign=gmb-website&utm_content=hoest",
+        "https://guide.michelin.com/us/en/capital-region/copenhagen/restaurant/host"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The restaurant's name, address, and category (New Nordic/Modern Cuisine) are confirmed by both the official website and the Michelin Guide. The Michelin Guide explicitly confirms the Saturday hours as 5:30 PM–12 AM (17:30–00:00). The cost of €180 for two people is supported by the official menu, which lists 'An Evening at Høst' (including 3 courses, wine, aperitif, coffee, and water) for 900 DKK per person; 1800 DKK for two converts to approximately €241, while the basic 3-course menu (450 DKK) and wine pairing (350 DKK) for two would be 1600 DKK (approx. €214). The slot's estimate of €180 is a reasonable baseline for food for two (900 DKK total for two 3-course menus is ~€120, leaving room for some extras or a higher-tier menu). The design awards mentioned in the description are also verified on the official website.",
+      "claims_checked": [
+        "Venue name: Høst",
+        "Address: Nørre Farimagsgade 41, 1364 Copenhagen",
+        "Saturday dinner hours: 17:30–00:00",
+        "Category: New Nordic / Modern Cuisine",
+        "Cost: €180.00 (estimated for two)",
+        "Design: Award-winning Nordic dining room / raw Scandinavian design"
+      ]
+    },
+    {
+      "day_index": 1,
+      "slot_position": 9,
+      "slot_name": "Return to Hotel Ottilia",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.publictransport.dk/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence from publictransport.dk is a general landing page for public transport in Copenhagen. While it confirms the existence of a journey planner and the Rejsebillet app for buying tickets, it does not provide specific data to verify the route (Høst to Hotel Ottilia), the proximity of Hotel Ottilia to Carlsberg Station, the specific zone count (2 zones), or the cost (€6.50). The evidence is silent on these specific claims.",
+      "claims_checked": [
+        "Return by Metro/S-train via Nørreport",
+        "Hotel Ottilia is near Carlsberg Station",
+        "Approx. 2-zone public transport for two",
+        "Cost: €6.50"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 1,
+      "slot_name": "Breakfast at Hotel Ottilia",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.brochner-hotels.com/our-locations/hotel-ottilia/contact"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms the venue name ('Hotel Ottilia') and the specific address ('Bryggernes Plads 7, 1799 Copenhagen'). While the evidence does not explicitly list breakfast hours or pricing, it confirms the location's identity as a hotel, which is consistent with the claim of serving breakfast. Since there are no contradictions to the verifiable claims (name and location), and the missing details (price/time) do not constitute a failure under the rules, the slot passes based on the provided link.",
+      "claims_checked": [
+        "Venue name: Hotel Ottilia",
+        "Address: Bryggernes Plads 7",
+        "Category: meal/hotel"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 2,
+      "slot_name": "Transfer to Danish Architecture Center",
+      "source_type": "link",
+      "source_urls": [
+        "https://dac.dk/en"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms the location of the Danish Architecture Center (DAC) is within the BLOX building ('Danish Architecture Center (DAC) in BLOX, Copenhagen'). While the evidence (the DAC website) does not provide specific public transport pricing or route details from Hotel Ottilia, the slot's claims regarding the destination's location and the general travel time (25-30 minutes for a cross-city transfer) are consistent with the geographical context of Copenhagen. The cost and transport mode are standard for the region and not contradicted by the provided source.",
+      "claims_checked": [
+        "Danish Architecture Center is located at BLOX",
+        "Travel time is approximately 25–30 minutes",
+        "Route involves S-train to København H",
+        "Destination is on the harborfront"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 3,
+      "slot_name": "Danish Architecture Center at BLOX",
+      "source_type": "link",
+      "source_urls": [
+        "https://dac.dk/en",
+        "https://copenhagencard.com/attractions/danish-architecture-center?srsltid=AfmBOor44Vm9yIbc1lNLMFiCTNmUtQ2gliDD-smlvGqtJgaHDgH2RrOM"
+      ],
+      "verdict": "FAIL",
+      "reasoning": "The slot claims the cost is €31.00 and notes adult tickets are estimated at 115 DKK. However, 115 DKK is approximately €15.40, which contradicts the €31.00 claim (which would be roughly 230 DKK). Additionally, while the evidence confirms a 'free weekend tour' in English, it does not specify the exact time as 11:00, nor does it confirm the Sunday opening hours of 10:00–18:00.",
+      "claims_checked": [
+        "Venue name: Danish Architecture Center at BLOX",
+        "Location: Bryghuspladsen 10, 1473 Copenhagen",
+        "Cost: €31.00",
+        "Ticket price note: 115 DKK",
+        "Sunday hours: 10:00–18:00",
+        "English guided tour: Sunday at 11:00",
+        "Tour inclusion: Included with admission"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 4,
+      "slot_name": "Walk to Selma via historic center/Nørreport",
+      "source_type": "link",
+      "source_urls": [
+        "https://dac.dk/en",
+        "http://selmacopenhagen.dk/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a transport route from the Danish Architecture Center (DAC) to Selma, noting that Selma is near Torvehallerne. Evidence Source 1 confirms the Danish Architecture Center is located in the BLOX building ('Danish Architecture Center (DAC) in BLOX, Copenhagen'). While the provided evidence for Selma (Source 2) does not explicitly list its street address, it confirms the restaurant's existence and name. The claim that Selma is 'near Torvehallerne' is a common geographical descriptor for this venue, and the route via Nørreport is a standard transit/walking path between the BLOX area and the Torvehallerne district. The time window and cost are consistent with a short walk or local transit trip.",
+      "claims_checked": [
+        "Danish Architecture Center (DAC) is a starting location in Copenhagen",
+        "Selma is a destination restaurant in Copenhagen",
+        "Selma is located near Torvehallerne",
+        "The route from DAC to Selma passes through or near Nørreport/historic center",
+        "The duration is approximately 30 minutes"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 5,
+      "slot_name": "Lunch: Selma",
+      "source_type": "link",
+      "source_urls": [
+        "http://selmacopenhagen.dk/",
+        "https://www.mikkeller.com/locations/selma",
+        "https://guide.michelin.com/us/en/capital-region/copenhagen/restaurant/selma"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms the restaurant's name (Selma), address (Rømersgade 20, 1362 Copenhagen), and its Michelin Bib Gourmand status. The description of 'modern smørrebrød' and 'New Nordic sensibility' is supported by the Michelin and Mikkeller descriptions of 'innovative smørrebrød' and 'seasonal produce'. While the specific Sunday hours (11:30–16:00) are not explicitly listed in the text snippets, the restaurant is confirmed to be a lunch-focused smørrebrød spot, and the provided links (which the slot claims to have verified) are the correct official sources. The location is near Nørreport/Torvehallerne as Rømersgade is the street immediately adjacent to Torvehallerne.",
+      "claims_checked": [
+        "Venue name: Selma",
+        "Address: Rømersgade 20, 1362 Copenhagen",
+        "Category: Michelin Bib Gourmand",
+        "Cuisine: Modern smørrebrød / New Nordic",
+        "Location: Near Nørreport and Torvehallerne",
+        "Sunday hours: 11:30–16:00"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 6,
+      "slot_name": "Design retail walk: Illums Bolighus and HAY House area",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.hay.com/functions/hay-stores/hay-stores-denmark"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence is insufficient to verify the claims. Source 1 (HAY House) contains only image paths and no text regarding addresses or opening hours. Source 2 (Illums Bolighus) was not provided in the evidence list, and the link in the slot description points to a Copenhagen Airport (CPH) location ('close-to-gates-b') rather than the Amagertorv 10 flagship store mentioned in the location field. Consequently, the Sunday hours (11:00–19:00) and the specific addresses cannot be confirmed or refuted by the retrieved data.",
+      "claims_checked": [
+        "Illums Bolighus address: Amagertorv 10, Copenhagen",
+        "HAY House address: Østergade 61, Copenhagen",
+        "Illums Bolighus Sunday hours: 11:00–19:00",
+        "HAY House Sunday hours: Conflicted/Storefront check",
+        "Cost: €0.00 (Free browsing)"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 7,
+      "slot_name": "Rest and refresh at Hotel Ottilia",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.brochner-hotels.com/our-locations/hotel-ottilia/contact"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms the location of Hotel Ottilia as 'Bryggernes Plads 7, 1799 Copenhagen'. The description mentions it is in the 'Carlsberg District', which is consistent with the address provided in the evidence. The cost of €6.50 for public transport for two is a reasonable estimate for Copenhagen transit, and while the evidence doesn't explicitly list transit prices, it does not contradict this claim. The time window is a scheduling choice and not a verifiable fact about the venue itself.",
+      "claims_checked": [
+        "Venue name: Hotel Ottilia",
+        "Address: Bryggernes Plads 7",
+        "Location: Carlsberg District"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 8,
+      "slot_name": "Transfer to Restaurant Barr",
+      "source_type": "link",
+      "source_urls": [
+        "https://restaurantbarr.com"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence from the official website (Source 1) confirms that Restaurant Barr is located at 'Strandgade' and is reopening on June 1, 2026 ('Open from June 1'), which aligns with the travel date of June 7, 2026. The description of the location as being in the 'former Noma space' or 'North Atlantic House' is consistent with the restaurant's known history and the 'home on the harbor' mention in the text, though the specific building name 'North Atlantic House' is not explicitly in the text, the address 'Strandgade' is confirmed. The transport cost and duration are consistent with standard Copenhagen public transit for a 2-zone journey, though the evidence is silent on specific fare prices.",
+      "claims_checked": [
+        "Restaurant Barr is located at Strandgade",
+        "Restaurant Barr will be open on June 7, 2026",
+        "The restaurant is located in the former Noma space/North Atlantic House",
+        "The transfer is from the Hotel Ottilia/Carlsberg area to Christianshavn"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 9,
+      "slot_name": "Dinner: Restaurant Barr",
+      "source_type": "link",
+      "source_urls": [
+        "https://restaurantbarr.com",
+        "https://guide.michelin.com/us/en/capital-region/copenhagen/restaurant/barr"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms the restaurant's name and location (Strandgade 93). The Michelin Guide confirms Sunday hours (12 PM-12 AM), which covers the requested 18:45–21:15 window. The restaurant's official website confirms it is located in the former Noma space (implied by 'Strandgade reopening' and 'DNA of Barr' at that famous address) and that it uses Tock for reservations. The website also confirms the restaurant will be open by the travel date (June 2026), as it reopens June 1, 2025 (based on the 2025/2026 context in the text).",
+      "claims_checked": [
+        "Venue name: Restaurant Barr",
+        "Address: Strandgade 93, 1401 Copenhagen",
+        "Sunday dinner hours: 17:00–23:30 (Evidence shows 12 PM-12 AM)",
+        "Reservations via Tock",
+        "Location is the former Noma space",
+        "Focus on Northern Sea cuisine/Nordic roots"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 10,
+      "slot_name": "Return to Hotel Ottilia",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.publictransport.dk/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence from publictransport.dk is a general landing page for public transport in Copenhagen. While it confirms the existence of an efficient transport system (Metro, trains, buses) and mentions the 'Rejsebillet app' for tickets, it does not provide specific route details, travel times, or current pricing for a journey between Christianshavn (Restaurant Barr) and the Carlsberg District (Hotel Ottilia). Therefore, I cannot verify if the 35-minute duration or the €6.50 cost estimate is accurate based solely on this source.",
+      "claims_checked": [
+        "Transport mode: Metro/S-train",
+        "Route: Christianshavn to Carlsberg District",
+        "Duration: 35 minutes (21:15 to 21:50)",
+        "Cost: €6.50"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 1,
+      "slot_name": "Early breakfast and check-out at Hotel Ottilia",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.brochner-hotels.com/our-locations/hotel-ottilia/contact"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims the venue name is 'Hotel Ottilia' and the address is 'Bryggernes Plads 7'. The provided evidence from the official contact page confirms both: 'Hotel Ottilia' and 'Bryggernes Plads 7, 1799 Copenhagen'. While the evidence does not explicitly state breakfast hours or costs, it does not contradict the proposed time window or estimated cost, and the primary location details are verified.",
+      "claims_checked": [
+        "Venue name: Hotel Ottilia",
+        "Address: Bryggernes Plads 7",
+        "Category: meal (breakfast)",
+        "Time window: 06:45 - 07:30"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 2,
+      "slot_name": "Transfer to Copenhagen Airport",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.cph.dk/en"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence from the Copenhagen Airport (CPH) website is generic and focuses on food ordering and baggage rules. It contains no information regarding transport routes from Hotel Ottilia, travel times from Carlsberg Station, or the cost of public transport tickets. The second link (Rome2Rio) was not provided in the evidence text, leaving the specific claims about the 25-30 minute duration and the €8.00 cost unverified.",
+      "claims_checked": [
+        "Route: Carlsberg Station via København H to Copenhagen Airport Terminal 3",
+        "Travel time: 25–30 minutes",
+        "Cost: €8.00",
+        "Ticket type: 3-zone public transport ticket"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 3,
+      "slot_name": "Airport coffee/pastry: Lagkagehuset or Copenhagen Coffee Lab",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.cph.dk/en/shopping-dining/dining"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provided a specific link (https://www.cph.dk/en/shopping-dining/dining) to verify the existence and operating hours of Lagkagehuset and Copenhagen Coffee Lab at Copenhagen Airport. However, no evidence was retrieved from this link or any other source. Therefore, the claims regarding the presence of these venues in Terminal 2/3 and their opening hours (05:00) cannot be verified.",
+      "claims_checked": [
+        "Lagkagehuset is located in Copenhagen Airport Terminal 2/3.",
+        "Copenhagen Coffee Lab is located in Copenhagen Airport Terminal 2/3.",
+        "Lagkagehuset and Copenhagen Coffee Lab are open from around 05:00.",
+        "The venues are located airside."
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 4,
+      "slot_name": "Return flight leg: Copenhagen → Vienna",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.google.com/travel/flights?hl=en&gl=us&curr=EUR&tfs=CBwQAhoeEgoyMDI2LTA2LTA2agcIARIDQ0dOcgcIARIDQ1BIGh4SCjIwMjYtMDYtMDhqBwgBEgNDUEhyBwgBEgNDR05AAUABSAFwAZgBAQ&tfu=EgIIAQ"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence is a Google Flights search page for 'Cologne to Copenhagen' (CGN to CPH), whereas the slot describes a flight from 'Copenhagen to Vienna' (CPH to VIE). Furthermore, the fetched content contains only UI elements and headers ('Top departing options', 'Price insights') but does not list any specific flight numbers, times, or prices for the requested route or date. Therefore, there is no evidence to confirm or contradict the claims.",
+      "claims_checked": [
+        "Flight route: Copenhagen to Vienna",
+        "Flight number: Austrian OS 992",
+        "Departure time: 2026-06-08 09:40",
+        "Arrival time: 2026-06-08 11:20",
+        "Cost: €125.00 (or part of €498 round-trip)"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 5,
+      "slot_name": "Vienna Airport layover lunch: Do & Co Flight Bar / Jamie Oliver’s Bar",
+      "source_type": "link",
+      "source_urls": [
+        "https://viennaairport.com/en/restaurants"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence from the Vienna Airport website is incomplete. While it lists 'Aïda' in Terminal 1 and G Gates, the text cuts off before reaching the listings for Terminal 3 or the specific venues mentioned (Do & Co Flight Bar and Jamie Oliver’s Bar). Therefore, the existence and location of these specific restaurants cannot be verified or contradicted by the provided text.",
+      "claims_checked": [
+        "Venue name: Do & Co Flight Bar",
+        "Venue name: Jamie Oliver’s Bar",
+        "Location: Vienna Airport Terminal 3, Schengen gates",
+        "Availability: Broad daytime hours"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 6,
+      "slot_name": "Vienna Airport lounge/design downtime",
+      "source_type": "link",
+      "source_urls": [
+        "https://viennaairport.com/en"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a layover at Vienna Airport with activities like relaxing, working, browsing shops, or using a paid lounge. The evidence from the official Vienna Airport website (viennaairport.com) confirms the existence of 'Lounge' services and 'FastTrack' options, and implies the standard infrastructure of an international airport (Arrivals/Departures). The slot's mention of a 18:25 departure is a scheduling detail for the user's itinerary rather than a claim about the airport's fixed operations, and the existence of lounges is explicitly supported by the 'Lounge' link in the evidence.",
+      "claims_checked": [
+        "Location: Vienna Airport",
+        "Availability of lounges at Vienna Airport",
+        "Availability of shops/leisure areas at Vienna Airport"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 7,
+      "slot_name": "Vienna Airport early dinner/snack",
+      "source_type": "link",
+      "source_urls": [
+        "https://viennaairport.com/en/restaurants"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims that Vienna Airport offers dining options including 'Jamie Oliver’s Bar' and 'Do & Co Flight Bar'. While the provided evidence snippet is partially cut off due to a browser compatibility warning, it confirms the existence of a 'Restaurants' section at Vienna Airport and lists specific Austrian options like 'Aïda' (Typically Austrian). Although the specific names 'Jamie Oliver' and 'Do & Co' do not appear in the truncated text provided, the slot's description presents these as 'options from official airport dining' based on the official link provided. The evidence confirms the general availability of restaurants and cafes at the airport, and the time window (17:30-18:05) is consistent with the operating hours shown for airport dining (e.g., Aïda in Terminal 1 is open until 20:00).",
+      "claims_checked": [
+        "Location: Vienna Airport Terminal 3",
+        "Dining options include Jamie Oliver’s Bar",
+        "Dining options include Do & Co Flight Bar",
+        "Dining options include quick Austrian snacks",
+        "Availability of restaurants at Vienna Airport via official link"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 8,
+      "slot_name": "Return flight leg: Vienna → Cologne",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.google.com/travel/flights?hl=en&gl=us&curr=EUR&tfs=CBwQAhoeEgoyMDI2LTA2LTA2agcIARIDQ0dOcgcIARIDQ1BIGh4SCjIwMjYtMDYtMDhqBwgBEgNDUEhyBwgBEgNDR05AAUABSAFwAZgBAQ&tfu=EgIIAQ"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence is a Google Flights search page for 'Cologne to Copenhagen' (as indicated by the title 'Cologne to Copenhagen | Google Flights' and the text 'prices are low for Cologne – Copenhagen'). The slot describes a flight from 'Vienna to Cologne'. Furthermore, the fetched content contains no specific flight data, times, flight numbers (OS 249), or prices, only UI elements and generic descriptions. Therefore, the evidence is silent on the specific claims regarding the Vienna to Cologne flight.",
+      "claims_checked": [
+        "Flight number: Austrian OS 249",
+        "Route: Vienna (VIE) to Cologne Bonn (CGN)",
+        "Departure time: 18:25",
+        "Arrival time: 19:55",
+        "Date: 2026-06-08",
+        "Cost: €124.00 (or part of €498 round-trip)"
+      ]
+    }
+  ],
+  "rationale_pass_count": 15,
+  "rationale_fail_count": 1,
+  "rationale_missing_count": 11,
+  "hc_micro_pass_rate": 1.0,
+  "cc_micro_pass_rate": 0.8462,
+  "hc_macro_pass_rate": 1.0,
+  "cc_macro_pass_rate": 0.0,
+  "final_pass_rate": 0.0,
+  "aggregated_constraints": [
+    {
+      "id": "HC-1",
+      "constraint_text": "origin: Cologne",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-2",
+      "constraint_text": "destination: Copenhagen",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-3",
+      "constraint_text": "travel_dates: 2026.06.06 to 2026.06.08",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-4",
+      "constraint_text": "travelers: 2 adults",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-5",
+      "constraint_text": "budget: 2000 EUR total",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-6",
+      "constraint_text": "accommodation: design hotel or boutique hotel",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-7",
+      "constraint_text": "transport: Flight",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-8",
+      "constraint_text": "interests: design, architecture, New Nordic cuisine, cycling, museums",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "MISSING_INFO",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 3,
+      "fail_count": 0,
+      "missing_count": 1,
+      "na_count": 0
+    },
+    {
+      "id": "CC-1",
+      "constraint_text": "Car or road trip transport is not feasible for island or overseas destinations — a flight or ferry is required.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-2",
+      "constraint_text": "No key information should be left out of the plan, such as the lack of accommodation during travel.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-3",
+      "constraint_text": "Transportation choices within the trip must be reasonable. For example, having both “self-driving” and “flight” would be considered a conflict.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-4",
+      "constraint_text": "Both outbound and return transport must appear in the plan.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-5",
+      "constraint_text": "Flight or train connections must allow sufficient layover time (≥60 min domestic, ≥90 min international).",
+      "constraint_type": "commonsense",
+      "final_verdict": "FAIL",
+      "judge_verdicts": [
+        "FAIL",
+        "FAIL",
+        "FAIL",
+        "FAIL"
+      ],
+      "pass_count": 0,
+      "fail_count": 4,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-6",
+      "constraint_text": "Accommodation must be planned for every night of the trip.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-7",
+      "constraint_text": "Hotel check-in must be scheduled after arrival transport reaches the destination.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-8",
+      "constraint_text": "Restaurants must be open on the planned day and time.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "MISSING_INFO",
+        "PASS"
+      ],
+      "pass_count": 3,
+      "fail_count": 0,
+      "missing_count": 1,
+      "na_count": 0
+    },
+    {
+      "id": "CC-9",
+      "constraint_text": "Restaurant choices should not be repeated throughout the trip.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-10",
+      "constraint_text": "Activities should be geographically sensible per day (no unnecessary cross-city travel).",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-11",
+      "constraint_text": "Attractions must be open on the planned day and time.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-12",
+      "constraint_text": "Attraction choices should not be repeated throughout the trip.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-13",
+      "constraint_text": "Travel time between consecutive activities must account for realistic transit duration.",
+      "constraint_type": "commonsense",
+      "final_verdict": "FAIL",
+      "judge_verdicts": [
+        "FAIL",
+        "PASS",
+        "FAIL",
+        "PASS"
+      ],
+      "pass_count": 2,
+      "fail_count": 2,
+      "missing_count": 0,
+      "na_count": 0
+    }
+  ],
+  "timestamp": "2026-05-16T21:00:08.472831+00:00"
+}

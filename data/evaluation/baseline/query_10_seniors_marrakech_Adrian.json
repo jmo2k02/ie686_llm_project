@@ -1,0 +1,8 @@
+{
+  "id": "query_10_seniors_marrakech_Adrian",
+  "source": "baseline",
+  "status": "error",
+  "error": "ValidationError: 2 validation errors for TravelPlan\ndays.1.slots.4.category\n  Input should be 'meal', 'attraction', 'transport', 'lodging', 'leisure' or 'other' [type=literal_error, input_value='culture', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/literal_error\ndays.5.slots.3.category\n  Input should be 'meal', 'attraction', 'transport', 'lodging', 'leisure' or 'other' [type=literal_error, input_value='culture', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/literal_error",
+  "duration_seconds": 29.5,
+  "plan_path": "data/travelplans/baseline/query_10_seniors_marrakech_Adrian.md"
+}

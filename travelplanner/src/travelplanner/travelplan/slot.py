@@ -3,7 +3,7 @@ from __future__ import annotations
 from datetime import datetime
 from typing import Literal
 
-from pydantic import BaseModel, Field, model_validator
+from pydantic import BaseModel, Field, field_validator, model_validator
 
 
 SlotCategory = Literal[
@@ -26,6 +26,14 @@ class Slot(BaseModel):
         description="Slot end datetime; must be strictly after start_time"
     )
     category: SlotCategory = Field(default="other", description="Slot category")
+
+    @field_validator("category", mode="before")
+    @classmethod
+    def coerce_category(cls, v: object) -> object:
+        _VALID = {"meal", "attraction", "transport", "lodging", "leisure", "other"}
+        if isinstance(v, str) and v.lower() not in _VALID:
+            return "other"
+        return v
     location: str | None = Field(
         default=None, description="Where the slot takes place"
     )

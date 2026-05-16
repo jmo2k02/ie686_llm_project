@@ -1,0 +1,1521 @@
+{
+  "id": "query_9_honeymoon_maldives_Adrian",
+  "source": "baseline",
+  "status": "ok",
+  "has_timeout": false,
+  "timed_out_models": [],
+  "duration_seconds": 390.7,
+  "plan_path": "data/travelplans/baseline/query_9_honeymoon_maldives_Adrian.md",
+  "scorecard": {
+    "plan_excerpt": "# TravelPlan: Honeymoon in the Maldives from Berlin\n\n| Day 1 — 2026-10-10 — Depart Berlin | Day 2 — 2026-10-11 — Arrive Malé and check into overwater villa | Day 3 — 2026-10-12 — Snorkelling and couples’ spa | Day 4 — 2026-10-13 — Intro diving and private beach time | Day 5 — 2026-10-14 — Excursion ",
+    "judge_models": [
+      "openrouter:minimax/minimax-m2.7",
+      "openrouter:google/gemini-3-flash-preview",
+      "openrouter:deepseek/deepseek-v4-flash",
+      "openrouter:qwen/qwen3.5-397b-a17b"
+    ],
+    "timed_out_models": [],
+    "rationale_verifications": [
+      {
+        "day_index": 1,
+        "slot_position": 1,
+        "slot_name": "Travel to Berlin Brandenburg Airport",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.rome2rio.com/s/Berlin-Brandenburg-Airport-BER/Berlin-Hbf",
+          "https://berlin-ber-international-airport.com/de/berlin-airport-transportation",
+          "https://mychauffeur.com/en/transfer/berlin-brandenburg-airport-to-messe-berlin",
+          "https://mychauffeur.com/en/transfer/berlin-brandenburg-airport-to-estrel-berlin-hotel",
+          "https://mychauffeur.com/en/transfer/berlin-brandenburg-airport-to-intercontinental-berlin"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims a travel time of 2 hours (14:00 to 16:00) and a cost of €60.00 for a transfer from Berlin to BER Airport. Evidence from Source 2 states that the Airport Express Train (FEX) takes only 30 minutes, and Source 1 mentions a bus taking 1h 13m, making a 2-hour window for travel and check-in highly plausible. Regarding cost, while public transport is much cheaper (€2-€4), Source 1 and Source 2 confirm taxis and private transfers are available. Given that a taxi or private transfer for a ~30km trip in a major European city typically falls within the €50-€70 range, the €60.00 estimate is consistent with professional transfer services mentioned in Sources 3, 4, and 5.",
+        "claims_checked": [
+          "Location: Berlin to BER Airport",
+          "Time window: 14:00 to 16:00 (2 hours)",
+          "Cost: €60.00",
+          "Category: Transport"
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 2,
+        "slot_name": "Flight Berlin to Hub",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.turkishairlines.com/en/book-flights-from-berlin-to-maldives",
+          "https://www.qatarairways.com/en-us/destinations/flights-to-maldives/from-berlin.html",
+          "https://ber.berlin-airport.de/en/flying/airlines-ziele/airlines-uebersicht/qatar-airways-qr.html"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms the existence of the flight routes mentioned. Source 1 (Turkish Airlines) and Source 2 (Qatar Airways) explicitly confirm flights from Berlin (BER) to the Maldives (MLE) via their respective hubs (Istanbul and Doha). Source 3 confirms Qatar Airways operates out of Berlin Airport (BER) Terminal 1. While the specific flight times for 2026 are not listed in the provided snippets, the slot notes that the 'Exact flight is not booked' and the routing itself is factually supported by the airline links provided.",
+        "claims_checked": [
+          "Flight route from Berlin (BER) to Maldives via Istanbul (IST) or Doha (DOH)",
+          "Turkish Airlines operates Berlin to Maldives routing",
+          "Qatar Airways operates Berlin to Maldives routing",
+          "Qatar Airways operates from Berlin Airport (BER)"
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 3,
+        "slot_name": "Layover and Connection",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://manntravel.co.uk/blog/travel-tips/long-layovers-in-doha-istanbul-abu-dhabi/",
+          "https://www.youtube.com/watch?v=FkPEhSCHCd4",
+          "https://www.youtube.com/watch?v=pqJ1ispEORc",
+          "https://www.flyertalk.com/forum/middle-east/2129052-1hr-30min-layover-doh-doable.html",
+          "https://www.facebook.com/groups/travelthailandgroup/posts/2059013458220766/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a layover and connection at IST (Istanbul) or DOH (Doha) for a flight toward Malé. The evidence confirms that DOH (Hamad International Airport) is a major transit hub for international connections (Source 2, 3). Regarding the 'shortest safe connection' note, the evidence discusses connection times at DOH, noting that a 90-minute layover is 'doable' but 'tight' (Source 4, 5), which supports the feasibility of a 3-hour window (23:00 to 02:00) as a safe connection period.",
+        "claims_checked": [
+          "Location: IST or DOH are valid connection points",
+          "Function: DOH/IST serve as layover/connection hubs",
+          "Timing: A 3-hour window is a viable duration for a connection"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 1,
+        "slot_name": "Arrive at Velana International Airport",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://en.intui.travel/velana-international-airport-male-airport-transfer/?srsltid=AfmBOorwN597WJo7LSTTvP-D8Cq9OQ6moC5n3xpMA-29RsG1f0ksDpq7",
+          "https://viatovia.com/mle-male-airport-taxi-transfers",
+          "https://amaldives.com/blog/velana-international-airport-guide",
+          "https://www.rome2rio.com/s/Mal%C3%A9/Male-Airport-MLE",
+          "https://airport-porters.com/maldives-meet-assist/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot makes three verifiable claims: the airport name is Velana International Airport, its code is MLE, and it is the main international gateway for Maldives resorts. Source 3 explicitly confirms these, stating: 'Your journey to this idyllic destination begins at Velana International Airport (MLE), the primary gateway to the Maldivian archipelago.' Source 1 also refers to it as 'Velana International Airport Male' and the 'largest airport in the Maldives.'",
+        "claims_checked": [
+          "Venue name: Velana International Airport",
+          "Location/Code: MLE",
+          "Function: Main international gateway for Maldives resorts"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 2,
+        "slot_name": "Resort Speedboat Transfer",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.adaaran.com/prestigevadoo/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims that Adaaran Prestige Vadoo is located in the South Malé Atoll and offers speedboat transfers, with a note regarding complimentary transfers for direct bookings. The evidence (Source 1) confirms the resort name 'Adaaran Prestige Vadoo' and its location in 'Malé Atoll'. It also explicitly lists 'Book Direct Benefits' and mentions 'Premium All-Inclusive', which aligns with the slot's note about potential complimentary transfers under direct-booking conditions. While the specific cost of €250 is not explicitly listed in the snippet, the existence of the transfer service and the 'Book Direct' incentive mentioned in the evidence support the slot's core claims.",
+        "claims_checked": [
+          "Resort name: Adaaran Prestige Vadoo",
+          "Location: South Malé Atoll",
+          "Transport mode: Speedboat transfer",
+          "Note: Complimentary speedboat transfers available for direct bookings"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 3,
+        "slot_name": "Check into Sunset Water Villa",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.adaaran.com/prestigevadoo/villas/sunset-water-villas/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence from the official website (Source 1) confirms the existence of the 'Sunset Water Villas' at 'Adaaran Prestige Vadoo'. The title of the page explicitly mentions 'Maldives Water Villa with Private Pool', which supports the description of the villa having a private pool. While the evidence snippet cuts off before detailing the jacuzzi, the villa category name and location match the slot's claims perfectly.",
+        "claims_checked": [
+          "Venue name: Adaaran Prestige Vadoo",
+          "Room category: Sunset Water Villa",
+          "Feature: Private Pool"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 4,
+        "slot_name": "First Lagoon Swim",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.adaaran.com/prestigevadoo/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims that the resort (Adaaran Prestige Vadoo) offers overwater villas, a house reef area for swimming, and non-motorized watersports. The evidence explicitly supports the existence of overwater villas and a house reef, stating: 'A relaxed collection of overwater villas... and one of the finest house reefs in the Malé Atoll below.' While the specific mention of 'non-motorized watersports' is not explicitly detailed in the provided text snippet, the resort's nature as a 'Premium All-Inclusive Escape' and the mention of 'adventures unfold naturally' is consistent with standard resort offerings, and the primary claims regarding the location (villas/house reef) are directly verified.",
+        "claims_checked": [
+          "Resort name: Adaaran Prestige Vadoo",
+          "Location: Overwater villas",
+          "Location: House reef area",
+          "Feature: Private deck/plunge pool area",
+          "Feature: Non-motorized watersports"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 5,
+        "slot_name": "Sunset Welcome Drinks and Dinner",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.adaaran.com/prestigevadoo/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims that Adaaran Prestige Vadoo offers a 'Premium All-Inclusive' plan and that sunset drinks/toasts are part of the experience. The evidence explicitly states: 'Adults-Only Premium All-Inclusive Escape' and 'As a Maldives all inclusive resort, we invite you to slip into island time with... sunsets toasted with crisp champagne.' This supports the 'Premium All-Inclusive' claim and the 'Sunset Welcome Drinks' concept. While the specific restaurant name isn't in the snippet, the location 'Resort restaurant/bar' is a logical deduction for these services at the resort.",
+        "claims_checked": [
+          "Venue name/operator: Adaaran Prestige Vadoo",
+          "Plan type: Premium All-Inclusive",
+          "Activity: Sunset drinks/toasts available",
+          "Location: Resort restaurant/bar"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 6,
+        "slot_name": "Honeymoon Evening",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.overwater-villas.com/overwater-villas-honeymoons",
+          "https://www.theknot.com/content/overwater-bungalow-honeymoon",
+          "https://weddingsutra.com/honeymoon-ideas/22-of-the-most-stunning-overwater-bungalows-in-the-world/",
+          "https://www.reddit.com/r/honeymoonplanning/comments/1n29g7g/overwater_bungalow_recs/",
+          "https://www.awaygowe.com/overwater-bungalows-in-the-caribbean/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a quiet honeymoon evening on an overwater villa deck for relaxation. The evidence confirms that overwater villas/bungalows are a standard accommodation type for honeymoons (Source 1, 2) and specifically highlights 'relaxing in the middle of it with your partner' (Source 3) and 'stepping on to the deck of our own overwater bungalow' (Source 5) as key features of this experience. While the location 'Overwater villa' is a generic category rather than a specific address, it is a verifiable type of leisure accommodation consistent with the provided evidence.",
+        "claims_checked": [
+          "Venue name/type: Overwater villa",
+          "Activity: Quiet honeymoon evening on the villa deck",
+          "Category: leisure"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 1,
+        "slot_name": "Breakfast",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.adaaran.com/prestigevadoo/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims that breakfast is available at the 'Villa / resort' (Adaaran Prestige Vadoo). The evidence explicitly mentions 'floating breakfasts' and describes the resort as a 'Premium All-Inclusive Escape' with 'overwater villas'. This supports the claim that breakfast is provided at the resort/villa. While the specific time window (07:30 - 09:00) is not explicitly detailed in the snippet, the availability of breakfast at the location is confirmed.",
+        "claims_checked": [
+          "Venue name: Adaaran Prestige Vadoo",
+          "Location: Villa / resort",
+          "Service: Breakfast available (including floating breakfasts)"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 2,
+        "slot_name": "House-reef Snorkelling Orientation",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.adaaran.com/prestigevadoo/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The provided evidence from the resort's homepage confirms the existence of a house reef ('one of the finest house reefs in the Malé Atoll below'), but it does not contain any specific information regarding a 'Snorkelling Orientation' session, its timing, or its cost. The slot notes already acknowledge that the cost is uncertain. Since the evidence is silent on the specific activity details (time, price, and formal name of the orientation), I cannot verify or contradict the claims.",
+        "claims_checked": [
+          "Venue name: Vadoo house reef",
+          "Activity: Guided house-reef snorkelling orientation",
+          "Cost: €80.00",
+          "Time: 09:30:00 to 11:00:00"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 3,
+        "slot_name": "Lunch",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.pendry.com/baltimore/menus/power-lunch-menu/",
+          "https://www.kentislandresort.com/dining/",
+          "https://www.fourseasons.com/baltimore/dining/",
+          "https://mgmnationalharbor.mgmresorts.com/en/restaurants.html",
+          "https://www.greatwolf.com/maryland/dining-shopping/dining"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot refers to a generic 'Resort restaurant' and an 'all-inclusive plan' without specifying a particular resort name or geographic location. The search results provided (Source 1-5) discuss various specific resorts and hotels (Pendry, Kent Island, Four Seasons, MGM National Harbor, Great Wolf Lodge), but none can be definitively linked to the 'Resort restaurant' mentioned in the slot. Therefore, there is no evidence to confirm or deny the existence of an all-inclusive lunch plan at the intended location.",
+        "claims_checked": [
+          "The venue is a Resort restaurant.",
+          "The lunch is included in an all-inclusive plan."
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 4,
+        "slot_name": "Couples’ Spa Treatment",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://blog.myuvci.com/reconnect-rejuvenate-with-couple-spa-treatments-at-the-villa-group-resorts/",
+          "https://www.expedia.com/Villa-Hotels-Spa-Hotel.0-0-d6338309-tSpaHotel.Travel-Guide-Filter-Hotels",
+          "https://couples.com/resorts/sans-souci/spa/hibiscus-oasis-spa-villa",
+          "https://couples.com/resorts/tower-isle/spa/oasis-spa-villas",
+          "https://www.youtube.com/watch?v=dN73ME6O6tY"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot provides a generic location ('Resort spa / villa') without specifying a city, country, or specific resort name. The search results discuss various 'Couples Resorts' in Jamaica (Ocho Rios) and 'Villa Group Resorts' in Mexico (Puerto Vallarta), but without a specific destination for the travel plan, it is impossible to verify the existence of the venue, the specific time window, or the cost of €220.00. The evidence confirms that couples' spa treatments exist in resort/villa settings generally, but does not provide data to validate this specific itinerary item.",
+        "claims_checked": [
+          "Venue name: Resort spa / villa",
+          "Category: leisure",
+          "Time: 15:00 to 16:30",
+          "Cost: €220.00",
+          "Service: Couples’ massage or in-room spa treatment"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 5,
+        "slot_name": "Sunset Swim",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.sunsiyam.com/siyam-world/accommodation/sunset-pool-beach-villa/",
+          "https://www.booking.com/hotel/tr/villa-lagoon-with-stunning-sunset-views.html?aid=affiliate_id",
+          "https://maldives.intercontinental.com/villas-residences/villas/1-bedroom-sunset-lagoon-pool-villas/",
+          "https://www.tripadvisor.com/ShowUserReviews-g6695208-d503680-r1014321166-Villa_Park_Sun_Island_Resort-Nalaguraidhoo_Island.html",
+          "https://www.instagram.com/p/DTvQk_tjlD1/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a sunset swim from an overwater villa deck at a location called 'Villa lagoon'. The evidence confirms the existence of 'Sunset Lagoon Pool Villas' (Source 3) and 'Villa Lagoon' (Source 2) that feature private pools and sunset views. Source 5 specifically mentions villas 'overlooking the lagoon' where guests can 'watch the sky shift from gold to violet' (sunset) from a private pool. The timing (18:00-19:00) is consistent with typical sunset times in tropical lagoon destinations like the Maldives mentioned in the search results.",
+        "claims_checked": [
+          "Location 'Villa lagoon' exists and is associated with sunset views.",
+          "The activity (sunset swim) is possible from a villa deck/pool at this location.",
+          "The location offers overwater/lagoon accommodations."
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 6,
+        "slot_name": "Romantic Dinner",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.adaaran.com/prestigevadoo/offers/storrington-collective-romantic-getaway/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a romantic dinner at the resort (Adaaran Prestige Vadoo) and references a specific 'Romantic Getaway' offer. The evidence confirms the existence of the 'Adaaran Prestige Vadoo' resort and specifically lists a 'Romantic Getaway' offer under its 'Offers' section. While the evidence snippet is cut off before detailing the exact price of the dinner or the specific setup costs, the existence of the venue and the specific named offer mentioned in the notes is verified by the official website navigation and page title.",
+        "claims_checked": [
+          "Venue name: Adaaran Prestige Vadoo (Resort restaurant)",
+          "Offer name: Romantic Getaway",
+          "Category: Meal/Dining"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 1,
+        "slot_name": "Breakfast",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.pinterest.com/ideas/resort-breakfast-buffet/905283925306/",
+          "https://plandisney.disney.go.com/question/options-breakfast-dinner-resort-hotels-mean-restaurants-571203/",
+          "https://www.reddit.com/r/WaltDisneyWorld/comments/11k5w9q/best_breakfast_sit_down_restaurants_at_a_resort/",
+          "https://www.yahoo.com/news/11-best-hotel-breakfasts-worth-traveling-the-globe-124527995344.html",
+          "https://www.lhw.com/get-inspired/destination-experiences/leading-hotel-experiences-from-home/artisan-stories/hotel-breakfast-recipes"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot refers to a generic 'Resort' without specifying a name or location (e.g., city or specific hotel name). The provided evidence consists of general search results about resort breakfasts globally (Disney, British Virgin Islands, etc.) and does not contain information about a specific resort associated with this travel plan. Therefore, the claims regarding the location and the 'all-inclusive' nature cannot be verified.",
+        "claims_checked": [
+          "Location: Resort",
+          "Category: meal",
+          "Note: All-inclusive assumption"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 2,
+        "slot_name": "Discover Scuba / Refresher Dive",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.stmaarten-activities.com/scuba-diving",
+          "https://www.tripadvisor.com/AttractionProductReview-g293816-d20298185-Discover_Scuba_Diving_Experience-Mauritius.html",
+          "https://www.tripadvisor.com/AttractionProductReview-g293816-d17598277-Discover_Scuba_Diving_Experience-Mauritius.html",
+          "https://www.stmaarten-activities.com/scuba/discover-scuba-diving/",
+          "https://www.outerbanks.com/discovery-diving.html"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot describes a 'Discover Scuba / Refresher Dive' at a 'Resort dive centre / lagoon' for €220.00. While the search results confirm that 'Discover Scuba' and 'Refresher' dives are standard activities offered globally (Sources 1, 2, and 4), the evidence does not specify a location (the search results mention St. Maarten, Mauritius, and the Outer Banks, but the slot does not specify a country or city). Furthermore, the evidence does not provide pricing that matches or contradicts the €220.00 claim; Source 4 mentions the activity but lacks a price, and the slot's own notes admit 'Diving is not clearly priced in search evidence'. Without a specific destination or venue, the cost and location cannot be verified.",
+        "claims_checked": [
+          "Activity name: Discover Scuba / Refresher Dive",
+          "Location: Resort dive centre / lagoon",
+          "Cost: €220.00",
+          "Duration: 2.5 hours (09:30 to 12:00)"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 3,
+        "slot_name": "Lunch",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.golflegacyresort.com/food/",
+          "https://www.hiltonphoenixresortatthepeak.com/dining",
+          "https://www.arizonagrandresort.com/dining/",
+          "https://www.arizonabiltmore.com/dining/",
+          "https://www.marriott.com/en-us/hotels/phxdr-jw-marriott-phoenix-desert-ridge-resort-and-spa/dining/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot refers to a generic 'Resort' location without specifying a name or city. While the search results provide information for several specific resorts in Phoenix (The Legacy Golf Club, Hilton Phoenix Resort at the Peak, Arizona Grand Resort, Arizona Biltmore, and JW Marriott), there is no evidence to confirm which 'Resort' the travel plan is referring to. Therefore, the claims regarding the location and the availability of lunch at that specific location cannot be verified.",
+        "claims_checked": [
+          "Location: Resort",
+          "Activity: Lunch",
+          "Time: 12:30:00 to 13:30:00"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 4,
+        "slot_name": "Private Beach Time",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.adaaran.com/prestigevadoo/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms that 'Adaaran Prestige Vadoo' is a resort in the Maldives. The title and text explicitly state it is a 'Maldives Premium All Inclusive Resort' and an 'Adults-Only Premium All-Inclusive Escape,' which supports the note that it is a 'private-island beach resort.' The description of 'swimming' and 'beach loungers' is consistent with the resort's nature as an island getaway with 'one of the finest house reefs in the Malé Atoll.'",
+        "claims_checked": [
+          "Venue name: Adaaran Prestige Vadoo",
+          "Location: Vadoo beach",
+          "Resort type: Private-island beach resort",
+          "Activities: Swimming/Beach access"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 5,
+        "slot_name": "Sunset Photo Walk",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.gettyimages.com/detail/photo/sentosa-island-resort-walk-way-during-sunset-royalty-free-image/1485004119",
+          "https://www.facebook.com/NixPixPhotographyNewZealand/posts/sunset-view-at-leisure-island-tonight-/751515410308295/",
+          "https://www.facebook.com/groups/ilovepcbfl/posts/2587553785034232/",
+          "https://www.shutterstock.com/search/island-sunset",
+          "https://www.travelandleisure.com/most-photogenic-sunset-destinations-data-8647889"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot describes a 'Sunset Photo Walk' at a generic 'Resort island'. The provided evidence consists of stock photo descriptions and social media posts from various locations (Sentosa, Leisure Island NZ, Treasure Island FL, Maldives). There is no specific evidence confirming a structured or recognized activity by this name at a specific 'Resort island' location, nor is there information to verify the timing or feasibility for the specific date provided. The evidence is too generic to confirm or deny the claims.",
+        "claims_checked": [
+          "Activity: Sunset photo walk",
+          "Location: Resort island",
+          "Time: 17:30 - 18:30 on 2026-10-13"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 6,
+        "slot_name": "Dinner",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.reddit.com/r/WaltDisneyWorld/comments/18cdfu2/dinner_resort_dining_recs_that_feel_the_most/",
+          "https://www.tripadvisor.ca/ShowTopic-g1-i12104-k9855306-Resort_Restaurants_with_Several_Meal-Help_us_make_Tripadvisor_better.html",
+          "https://www.fourseasons.com/sensei/dining/culinary-experiences/all-inclusive-meal-plans/all-inclusive-meal-and-full-beverage-plan/",
+          "https://www.pinterest.com/ideas/vacation-resort-dining-ideas/920352810751/",
+          "https://www.thepeaksresort.com/dine/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot refers to a 'Dinner' at a 'Resort' under an 'all-inclusive plan'. However, the slot does not specify the name or location of the resort. The provided evidence contains generic information about various resorts (Four Seasons, The Peaks Resort, Blackberry Farm) and general dining recommendations, but none of these can be linked to the specific 'Resort' intended in the travel plan. Therefore, there is no specific factual claim that can be verified against the evidence.",
+        "claims_checked": [
+          "Dinner is available at the Resort",
+          "The Resort offers an all-inclusive plan covering dinner"
+        ]
+      },
+      {
+        "day_index": 5,
+        "slot_position": 1,
+        "slot_name": "Breakfast",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.pinterest.com/ideas/resort-breakfast-buffet/905283925306/",
+          "https://plandisney.disney.go.com/question/options-breakfast-dinner-resort-hotels-mean-restaurants-571203/",
+          "https://www.reddit.com/r/WaltDisneyWorld/comments/11k5w9q/best_breakfast_sit_down_restaurants_at_a_resort/",
+          "https://www.yahoo.com/news/11-best-hotel-breakfasts-worth-traveling-the-globe-124527995344.html",
+          "https://www.lhw.com/get-inspired/destination-experiences/leading-hotel-experiences-from-home/artisan-stories/hotel-breakfast-recipes"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot describes a generic 'Breakfast at the resort' without specifying a particular resort name or location. The provided evidence consists of general search results about resort breakfasts globally (Disney, British Virgin Islands, etc.) and does not contain information about a specific resort associated with this travel plan. Therefore, the claims cannot be verified against the evidence.",
+        "claims_checked": [
+          "Breakfast is available at the resort",
+          "Breakfast occurs between 08:00 and 09:00",
+          "Breakfast cost is package-dependent"
+        ]
+      },
+      {
+        "day_index": 5,
+        "slot_position": 2,
+        "slot_name": "Maldives Excursion",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.adaaran.com/prestigevadoo/experiences/excursions/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes general excursion options (snorkeling, island visits, dolphin/sunset cruises) at Adaaran Prestige Vadoo in the South Malé Atoll. The provided URL title 'Maldives Excursions | Adaaran Prestige Vadoo' and the breadcrumb 'Adaaran Prestige Vadoo' confirm the location and the availability of excursions. While the fetched text content is truncated and does not list specific prices or times, the slot's notes explicitly state 'Exact menu/times/prices not verified', and the general categories of excursions mentioned are standard offerings for this resort. The location 'South Malé Atoll' is consistent with the resort's known location.",
+        "claims_checked": [
+          "Venue name: Maldives Excursion (via Adaaran Prestige Vadoo)",
+          "Location: South Malé Atoll",
+          "Excursion types: snorkeling boat trip, island visit, or dolphin/sunset-cruise",
+          "Link: https://www.adaaran.com/prestigevadoo/experiences/excursions/"
+        ]
+      },
+      {
+        "day_index": 5,
+        "slot_position": 3,
+        "slot_name": "Lunch",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.golflegacyresort.com/food/",
+          "https://www.hiltonphoenixresortatthepeak.com/dining",
+          "https://www.arizonagrandresort.com/dining/",
+          "https://www.arizonabiltmore.com/dining/",
+          "https://www.marriott.com/en-us/hotels/phxdr-jw-marriott-phoenix-desert-ridge-resort-and-spa/dining/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot refers to a generic 'Lunch' at a 'Resort' without specifying a particular resort name or location (city/state). The search results provide information for various specific resorts in Phoenix (Legacy Golf Club, Hilton Phoenix Resort at the Peak, Arizona Grand Resort, Arizona Biltmore, JW Marriott), but since the slot does not identify which resort the traveler is staying at, it is impossible to verify if lunch is available or if the 'Package-dependent' note is accurate for the intended venue.",
+        "claims_checked": [
+          "Lunch is available at the Resort",
+          "The location is a Resort",
+          "Lunch occurs between 12:30 and 14:00",
+          "Lunch availability/cost is package-dependent"
+        ]
+      },
+      {
+        "day_index": 5,
+        "slot_position": 4,
+        "slot_name": "Relaxation",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.vintarastays.com/post/why-beach-villas-for-a-calm-and-refreshing-stay",
+          "https://www.carnival.com/shore-excursions/relaxaway/beach-villa-rental-447023",
+          "https://www.instagram.com/explore/locations/223371527517544/beach-5-villas-relax-reconnect-and-rejuvenate-by-the-ocean/",
+          "https://www.youtube.com/watch?v=q4elbdeejVI",
+          "https://www.northbeachrentals.com/news/cinzia-spa-a-tranquil-oasis-at-north-beach-resort-and-villas/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a generic relaxation period at a 'Villa / beach' involving a 'Pool, villa deck, or beach downtime.' The evidence confirms that beach villas are specifically designed for these activities. Source 1 states a beach villa is 'the perfect place to relax, unwind' and offers 'private space.' Source 2 explicitly mentions that beach villas feature a 'private sun deck' and are 'perfect for relaxing.' While the location is generic, the activities described (pool/deck/beach downtime) are consistent with the functional purpose of a beach villa as supported by the evidence.",
+        "claims_checked": [
+          "Location: Villa / beach",
+          "Activity: Pool, villa deck, or beach downtime",
+          "Category: leisure"
+        ]
+      },
+      {
+        "day_index": 5,
+        "slot_position": 5,
+        "slot_name": "Sunset Cruise / Cocktails",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://seamaui.com/sunset-sailing/sunset-cocktail-sail/",
+          "https://www.hawaiiactivities.com/en/hawaii/oahu/a/163188",
+          "https://en.tripadvisor.com.hk/AttractionProductReview-g147247-d19347906-or10-Luxury_Lagoon_Cruise_with_Onboard_Chef_and_Signature_Cocktails-Aruba.html",
+          "https://www.hawaiitours.com/to-do/waikiki-sunset-cocktail-cruise/",
+          "https://www.musement.com/us/riviera-maya-playa-del-carmen/cancun-lagoon-sunset-cruise-1-123732/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot provides a generic activity ('Sunset Cruise / Cocktails') at a generic location ('Resort / lagoon') without specifying a city, country, or specific resort name. While the search results show that sunset cruises with cocktails exist in various locations (Maui, Oahu, Aruba, Cancun) and some fall within the €150 price range (e.g., Source 3 at ~HK$641 or Source 5), there is no specific evidence to verify the claims for a particular destination. The evidence is too broad to confirm or deny the cost or availability for the intended (but unnamed) location.",
+        "claims_checked": [
+          "Activity: Sunset cruise or cocktails",
+          "Location: Resort / lagoon",
+          "Cost: €150.00",
+          "Time: 18:00 - 19:00"
+        ]
+      },
+      {
+        "day_index": 5,
+        "slot_position": 6,
+        "slot_name": "Dinner",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.reddit.com/r/WaltDisneyWorld/comments/18cdfu2/dinner_resort_dining_recs_that_feel_the_most/",
+          "https://www.tripadvisor.ca/ShowTopic-g1-i12104-k9855306-Resort_Restaurants_with_Several_Meal-Help_us_make_Tripadvisor_better.html",
+          "https://www.fourseasons.com/sensei/dining/culinary-experiences/all-inclusive-meal-plans/all-inclusive-meal-and-full-beverage-plan/",
+          "https://www.pinterest.com/ideas/vacation-resort-dining-ideas/920352810751/",
+          "https://www.thepeaksresort.com/dine/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot refers to a generic 'Resort' without specifying a name or location. The provided evidence consists of general search results for various resorts (Disney, Four Seasons, The Peaks Resort, etc.) and general dining discussions. Because the specific resort intended by the travel plan is not identified in the slot or the evidence, it is impossible to verify if a dinner service exists at that location or if it is 'package-dependent'.",
+        "claims_checked": [
+          "Dinner is available at the resort",
+          "Dinner timing is 19:30 to 21:00",
+          "Dinner availability/cost is package-dependent"
+        ]
+      },
+      {
+        "day_index": 6,
+        "slot_position": 1,
+        "slot_name": "Late Breakfast",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.adaaran.com/prestigevadoo/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims that breakfast can be taken in an overwater villa at Adaaran Prestige Vadoo. The evidence explicitly states that the resort is a 'collection of overwater villas' and mentions 'floating breakfasts' as an available experience, which supports the claim of in-villa breakfast availability. While the specific time window (08:30-10:00) is not explicitly detailed in the snippet, it is a standard breakfast window and does not contradict the evidence provided.",
+        "claims_checked": [
+          "Venue name: Adaaran Prestige Vadoo",
+          "Location: Overwater villa",
+          "Service: Breakfast available in-villa"
+        ]
+      },
+      {
+        "day_index": 6,
+        "slot_position": 2,
+        "slot_name": "Lagoon Swimming",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.adaaran.com/prestigevadoo/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence from the official website for Adaaran Prestige Vadoo confirms the existence of 'one of the finest house reefs in the Malé Atoll below' the overwater villas. This supports the claims of a reef setting and the ability to swim/snorkel from the villa area. While the specific term 'non-motorized watersports' is not explicitly listed in the short snippet, the description of the resort as an 'All-Inclusive Escape' with a house reef for 'adventures' is consistent with the activity described.",
+        "claims_checked": [
+          "Location: Vadoo lagoon (Adaaran Prestige Vadoo)",
+          "Activity: Lagoon swimming and snorkelling from the villa/house reef area",
+          "Note: Reef setting supported by official site"
+        ]
+      },
+      {
+        "day_index": 6,
+        "slot_position": 3,
+        "slot_name": "Lunch",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.golflegacyresort.com/food/",
+          "https://www.hiltonphoenixresortatthepeak.com/dining",
+          "https://www.arizonagrandresort.com/dining/",
+          "https://www.arizonabiltmore.com/dining/",
+          "https://www.marriott.com/en-us/hotels/phxdr-jw-marriott-phoenix-desert-ridge-resort-and-spa/dining/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims that lunch is available at a 'Resort' and that the cost/availability is 'Package-dependent'. The search results for various resorts in the Phoenix area (The Legacy Golf Club, Hilton Phoenix Resort at the Peak, Arizona Grand Resort & Spa, Arizona Biltmore, and JW Marriott Phoenix Desert Ridge) all confirm that these resorts offer lunch services. For example, Source 1 states 'Breakfast · Lunch · Dinner', Source 2 mentions 'serving breakfast, lunch, dinner', and Source 4 notes 'New American flavors, featuring simple yet uncommonly good food for breakfast, lunch and dinner.' The note 'Package-dependent' is a standard industry practice for resort dining and is consistent with the general nature of resort operations described in the evidence.",
+        "claims_checked": [
+          "Lunch is available at the resort.",
+          "Lunch occurs between 12:30 and 13:30.",
+          "Lunch availability/cost is package-dependent."
+        ]
+      },
+      {
+        "day_index": 6,
+        "slot_position": 4,
+        "slot_name": "Honeymoon Downtime",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://isleblue.co/honeymoon-villas",
+          "https://theluxurytravelbook.com/luxury-travel-journals/luxury-honeymoon-villa-holidays-guide/",
+          "https://stmartinblue.com/collections/honeymoon",
+          "https://www.wimco.com/villa-rentals/caribbean/honeymoon-villas",
+          "https://stbartsblue.com/collections/St-Barts-honeymoon"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a period of leisure (nap, reading, private plunge pool) at a 'Villa'. The evidence from multiple sources (Isle Blue, The Luxury Travel Book, St Martin Blue) confirms that honeymoon villas are a standard category of accommodation designed for 'intimacy' and 'seclusion' (Source 1), and specifically feature 'your own pool' (Source 2) and 'private grounds' (Source 2). While the specific villa name is not provided in the slot, the activities described (private plunge pool, relaxation) are consistent with the defining features of the 'Honeymoon Villa' category found in the search results.",
+        "claims_checked": [
+          "Location: Villa",
+          "Activity: Private plunge pool",
+          "Activity: Honeymoon downtime/relaxation"
+        ]
+      },
+      {
+        "day_index": 6,
+        "slot_position": 5,
+        "slot_name": "Optional Spa Ritual",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://shell.villaresorts.com/wellness/spa-rituals-and-slow-moments-at-villa-resorts/",
+          "https://www.instagram.com/reel/DXUv50SDtpX/",
+          "https://www.omnihotels.com/hotels/fort-lauderdale/spa/ritual-pavilion",
+          "https://zenwavesmassage.com/villa-massage-versus-resort-spa/",
+          "https://vallarta.grandvelas.com/newsroom/hotel/new-huichol-cabin-offering-traditional-rituals-and-spa-experiences-debuts-at-se-spa-at-grand-velas-riviera-nayarit"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot describes a generic 'Optional Spa Ritual' at a 'Spa / villa' for €150.00. The provided evidence consists of general articles about spa rituals in the Maldives, Fort Lauderdale, and Mexico, or general comparisons between villa and resort massages. None of the evidence mentions a specific venue, price point, or service that corresponds to the location 'Spa / villa' in a way that can verify the €150.00 cost or the specific 1-hour duration. The evidence is too generic to confirm or deny the claims.",
+        "claims_checked": [
+          "Venue name: Spa / villa",
+          "Category: leisure",
+          "Cost: €150.00",
+          "Duration: 1 hour (16:30 to 17:30)"
+        ]
+      },
+      {
+        "day_index": 6,
+        "slot_position": 6,
+        "slot_name": "Dinner",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.reddit.com/r/WaltDisneyWorld/comments/18cdfu2/dinner_resort_dining_recs_that_feel_the_most/",
+          "https://www.tripadvisor.ca/ShowTopic-g1-i12104-k9855306-Resort_Restaurants_with_Several_Meal-Help_us_make_Tripadvisor_better.html",
+          "https://www.fourseasons.com/sensei/dining/culinary-experiences/all-inclusive-meal-plans/all-inclusive-meal-and-full-beverage-plan/",
+          "https://www.pinterest.com/ideas/vacation-resort-dining-ideas/920352810751/",
+          "https://www.thepeaksresort.com/dine/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot refers to a generic 'Dinner' at a 'Resort' without specifying a particular resort name or location. The provided evidence consists of general search results for resort dining (Disney, Four Seasons, Telluride, etc.) but does not contain information about a specific resort associated with this travel plan. Therefore, there is no specific factual claim that can be verified or contradicted.",
+        "claims_checked": [
+          "Dinner is available at the resort",
+          "Dinner timing is 19:30 to 21:00",
+          "Dinner availability is package-dependent"
+        ]
+      },
+      {
+        "day_index": 7,
+        "slot_position": 1,
+        "slot_name": "Early Breakfast",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.instagram.com/reel/DYaQbLSz7vb/",
+          "https://plandisney.disney.go.com/question/staying-grand-floridian-upcoming-trip-quick-breakfast-444825/",
+          "https://www.reddit.com/r/WaltDisneyWorld/comments/1bjle1i/early_entrants_what_is_your_breakfast_strategy/",
+          "https://www.yelp.com/search?find_desc=Early+Morning+Breakfast&find_loc=Bethesda%2C+MD",
+          "https://www.disneytouristblog.com/best-breakfast-animal-kingdom-satuli-canteen-restaurant-review/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot refers to a generic 'Early Breakfast' at a 'Resort' without specifying a particular resort name or location. The search results provided discuss various Disney resorts (Riviera, Grand Floridian, Animal Kingdom) and restaurants in Bethesda, MD, but none of these can be linked to the 'Resort' mentioned in the slot. Therefore, there is no specific evidence to verify the availability or timing of breakfast at the intended location.",
+        "claims_checked": [
+          "Breakfast is available at the resort at 07:30 AM.",
+          "The location is a resort."
+        ]
+      },
+      {
+        "day_index": 7,
+        "slot_position": 2,
+        "slot_name": "Certified Dive / Advanced Snorkelling",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.adaaran.com/prestigevadoo/experiences/excursions/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The provided evidence is a navigation menu and header for the Adaaran Prestige Vadoo website. While it confirms the existence of an 'Experiences' section and that the resort is part of the Adaaran group in the Maldives, the actual content of the 'Excursions' page (which would contain details on diving, snorkeling, pricing, and schedules) was not captured in the fetched text. Therefore, I cannot verify the specific claims regarding the two-tank dive, the cost of €260.00, or the 09:00-12:00 time window.",
+        "claims_checked": [
+          "Venue offers a Two-tank certified dive",
+          "Venue offers an advanced snorkelling boat trip",
+          "Location is South Malé Atoll",
+          "Cost is €260.00",
+          "Activity duration/window is 09:00 to 12:00"
+        ]
+      },
+      {
+        "day_index": 7,
+        "slot_position": 3,
+        "slot_name": "Lunch",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.golflegacyresort.com/food/",
+          "https://www.hiltonphoenixresortatthepeak.com/dining",
+          "https://www.arizonagrandresort.com/dining/",
+          "https://www.arizonabiltmore.com/dining/",
+          "https://www.marriott.com/en-us/hotels/phxdr-jw-marriott-phoenix-desert-ridge-resort-and-spa/dining/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot refers to a generic 'Resort' without specifying a name or city. The search results provide information for several different resorts in Phoenix (Legacy Golf Club, Hilton Phoenix Resort at the Peak, Arizona Grand Resort, Arizona Biltmore, and JW Marriott), all of which offer lunch. However, without knowing which specific resort the travel plan refers to, it is impossible to verify the location or the specific 'package-dependent' nature of the meal.",
+        "claims_checked": [
+          "Lunch is available at the Resort",
+          "The location is a Resort",
+          "Lunch occurs between 12:30 and 14:00",
+          "Lunch is package-dependent"
+        ]
+      },
+      {
+        "day_index": 7,
+        "slot_position": 4,
+        "slot_name": "Beach and Villa Rest",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://disneyworld.disney.go.com/resorts/beach-club-villas/",
+          "https://www.travelandleisure.com/hotels-resorts/americas-best-beach-hotels",
+          "https://www.exceptionalvillas.com/resort-villas",
+          "https://www.tripadvisor.com/HotelsList-Myrtle_Beach-Hotels-With-Villas-zfp12721000.html",
+          "https://www.facebook.com/groups/disneytipsandtricks/posts/3208296336002515/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot describes a generic activity ('Beach and villa rest') at a location simply named 'Resort'. The provided evidence lists various specific resorts (Disney's Beach Club Villas, Caribbean Resort and Villas, etc.), but there is no information in the slot to identify which specific resort is being referred to. Consequently, there are no verifiable claims regarding location, specific amenities, or operational details that can be confirmed or refuted by the search results.",
+        "claims_checked": [
+          "Activity: Beach and villa rest",
+          "Location: Resort",
+          "Time: 15:00 to 17:00"
+        ]
+      },
+      {
+        "day_index": 7,
+        "slot_position": 5,
+        "slot_name": "Sunset from Villa",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.adaaran.com/prestigevadoo/villas/sunset-water-villas/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims that 'Sunset Water Villas' is a room category at Adaaran Prestige Vadoo designed for sunset views from a deck. The evidence from the official website confirms the existence of this specific room category ('Sunset Water Villas') and its location within the resort. While the evidence text is partially truncated, the URL and the navigation menu explicitly list 'Sunset Water Villas' as a distinct villa type, supporting the claim that this room category is selected for its sunset orientation.",
+        "claims_checked": [
+          "Venue name: Sunset Water Villa (Adaaran Prestige Vadoo)",
+          "Room category selected for sunset views",
+          "Villa features a deck for viewing"
+        ]
+      },
+      {
+        "day_index": 7,
+        "slot_position": 6,
+        "slot_name": "Dinner",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.reddit.com/r/WaltDisneyWorld/comments/18cdfu2/dinner_resort_dining_recs_that_feel_the_most/",
+          "https://www.tripadvisor.ca/ShowTopic-g1-i12104-k9855306-Resort_Restaurants_with_Several_Meal-Help_us_make_Tripadvisor_better.html",
+          "https://www.fourseasons.com/sensei/dining/culinary-experiences/all-inclusive-meal-plans/all-inclusive-meal-and-full-beverage-plan/",
+          "https://www.pinterest.com/ideas/vacation-resort-dining-ideas/920352810751/",
+          "https://www.thepeaksresort.com/dine/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot describes a generic 'Dinner at the resort' with a note that it is 'Package-dependent'. The provided evidence consists of general search results for resort dining (Disney, Four Seasons, Telluride, and general Pinterest/TripAdvisor threads) but does not contain information about a specific resort or a specific itinerary to verify if a meal is available at this location or time. There is no specific 'Resort' identified in the slot to match against the evidence.",
+        "claims_checked": [
+          "Dinner is available at the resort",
+          "Dinner timing is 19:30 to 21:00",
+          "Dinner availability is package-dependent"
+        ]
+      },
+      {
+        "day_index": 8,
+        "slot_position": 1,
+        "slot_name": "Breakfast",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.pinterest.com/ideas/resort-breakfast-buffet/905283925306/",
+          "https://plandisney.disney.go.com/question/options-breakfast-dinner-resort-hotels-mean-restaurants-571203/",
+          "https://www.reddit.com/r/WaltDisneyWorld/comments/11k5w9q/best_breakfast_sit_down_restaurants_at_a_resort/",
+          "https://www.yahoo.com/news/11-best-hotel-breakfasts-worth-traveling-the-globe-124527995344.html",
+          "https://www.lhw.com/get-inspired/destination-experiences/leading-hotel-experiences-from-home/artisan-stories/hotel-breakfast-recipes"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot describes a breakfast at a generic 'Resort' without specifying a name or location. The provided evidence consists of general search results about resort breakfasts globally (Disney, British Virgin Islands, etc.) and does not contain information about a specific resort or its breakfast offerings relevant to this itinerary. Therefore, there is no specific evidence to confirm or deny the claims.",
+        "claims_checked": [
+          "Breakfast is available at the resort",
+          "Breakfast occurs between 08:00 and 09:30",
+          "Breakfast availability is package-dependent"
+        ]
+      },
+      {
+        "day_index": 8,
+        "slot_position": 2,
+        "slot_name": "Water Activity",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.adaaran.com/prestigevadoo/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims that water activities like snorkeling are available at the location (Adaaran Prestige Vadoo). The evidence explicitly mentions 'one of the finest house reefs in the Malé Atoll below' and that 'adventures unfold naturally,' which supports the availability of snorkeling. While the specific cost of €50.00 and the exact time window are not detailed in the provided snippet, the resort's nature as a 'Premium All-Inclusive Escape' with a house reef makes the activity claim factually consistent with the venue's offerings.",
+        "claims_checked": [
+          "Location: Adaaran Prestige Vadoo",
+          "Activity: Snorkelling or kayaking/paddle activity",
+          "Category: Leisure/Water Activity"
+        ]
+      },
+      {
+        "day_index": 8,
+        "slot_position": 3,
+        "slot_name": "Lunch",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.golflegacyresort.com/food/",
+          "https://www.hiltonphoenixresortatthepeak.com/dining",
+          "https://www.arizonagrandresort.com/dining/",
+          "https://www.arizonabiltmore.com/dining/",
+          "https://www.marriott.com/en-us/hotels/phxdr-jw-marriott-phoenix-desert-ridge-resort-and-spa/dining/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot refers to a generic 'Resort' without specifying a name or location (city/state). While the search results provide information for various resorts in Phoenix (e.g., The Legacy Golf Club, Arizona Grand Resort, Arizona Biltmore), there is no evidence to confirm which specific resort the user is staying at or if that resort offers a lunch package as noted. The evidence confirms that resorts generally serve lunch, but cannot verify the specific claim for an unnamed 'Resort'.",
+        "claims_checked": [
+          "Location: Resort",
+          "Activity: Lunch",
+          "Note: Package-dependent"
+        ]
+      },
+      {
+        "day_index": 8,
+        "slot_position": 4,
+        "slot_name": "Beach Afternoon and Photos",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.adaaran.com/prestigevadoo/offers/storrington-collective-romantic-getaway/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims that a 'Romantic getaway offer mentions a 30-min photoshoot'. The provided link (Source 1) is for the 'Romantic Getaway' offer at Adaaran Prestige Vadoo. While the full text of the offer details is cut off in the provided snippet, the URL and the page title ('Romantic Getaway | Adaaran Prestige Vadoo') directly correspond to the offer mentioned in the notes. The location 'Resort beach' is consistent with the venue being a Maldivian resort (Adaaran Prestige Vadoo). The cost and specific duration of the photoshoot are standard components of such resort packages, and the evidence confirms the existence of the specific 'Romantic Getaway' offer cited.",
+        "claims_checked": [
+          "Venue: Adaaran Prestige Vadoo (implied by link)",
+          "Offer name: Romantic Getaway",
+          "Inclusion: 30-minute photoshoot mentioned in notes",
+          "Location: Resort beach"
+        ]
+      },
+      {
+        "day_index": 8,
+        "slot_position": 5,
+        "slot_name": "Candlelit Beach Dinner",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.adaaran.com/prestigevadoo/offers/storrington-collective-romantic-getaway/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims that a candlelit beach dinner is offered for stays over 7 nights at Adaaran Prestige Vadoo. The provided URL (Source 1) is for the 'Romantic Getaway' offer at this specific resort. While the full text of the offer terms was truncated in the fetch, the URL itself and the page title ('Romantic Getaway | Adaaran Prestige Vadoo') directly support the existence of such an experience at this location. The note regarding the 7-night eligibility is a specific detail consistent with typical resort 'Romantic Getaway' packages often found on such pages.",
+        "claims_checked": [
+          "Venue: Adaaran Prestige Vadoo",
+          "Activity: Candlelit beach dinner",
+          "Condition: Offer for stays over 7 nights"
+        ]
+      },
+      {
+        "day_index": 9,
+        "slot_position": 1,
+        "slot_name": "Breakfast",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.pinterest.com/ideas/resort-breakfast-buffet/905283925306/",
+          "https://plandisney.disney.go.com/question/options-breakfast-dinner-resort-hotels-mean-restaurants-571203/",
+          "https://www.reddit.com/r/WaltDisneyWorld/comments/11k5w9q/best_breakfast_sit_down_restaurants_at_a_resort/",
+          "https://www.yahoo.com/news/11-best-hotel-breakfasts-worth-traveling-the-globe-124527995344.html",
+          "https://www.lhw.com/get-inspired/destination-experiences/leading-hotel-experiences-from-home/artisan-stories/hotel-breakfast-recipes"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot refers to a generic 'Resort' without specifying a name or location. The provided evidence consists of general search results about resort breakfasts globally (Pinterest, Disney World, British Virgin Islands, etc.) but does not contain information about a specific resort associated with this travel plan. Therefore, the claim that breakfast is available at 'the resort' cannot be verified.",
+        "claims_checked": [
+          "Breakfast is available at the resort.",
+          "Breakfast occurs between 08:00 and 09:00."
+        ]
+      },
+      {
+        "day_index": 9,
+        "slot_position": 2,
+        "slot_name": "Final Water Excursion",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.adaaran.com/prestigevadoo/experiences/excursions/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a snorkeling or diving excursion at South Malé Atoll. The provided link for Adaaran Prestige Vadoo confirms the resort is located in the South Malé Atoll and offers excursions. While the specific price (€180) and exact timing (09:30-12:00) are not explicitly listed in the snippet, the slot notes that 'Exact pricing/timing not verified,' and the activity itself (snorkeling/diving) is a standard offering for this location and resort category. The evidence confirms the venue exists and provides the relevant category of activities.",
+        "claims_checked": [
+          "Location: South Malé Atoll",
+          "Activity: Snorkelling or diving excursion",
+          "Operator/Venue: Adaaran Prestige Vadoo (via link)"
+        ]
+      },
+      {
+        "day_index": 9,
+        "slot_position": 3,
+        "slot_name": "Lunch",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.golflegacyresort.com/food/",
+          "https://www.hiltonphoenixresortatthepeak.com/dining",
+          "https://www.arizonagrandresort.com/dining/",
+          "https://www.arizonabiltmore.com/dining/",
+          "https://www.marriott.com/en-us/hotels/phxdr-jw-marriott-phoenix-desert-ridge-resort-and-spa/dining/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims that lunch is available at a 'Resort' and that the cost/availability is 'Package-dependent'. The evidence from multiple Phoenix-area resorts (The Legacy Golf Club, Hilton Phoenix Resort at the Peak, Arizona Grand Resort & Spa, Arizona Biltmore, and JW Marriott Phoenix Desert Ridge) confirms that resorts typically offer lunch services. For example, Source 2 states 'The Living Room is the social hub... serving breakfast, lunch, dinner', and Source 4 mentions 'McArthur’s Restaurant & Bar... featuring simple yet uncommonly good food for breakfast, lunch and dinner.' The note 'Package-dependent' is a standard industry practice for resort stays and is consistent with the general nature of resort dining descriptions.",
+        "claims_checked": [
+          "Lunch is available at the resort.",
+          "Lunch occurs between 12:30 and 13:30.",
+          "The cost/availability is package-dependent."
+        ]
+      },
+      {
+        "day_index": 9,
+        "slot_position": 4,
+        "slot_name": "Relaxation / Spa",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.travelandleisure.com/hotels-resorts/spa-resorts",
+          "https://skaneatelesfields.com/",
+          "https://www.facebook.com/travelandleisure/posts/16-best-spa-weekend-getaways-in-the-us-all-inclusive-resorts-and-tl-reader-favor/1269939428323448/",
+          "https://theprivatetraveller.com/wellness-journeys/the-best-wellness-retreats-in-the-world",
+          "https://www.omnihotels.com/destinations/spa"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot provides a generic activity ('Relaxation / Spa') at a generic location ('Resort') without specifying a particular establishment or city. The evidence provided consists of general articles about spa resorts globally or in specific regions (New York, New England, Switzerland) but does not contain information about a specific 'Resort' that can be verified against the provided cost (€180.00) or time window. There is no evidence to confirm or deny the cost or the availability of these services at the intended (but unnamed) destination.",
+        "claims_checked": [
+          "Activity: Spa, villa pool, or beach nap",
+          "Location: Resort",
+          "Cost: €180.00",
+          "Time: 14:00 to 16:00"
+        ]
+      },
+      {
+        "day_index": 9,
+        "slot_position": 5,
+        "slot_name": "Sunset Cocktails",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.caribbeanresort.com/news/top-5-beachside-bars-for-a-sunset-cocktail/",
+          "https://www.fourseasons.com/naplesbeachclub/dining/lounges/sunset-bar/",
+          "https://www.facebook.com/groups/1348582503057444/posts/1375751500340544/",
+          "https://www.hbssunsetbar.com/menu/cocktails-hb/",
+          "https://www.tripadvisor.com/ShowUserReviews-g48596-d313842-r240839334-Sunset_Beach-Shelter_Island_Long_Island_New_York.html"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot refers to a generic 'Resort bar / beach' without specifying a city, country, or specific resort name. The search results provide information for various 'Sunset Bars' in Myrtle Beach (SC), Naples (FL), Rarotonga, and Long Island (NY). Because the slot's location is a placeholder and not a specific verifiable entity, and the evidence does not point to a single definitive location or pricing structure for a 'Resort bar' in an unspecified destination, I cannot verify the cost or the 'premium all-inclusive' status mentioned in the notes.",
+        "claims_checked": [
+          "Location: Resort bar / beach",
+          "Cost: €40.00",
+          "Activity: Sunset cocktails and honeymoon toast",
+          "Note: Premium all-inclusive likely covers some drinks"
+        ]
+      },
+      {
+        "day_index": 9,
+        "slot_position": 6,
+        "slot_name": "Dinner",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.reddit.com/r/WaltDisneyWorld/comments/18cdfu2/dinner_resort_dining_recs_that_feel_the_most/",
+          "https://www.tripadvisor.ca/ShowTopic-g1-i12104-k9855306-Resort_Restaurants_with_Several_Meal-Help_us_make_Tripadvisor_better.html",
+          "https://www.fourseasons.com/sensei/dining/culinary-experiences/all-inclusive-meal-plans/all-inclusive-meal-and-full-beverage-plan/",
+          "https://www.pinterest.com/ideas/vacation-resort-dining-ideas/920352810751/",
+          "https://www.thepeaksresort.com/dine/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot refers to a generic 'Dinner at the resort' without specifying a particular resort name or location. The provided evidence consists of general search results for resort dining (Disney, Four Seasons, Telluride, etc.) but does not contain information about a specific resort associated with this travel plan. Therefore, there is no specific factual claim that can be verified or contradicted.",
+        "claims_checked": [
+          "Dinner is available at the resort",
+          "Dinner is package-dependent"
+        ]
+      },
+      {
+        "day_index": 10,
+        "slot_position": 1,
+        "slot_name": "Slow In-villa Breakfast",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.adaaran.com/prestigevadoo/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims an 'in-villa breakfast' at an 'overwater villa' at the Adaaran Prestige Vadoo. The evidence confirms that the resort consists of a 'collection of overwater villas' and specifically mentions 'floating breakfasts' as part of the experience ('we invite you to slip into island time with floating breakfasts'). While the evidence does not specify the exact time window of 08:30-10:00, this is a standard breakfast window and does not contradict the provided text.",
+        "claims_checked": [
+          "Venue name: Adaaran Prestige Vadoo",
+          "Location: Overwater villa",
+          "Service: In-villa breakfast"
+        ]
+      },
+      {
+        "day_index": 10,
+        "slot_position": 2,
+        "slot_name": "Last Relaxed Snorkel",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.adaaran.com/prestigevadoo/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims that Adaaran Prestige Vadoo has a house reef/lagoon suitable for snorkeling and supports non-motorized watersports. The evidence from the official website explicitly states the resort has 'one of the finest house reefs in the Malé Atoll below' and describes it as a place where 'adventures unfold naturally'. While the specific term 'non-motorized watersports' is not in the snippet, the presence of a house reef directly supports the claim of snorkeling availability at the location.",
+        "claims_checked": [
+          "Location: Vadoo lagoon (Adaaran Prestige Vadoo)",
+          "Activity: Snorkeling from the house reef / lagoon",
+          "Feature: Resort has a house reef"
+        ]
+      },
+      {
+        "day_index": 10,
+        "slot_position": 3,
+        "slot_name": "Lunch",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.golflegacyresort.com/food/",
+          "https://www.hiltonphoenixresortatthepeak.com/dining",
+          "https://www.arizonagrandresort.com/dining/",
+          "https://www.arizonabiltmore.com/dining/",
+          "https://www.marriott.com/en-us/hotels/phxdr-jw-marriott-phoenix-desert-ridge-resort-and-spa/dining/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims a lunch meal is available at a 'Resort' location. The evidence from multiple Phoenix-area resorts (The Legacy Golf Club, Hilton Phoenix Resort at the Peak, Arizona Grand Resort & Spa, Arizona Biltmore, and JW Marriott Phoenix Desert Ridge) confirms that resorts typically offer lunch services. For example, Source 2 states 'The Living Room is the social hub of The Peak—an inviting lobby café and bar serving breakfast, lunch, dinner', and Source 4 mentions McArthur’s Restaurant & Bar features 'simple yet uncommonly good food for breakfast, lunch and dinner.' The slot's note that the cost is 'Package-dependent' is a logical business condition for resort dining and is not contradicted by the general dining information provided.",
+        "claims_checked": [
+          "Lunch is available at the resort location.",
+          "Lunch occurs between 12:30 and 13:30.",
+          "The cost is package-dependent."
+        ]
+      },
+      {
+        "day_index": 10,
+        "slot_position": 4,
+        "slot_name": "Final Pacing",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.vrbo.com/en-ca/cottage-rental/p3716273",
+          "https://stage.bucketlistpublications.com/2012/03/26/while-the-rest-of-the-world-moves-at-a-frantic-pace-sunset-cove-villas-cultivates-an-air-of-unhurried-leisure-and-tranquility/",
+          "https://www.facebook.com/theseabreezepoolvillabangphrabangsaen/posts/%F0%9D%91%A8%F0%9D%91%B3%F0%9D%91%B3-%F0%9D%91%BB%F0%9D%91%AF%F0%9D%91%B0%F0%9D%91%BA-%F0%9D%92%8D%F0%9D%92%86%F0%9D%92%94%F0%9D%92%94-%F0%9D%92%95%F0%9D%92%89%F0%9D%92%82%F0%9D%92%8F-2-%F0%9D%92%89%F0%9D%92%90%F0%9D%92%96%F0%9D%92%93%F0%9D%92%94-%F0%9D%92%87%F0%9D%92%93%F0%9D%92%90%F0%9D%92%8E-%F0%9D%91%A9%F0%9D%91%B2%F0%9D%91%B2enjoy-special-end-of-season-room-rates-at-sea/122280319730147858/",
+          "https://www.hotelbolognese.com/en/",
+          "https://www.mylighthouse.com/es/resources/blog/understanding-your-booking-window"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot describes a generic leisure activity ('Final Pacing') at a non-specific location ('Villa / beach'). The provided search results discuss various specific villas (e.g., Sunset Cove Villas in California, a villa in Bang Saen, and Villa Pace Park Hotel in Italy), but none of these results correspond to a specific venue or itinerary item named 'Final Pacing'. Because the location 'Villa / beach' is a category rather than a specific address or entity, and the evidence does not contain information regarding this specific itinerary's 'Final Pacing' activity, the claims cannot be verified as either true or false.",
+        "claims_checked": [
+          "Activity name: Final Pacing",
+          "Location: Villa / beach",
+          "Feature: Private plunge pool",
+          "Feature: Beach access"
+        ]
+      },
+      {
+        "day_index": 10,
+        "slot_position": 5,
+        "slot_name": "Final Sunset Photo Session",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.adaaran.com/prestigevadoo/villas/sunset-water-villas/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims the existence of a 'Sunset Water Villa' category at Adaaran Prestige Vadoo and suggests a sunset photo session from the villa deck. The provided evidence (Source 1) explicitly lists 'Sunset Water Villas' as a villa category at the resort. While the evidence does not specify the exact sunset time for October 19, 2026, the time window of 17:30-18:30 is a standard sunset window for the Maldives, and the existence of the specific villa type designed for sunset views supports the activity.",
+        "claims_checked": [
+          "Venue name: Sunset Water Villa at Adaaran Prestige Vadoo",
+          "Villa category 'Sunset Water Villa' exists",
+          "The villa has a deck suitable for viewing/photography"
+        ]
+      },
+      {
+        "day_index": 10,
+        "slot_position": 6,
+        "slot_name": "Farewell Dinner",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://eatsleepcruise.com/wp-content/uploads/2026/01/Star_Princess_MDR_Farewell_Menu.pdf",
+          "https://www.facebook.com/groups/twmlgalapagos/posts/585568414076421/",
+          "https://www.reddit.com/r/vegan/comments/1ekrwyk/meal_ideas_for_a_goodbye_dinner_with_friends/",
+          "https://plandisney.disney.go.com/question/eat-last-night-farewell-wdwgarden-grill-cinderellas-197718/",
+          "https://www.reddit.com/r/Cooking/comments/s8xzph/farewell_dinner/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot describes a 'Farewell Dinner' at a 'Resort' with a specific time, cost, and request for a sunset-facing table. The provided evidence consists of generic search results for farewell dinners (a cruise ship menu, a Facebook post about a Galapagos trip, Reddit threads for home cooking, and a Disney planning forum). None of the evidence mentions a specific 'Resort' location or provides details that can verify the cost of €100.00 or the availability of sunset-facing tables at the intended destination. Therefore, there is no information to confirm or deny the claims.",
+        "claims_checked": [
+          "Venue name: Resort",
+          "Time: 19:30:00 to 21:30:00",
+          "Cost: €100.00",
+          "Feature: Sunset-facing table available"
+        ]
+      },
+      {
+        "day_index": 11,
+        "slot_position": 1,
+        "slot_name": "Breakfast and Check-out",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.theislandfl.com/offers/breakfast-included/",
+          "https://plandisney.disney.go.com/question/breakfast-disney-hotel-included-purchase-dining-plan-637453/",
+          "https://www.tripadvisor.com/FAQ_Answers-g240327-d23688770-t9450790-Hi_I_am_confused_regarding_the_meal_plan_It.html",
+          "https://www.facebook.com/groups/girlsjustwanttotravel/posts/2090592298004590/",
+          "https://www.quora.com/Are-breakfast-lunch-and-dinner-provided-for-free-if-you-stay-at-a-hotel"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot refers to a generic 'Resort' without a specific name or location. The provided evidence consists of general discussions about breakfast policies at various resorts (The Island Resort, Disney, Ventus Ha') but does not contain information about the specific resort intended for this itinerary. Therefore, I cannot verify the availability of breakfast at 07:00 or the check-out procedures for the specific venue.",
+        "claims_checked": [
+          "Breakfast is available at the resort",
+          "Check-out occurs at the resort",
+          "Breakfast/Check-out time is 07:00 - 08:00"
+        ]
+      },
+      {
+        "day_index": 11,
+        "slot_position": 2,
+        "slot_name": "Speedboat Transfer to MLE",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.adaaran.com/prestigevadoo/facilities/transfers/"
+        ],
+        "verdict": "FAIL",
+        "reasoning": "The slot claims a duration of 1 hour (08:00 to 09:00) and a cost of €250.00. However, the official website evidence explicitly states the transfer takes 'just 15 minutes' and that they 'include round-trip Shared speedboat transfers in Maldives with every stay' as a 'Complimentary' service. While the slot notes that complimentary status depends on the booking, the primary claim of a €250 cost and a 60-minute duration is contradicted by the 15-minute duration and the standard complimentary offering described in the evidence.",
+        "claims_checked": [
+          "Venue/Operator: Adaaran Prestige Vadoo speedboat transfer",
+          "Route: Vadoo to Velana International Airport (MLE)",
+          "Duration: 1 hour (08:00 to 09:00)",
+          "Cost: €250.00",
+          "Service Type: Speedboat"
+        ]
+      },
+      {
+        "day_index": 11,
+        "slot_position": 3,
+        "slot_name": "Flight Malé to Hub",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.turkishairlines.com/en/book-flights-from-berlin-to-maldives",
+          "https://www.qatarairways.com/en-us/destinations/flights-to-maldives/from-berlin.html"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The provided evidence consists of landing pages for Turkish Airlines and Qatar Airways specifically for flights from Berlin to the Maldives. While these airlines are known to operate hubs (Istanbul and Doha respectively), the evidence does not contain specific flight schedules, flight durations, or confirmation of a flight departing Malé (MLE) at 10:30 AM on October 20, 2026. The evidence is silent on the specific claims regarding the departure time and the return leg from Malé to a hub.",
+        "claims_checked": [
+          "Flight departs Malé (MLE) at 10:30:00 on 2026-10-20",
+          "Flight arrives at a hub (Istanbul/Doha/Dubai) at 16:00:00 on 2026-10-20",
+          "Turkish Airlines operates flights between Malé and a hub",
+          "Qatar Airways operates flights between Malé and a hub"
+        ]
+      },
+      {
+        "day_index": 11,
+        "slot_position": 4,
+        "slot_name": "Flight Hub to Berlin",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://ber.berlin-airport.de/en/orientation/getting-here/public-transport.html",
+          "https://ber.berlin-airport.de/en/orientation/getting-here.html",
+          "https://www.flighthub.com/cheap-flights-to-Berlin",
+          "https://www.reddit.com/r/aviation/comments/1s1k9vx/is_there_potential_for_lufthansa_to_establish/",
+          "https://www.instagram.com/p/DUlsa3wAW3t/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot describes a flight from a generic 'Hub' to Berlin (BER) on October 20, 2026. The provided evidence confirms that BER is the airport for Berlin and that 'FlightHub' is a booking website (Source 3). However, the evidence contains no specific flight schedules, routes, or airline data for the date in question (October 2026) to verify if a flight exists within the 17:00 to 23:00 time window or if it would arrive on the 21st. The search results focus on ground transportation at BER and general information about the airport's status.",
+        "claims_checked": [
+          "Flight from Hub to BER exists on 2026-10-20",
+          "Flight departs/operates between 17:00 and 23:00",
+          "Arrival may occur on 21 Oct",
+          "BER is the destination airport for Berlin"
+        ]
+      },
+      {
+        "day_index": 11,
+        "slot_position": 5,
+        "slot_name": "Transfer Home from BER",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.transfeero.com/en/berlin-brandenburg-airport-transfers-ber/",
+          "https://berlin-ber-international-airport.com/transportation-from-berlin-airport-to-city-center/",
+          "https://berlincitytransfer.de/blog/berlin-ber-airport-to-city-centre-every-transfer-option-compared/",
+          "https://www.blacklane.com/en/countries/germany/berlin/airport-transfer/",
+          "https://www.uber.com/global/en/r/airports/ber/pickup/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims a transfer from BER Airport to Berlin with an estimated cost of €60.00. Evidence from Source 3 indicates that private airport transfers to central Berlin start at €49, while another service starts at €89. Source 2 and 4 confirm that multiple transfer options (trains, taxis, private transfers) exist to reach the city center. A cost of €60 falls within the realistic range of these professional transfer services and taxi estimates for a journey from the airport to the city.",
+        "claims_checked": [
+          "Route: BER Airport to Berlin",
+          "Cost: €60.00",
+          "Category: Transport"
+        ]
+      }
+    ],
+    "rationale_pass_count": 30,
+    "rationale_fail_count": 1,
+    "rationale_missing_count": 30,
+    "hc_micro_pass_rate": 1.0,
+    "cc_micro_pass_rate": 0.5385,
+    "hc_macro_pass_rate": 1.0,
+    "cc_macro_pass_rate": 0.0,
+    "final_pass_rate": 0.0,
+    "aggregated_constraints": [
+      {
+        "id": "HC-1",
+        "constraint_text": "origin: Berlin",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-2",
+        "constraint_text": "destination: Maldives",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-3",
+        "constraint_text": "travel_dates: 2026.10.10 to 2026.10.20",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-4",
+        "constraint_text": "travelers: 2 adults",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-5",
+        "constraint_text": "budget: 8000 EUR total",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "FAIL"
+        ],
+        "pass_count": 3,
+        "fail_count": 1,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-6",
+        "constraint_text": "accommodation: overwater bungalow or luxury beach resort",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-7",
+        "constraint_text": "transport: Flight",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-8",
+        "constraint_text": "interests: snorkelling, diving, romantic dinners, spa, relaxation, private beach",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-1",
+        "constraint_text": "Car or road trip transport is not feasible for island or overseas destinations — a flight or ferry is required.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-2",
+        "constraint_text": "No key information should be left out of the plan, such as the lack of accommodation during travel.",
+        "constraint_type": "commonsense",
+        "final_verdict": "FAIL",
+        "judge_verdicts": [
+          "MISSING_INFO",
+          "PASS",
+          "MISSING_INFO",
+          "PASS"
+        ],
+        "pass_count": 2,
+        "fail_count": 0,
+        "missing_count": 2,
+        "na_count": 0
+      },
+      {
+        "id": "CC-3",
+        "constraint_text": "Transportation choices within the trip must be reasonable. For example, having both “self-driving” and “flight” would be considered a conflict.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-4",
+        "constraint_text": "Both outbound and return transport must appear in the plan.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-5",
+        "constraint_text": "Flight or train connections must allow sufficient layover time (≥60 min domestic, ≥90 min international).",
+        "constraint_type": "commonsense",
+        "final_verdict": "FAIL",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "MISSING_INFO",
+          "FAIL"
+        ],
+        "pass_count": 2,
+        "fail_count": 1,
+        "missing_count": 1,
+        "na_count": 0
+      },
+      {
+        "id": "CC-6",
+        "constraint_text": "Accommodation must be planned for every night of the trip.",
+        "constraint_type": "commonsense",
+        "final_verdict": "FAIL",
+        "judge_verdicts": [
+          "MISSING_INFO",
+          "PASS",
+          "MISSING_INFO",
+          "PASS"
+        ],
+        "pass_count": 2,
+        "fail_count": 0,
+        "missing_count": 2,
+        "na_count": 0
+      },
+      {
+        "id": "CC-7",
+        "constraint_text": "Hotel check-in must be scheduled after arrival transport reaches the destination.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-8",
+        "constraint_text": "Restaurants must be open on the planned day and time.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "MISSING_INFO",
+          "PASS"
+        ],
+        "pass_count": 3,
+        "fail_count": 0,
+        "missing_count": 1,
+        "na_count": 0
+      },
+      {
+        "id": "CC-9",
+        "constraint_text": "Restaurant choices should not be repeated throughout the trip.",
+        "constraint_type": "commonsense",
+        "final_verdict": "FAIL",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "MISSING_INFO",
+          "FAIL"
+        ],
+        "pass_count": 2,
+        "fail_count": 1,
+        "missing_count": 1,
+        "na_count": 0
+      },
+      {
+        "id": "CC-10",
+        "constraint_text": "Activities should be geographically sensible per day (no unnecessary cross-city travel).",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-11",
+        "constraint_text": "Attractions must be open on the planned day and time.",
+        "constraint_type": "commonsense",
+        "final_verdict": "FAIL",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "MISSING_INFO",
+          "MISSING_INFO"
+        ],
+        "pass_count": 2,
+        "fail_count": 0,
+        "missing_count": 2,
+        "na_count": 0
+      },
+      {
+        "id": "CC-12",
+        "constraint_text": "Attraction choices should not be repeated throughout the trip.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-13",
+        "constraint_text": "Travel time between consecutive activities must account for realistic transit duration.",
+        "constraint_type": "commonsense",
+        "final_verdict": "FAIL",
+        "judge_verdicts": [
+          "PASS",
+          "FAIL",
+          "MISSING_INFO",
+          "PASS"
+        ],
+        "pass_count": 2,
+        "fail_count": 1,
+        "missing_count": 1,
+        "na_count": 0
+      }
+    ],
+    "timestamp": "2026-05-16T21:06:50.268082+00:00"
+  }
+}

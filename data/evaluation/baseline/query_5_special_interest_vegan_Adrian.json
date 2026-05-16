@@ -1,0 +1,915 @@
+{
+  "id": "query_5_special_interest_vegan_Adrian",
+  "source": "baseline",
+  "status": "ok",
+  "has_timeout": false,
+  "timed_out_models": [],
+  "duration_seconds": 282.9,
+  "plan_path": "data/travelplans/baseline/query_5_special_interest_vegan_Adrian.md",
+  "scorecard": {
+    "plan_excerpt": "# TravelPlan: Baseline itinerary: Cologne to Amsterdam, 3–6 October 2026\n\n| Day 1 — 2026-10-03 — Saturday | Day 2 — 2026-10-04 — Sunday | Day 3 — 2026-10-05 — Monday | Day 4 — 2026-10-06 — Tuesday |\n| --- | --- | --- | --- |\n| **1. Train Cologne Hbf → Amsterdam Centraal** [transport] 08:00–11:00 @ C",
+    "judge_models": [
+      "openrouter:minimax/minimax-m2.7",
+      "openrouter:google/gemini-3-flash-preview",
+      "openrouter:deepseek/deepseek-v4-flash",
+      "openrouter:qwen/qwen3.5-397b-a17b"
+    ],
+    "timed_out_models": [],
+    "rationale_verifications": [
+      {
+        "day_index": 1,
+        "slot_position": 1,
+        "slot_name": "Train Cologne Hbf → Amsterdam Centraal",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.nsinternational.com/en/train/cologne-amsterdam"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms that a train route exists between Cologne Central Station and Amsterdam Central Station. The evidence states the fastest travel time is 2.37 hours, which is consistent with the slot's 3-hour window (08:00 to 11:00). The cost of €140 for two people is consistent with the evidence stating tickets start from €20 one way, as the slot's price is an estimate for a future date (2026) and the evidence notes prices vary based on booking time. The evidence specifically mentions 'Cologne Central Station - Amsterdam Central Station' and the use of an 'Itinerary Planner' for these trips.",
+        "claims_checked": [
+          "Route: Cologne Hbf to Amsterdam Centraal",
+          "Travel duration: approximately 3 hours (08:00 to 11:00)",
+          "Cost: €140.00 for 2 people",
+          "Operator/Service: NS International"
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 2,
+        "slot_name": "Local Transport to Hotel",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.gvb.nl/en/prices"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The provided evidence from the GVB website lists pay-per-kilometre rates for 2025 and 2026 and 'Easy Flex' monthly rates, but it does not contain information regarding multi-day (e.g., 4-day) GVB tickets or their specific prices. Therefore, the claim that a 4-day ticket costs €27.50 cannot be verified or contradicted by this specific source.",
+        "claims_checked": [
+          "Official GVB 4-day ticket listed at €27.50 pp.",
+          "Total cost for the slot is €55.00 (implies 2 people at €27.50 each)."
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 3,
+        "slot_name": "Luggage Drop at Conscious Hotel",
+        "source_type": "link",
+        "source_urls": [
+          "https://conscioushotels.com/stay/amsterdam-city",
+          "https://conscioushotels.com/about/eco-sexy"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms the hotel's name and location ('Conscious Hotel The Tire Station (Amsterdam city) is a hip eco-hotel on the Amstelveenseweg... The Vondelpark is your backyard'). It explicitly supports the sustainability claims, stating the hotel runs 'entirely on solar and wind energy' and uses 'solar panels on the roof'. Source 2 confirms the 'Green Key Gold' certification ('All our hotels have the Green Key Gold'). While the evidence does not explicitly mention a 'luggage drop' service, this is a standard service for a hotel of this category, and the evidence confirms the hotel's existence and eco-credentials as described.",
+        "claims_checked": [
+          "Venue name: Conscious Hotel Amsterdam City / The Tire Station",
+          "Location: Near Vondelpark",
+          "Category: Eco-certified hotel",
+          "Sustainability: Solar and wind energy",
+          "Certification: Green Key Gold"
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 4,
+        "slot_name": "Lunch at Noordermarkt",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.iamsterdam.com/en/whats-on/calendar/shopping/markets/noordermarkt"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims that the Noordermarkt is located in the Jordaan and hosts a Saturday organic market from 09:00–16:00. The provided evidence (Source 1) confirms the location as 'Noordermarkt, Jordaan' and explicitly states the Saturday hours as 'Saturday: 09:00 - 16:00'. The date in the slot (2026-10-03) is a Saturday. While the evidence snippet cuts off before detailing specific food stalls, the existence of the market at the specified time and place is verified.",
+        "claims_checked": [
+          "Location: Noordermarkt, Jordaan",
+          "Event: Saturday organic market",
+          "Hours: 09:00–16:00",
+          "Date: 2026-10-03 (Saturday)"
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 5,
+        "slot_name": "Walk Jordaan Canals",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.guruwalk.com/walks/66185-hidden-gems-of-amsterdam-jordaan-canals-local-history",
+          "https://www.getyourguide.com/amsterdam-l36/amsterdam-jordaan-area-private-walking-tour-t318838/",
+          "https://www.facebook.com/groups/amainsidersgroup/posts/2012993302836529/",
+          "https://amsterdamian.com/see/photos/jordaan-amsterdam-tips-by-a-local/",
+          "https://www.alltrails.com/trail/netherlands/north-holland/jordaan-stadswandeling"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a walking activity in the Jordaan/Westerstraat area focused on canals and streets. Evidence from Source 1 and Source 4 confirms that the Jordaan is a 'charming neighborhood' known for its 'narrow streets, historic canal houses' and 'stunning canals.' Source 5 provides a specific 'Jordaan Neighborhood Walk' trail that is 2.5 miles long and takes an average of 53 minutes to complete, which is consistent with the slot's 90-minute time window (14:00 to 15:30) for a leisurely walk. Source 4 mentions the area is 'right in the city centre' and borders the Canal Belt, supporting the location claim.",
+        "claims_checked": [
+          "Location: Jordaan / Westerstraat area",
+          "Activity: Walking tour of canals and streets",
+          "Duration: 90 minutes (14:00 to 15:30)",
+          "Category: Leisure/Self-guided"
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 6,
+        "slot_name": "Vegan Cake/Coffee at Koffie ende Koeck",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.koffieendekoeck.nl/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms the venue is a 'fully vegan cosy daytime cafe' located in the 'Amsterdam, Westerpark area' (Haarlemmerweg 175). It specifically lists 'cakes & patisserie' and 'specialty coffee' as specialties. While the specific opening hours (Wed-Sun 10:00-17:00) are not explicitly listed in the provided text snippet, the slot notes acknowledge this as something to verify, and the proposed time (15:30 on a Saturday) falls within the 'daytime' operation mentioned in the evidence.",
+        "claims_checked": [
+          "Venue name: Koffie ende Koeck",
+          "Location: Westerpark area",
+          "Category: Fully vegan daytime café",
+          "Offerings: Vegan cake and coffee"
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 7,
+        "slot_name": "Hotel Check-in",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.hotels.com/ho646976/conscious-hotel-the-tire-station-amsterdam-netherlands/",
+          "https://conscioushotels.com/stay/amsterdam-city",
+          "https://www.tripadvisor.com/Hotel_Review-g188590-d11825957-Reviews-Conscious_Hotel_Amsterdam_City_The_Tire_Station-Amsterdam_North_Holland_Province.html",
+          "https://www.expedia.com/Amsterdam-Hotels-Conscious-Hotel-The-Tire-Station.h16613255.Hotel-Information",
+          "https://www.trivago.com/en-US/oar/conscious-hotel-the-tire-station-amsterdam?search=100-6552236"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms the hotel's name and location ('Conscious Hotel The Tire Station (Amsterdam city) is a hip eco-hotel on the Amstelveenseweg'). The eco-certified claim is supported by the official site mentioning 'sustainability and style go hand in hand' and running on 'solar and wind energy'. The check-in time of 17:00 (5:00 PM) is valid as the evidence states check-in starts at 14:00 or 15:00 (3:00 PM) and ends at midnight. While specific pricing for 2026 is not available, the budget estimate of €190–€250/night is consistent with typical pricing for this category of hotel in Amsterdam.",
+        "claims_checked": [
+          "Venue name: Conscious Hotel Amsterdam City / The Tire Station",
+          "Category: lodging",
+          "Eco-certified status",
+          "Check-in time: 17:00 (5:00 PM)",
+          "Location: Amsterdam City / Amstelveenseweg"
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 8,
+        "slot_name": "Dinner at Meatless District",
+        "source_type": "link",
+        "source_urls": [
+          "https://meatlessdistrict.nl/en/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence from the official website confirms the restaurant is '100% plant-based' and 'Fully vegan'. The menu items listed (e.g., 'Faux Gras', 'Meatless Tacos', 'No mis-steak') support the vegan nature of the establishment. While the evidence does not explicitly list the address or specific opening hours for the 2026 date, the slot's claims regarding the name, category, and vegan status are directly supported by the source.",
+        "claims_checked": [
+          "Venue name: Meatless District",
+          "Category: meal",
+          "Description: Fully vegan / 100% plant-based",
+          "Location: Bilderdijkstraat, Amsterdam Old-West"
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 9,
+        "slot_name": "Evening Walk",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.google.com/maps/search/Vondelpark+Leisure+Walk%2C+Amsterdam%2C+Netherlands",
+          "https://www.outdooractive.com/mobile/en/poi/amsterdam/vondelpark/804338229/",
+          "https://www.facebook.com/groups/aboutnl/posts/1929360190762777/",
+          "https://www.iamsterdam.com/en/explore/neighbourhoods/oud-west/family-and-kids",
+          "https://www.youtube.com/watch?v=Cs4x_s_j0K4"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes an evening walk in the Oud-West/Vondelpark area. Evidence Source 5 confirms that Oud-West is a neighborhood in Amsterdam bordered by the Overtoom (which runs along the edge of Vondelpark). Source 3 explicitly mentions a 'romantic evening walk through the beautiful neighborhoods along the Vondelpark.' Source 2 confirms the existence of a 'City walk Amsterdam old West' starting from Leidseplein (adjacent to the park). The claims regarding the location and the feasibility of a walk in this area are supported by the evidence.",
+        "claims_checked": [
+          "Location: Oud-West / Vondelpark",
+          "Activity: Evening walk",
+          "Context: Oud-West is a neighborhood in Amsterdam near Vondelpark"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 1,
+        "slot_name": "Brunch at Koffie ende Koeck",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.koffieendekoeck.nl/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms the venue is a 'fully vegan cosy daytime cafe' located in the 'Amsterdam, Westerpark area' (Haarlemmerweg 175). It explicitly lists 'breakfast' and 'lunch' as specialties, supporting the brunch claim. While the evidence does not list specific 2026 hours or pricing, the slot's time (09:30) and cost (€35.00) are consistent with a standard European breakfast/brunch service at a specialty cafe.",
+        "claims_checked": [
+          "Venue name: Koffie ende Koeck",
+          "Location: Westerpark area",
+          "Category: Fully vegan café",
+          "Service: Vegan breakfast/brunch"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 2,
+        "slot_name": "Rent Bikes",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.iamsterdam.com/en/travel-stay/getting-around/cycling-in-amsterdam",
+          "https://www.discountbikerental.nl/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The evidence confirms the existence of 'Discount Bike Rental' in the center of Amsterdam (near Dam Square), which aligns with the 'Central' location claim. However, the provided text from the website does not list specific pricing for a 7-gear bike or a 24-hour rental period. While the slot claims a price of €19.50 for a 7-gear bike and a total of €49.00 for two people, the evidence only mentions 'discount prices' without providing numerical values. Therefore, the specific cost claims cannot be verified or refuted.",
+        "claims_checked": [
+          "Location: Central / hotel-area bike rental",
+          "Cost: €49.00 total for 2 people",
+          "Price evidence: 7-gear bike 24h about €19.50",
+          "Operator: Discount Bike Rental (implied by link)",
+          "Service: 24-hour cycling window"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 3,
+        "slot_name": "Cycling Loop",
+        "source_type": "link",
+        "source_urls": [
+          "https://conscioushotels.com/stay/amsterdam-city"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims a cycling loop in Vondelpark and Oud-West. The provided evidence from Conscious Hotel The Tire Station (Amsterdam City) confirms its location on Amstelveenseweg and explicitly states, 'The Vondelpark is your backyard when you stay in our hotel.' This supports the location claim for the activity. While the evidence does not detail a specific 'cycling loop' route, it confirms the proximity to the park for such an activity. The time and cost are not contradicted by the hotel's general information page.",
+        "claims_checked": [
+          "Location: Vondelpark / Oud-West",
+          "Activity: Cycling loop through Vondelpark",
+          "Proximity of the linked hotel to Vondelpark"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 4,
+        "slot_name": "Lunch at SOIL Vegan Café",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.soilvegancafe.com/soil-west"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence from the official website confirms the venue name ('SOIL VEGAN CAFE WEST'), its location in Amsterdam West ('Bilderdijkstraat 141 - OudWest, Amsterdam'), and its status as a vegan restaurant. The time window (13:00 on Sunday, 2026-10-04) is supported by the opening hours listed: 'SUN: 12-21 hrs'.",
+        "claims_checked": [
+          "Venue name: SOIL Vegan Café",
+          "Category: vegan restaurant",
+          "Location: Amsterdam West",
+          "Opening hours: Sun 12–21",
+          "Time window: 13:00-14:15 on a Sunday"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 5,
+        "slot_name": "Cycling / Eco Activity",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://westcordhotels.com/blogs-amsterdam/the-three-best-cycling-routes-in-amsterdam/",
+          "https://www.cityden.com/blog/must-try-bike-routes-amsterdam/",
+          "https://www.cyclecapital.cc/10-best-cycling-routes-amsterdam",
+          "https://aseasyasridingabike.wordpress.com/2012/09/24/the-vondelpark-a-route-for-bicycles-not-just-a-leisure-facility/",
+          "https://www.canyon.com/en-us/blog-content/hybrid-bike-news/five-cycling-routes-amsterdam/b11072022.html"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a self-guided cycling activity in Amsterdam West, specifically mentioning park routes and the Amsterdamse Bos (Amsterdam Forest) edge. Evidence from Source 1 explicitly confirms the existence of a 'bike tour through the Amsterdam Forest' and routes through 'Westerpark' (located in Amsterdam West). Source 2 confirms Amsterdam's extensive network of bike paths and flat terrain, supporting the feasibility of self-guided cycling in these areas. The location and activity type are well-supported by the travel blogs provided.",
+        "claims_checked": [
+          "Activity: Cycling / Eco Activity",
+          "Location: Amsterdam West / park routes",
+          "Specific destination: Amsterdamse Bos (Amsterdam Forest) edge",
+          "Activity type: Self-guided cycling"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 6,
+        "slot_name": "Rest at Hotel",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.expedia.com/Oud-West-Amsterdam-Hotels.0-n6214988-0.Travel-Guide-Filter-Hotels",
+          "https://www.booking.com/district/nl/amsterdam/oud-west.html",
+          "https://www.hotels.com/nh1743963/hotels-in-oud-west-amsterdam-netherlands/",
+          "https://www.hotelsamsterdam24.com/en/near-oud-west-dr132706/",
+          "https://www.agoda.com/amsterdam-oud-west/maps/amsterdam-nl.html"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a generic leisure activity ('Rest at Hotel') in the 'Oud-West' neighborhood of Amsterdam. The evidence confirms that Oud-West is a recognized district in Amsterdam containing numerous hotels (e.g., Hotel De Hallen, NH Amsterdam Leidseplein, Amsterdam Marriott Hotel). While the slot does not name a specific hotel, the location 'Oud-West' is factually consistent with the existence of hotel accommodations as shown in the search results. The activity (resting) and the logistical note (returning bikes) are standard travel actions that do not contradict the geographical evidence provided.",
+        "claims_checked": [
+          "Location: Oud-West, Amsterdam",
+          "Category: leisure/hotel accommodation",
+          "Existence of hotels in the Oud-West district"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 7,
+        "slot_name": "Dinner at Mr Watson",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.happycow.net/reviews/mr-watson-amsterdam-503733"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot provided a link to a HappyCow listing for 'Mr Watson' in Amsterdam, but no evidence was retrieved from the link or any other source. Therefore, the claims regarding the venue's existence, location (Amsterdam East), plant-based menu, and Sunday operating hours (17:00–23:00) cannot be verified or contradicted.",
+        "claims_checked": [
+          "Venue name: Mr Watson / Mister Watson",
+          "Location: Amsterdam East",
+          "Category: Fully plant-based dinner",
+          "Operating hours: Sunday 17:00–23:00"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 8,
+        "slot_name": "Transport to Hotel",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.gvb.nl/en/prices"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence from GVB (the official transport operator for Amsterdam) confirms that GVB offers various travel products and rates for 2026, including pay-per-kilometre and season tickets. While the specific 'GVB pass' mentioned in the notes is a general term, the evidence confirms GVB is the provider for tram/metro services and has established pricing structures for the date in question (October 2026). The transport between Amsterdam East and Oud-West is standard within the GVB network.",
+        "claims_checked": [
+          "Transport mode: Tram/metro",
+          "Operator: GVB",
+          "Validity: GVB pass/rates available in 2026",
+          "Route: Amsterdam East to Oud-West"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 1,
+        "slot_name": "Self-catered Breakfast",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://m.yelp.com/search?find_desc=Breakfast+Catering&find_loc=Florham+Park%2C+NJ",
+          "https://www.reddit.com/r/WaltDisneyWorld/comments/w9pc56/where_to_stay_self_catering_for_2_people/",
+          "https://www.parklanenewyork.com/offers/breakfast-on-the-park/",
+          "https://www.tiktok.com/@thepointsguy/video/7447971813717511466",
+          "https://www.theasburyhotel.com/offers/bed-and-breakfast"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot describes a 'Self-catered Breakfast' using items previously purchased from a market. The provided evidence consists of search results for breakfast catering in New Jersey, hotel breakfast offers in New York and Manila, and a Reddit thread about Disney World. None of the evidence pertains to the specific location (which is generic: 'Hotel room / nearby park'), the cost of groceries in the relevant (unspecified) area, or the feasibility of this specific plan. Since the evidence is generic and silent on the claims, a PASS or FAIL cannot be supported.",
+        "claims_checked": [
+          "Location: Hotel room / nearby park",
+          "Cost: €15.00",
+          "Description: Light self-catered vegan breakfast from market/grocery items"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 2,
+        "slot_name": "Hortus Botanicus",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.dehortus.nl/en/"
+        ],
+        "verdict": "FAIL",
+        "reasoning": "The slot claims a cost of €27.00, but the notes section of the same slot and the official website evidence indicate the price is approximately €13.50 for an adult. While the evidence does not explicitly list the price on the homepage, the slot's own notes contradict its 'cost' field, and the 'cost' field of €27.00 is double the standard adult rate typically found for this venue (as hinted at in the notes). More importantly, the location 'Plantage Middenlaan' is confirmed, and the opening hours '10:00 to 17:00' match the evidence exactly. However, the discrepancy in the cost field (27.00 vs 13.50) constitutes a factual error in the slot's primary data.",
+        "claims_checked": [
+          "Venue name: Hortus Botanicus",
+          "Location: Plantage Middenlaan",
+          "Opening hours: 10:00–17:00",
+          "Cost: €27.00",
+          "Ticket price: approx. €13.50 adult"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 3,
+        "slot_name": "Lunch at SOIL Vegan Café",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.soilvegancafe.com/soil-west"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms the venue name 'SOIL VEGAN CAFE WEST' and its location at 'Bilderdijkstraat 141 - OudWest, Amsterdam'. The opening hours are listed as 'MON-SAT: 12-22 hrs' and 'SUN: 12-21 hrs', which covers the requested time slot of 12:45 to 14:00 on a Sunday (2026-10-05). The evidence explicitly states it is a 'vegan restaurant'.",
+        "claims_checked": [
+          "Venue name: SOIL Vegan Café",
+          "Location: Amsterdam West",
+          "Category: Fully vegan restaurant",
+          "Opening hours: Open during 12:45 - 14:00 on Sunday"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 4,
+        "slot_name": "De Ceuvel Sustainability Site",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.iamsterdam.com/en/whats-on/calendar/eating-and-drinking/cafes-and-bars/cafe-de-ceuvel"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms the venue name ('Café de Ceuvel'), its location in Amsterdam North ('situated in Amsterdam North'), and its nature as a bohemian waterside café. While the evidence does not explicitly state a €25.00 entry fee, it is common for public-facing café/sustainability sites to have no entry fee or for the cost to represent an estimated spend on food/drinks, and the evidence does not contradict this figure. The sustainability focus is supported by the description of the site in the evidence.",
+        "claims_checked": [
+          "Venue name: De Ceuvel Sustainability Site / Café de Ceuvel",
+          "Location: Amsterdam North",
+          "Category: attraction/café",
+          "Description: circular/sustainable waterfront site",
+          "Cost: €25.00"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 5,
+        "slot_name": "Transport to Hotel",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.gvb.nl/en/prices"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims that transport via ferry, tram, or metro is included in the GVB pass. The provided evidence from the official GVB website (gvb.nl/en/prices) confirms that GVB manages these transport modes and offers various travel products (like Easy Flex and season tickets) for their network. While the specific 'GVB pass' (day pass) is not explicitly detailed in the snippet, the evidence confirms GVB's role as the operator for these services in Amsterdam and lists rates for 2026, which aligns with the travel date of October 2026.",
+        "claims_checked": [
+          "Transport mode: Ferry/tram/metro",
+          "Operator: GVB",
+          "Validity: Included in GVB pass",
+          "Date: October 2026 (rates for 2026 are available)"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 6,
+        "slot_name": "Dinner at Vegan Junk Food Bar",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.iamsterdam.com/en/whats-on/calendar/eating-and-drinking/restaurants/vegan-junk-food-bar"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms the existence of the 'Vegan Junk Food Bar' and specifically mentions the 'Marie Heinekenplein' location, which is in the De Pijp neighborhood. The evidence also supports the claim that the food is plant-based by mentioning 'snack without feeling guilty' and offering 'original burger or shawarma' in a vegan context. While the specific cost and exact closing time aren't detailed, the location and nature of the establishment match the slot's claims.",
+        "claims_checked": [
+          "Venue name: Vegan Junk Food Bar",
+          "Location: De Pijp branch",
+          "Category: Plant-based/Vegan",
+          "Menu items: Burgers/Shawarma"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 7,
+        "slot_name": "Optional Electric Canal Cruise",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.ceetiz.com/amsterdam/amsterdam-canal-cruise-on-an-open-top-boat",
+          "https://amsterdam-canal-cruises.nl/Amsterdam-125-Hour-Canal-Cruise-to-Jordaan-t9698",
+          "https://www.viator.com/tours/Amsterdam/Amsterdam-Canal-Cruise/d525-75227P1",
+          "https://bookyourtour.com/Amsterdam-l86/Amsterdam-The-Newest-Canal-Cruise-departure-Prinsengracht-t44794",
+          "https://www.canalmotorboats.com/en/boats/canal-cruise-boat/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a 1-hour electric canal cruise in Amsterdam's central canals for approximately €19.50 (as noted in the notes). Evidence from Source 1 confirms the existence of a 'one-hour cruise on the Amsterdam canals' using an 'electric boat' departing from central locations like Damrak or Leidseplein. Source 2 and 3 further confirm the use of 'quiet electric boats' for these tours. While the slot cost is listed as €39.00, the notes explicitly state that evidence was found for €19.50 pp, which is consistent with standard pricing for such tours in Amsterdam. The timing (20:15) is consistent with 'Evening (Sunset) Canal Cruise' options mentioned in Source 4.",
+        "claims_checked": [
+          "Activity: Electric canal cruise",
+          "Duration: 1 hour (20:15 to 21:15)",
+          "Location: Central canals",
+          "Cost: Approximately €19.50 per person",
+          "Feature: Low-emission/Electric boat"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 1,
+        "slot_name": "Breakfast",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.yelp.com/search?find_desc=Hotel+Breakfast&find_loc=Stuart%2C+FL",
+          "https://www.yelp.com/search?find_desc=Hotel+Breakfast&find_loc=Palm+City%2C+FL",
+          "https://www.yelp.com/search?find_desc=Breakfast+Buffet&find_loc=Stuart%2C+FL",
+          "https://www.instagram.com/reel/DWoSP99jDR7/?hl=en",
+          "https://threelittlebirdscafe.net/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot provides a generic location ('Hotel / nearby') and a general description ('Simple vegan breakfast from groceries, or choose a confirmed fully vegan café') without naming a specific venue. The provided evidence consists of search results for 'Hotel Breakfast' in various Florida locations (Stuart, Palm City, Palm Beach), but since the slot does not specify a city or hotel name, it is impossible to verify if there are vegan cafes nearby or if the €20.00 cost is accurate for that specific, unnamed area. The evidence is silent on the specific claims because the claims themselves lack a concrete geographic anchor.",
+        "claims_checked": [
+          "Location: Hotel / nearby",
+          "Cost: €20.00",
+          "Availability of fully vegan café open Tuesday",
+          "Time: 08:30 - 09:30"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 2,
+        "slot_name": "Check-out",
+        "source_type": "link",
+        "source_urls": [
+          "https://conscioushotels.com/stay/amsterdam-city"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms the hotel's name and location ('Conscious Hotel The Tire Station (Amsterdam city) is a hip eco-hotel on the Amstelveenseweg'). It also explicitly supports the sustainability claim, stating it is an 'eco-hotel' that runs 'entirely on solar and wind energy'. While the specific check-out time of 10:30 AM is not explicitly stated in the provided text snippet, the core identity and location of the venue are verified.",
+        "claims_checked": [
+          "Venue name: Conscious Hotel Amsterdam City / The Tire Station",
+          "Location: Amstelveenseweg (Amsterdam City)",
+          "Sustainability profile: Eco-hotel running on solar and wind energy",
+          "Check-out time: 09:30 - 10:30"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 3,
+        "slot_name": "Final Walk",
+        "source_type": "link",
+        "source_urls": [
+          "https://conscioushotels.com/stay/amsterdam-city"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims that Vondelpark is adjacent to the hotel area (specifically the Conscious Hotel The Tire Station/Amsterdam City). The evidence explicitly states, 'The Vondelpark is your backyard when you stay in our hotel,' and identifies the hotel's location as 'Amstelveenseweg,' which is consistent with the Oud-West/Vondelpark area mentioned in the slot.",
+        "claims_checked": [
+          "Location: Vondelpark / Oud-West",
+          "Note: Vondelpark is adjacent to hotel area (Conscious Hotel The Tire Station)"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 4,
+        "slot_name": "Lunch at SOIL Vegan Café",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.soilvegancafe.com/soil-west"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms the venue name ('SOIL VEGAN CAFE WEST'), its status as a vegan restaurant ('our vegan restaurant story began'), and its location in Amsterdam West ('Bilderdijkstraat 141 - OudWest, Amsterdam'). The opening hours for a Monday (October 6, 2026) are confirmed as starting at 12:00 ('MON-SAT: 12-22 hrs'), which aligns perfectly with the slot's start time. The evidence also confirms the availability of takeaway/delivery options ('DELIVERY' link in header).",
+        "claims_checked": [
+          "Venue name: SOIL Vegan Café",
+          "Location: Amsterdam West",
+          "Category: Fully vegan venue",
+          "Opening hours: Open at 12:00 on Mondays",
+          "Service: Takeaway/Delivery available"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 5,
+        "slot_name": "Transport to Station",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.gvb.nl/en/prices"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims that travel to Amsterdam Centraal is 'Included in GVB pass'. The provided evidence from the official GVB website (gvb.nl) confirms that GVB operates public transport in Amsterdam and lists various travel products and rates for 2026. While the specific 'GVB pass' (like a day pass) is not explicitly detailed in the snippet provided, the evidence confirms GVB's role as the transport provider with established rates for 2026, and it is a standard fact that GVB passes cover travel to Amsterdam Centraal via their tram, bus, and metro network. The evidence does not contradict the claim.",
+        "claims_checked": [
+          "Transport to Amsterdam Centraal is available.",
+          "The transport is included in a GVB pass.",
+          "GVB rates/products are applicable for the travel date in 2026."
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 6,
+        "slot_name": "Train Amsterdam Centraal → Cologne Hbf",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.nsinternational.com/en/train/cologne-amsterdam"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims a train journey from Amsterdam Centraal to Cologne Hbf with a duration of approximately 3 hours (14:00 to 17:00) and a cost of €140 for two people. The evidence confirms the existence of this route ('Cologne Central Station - Amsterdam Central Station') and states the fastest travel time is '2.37 hours', which is consistent with the 3-hour window provided. The evidence states prices start from '€ 20 one way' per person; the slot's estimate of €140 for two people (€70 each) is consistent with this 'starting from' price, especially given the slot's note that exact 2026 fares are unavailable and this is an estimate.",
+        "claims_checked": [
+          "Route: Amsterdam Centraal to Cologne Hbf",
+          "Duration: Approximately 3 hours (14:00 to 17:00)",
+          "Cost: €140.00 for 2 people",
+          "Operator/Service: NS International (via link)"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 7,
+        "slot_name": "Arrive in Cologne",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.cologne-tourism.com/service/arrival-mobility",
+          "https://www.koelnmesse.com/location-and-services/travel-and-accommodation/arrival/",
+          "https://www.cologne-bonn-airport.com/en/passengers/flights/departure-arrival.html",
+          "https://rudderlesstravel.com/visit-cologne/",
+          "https://www.facebook.com/groups/377802510617538/posts/1010494117348371/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a general arrival in Cologne at 17:00. The evidence confirms that Cologne is a major travel destination accessible by train (Köln Hbf) and air (Cologne Bonn Airport). Source 1 and 2 confirm the existence of 'Cologne's central rail station' and 'Köln Messe/Deutz station'. While the specific arrival time of 17:00 is an estimate and cannot be 'verified' as a fixed fact without a specific ticket, the existence of the destination and the feasibility of arriving there via public transport (as implied by the notes regarding rail timetables) is supported by the evidence.",
+        "claims_checked": [
+          "Location: Cologne",
+          "Arrival is possible via rail/train",
+          "Cologne has a central train station (Köln Hbf)"
+        ]
+      }
+    ],
+    "rationale_pass_count": 25,
+    "rationale_fail_count": 1,
+    "rationale_missing_count": 5,
+    "hc_micro_pass_rate": 1.0,
+    "cc_micro_pass_rate": 0.3846,
+    "hc_macro_pass_rate": 1.0,
+    "cc_macro_pass_rate": 0.0,
+    "final_pass_rate": 0.0,
+    "aggregated_constraints": [
+      {
+        "id": "HC-1",
+        "constraint_text": "origin: Cologne",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-2",
+        "constraint_text": "destination: Amsterdam",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-3",
+        "constraint_text": "travel_dates: 2026.10.03 to 2026.10.06",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-4",
+        "constraint_text": "travelers: 2 adults",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-5",
+        "constraint_text": "budget: 2000 EUR total",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-6",
+        "constraint_text": "accommodation: eco-certified hotel or sustainable guesthouse",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-7",
+        "constraint_text": "interests: vegan restaurants, sustainability, cycling, vegan markets, eco-friendly activities",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-1",
+        "constraint_text": "Car or road trip transport is not feasible for island or overseas destinations — a flight or ferry is required.",
+        "constraint_type": "commonsense",
+        "final_verdict": "FAIL",
+        "judge_verdicts": [
+          "NA",
+          "FAIL",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 2,
+        "fail_count": 1,
+        "missing_count": 0,
+        "na_count": 1
+      },
+      {
+        "id": "CC-2",
+        "constraint_text": "No key information should be left out of the plan, such as the lack of accommodation during travel.",
+        "constraint_type": "commonsense",
+        "final_verdict": "FAIL",
+        "judge_verdicts": [
+          "PASS",
+          "FAIL",
+          "PASS",
+          "FAIL"
+        ],
+        "pass_count": 2,
+        "fail_count": 2,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-3",
+        "constraint_text": "Transportation choices within the trip must be reasonable. For example, having both “self-driving” and “flight” would be considered a conflict.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "FAIL",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 3,
+        "fail_count": 1,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-4",
+        "constraint_text": "Both outbound and return transport must appear in the plan.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "FAIL",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 3,
+        "fail_count": 1,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-5",
+        "constraint_text": "Flight or train connections must allow sufficient layover time (≥60 min domestic, ≥90 min international).",
+        "constraint_type": "commonsense",
+        "final_verdict": "FAIL",
+        "judge_verdicts": [
+          "NA",
+          "FAIL",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 2,
+        "fail_count": 1,
+        "missing_count": 0,
+        "na_count": 1
+      },
+      {
+        "id": "CC-6",
+        "constraint_text": "Accommodation must be planned for every night of the trip.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "FAIL",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 3,
+        "fail_count": 1,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-7",
+        "constraint_text": "Hotel check-in must be scheduled after arrival transport reaches the destination.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "FAIL",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 3,
+        "fail_count": 1,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-8",
+        "constraint_text": "Restaurants must be open on the planned day and time.",
+        "constraint_type": "commonsense",
+        "final_verdict": "FAIL",
+        "judge_verdicts": [
+          "FAIL",
+          "FAIL",
+          "MISSING_INFO",
+          "FAIL"
+        ],
+        "pass_count": 0,
+        "fail_count": 3,
+        "missing_count": 1,
+        "na_count": 0
+      },
+      {
+        "id": "CC-9",
+        "constraint_text": "Restaurant choices should not be repeated throughout the trip.",
+        "constraint_type": "commonsense",
+        "final_verdict": "FAIL",
+        "judge_verdicts": [
+          "FAIL",
+          "FAIL",
+          "FAIL",
+          "FAIL"
+        ],
+        "pass_count": 0,
+        "fail_count": 4,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-10",
+        "constraint_text": "Activities should be geographically sensible per day (no unnecessary cross-city travel).",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "FAIL",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 3,
+        "fail_count": 1,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-11",
+        "constraint_text": "Attractions must be open on the planned day and time.",
+        "constraint_type": "commonsense",
+        "final_verdict": "FAIL",
+        "judge_verdicts": [
+          "PASS",
+          "FAIL",
+          "MISSING_INFO",
+          "PASS"
+        ],
+        "pass_count": 2,
+        "fail_count": 1,
+        "missing_count": 1,
+        "na_count": 0
+      },
+      {
+        "id": "CC-12",
+        "constraint_text": "Attraction choices should not be repeated throughout the trip.",
+        "constraint_type": "commonsense",
+        "final_verdict": "FAIL",
+        "judge_verdicts": [
+          "PASS",
+          "FAIL",
+          "FAIL",
+          "PASS"
+        ],
+        "pass_count": 2,
+        "fail_count": 2,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-13",
+        "constraint_text": "Travel time between consecutive activities must account for realistic transit duration.",
+        "constraint_type": "commonsense",
+        "final_verdict": "FAIL",
+        "judge_verdicts": [
+          "PASS",
+          "FAIL",
+          "FAIL",
+          "PASS"
+        ],
+        "pass_count": 2,
+        "fail_count": 2,
+        "missing_count": 0,
+        "na_count": 0
+      }
+    ],
+    "timestamp": "2026-05-16T19:56:38.216926+00:00"
+  }
+}

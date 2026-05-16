@@ -1,0 +1,1296 @@
+{
+  "plan_excerpt": "# TravelPlan: La Palma Dark Sky Astronomy Trip — Hamburg to La Palma, 12–19 Nov 2026\n\n| Day 1 — 2026-11-12 — Arrival: Hamburg to La Palma, transfer to Garafía | Day 2 — 2026-11-13 — Garafía orientation and first guided stargazing | Day 3 — 2026-11-14 — GR-131 high-ridge hiking and independent dark-s",
+  "judge_models": [
+    "openrouter:minimax/minimax-m2.7",
+    "openrouter:google/gemini-3-flash-preview",
+    "openrouter:deepseek/deepseek-v4-flash",
+    "openrouter:qwen/qwen3.5-397b-a17b"
+  ],
+  "timed_out_models": [],
+  "rationale_verifications": [
+    {
+      "day_index": 1,
+      "slot_position": 1,
+      "slot_name": "Flight day: Hamburg (HAM) to La Palma (SPC)",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.google.com/travel/flights?hl=en&gl=us&curr=EUR&tfs=CBwQAhoeEgoyMDI2LTExLTEyagcIARIDSEFNcgcIARIDU1BDGh4SCjIwMjYtMTEtMTlqBwgBEgNTUENyBwgBEgNIQU1AAUgBcAGYAQE&tfu=EgIIAQ"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims that flight schedules for November 2026 are not yet available and provides a price range based on typical insights. The evidence (Google Flights link) confirms the route (HAM to SPC) and the specific dates (2026-11-12 to 2026-11-19). The evidence shows 'Loading results' but fails to display specific flights, which is consistent with the slot's claim that 'no selectable carrier/timetable' is available yet for these future dates. The cost of €530 falls within the cited typical range of €310–€750.",
+      "claims_checked": [
+        "Route: Hamburg (HAM) to La Palma (SPC)",
+        "Date: 2026-11-12",
+        "Availability: No selectable carrier/timetable yet available for Nov 2026",
+        "Price range: Typical HAM–SPC return range of about €310–€750"
+      ]
+    },
+    {
+      "day_index": 1,
+      "slot_position": 2,
+      "slot_name": "Pick up rental car at La Palma Airport",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.cheapflights.com/car-rentals/santa-cruz-de-la-palma-spc/",
+        "https://www.booking.com/cars/airport/es/spc.html"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims that rental cars are available at La Palma Airport (SPC) and that compact/economy cars are a standard option. Source 1 confirms SPC has car rentals, with 'Compact' being the 'Most common car type'. The slot estimates a cost of €190 for 7 days (approx. €27/day). Source 1 lists an 'Average price per day' of $16 and Source 2 mentions 'Great cars at great prices', making the slot's €25–€30/day estimate (which includes a buffer for insurance/taxes) reasonable and consistent with the evidence of lower base rates ($7-$16). The location 'La Palma Airport (SPC)' is explicitly confirmed by both sources.",
+      "claims_checked": [
+        "Location: La Palma Airport (SPC)",
+        "Availability of compact/economy rental cars at SPC",
+        "Estimated cost: €190.00 total / €25–€30 per day",
+        "Rental car companies operate at SPC"
+      ]
+    },
+    {
+      "day_index": 1,
+      "slot_position": 3,
+      "slot_name": "Drive SPC to Garafía / Roque Faro accommodation",
+      "source_type": "link",
+      "source_urls": [
+        "https://darkskyhosting.com/visit/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims a drive time of roughly 1.5–2 hours from La Palma Airport (SPC) to the northwest/Roque Faro area. The evidence from the provided link (Source 1) states: 'From the airport, the drive to the Roque de los Muchachos area takes approximately 1 hour 45 minutes via the LP-4 road' and 'Rental car recommended. LP-4 from Santa Cruz to the ridge. 1h 45 min.' This directly supports the slot's time window of 1 hour 45 minutes (19:00 to 20:45). The location 'Roque Faro, Garafía' is consistent with the 'Roque de los Muchachos area' and 'Garafía' mentioned in the evidence as being in the northwest dark-sky zone.",
+      "claims_checked": [
+        "Drive duration from La Palma Airport (SPC) to the northwest/Roque Faro area is approximately 1.5–2 hours.",
+        "The destination is in a dark-sky area near Garafía.",
+        "The route involves steep and winding roads (implied by the 'ridge' and 'National Park' context in evidence)."
+      ]
+    },
+    {
+      "day_index": 1,
+      "slot_position": 4,
+      "slot_name": "Check in: Pension Roque Faro / dark-sky Garafía lodging",
+      "source_type": "link",
+      "source_urls": [
+        "https://darkskyhosting.com/visit/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims that Garafía/Roque Faro is a rural area close to the observatory with low light pollution and suggests 'Dark Sky Hosting' as an alternative for rural properties in Garafía/Puntagorda. The evidence from darkskyhosting.com confirms that the facility is in a 'protected dark-sky zone on La Palma' and specifically mentions that 'The area around Garafía and El Paso has a wide selection of rural accommodation' and that 'Punta Gorda' is one of the 'nearest municipalities to the hosting facility'. While the evidence does not explicitly name 'Pension Roque Faro', the slot's notes acknowledge it as a specific choice and provide the Dark Sky Hosting link as a fallback/reference for the area, which the evidence supports as a viable lodging region for observatory visitors.",
+      "claims_checked": [
+        "Location: Pension Roque Faro, Calle Roque Faro, 38788 Garafía, La Palma",
+        "Garafía is a rural area close to Roque de los Muchachos with low light pollution",
+        "Dark Sky Hosting provides/recommends rural properties in Garafía/Puntagorda",
+        "Estimated cost: €65/night"
+      ]
+    },
+    {
+      "day_index": 1,
+      "slot_position": 5,
+      "slot_name": "Late simple dinner / self-catered supplies",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.cntraveller.com/gallery/canary-islands",
+        "https://upload.wikimedia.org/wikipedia/commons/d/d9/Madeira_and_the_Canary_Islands_(electronic_resource)_-_a_practical_and_complete_guide_for_the_use_of_invalids_and_tourists_(IA_b21460395).pdf",
+        "https://canaryislandsinfo.co.uk/fuerteventura/places/corralejo/",
+        "https://randomtrip.net/la-palma-travel-guide/",
+        "https://www.tripadvisor.com/Attraction_Review-g187475-d1735427-Reviews-or10-Roque_de_Los_Muchachos-La_Palma_Canary_Islands.html"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence consists of general travel guides for the Canary Islands and TripAdvisor reviews for Roque de los Muchachos. None of the sources mention specific grocery stores, restaurants, or opening hours in the village of Roque Faro or the municipality of Garafía. While Source 4 mentions La Palma's 'stellar pride' for stargazing (consistent with the slot's notes), there is no specific information to verify the availability of a 'simple dinner' or 'self-catered supplies' at 21:30 in that specific location.",
+      "claims_checked": [
+        "Location: Roque Faro / Garafía",
+        "Availability of groceries or light meal at 21:30",
+        "Claim that several Garafía restaurants close early",
+        "Cost: €15.00"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 1,
+      "slot_name": "Breakfast at lodging",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.tripadvisor.com/Hotel_Review-g1745331-d2686181-Reviews-Pension_Roque_Faro-Garafia_La_Palma_Canary_Islands.html",
+        "https://www.tripadvisor.com/HotelsList-La_Palma-Romantic-Bed-And-Breakfast-zfp31604404.html",
+        "https://www.letsbookhotel.com/en/spain/garafia/hotel/pension-roque-faro.aspx",
+        "https://www.tripadvisor.com/Hotels-g1745331-Garafia_La_Palma_Canary_Islands-Hotels.html",
+        "https://www.tripadvisor.co.uk/HotelsNear-g1027109-d3500496-Charco_Azul-San_Andres_y_Sauces_La_Palma_Canary_Islands.html"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms that Pensión Roque Faro is a lodging establishment located in Garafía (Source 3, 5). Source 1 explicitly mentions that breakfast is available for a 'few euros extra' in a communal dining area, which is consistent with the slot's claim of a breakfast meal at the lodging for €8.00.",
+      "claims_checked": [
+        "Venue name: Pension Roque Faro",
+        "Location: Garafía",
+        "Category: meal (breakfast)",
+        "Cost: €8.00",
+        "Availability of breakfast at the lodging"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 2,
+      "slot_name": "Garafía / Puntagorda orientation and supplies",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://en.wikipedia.org/wiki/Garaf%C3%ADa",
+        "https://visitlapalma.es/en/municipality/garafia/",
+        "https://la-palma-fincas.com/en/holiday-home-fincas/garafia/",
+        "https://caminosnaturales.es/en/red-de-caminos-naturales/camino-detalle/sector-canario/la-palma/gr130-etapa4",
+        "https://www.getyourguide.com/garafia-l158945/ttd/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms that Garafía and Puntagorda are municipalities located in the northwest of La Palma (Source 1, 2, 4). Source 3 identifies Santo Domingo as the administrative center of Garafía with a 'typical plaza in the center,' supporting the idea of it being a village hub. Source 5 explicitly mentions 'Puntagorda's Farmer's Market,' which supports the claim that these locations are suitable for obtaining supplies like groceries and snacks. The description of the area as having 'steep streets' and 'ravines' (Source 3, 4) is consistent with the slot's note about acclimating to the roads.",
+      "claims_checked": [
+        "Garafía and Puntagorda are located in the northwest of La Palma.",
+        "Garafía and Puntagorda are villages/municipalities where supplies (groceries, snacks) can be obtained.",
+        "The area is suitable for a morning drive to acclimate to local roads."
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 3,
+      "slot_name": "Lunch: Restaurante Jardin De Los Naranjos",
+      "source_type": "link",
+      "source_urls": [
+        "https://maps.google.com/?cid=3715436364605142808&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provided a Google Maps link, but no content was retrieved from that link or any other source. Therefore, there is no evidence available to verify the venue's name, location, opening hours, or price point.",
+      "claims_checked": [
+        "Venue name: Restaurante Jardin De Los Naranjos",
+        "Location: Cno. el Pinar, 33, 38789 Puntagorda",
+        "Cuisine: Canarian/Spanish",
+        "Opening hours: Open Friday lunch",
+        "Cost: €22.00"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 4,
+      "slot_name": "Rest and astronomy preparation",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.directhotels.com/Garafia/Pension_Roque_Faro",
+        "https://www.tripadvisor.com/Hotel_Review-g1745331-d2686181-Reviews-Pension_Roque_Faro-Garafia_La_Palma_Canary_Islands.html",
+        "https://press.uchicago.edu/books/hoc/HOC_V3_Pt1/HOC_VOLUME3_Part1_chapter38.pdf",
+        "https://www.facebook.com/groups/822920533823484/posts/875202191928651/",
+        "https://www.govinfo.gov/content/pkg/GOVPUB-D301-PURL-gpo129589/pdf/GOVPUB-D301-PURL-gpo129589.pdf"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a rest period at 'Pension Roque Faro' in preparation for astronomy at the summit. Evidence Source 1 and 2 confirm that 'Pension Roque Faro' is a real accommodation located in Garafia, Spain, and Source 1 specifically notes its proximity to the 'Roque de los Muchachos Observatory' (3.94km), supporting the logic of using this location for astronomy preparation. While the specific temperature claim (0–5°C) for November is not explicitly detailed in the search results, it is a standard environmental condition for high-altitude observatories in winter, and the primary verifiable entity (the venue) is confirmed.",
+      "claims_checked": [
+        "Venue name: Pension Roque Faro",
+        "Location: Garafia, Spain (near Roque de los Muchachos Observatory)",
+        "Category: Leisure/Rest",
+        "Proximity to astronomy sites: ~4km from major telescopes"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 5,
+      "slot_name": "Early dinner: Restaurante El Bernegal",
+      "source_type": "link",
+      "source_urls": [
+        "https://maps.google.com/?cid=6327219174245237399&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provided a Google Maps link, but no evidence was retrieved from that link or any other source. Therefore, the claims regarding the restaurant's existence, location, and operating hours cannot be verified against the provided evidence.",
+      "claims_checked": [
+        "Venue name: Restaurante El Bernegal",
+        "Location: C. Díaz y Suárez, 5, 38787 Santo Domingo, Garafía",
+        "Category: meal",
+        "Operating hours: often closes around 17:00"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 6,
+      "slot_name": "Guided deep-sky observation with StArt La Palma",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.google.com/maps/search/StArt+La+Palma"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provides a Google Maps search link for 'StArt La Palma', but no evidence was retrieved from this link or any other source. Therefore, the claims regarding the operator name, the specific viewpoints (Llano del Jable/Mendo), the cost of €60.00, and the specific nature of the tour cannot be verified or contradicted.",
+      "claims_checked": [
+        "Operator name: StArt La Palma",
+        "Activity: Guided deep-sky observation with telescope",
+        "Location: Dark-sky viewpoint such as Llano del Jable or Mendo",
+        "Cost: €60.00",
+        "Duration: 20:30 to 00:00"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 1,
+      "slot_name": "Breakfast and pack hiking kit",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.tripadvisor.com/Hotel_Review-g1745331-d2686181-Reviews-Pension_Roque_Faro-Garafia_La_Palma_Canary_Islands.html",
+        "https://stevebarhamramblingman.com/category/canaries-gr131/",
+        "https://bowlandclimber.com/tag/gr131/",
+        "https://www.facebook.com/groups/tenerifehikingcommunity/posts/3763726403907769/",
+        "https://conferences.au.dk/fileadmin/explore-travel-guides-r.pdf"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims that Pension Roque Faro offers breakfast for a cost (estimated at €8.00). Source 1 explicitly confirms that the pension offers breakfast for a 'few euros extra' in a communal dining area. The location 'Pension Roque Faro' is a real establishment in Garafia, La Palma (Source 1). The mention of the GR-131 trail in the notes is consistent with the geography of La Palma and the pension's location (Source 3). While the specific price of €8.00 is not explicitly stated as a fixed number, it is consistent with the description of 'a few euros extra' for a budget pension breakfast.",
+      "claims_checked": [
+        "Venue name: Pension Roque Faro",
+        "Location: Garafia, La Palma",
+        "Service: Offers breakfast",
+        "Cost: Approximately €8.00",
+        "Context: Proximity to GR-131 trail"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 2,
+      "slot_name": "Drive to Roque de los Muchachos trailhead",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.google.com/maps/search/Roque+de+Los+Muchachos+Astrophysical+Observatory"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provides a link to a Google Maps search for 'Roque de Los Muchachos Astrophysical Observatory', but no evidence was retrieved from this link or any other source. Therefore, the claims regarding the travel time (25–30 minutes) and the distance between Roque Faro and Roque de los Muchachos cannot be verified or contradicted.",
+      "claims_checked": [
+        "Travel time from Roque Faro to Roque de los Muchachos is approximately 25–30 minutes.",
+        "The route involves mountain/slow roads.",
+        "The destination is the Roque de los Muchachos area/observatory visitor area."
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 3,
+      "slot_name": "Hike GR-131 ridge: Roque de los Muchachos section",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.alltrails.com/trail/spain/la-palma/roque-de-los-muchachos",
+        "https://www.wikiloc.com/hiking-trails/la-palma-gr-131-mirador-el-time-roque-de-los-muchachos-25339489"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provided two specific links (AllTrails and Wikiloc) to verify the hiking trail details, but no evidence was retrieved from these links or any other source. Therefore, the claims regarding the trail's location, cost, and specific characteristics cannot be verified against the provided evidence.",
+      "claims_checked": [
+        "The hike is located on the GR-131 ridge at Roque de los Muchachos, La Palma.",
+        "The trail access is free (€0.00).",
+        "The hike features high-altitude terrain on the caldera rim.",
+        "The hike offers crater views and volcanic ridge terrain."
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 4,
+      "slot_name": "Picnic lunch at viewpoint",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.gintravels.com/2018/09/25/4tb-day-in-la-palma-el-roque-de-los-muchachos/",
+        "https://www.getyourguide.com/la-palma-l417/food-drinks-tc103/",
+        "https://www.getyourguide.com/en-au/la-palma-l417/la-palma-roque-de-los-muchachos-stargazing-tour-with-wine-t428879/",
+        "https://www.facebook.com/groups/lapalmatraveltips/posts/923545466518558/",
+        "https://lapalmastars.com/en/roque-de-los-muchachos/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a picnic lunch at the Roque de los Muchachos viewpoint area. The evidence confirms that Roque de los Muchachos is a high point and viewpoint within the Caldera de Taburiente National Park (Source 5: 'The Roque de Los Muchachos is part of the National Park Caldera de Taburiente... You can also simply enjoy the views'). Source 4 confirms it is a 'high point' with 'views'. While the evidence does not explicitly mention a designated picnic table, the slot's description specifies it is a 'packed lunch' to 'avoid relying on summit food options,' which is a logical traveler's plan for a remote natural viewpoint. The cost (€12) is a reasonable estimate for a self-provided packed meal and does not contradict the nature of a public viewpoint area.",
+      "claims_checked": [
+        "Location: Roque de los Muchachos viewpoint area",
+        "Category: meal (packed lunch)",
+        "Context: Lack of summit food options (implied by 'avoid relying on')",
+        "Cost: €12.00"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 5,
+      "slot_name": "Return drive and recovery rest",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.islabonitatours.com/en/ruta/uncategorized/roque-de-los-muchachos/",
+        "https://www.tripadvisor.com/AttractionProductReview-g659966-d18910083-Roque_de_Los_Muchachos_Route_Price_per_vehicle_not_per_person-Playa_De_Los_Cancajo.html",
+        "https://www.instagram.com/reel/DRNC8zHj79d/",
+        "https://www.tripadvisor.com/Attractions-g189116-Activities-c59-oa30-Faro_Faro_District_Algarve.html",
+        "https://moovitapp.com/index/en/public_transit-Rocque_De_Los_Muchachos-La_Palma-site_11205393-3380"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence confirms that Roque de los Muchachos is the highest point on La Palma (Source 1, 2) and that there are roads and bus routes in the area (Source 1, 5). However, the evidence contains no information regarding the specific route, distance, or travel time between 'Roque de los Muchachos' and 'Roque Faro'. Therefore, I cannot verify if the 1 hour and 45 minute time window (14:15 to 16:00) is accurate for this drive and rest period.",
+      "claims_checked": [
+        "Location: Roque de los Muchachos to Roque Faro",
+        "Time window: 14:15 to 16:00 (1 hour 45 minutes)",
+        "Context: High-altitude location (Roque de los Muchachos)"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 6,
+      "slot_name": "Dinner: Ristorante Ancora, Puntagorda",
+      "source_type": "link",
+      "source_urls": [
+        "https://maps.google.com/?cid=7752260034176521781&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provided a Google Maps link as evidence, but no content was retrieved from that link or any other source. Therefore, there is no evidence available to verify the existence, location, or opening hours of the restaurant.",
+      "claims_checked": [
+        "Venue name: Ristorante Ancora",
+        "Location: Ctra. General nº 26, 38789 Puntagorda",
+        "Open Saturday afternoon/evening",
+        "Category: meal",
+        "Cost: €25.00"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 7,
+      "slot_name": "Independent stargazing near accommodation",
+      "source_type": "link",
+      "source_urls": [
+        "https://darkskyhosting.com/visit/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes an independent stargazing session in the Roque Faro / Garafía dark-sky area. The evidence confirms that the facility is located in a 'protected dark-sky zone on La Palma' and specifically mentions that 'The area around Garafía... has a wide selection of rural accommodation' and that 'The nearest municipalities to the hosting facility are Tijarafe and Punta Gorda'. This supports the claim that the Garafía area is a dark-sky location suitable for stargazing near local lodging. The cost of €0.00 is consistent with an 'independent' session (not a tour).",
+      "claims_checked": [
+        "Location: Roque Faro / Garafía is a dark-sky area",
+        "Stargazing can be done near accommodation in the Garafía area",
+        "Cost: €0.00 (Independent activity)"
+      ]
+    },
+    {
+      "day_index": 4,
+      "slot_position": 1,
+      "slot_name": "Breakfast at lodging",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.tripadvisor.com/Hotel_Review-g1745331-d2686181-Reviews-Pension_Roque_Faro-Garafia_La_Palma_Canary_Islands.html",
+        "https://www.instagram.com/p/DXkvBXkGJ3I/",
+        "https://www.letsbookhotel.com/en/spain/garafia/hotel/pension-roque-faro.aspx",
+        "https://es.hoteles.com/ho3554657824/",
+        "https://oecd.github.io/OECD-covid-action-map/data/CoronavirusUpdate_AllCountries_Public.xlsx"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms that Pensión Roque Faro is a lodging establishment in Garafía (Source 3) that offers breakfast for an additional fee (Source 1). Source 1 specifically mentions it is 'worth paying the few euros extra for breakfast,' which is consistent with the €8.00 cost claim. While the specific altitude of 2,300m refers to the nearby Roque de los Muchachos Observatory (the destination mentioned in the description), the existence of the venue and the availability of breakfast are supported.",
+      "claims_checked": [
+        "Venue name: Pension Roque Faro",
+        "Location: Garafía, Spain",
+        "Category: Meal/Lodging",
+        "Cost: €8.00",
+        "Service: Breakfast available at the lodging"
+      ]
+    },
+    {
+      "day_index": 4,
+      "slot_position": 2,
+      "slot_name": "Drive to Roque de los Muchachos Observatory",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.google.com/maps/search/Roque+de+Los+Muchachos+Astrophysical+Observatory"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provided a Google Maps search link, but no content was retrieved from the evidence source. Therefore, there is no factual information available to verify the claims regarding the driving duration, the lack of public transport, or the timing of tours.",
+      "claims_checked": [
+        "Location: Roque Faro to Observatorio Roque de los Muchachos",
+        "Travel time: 1 hour (08:15 to 09:15)",
+        "No public transport reaches the summit",
+        "Rental car is essential",
+        "Tours are morning-only and pre-booked"
+      ]
+    },
+    {
+      "day_index": 4,
+      "slot_position": 3,
+      "slot_name": "Pre-booked Roque de los Muchachos Observatory visit",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.canaryliveexperience.com/en/en-visit-observatory-roque-de-los-muchachos/",
+        "https://clubcanary.com/roque-de-los-muchachos-observatory-la-palma-guide/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence from the provided links supports all verifiable claims. The location is confirmed as the Roque de los Muchachos Observatory. The duration of 1 hour and 45 minutes matches the slot's time window (09:30 to 11:15). The requirement for advance reservation for interior access and the fact that telescope assignment is operational and not guaranteed are explicitly stated. The notes regarding ID, weather/technical cancellations, and the common inclusion of the GTC are also supported by the text.",
+      "claims_checked": [
+        "Venue name: Roque de los Muchachos Observatory",
+        "Location: Garafía / Roque de los Muchachos",
+        "Duration: 1 hour and 45 minutes",
+        "Interior access requires advance reservation",
+        "Telescope assignment is operational and cannot be guaranteed",
+        "GTC is a commonly featured telescope",
+        "Requirement to bring ID",
+        "Subject to weather/technical cancellation"
+      ]
+    },
+    {
+      "day_index": 4,
+      "slot_position": 4,
+      "slot_name": "Roque de los Muchachos Visitor Centre",
+      "source_type": "link",
+      "source_urls": [
+        "https://en.la-palma.travel/point-of-interest/centro-de-visitantes-roque-de-los-muchachos-visitors-centre/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms the venue name ('Visitor centre Centro de Visitantes Roque de Los Muchachos'), the location ('LP-4' in 'Garafía'), and the winter opening hours ('open daily from 10:00 to 16:00 in winter'). The description of exhibits regarding the observatory and astronomy is supported by the text 'This specialised tourist centre pays tribute to the astrophysical observatory of La Palma'. While the specific cost of €15.00 is not explicitly mentioned in the snippet, the other verifiable claims match the source provided.",
+      "claims_checked": [
+        "Venue name: Roque de los Muchachos Visitor Centre",
+        "Location: LP-4, Garafía",
+        "Winter hours: 10:00–16:00",
+        "Exhibits: La Palma’s Sky Law and professional astronomy",
+        "Cost: €15.00"
+      ]
+    },
+    {
+      "day_index": 4,
+      "slot_position": 5,
+      "slot_name": "Lunch: Restaurante El Bernegal",
+      "source_type": "link",
+      "source_urls": [
+        "https://maps.google.com/?cid=6327219174245237399&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provided a Google Maps link, but no evidence was retrieved from that link or any other source. Therefore, there is no factual data available to verify the venue's name, location, operating hours, or pricing.",
+      "claims_checked": [
+        "Venue name: Restaurante El Bernegal",
+        "Location: C. Díaz y Suárez, 5, 38787 Santo Domingo, Garafía",
+        "Category: meal",
+        "Cuisine: Traditional Canarian",
+        "Operating hours: Open for Sunday lunch (2026-11-15 is a Sunday)"
+      ]
+    },
+    {
+      "day_index": 4,
+      "slot_position": 6,
+      "slot_name": "Rest and sunset at a safe viewpoint",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://visitlapalma.es/en/mountain-running-routes/la-palma/roque-del-faro/",
+        "https://en.la-palma.travel/miradores-viewpoints-canary-island-la-palma/",
+        "https://www.alltrails.com/spain/la-palma/garafia/views",
+        "https://randomtrip.net/canary-islands-travel-guide/",
+        "https://www.facebook.com/groups/2035747366524855/posts/8196281327138064/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims the existence of viewpoints in the Garafía / Roque Faro area suitable for sunset viewing. Source 1 confirms 'Roque Faro' is a location within 'Villa de Garafía'. Source 2 explicitly mentions 'miradores' (viewpoints) located along the street system in La Palma, specifically listing 'puerto-de-santo-domingo-garafia-roque' as a location for views. Source 5 confirms that viewpoints in the region are 'popular spot[s] for photographing sunsets'. The cost of €0.00 is consistent with public roadside viewpoints described in Source 2. The note regarding telescope areas is consistent with the general knowledge of the Roque de los Muchachos Observatory being in the Garafía heights, though the evidence focuses on the existence of the viewpoints themselves.",
+      "claims_checked": [
+        "Location: Garafía / Roque Faro viewpoints",
+        "Category: leisure/viewpoint",
+        "Cost: €0.00",
+        "Suitability for sunset viewing"
+      ]
+    },
+    {
+      "day_index": 4,
+      "slot_position": 7,
+      "slot_name": "Dinner: Restaurante Jardin De Los Naranjos",
+      "source_type": "link",
+      "source_urls": [
+        "https://maps.google.com/?cid=3715436364605142808&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provided a Google Maps link, but no evidence was retrieved from that link or any other source. Therefore, the claims regarding the restaurant's existence, location (Cno. el Pinar, 33, 38789 Puntagorda), and Sunday opening hours cannot be verified.",
+      "claims_checked": [
+        "Venue name: Restaurante Jardin De Los Naranjos",
+        "Location: Cno. el Pinar, 33, 38789 Puntagorda",
+        "Opening hours: Open on Sunday (2026-11-15) during the 19:00-20:15 window"
+      ]
+    },
+    {
+      "day_index": 4,
+      "slot_position": 8,
+      "slot_name": "Short Milky Way / deep-sky check near lodging",
+      "source_type": "link",
+      "source_urls": [
+        "https://darkskyhosting.com/visit/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes an 'independent observing' activity near the user's lodging in the Roque Faro / Garafía area. The evidence confirms that Garafía is a 'protected dark-sky zone' and mentions that 'The area around Garafía... has a wide selection of rural accommodation' suitable for 'multi-session observing runs.' While the specific link provided is for a private facility that requires an NDA for access, the slot itself specifies 'independent observing close to the accommodation' rather than a visit to that specific facility, which is consistent with the evidence describing the region as a dark-sky area with nearby lodging for observers.",
+      "claims_checked": [
+        "Location: Roque Faro / Garafía is a dark-sky area.",
+        "Category: Attraction (independent observing).",
+        "Cost: €0.00 (independent activity).",
+        "Context: Area is suitable for observing near lodging."
+      ]
+    },
+    {
+      "day_index": 5,
+      "slot_position": 1,
+      "slot_name": "Breakfast and Caldera hiking safety check",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.tripadvisor.com/HotelsList-La_Palma-Romantic-Bed-And-Breakfast-zfp31604404.html",
+        "https://www.tripadvisor.com/Hotel_Review-g1745331-d2686181-Reviews-Pension_Roque_Faro-Garafia_La_Palma_Canary_Islands.html",
+        "https://www.booking.com/city/es/fuencaliente-de-la-palma.en-gb.html",
+        "https://www.facebook.com/groups/2610471662416174/posts/3898013066995354/",
+        "http://www.katanne.co.uk/id3.html"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms that 'Pension Roque Faro' is a legitimate accommodation (Bed and Breakfast) located in Garafia, La Palma (Source 1, 2). While the specific price of €8.00 for breakfast is not explicitly stated in the snippets, the existence of the venue as a pension/B&B supports the claim of a breakfast slot at this location. The safety notes regarding flash floods in Barranco de las Angustias are standard safety protocols for Caldera de Taburiente, though the search results provided are generic. Since the core verifiable claim (the existence and location of Pension Roque Faro) is confirmed and nothing contradicts the price or timing, it passes based on the available evidence.",
+      "claims_checked": [
+        "Venue name: Pension Roque Faro",
+        "Location: Garafia, La Palma",
+        "Category: Meal/Accommodation (Bed and Breakfast)",
+        "Safety note: Flash-flood risk in Barranco de las Angustias"
+      ]
+    },
+    {
+      "day_index": 5,
+      "slot_position": 2,
+      "slot_name": "Drive to Caldera de Taburiente access area",
+      "source_type": "link",
+      "source_urls": [
+        "https://visitlapalma.es/en/hiking/la-palma/caldera-de-taburiente/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a drive from Garafía to the Caldera de Taburiente access area (specifically mentioning Los Llanos and Barranco de las Angustias) and notes the existence of a shuttle/taxi service from Los Brecitos. The evidence confirms that the Caldera de Taburiente National Park can be accessed via the 'Mirador de Los Brecitos viewing point' and exited through the 'Las Angustias ravine'. It also confirms the existence of a 'parking area' at the exit (Lomo de Los Caballos). While the evidence does not provide specific driving durations from Garafía, the slot's description of 'generous mountain-road time' (1.5 hours) is a reasonable planning estimate for La Palma's terrain and is not contradicted. The mention of the Los Brecitos shuttle in the notes is consistent with the evidence identifying Los Brecitos as a primary entry point for the trek.",
+      "claims_checked": [
+        "Access to Caldera de Taburiente via Los Brecitos",
+        "Access/Exit via Barranco de las Angustias",
+        "Location near Los Llanos",
+        "Availability of parking at the access/exit area",
+        "Existence of a shuttle/taxi option for Los Brecitos"
+      ]
+    },
+    {
+      "day_index": 5,
+      "slot_position": 3,
+      "slot_name": "Guided or self-guided Caldera de Taburiente hike",
+      "source_type": "link",
+      "source_urls": [
+        "https://visitlapalma.es/en/hiking/la-palma/caldera-de-taburiente/",
+        "https://www.senderosdelapalma.es/en/nature-la-palma/parque-nacional-de-la-caldera-de-taburiente/planning-your-visit/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot's claims are well-supported by the provided evidence. The location (Caldera de Taburiente / Barranco de las Angustias) is the primary subject of both sources. The description of the 'classic' route (Los Brecitos to Barranco de las Angustias) is explicitly mentioned in Source 1 ('excursion to enter the park via Mirador de Los Brecitos... and exit it subsequently through the Las Angustias ravine'). The notes regarding permits (mainly for camping) and the free nature of daylight hiking are supported by Source 2, which mentions 'permissions of camped' and lists access points without mentioning entry fees. The logistics of parking and shuttles (taxis) at the bottom of the ravine are confirmed by Source 2 ('four-wheel drive taxi which you will find at the bottom of the Barranco de las Angustias'). The cost of €20.00 is a reasonable estimate for the taxi shuttle service mentioned in Source 2, although the exact current price isn't explicitly stated, it aligns with standard local shuttle rates for this specific route.",
+      "claims_checked": [
+        "Location: Caldera de Taburiente National Park / Barranco de las Angustias",
+        "Route: Classic Caldera/Barranco de las Angustias landscape",
+        "Route features: Dos Aguas and Cascada de Colores detour",
+        "Operator: Senderismo La Palma is a hiking operator",
+        "Permits: Mainly for camping or restricted parking; daylight hiking is free",
+        "Logistics: Parking/shuttle logistics at Barranco de las Angustias"
+      ]
+    },
+    {
+      "day_index": 5,
+      "slot_position": 4,
+      "slot_name": "Packed trail lunch",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.cicerone.co.uk/hiking-the-gr130-and-gr131-trails-across-la-palma?srsltid=AfmBOorEIkcoyudMDqfGZSc25-u_TZ8sVm0x_u257rAvpvDf3Nffo0M1",
+        "https://tortoiseandhareontour.com/hiking-in-the-caldera-de-taburiente-lp13/",
+        "https://www.islabonitatours.com/en/ruta/hikes/caldera-de-taburiente/",
+        "https://visitlapalma.es/en/hiking/la-palma/caldera-de-taburiente/",
+        "https://www.facebook.com/groups/149165503014287/posts/337343787529790/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms that Los Llanos is the 'gateway to the Caldera de Taburiente' (Source 1) and that the park is a major hiking destination with trails like the LP13 (Source 2, 4). Source 2 mentions that hikers typically start at Los Brecitos and walk down to a campsite at the bottom, supporting the claim that this is a remote trail environment. The note regarding the lack of food availability inside the park is consistent with the description of it as a 'National Park' and 'canyon-like valley' where visitors must hike in and out (Source 1, 4). While the specific cost of €12.00 for a packed lunch is not explicitly listed, it is a reasonable estimate for a meal in the region, and no evidence contradicts the feasibility of this slot.",
+      "claims_checked": [
+        "Location: Caldera de Taburiente / Los Llanos area",
+        "Category: meal (packed trail lunch)",
+        "Note: Do not rely on food availability inside the park"
+      ]
+    },
+    {
+      "day_index": 5,
+      "slot_position": 5,
+      "slot_name": "Drive back via Los Llanos / west coast",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.rome2rio.com/s/Los-Llanos-de-Aridane/Garaf%C3%ADa",
+        "https://kristofberg.medium.com/the-major-trails-to-explore-la-palma-ac617a2ff0d2",
+        "https://moovitapp.com/index/en/public_transit-Rocque_De_Los_Muchachos-La_Palma-site_11205393-3380",
+        "https://tripswithrosie.com/things-to-do-in-la-palma-island-canarias/",
+        "https://www.tripadvisor.co.uk/AttractionProductReview-g187475-d21280995-Downtown_Route_Price_per_Vehicle_not_per_person-La_Palma_Canary_Islands.html"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a drive from Los Llanos to Garafía (Roque Faro) via the west coast with a duration of 1 hour and 30 minutes. Evidence from Rome2rio (Source 1) indicates that the 'quickest way' (driving) between Los Llanos de Aridane and Garafía takes 'just 47 mins'. Since the slot allocates 90 minutes (15:00 to 16:30) for this journey, the claim is consistent with and supported by the evidence, as 90 minutes comfortably covers the 47-minute direct driving time while allowing for the 'rest stop' mentioned in the description.",
+      "claims_checked": [
+        "Route: Los Llanos to Roque Faro / Garafía",
+        "Travel time: 1 hour 30 minutes (15:00 to 16:30)",
+        "Transport mode: Drive"
+      ]
+    },
+    {
+      "day_index": 5,
+      "slot_position": 6,
+      "slot_name": "Dinner: Kiosco 7, Los Llanos de Aridane",
+      "source_type": "link",
+      "source_urls": [
+        "https://maps.google.com/?cid=1814894288748744626&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provided a Google Maps link as evidence, but no content was retrieved from that link or any other source. Therefore, there is no evidence available to verify the venue's existence, address, or opening hours.",
+      "claims_checked": [
+        "Venue name: Kiosco 7",
+        "Location: Calle Manuela Sotomayor, 16, 36, 38769 Los Llanos",
+        "Opening hours: Monday 13:00–20:00",
+        "Cuisine: Canarian/Spanish"
+      ]
+    },
+    {
+      "day_index": 5,
+      "slot_position": 7,
+      "slot_name": "Recovery night / weather buffer for stars",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.weatherapi.com/",
+        "https://www.accuweather.com/en/pt/lagos/273204/astronomy-weather/273204",
+        "https://bellasboldadventures.com/roque-de-los-muchachos-stargazing-above-the-clouds-at-one-of-the-worlds-best-observatories-a-celestial-highlight/",
+        "https://www.accuweather.com/en/ph/manila/264885/astronomy-weather/264885",
+        "https://www.accuweather.com/en/us/santa-fe/87501/astronomy-weather/329558"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a flexible 'recovery night' or 'weather buffer' for stargazing in Roque Faro / Garafía. Evidence Source 3 confirms that this region (specifically Roque de los Muchachos in Garafía, La Palma) is 'one of the absolute best places on Earth for stargazing' and notes that 'most nights, clouds drift below the observatory,' supporting the concept of a sky check in this specific location. The other claims (cost of €0, time window, and the nature of it being a 'recovery' activity) are logistical or subjective planning choices that do not conflict with the geographical evidence provided.",
+      "claims_checked": [
+        "Location: Roque Faro / Garafía",
+        "Activity: Stargazing/Sky check",
+        "Cost: €0.00",
+        "Context: Area is suitable for viewing stars"
+      ]
+    },
+    {
+      "day_index": 6,
+      "slot_position": 1,
+      "slot_name": "Late breakfast after hiking recovery",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://bookretreats.com/s/wellness-retreats/rehab-retreats/andalusia",
+        "https://issuu.com/ramblersholidays/docs/rwh_brochure_2023_single-pages_medium",
+        "https://www.facebook.com/groups/vegfoodgoa/posts/2632902247059626/",
+        "https://faculty.utrgv.edu/robert.schweller/CS2380/notes/bst2/dictionary.txt",
+        "https://hendrix-cs.github.io/csci150/data/english3.txt"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence consists of generic search results for wellness retreats in Andalusia/Portugal, a Facebook post about a brunch spot in Goa, and dictionary word lists. None of the search results contain information regarding a venue named 'Pension Roque Faro' or its breakfast offerings, pricing, or location. Therefore, there is no evidence to confirm or deny the claims made in the slot.",
+      "claims_checked": [
+        "Venue name: Pension Roque Faro",
+        "Category: meal",
+        "Cost: €8.00",
+        "Activity: Late breakfast"
+      ]
+    },
+    {
+      "day_index": 6,
+      "slot_position": 2,
+      "slot_name": "Puntagorda market area / rural dark-sky downtime",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://visitlapalma.es/en/shopping/la-palma/puntagorda-market/",
+        "https://canarycompany.com/holiday-in-puntagorda/",
+        "https://www.tripadvisor.com/Attractions-g1185060-Activities-Puntagorda_La_Palma_Canary_Islands.html",
+        "https://visitlapalma.es/en/municipality/puntagorda/",
+        "https://www.lapalma.de/en/Municipality-Puntagorda"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a leisure visit to the Puntagorda market area and rural downtime in the Puntagorda/Garafía region. Evidence from Source 1 and 3 confirms the existence of the 'Puntagorda Market' (Mercadillo del Agricultor de Puntagorda) and its location next to the El Fayal forest. Source 2 and 5 support the 'rural downtime' aspect, describing the area as 'surrounded by nature, tranquility' and 'ideal for short hikes on paths that are not too steep,' which aligns with the slot's description of a 'light local day' rather than a 'strenuous hike.' While the specific date (Nov 17, 2026) is in the future, the general availability of these leisure activities in the specified location is well-supported.",
+      "claims_checked": [
+        "Existence of a market area in Puntagorda",
+        "Location: Puntagorda / Garafía",
+        "Suitability for leisure/non-strenuous activity",
+        "Rural/nature-oriented setting"
+      ]
+    },
+    {
+      "day_index": 6,
+      "slot_position": 3,
+      "slot_name": "Lunch: Jardin De Los Naranjos or self-catered alternative",
+      "source_type": "link",
+      "source_urls": [
+        "https://maps.google.com/?cid=3715436364605142808&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provides a Google Maps link as a reference, but no evidence was retrieved from that link or any other source. Therefore, the existence, location, and operating hours of 'Jardin De Los Naranjos' cannot be verified against the provided information.",
+      "claims_checked": [
+        "Venue name: Jardin De Los Naranjos",
+        "Location: Puntagorda / Garafía",
+        "Potential closure on Tuesday",
+        "Cost: €20.00"
+      ]
+    },
+    {
+      "day_index": 6,
+      "slot_position": 4,
+      "slot_name": "Drive toward Llano del Jable astronomical viewpoint",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.google.com/maps/search/Mirador+Astronómico+del+Llano+del+Jable"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provides a Google Maps search link as its primary source, but no content was retrieved from this link or any other source. Therefore, there is no evidence available to verify the location, travel time, or the specific safety advice regarding the volcanic roads.",
+      "claims_checked": [
+        "Location: Garafía/Puntagorda to Mirador Astronómico del Llano del Jable",
+        "Travel time: 1.5 hours (17:00 to 18:30)",
+        "Cost: €0.00",
+        "Road conditions: Unfamiliar volcanic roads"
+      ]
+    },
+    {
+      "day_index": 6,
+      "slot_position": 5,
+      "slot_name": "Early dinner/picnic before observing",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.yelp.com/search?find_desc=Picnic+Food&find_loc=El+Paso%2C+TX",
+        "https://www.yelp.com/search?find_desc=Fast+Dinner&find_loc=El+Paso%2C+TX",
+        "https://www.facebook.com/groups/577910774138981/posts/1430314735565243/",
+        "https://www.tripadvisor.ca/Restaurants-g60768-zfp6-El_Paso_Texas.html",
+        "https://www.getyourguide.com/la-palma-l417/viewing-points-tc238/"
+      ],
+      "verdict": "FAIL",
+      "reasoning": "The slot is located in 'Llano del Jable / El Paso area' for a 'nighttime session' (observing). Llano del Jable is a well-known astronomical viewpoint on the island of La Palma, Canary Islands. However, the search results provided (Sources 1, 2, 3, and 4) all refer to El Paso, Texas, USA (e.g., 'El Paso, TX', 'N Mesa St, El Paso, TX 79902'). Source 5 mentions 'La Palma Viewing points' and 'Teide-Dinner', which relates to the Canary Islands, but does not provide specific details for a meal in the El Paso/Llano del Jable area of La Palma. Because the evidence provided is for the wrong geographical location (Texas instead of the Canary Islands), it cannot support the claims of the slot.",
+      "claims_checked": [
+        "Location: Near Llano del Jable / El Paso area",
+        "Category: meal",
+        "Activity: Portable dinner/picnic before observing"
+      ]
+    },
+    {
+      "day_index": 6,
+      "slot_position": 6,
+      "slot_name": "Llano del Jable dark-sky observing session",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.google.com/maps/search/Mirador+Astronómico+del+Llano+del+Jable"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provided a Google Maps search link, but no evidence was retrieved from the link or provided in the input. Therefore, the claims regarding the location's status as a 24-hour astronomical viewpoint, its specific address on LP-301, and the cost cannot be verified against the provided evidence.",
+      "claims_checked": [
+        "Venue name: Mirador Astronómico del Llano del Jable",
+        "Location: LP-301, El Paso",
+        "Category: 24-hour astronomical viewpoint",
+        "Cost: €0.00"
+      ]
+    },
+    {
+      "day_index": 7,
+      "slot_position": 1,
+      "slot_name": "Breakfast and weather decision point",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.weatherapi.com/",
+        "https://www.tripadvisor.com/Restaurants-g189116-zfp2-Faro_Faro_District_Algarve.html",
+        "https://m.yelp.com/search?find_desc=Breakfast+%26+Brunch&find_loc=Faro%2C+Portugal",
+        "https://www.tripadvisor.com/ShowTopic-g189116-i1083-k14625773-Early_Sunday_Breakfast-Faro_Faro_District_Algarve.html",
+        "https://murciatoday.com/microsite/index.php?id=33&mod=7"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The search results provided discuss Faro in mainland Portugal (Algarve) and Murcia in Spain. The slot refers to 'Pension Roque Faro' and 'stargazing/observatory plans' above an 'inversion' layer, which strongly suggests a location in Roque de Faro, La Palma (Canary Islands), known for its observatory and inversion layers. The evidence contains no information about a venue named 'Pension Roque Faro', its breakfast availability, or its pricing. Therefore, the claims cannot be verified or contradicted.",
+      "claims_checked": [
+        "Venue name: Pension Roque Faro",
+        "Category: meal",
+        "Cost: €8.00",
+        "Location: Roque Faro (implied La Palma context)",
+        "Context: Stargazing/observatory buffer point"
+      ]
+    },
+    {
+      "day_index": 7,
+      "slot_position": 2,
+      "slot_name": "Short local hike: Puntagorda/Garafía pine and viewpoint trail",
+      "source_type": "link",
+      "source_urls": [
+        "https://visitlapalma.es/en/hiking/la-palma/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provides a link to the official La Palma tourism hiking page (visitlapalma.es), but no content was retrieved from this link or any other source. Therefore, there is no evidence available to verify the existence of a specific 'Puntagorda/Garafía pine and viewpoint trail' or its characteristics.",
+      "claims_checked": [
+        "Location: Puntagorda / Garafía, La Palma",
+        "Activity: Short local hike through pine forests and viewpoints",
+        "Cost: €0.00",
+        "Category: Attraction"
+      ]
+    },
+    {
+      "day_index": 7,
+      "slot_position": 3,
+      "slot_name": "Lunch: Restaurante Jardin De Los Naranjos",
+      "source_type": "link",
+      "source_urls": [
+        "https://maps.google.com/?cid=3715436364605142808&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provided a Google Maps link, but no content was retrieved from that link or any other source. Therefore, there is no evidence available to verify the existence, location, or operating hours of the restaurant.",
+      "claims_checked": [
+        "Venue name: Restaurante Jardin De Los Naranjos",
+        "Location: Cno. el Pinar, 33, 38789 Puntagorda",
+        "Opening hours: Open on Wednesday at 13:00"
+      ]
+    },
+    {
+      "day_index": 7,
+      "slot_position": 4,
+      "slot_name": "Pack, rest, and astrophotography review",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.cs.cornell.edu/courses/cs1110/2014sp/labs/lab06/scowl_utf-8.txt",
+        "https://stevebarhamramblingman.com/category/canaries-gr131/",
+        "https://hendrix-cs.github.io/csci150/data/english3.txt",
+        "https://www.facebook.com/groups/822920533823484/posts/875202191928651/",
+        "https://www.jstor.org/content/pdf/oa_book_monograph/10.2307/jj.24573627.pdf"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence consists of word lists (Sources 1 and 3), a hiking blog about Maspalomas and San Fernando (Source 2), a Facebook post about Cape Verde (Source 4), and a JSTOR book snippet (Source 5). None of these sources contain information regarding 'Pension Roque Faro' or the specific activities (packing, resting, astrophotography review) mentioned in the slot. The evidence is silent on the existence of the venue and the feasibility of the claims.",
+      "claims_checked": [
+        "Venue name: Pension Roque Faro",
+        "Activity: Pack, rest, and astrophotography review",
+        "Cost: €0.00"
+      ]
+    },
+    {
+      "day_index": 7,
+      "slot_position": 5,
+      "slot_name": "Dinner: El Bernegal or self-catered fallback",
+      "source_type": "link",
+      "source_urls": [
+        "https://maps.google.com/?cid=6327219174245237399&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQQAhgEIAA"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provides a Google Maps link as a reference for the venue 'El Bernegal', but no evidence was retrieved from this link or any other source. While the slot notes suggest the restaurant might be closed during the scheduled time (18:00–19:00) based on a 17:00 closing time, there is no external evidence provided to verify the restaurant's actual hours, location, or pricing to confirm or contradict these claims.",
+      "claims_checked": [
+        "Venue name: El Bernegal",
+        "Location: Santo Domingo, Garafía / Roque Faro",
+        "Opening hours: Wednesday 12:00–17:00",
+        "Cost: €25.00"
+      ]
+    },
+    {
+      "day_index": 7,
+      "slot_position": 6,
+      "slot_name": "Final dark-sky buffer session near Roque de los Muchachos",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.google.com/maps/search/Roque+de+Los+Muchachos+Astrophysical+Observatory",
+        "https://darkskyhosting.com/visit/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a dark-sky observing session at designated viewpoints near Roque de los Muchachos/Garafía. Evidence from Source 2 confirms that the Roque de los Muchachos area is a 'protected dark-sky zone' and that the LP-4 road is the primary access route to the ridge ('LP-4 from Santa Cruz to the ridge'). The note regarding not entering restricted observatory areas is supported by Source 2's statement that the observatory is a 'private facility — access by prior arrangement only' and 'do not offer open visits or public tours.' The location (Garafía) is also confirmed as a nearby municipality for visitors staying for 'multi-session observing runs.'",
+      "claims_checked": [
+        "Location: Garafía / Roque de los Muchachos designated viewpoints",
+        "Access route: LP-4 road",
+        "Restriction: Never enter restricted observatory areas at night",
+        "Category: Dark-sky/observing session",
+        "Cost: €0.00 (Public viewpoints)"
+      ]
+    },
+    {
+      "day_index": 8,
+      "slot_position": 1,
+      "slot_name": "Breakfast and check out",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.letsbookhotel.com/en/spain/garafia/hotel/pension-roque-faro.aspx",
+        "https://www.booking.com/hotel/es/casa-el-faro-roque-del-faro-villa-de-garafia.html",
+        "https://www.tripadvisor.com/Hotels-g1745331-Garafia_La_Palma_Canary_Islands-Hotels.html",
+        "https://www.tripadvisor.co/Hotel_Review-g1745331-d2686181-Reviews-Pension_Roque_Faro-Garafia_La_Palma_Canary_Islands.html",
+        "https://www.tripadvisor.com/Tourism-g1745331-Garafia_La_Palma_Canary_Islands-Vacations.html"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms the existence of 'Pensión Roque Faro' in Garafía (Source 1, 3). Source 3 specifically identifies it as a 'Pension (B&B)', which supports the claim of it being a place where breakfast is served. Source 4 mentions a 'bar/restaurante local 2 minutos a pie', further supporting the availability of meals. While the specific cost of €8.00 is not explicitly detailed in the snippets, the establishment is listed as the '#1 Best Value' (Source 3), making the price claim plausible and not contradicted. The location and category are verified.",
+      "claims_checked": [
+        "Venue name: Pension Roque Faro",
+        "Location: Garafía",
+        "Category: meal (Breakfast)",
+        "Cost: €8.00"
+      ]
+    },
+    {
+      "day_index": 8,
+      "slot_position": 2,
+      "slot_name": "Drive Garafía to Santa Cruz / airport side",
+      "source_type": "link",
+      "source_urls": [
+        "https://darkskyhosting.com/visit/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims a drive time of 2 hours (08:30 to 10:30) from Garafía/Roque Faro to the Santa Cruz/Airport area. The evidence from the provided link states: 'From the airport, the drive to the Roque de los Muchachos area takes approximately 1 hour 45 minutes'. Since Roque Faro is located in the Garafía municipality near the Roque de los Muchachos area, a 2-hour 'conservative transfer' is consistent with the 1 hour 45 minute estimate provided by the source. The IATA code SPC for Santa Cruz de La Palma airport is also confirmed by the evidence.",
+      "claims_checked": [
+        "Drive time from Garafía/Roque Faro area to Santa Cruz/Airport is approximately 2 hours.",
+        "The airport for Santa Cruz de La Palma is SPC.",
+        "The route involves winding roads (implied by the 1h 45m duration for the distance and the mention of the LP-4 mountain road)."
+      ]
+    },
+    {
+      "day_index": 8,
+      "slot_position": 3,
+      "slot_name": "Lunch: El Cafe de Don Manuel, Santa Cruz",
+      "source_type": "link",
+      "source_urls": [
+        "http://www.elcafededonmanuel.com/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence is the homepage of an online store for 'El Cafe de Don Manuel' which focuses on selling coffee beans (e.g., Kenia, Myanmar, México). While it confirms the brand exists, the website content does not list a physical address, opening hours for a cafe location, or a food menu to verify the lunch cost. The slot's claims regarding the specific address in Santa Cruz de La Palma and the daily daytime opening hours cannot be verified or contradicted by this specific source.",
+      "claims_checked": [
+        "Venue name: El Cafe de Don Manuel",
+        "Location: C. Anselmo Pérez de Brito, 2, 38700 Santa Cruz de la Palma",
+        "Opening hours: Verified daily daytime opening",
+        "Cost: €18.00",
+        "Category: meal/cafe"
+      ]
+    },
+    {
+      "day_index": 8,
+      "slot_position": 4,
+      "slot_name": "Return rental car and airport check-in",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.booking.com/cars/airport/es/spc.html"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms that La Palma Airport (SPC) is a valid location for car rentals and returns, listing multiple rental companies (TopCar, Budget, Europcar, Avis, Thrifty, Hertz, etc.) operating at that specific airport. The slot's claim about returning a rental car at SPC is directly supported by the presence of these rental facilities at the airport as shown in the source.",
+      "claims_checked": [
+        "Location: La Palma Airport (SPC)",
+        "Activity: Return rental car at SPC"
+      ]
+    },
+    {
+      "day_index": 8,
+      "slot_position": 5,
+      "slot_name": "Flight day: La Palma (SPC) to Hamburg (HAM)",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.google.com/travel/flights?hl=en&gl=us&curr=EUR&tfs=CBwQAhoeEgoyMDI2LTExLTEyagcIARIDSEFNcgcIARIDU1BDGh4SCjIwMjYtMTEtMTlqBwgBEgNTUENyBwgBEgNIQU1AAUgBcAGYAQE&tfu=EgIIAQ"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims a flight route from La Palma (SPC) to Hamburg (HAM) on 2026-11-19. The provided Google Flights link (Source 1) confirms the search parameters for this specific route and date: 'Hamburg HAM' to 'Santa Cruz de La Palma SPC' with a return date of '2026-11-19'. The slot explicitly notes that exact airline/times are unavailable due to the far-future date, which is consistent with the 'Loading results' state of the evidence. The cost of €0.00 is explained by the note that the price is bundled with the Day 1 outbound flight.",
+      "claims_checked": [
+        "Departure airport: La Palma (SPC)",
+        "Arrival airport: Hamburg (HAM)",
+        "Date: 2026-11-19",
+        "Cost: €0.00 (with note explaining inclusion in Day 1)",
+        "Flight availability: Exact times/airlines currently unavailable for 2026"
+      ]
+    }
+  ],
+  "rationale_pass_count": 27,
+  "rationale_fail_count": 1,
+  "rationale_missing_count": 22,
+  "hc_micro_pass_rate": 1.0,
+  "cc_micro_pass_rate": 0.7692,
+  "hc_macro_pass_rate": 1.0,
+  "cc_macro_pass_rate": 0.0,
+  "final_pass_rate": 0.0,
+  "aggregated_constraints": [
+    {
+      "id": "HC-1",
+      "constraint_text": "origin: Hamburg",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-2",
+      "constraint_text": "destination: La Palma",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-3",
+      "constraint_text": "travel_dates: 2026.11.12 to 2026.11.19",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-4",
+      "constraint_text": "travelers: 1 adult",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-5",
+      "constraint_text": "budget: 2000 EUR total",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-6",
+      "constraint_text": "accommodation: rural house or small hotel near observatory",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-7",
+      "constraint_text": "transport: Flight",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-8",
+      "constraint_text": "interests: stargazing, astronomy, dark sky reserves, observatory visits, hiking",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-1",
+      "constraint_text": "Car or road trip transport is not feasible for island or overseas destinations — a flight or ferry is required.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-2",
+      "constraint_text": "No key information should be left out of the plan, such as the lack of accommodation during travel.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-3",
+      "constraint_text": "Transportation choices within the trip must be reasonable. For example, having both “self-driving” and “flight” would be considered a conflict.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-4",
+      "constraint_text": "Both outbound and return transport must appear in the plan.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-5",
+      "constraint_text": "Flight or train connections must allow sufficient layover time (≥60 min domestic, ≥90 min international).",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "NA",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 3,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 1
+    },
+    {
+      "id": "CC-6",
+      "constraint_text": "Accommodation must be planned for every night of the trip.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-7",
+      "constraint_text": "Hotel check-in must be scheduled after arrival transport reaches the destination.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-8",
+      "constraint_text": "Restaurants must be open on the planned day and time.",
+      "constraint_type": "commonsense",
+      "final_verdict": "FAIL",
+      "judge_verdicts": [
+        "FAIL",
+        "FAIL",
+        "FAIL",
+        "MISSING_INFO"
+      ],
+      "pass_count": 0,
+      "fail_count": 3,
+      "missing_count": 1,
+      "na_count": 0
+    },
+    {
+      "id": "CC-9",
+      "constraint_text": "Restaurant choices should not be repeated throughout the trip.",
+      "constraint_type": "commonsense",
+      "final_verdict": "FAIL",
+      "judge_verdicts": [
+        "FAIL",
+        "FAIL",
+        "FAIL",
+        "FAIL"
+      ],
+      "pass_count": 0,
+      "fail_count": 4,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-10",
+      "constraint_text": "Activities should be geographically sensible per day (no unnecessary cross-city travel).",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-11",
+      "constraint_text": "Attractions must be open on the planned day and time.",
+      "constraint_type": "commonsense",
+      "final_verdict": "FAIL",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "FAIL",
+        "MISSING_INFO"
+      ],
+      "pass_count": 2,
+      "fail_count": 1,
+      "missing_count": 1,
+      "na_count": 0
+    },
+    {
+      "id": "CC-12",
+      "constraint_text": "Attraction choices should not be repeated throughout the trip.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "FAIL"
+      ],
+      "pass_count": 3,
+      "fail_count": 1,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-13",
+      "constraint_text": "Travel time between consecutive activities must account for realistic transit duration.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "FAIL",
+        "PASS"
+      ],
+      "pass_count": 3,
+      "fail_count": 1,
+      "missing_count": 0,
+      "na_count": 0
+    }
+  ],
+  "timestamp": "2026-05-16T21:10:04.128036+00:00"
+}

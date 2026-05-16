@@ -1,0 +1,1338 @@
+{
+  "plan_excerpt": "# TravelPlan: Tokyo strict-budget trip — 6 adults — Sep 20–30 2026\n\n| Day 1 — 2026-09-20 — Departure from Munich | Day 2 — 2026-09-21 — In transit to Tokyo | Day 3 — 2026-09-22 — Arrival / Asakusa base | Day 4 — 2026-09-23 — Asakusa temples & Akihabara anime | Day 5 — 2026-09-24 — Meiji Jingu, Haraj",
+  "judge_models": [
+    "openrouter:minimax/minimax-m2.7",
+    "openrouter:google/gemini-3-flash-preview",
+    "openrouter:deepseek/deepseek-v4-flash",
+    "openrouter:qwen/qwen3.5-397b-a17b"
+  ],
+  "timed_out_models": [],
+  "rationale_verifications": [
+    {
+      "day_index": 1,
+      "slot_position": 1,
+      "slot_name": "Outbound flight: Munich to Tokyo Haneda via Doha",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.google.com/travel/flights?hl=en&gl=us&curr=EUR&tfs=CBwQAhoeEgoyMDI2LTA5LTIwagcIARIDTVVDcgcIARIDSE5EGh4SCjIwMjYtMDktMzBqBwgBEgNITkRyBwgBEgNNVUNAAUABQAFAAUABQAFIAXABmAEB&tfu=EgIIAQ"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided link to Google Flights leads to a page that is still 'Loading results' or requires user interaction to display specific flight data. The evidence contains the search parameters (6 adults, Round trip, Munich MUC to Tokyo HND, Economy), but it does not display the specific flight numbers (QR58, QR812), the exact times, or the price of €7,064 mentioned in the slot. Without the actual flight results being rendered in the text, I cannot verify or contradict the claims.",
+      "claims_checked": [
+        "Flight QR58 departs MUC at 16:50 on Sep 20",
+        "Flight QR58 arrives DOH at 23:25",
+        "Flight QR812 departs DOH at 07:50 on Sep 21",
+        "Flight QR812 arrives HND at 00:05 on Sep 22",
+        "Total round-trip group airfare for 6 adults is €7,064",
+        "The itinerary involves a long layover in Doha"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 1,
+      "slot_name": "Doha layover and flight to Haneda",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.google.com/travel/flights?hl=en&gl=us&curr=EUR&tfs=CBwQAhoeEgoyMDI2LTA5LTIwagcIARIDTVVDcgcIARIDSE5EGh4SCjIwMjYtMDktMzBqBwgBEgNITkRyBwgBEgNNVUNAAUABQAFAAUABQAFIAXABmAEB&tfu=EgIIAQ"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided link to Google Flights leads to a generic search results page that is still 'Loading results' in the fetched content. No specific flight schedules, flight numbers (QR812), or departure/arrival times for September 21-22, 2026, are visible in the evidence. Therefore, the claims cannot be verified or contradicted.",
+      "claims_checked": [
+        "Flight number: Qatar Airways QR812",
+        "Route: Doha (DOH) to Tokyo Haneda (HND)",
+        "Departure time: 07:50 on Sep 21/22",
+        "Arrival time: 00:05 on Sep 22"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 1,
+      "slot_name": "Haneda late-arrival wait and first-train transfer",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.tokyo-monorail.co.jp/english/guidance/kokusaisen/index.html",
+        "https://www.haneda-tokyo-access.com/en/haneda-airport/nightandmorning.html"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence supports the feasibility of the plan. Source 1 confirms that Haneda Terminal 3 was 'constructed to operate 24 hours a day' and contains facilities like 'Edo Ko-ji' for waiting. Source 2 confirms that the last train to central Tokyo (Shinagawa) departs at 00:08, which is consistent with the slot's claim that an arrival at 00:05 would require waiting for the first train. Source 2 also confirms the first train departs Haneda Terminal 3 at 05:26, which aligns with the slot's end time of 06:30 (allowing time for the journey to Asakusa/Nihombashi). The cost of €24 for six people is consistent with standard local train fares in Tokyo (approx. 600 yen per person).",
+      "claims_checked": [
+        "Haneda Terminal 3 is open 24 hours for waiting.",
+        "Arrival at 00:05 is after the last central trains (last train 00:08).",
+        "First trains depart in the early morning (05:26).",
+        "Route connects Haneda Terminal 3 to central areas like Asakusa/Nihombashi.",
+        "Cost is approximately €24.00 for the group."
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 2,
+      "slot_name": "Budget hostel check-in / luggage drop",
+      "source_type": "link",
+      "source_urls": [
+        "https://ph.trip.com/hotels/tokyo-hotel-detail-123407126/hostel-wasabi-asakusa/",
+        "https://citan-hostel.intokyohotels.com/en/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence supports the existence and budget nature of both mentioned hostels. Hostel Wasabi Asakusa is confirmed to be in Asakusa (0.27 km from Asakusa) with rates starting from PHP 761 (approx. €12.50), which is well within the €18.75/night budget claim. CITAN Hostel is confirmed as a backup with shared kitchen facilities and a lounge bar, supporting the 'social' description. The check-in time for Wasabi is 15:00, which makes the 06:30 slot appropriate for a 'luggage drop' as claimed. The total cost of €900 for 6 people over 8 nights (~€18.75 per person/night) is consistent with the starting rates found in the evidence.",
+      "claims_checked": [
+        "Venue name: Hostel Wasabi Asakusa",
+        "Location: Asakusa",
+        "Backup venue: CITAN Hostel",
+        "Budget feasibility: ~€18.75/person/night",
+        "Category: Shared-space hostel",
+        "Function: Luggage drop (prior to 15:00 check-in)"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 3,
+      "slot_name": "Arrival meals: budget lunch and ramen/gyudon dinner",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.facebook.com/groups/japantravel/posts/1727218985063341/",
+        "https://www.lemon8-app.com/experience/cheap-eats-in-asakusa?region=sg",
+        "https://www.tsunagujapan.com/8-bargain-lunches-you-must-try-in-tokyos-asakusa-district/",
+        "https://www.tripadvisor.com/Restaurants-g14134311-zfp16-Asakusa_Taito_Tokyo_Tokyo_Prefecture_Kanto.html",
+        "https://savorjapan.com/contents/discover-oishii-japan/16-lunch-places-in-asakusa"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims that budget meals (lunch and dinner) in the Asakusa area can be covered for approximately €14 per person (approx. 2,200 - 2,300 JPY). Evidence from Source 2 shows onigiri sets for 770 yen. Source 3 mentions bargain lunch courses for 2,000 yen. Source 1 confirms Asakusa is 'much more reasonable' than other districts and mentions affordable beef options (Gyukatsu) within budget. The description of 'supermarket bento/onigiri plus ramen, gyudon, curry' aligns with the 'Happy Beef Curry' and onigiri shops found in the search results. The total cost of €84 for 6 people (implied by the €14 per person note) is consistent with the pricing found in the evidence.",
+      "claims_checked": [
+        "Location: Asakusa area has budget dining options.",
+        "Cost: Approximately €14 per person for a day's budget meals (lunch and dinner).",
+        "Food types: Availability of onigiri, curry, and beef-based meals (gyudon/gyukatsu) in the area."
+      ]
+    },
+    {
+      "day_index": 4,
+      "slot_position": 1,
+      "slot_name": "Transit to Asakusa",
+      "source_type": "link",
+      "source_urls": [
+        "https://tokyocheapo.com/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence is the homepage of Tokyo Cheapo, which contains general articles about firefly festivals, visa cashback offers, and Mount Fuji rules. It does not contain any specific information regarding transit routes, durations, or costs for traveling from a 'Hostel' to 'Asakusa'. Therefore, the claims regarding the 30-minute duration and the €7.00 cost cannot be verified.",
+      "claims_checked": [
+        "Transit duration: 30 minutes",
+        "Transit cost: €7.00",
+        "Destination: Asakusa",
+        "Payment method: IC-card"
+      ]
+    },
+    {
+      "day_index": 4,
+      "slot_position": 2,
+      "slot_name": "Senso-ji, Kaminarimon & Nakamise",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.hikemasterjapan.com/senso-ji-temple-asakusa-tokyo"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms that Senso-ji is located in Asakusa ('Located in the charming district of Asakusa'). It confirms the presence of the Nakamise shopping street ('200-meter Nakamise shopping street') and the main hall ('main building'). The evidence explicitly states the temple is free ('Sensoji is completely free'), which is consistent with the slot's €6.00 cost (noting that the slot specifies this is for 'Token incense/omikuji only', while the entry itself is free). The evidence mentions shops close at 5pm ('When the shops close at 5pm'), which is consistent with the slot's claim that the Main Hall is generally open until 17:00.",
+      "claims_checked": [
+        "Location: Senso-ji, Asakusa",
+        "Components: Kaminarimon, Hozomon, Nakamise-dori, and Main Hall",
+        "Cost: Free entry (with small fees for incense/omikuji)",
+        "Opening hours: Main Hall generally 06:00–17:00"
+      ]
+    },
+    {
+      "day_index": 4,
+      "slot_position": 3,
+      "slot_name": "Lunch: Asakusa street food + simple top-up",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.jeepe.jp/en/articles/senso-ji-tokyo-temple-culture-1051"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms that Nakamise is a 'lively shopping street' where visitors can 'combine temple visiting with snacking as you walk.' This supports the location and the activity (street food/snacking). While the evidence does not specify the exact price of a noodle bowl or the total cost of €72, it validates the existence of the food market at the specified location.",
+      "claims_checked": [
+        "Location: Asakusa / Nakamise-dori",
+        "Activity: Street food/snacking at Nakamise",
+        "Proximity: 5 min from Asakusa Stn"
+      ]
+    },
+    {
+      "day_index": 4,
+      "slot_position": 4,
+      "slot_name": "Transit to Akihabara",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.gotokyo.org/en/spot/55/index.html"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence is the official Tokyo travel guide page for Akihabara Electric Town. While it confirms the location ('Sotokanda, Chiyoda City, Tokyo' and 'near JR Akihabara Station'), it contains no information regarding transit routes, durations, or costs from Asakusa. Specifically, there is no mention of the 35-minute travel time or the €8.00 (approx. 1,300 JPY) cost. The evidence is silent on the logistics of the transit claim.",
+      "claims_checked": [
+        "Transit from Asakusa to Akihabara",
+        "Travel duration: 35 minutes",
+        "Cost: €8.00",
+        "Destination: Akihabara Electric Town",
+        "Use IC card"
+      ]
+    },
+    {
+      "day_index": 4,
+      "slot_position": 5,
+      "slot_name": "Akihabara anime shops & arcades",
+      "source_type": "link",
+      "source_urls": [
+        "https://matcha-jp.com/en/44",
+        "https://www.gotokyo.org/en/spot/55/index.html"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms that Akihabara is a major hub for anime, manga, and games. Source 1 specifically lists 'Animate' and 'Kotobukiya' as top stores in the area and mentions the 'Electric Town Exit' (Denkigai-guchi), supporting the location 'Akihabara Electric Town'. Source 2 confirms the general area. While the evidence does not explicitly list every single store mentioned (like Radio Kaikan or Yodobashi), it validates the primary category and the presence of the named major chains in that specific neighborhood.",
+      "claims_checked": [
+        "Location: Akihabara Electric Town",
+        "Category: attraction/anime shops & arcades",
+        "Presence of Animate in Akihabara",
+        "Presence of Kotobukiya in Akihabara",
+        "General availability of anime, manga, and game goods in the area"
+      ]
+    },
+    {
+      "day_index": 4,
+      "slot_position": 6,
+      "slot_name": "Dinner: Akihabara ramen/curry",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://livejapan.com/en/in-tokyo/in-pref-tokyo/in-akihabara/article-a0005429/",
+        "https://en.akihabara-bc.jp/akihabara_curry2025/",
+        "https://www.instagram.com/reel/DJEg786zog5/",
+        "https://s.tabelog.com/en/tokyo/A1310/A131001/rstLst/MC0101/",
+        "https://tokyoexcess.blogspot.com/2018/04/go-go-curry-in-akihabara.html"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims that Akihabara is a location where one can find cheap ramen and curry for dinner, specifically around €8 (approx. 1,300 JPY) per person. The evidence confirms Akihabara is a major hub for these foods: Source [1] describes it as a 'great destination for dining' specifically mentioning 'ramen' and 'curry'. Source [2] lists numerous curry shops including 'famous restaurants' and 'specialty restaurants'. Source [5] mentions 'Go Go Curry', a well-known chain in the area. Regarding the cost, while the evidence doesn't explicitly list every price, these categories (ramen, curry, gyudon) are universally recognized as budget-friendly 'B-kyu gurume' in Japan, and the presence of major chains like Go Go Curry supports the feasibility of an €8/person price point.",
+      "claims_checked": [
+        "Location: Akihabara",
+        "Category: Ramen/Curry/Gyudon available for dinner",
+        "Cost: Approximately €8 per person (Cheap)"
+      ]
+    },
+    {
+      "day_index": 4,
+      "slot_position": 7,
+      "slot_name": "Return to hostel",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.rome2rio.com/s/Akihabara-Station/Hotel-Plus-Hostel-TOKYO-AKIHABARA",
+        "https://japantravel.navitime.com/en/area/jp/route/result?start=00003494&goal=%7B'lat'%3A35.698487%2C'lon'%3A139.782828%2C'spot'%3A'01140-AG37872083'%7D&start_name=Akihabara&goal_name=Hotel%20Plus%20Hostel%20TOKYO%20AKIHABARA",
+        "https://www.rome2rio.com/s/Akihabara-Station/Hotel-Plus-Hostel-TOKYO-ASAKUSA-2",
+        "https://www.hostelworld.com/hostels/p/283418/and-and-hostel-akihabara/",
+        "https://www.reddit.com/r/JapanTravelTips/comments/1onf1ys/luggage_forwarding_for_hostels/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a 45-minute transport window from Akihabara to a hostel with a cost of €7.00. While the specific hostel name is not provided in the slot, the evidence shows several hostels in or near Akihabara (e.g., Hotel Plus Hostel Tokyo Akihabara, &And Hostel Akihabara). Source 1 indicates a taxi from Akihabara Station to a nearby hostel costs approximately ¥1000 - ¥1300 (roughly €6.00 - €8.00), which aligns with the €7.00 estimate. The 45-minute duration is more than sufficient for local travel within Tokyo, as the evidence shows taxi times of 1-3 minutes and walking times of 5 minutes for nearby hostels.",
+      "claims_checked": [
+        "Transport from Akihabara to hostel",
+        "Cost: €7.00",
+        "Duration: 45 minutes (19:15 to 20:00)"
+      ]
+    },
+    {
+      "day_index": 5,
+      "slot_position": 1,
+      "slot_name": "Transit to Harajuku",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.meijikinenkan.gr.jp/forestterrace-en/access/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims that Harajuku/Meiji-jingumae is a valid transit destination and accessible via train. The evidence confirms that the location is 'just a short walk from Harajuku Station, Meiji Jingu-mae (Harajuku Station)'. While the evidence does not specify the exact cost or the 'Hostel' starting point, the destination and its accessibility via the named stations are verified. The use of an IC card is a standard payment method for these Japanese rail lines (JR and Tokyo Metro) mentioned in the access guide.",
+      "claims_checked": [
+        "Destination: Harajuku/Meiji-jingumae",
+        "Accessibility: Short walk from Harajuku Station and Meiji Jingu-mae Station",
+        "Transit mode: Train (JR and Subway lines mentioned)"
+      ]
+    },
+    {
+      "day_index": 5,
+      "slot_position": 2,
+      "slot_name": "Meiji Jingu shrine walk",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.gltjp.com/en/directory/item/meijijingu/",
+        "https://www.meijikinenkan.gr.jp/forestterrace-en/access/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims Meiji Jingu is located in Harajuku, which is confirmed by Source 2 ('just a short walk from Harajuku Station'). The time window (09:15 - 11:30 on September 24) is well within the September opening hours (05:20 - 17:20) provided in Source 2. The description of it being a 'forest walk' is supported by Source 1 ('artificial forest... home to some 100,000 trees') and Source 2 ('urban forest'). While the evidence does not explicitly state the cost is €0.00, Source 1 describes the shrine and forest as the core components, and the slot correctly notes that the garden and museum are separate paid entities (implied by 'skip paid garden/museum'), which is consistent with the general description of the shrine grounds as a public/sacred space.",
+      "claims_checked": [
+        "Location: Meiji Jingu, Harajuku",
+        "Time window: 09:15 - 11:30 on September 24",
+        "Category: Attraction/Shrine",
+        "Description: Forest walk at Meiji Jingu",
+        "September Gate Opening: 05:20",
+        "September Gate Closing: 17:20"
+      ]
+    },
+    {
+      "day_index": 5,
+      "slot_position": 3,
+      "slot_name": "Lunch: Harajuku street snacks and cheap eats",
+      "source_type": "link",
+      "source_urls": [
+        "http://www.korot.jp/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provides two links as evidence for the lunch plan. Source 1 (Korot) is a website for a mini-crepe shop; however, the provided text only lists news updates about temporary pop-up locations and store closures (e.g., Kamata, Nagatacho, Yurakucho). It does not confirm a permanent location in Harajuku or provide pricing that would verify the €12/person claim. Source 2 (Harajuku Gyoza Lou) was not successfully fetched or included in the evidence text. Therefore, there is no evidence to confirm the specific venues' presence in Harajuku or their current pricing.",
+      "claims_checked": [
+        "Venue: Harajuku Gyoza Lou",
+        "Venue: Korot (crepes)",
+        "Location: Harajuku",
+        "Cost: Approx. €12 per person",
+        "Category: Street food/casual eats"
+      ]
+    },
+    {
+      "day_index": 5,
+      "slot_position": 4,
+      "slot_name": "Takeshita Street & Ura-Harajuku",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.google.com/maps/search/RRR+SHOP（アールショップ）"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provided a Google Maps search link for 'RRR SHOP（アールショップ）', but no content was retrieved from this link or any other source. Therefore, there is no evidence available to verify the location, cost, or nature of the attraction.",
+      "claims_checked": [
+        "Venue name: Takeshita Street & Ura-Harajuku",
+        "Location: Harajuku / Ura-Harajuku",
+        "Cost: €6.00",
+        "Description: Youth fashion, character goods, and backstreets"
+      ]
+    },
+    {
+      "day_index": 5,
+      "slot_position": 5,
+      "slot_name": "Walk/transit to Shibuya",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.uber.com/global/en/r/routes/harajuku-shibuya-tokyo-jp-to-shibuya-tokyo-jp/",
+        "https://www.rome2rio.com/s/Harajuku/Shibuya-Station",
+        "https://www.facebook.com/groups/457573074653783/posts/1842190726192004/",
+        "https://japantravel.navitime.com/en/area/jp/route/result/?start=00002128&goal=00003544",
+        "https://www.youtube.com/watch?v=WkySwTieujA"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims a transit or walking route from Harajuku to Shibuya with a cost of approximately €5.00. Evidence from Source 2 confirms the train takes 3 minutes and costs between ¥55 - ¥190 (well under the €5.00/approx ¥800 budget). Source 1 confirms the JR Yamanote Line is a direct one-stop service. Source 5 confirms walking is a viable option, taking approximately 15 minutes. Source 3 also supports walking as a common activity between these two locations.",
+      "claims_checked": [
+        "Route: Harajuku to Shibuya",
+        "Transport mode: Walk or one-stop transit",
+        "Cost: €5.00",
+        "Transit duration: Short (implied by one-stop)",
+        "Walking feasibility: Possible"
+      ]
+    },
+    {
+      "day_index": 5,
+      "slot_position": 6,
+      "slot_name": "Dinner: Shibuya budget meal",
+      "source_type": "link",
+      "source_urls": [
+        "https://instagram.com/777.sake?igshid=NTc4MTIwNjQ2YQ=="
+      ],
+      "verdict": "FAIL",
+      "reasoning": "The slot claims a budget of €10/person for a 'Shibuya budget meal' and links to the Instagram profile '@777.sake'. However, the evidence (the Instagram profile for 'Yuri Okami | Sake Bar Okami') describes a 'Nihonshu Koryoriya' (Sake and Small Plates Restaurant). According to standard pricing for this specific venue (Sake Bar 777), there is a cover charge (otoushi) and the average spend typically exceeds the €10 (approx. ¥1,600) cap mentioned in the notes, especially for a dinner setting. Furthermore, the description 'avoid minimum-spend izakayas' contradicts the nature of this specific linked venue, which operates as a specialized sake bar where a minimum spend or cover charge is standard.",
+      "claims_checked": [
+        "Venue name: Shibuya budget meal (linked to @777.sake)",
+        "Location: Shibuya",
+        "Cost: €10/person cap (approx. ¥1,600)",
+        "Category: Budget meal",
+        "Note: Avoid minimum-spend izakayas"
+      ]
+    },
+    {
+      "day_index": 5,
+      "slot_position": 7,
+      "slot_name": "Shibuya nightlife: no-cover bars / drinks allowance",
+      "source_type": "link",
+      "source_urls": [
+        "https://nightlifetokyo.com/en/tokyo/guides/tokyo-nightlife-guide"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims that Shibuya (specifically Dogenzaka and Nonbei Yokocho) is a nightlife destination and suggests a budget of approximately €20 per person for drinks/entry. The evidence (Source 1) explicitly lists 'Shibuya' as one of the 'Best Nightlife Areas in Tokyo' and provides a specific guide link for 'Nonbei Yokocho Shibuya (2026)'. While the provided text snippet cuts off before the specific budget section, the existence of these areas as nightlife hubs is confirmed by the guide's table of contents and introductory text.",
+      "claims_checked": [
+        "Shibuya is a nightlife district.",
+        "Dogenzaka is a nightlife area in Shibuya.",
+        "Nonbei Yokocho is a nightlife area in Shibuya.",
+        "Nightlife options exist in Shibuya for the year 2026."
+      ]
+    },
+    {
+      "day_index": 6,
+      "slot_position": 1,
+      "slot_name": "Transit to Mitaka/Kichijoji",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.ghibli-museum.jp/en/hours-and-directions/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes transit to Mitaka/Kichijoji for the Ghibli Museum. The evidence confirms the museum's location in Mitaka ('1-1-83 Shimorenjaku, Mitaka-shi, Tokyo') and its opening hours starting at 10:00 ('10:00-18:00'), which aligns with the travel window ending at 09:45. The note regarding ticket sales (trying on the 10th of the month at 10:00 JST for the following month) is a standard procedure for this venue, though the evidence specifically confirms that 'Entrance to the Ghibli Museum is strictly by advance purchase of a reserved ticket'. The cost of €18.00 for transit is a reasonable upper bound for local travel in Tokyo, and the evidence confirms local bus fares are minimal (230 yen).",
+      "claims_checked": [
+        "Destination: Mitaka/Kichijoji for Ghibli Museum",
+        "Museum opening time: 10:00",
+        "Location: Mitaka-shi, Tokyo",
+        "Requirement: Advance reserved tickets"
+      ]
+    },
+    {
+      "day_index": 6,
+      "slot_position": 2,
+      "slot_name": "Inokashira Park + Ghibli Museum booking/fallback",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.ghibli-museum.jp/en/tickets/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot's claims regarding the Ghibli Museum are fully supported by the official website evidence. Specifically: 1) Admission is by advance reservation only ('All admission to the Ghibli Museum is by advance reservation only'). 2) International tickets are sold via Lawson Ticket ('Sales Online by LAWSON TICKET... Lawson Ticket（English）'). 3) Tickets go on sale at 10:00 JST on the 10th of the month prior ('Tickets become available for purchase at 10 a.m. (JST) on the 10th of each month for the subsequent month'). 4) Adult tickets (ages 19+) are ¥1,000 ('Ages 19 and over JPY 1,000'). 5) Entry is timed ('Tickets are valid only for the specified date and time of entry'). The cost estimate of €50 for a group is consistent with the ¥1,000 per person price plus potential fees and the fallback contingency mentioned.",
+      "claims_checked": [
+        "Admission is by advance reservation only",
+        "International tickets are sold via Lawson Ticket English portal",
+        "Tickets go on sale at 10:00 JST on the 10th of the month before the visit",
+        "Adult tickets are approximately ¥1,000 each",
+        "Tickets require choosing timed-entry slots"
+      ]
+    },
+    {
+      "day_index": 6,
+      "slot_position": 3,
+      "slot_name": "Lunch: Kichijoji budget meal",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.instagram.com/p/DP2kCgpj1Q-/",
+        "https://www.instagram.com/reel/DFSgDOnv2I-/",
+        "https://s.tabelog.com/en/tokyo/A1320/A132001/",
+        "https://savorjapan.com/contents/discover-oishii-japan/12-all-you-can-eat-places-in-kichijoji",
+        "https://www.tiktok.com/@whatthepato/video/7447745165189500167"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims that budget meals like ramen, curry, or bento are available in Kichijoji for approximately €12 per person. Evidence from Source 1 mentions a lunch set (gyoza, noodles, drink) starting at approximately $12.51 USD (~€11.80), which aligns perfectly with the 'Approx. €12 per person' note. Source 3 confirms the availability of Ramen and Bento in the Kichijoji area. The total cost of €72 for the slot is consistent with the per-person estimate if the group size is 6 people (€12 x 6 = €72).",
+      "claims_checked": [
+        "Location: Kichijoji",
+        "Category: meal (Ramen, curry, gyudon, or supermarket bento)",
+        "Cost per person: Approx. €12",
+        "Total cost: €72.00"
+      ]
+    },
+    {
+      "day_index": 6,
+      "slot_position": 4,
+      "slot_name": "Transit to Nakano",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.japan-guide.com/e/e3069.html"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims a JR transit to Nakano from the Kichijoji/Mitaka area. The evidence confirms that Nakano Station is served by the 'JR Chuo Line'. While the evidence specifically mentions the fare and time from Shinjuku (200 yen, 5 minutes), the Chuo Line is the standard line connecting Kichijoji/Mitaka to Nakano. The cost estimate of €10.00 (approx. 1,600 JPY) easily covers the actual fare, which the evidence notes is 200 yen from Shinjuku (Kichijoji is on the same line and similarly priced). The use of an IC card is a standard method for JR lines.",
+      "claims_checked": [
+        "Transit to Nakano via JR",
+        "Location: Kichijoji/Mitaka to Nakano",
+        "Cost: €10.00",
+        "Use IC card"
+      ]
+    },
+    {
+      "day_index": 6,
+      "slot_position": 5,
+      "slot_name": "Nakano Broadway & Mandarake",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.google.com/maps/search/Mandarake+Nakano"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provided a Google Maps search link as its source, but no evidence was retrieved from this link or any other source. Therefore, there is no factual information available to verify the claims regarding the location, category, or the specific nature of the venue (vintage anime, manga, etc.).",
+      "claims_checked": [
+        "Venue name: Nakano Broadway & Mandarake",
+        "Location: Nakano Broadway / Mandarake Nakano",
+        "Category: attraction",
+        "Description: Vintage anime, manga, doujinshi, figures, and Mandarake browsing"
+      ]
+    },
+    {
+      "day_index": 6,
+      "slot_position": 6,
+      "slot_name": "Dinner: Nakano budget dinner",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.tripadvisor.com/Restaurants-g1066452-zfp16-Nakano_Tokyo_Tokyo_Prefecture_Kanto.html",
+        "https://savorjapan.com/search?spot_ids=88",
+        "https://www.tripadvisor.com/Restaurants-g14134438-zfp10955-Nakano_Nakano_Tokyo_Tokyo_Prefecture_Kanto.html",
+        "https://en.give-hotel.com/localzine/491/491/",
+        "https://omakaseje.com/articles/dn775421"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a generic 'budget dinner' in Nakano consisting of ramen or a set meal for approximately €8 per person. Evidence from Source 1 confirms the existence of 'Cheap Eats' in Nakano, specifically listing ramen shops like 'Bara Sobaya' and 'Misomendokoro Hanamichi'. Source 5 further confirms that the area surrounding Nakano Station is 'well-known for their casual dining options'. Regarding the cost, €8 is approximately 1,300 JPY; Source 3 classifies several ramen shops in the area as '$$', and standard budget ramen in Tokyo typically falls within the 800-1,500 JPY range, making the €8/person claim consistent with the 'Cheap Eats' category identified in the evidence.",
+      "claims_checked": [
+        "Location: Nakano",
+        "Category: Cheap ramen/set meal",
+        "Cost: €8 per person (approx. 1,300 JPY)",
+        "Availability: Dinner time (18:15)"
+      ]
+    },
+    {
+      "day_index": 6,
+      "slot_position": 7,
+      "slot_name": "Return to hostel common area",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.hostelz.com/en/hostels/Japan/Tokyo/nakano",
+        "https://en.japantravel.com/tokyo/backpackers-hostel-fuji/37600",
+        "https://www.hostelworld.com/hostels/asia/japan/tokyo/d/nakano-city/",
+        "https://www.yelp.com/search?find_desc=Hostels&find_loc=Nakano%2C+%E6%9D%B1%E4%BA%AC%E9%83%BD",
+        "https://www.reddit.com/r/JapanTravelTips/comments/1onf1ys/luggage_forwarding_for_hostels/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot describes a transport leg from 'Nakano to hostel' with a specific cost of €12.00 and a duration of 1 hour. The provided evidence confirms that Nakano has hostels (e.g., GrapeHouse Koenji, Hostel Fuji) and 'excellent transport links,' but it does not specify the location of the user's specific hostel, the mode of transport, or the cost of travel between Nakano and a generic hostel. There is no data to verify if €12.00 is an accurate fare or if the journey takes 60 minutes, as the destination 'hostel' is undefined in the evidence.",
+      "claims_checked": [
+        "Location: Nakano to hostel",
+        "Transport cost: €12.00",
+        "Duration: 1 hour (19:30 to 20:30)",
+        "Activity: Return to hostel common area"
+      ]
+    },
+    {
+      "day_index": 7,
+      "slot_position": 1,
+      "slot_name": "Transit to Tsukiji",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.google.com/maps/search/Tsukiji+Nippon+Fish+Port+Market"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provides a link to a Google Maps search for 'Tsukiji Nippon Fish Port Market', but no evidence was retrieved from this link or any other source. Therefore, there is no factual data available to verify the transit time, cost, or location details.",
+      "claims_checked": [
+        "Transit duration: 30 minutes (08:30 to 09:00)",
+        "Cost: €8.00",
+        "Destination: Tsukiji Outer Market",
+        "Payment method: IC card"
+      ]
+    },
+    {
+      "day_index": 7,
+      "slot_position": 2,
+      "slot_name": "Tsukiji Outer Market crawl",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.google.com/maps/search/Tsukiji+Nippon+Fish+Port+Market"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provided a Google Maps search link as its source, but no evidence was retrieved from this link or any other source. Therefore, there is no factual data available to verify the claims regarding the location, opening hours, or specific activities (tamagoyaki, seafood stalls, knife shops) mentioned in the slot.",
+      "claims_checked": [
+        "Venue name: Tsukiji Outer Market",
+        "Location: Tsukiji Outer Market",
+        "Activities: Street-food, tamagoyaki, seafood stalls, knife-shop browsing",
+        "Time window: 09:00 to 11:30 on 2026-09-26"
+      ]
+    },
+    {
+      "day_index": 7,
+      "slot_position": 3,
+      "slot_name": "Lunch: Tsukiji budget bites",
+      "source_type": "link",
+      "source_urls": [
+        "https://himawarizushi.com/"
+      ],
+      "verdict": "FAIL",
+      "reasoning": "The slot claims the location is 'Tsukiji Outer Market' and provides a link to Himawari Sushi. However, the evidence from the provided link explicitly states that the restaurant is located in Shinjuku: '新宿区に位置する回転寿司店です。お店は新宿駅の西口から徒歩圏内にあり' (Located in Shinjuku Ward. The shop is within walking distance from the West Exit of Shinjuku Station). This contradicts the claim that the lunch takes place at Tsukiji.",
+      "claims_checked": [
+        "Venue name: Himawari Sushi",
+        "Location: Tsukiji Outer Market",
+        "Category: meal (seafood/sushi)",
+        "Cost: €10/person cap"
+      ]
+    },
+    {
+      "day_index": 7,
+      "slot_position": 4,
+      "slot_name": "Transit to Odaiba",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.rome2rio.com/s/Tsukiji/Odaiba-Japan",
+        "https://www.rome2rio.com/Bus/Tsukiji-Station/Odaiba-Station",
+        "https://www.rome2rio.com/s/Tsukiji-fish-market/Odaiba-Station",
+        "https://www.japan-guide.com/forum/quereadisplay.html?0+129815",
+        "https://en.japantravel.com/tokyo/24-hours-odaiba-tsukiji/20626"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims a transit duration of 1 hour (12:30 to 13:30) and a cost of €10.00 (approx. ¥1,600) using regular IC-card fares. Evidence from Source 1 and 3 indicates the train journey takes between 15 and 33 minutes and costs between ¥270 and ¥340 (approx. €1.70 - €2.15). Since the actual time and cost are well within the limits specified in the slot (the slot allows for more time and a higher budget than required), the claims are supported as feasible.",
+      "claims_checked": [
+        "Transit from Tsukiji to Odaiba is possible.",
+        "Transit duration is approximately 1 hour or less.",
+        "Transit cost is approximately €10.00 or less.",
+        "Regular IC-card fares can be used."
+      ]
+    },
+    {
+      "day_index": 7,
+      "slot_position": 5,
+      "slot_name": "Odaiba Gundam & waterfront",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.google.com/maps/search/Odaiba+Marine+Park"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provided a Google Maps search link for 'Odaiba Marine Park', but no content was retrieved from the link to verify the claims. There is no evidence available to confirm the location, the presence of the Life-size Gundam, the existence of DiverCity, or the cost associated with the activities.",
+      "claims_checked": [
+        "Location: DiverCity / Odaiba Marine Park",
+        "Activity: Life-size Gundam",
+        "Activity: DiverCity browsing",
+        "Activity: Gundam Base",
+        "Activity: Odaiba Marine Park views",
+        "Cost: €12.00",
+        "Free core activity"
+      ]
+    },
+    {
+      "day_index": 7,
+      "slot_position": 6,
+      "slot_name": "Dinner: Odaiba food court / casual meal",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.yelp.com/search?cflt=food&find_loc=Odaiba%2C+%E6%9D%B1%E4%BA%AC%E9%83%BD",
+        "https://www.aquacity.jp.e.yp.hp.transer.com/foodcourt/",
+        "https://gurunavi.com/en/all?landmark=0001393",
+        "https://matcha-jp.com/en/22564",
+        "https://www.youtube.com/watch?v=QFwZP-nTP-s"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims the existence of low-cost food courts in Odaiba offering items like ramen, curry, or casual meals for approximately €12 (approx. 1,900 JPY) per person. Evidence Source 2 confirms the existence of a food court in Aqua City Odaiba featuring casual chains like Ringer Hut (noodles) and Wendy's First Kitchen. Evidence Source 5 explicitly mentions a '$12 halal tempura soba' meal in Odaiba, which aligns perfectly with the 'approx. €12 per person' cost claim. Source 3 shows lunch prices around 1,000 JPY, supporting the feasibility of a casual meal in this price range.",
+      "claims_checked": [
+        "Location: Odaiba",
+        "Category: Low-cost mall food court / casual meal",
+        "Food types: Ramen, curry, or casual set meal",
+        "Cost: Approx. €12 per person"
+      ]
+    },
+    {
+      "day_index": 7,
+      "slot_position": 7,
+      "slot_name": "Tokyo Bay night views and return",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.google.com/maps/search/Odaiba+Marine+Park"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provides a link to Google Maps for Odaiba Marine Park, but no content was retrieved from the link or provided in the evidence section. Therefore, there is no factual evidence to verify the claims regarding the location, the visibility of the Rainbow Bridge, or the transit costs.",
+      "claims_checked": [
+        "Location: Odaiba Marine Park",
+        "Activity: Rainbow Bridge/Tokyo Bay night views",
+        "Cost: €12.00",
+        "Time: 19:15 to 21:30"
+      ]
+    },
+    {
+      "day_index": 8,
+      "slot_position": 1,
+      "slot_name": "Transit to Ueno",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.rome2rio.com/s/Tokyo-Ueno-Youth-Hostel/Ueno-Station",
+        "https://www.rome2rio.com/Train/Hostel-Lodging-Tokyo-Ueno/Ueno-Station",
+        "https://www.rome2rio.com/Train/Ueno-Station/Hostel-Lodging-Tokyo-Ueno",
+        "https://www.rome2rio.com/s/Ueno-Station/Tokyo-Ueno-Youth-Hostel",
+        "https://www.hostelz.com/en/hostels/Japan/Tokyo/ueno"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims a transit time of 30 minutes and a cost of €8.00 (approx. ¥1,300) for a trip from a hostel to Ueno. Evidence from multiple sources shows that various hostels in the Ueno/Kanda area have transit times to Ueno Station ranging from 3 to 12 minutes (Source 1, 2, 3) and costs between ¥150 and ¥190 (approx. €1.00 - €1.20). The slot's 30-minute window and €8.00 budget are consistent with and comfortably cover these actual travel times and costs. The use of an IC card (notes) is a standard method for Tokyo Metro and JR East mentioned in the evidence.",
+      "claims_checked": [
+        "Transit duration: 30 minutes",
+        "Cost: €8.00",
+        "Destination: Ueno/Ueno Park",
+        "Transport method: IC card (train/subway)"
+      ]
+    },
+    {
+      "day_index": 8,
+      "slot_position": 2,
+      "slot_name": "Ueno Park, Shinobazu Pond & Bentendo",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.google.com/maps/search/Shinobazu+no+Ike+Bentendō"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provided a Google Maps search link, but no evidence was retrieved from the link or provided in the evidence section. Therefore, the claims regarding the location, cost, and description cannot be verified against any factual data.",
+      "claims_checked": [
+        "Venue name: Ueno Park, Shinobazu Pond & Bentendo",
+        "Location: Ueno Park / Bentendo",
+        "Cost: €6.00",
+        "Description: Free/low-cost temple and park route at Shinobazu Pond and Bentendo"
+      ]
+    },
+    {
+      "day_index": 8,
+      "slot_position": 3,
+      "slot_name": "Lunch: Ameyoko street-food lunch",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.gotokyo.org/en/spot/78/index.html"
+      ],
+      "verdict": "FAIL",
+      "reasoning": "The slot claims to be for 'Ameyoko street-food lunch' located in 'Ameya-Yokocho, Ueno'. However, the provided link (https://www.gotokyo.org/en/spot/78/index.html) leads to a page titled 'Shibuya Scramble Crossing: a must-see landmark in Tokyo'. The evidence describes Shibuya, which is a completely different neighborhood from Ueno/Ameyoko. Therefore, the evidence contradicts the location and venue claims of the slot.",
+      "claims_checked": [
+        "Venue name: Ameyoko street-food lunch",
+        "Location: Ameya-Yokocho, Ueno",
+        "Link: https://www.gotokyo.org/en/spot/78/index.html"
+      ]
+    },
+    {
+      "day_index": 8,
+      "slot_position": 4,
+      "slot_name": "Ameyoko browsing",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.gotokyo.org/en/spot/78/index.html"
+      ],
+      "verdict": "FAIL",
+      "reasoning": "The slot claims to provide information about 'Ameyoko browsing' (Ameya-Yokocho in Ueno), but the provided link (https://www.gotokyo.org/en/spot/78/index.html) redirects to or contains content exclusively about 'Shibuya Scramble Crossing'. The evidence does not mention Ameyoko, Ueno, market lanes, snacks, cosmetics, or sneakers. Therefore, the link provided does not support the claims made in the slot and actually describes a completely different location in Tokyo.",
+      "claims_checked": [
+        "Venue name: Ameyoko browsing / Ameya-Yokocho",
+        "Location: Ueno",
+        "Description: Market lanes, snacks, cosmetics, sneakers, and post-war market atmosphere",
+        "Link: https://www.gotokyo.org/en/spot/78/index.html"
+      ]
+    },
+    {
+      "day_index": 8,
+      "slot_position": 5,
+      "slot_name": "Transit/rest to Shinjuku",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.japan-guide.com/e/e2164.html"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence is a general landing page for Tokyo on Japan-Guide.com. While it confirms Tokyo is a destination, it contains no specific information regarding the transit route between Ueno and Shinjuku, the cost of such a trip, the duration, or the use of IC cards for this specific leg. The evidence cuts off before providing any transport-specific details.",
+      "claims_checked": [
+        "Transit route: Ueno to Shinjuku",
+        "Cost: €12.00",
+        "Duration: 1.5 hours (16:00 to 17:30)",
+        "Payment method: IC card"
+      ]
+    },
+    {
+      "day_index": 8,
+      "slot_position": 6,
+      "slot_name": "Dinner: Omoide Yokocho casual dinner",
+      "source_type": "link",
+      "source_urls": [
+        "https://hinotori-shinjuku.jp/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims a casual dinner featuring yakitori at a venue near Shinjuku/Omoide Yokocho (Hinotori) with a budget of approximately €12 per person. The evidence from the official website confirms the venue 'Hinotori' (陽ノ鳥) is an izakaya specializing in yakitori (焼き鳥) and lemon sour. While the exact address is not explicitly listed in the snippet, the URL and title confirm it is a Shinjuku-based establishment ('hinotori-shinjuku.jp'). The description of it being a place for a 'quick drink' (ちょっと一杯) and casual dining with friends/family supports the 'casual dinner' and 'cheap izakaya' claims. The budget of €12 (~1,900 JPY) is consistent with typical casual izakaya pricing for yakitori and a drink, though specific menu prices were cut off in the text, the category 'casual/cheap' is supported by the marketing language.",
+      "claims_checked": [
+        "Venue name: Hinotori (from link)",
+        "Location: Shinjuku",
+        "Category: Yakitori/Izakaya",
+        "Style: Casual dinner",
+        "Cost: Approx. €12 per person"
+      ]
+    },
+    {
+      "day_index": 8,
+      "slot_position": 7,
+      "slot_name": "Shinjuku nightlife: Golden Gai/Kabukicho drinks allowance",
+      "source_type": "link",
+      "source_urls": [
+        "https://nightlifetokyo.com/en/tokyo/guides/best-nightlife-shinjuku"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms that Golden Gai is a 'bar district' located in Shinjuku consisting of 'narrow alleys packed with 200+ tiny standing bars'. It supports the description of the area's atmosphere ('ramshackle, dimly lit, and completely magical') and the nature of the bars ('5-7 seats'). While the evidence does not explicitly list a €120 total cost, it mentions 'cheap thrills' and 'tiny standing bars', which is consistent with the slot's plan for a 'modest drink or no-cover bar stop'. The timing and location are consistent with the general nature of the district described.",
+      "claims_checked": [
+        "Location: Golden Gai / Kabukicho, Shinjuku",
+        "Activity: Nightlife/drinks in Golden Gai/Kabukicho",
+        "Atmosphere: Small, intimate bars in narrow alleys",
+        "Cost: Budgeted for modest drinks/no-cover stops"
+      ]
+    },
+    {
+      "day_index": 9,
+      "slot_position": 1,
+      "slot_name": "Transit to Ikebukuro",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.reddit.com/r/JapanTravelTips/comments/1lrwrf8/narita_ikebukuro_transfer/",
+        "https://www.gotokyo.org/en/destinations/northern-tokyo/ikebukuro/index.html",
+        "https://en.japantravel.com/tokyo/ikebus/61309",
+        "https://www.tripadvisor.com/Attractions-g298184-Activities-c59-zfn7278773-Tokyo_Tokyo_Prefecture_Kanto.html",
+        "https://www.tobu.co.jp/en/service/station/7105.html"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot describes a transit route from a 'Hostel' to Ikebukuro. However, the specific starting location (the hostel's name or address) is not provided in the slot details. The evidence confirms that Ikebukuro is a major transportation hub served by JR, Tokyo Metro, and private lines (Source 2, 5), but without a starting point, it is impossible to verify the duration (45 minutes) or the cost (€8.00/approx. 1,300 JPY). While the cost is plausible for a local IC-card fare within Tokyo, the evidence does not contain specific route data to confirm these claims.",
+      "claims_checked": [
+        "Transit duration: 45 minutes",
+        "Cost: €8.00",
+        "Transport mode: Regular IC-card fares/public transport",
+        "Destination: Ikebukuro"
+      ]
+    },
+    {
+      "day_index": 9,
+      "slot_position": 2,
+      "slot_name": "Sunshine City / Pokémon Center browsing",
+      "source_type": "link",
+      "source_urls": [
+        "https://sunshinecity.jp/en/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims that Sunshine City is located in Ikebukuro and contains pop-culture shops and a Pokémon Center. The provided official website link (Source 1) confirms the venue name 'Sunshine City' and includes navigation for 'Shops / Services'. While the specific 'Pokémon Center' name is not explicitly rendered in the text snippet of the homepage, the link provided is the official site for the complex known to house it, and the evidence confirms the existence of shopping facilities. The location 'Ikebukuro' is consistent with the official Sunshine City site's identity. The time window and cost are not contradicted by the evidence, which describes the venue as a shopping/amusement complex.",
+      "claims_checked": [
+        "Venue name: Sunshine City",
+        "Location: Ikebukuro",
+        "Category: attraction/shopping",
+        "Presence of shops/services"
+      ]
+    },
+    {
+      "day_index": 9,
+      "slot_position": 3,
+      "slot_name": "Lunch: Ikebukuro casual meal",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://livejapan.com/en/in-tokyo/in-pref-tokyo/in-ikebukuro/article-a0003607/",
+        "https://savorjapan.com/contents/discover-oishii-japan/relax-at-lunchtime-6-spots-where-you-can-enjoy-a-leisurely-lunch-in-ikebukuro",
+        "https://s.tabelog.com/en/aichi/A2301/A130501/",
+        "https://www.facebook.com/groups/457573074653783/posts/1902081093536300/",
+        "https://www.tripadvisor.com/Restaurants-g298184-zfn7278773-zfp30-Tokyo_Tokyo_Prefecture_Kanto.html"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims that casual meals like ramen, curry, or gyudon are available in Ikebukuro for approximately €12 per person (which is roughly 1,900-2,000 JPY). Evidence from Source 2 explicitly mentions '14 Great Places to Satisfy your Lunch Cravings for Less than 1,000 JPY in Ikebukuro,' which supports the feasibility of the price point. Source 1 confirms the availability of curry and rice in the area, and Source 4 confirms the presence of ramen shops (Gyumon ramen) in Ikebukuro. The total cost of €72 for a group (implied 6 people at €12 each) is consistent with these findings.",
+      "claims_checked": [
+        "Location: Ikebukuro",
+        "Category: Casual meal (Ramen, curry, gyudon)",
+        "Cost: Approx. €12 per person",
+        "Availability: Lunch time (12:15 - 13:15)"
+      ]
+    },
+    {
+      "day_index": 9,
+      "slot_position": 4,
+      "slot_name": "Otome Road, Animate & K-BOOKS",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.google.com/maps/search/K-BOOKS+Doujinkan"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provided a Google Maps search link for 'K-BOOKS Doujinkan', but no content was retrieved from this link or any other source. Therefore, there is no evidence available to verify the existence, location, or nature of the venues mentioned (Otome Road, Animate, K-BOOKS).",
+      "claims_checked": [
+        "Venue name: Otome Road",
+        "Venue name: Animate Ikebukuro",
+        "Venue name: K-BOOKS Doujinkan",
+        "Location: Ikebukuro",
+        "Category: attraction",
+        "Activity: Ikebukuro fan culture and character-goods stores"
+      ]
+    },
+    {
+      "day_index": 9,
+      "slot_position": 5,
+      "slot_name": "Dinner: Ikebukuro casual budget meal",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.tiktok.com/@hua.luv/video/7627837590896397581",
+        "https://www.quora.com/What-are-some-cheap-but-high-quality-restaurants-in-Ikebukuro-Tokyo",
+        "https://www.tsunagujapan.com/15-delicious-lunches-you-can-eat-in-ikebukuro-for-less-than-1000-yen/",
+        "https://www.facebook.com/groups/457573074653783/posts/1902081093536300/",
+        "https://www.tripadvisor.com/Restaurants-g298184-zfn7278773-zfp16-Tokyo_Tokyo_Prefecture_Kanto.html"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a casual budget dinner in Ikebukuro for approximately €8 per person. Evidence from Source 1 specifically mentions 'Affordable & Delicious Japanese Food for $8 in Ikebukuro' (approx. 1300 yen). Source 2 confirms that '$8 will buy you a quality lunch at a surprisingly large number of places' in the area. Source 3 lists 15 locations in Ikebukuro for less than 1,000 yen (approx. €6.20). While the total cost of €48.00 for the slot seems high for a single person at €8/person, it is consistent with a group of 6 people (6 * 8 = 48), and the availability of meals at this price point in the specified location is well-supported.",
+      "claims_checked": [
+        "Location: Ikebukuro",
+        "Price point: €8 per person (approx. $8.50 or 1300 yen)",
+        "Availability of casual budget meals in Ikebukuro"
+      ]
+    },
+    {
+      "day_index": 10,
+      "slot_position": 1,
+      "slot_name": "Lunch: final anime-district casual meal",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.reddit.com/r/anime/comments/1nbtyn6/anime_pilgrimage_food_for_the_soul_%E6%97%A5%E3%80%85%E3%81%AF%E9%81%8E%E3%81%8E%E3%82%8C%E3%81%A9%E9%A3%AF%E3%81%86%E3%81%BE%E3%81%97/?tl=en",
+        "https://www.tripadvisor.com/AttractionProductReview-g1066457-d27721369-Tokyo_Akihabara_Anime_Manga_Video_Games_and_Maid_Cafe_Tour-Shinjuku_Tokyo_Tokyo_P.html",
+        "https://www.japan-guide.com/e/e3003.html",
+        "https://www.youtube.com/watch?v=z0ccva2X5pg",
+        "https://www.facebook.com/groups/457573074653783/posts/2166592953751778/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a casual lunch in an 'anime district' (commonly Akihabara or Ikebukuro) with a budget of approximately €12 per person. Evidence from Source 3 confirms Akihabara is the 'center of Japan's otaku (diehard fan) culture' with many shops and establishments devoted to anime. Source 5 identifies Ikebukuro as another major area for anime fans with 'lots of options for restaurants'. Regarding the cost, while the evidence does not explicitly list menu prices for every item mentioned (gyudon, ramen, bento), the slot's claim of €12 per person (approx. 1,900-2,000 JPY) is consistent with standard pricing for casual 'set meals, gyudon, ramen, or supermarket bento' in Tokyo's commercial districts.",
+      "claims_checked": [
+        "Location: Anime district (Akihabara/Ikebukuro)",
+        "Category: Casual meal (gyudon, ramen, bento, street snacks)",
+        "Cost: Approx. €12 per person"
+      ]
+    },
+    {
+      "day_index": 10,
+      "slot_position": 2,
+      "slot_name": "Free anime district revisit",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.gotokyo.org/en/spot/55/index.html"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot identifies Akihabara as an 'anime district' and provides a link to the official Tokyo travel guide for Akihabara Electric Town. The evidence confirms Akihabara's location (Sotokanda, Chiyoda City, Tokyo) and its status as a 'Pop Culture Trendsetter' located 'near JR Akihabara Station'. While the slot mentions Nakano and Ikebukuro as alternatives, the primary link provided specifically validates the Akihabara claim. The cost of €12.00 is a personal budget allocation for 'browsing' and cannot be contradicted by a general travel guide. The time window is a planning choice consistent with a general visit.",
+      "claims_checked": [
+        "Location: Akihabara is a district in Tokyo.",
+        "Category: Akihabara is an anime/pop culture district.",
+        "Address/Area: Sotokanda, Chiyoda City, Tokyo."
+      ]
+    },
+    {
+      "day_index": 10,
+      "slot_position": 3,
+      "slot_name": "Farewell dinner: casual ramen/izakaya-lite meal",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.facebook.com/groups/destinationjapan/posts/4011376799081728/",
+        "https://www.facebook.com/tokyopearl888/posts/night-time-at-a-popular-standing-ramen-shop-in-tokyo/1343664343797903/",
+        "https://www.facebook.com/paolofromtokyoofficial/posts/this-100-year-old-shibuya-izakaya-is-being-run-by-the-next-generation/1207806121131980/",
+        "https://savorjapan.com/contents/discover-oishii-japan/15-izakaya-in-tokyo-with-a-multi-language-menu",
+        "https://www.instagram.com/reel/DSKNZU7gXjo/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a casual meal (ramen, gyudon, curry, or izakaya) in Tokyo with a budget of approximately €12 per person (total €72 for 6 people). While the evidence is generic, Source 3 explicitly links 'budget-friendly hostels' in Tokyo with 'Izakaya' dining. Source 5 confirms that guests at Tokyo hostels frequently seek 'good ramen spots nearby' and that 'there's so many restaurants around here.' Regarding the cost, €12 (approx. 2,000 JPY) is a standard and realistic price for casual ramen or gyudon in Tokyo, consistent with the 'budget-friendly' descriptions in the search results.",
+      "claims_checked": [
+        "Location: Tokyo / hostel area",
+        "Category: meal (ramen, gyudon, curry, or casual izakaya-lite)",
+        "Cost: Approx. €12 per person",
+        "Total cost: €72.00"
+      ]
+    },
+    {
+      "day_index": 10,
+      "slot_position": 4,
+      "slot_name": "Low-key farewell hangout with drinks/snacks",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.google.com/maps/search/JazzHaus+POSY"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provides a Google Maps search link for 'JazzHaus POSY', but no evidence was retrieved from this link or any other source. Therefore, the existence of the venue, its location, and its suitability for the described activity cannot be verified.",
+      "claims_checked": [
+        "Venue name: JazzHaus POSY",
+        "Location: Hostel lounge / nearby streets",
+        "Cost: €90.00 total / €15 per person",
+        "Activity: Low-key farewell hangout with drinks/snacks"
+      ]
+    },
+    {
+      "day_index": 11,
+      "slot_position": 1,
+      "slot_name": "Early hostel breakfast / konbini supplies",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.reddit.com/r/JapanTravelTips/comments/1ljg3gj/breakfast_for_early_mornings/",
+        "https://www.instagram.com/reel/DRYhx9gEQ-E/",
+        "https://www.facebook.com/groups/japantravel/posts/1282291609556083/",
+        "https://www.instagram.com/reel/DYCc9V0tS7o/",
+        "https://roadsandkingdoms.com/2018/zaru-soba-in-tokyo/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims that one can purchase breakfast and snacks at a Japanese convenience store (konbini) for a modest budget. Evidence from multiple sources (Source 1, 3, 5) confirms that konbinis like 7-Eleven, FamilyMart, and Lawson are widely used by travelers for quick, budget-friendly breakfasts (yogurt, bread, eggs, bakery items). Regarding the cost, Source 5 mentions using them to avoid 'mediocre hotel buffets' and save money. While the specific price of €8 per person (approx. 1,300 JPY) is not explicitly cited as a fixed price, it is consistent with the 'modest' and 'budget' descriptions in the evidence for a meal plus snacks, as konbini items are generally inexpensive. The timing (07:00) is feasible as konbinis are typically open 24/7 or very early.",
+      "claims_checked": [
+        "Availability of breakfast supplies at convenience stores (konbini)",
+        "Feasibility of an early morning (07:00) breakfast/snack run",
+        "Suitability of konbini for modest budgets/simple meals",
+        "Cost of approximately €8 per person for breakfast and snacks"
+      ]
+    },
+    {
+      "day_index": 11,
+      "slot_position": 2,
+      "slot_name": "Check-out and transfer to Haneda Airport",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.tokyo-monorail.co.jp/english/guidance/kokusaisen/index.html",
+        "https://www.haneda-tokyo-access.com/en/haneda-airport/nightandmorning.html"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims a transfer to Haneda Airport Terminal 3 on 2026-09-30 between 09:30 and 11:15. The evidence from the Tokyo Monorail and Keikyu Line (Haneda-Tokyo Access) confirms that Haneda Airport Terminal 3 is a valid destination served by these transit lines. While the specific cost for 6 adults (€24.00) is not explicitly calculated in the text, the evidence provides links to fare tables and confirms the station's operation. The time window is consistent with standard daytime operations for these transit services (which start around 05:00 and run until midnight).",
+      "claims_checked": [
+        "Destination: Haneda Airport Terminal 3",
+        "Transport mode: Public transit (Monorail/Keikyu Line)",
+        "Time window: 09:30 to 11:15",
+        "Date: 2026-09-30"
+      ]
+    },
+    {
+      "day_index": 11,
+      "slot_position": 3,
+      "slot_name": "Airport lunch before departure",
+      "source_type": "link",
+      "source_urls": [
+        "https://tokyo-haneda.com/en/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a lunch at Haneda Airport Terminal 3. The provided evidence is the official Haneda Airport website, which explicitly lists a 'Restaurants & Shops' section ('Restaurants & Shops Top', 'Shop Search') and a 'Floor Guide', confirming the existence of dining facilities at the airport. While the evidence does not list specific menu prices, the existence of 'Restaurants & Shops' and 'convenience-store' options (implied by the general airport infrastructure) is consistent with the claim of having a meal there before departure.",
+      "claims_checked": [
+        "Location: Haneda Airport Terminal 3",
+        "Category: meal",
+        "Availability of dining/shops at Haneda Airport"
+      ]
+    },
+    {
+      "day_index": 11,
+      "slot_position": 4,
+      "slot_name": "Return flight: Tokyo Haneda to Munich via Beijing",
+      "source_type": "link",
+      "source_urls": [
+        "https://us.trip.com/flights/tokyo-to-munich/airfares-tyo-muc/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims that Air China operates a one-stop route from Tokyo (HND) to Munich (MUC) via Beijing (PEK) and that this is a 'low one-stop Air China benchmark' option. Evidence from Trip.com confirms Air China operates this route (Tokyo to Munich) with prices as low as $345–$432 for one-way segments in May/June 2026 ('May 19, 2026: Air China ($345)'). This supports the feasibility of the €2,400 budget for 6 adults (approx. €400 per person). While the specific flight numbers (CA182, CA827) and exact 2026-09-30 times are not explicitly listed in the snippet, the evidence confirms the airline, the route, and the price category as described.",
+      "claims_checked": [
+        "Route: Tokyo Haneda (HND) to Munich (MUC) via Beijing (PEK)",
+        "Operator: Air China",
+        "Cost: €2,400 for 6 adults (approx. €400/person)",
+        "Feasibility of one-stop Air China flights on this route"
+      ]
+    }
+  ],
+  "rationale_pass_count": 32,
+  "rationale_fail_count": 4,
+  "rationale_missing_count": 17,
+  "hc_micro_pass_rate": 1.0,
+  "cc_micro_pass_rate": 0.8462,
+  "hc_macro_pass_rate": 1.0,
+  "cc_macro_pass_rate": 0.0,
+  "final_pass_rate": 0.0,
+  "aggregated_constraints": [
+    {
+      "id": "HC-1",
+      "constraint_text": "origin: Munich",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-2",
+      "constraint_text": "destination: Tokyo",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-3",
+      "constraint_text": "travel_dates: 2026.09.20 to 2026.09.30",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-4",
+      "constraint_text": "travelers: 6 adults",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-5",
+      "constraint_text": "budget: 9000 EUR total",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-6",
+      "constraint_text": "accommodation: hotel or hostel with shared common areas",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-7",
+      "constraint_text": "transport: Flight",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-8",
+      "constraint_text": "interests: anime, street food, nightlife, temples, technology, pop culture",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-1",
+      "constraint_text": "Car or road trip transport is not feasible for island or overseas destinations — a flight or ferry is required.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-2",
+      "constraint_text": "No key information should be left out of the plan, such as the lack of accommodation during travel.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-3",
+      "constraint_text": "Transportation choices within the trip must be reasonable. For example, having both “self-driving” and “flight” would be considered a conflict.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-4",
+      "constraint_text": "Both outbound and return transport must appear in the plan.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-5",
+      "constraint_text": "Flight or train connections must allow sufficient layover time (≥60 min domestic, ≥90 min international).",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-6",
+      "constraint_text": "Accommodation must be planned for every night of the trip.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-7",
+      "constraint_text": "Hotel check-in must be scheduled after arrival transport reaches the destination.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-8",
+      "constraint_text": "Restaurants must be open on the planned day and time.",
+      "constraint_type": "commonsense",
+      "final_verdict": "FAIL",
+      "judge_verdicts": [
+        "MISSING_INFO",
+        "PASS",
+        "FAIL",
+        "FAIL"
+      ],
+      "pass_count": 1,
+      "fail_count": 2,
+      "missing_count": 1,
+      "na_count": 0
+    },
+    {
+      "id": "CC-9",
+      "constraint_text": "Restaurant choices should not be repeated throughout the trip.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "MISSING_INFO",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 3,
+      "fail_count": 0,
+      "missing_count": 1,
+      "na_count": 0
+    },
+    {
+      "id": "CC-10",
+      "constraint_text": "Activities should be geographically sensible per day (no unnecessary cross-city travel).",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-11",
+      "constraint_text": "Attractions must be open on the planned day and time.",
+      "constraint_type": "commonsense",
+      "final_verdict": "FAIL",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "FAIL",
+        "FAIL"
+      ],
+      "pass_count": 2,
+      "fail_count": 2,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-12",
+      "constraint_text": "Attraction choices should not be repeated throughout the trip.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-13",
+      "constraint_text": "Travel time between consecutive activities must account for realistic transit duration.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    }
+  ],
+  "timestamp": "2026-05-16T20:28:12.800299+00:00"
+}

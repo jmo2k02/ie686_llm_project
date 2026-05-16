@@ -1,0 +1,8 @@
+{
+  "id": "query_21_mixed_group_ibiza_Adrian",
+  "source": "baseline",
+  "status": "error",
+  "error": "ValidationError: 4 validation errors for TravelPlan\ndays.1.slots.3.category\n  Input should be 'meal', 'attraction', 'transport', 'lodging', 'leisure' or 'other' [type=literal_error, input_value='rest', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/literal_error\ndays.4.slots.0.category\n  Input should be 'meal', 'attraction', 'transport', 'lodging', 'leisure' or 'other' [type=literal_error, input_value='rest', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/literal_error\ndays.4.slots.6.category\n  Input should be 'meal', 'attraction', 'transport', 'lodging', 'leisure' or 'other' [type=literal_error, input_value='rest', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/literal_error\ndays.6.slots.3.category\n  Input should be 'meal', 'attraction', 'transport', 'lodging', 'leisure' or 'other' [type=literal_error, input_value='rest', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/literal_error",
+  "duration_seconds": 37.9,
+  "plan_path": "data/travelplans/baseline/query_21_mixed_group_ibiza_Adrian.md"
+}

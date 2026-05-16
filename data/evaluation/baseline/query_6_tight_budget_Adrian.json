@@ -1,0 +1,989 @@
+{
+  "id": "query_6_tight_budget_Adrian",
+  "source": "baseline",
+  "status": "ok",
+  "has_timeout": false,
+  "timed_out_models": [],
+  "duration_seconds": 325.6,
+  "plan_path": "data/travelplans/baseline/query_6_tight_budget_Adrian.md",
+  "scorecard": {
+    "plan_excerpt": "# TravelPlan: Baseline itinerary: Stuttgart to Prague, June 20–23, 2026\n\n| Day 1 — 2026-06-20 — Stuttgart to Prague, Old Town first walk | Day 2 — 2026-06-21 — Prague Castle exteriors, Malá Strana, Letná views | Day 3 — 2026-06-22 — Old Town history, markets, New Town | Day 4 — 2026-06-23 — Cheap mo",
+    "judge_models": [
+      "openrouter:minimax/minimax-m2.7",
+      "openrouter:google/gemini-3-flash-preview",
+      "openrouter:deepseek/deepseek-v4-flash",
+      "openrouter:qwen/qwen3.5-397b-a17b"
+    ],
+    "timed_out_models": [],
+    "rationale_verifications": [
+      {
+        "day_index": 1,
+        "slot_position": 1,
+        "slot_name": "Carpool/Bus Stuttgart to Prague",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.flixbus.com/bus-routes/bus-stuttgart-prague"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The provided evidence is a truncated list of language/flag icons from the FlixBus website header and does not contain any route schedules, pricing, or duration information for the Stuttgart to Prague route. While the URL confirms the existence of such a route page, the fetched content fails to verify the specific claims regarding the 7-hour duration (07:00 to 14:00), the €35 cost, or the arrival at Prague Florenc.",
+        "claims_checked": [
+          "Route: Stuttgart to Prague",
+          "Arrival location: Prague Florenc / central Prague",
+          "Duration: 7 hours (07:00 to 14:00)",
+          "Cost: €35.00",
+          "Operator: FlixBus"
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 2,
+        "slot_name": "Transfer and Transit Ticket",
+        "source_type": "link",
+        "source_urls": [
+          "https://pid.cz/en/tickets-and-fare/",
+          "https://prague.eu/en/public-transport/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The provided evidence from the slot's own links (pid.cz and prague.eu) confirms the existence of a public transport network and mentions 'Short-term Prague tickets', but the specific price for a 72-hour ticket (330 CZK / ~€14) is not contained within the fetched text snippets. The snippets list categories and general information but cut off before displaying the actual price table or currency conversion.",
+        "claims_checked": [
+          "Existence of a 72-hour Prague public transport ticket",
+          "Cost of 72-hour ticket is 330 CZK ≈ €14",
+          "Florenc is a Prague arrival stop"
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 3,
+        "slot_name": "Hostel Check-in",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.hostelworld.com/hostels/p/12616/old-prague-hostel/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims a central location in Prague for a hostel dorm with an estimated cost of €30.00. The evidence from Source 1 (Old Prague Hostel) confirms the location is 'right in historical centre of Prague' and '0.6km from city centre'. While specific 2026 pricing is not explicitly listed in the text snippet, the hostel describes itself as 'cheap accommodation' and the slot notes the €30.00 is an 'estimate'. The check-in time of 15:00 is a standard industry practice for hostels, and the evidence confirms a '24 hours reception'.",
+        "claims_checked": [
+          "Location: Prague",
+          "Location: Central (Old Town)",
+          "Category: Lodging/Hostel dorm",
+          "Cost: €30.00 (estimate)",
+          "Check-in availability: 15:00"
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 4,
+        "slot_name": "Late Lunch",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.reddit.com/r/solotravel/comments/11na6l8/whats_your_go_to_hostel_meal/",
+          "https://www.pinterest.com/ideas/hostel-food-ideas/903219379278/",
+          "https://www.yelp.com/search?find_desc=Lunch&find_near=central-city-cafe-huntington",
+          "https://www.reddit.com/r/solotravel/comments/v20s0h/easy_meals_for_hostels/",
+          "https://hihostels.ca/en/magazine/easy-meals-to-make-in-a-hostel-kitchen-when-you-hate-cooking-around-strangers"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a generic 'cheap late lunch' consisting of supermarket items or market snacks for €6.00. The evidence from Reddit and hostel-focused sites supports the feasibility of this concept. Specifically, Source 1 suggests 'Local bread, cheese, salami or deli meat' from a 'near by market' as a go-to hostel meal, which aligns with the slot's mention of 'supermarket bakery' and 'market-style snack'. While the specific price of €6.00 is not explicitly cited in the search results, the evidence confirms that these types of meals are standard 'budget' or 'easy' options for travelers staying in hostels.",
+        "claims_checked": [
+          "Meal type: supermarket bakery, chlebíček, or market-style snack",
+          "Location: Near hostel / city centre",
+          "Cost: €6.00 (budget estimate)",
+          "Feasibility of finding cheap snacks/market food near hostels"
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 5,
+        "slot_name": "Historical Walk",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://prague.eu/en/objevujte/old-town-square-staromestske-namesti/",
+          "https://www.introducingprague.com/stare-mesto",
+          "https://www.tripadvisor.com/Attractions-g274707-Activities-c47-t19-zfn7246870-Prague_Bohemia.html",
+          "https://www.youtube.com/watch?v=i5VQW_V0Nco",
+          "https://www.tripadvisor.com/Attraction_Review-g274707-d19503380-Reviews-Stare_MEsto-Prague_Bohemia.html"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms that Staré Město (Old Town) is a historic district ideal for walking and contains the landmarks mentioned. Source 2 identifies Staré Město as 'the best place to take a walk around the city' and specifically lists 'The Old Town Square' as a top site. Source 5 notes the area 'goes back to the 12th century' and is 'big and beautiful'. While the specific sequence (Powder Gate to Charles Bridge) isn't explicitly detailed as a single route in the snippets, the locations are all confirmed as part of the Old Town/Staré Město area. The cost of €0.00 is supported by the description of it being a 'stroll down its cobbled streets' (Source 2) and the notes stating these are free public areas.",
+        "claims_checked": [
+          "Location: Old Town / Staré Město",
+          "Route includes Old Town Square",
+          "Route includes Astronomical Clock exterior",
+          "Route includes Charles Bridge",
+          "Cost: €0.00 (Free public areas)",
+          "Category: Attraction/Historical Walk"
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 6,
+        "slot_name": "Street-food Dinner",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.tripadvisor.com/Restaurants-g274707-c10686-zfn15621710-Prague_Bohemia.html",
+          "https://theculturetrip.com/europe/czech-republic/articles/the-10-best-restaurants-in-pragues-zizkov-neighborhood",
+          "https://www.czechleaders.com/insights/a-taste-of-florence-in-the-heart-of-zizkov/",
+          "https://www.youtube.com/watch?v=dBcfbseFqqA",
+          "https://www.tasteofprague.com/pragueblog/prague-off-the-beaten-path-the-zizkov-district"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a budget street-food dinner (sausage, kebab, Vietnamese, or supermarket) in the Florenc/Žižkov area for approximately €8.00. Evidence from Source 1 confirms the presence of 'Asian' and 'Fast Food' options in Žižkov with a '$' (low cost) rating. Source 5 confirms Žižkov is known for 'hangover food' and 'classic beer pubs' away from the main tourist center. Source 3 mentions quick lunch options like 'stuffed panino' in the heart of Žižkov. The cost estimate of €8.00 is consistent with the '$' price category for street food in Prague.",
+        "claims_checked": [
+          "Location: Old Town edge / Florenc / Žižkov",
+          "Category: Street-food (sausage, kebab, Vietnamese, or supermarket)",
+          "Cost: €8.00 (Budget estimate)",
+          "Context: Avoiding tourist restaurants in Old Town Square"
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 7,
+        "slot_name": "Evening Stroll",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.tripadvisor.com/AttractionProductReview-g274707-d11447091-Prague_by_Night_Walking_Tour_Vltava_River_Cruise-Prague_Bohemia.html",
+          "https://www.facebook.com/groups/celebratewhatsright/posts/1303539846472141/",
+          "https://www.headout.com/sightseeing-cruises/prague-50-minute-evening-vltava-river-cruise-e-38679/",
+          "https://www.youtube.com/watch?v=t6W3Ea7NmY8",
+          "https://www.instagram.com/p/DXZsX8eDAUm/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes an evening stroll on Charles Bridge and the Vltava riverbanks. Evidence from multiple sources confirms that Charles Bridge crosses the Vltava river (Source 2) and is a popular location for evening/sunset walks with views of the river and castle (Sources 4 and 5). The cost of €0.00 is consistent with a public bridge and riverbank stroll. The suggestion to go later to avoid crowds is a common travel recommendation for this specific landmark, though the evidence primarily focuses on the activity's availability and visual appeal at night.",
+        "claims_checked": [
+          "Location: Charles Bridge crosses the Vltava river",
+          "Activity: Evening/sunset stroll is possible at this location",
+          "Cost: €0.00 (public access)"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 1,
+        "slot_name": "Breakfast",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.travellers-fare.com/breakfast-meals-to-cook-in-a-hostel-kitchen/",
+          "https://www.reddit.com/r/backpacking/comments/1cx5g1g/hostelgoers_what_are_your_cheapeasy_meals/",
+          "https://www.quora.com/What-can-I-make-for-breakfast-and-dinner-while-staying-in-a-hostel",
+          "https://liveworkplaytravel.com/easy-breakfast-dishes-to-make-in-a-hostel/",
+          "https://www.youtube.com/watch?v=d6Eit48Vblg"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot suggests a budget breakfast of €5.00 consisting of yogurt, pastry, or fruit from a supermarket or prepared in a hostel kitchen. The evidence supports the feasibility of this plan. Source [1] specifically mentions 'Muesli Fruit Yoghurt' as a breakfast you don't need to cook in a hostel. Source [3] lists 'Bread and fruit jam' and 'Oats with soymilk and fruits' as standard hostel meals. While the evidence does not explicitly list a price of €5.00, these basic supermarket items (yogurt, fruit, bread) are universally recognized as low-cost options consistent with a €5 budget in a European context.",
+        "claims_checked": [
+          "Location: Hostel or supermarket",
+          "Cost: €5.00",
+          "Meal components: Yogurt, pastry, or fruit",
+          "Feasibility of hostel kitchen use for breakfast"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 2,
+        "slot_name": "Transit to Castle",
+        "source_type": "link",
+        "source_urls": [
+          "https://pid.cz/en/tickets-and-fare/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims that a 72-hour ticket is a valid transit pass option for Prague and that the cost for this specific transit leg is €0.00 (assuming the pass is already purchased). The provided evidence from the official Prague Integrated Transport (PID) website confirms the existence of 'Short-term Prague tickets' and 'Long-term Prague tickets' under the 'Tickets and Prices' section. While the specific price of the 72-hour ticket is not visible in the snippet, the link provided (https://pid.cz/en/tickets-and-fare/) is the authoritative source for these passes. The claim that the transit leg itself costs €0.00 given a pre-purchased pass is a logical application of a multi-day pass system.",
+        "claims_checked": [
+          "Existence of a 72-hour transit ticket/pass for Prague",
+          "Transit to Prague Castle can be done via tram",
+          "Cost is €0.00 if a pass is already purchased"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 3,
+        "slot_name": "Prague Castle Exteriors",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.hrad.cz/en/prague-castle-for-visitors/opening-hours"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms that the Prague Castle complex is open from 6:00 to 22:00 during the Summer Tourist Season (April 1 till October 31), which covers the requested time of 10:00 to 12:30 on June 21, 2026. The evidence also confirms that the Prague Castle Gardens (Royal Garden, Stag Moat, South Gardens) open at 10:00 during June. The slot's focus on free-access areas and exteriors is consistent with the complex's general accessibility outside of the specific 'Historical buildings' which require tickets.",
+        "claims_checked": [
+          "Venue name: Prague Castle",
+          "Opening hours: Complex is open during 10:00 - 12:30 on June 21",
+          "Seasonality: Summer Tourist Season (April 1 - Oct 31) applies to June date",
+          "Access: Free-access areas/exteriors exist within the complex hours (6:00 - 22:00)",
+          "Gardens access: Gardens open at 10:00 in June"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 4,
+        "slot_name": "Cheap Lunch",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.tripadvisor.com/Restaurants-g274707-zfn7246866-zfp16-Prague_Bohemia.html",
+          "https://www.facebook.com/groups/traveltipsprague/posts/1065349318775955/",
+          "https://www.reddit.com/r/Prague/comments/azw8zw/where_to_eat_in_dejvicehradcany_area/",
+          "https://www.tasteofprague.com/pragueblog/10-cheap-eats-in-prague",
+          "https://www.fodors.com/world/europe/czech-republic/restaurants/budget"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a generic 'Cheap Lunch' strategy (bakery/supermarket or takeaway) rather than a specific named venue. The evidence supports the feasibility of this cost and location. Source 2 mentions budget meals in Malá Strana for '200 to 250 crowns' (approx. €8-10), and Source 4 mentions locals looking for 'EUR 4 lunch specials.' A €7.00 budget for a bakery or takeaway meal on the edge of Hradčany/Malá Strana is consistent with these price points for budget dining in Prague.",
+        "claims_checked": [
+          "Location: Hradčany / Malá Strana edge",
+          "Cost: €7.00",
+          "Availability of cheap Czech/Vietnamese takeaway or bakery/supermarket options in the area"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 5,
+        "slot_name": "Malá Strana Walk",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.youtube.com/watch?v=gEBkUFA0gME",
+          "https://letmeinspireyou.nl/from-mala-strana-up-petrin-hill-to-kampa/",
+          "https://thecreativeadventurer.com/explore-pragues-little-quarter-a-self-guided-walking-tour-of-mala-strana/",
+          "https://www.tripadvisor.com/Attractions-g274707-Activities-zfn7246866-Prague_Bohemia.html",
+          "https://prague-now.com/neighbourhoods/attractions-and-sights-in-mala-strana/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a walk through Malá Strana, Wallenstein Garden, Kampa, and riverside views. Evidence from Source 4 lists 'Waldstein Garden' (Wallenstein) and 'Kampa Park' as top things to do in Malá Strana. Source 1 confirms the existence of 'riverside paths of Malá Strana' starting near Kampa. Source 2 confirms Kampa Island is located on the Malá Strana side of the river. The cost of €0.00 is consistent with a self-guided walking tour of public areas and gardens (Source 3 mentions a 'Free Self-Guided Walking Tour'). The note about garden opening variability is a reasonable caution for public gardens like Wallenstein.",
+        "claims_checked": [
+          "Location: Malá Strana / Kampa",
+          "Attraction: Wallenstein Garden (Waldstein Garden) is in Malá Strana",
+          "Attraction: Kampa is in Malá Strana",
+          "Activity: Riverside views/walks are available in this area",
+          "Cost: €0.00 (Free)"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 6,
+        "slot_name": "Letná Park Views",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.praguewise.com/letna-park.html",
+          "https://en.wikipedia.org/wiki/Letn%C3%A1_Park",
+          "https://www.tripadvisor.com/Attraction_Review-g274707-d276458-Reviews-Letna_Park-Prague_Bohemia.html",
+          "https://czechbyjane.com/letna-park-the-best-views-of-the-prague/",
+          "https://prague.eu/en/objevujte/letna-parks-letenske-sady/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms that Letná Park is a public park in Prague (Source 2) known for offering some of the best panoramic views of the city and its bridges (Source 1, 4, 5). Source 1 explicitly refers to it as an 'attraction' and Source 5 describes it as an 'extensive park' providing 'unparalleled views of the city'. As a public park, the cost of €0.00 is consistent with the nature of the location.",
+        "claims_checked": [
+          "Venue name: Letná Park",
+          "Location: Letná Park, Prague",
+          "Category: attraction",
+          "Cost: €0.00 (Free)",
+          "Feature: Offers skyline/panoramic views of Prague"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 7,
+        "slot_name": "Hostel Rest",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.agoda.com/en-ie/hostel-rest/hotel/bielany-pl.html",
+          "https://www.tripadvisor.com/Hotel_Review-g274772-d6106505-Reviews-Rest_Hostel-Krakow_Lesser_Poland_Province_Southern_Poland.html",
+          "https://www.tripadvisor.com/Hotel_Review-g298484-d23795660-Reviews-Hostel_Rest-Moscow_Central_Russia.html",
+          "https://www.booking.com/hotel/pl/hostel-rest.html",
+          "https://www.hotels.com/ho3071007072/leisure-hostel-pak-nam-thailand/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a period of rest at a 'Hostel Rest' involving kitchen use (refilling water). The evidence confirms the existence of a 'Hostel Rest' in Kraków (Sources 1, 2, 4) and specifically mentions that 'Hostel Rest' (Source 3) has a kitchen available for use ('The kitchen was almost always free'). While Source 3 refers to a Moscow location, Sources 1, 2, and 4 confirm the brand/name exists as a lodging facility in Kraków, which is consistent with the slot's description of a hostel environment where one can recharge and use a kitchen.",
+        "claims_checked": [
+          "Venue name: Hostel Rest",
+          "Category: leisure/rest",
+          "Facility: Includes a kitchen",
+          "Cost: €0.00 (consistent with staying at one's own booked accommodation)"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 8,
+        "slot_name": "Budget Dinner",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.hostelz.com/hostels/Czech-Republic/Prague/hostels-with-kitchen",
+          "https://www.hostelelf.com/blog/food-tour-zizkov",
+          "https://www.czechleaders.com/insights/a-taste-of-florence-in-the-heart-of-zizkov/",
+          "https://www.reddit.com/r/Prague/comments/1qcrek6/tasty_cheap_restaurants_around_%C5%BEi%C5%BEkov/",
+          "https://wanderlog.com/list/geoCategory/193004/best-cheap-eats-in-bohemia"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot suggests a budget dinner for €8.00 by either cooking in a hostel kitchen or buying takeaway in the Žižkov/Florenc area. Evidence from Source 1 confirms that hostels in Prague with kitchens allow travelers to 'Cook & Save Money'. Source 4 mentions that a cheap main course in the area costs around 150 CZK (approximately €6.00), which is consistent with the €8.00 budget provided for a takeaway or home-cooked meal.",
+        "claims_checked": [
+          "Location: Žižkov / Florenc area",
+          "Cost: €8.00",
+          "Activity: Cooking in a hostel kitchen is a budget-friendly option",
+          "Activity: Takeaway is a viable budget option in this area"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 9,
+        "slot_name": "Evening Walk / Tour",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.tripadvisor.com/AttractionProductReview-g274707-d34263076-Ghosts_and_Legends_of_Prague_Old_Town_Evening_Tour-Prague_Bohemia.html",
+          "https://freewalkingtourprague.eu/tours/private/prague-old-town",
+          "https://www.prague.fm/15155/josefov-jewish-quarter-walk/",
+          "https://www.youtube.com/watch?v=tN86ZM5qxNs",
+          "https://www.viator.com/tours/Prague/Prague-Old-Town-New-Town-and-Jewish-Quarter-Tour/d462-8524P11"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes an evening walk or tour in the Old Town/Josefov area with a tip-based or independent structure. Evidence from Source 2 confirms the existence of 'Free Walking Tour Prague' covering 'Prague Old Town & Josefov'. Source 1 confirms evening-specific tours ('Old Town Evening Tour') that include walking through 'Josefov'. The cost of €5.00 is consistent with the 'tip-based' description for a free tour, and the location and timing are supported by the general availability of evening walks in these districts as shown in Sources 1 and 4.",
+        "claims_checked": [
+          "Location: Old Town / Josefov",
+          "Activity: Evening walking tour or independent walk",
+          "Cost: €5.00 (tip-based)",
+          "Category: Attraction"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 1,
+        "slot_name": "Breakfast",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.travellers-fare.com/breakfast-meals-to-cook-in-a-hostel-kitchen/",
+          "https://www.reddit.com/r/backpacking/comments/1cx5g1g/hostelgoers_what_are_your_cheapeasy_meals/",
+          "https://www.quora.com/What-can-I-make-for-breakfast-and-dinner-while-staying-in-a-hostel",
+          "https://liveworkplaytravel.com/easy-breakfast-dishes-to-make-in-a-hostel/",
+          "https://www.youtube.com/watch?v=d6Eit48Vblg"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a 'Simple hostel/supermarket breakfast' with a cost of €5.00. The evidence from multiple sources (Source 1, 2, 3, and 4) confirms that simple, low-cost meals like muesli, eggs, bread, and fruit are standard for hostel travelers. While the evidence does not specify a exact price of €5.00, it characterizes these meals as 'cheap' and 'easy' (Source 2), which is consistent with a €5.00 budget for a supermarket-sourced meal. The location 'Hostel / supermarket' is directly supported by the search results discussing meals to 'cook in a hostel kitchen' (Source 1) using basic ingredients.",
+        "claims_checked": [
+          "Location: Hostel / supermarket",
+          "Cost: €5.00",
+          "Description: Simple hostel/supermarket breakfast"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 2,
+        "slot_name": "Early History Loop",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.pragueexperience.com/places.asp?PlaceID=597",
+          "https://www.introducingprague.com/josefov",
+          "https://strollcraft.app/walking-loops/prague/josefov/",
+          "https://www.tours-prague.eu/prague-josefov.phtml",
+          "https://prague-now.com/city-walks/self-guided-city-walk-josefov-jewish-heritage-prague/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a walking loop through Staré Město (Old Town) and Josefov (Jewish Quarter) including Old Town Square and Jewish Quarter streets. Evidence from Source 1 and Source 5 confirms that Josefov is 'sandwiched between Old Town Square and the river' and 'wedged between the Vltava River and Old Town Square,' supporting the geographical proximity and the feasibility of a loop connecting these areas. Source 3 explicitly mentions the existence of 'scenic Josefov walking routes' and 'walking loops' in this specific area. The cost of €0.00 is consistent with a self-guided outdoor walking tour of 'exteriors' and 'streets' as described. While the specific name 'Early History Loop' appears to be a descriptive title rather than a formal attraction name, the components and location are verified by the evidence.",
+        "claims_checked": [
+          "Location: Staré Město / Josefov",
+          "Proximity of Old Town Square to Jewish Quarter",
+          "Existence of walking loops in Josefov",
+          "Cost: €0.00 (consistent with exterior street walking)"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 3,
+        "slot_name": "Astronomical Clock",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.pragueticketoffice.com/event/old-town-hall-astronomical-clock-skip-the-line-with-elevator-entrance-ticket",
+          "https://www.tripadvisor.com/Attraction_Review-g274707-d275152-Reviews-Old_Town_Hall_with_Astronomical_Clock-Prague_Bohemia.html",
+          "https://www.praguevisitorpass.eu/Experiences/Old-Town-Hall-with-Astronomical-Clock?lang=en-gb",
+          "https://prague-now.com/museums/old-town-hall-prague-historic-landmark-and-astronomical-clock/",
+          "https://www.ramnathsaway.com/astronomical-clock-towers-amazing-views-of-prague/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms the Astronomical Clock is located on the exterior of the Old Town Hall (Source 2: 'the corner of which is adorned with a historical astronomical clock'; Source 4: 'landmark because of the astronomical clock on its side wall'). While the evidence mentions paid tickets for the interior and tower (Source 1, 5), it confirms the clock is visible from the square/exterior, supporting the claim that viewing it from the square is a distinct activity from the paid tower entry.",
+        "claims_checked": [
+          "Venue name: Astronomical Clock",
+          "Location: Old Town Hall exterior",
+          "Cost: €0.00 (Free exterior viewing)",
+          "Category: attraction"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 4,
+        "slot_name": "Cheap Lunch",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://m.yelp.com/search?find_desc=Restaurants+Cheap+Eats&find_loc=Old+Town%2C+Chicago%2C+IL",
+          "https://www.tripadvisor.com/Restaurants-g35805-zfn15565787-zfp16-Chicago_Illinois.html",
+          "https://www.yelp.com/search?find_desc=Affordable+Restaurants&find_loc=Old+Town%2C+Chicago%2C+IL+60610",
+          "https://m.yelp.com/search?find_desc=Affordable+Restaurants&find_loc=Old+Town%2C+Chicago%2C+IL/",
+          "https://m.yelp.com/search?find_desc=Affordable+Restaurants&find_loc=Old+Town%2C+Chicago%2C+IL&start=80"
+        ],
+        "verdict": "FAIL",
+        "reasoning": "The slot describes a lunch consisting of 'chlebíčky' (a traditional Czech open-faced sandwich) and Vietnamese takeaway for €7.00, which strongly implies a location in Prague, Czech Republic. However, the search results provided are exclusively for 'Old Town' in Chicago, Illinois, USA. The evidence lists restaurants like 'Topo Gigio Ristorante' and 'The VIG Chicago' with US addresses and phone numbers. There is a fundamental geographical mismatch between the cultural context of the claims (chlebíčky/Euro currency) and the provided evidence (Chicago/USD context). Furthermore, the evidence does not support a €7.00 price point for the listed Chicago venues.",
+        "claims_checked": [
+          "Location: Old Town edge / New Town",
+          "Cost: €7.00",
+          "Food items: chlebíčky, kebab, supermarket salad, or Vietnamese takeaway"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 5,
+        "slot_name": "New Town Walk",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.private-prague-guide.com/article/prague%C2%B4s-new-town-nove-mesto/",
+          "https://www.tours-prague.eu/prague-new-town.phtml",
+          "https://www.gpsmycity.com/tours/new-town-walking-tour-6308.html",
+          "https://www.tripadvisor.com/Attractions-g274707-Activities-zfn7246882-Prague_Bohemia.html",
+          "https://freewalkingtourprague.eu/blog/new-town-top-5"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms that Wenceslas Square (Václavské náměstí), the Lucerna passage (Lucerna Palace), and the National Museum are all located in Prague's New Town (Nové Město) and are geographically clustered. Source 2 explicitly mentions visiting Wenceslas Square and the Lucerna Palace (noting the statue of St. Wenceslas on an upside-down horse). Source 3 confirms that the National Museum overlooks Wenceslas Square. The cost of €0.00 is consistent with a self-guided walk of public squares and building exteriors.",
+        "claims_checked": [
+          "Location: New Town / Václavské náměstí",
+          "Route: Wenceslas Square to Lucerna passage",
+          "Route: National Museum exterior",
+          "Cost: €0.00"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 6,
+        "slot_name": "Market Visit",
+        "source_type": "link",
+        "source_urls": [
+          "https://prague.eu/en/objevujte-kategorie/markets/"
+        ],
+        "verdict": "FAIL",
+        "reasoning": "The slot schedules a visit to the Jiřího z Poděbrad farmers' market on a Monday (2026-06-22). However, the evidence states that this market operates 'four times a week' and specifically mentions Saturday morning markets at another location. Cross-referencing the provided link's text, it does not list Monday as an operating day for Jiřího z Poděbrad. Most importantly, the slot's own notes acknowledge that Monday hours need verification, but the evidence provided (Source 1) implies a limited schedule ('four times a week') that typically excludes Mondays in Prague (where farmers' markets traditionally run Wednesday–Saturday). Since the evidence does not support Monday operations for this specific named market, the claim of it being a viable destination on that date is contradicted by the 'four times a week' limitation.",
+        "claims_checked": [
+          "Venue name: Jiřího z Poděbrad farmers' market",
+          "Date: 2026-06-22 (Monday)",
+          "Location: Jiřího z Poděbrad",
+          "Operating days: Includes Monday"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 7,
+        "slot_name": "Rest",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.hoteles.com/en/ho3153209728/leisure-hostel-kowloon-hong-kong-sar/",
+          "https://coloradomountainschool.com/course/estes-park-adventure-hostel/",
+          "https://www.kuhl.com/borninthemountains/why-a-national-park-hostel-is-the-way-to-go?srsltid=AfmBOopT67txFOPdbetaJIHjfM9tgIN-AF868MeKd8-KVHP1Ff1kf2Ov",
+          "https://usa.innoracks.com/2020/03/why-a-national-park-hostel-is-the-way-to-go/",
+          "https://www.hotels.com/ho1104422976/estes-park-adventure-hostel-estes-park-united-states-of-america/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot describes a generic activity ('Rest') at a generic location ('Hostel / park') without specifying a city or a particular venue. The search results provide information on specific hostels named 'Leisure Hostel' in Hong Kong or 'Estes Park Adventure Hostel' in Colorado, but none of these results can verify the existence or cost of a specific 'Hostel / park' location intended by the user. There is no evidence to confirm or deny the feasibility of resting at a park or hostel for free in the unspecified destination.",
+        "claims_checked": [
+          "Location: Hostel / park",
+          "Cost: €0.00",
+          "Category: leisure"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 8,
+        "slot_name": "Hostel Dinner",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://nowhereparticular.com/hostel-meal-ideas/",
+          "https://www.facebook.com/groups/1484559901601865/posts/7544212798969848/",
+          "http://www.viagio.com/blog/article/10-cheap-healthy-meal-ideas-to-make-in-a-hostel",
+          "https://hihostels.ca/en/magazine/easy-meals-to-make-in-a-hostel-kitchen-when-you-hate-cooking-around-strangers",
+          "https://pagestoplanes.com/cooking-in-communal-kitchens-cheap-yummy-hostel-dinners/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms that cooking in a hostel kitchen is a standard strategy to save money while traveling. Source 1 states that cooking your own meals in a hostel kitchen can 'save you huge amounts of money.' Source 3 specifically lists pasta as a cheap meal idea ('add to cooked pasta with a healthy glug of olive oil'). Source 5 also lists 'Elevated Pesto Pasta' as a cheap hostel dinner. The cost estimate of €6.00 is consistent with the 'budget' and 'cheap' descriptions found across all sources for these types of meals.",
+        "claims_checked": [
+          "Location: Hostel kitchen",
+          "Cost: €6.00",
+          "Description: Cook pasta/rice in hostel kitchen or supermarket ready meal",
+          "Note: Cheapest dinner strategy"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 9,
+        "slot_name": "Final Night Walk",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.helloprague.net/prague-evening-walk/",
+          "https://www.tripadvisor.com/AttractionProductReview-g274707-d11447091-Prague_by_Night_Walking_Tour_Vltava_River_Cruise-Prague_Bohemia.html",
+          "https://www.youtube.com/watch?v=rKjsjVh6qJc",
+          "https://www.viator.com/tours/Prague/Prague-Old-Town-Mystery-Walking-Tour/d462-9241P1",
+          "https://www.getyourguide.com/en-gb/old-town-prague-l26125/night-tours-tc10/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a self-guided night walk through public areas in Prague (Vltava riverbanks, Old Town, and viewpoints). Evidence from Source 1 confirms the existence of the 'Embankment Walk' along Smetanovo nábřeží with views of the Vltava and Old Town ('Walk north along the embankment... The Vltava is on your left; the Old Town buildings are on your right'). Source 3 and 5 further support the popularity and accessibility of night walks in the Old Town and along the river. The cost of €0.00 is consistent with the 'Free public areas' note, as these are outdoor urban spaces.",
+        "claims_checked": [
+          "Location: Vltava / Old Town",
+          "Cost: €0.00 (Free public areas)",
+          "Activity: Night walk along riverbanks and Old Town",
+          "Viewpoints: Charles Bridge and Old Town are visible/accessible at night"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 1,
+        "slot_name": "Breakfast and Snacks",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.scribd.com/document/889794193/Hostel-Weight-Gain-Meal-Plan",
+          "https://www.reddit.com/r/backpacking/comments/1cx5g1g/hostelgoers_what_are_your_cheapeasy_meals/",
+          "https://www.facebook.com/groups/AussieBackpacking/posts/2539935629396171/",
+          "https://www.instagram.com/reel/DRFXmhZEgNF/",
+          "https://www.quora.com/What-can-I-make-for-breakfast-and-dinner-while-staying-in-a-hostel"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims that a breakfast and snack pack from a hostel or supermarket can be obtained for approximately €6.00. Evidence from Source 3 (Facebook Aussie Backpacking group) explicitly supports this price point, stating '$6 will keep you good for a week of enhanced breakfast Snacks'. Other sources (Source 2, 5) confirm that hostels typically provide facilities or environments where cheap meals like bread, bananas, eggs, and cereals can be prepared or stored. The location 'Hostel / supermarket' is a generic category consistent with the activity described.",
+        "claims_checked": [
+          "Location: Hostel / supermarket",
+          "Cost: €6.00",
+          "Activity: Breakfast and packing snacks from a hostel/supermarket"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 2,
+        "slot_name": "Check-out",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.bookingninjas.com/blog/how-can-i-reduce-the-time-spent-on-manual-check-ins-and-check-outs-in-my-hostel",
+          "https://www.reddit.com/r/TalesFromTheFrontDesk/comments/dafbwf/really_strict_check_out_policy_at_hostel/",
+          "https://www.youtube.com/watch?v=KJthUQurEQ4",
+          "https://www.volunteerforever.com/article_post/what-is-a-hostel-an-overview-and-tips-for-international-travelers/",
+          "https://www.expedia.com/aa/Hostels"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot refers to a generic 'Hostel' without a specific name or location. The provided evidence discusses general hostel policies (such as strict check-out times or budget nature) but does not contain information about a specific property's check-out time or luggage storage fees. Therefore, it is impossible to verify if the 08:15-09:00 window or the €0.00 cost (for check-out) is accurate for the intended venue.",
+        "claims_checked": [
+          "Venue name: Hostel",
+          "Check-out time: 08:15 - 09:00",
+          "Cost: €0.00",
+          "Luggage storage policy: Store bag only if free"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 3,
+        "slot_name": "Final Walk",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.tripadvisor.com/Attraction_Review-g60945-d10524552-Reviews-Riverwalk_in_Downtown_Estes_Park-Estes_Park_Colorado.html",
+          "https://visitdenver.com/things-to-do/tours/historical-downtown-walking-tour/",
+          "https://www.thesanantonioriverwalk.com/",
+          "https://www.yelp.com/search?find_desc=River+Walk&find_loc=Denver%2C+CO",
+          "https://www.uncovercolorado.com/activities/pueblo-riverwalk/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot describes a walk through 'Old Town' or along the 'Vltava' river. The Vltava river is located in Prague, Czech Republic. However, the provided search evidence (Sources 1-5) exclusively discusses locations in the United States, specifically Colorado (Estes Park, Denver, Pueblo) and San Antonio, Texas. None of the evidence mentions the Vltava river or a corresponding 'Old Town' in that geographic context. Therefore, there is no evidence to verify or contradict the claims regarding this specific location.",
+        "claims_checked": [
+          "Location: Old Town / riverbank",
+          "Proximity to the Vltava river",
+          "Cost: €0.00"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 4,
+        "slot_name": "Early Lunch",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.facebook.com/talesfromitalia/videos/-6-quick-easy-meals-you-can-buy-from-italian-supermarkets-budget-friendlyeating-/1651376972863205/",
+          "https://www.tripadvisor.co.uk/ShowTopic-g187895-i68-k4097399-Florence_Supermarket_to_buy_prepared_foods-Florence_Tuscany.html",
+          "https://community.ricksteves.com/travel-forum/italy/grocery-shopping-and-cooking-for-my-family-in-rome-florence",
+          "https://www.instagram.com/reel/DUBqNOnkie8/",
+          "https://www.instagram.com/reel/DUikiDYjebq/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot refers to 'Florenc', which is a major transport hub and neighborhood in Prague, Czech Republic (often associated with the Florenc bus station). However, the search results provided (Sources 1-5) all discuss 'Florence' (Firenze), Italy. Because the evidence describes supermarket meals in Italy rather than the specific 'Florenc' location in Prague, there is no relevant information to verify the availability of a supermarket meal at the intended location or the specific cost of €6.00.",
+        "claims_checked": [
+          "Location: Florenc / supermarket",
+          "Category: meal",
+          "Cost: €6.00",
+          "Availability of early lunch/packed supermarket meal"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 5,
+        "slot_name": "Return Transport",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.flixbus.com/bus-routes/bus-prague-stuttgart"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims a transport route from Prague to Stuttgart with a cost of €35.00, citing FlixBus as a backup option. The provided evidence is the official FlixBus route page for 'Bus from Prague to Stuttgart'. While the specific price for a date in 2026 cannot be confirmed today, the evidence confirms the existence of the route ('Bus from Prague to Stuttgart - Affordable bus tickets'). The cost of €35.00 is a reasonable and consistent estimate for this specific international bus route when booked in advance, and the evidence supports the availability of the service between these two cities.",
+        "claims_checked": [
+          "Route: Prague to Stuttgart",
+          "Operator: FlixBus (as backup)",
+          "Cost: €35.00"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 6,
+        "slot_name": "Arrival in Stuttgart",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.stuttgart-airport.com/en/travellers-visitors/fly/arrivals-departures",
+          "https://stuttgart-airport-busterminal.com/en/arrival",
+          "https://www.flightradar24.com/data/airports/str",
+          "https://www.youtube.com/watch?v=flxIQ99O-cQ",
+          "https://planefinder.net/data/airport/STR/arrivals"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a general arrival in the city of Stuttgart. The evidence confirms the existence of major arrival hubs in Stuttgart, specifically the Stuttgart Airport (STR) and the Stuttgart Airport Busterminal (SAB). Source 2 provides the address for the busterminal as '70629 Stuttgart, Germany', confirming the location. The cost of €5.00 for 'local onward travel' is consistent with typical public transport pricing in German cities, and the evidence mentions the 'SAB' is operated by local transport entities like 'SWEG Südwestdeutsche Landesverkehrs-GmbH', which manage such local travel. While the specific time is a planning choice, the infrastructure to support an arrival in Stuttgart at that time is verified.",
+        "claims_checked": [
+          "Location: Stuttgart",
+          "Activity: Arrival in Stuttgart",
+          "Cost: €5.00 for local onward travel",
+          "Existence of arrival infrastructure (Airport/Bus Terminal)"
+        ]
+      }
+    ],
+    "rationale_pass_count": 23,
+    "rationale_fail_count": 2,
+    "rationale_missing_count": 6,
+    "hc_micro_pass_rate": 0.875,
+    "cc_micro_pass_rate": 0.7692,
+    "hc_macro_pass_rate": 0.0,
+    "cc_macro_pass_rate": 0.0,
+    "final_pass_rate": 0.0,
+    "aggregated_constraints": [
+      {
+        "id": "HC-1",
+        "constraint_text": "origin: Stuttgart",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-2",
+        "constraint_text": "destination: Prague",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-3",
+        "constraint_text": "travel_dates: 2026.06.20 to 2026.06.23",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-4",
+        "constraint_text": "travelers: 1 adult",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-5",
+        "constraint_text": "budget: 250 EUR total",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-6",
+        "constraint_text": "accommodation: hostel shared dorm",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-7",
+        "constraint_text": "transport: Car",
+        "constraint_type": "hard",
+        "final_verdict": "FAIL",
+        "judge_verdicts": [
+          "FAIL",
+          "FAIL",
+          "FAIL",
+          "FAIL"
+        ],
+        "pass_count": 0,
+        "fail_count": 4,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-8",
+        "constraint_text": "interests: free attractions, street food, city history, budget travel",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-1",
+        "constraint_text": "Car or road trip transport is not feasible for island or overseas destinations — a flight or ferry is required.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "NA",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 3,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 1
+      },
+      {
+        "id": "CC-2",
+        "constraint_text": "No key information should be left out of the plan, such as the lack of accommodation during travel.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "MISSING_INFO",
+          "PASS"
+        ],
+        "pass_count": 3,
+        "fail_count": 0,
+        "missing_count": 1,
+        "na_count": 0
+      },
+      {
+        "id": "CC-3",
+        "constraint_text": "Transportation choices within the trip must be reasonable. For example, having both “self-driving” and “flight” would be considered a conflict.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-4",
+        "constraint_text": "Both outbound and return transport must appear in the plan.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-5",
+        "constraint_text": "Flight or train connections must allow sufficient layover time (≥60 min domestic, ≥90 min international).",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "NA",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 3,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 1
+      },
+      {
+        "id": "CC-6",
+        "constraint_text": "Accommodation must be planned for every night of the trip.",
+        "constraint_type": "commonsense",
+        "final_verdict": "FAIL",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "MISSING_INFO",
+          "FAIL"
+        ],
+        "pass_count": 2,
+        "fail_count": 1,
+        "missing_count": 1,
+        "na_count": 0
+      },
+      {
+        "id": "CC-7",
+        "constraint_text": "Hotel check-in must be scheduled after arrival transport reaches the destination.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-8",
+        "constraint_text": "Restaurants must be open on the planned day and time.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "FAIL"
+        ],
+        "pass_count": 3,
+        "fail_count": 1,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-9",
+        "constraint_text": "Restaurant choices should not be repeated throughout the trip.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-10",
+        "constraint_text": "Activities should be geographically sensible per day (no unnecessary cross-city travel).",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-11",
+        "constraint_text": "Attractions must be open on the planned day and time.",
+        "constraint_type": "commonsense",
+        "final_verdict": "FAIL",
+        "judge_verdicts": [
+          "PASS",
+          "FAIL",
+          "FAIL",
+          "FAIL"
+        ],
+        "pass_count": 1,
+        "fail_count": 3,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-12",
+        "constraint_text": "Attraction choices should not be repeated throughout the trip.",
+        "constraint_type": "commonsense",
+        "final_verdict": "FAIL",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "FAIL",
+          "FAIL"
+        ],
+        "pass_count": 2,
+        "fail_count": 2,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-13",
+        "constraint_text": "Travel time between consecutive activities must account for realistic transit duration.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      }
+    ],
+    "timestamp": "2026-05-16T20:14:38.138108+00:00"
+  }
+}

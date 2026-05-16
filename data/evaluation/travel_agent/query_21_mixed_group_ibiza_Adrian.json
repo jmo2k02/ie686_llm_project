@@ -1,0 +1,1316 @@
+{
+  "id": "query_21_mixed_group_ibiza_Adrian",
+  "source": "travel_agent",
+  "status": "ok",
+  "has_timeout": false,
+  "timed_out_models": [],
+  "duration_seconds": 294.7,
+  "plan_path": "data/travelplans/travel_agent/query_21_mixed_group_ibiza_Adrian.json",
+  "scorecard": {
+    "plan_excerpt": "# TravelPlan: Ibiza family-and-couple trip, 15–22 August 2026\n\n| Day 1 — 2026-08-15 — Arrival in Ibiza | Day 2 — 2026-08-16 — Cala Vadella family beach day | Day 3 — 2026-08-17 — Santa Eulària / gentle local day | Day 4 — 2026-08-18 — Ibiza Town culture + couple nightlife | Day 5 — 2026-08-19 — Form",
+    "judge_models": [
+      "openrouter:minimax/minimax-m2.7",
+      "openrouter:google/gemini-3-flash-preview",
+      "openrouter:deepseek/deepseek-v4-flash",
+      "openrouter:qwen/qwen3.5-397b-a17b"
+    ],
+    "timed_out_models": [],
+    "rationale_verifications": [
+      {
+        "day_index": 1,
+        "slot_position": 1,
+        "slot_name": "Outbound flights: DUS → ZRH → IBZ",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.google.com/travel/flights?hl=en&gl=us&curr=EUR&tfs=CBwQAhoeEgoyMDI2LTA4LTE1agcIARIDRFVTcgcIARIDSUJaGh4SCjIwMjYtMDgtMjJqBwgBEgNJQlpyBwgBEgNEVVNAAUABQAFAAUABQAFIAXABmAEB&tfu=EgIIAQ"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The provided evidence is a scraped version of a Google Flights search page that contains no actual flight data, schedules, flight numbers (LX1019, WK252), or pricing information. The text only shows UI elements like 'Top departing flights' and 'Price insights' without the specific results needed to verify the claims.",
+        "claims_checked": [
+          "Flight LX1019 from DUS to ZRH on 2026-08-15",
+          "Flight WK252 from ZRH to IBZ on 2026-08-15",
+          "Departure time 14:50, Arrival time 19:50",
+          "120-minute layover in Zurich",
+          "Total cost of €1,799.00 for 6 adults"
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 2,
+        "slot_name": "Pick up two rental cars at Ibiza Airport",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.enterprise.com/en/car-rental-locations/es/ibiza-airport-e5a2.html",
+          "https://www.kayak.com/Ibiza-8-Passenger-Van-Rentals.8085.8-lcv.ksp",
+          "https://www.skyscanner.com/car-rental-from/ibz/car-rental-from-ibiza-airport.html"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms that car rental services are available at Ibiza Airport (IBZ) and that pickup locations are open 24 hours, which accommodates the 20:15 pickup time. While the specific price for August 2026 cannot be definitively confirmed today, the Kayak source lists 8-passenger vans starting from $96/day, making the slot's estimate of €1,300–€1,700 for two cars over a peak week (roughly €92-€121 per car per day) a reasonable and consistent projection based on current market data.",
+        "claims_checked": [
+          "Location: Ibiza Airport car rental area",
+          "Availability of car rentals at Ibiza Airport",
+          "Pickup time: 20:15 (8:15 PM)",
+          "Availability of standard cars and 8-passenger vans",
+          "Estimated cost: €1,300–€1,700 total for two cars"
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 3,
+        "slot_name": "Drive to San Josep villa area",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.rome2rio.com/s/Ibiza-Airport-IBZ/Cala-Vadella"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot provides a specific link (Rome2Rio) to verify the travel time and route between Ibiza Airport and the Sant Josep area (specifically Cala Vadella). However, no evidence was retrieved from this link or any other source. Without the content of the provided link or search results to confirm the '23–30 minutes' claim or the distance, the factual accuracy of the timing cannot be verified.",
+        "claims_checked": [
+          "Travel time from Ibiza Airport to Sant Josep/San José villa area is approximately 23–30 minutes.",
+          "The route is from Ibiza Airport to Sant Josep de sa Talaia."
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 4,
+        "slot_name": "Villa check-in: private pool base for 8",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.ibizasummervillas.com/size/sleeps-8"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims that villas for 8 people in the Sant Josep/interior Ibiza area are available through Ibiza Summer Villas with an estimated cost of €5,500–€7,800 per week (targeting €5,500). Evidence from the provided link (Source 1) confirms the existence of 'Luxury Ibiza Villas That Sleep 8 People'. While the specific villa in Sant Josep is not fully detailed in the snippet, the pricing evidence supports the slot's estimate: one villa is listed 'From €606 per night' (approx. €4,242/week) and another 'From €930 per night' (approx. €6,510/week). The slot's target of €5,500/week falls squarely within this verified range for the provider mentioned.",
+        "claims_checked": [
+          "Provider 'Ibiza Summer Villas' offers properties that sleep 8.",
+          "Villas are available in the Sant Josep / interior Ibiza area.",
+          "Estimated cost is approximately €5,500–€7,800 per week.",
+          "Villas include private pools and 4+ bedrooms."
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 5,
+        "slot_name": "Light late dinner / villa groceries",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.facebook.com/groups/disneytipsandtricks/posts/3715642995267844/",
+          "https://www.mysilversands.com/content/silver_sands_jamaica-villa-with-cook.aspx",
+          "https://www.pinterest.com/ideas/light-late-dinner-ideas/921617322915/",
+          "https://honestandtruly.com/favorite-light-dinners/",
+          "https://www.realsimple.com/light-dinner-ideas-8358166"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot describes a logistical plan for groceries and a light dinner at a 'Villa' with a specific cost of €120.00 and a time window. The provided evidence consists of generic social media posts and recipe blogs about villa meals in Disney/Jamaica or general light dinner ideas. None of the evidence mentions a specific location, a grocery delivery service, or pricing that would allow for the verification of the €120.00 cost or the feasibility of the 22:15-23:00 time window for this specific trip.",
+        "claims_checked": [
+          "Location: Villa",
+          "Cost: €120.00",
+          "Time: 22:15 - 23:00",
+          "Activity: Pre-ordered groceries/snacks/toddler basics"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 1,
+        "slot_name": "Breakfast at villa",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.tripadvisor.com/Restaurant_Review-g34352-d1110074-Reviews-Villa_de_Flora-Kissimmee_Florida.html",
+          "https://www.disboards.com/threads/dvc-deluxe-studio-villa-breakfasts-snacks-youve-prepared.3811531/",
+          "https://www.yelp.com/biz/villa-italian-kitchen-orlando",
+          "https://disneyworld.disney.go.com/resorts/beach-club-villas/dining/",
+          "https://www.facebook.com/groups/841742455869052/posts/9017482158295000/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a 'self-catered breakfast' at a 'Villa' using 'groceries from arrival night'. The evidence provided in Source 2 and Source 5 confirms the practice of preparing self-catered meals (such as eggs, bacon, cereal, and burgers) while staying in villas. Since the location 'Villa' refers to the user's private accommodation rather than a specific commercial establishment, and the activity is self-directed, the claims are consistent with the general nature of villa stays as supported by the search results.",
+        "claims_checked": [
+          "Activity: Self-catered breakfast",
+          "Location: Villa",
+          "Context: Use of groceries for a meal by the pool"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 2,
+        "slot_name": "Transfer to Cala Vadella",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.rome2rio.com/s/Ibiza-Airport-IBZ/Cala-Vadella"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot provides a link to Rome2rio for a route from Ibiza Airport to Cala Vadella, but no evidence was retrieved from this link or any other source. Therefore, the claims regarding the 12-minute drive time from Sant Josep and the feasibility of the 30-minute budget for parking/logistics cannot be verified against the provided evidence.",
+        "claims_checked": [
+          "Drive time from Sant Josep villa area to Cala Vadella is approximately 12 minutes.",
+          "30 minutes is a sufficient budget for parking and child logistics.",
+          "The cost of the transfer is €0.00 (implying a private/rental vehicle)."
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 3,
+        "slot_name": "Cala Vadella shallow-water beach morning",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.google.com/maps/search/Vadella+Boats+Rent"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot provided a Google Maps search link for 'Vadella Boats Rent', but no content was retrieved from this link or any other source. Therefore, there is no evidence available to verify the claims regarding the location, the nature of the beach (shallow water, sheltered bay), or the presence of traditional boats and net-mending.",
+        "claims_checked": [
+          "Location: Cala Vadella, 07830 Sant Josep de sa Talaia",
+          "Beach characteristics: Sheltered bay with shallow water",
+          "Presence of traditional shoreline fishing/llaüt boats and net-mending",
+          "Availability of boat rentals (implied by link name 'Vadella Boats Rent')"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 4,
+        "slot_name": "Beach picnic lunch",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.solanaibiza.com/cala-vadella-ibiza/",
+          "https://welcometoibiza.com/en/restaurantes/vadella-beach-bar/",
+          "https://www.instagram.com/reel/DVRjZ4wglgn/",
+          "https://www.ibiza-spotlight.com/restaurants/cana-sofia",
+          "https://www.facebook.com/MoreThanIbiza/posts/-ibiza-tips-looking-for-a-spot-where-time-slows-down-save-this-name-nola-ibiza-o/1584638456231285/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a self-organized picnic lunch at Cala Vadella. The evidence confirms that Cala Vadella is a beach location in Ibiza (Source 1, 4, 5). While the evidence focuses on restaurants and beach bars (Vadella Beach Bar, Cana Sofía, Nola Ibiza), it confirms the existence and nature of the location as a beach suitable for meals. Since a picnic is a self-provided activity, the lack of a specific 'picnic vendor' in the search results does not contradict the claim. The cost of €80 for a family picnic is a reasonable estimate for supplies, and the location is verified.",
+        "claims_checked": [
+          "Location: Cala Vadella",
+          "Activity: Picnic lunch",
+          "Category: Meal",
+          "Context: Budget-conscious alternative to beach clubs"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 5,
+        "slot_name": "Return to villa for nap and pool time",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.instagram.com/reel/DPWsz9sEeB5/",
+          "https://www.expedia.com/Chalong-Hotels-Private-Modern-Pool-Villa-With-Mountain-Views-For-Large-Family-Friends.h19485088.Hotel-Information",
+          "https://www.instagram.com/reel/DYTIcyuxQ3Y/",
+          "https://www.airbnb.co.nz/rooms/1477323650852797826",
+          "https://www.reddit.com/r/residentevil4/comments/12a28xm/do_we_ever_go_back_to_the_villa_just_beat_chapter/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot describes a generic activity (returning to a private villa for a nap and pool time) at a non-specific location ('Villa'). The search results provided are for specific commercial properties named 'Villa Nap Dau', 'Nap Villa', or 'Villa Halle', or references to a video game ('Resident Evil 4'). None of the evidence pertains to the specific 'Villa' mentioned in the travel plan, nor can the evidence verify the feasibility of a drive or the presence of a pool at the user's specific accommodation. Therefore, the evidence is silent on the claims.",
+        "claims_checked": [
+          "Location is a Villa",
+          "The activity involves a drive back to the villa",
+          "The villa has a pool",
+          "The activity is suitable for a toddler nap",
+          "The cost is €0.00"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 6,
+        "slot_name": "Early family dinner: Es Virot Restaurante",
+        "source_type": "link",
+        "source_urls": [
+          "https://e-carta.es/func1/1030"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The provided link (e-carta.es) leads to a generic digital menu/ordering platform login page. The evidence contains no mention of 'Es Virot Restaurante', its location at 'Carrer de Burgos, 2', its cuisine type, or its operating hours. While the link is associated with a food ordering service, the specific content of the page is behind a login or is generic 'Terms and Conditions' text, providing no factual data to verify the slot's claims.",
+        "claims_checked": [
+          "Venue name: Es Virot Restaurante",
+          "Location: Carrer de Burgos, 2, 07820 Sant Josep de sa Talaia",
+          "Category: Mediterranean/Spanish dinner",
+          "Suitability: Suitable for children/high chairs available"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 7,
+        "slot_name": "Pool wind-down at villa",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.tripadvisor.com/Hotel_Feature-g1182846-d2615515-zft6217-Amatara_Welleisure_Resort.html",
+          "https://www.instagram.com/reel/DXKYwiFifYr/",
+          "https://www.tripadvisor.com/ShowUserReviews-g297895-d447345-r261915786-Club_Villa-Bentota_Galle_District_Southern_Province.html",
+          "https://www.instagram.com/p/DBdMtOftMG3/",
+          "https://disneyworld.disney.go.com/recreation/boardwalk-villas/pools-boardwalk-villas/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot describes a private activity ('Pool wind-down') at a generic 'Villa pool' without specifying a particular hotel or villa name. The search results provide information for various specific properties (Amatara Welleisure Resort, Villa Kokomo, Club Villa, Disney's BoardWalk Villas), but none of these can be confirmed as the 'Villa' referenced in the itinerary. Therefore, there is no evidence to verify the location, cost, or availability of the activity for this specific trip.",
+        "claims_checked": [
+          "Activity: Evening swim/wind-down",
+          "Location: Villa pool",
+          "Cost: €0.00",
+          "Time: 20:00:00 to 21:30:00"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 1,
+        "slot_name": "Breakfast at villa",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.tripadvisor.com/Restaurant_Review-g34352-d1110074-Reviews-Villa_de_Flora-Kissimmee_Florida.html",
+          "https://www.disboards.com/threads/dvc-deluxe-studio-villa-breakfasts-snacks-youve-prepared.3811531/",
+          "https://www.yelp.com/biz/villa-italian-kitchen-orlando",
+          "https://disneyworld.disney.go.com/resorts/beach-club-villas/dining/",
+          "https://www.facebook.com/groups/841742455869052/posts/9017482158295000/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot describes a 'self-catered family breakfast' at a private 'Villa'. The provided evidence consists of search results for commercial restaurants named 'Villa' (e.g., Villa de Flora, Villa Italian Kitchen) or general forum discussions about preparing meals in vacation villas. There is no evidence provided regarding a specific 'Villa' location, its cost, or the feasibility of a pool check at this specific site. Since the evidence is generic and does not address the specific claims of this private itinerary item, a verdict of PASS or FAIL cannot be supported.",
+        "claims_checked": [
+          "Location: Villa",
+          "Activity: Self-catered family breakfast",
+          "Activity: Pool check",
+          "Cost: €50.00",
+          "Time: 08:30:00 to 09:30:00"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 2,
+        "slot_name": "Drive to Santa Eulària / Cala Mastella area",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.google.com/maps/search/Cala+Mastella"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot provides a Google Maps search link for Cala Mastella, but no content was retrieved from the link or provided as evidence. Therefore, there is no data to verify the location, the estimated driving time of 45-50 minutes from Sant Josep, or the traffic conditions mentioned.",
+        "claims_checked": [
+          "Location: Sant Josep to Santa Eulària / Cala Mastella",
+          "Travel duration: ~45–50 minutes",
+          "Travel mode: Drive"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 3,
+        "slot_name": "Cala Mastella / eastern-cove beach time",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.google.com/maps/search/Cala+Mastella"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot provided a Google Maps search link, but no evidence was retrieved from the link or any other source. Therefore, the claims regarding the location, suitability for toddlers (shallow water), and the rugged nature of the beach cannot be verified or contradicted.",
+        "claims_checked": [
+          "Location: Cala Mastella, 07850 Ibiza",
+          "Beach characteristics: Shallow water suitable for a toddler",
+          "Beach characteristics: Natural/rugged beach",
+          "Recommendation: Water shoes recommended"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 4,
+        "slot_name": "Lunch: Aliño Santa Eulària",
+        "source_type": "link",
+        "source_urls": [
+          "http://www.restaurantealiñoibiza.com/?utm_source=gmb&utm_medium=organic&utm_campaign=gmb_website&utm_id=web"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot provided a specific URL (http://www.restaurantealiñoibiza.com/) to verify its claims, but no content was retrieved from that link or any other source. Therefore, there is no evidence available to confirm or refute the restaurant's location, opening hours, or pricing.",
+        "claims_checked": [
+          "Venue name: Aliño Santa Eulària",
+          "Location: Carrer de Sant Vicent, 37B, 07840 Santa Eulària des Riu",
+          "Opening hours: Monday lunch availability (August)",
+          "Category: Mediterranean lunch"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 5,
+        "slot_name": "Santa Eulària promenade and playground time",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.google.com/maps/search/Santa+Eularia+promenade+Ibiza"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot provided a Google Maps search link, but no evidence was retrieved from the link or provided in the evidence section. Therefore, the claims regarding the existence of a shaded promenade, specific playgrounds, or the feasibility of the €40.00 cost for ice cream/leisure in this specific location cannot be verified or contradicted.",
+        "claims_checked": [
+          "Location: Santa Eulària des Riu promenade",
+          "Feature: Shaded promenade walk",
+          "Feature: Playground available",
+          "Cost: €40.00 for ice cream/leisure"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 6,
+        "slot_name": "Dinner at villa",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.villaravenna.com/menu.html",
+          "https://www.tiktok.com/@the918agent/video/7566398515220466974",
+          "https://www.tripadvisor.com/Restaurant_Review-g51697-d2204517-Reviews-Villa_Ravenna_Fine_Dining-Tulsa_Oklahoma.html",
+          "https://www.opentable.com/r/villa-ravenna-fine-dining-tulsa",
+          "https://www.villaravenna.com/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot describes a 'self-catered dinner' at a private 'Villa' (a generic location placeholder) with a cost of €100.00 for a BBQ/pasta/salad night. The search results provided (Source 1-5) all refer to a specific commercial restaurant named 'Villa Ravenna' in Tulsa, Oklahoma. These results are irrelevant to a private, self-catered meal at a generic villa location. Therefore, there is no evidence to confirm or contradict the feasibility, cost, or location of this specific private activity.",
+        "claims_checked": [
+          "Location: Villa",
+          "Activity: Self-catered dinner",
+          "Cost: €100.00",
+          "Menu: Simple BBQ/pasta/salad night"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 1,
+        "slot_name": "Breakfast at villa",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.tripadvisor.com/Restaurant_Review-g34352-d1110074-Reviews-Villa_de_Flora-Kissimmee_Florida.html",
+          "https://www.disboards.com/threads/dvc-deluxe-studio-villa-breakfasts-snacks-youve-prepared.3811531/",
+          "https://www.yelp.com/biz/villa-italian-kitchen-orlando",
+          "https://disneyworld.disney.go.com/resorts/beach-club-villas/dining/",
+          "https://www.facebook.com/groups/841742455869052/posts/9017482158295000/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot describes a 'self-catered breakfast' at a 'Villa' in the context of a trip to Ibiza. The provided search results discuss specific restaurants named 'Villa' in Florida (Villa de Flora, Villa Italian Kitchen) or general forum discussions about cooking in Disney villas. There is no evidence provided regarding a specific villa in Ibiza, its location, or the feasibility/cost of a self-catered meal at that specific destination. The evidence is generic and does not address the claims of the slot.",
+        "claims_checked": [
+          "Location: Villa",
+          "Category: meal",
+          "Description: Self-catered breakfast",
+          "Cost: €50.00"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 2,
+        "slot_name": "Drive to Ibiza Town / Dalt Vila",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.rome2rio.com/s/Ibiza-Airport-IBZ/Cala-Vadella"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot provides a link to Rome2rio for a route between Ibiza Airport and Cala Vadella, but no evidence was retrieved from this link or any other source. Therefore, the claims regarding the travel time (35–45 minutes) and the feasibility of the route from Sant Josep to Dalt Vila cannot be verified against the provided evidence.",
+        "claims_checked": [
+          "Route: Sant Josep to Dalt Vila, Eivissa",
+          "Travel time: 35–45 minutes in summer traffic",
+          "Cost: €0.00 (driving own/rental vehicle)"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 3,
+        "slot_name": "Dalt Vila old town walk",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.google.com/maps/search/Dalt+Vila+Ibiza"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot provided a Google Maps search link, but no content was retrieved from the evidence source. Without fetched data or search results to verify the location's status, UNESCO listing, or accessibility details, the claims cannot be validated.",
+        "claims_checked": [
+          "Location: Dalt Vila, 07800 Eivissa",
+          "UNESCO-listed status",
+          "Cost: €0.00",
+          "Suitability for children/strollers"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 4,
+        "slot_name": "Lunch: Home Loos Ibiza Town",
+        "source_type": "link",
+        "source_urls": [
+          "http://www.homeloos-ibiza.com/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence from the official website confirms the restaurant name ('Homeloos Ibiza'), the cuisine type ('comida española', 'tapas', 'paellas'), and the location in Ibiza ('estancia en la isla mágica de Ibiza'). While the specific street address and exact opening hours for 2026 are not explicitly detailed in the provided text snippet, the website confirms the venue exists and serves the described Mediterranean/Spanish food. The slot's claim of being 'open midday' is consistent with a restaurant offering 'paellas' and 'tapas' for lunch.",
+        "claims_checked": [
+          "Venue name: Home Loos Ibiza Town",
+          "Location: Ibiza Town",
+          "Cuisine: Spanish/Mediterranean",
+          "Food types: Tapas, Paellas, Meat, Fish",
+          "Category: meal"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 5,
+        "slot_name": "Villa pool / rest afternoon",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.instagram.com/p/DWBtQ6uDZtg/",
+          "https://www.vrbo.com/11350620ha",
+          "https://www.facebook.com/roundhillresort/posts/soak-up-some-needed-sun-in-the-comfort-of-your-very-own-villa-rest-and-leisure-a/731551695673777/",
+          "https://www.instagram.com/reel/DVf0LOwk5Zl/",
+          "https://www.expedia.com/Orlando-Hotels-Themed-Luxury-Villa-DISNEY-WORLD.h44472202.Hotel-Information"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a generic leisure activity (pool, naps, downtime) at a 'Villa' which is the traveler's accommodation. The evidence provided consists of various villa listings (Villa Principeša, Villa Didi, etc.) that confirm 'rest and leisure' by a 'private pool' is a standard activity offered at such accommodations. Since the slot refers to the traveler's own villa and the activity is inherently free and available at the location, the claims are consistent with the general nature of villa stays as shown in the search results.",
+        "claims_checked": [
+          "Location: Villa",
+          "Activity: Pool, naps, and downtime",
+          "Cost: €0.00"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 6,
+        "slot_name": "Early family dinner at villa",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.villabaronesite.com/wp-content/uploads/2022/10/FamilyMenu2022.pdf",
+          "https://southvillarestaurant.com/lunch_family_dinner.pdf",
+          "https://www.tripadvisor.com/ShowTopic-g34515-i19-k10212810-o10-Dinner_ideas_for_villa-Orlando_Florida.html",
+          "https://www.facebook.com/100054673620275/photos/",
+          "https://www.disboards.com/threads/favorite-easy-meals-to-cook-in-villas.3677373/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a 'simple self-catered meal' at a private villa for a family group. The evidence from Source 3 and Source 5 confirms that dining at a villa is a common practice for families and is generally 'not expensive' (Source 3: 'dinner at your villa is not expensive'). The cost estimate of €100 for a family group is consistent with the pricing seen in Source 1 ($50-$70 for 4-6 people) and Source 2 ($53 for 2-4 people), allowing for a larger group or higher-end groceries. Since the location is a private 'Villa' and the activity is 'self-catered', there are no specific business hours or addresses to verify against a commercial database.",
+        "claims_checked": [
+          "Activity: Early family dinner at villa",
+          "Category: Meal (self-catered)",
+          "Location: Villa",
+          "Cost: €100.00",
+          "Context: Children and families eating together before an outing"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 7,
+        "slot_name": "Couple tapas dinner in Ibiza Town",
+        "source_type": "link",
+        "source_urls": [
+          "http://www.restaurantesanansa.com/es/carta.php"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot identifies Sa Nansa as a potential venue in Ibiza Town and notes the need to verify its location and Tuesday availability. The provided evidence (Source 1) confirms the restaurant's existence and its location at 'Avda. 8 de Agosto, Ibiza', which is in the marina area of Ibiza Town as claimed. While the evidence does not explicitly list Tuesday hours, the slot correctly identifies this as a point requiring verification rather than making a false claim about it. The link provided leads to the official menu/contact page as described.",
+        "claims_checked": [
+          "Venue name: Sa Nansa",
+          "Location: Ibiza Town, near marina",
+          "Link: http://www.restaurantesanansa.com/es/carta.php"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 8,
+        "slot_name": "Couple nightlife: Paradise Lost",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.google.com/maps/search/Paradise+Lost"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot provides a name (Paradise Lost), an address (Carrer del Passadís, 18, 07800 Eivissa), and a specific category (stylish bar/nightlife). However, the provided evidence section is empty ('no evidence retrieved'). Without any fetched content or search results to verify the existence of the venue at that address or its operational status, I cannot confirm or deny the claims.",
+        "claims_checked": [
+          "Venue name: Paradise Lost",
+          "Address: Carrer del Passadís, 18, 07800 Eivissa",
+          "Category: Stylish bar/nightlife"
+        ]
+      },
+      {
+        "day_index": 5,
+        "slot_position": 1,
+        "slot_name": "Early breakfast at villa",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.theluxurysignature.com/2014/09/28/how-meals-food-are-served-or-arranged-at-a-luxury-villa/",
+          "https://www.reddit.com/r/BackToTheBeginning/comments/1ls1r3o/breakfast_spots_around_villa/",
+          "https://www.thehotelhershey.com/accommodations/villas.php",
+          "https://www.disboards.com/threads/dvc-deluxe-studio-villa-breakfasts-snacks-youve-prepared.3811531/",
+          "https://www.facebook.com/groups/CapeMayLive/posts/1789738808296925/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot describes a 'self-catered breakfast' at a generic 'Villa'. The provided evidence consists of search results for various specific locations named 'Villa' (e.g., Villa Park, The Hotel Hershey Villas, Disney Vacation Club Villas) or general articles about villa dining. None of the evidence pertains to the specific, unnamed 'Villa' location intended by the user, nor can it verify the cost of €50.00 for a self-catered meal. Since the evidence is generic and does not address the specific claims of this private/unspecified accommodation, it is insufficient to confirm or deny the details.",
+        "claims_checked": [
+          "Location: Villa",
+          "Category: meal (self-catered breakfast)",
+          "Cost: €50.00",
+          "Time: 07:15:00 to 08:00:00"
+        ]
+      },
+      {
+        "day_index": 5,
+        "slot_position": 2,
+        "slot_name": "Drive to Port of Ibiza",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.ferryhopper.com/en/ferry-routes/direct/ferry-ibiza-formentera"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms that ferries to Formentera depart from the 'main port of Ibiza Town' (Puerto de Ibiza). The slot's note regarding arrival time for foot passengers (~30 minutes) is consistent with standard ferry travel advice, and the evidence confirms the route is active with frequent daily crossings. While the specific driving duration from Sant Josep is not explicitly in the text, the slot's 45-minute window is a reasonable logistical claim for a local drive and terminal arrival.",
+        "claims_checked": [
+          "Departure location: Puerto de Ibiza",
+          "Destination: Formentera crossing",
+          "Foot passengers should arrive ~30 minutes before departure",
+          "Route availability: Ibiza to Formentera"
+        ]
+      },
+      {
+        "day_index": 5,
+        "slot_position": 3,
+        "slot_name": "Ferry Ibiza → Formentera",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.visitformentera.com/en/reservations-offers-formentera/",
+          "https://www.ferryhopper.com/en/ferry-routes/direct/ferry-ibiza-formentera"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims a ferry crossing from Ibiza Town to La Savina (Formentera) takes about 28–30 minutes, which is supported by Source 2 stating the duration ranges 'from 29 min to 58 min'. The slot claims adult round trips are often €35–€50, which is consistent with Source 2 stating ticket prices start at around €15 (one way) and Source 1 mentioning 'best prices guaranteed' for ferry tickets. The slot's specific time window (09:15 to 09:45) fits within the 30-minute duration claim. The cost of €260 for a group is a budget estimate consistent with the per-person rates provided.",
+        "claims_checked": [
+          "Route: Port of Ibiza to La Savina, Formentera",
+          "Duration: approximately 28–30 minutes",
+          "Price: Adult round trips often €35–€50",
+          "Operators: Baleària, Trasmapi, Aquabus, and Formentera Lines",
+          "Note: Formentera.eco permit required for rental cars"
+        ]
+      },
+      {
+        "day_index": 5,
+        "slot_position": 4,
+        "slot_name": "Formentera Ses Illetes / Posidonia discovery",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.google.com/maps/search/SaBarca+de+Formentera+/+Excursiones+y+Alquiler+Barcos+en+Formentera"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot provides a link to a Google Maps search for 'SaBarca de Formentera', but no evidence was retrieved from this link or any other source. Therefore, the specific claims regarding the location (Ses Illetes / La Savina), the cost (€120.00 for local transport/snacks), and the nature of the activity cannot be verified or contradicted.",
+        "claims_checked": [
+          "Location: Ses Illetes / La Savina area, Formentera",
+          "Cost: €120.00",
+          "Activity: Beach visit and Posidonia seagrass awareness",
+          "Operator/Reference: SaBarca de Formentera"
+        ]
+      },
+      {
+        "day_index": 5,
+        "slot_position": 5,
+        "slot_name": "Formentera picnic lunch",
+        "source_type": "link",
+        "source_urls": [
+          "http://www.mamacarmenformentera.com/"
+        ],
+        "verdict": "FAIL",
+        "reasoning": "The slot claims that Mama Carmen is a restaurant backup located in the 'Ses Illetes / La Savina area'. However, the evidence from the official website explicitly states that Mama Carmen has locations in 'Sant Francesc' ('está en Sant Francesc') and 'Sant Ferran' ('En Sant Ferran hay un lugar'). Neither of these locations is in the Ses Illetes or La Savina area, which are distinct geographical parts of Formentera.",
+        "claims_checked": [
+          "Venue name: Mama Carmen",
+          "Location: Ses Illetes / La Savina area, Formentera",
+          "Mama Carmen serves as a restaurant backup for the group"
+        ]
+      },
+      {
+        "day_index": 5,
+        "slot_position": 6,
+        "slot_name": "Easy beach / shade time before ferry",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://wanderlog.com/list/geoCategory/1498245/best-beaches-in-and-around-formentera",
+          "https://www.tripadvisor.com/ShowTopic-g187461-i905-k9655722-o10-Beaches_close_to_the_Ferry-Formentera_Balearic_Islands.html",
+          "https://www.facebook.com/groups/387667298316455/posts/2298688537214312/",
+          "https://www.maptrotting.com/formentera-beaches-guide/",
+          "https://www.ferryhopper.com/en/blog/featured/formentera-beaches"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a flexible leisure period near the port of La Savina before a ferry departure. Evidence from Source 1 confirms there is a 'nearest proper beach to La Savina' (Cavall d'en Borràs) within walking distance. Source 2 also discusses beaches within walking distance from the ferry port. The timing (14:45-16:15) is consistent with the logistical need to be near the port before a departure. While the specific cost of €40 is not explicitly detailed in the evidence, it is a reasonable estimate for leisure activities like ice cream and beach amenities for a family/toddler as mentioned in the description. The evidence supports the existence of suitable beach areas near the specified location.",
+        "claims_checked": [
+          "Location: La Savina / nearby beach area",
+          "Activity: Beach time/short walk near the port",
+          "Context: Proximity to ferry for departure",
+          "Suitability: Family/toddler friendly"
+        ]
+      },
+      {
+        "day_index": 5,
+        "slot_position": 7,
+        "slot_name": "Ferry Formentera → Ibiza",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.ferryhopper.com/en/ferry-routes/direct/ferry-ibiza-formentera"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims a ferry transport from La Savina (Formentera) to the Port of Ibiza with a duration of 30 minutes (16:45 to 17:15). The evidence confirms that 'Ferries depart from the main port of Ibiza Town and arrive at La Savina port in Formentera' (and vice versa for the return) and that 'The trip duration ranges from 29 min to 58 min'. A 30-minute duration is consistent with the fastest available crossing mentioned in the evidence. The evidence also notes that crossings are 'very frequent, especially in summer', supporting the availability of a late afternoon return.",
+        "claims_checked": [
+          "Route: La Savina to Port of Ibiza",
+          "Duration: 30 minutes (16:45 to 17:15)",
+          "Transport mode: Ferry"
+        ]
+      },
+      {
+        "day_index": 5,
+        "slot_position": 8,
+        "slot_name": "Drive back to villa",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.rome2rio.com/s/Ibiza-Port-Station/Sant-Josep-de-sa-Talaia",
+          "https://daytrip.com/en/transfers/sant-josep-de-sa-talaia-es/ibiza-town-es",
+          "https://www.rentibizaholidayvillas.com/ibiza/transportation-in-ibiza-how-to-get-around/",
+          "https://www.mytransfers.com/en/destination/spain/ibiza-airport-ibz/sant-josep-de-sa-talaia/",
+          "https://www.rome2rio.com/s/Ibiza/Sant-Josep-de-sa-Talaia"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims a drive from the Port of Ibiza to the Sant Josep area takes approximately 45 minutes (17:15 to 18:00). Evidence from Rome2Rio (Source 1 and 5) indicates the driving distance is approximately 14.8 km to 15.2 km. While Source 2 suggests a 20-minute transfer time under optimal conditions, the slot's 45-minute window is a reasonable and consistent estimate when accounting for the 'city traffic leaving the port' mentioned in the notes. The cost of €0.00 is consistent with a self-drive 'Drive back' scenario.",
+        "claims_checked": [
+          "Route: Port of Ibiza to Sant Josep villa area",
+          "Travel mode: Drive (Car)",
+          "Duration: 45 minutes (17:15 to 18:00)",
+          "Distance: Approximately 15 km",
+          "Traffic: Expect city traffic leaving the port"
+        ]
+      },
+      {
+        "day_index": 5,
+        "slot_position": 9,
+        "slot_name": "Dinner at villa",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.villaravenna.com/menu.html",
+          "https://www.tiktok.com/@the918agent/video/7566398515220466974",
+          "https://www.tripadvisor.com/Restaurant_Review-g51697-d2204517-Reviews-Villa_Ravenna_Fine_Dining-Tulsa_Oklahoma.html",
+          "https://www.opentable.com/r/villa-ravenna-fine-dining-tulsa",
+          "https://www.villaravenna.com/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot describes a 'self-catered dinner' at a 'Villa' (presumably the user's accommodation). The search results provided refer to a specific commercial restaurant named 'Villa Ravenna' in Tulsa, Oklahoma, which is unrelated to a private self-catered meal. There is no evidence available to verify the cost, location, or feasibility of a self-catered meal at a private villa for this specific itinerary.",
+        "claims_checked": [
+          "Location: Villa",
+          "Category: meal (self-catered)",
+          "Cost: €100.00",
+          "Time: 19:30:00 to 20:45:00"
+        ]
+      },
+      {
+        "day_index": 6,
+        "slot_position": 1,
+        "slot_name": "Breakfast at villa",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.tripadvisor.com/Restaurant_Review-g34352-d1110074-Reviews-Villa_de_Flora-Kissimmee_Florida.html",
+          "https://www.disboards.com/threads/dvc-deluxe-studio-villa-breakfasts-snacks-youve-prepared.3811531/",
+          "https://www.yelp.com/biz/villa-italian-kitchen-orlando",
+          "https://disneyworld.disney.go.com/resorts/beach-club-villas/dining/",
+          "https://www.facebook.com/groups/841742455869052/posts/9017482158295000/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot describes a 'self-catered breakfast' at a generic 'Villa' location. The provided evidence consists of search results for specific restaurants named 'Villa' (Villa de Flora, Villa Italian Kitchen) or forum discussions about general meal ideas in villas. There is no evidence provided regarding a specific villa location, its facilities for self-catering, or the validity of the €50.00 cost for this specific itinerary. Since the evidence is generic and does not mention the specific 'Villa' or the planned activity, I cannot verify the claims.",
+        "claims_checked": [
+          "Location: Villa",
+          "Category: meal",
+          "Description: Self-catered breakfast",
+          "Cost: €50.00"
+        ]
+      },
+      {
+        "day_index": 6,
+        "slot_position": 2,
+        "slot_name": "Drive to Aguamar Water Park",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.triphobo.com/places/ibiza-spain/aguamar-water-park"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims Aguamar Water Park is located in Playa d'en Bossa and opens at 10:00 AM. The evidence confirms the address as 'Ctra. de Platja d'en Bossa, 294' and explicitly states the timings are '10:00 am - 06:00 pm'. The drive time of 45 minutes (09:00 to 09:45) is consistent with the description's estimate of 25-30 minutes from the west side plus extra time for parking.",
+        "claims_checked": [
+          "Location: Playa d'en Bossa",
+          "Opening time: 10:00 AM",
+          "Drive duration: 45 minutes (09:00 to 09:45)",
+          "Venue name: Aguamar Water Park"
+        ]
+      },
+      {
+        "day_index": 6,
+        "slot_position": 3,
+        "slot_name": "Aguamar Water Park",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.triphobo.com/places/ibiza-spain/aguamar-water-park"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence from the provided link (TripHobo) confirms the key verifiable claims. The address 'Ctra. de Platja d'en Bossa, 294' is consistent with the slot's location. The timings are explicitly listed as '10:00 am - 06:00 pm', matching the slot's operating pattern. The ticket price is confirmed as '18 EUR', which aligns with the slot's estimate of 'about €18 pp'. The 'Time Required' is listed as '03:00 Hrs', which matches the duration of the scheduled time window (10:00 to 13:00).",
+        "claims_checked": [
+          "Venue name: Aguamar Water Park",
+          "Location: Ctra. de Platja d'en Bossa, Sant Josep de sa Talaia",
+          "Operating hours: 10:00–18:00",
+          "Ticket price: approximately €18 per person",
+          "Duration: 3 hours"
+        ]
+      },
+      {
+        "day_index": 6,
+        "slot_position": 4,
+        "slot_name": "Picnic / casual lunch near Playa d'en Bossa",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.tripadvisor.com/Restaurants-g659635-zfp30-Playa_d_en_Bossa_Ibiza_Balearic_Islands.html",
+          "https://www.tripadvisor.com/Restaurants-g659635-c38-zfp30-Playa_d_en_Bossa_Ibiza_Balearic_Islands.html",
+          "https://www.facebook.com/groups/ibizaessentials/posts/3160777484090042/",
+          "https://www.reddit.com/r/ibiza/comments/1fpuh47/restaurants_near_platja_den_bossa/",
+          "https://www.opentable.com/landmark/restaurants-near-playa-d-en-bossa"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a flexible, casual lunch or picnic in the Playa d'en Bossa / Aguamar area. The evidence confirms that Playa d'en Bossa is a major tourist area with numerous lunch options. Specifically, Source 3 mentions 'Deliciously' as a spot for 'wraps, bowls, smoothies' which aligns with the 'casual nearby café' or 'picnic items' description. Source 1 and 2 list multiple lunch restaurants in the immediate vicinity. The slot's note about the lack of a specific 'reliable' restaurant search result is consistent with the general nature of the search results provided, which offer many varied options rather than one definitive recommendation for a post-waterpark family meal.",
+        "claims_checked": [
+          "Location: Playa d'en Bossa / Aguamar area",
+          "Availability of casual lunch/café options in the area",
+          "Suitability for a simple post-waterpark meal"
+        ]
+      },
+      {
+        "day_index": 6,
+        "slot_position": 5,
+        "slot_name": "Villa rest / nap time",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.booking.com/hotel/hr/villa-rest-for-the-soul-four-bedroom-villa.html",
+          "https://www.facebook.com/roundhillresort/posts/soak-up-some-needed-sun-in-the-comfort-of-your-very-own-villa-rest-and-leisure-a/731551695673777/",
+          "https://www.instagram.com/p/DA0dkWToOGf/",
+          "https://www.vrbo.com/4662915",
+          "https://www.instagram.com/reel/DNaeynBJkey/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a generic leisure activity ('Villa rest / nap time') at a private accommodation ('Villa'). The evidence provided consists of various villa listings and social media posts that confirm 'villas' are standard locations for 'naps', 'swims', and 'leisure' (Source 5: 'Just naps, snacks, chats, and swims all day'; Source 2: 'Rest and leisure awaits you'). Since the slot refers to a private rest period at the traveler's own accommodation rather than a specific commercial venue with fixed hours or fees, and the cost is listed as €0.00, the claims are consistent with the general nature of villa rentals as described in the search results.",
+        "claims_checked": [
+          "Activity: Rest/nap time and pool downtime",
+          "Location: Villa",
+          "Cost: €0.00",
+          "Category: Leisure"
+        ]
+      },
+      {
+        "day_index": 6,
+        "slot_position": 6,
+        "slot_name": "Cala Tarida sunset beach",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.google.com/maps/search/Cala+Tarida+ibiza"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot provides a Google Maps search link, but no content was retrieved from the evidence source. Therefore, there is no factual information available to verify the location, suitability for families, or the cost associated with this specific beach activity.",
+        "claims_checked": [
+          "Location: Cala Tarida, 07829 Sant Josep de sa Talaia",
+          "Category: attraction",
+          "Cost: €40.00",
+          "Description: West-coast family sunset beach with shallow water"
+        ]
+      },
+      {
+        "day_index": 6,
+        "slot_position": 7,
+        "slot_name": "Dinner at villa after sunset beach",
+        "source_type": "link",
+        "source_urls": [
+          "https://tapasibiza.com/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a self-catered dinner at a villa, mentioning 'Tapas Ibiza' as a restaurant upgrade option. The evidence from the provided link (tapasibiza.com) confirms that Tapas Ibiza is indeed a restaurant located in San Antonio, Ibiza, which supports the slot's mention of it as a local dining alternative. Since the primary activity is a private villa dinner, the specific cost and time are internal planning details not subject to external verification, but the reference to the external venue is accurate.",
+        "claims_checked": [
+          "Tapas Ibiza is a restaurant option in Ibiza.",
+          "Tapas Ibiza is located near San Antonio."
+        ]
+      },
+      {
+        "day_index": 7,
+        "slot_position": 1,
+        "slot_name": "Breakfast at villa",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.tripadvisor.com/Restaurant_Review-g34352-d1110074-Reviews-Villa_de_Flora-Kissimmee_Florida.html",
+          "https://www.disboards.com/threads/dvc-deluxe-studio-villa-breakfasts-snacks-youve-prepared.3811531/",
+          "https://www.yelp.com/biz/villa-italian-kitchen-orlando",
+          "https://disneyworld.disney.go.com/resorts/beach-club-villas/dining/",
+          "https://www.facebook.com/groups/841742455869052/posts/9017482158295000/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot describes a 'self-catered breakfast' at a generic 'Villa'. The provided search results discuss specific commercial venues (Villa de Flora, Villa Italian Kitchen) or general discussions about preparing food in Disney villas. There is no evidence provided regarding a specific 'Villa' location, its cost, or its availability for the date and time specified. Since the evidence is generic and does not address the specific claims of this private/self-catered activity, a verdict of PASS or FAIL cannot be supported.",
+        "claims_checked": [
+          "Location: Villa",
+          "Activity: Self-catered breakfast",
+          "Time: 08:30:00 to 09:30:00",
+          "Cost: €50.00"
+        ]
+      },
+      {
+        "day_index": 7,
+        "slot_position": 2,
+        "slot_name": "Villa pool morning",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.airbnb.com/rooms/725859085094162309",
+          "https://www.instagram.com/reel/DYR7vy_CNPe/",
+          "https://www.expedia.com/Montego-Bay-Hotels-Waterfront-Villa-Private-Pool-Comp-Floating-Breakfast-Fully-Staffed-Chef-Avable.h60639213.Hotel-Information",
+          "https://disneyworld.disney.go.com/recreation/boardwalk-villas/pools-boardwalk-villas/",
+          "https://www.facebook.com/villaromacatskills/posts/villa-romas-indoor-pool-and-hot-tub-where-blissful-relaxation-and-cherished-fami/815711587266078/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot describes a leisure activity at a 'Villa pool' which appears to be a private accommodation associated with the user's trip. The provided evidence consists of search results for various specific commercial properties named 'Villa Morning Glory', 'The Hummingbird Villa', 'Disney's BoardWalk Villas', and 'Villa Roma'. None of these results correspond to a generic or specific 'Villa pool' that can be verified against the user's itinerary. There is no evidence confirming the location, existence, or cost of the specific villa pool intended for this trip.",
+        "claims_checked": [
+          "Venue name: Villa pool",
+          "Category: leisure",
+          "Cost: €0.00",
+          "Activity: Swimming and packing"
+        ]
+      },
+      {
+        "day_index": 7,
+        "slot_position": 3,
+        "slot_name": "Lunch at villa",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://villaresorts.com/meal-plans/",
+          "https://www.denvher.com/blog/2023/5/30/villa-denver",
+          "https://www.tripadvisor.com/Restaurants-g33676-zfp30-Vail_Colorado.html",
+          "https://www.opentable.com/r/the-villa-palmer-lake",
+          "https://www.facebook.com/groups/789081411155154/posts/24539684199001542/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a 'Self-catered lunch from remaining groceries' at a 'Villa' (the user's accommodation). This is a private activity rather than a commercial venue. The cost of €70.00 is presented as a budget for groceries/self-catering rather than a menu price. While the search results discuss commercial entities named 'Villa' (resorts or restaurants), they are irrelevant to a private, self-catered meal at one's own lodging. Since the claim is for a private, self-managed activity, it does not contradict any public evidence and is logically consistent with a travel itinerary.",
+        "claims_checked": [
+          "Activity: Self-catered lunch",
+          "Location: Villa (accommodation)",
+          "Cost: €70.00",
+          "Time: 12:00 PM - 1:00 PM"
+        ]
+      },
+      {
+        "day_index": 7,
+        "slot_position": 4,
+        "slot_name": "Cala Vadella or Cala Tarida final swim",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.google.com/maps/search/Cala+Vadella",
+          "https://www.google.com/maps/search/Cala+Tarida+ibiza"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot provides two Google Maps search links as references, but no content was retrieved from these links or any other source. Therefore, there is no evidence available to verify the existence, location, or characteristics of Cala Vadella or Cala Tarida, nor the feasibility of the 15:30-17:30 time window or the €30.00 cost.",
+        "claims_checked": [
+          "Location: Cala Vadella or Cala Tarida",
+          "Proximity: Close to Sant Josep",
+          "Time window: 15:30 to 17:30",
+          "Cost: €30.00"
+        ]
+      },
+      {
+        "day_index": 7,
+        "slot_position": 5,
+        "slot_name": "Farewell dinner: Es Virot Restaurante",
+        "source_type": "link",
+        "source_urls": [
+          "https://e-carta.es/func1/1030"
+        ],
+        "verdict": "FAIL",
+        "reasoning": "The slot claims the venue is 'Es Virot Restaurante' located at 'Carrer de Burgos, 2, 07820 Sant Josep de sa Talaia'. However, the official link provided (https://e-carta.es/func1/1030) explicitly states 'El restaurante especificado no existe' (The specified restaurant does not exist). Furthermore, the legal information in the footer of the provided link identifies the platform owner's address in 'Sant Antoni de Portmany', which does not confirm the restaurant's existence or location in Sant Josep de sa Talaia.",
+        "claims_checked": [
+          "Venue name: Es Virot Restaurante",
+          "Location: Carrer de Burgos, 2, 07820 Sant Josep de sa Talaia",
+          "Link validity: https://e-carta.es/func1/1030"
+        ]
+      },
+      {
+        "day_index": 7,
+        "slot_position": 6,
+        "slot_name": "Pack and early night",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.deepcreek.com/vacation-rentals/cedar-shores-villa-08",
+          "https://whitevillas.net/property/villa-8/",
+          "https://www.facebook.com/groups/curacaotb/posts/24686527360946830/",
+          "https://www.youtube.com/watch?v=1bSDKijnUvY",
+          "https://www.youtube.com/watch?v=hL99RUR-d7w"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot describes a logistical activity (packing and preparing for a flight) at a private 'Villa'. The provided search results are irrelevant, as they refer to specific commercial properties named 'Villa 8' or 'Cedar Shores Villa #08', or video game guides for 'Resident Evil 8 Village'. There is no evidence available to verify the flight departure time (08:25) or the specific logistics mentioned in the slot.",
+        "claims_checked": [
+          "Return flight departs at 08:25",
+          "Location is a Villa",
+          "Activity involves packing cars and preparing breakfast bags"
+        ]
+      },
+      {
+        "day_index": 8,
+        "slot_position": 1,
+        "slot_name": "Villa checkout and drive to airport",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.rome2rio.com/s/Ibiza-Airport-IBZ/Cala-Vadella"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot provides a link to Rome2rio for travel between Ibiza Airport and Cala Vadella, but no content was retrieved from this link or any other source. Therefore, there is no evidence available to verify the travel duration (45 minutes), the distance, or the feasibility of the early morning departure.",
+        "claims_checked": [
+          "Travel time from Sant Josep villa area to Ibiza Airport is approximately 45 minutes (05:45 to 06:30).",
+          "The location 'Sant Josep villa area' is within driving distance of Ibiza Airport.",
+          "The cost for this transport is €0.00 (implying use of a rental car already paid for)."
+        ]
+      },
+      {
+        "day_index": 8,
+        "slot_position": 2,
+        "slot_name": "Return rental cars + airport breakfast",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.enterprise.com/en/car-rental-locations/es/ibiza-airport-e5a2.html"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims that rental cars can be returned at Ibiza Airport (IBZ) and that Enterprise operates at this location. The provided evidence from the Enterprise official website confirms the existence of the 'Ibiza Airport (IBZ) Car Rental' location. While the evidence does not explicitly list the 2026 opening hours or the specific cost of breakfast, the primary logistical claim (returning rental cars at Ibiza Airport via Enterprise) is supported by the source title and URL.",
+        "claims_checked": [
+          "Venue name: Ibiza Airport",
+          "Operator: Enterprise Rent-A-Car",
+          "Activity: Return rental cars",
+          "Location: Ibiza Airport (IBZ)"
+        ]
+      },
+      {
+        "day_index": 8,
+        "slot_position": 3,
+        "slot_name": "Return flights: IBZ → AMS → DUS",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.google.com/travel/flights?hl=en&gl=us&curr=EUR&tfs=CBwQAhoeEgoyMDI2LTA4LTE1agcIARIDRFVTcgcIARIDSUJaGh4SCjIwMjYtMDgtMjJqBwgBEgNJQlpyBwgBEgNEVVNAAUABQAFAAUABQAFIAXABmAEB&tfu=EgIIAQ"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The provided evidence is a Google Flights search page that contains no specific flight data, schedules, or airline names for the requested date (2026-08-22). The fetched content only shows UI elements like 'Top departing flights' and 'Price insights' without any actual flight listings or details to verify the Transavia HV5680 or KLM KL1801 flights.",
+        "claims_checked": [
+          "Flight Transavia HV5680 from Ibiza to Amsterdam",
+          "Flight KLM KL1801 from Amsterdam to Düsseldorf",
+          "Departure time 08:25:00",
+          "Arrival time 13:55:00",
+          "115-minute layover in Amsterdam"
+        ]
+      }
+    ],
+    "rationale_pass_count": 20,
+    "rationale_fail_count": 2,
+    "rationale_missing_count": 29,
+    "hc_micro_pass_rate": 0.875,
+    "cc_micro_pass_rate": 0.7692,
+    "hc_macro_pass_rate": 0.0,
+    "cc_macro_pass_rate": 0.0,
+    "final_pass_rate": 0.0,
+    "aggregated_constraints": [
+      {
+        "id": "HC-1",
+        "constraint_text": "origin: Dusseldorf",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-2",
+        "constraint_text": "destination: Ibiza",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-3",
+        "constraint_text": "travel_dates: 2026.08.15 to 2026.08.22",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-4",
+        "constraint_text": "travelers: 6 adults, 1 child under 6, 1 child 6 to 16",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-5",
+        "constraint_text": "budget: 12000 EUR total",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "FAIL",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 3,
+        "fail_count": 1,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-6",
+        "constraint_text": "accommodation: villa with pool",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-7",
+        "constraint_text": "transport: Flight",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "MISSING_INFO",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 3,
+        "fail_count": 0,
+        "missing_count": 1,
+        "na_count": 0
+      },
+      {
+        "id": "HC-8",
+        "constraint_text": "interests: beach and child-friendly activities (families), clubs and nightlife (young couple), water sports, shared dinners",
+        "constraint_type": "hard",
+        "final_verdict": "FAIL",
+        "judge_verdicts": [
+          "FAIL",
+          "PASS",
+          "FAIL",
+          "PASS"
+        ],
+        "pass_count": 2,
+        "fail_count": 2,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-1",
+        "constraint_text": "Car or road trip transport is not feasible for island or overseas destinations — a flight or ferry is required.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-2",
+        "constraint_text": "No key information should be left out of the plan, such as the lack of accommodation during travel.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-3",
+        "constraint_text": "Transportation choices within the trip must be reasonable. For example, having both “self-driving” and “flight” would be considered a conflict.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-4",
+        "constraint_text": "Both outbound and return transport must appear in the plan.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-5",
+        "constraint_text": "Flight or train connections must allow sufficient layover time (≥60 min domestic, ≥90 min international).",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-6",
+        "constraint_text": "Accommodation must be planned for every night of the trip.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-7",
+        "constraint_text": "Hotel check-in must be scheduled after arrival transport reaches the destination.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-8",
+        "constraint_text": "Restaurants must be open on the planned day and time.",
+        "constraint_type": "commonsense",
+        "final_verdict": "FAIL",
+        "judge_verdicts": [
+          "PASS",
+          "FAIL",
+          "FAIL",
+          "FAIL"
+        ],
+        "pass_count": 1,
+        "fail_count": 3,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-9",
+        "constraint_text": "Restaurant choices should not be repeated throughout the trip.",
+        "constraint_type": "commonsense",
+        "final_verdict": "FAIL",
+        "judge_verdicts": [
+          "FAIL",
+          "FAIL",
+          "FAIL",
+          "FAIL"
+        ],
+        "pass_count": 0,
+        "fail_count": 4,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-10",
+        "constraint_text": "Activities should be geographically sensible per day (no unnecessary cross-city travel).",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "FAIL",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 3,
+        "fail_count": 1,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-11",
+        "constraint_text": "Attractions must be open on the planned day and time.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-12",
+        "constraint_text": "Attraction choices should not be repeated throughout the trip.",
+        "constraint_type": "commonsense",
+        "final_verdict": "FAIL",
+        "judge_verdicts": [
+          "FAIL",
+          "PASS",
+          "FAIL",
+          "FAIL"
+        ],
+        "pass_count": 1,
+        "fail_count": 3,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-13",
+        "constraint_text": "Travel time between consecutive activities must account for realistic transit duration.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      }
+    ],
+    "timestamp": "2026-05-16T20:19:32.836812+00:00"
+  }
+}

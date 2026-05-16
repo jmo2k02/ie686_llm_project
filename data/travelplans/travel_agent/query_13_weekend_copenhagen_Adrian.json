@@ -1,0 +1,471 @@
+{
+  "id": "query_13_weekend_copenhagen_Adrian",
+  "description": "Normal case: couple, short weekend city break, Northern Europe",
+  "query": "My partner and I want a quick weekend getaway from Cologne to Copenhagen from June 6th to 8th, 2026. Budget is €2,000 for two. We are into Scandinavian design, architecture, and New Nordic food. We would love a stylish boutique hotel and recommendations for the best restaurants and design museums.",
+  "hard_constraints": {
+    "origin": "Cologne",
+    "destination": "Copenhagen",
+    "date_from": "2026.06.06",
+    "date_to": "2026.06.08",
+    "travelers": {
+      "adults": 2,
+      "children_under_6": 0,
+      "children_6_to_16": 0
+    },
+    "budget_amount": 2000,
+    "budget_currency": "EUR",
+    "accommodation": "design hotel or boutique hotel",
+    "transport": "Flight",
+    "interests": "design, architecture, New Nordic cuisine, cycling, museums"
+  },
+  "model_name": "openrouter:google/gemini-3-flash-preview",
+  "generated_at": "2026-05-16T14:45:08.066887+00:00",
+  "duration_seconds": 403.1,
+  "travelplan": {
+    "title": "Cologne to Copenhagen Design & New Nordic Weekend, June 6–8 2026",
+    "days": [
+      {
+        "index": 1,
+        "calendar_date": "2026-06-06",
+        "label": "Arrival, design district, New Nordic dinner",
+        "slots": [
+          {
+            "name": "Outbound flight: Cologne → Copenhagen via Munich",
+            "description": "Lufthansa itinerary: CGN 08:30 → MUC 09:35, 45-minute layover, then MUC 10:20 → CPH 11:55. Round-trip fare found at €498 for two; half allocated here for cost tracking.",
+            "start_time": "2026-06-06T08:30:00",
+            "end_time": "2026-06-06T11:55:00",
+            "category": "transport",
+            "location": "Cologne Bonn Airport / Munich Airport / Copenhagen Airport",
+            "cost": 249.0,
+            "links": [
+              "https://www.google.com/travel/flights?hl=en&gl=us&curr=EUR&tfs=CBwQAhoeEgoyMDI2LTA2LTA2agcIARIDQ0dOcgcIARIDQ1BIGh4SCjIwMjYtMDYtMDhqBwgBEgNDUEhyBwgBEgNDR05AAUABSAFwAZgBAQ&tfu=EgIIAQ"
+            ],
+            "notes": "Flight times and fare must be verified before booking."
+          },
+          {
+            "name": "Airport transfer to Hotel Ottilia",
+            "description": "Use regional train from CPH to København H, then S-train to Carlsberg Station and a short walk to Hotel Ottilia. Estimated 25–30 minutes by source-backed transit lookup; allow extra time for baggage.",
+            "start_time": "2026-06-06T12:20:00",
+            "end_time": "2026-06-06T12:55:00",
+            "category": "transport",
+            "location": "Copenhagen Airport to Hotel Ottilia, Bryggernes Plads 7",
+            "cost": 8.0,
+            "links": [
+              "https://www.cph.dk/en",
+              "https://www.rome2rio.com/s/Copenhagen-Airport-CPH/Hotel-Ottilia"
+            ],
+            "notes": "Approx. 3-zone public transport ticket, ~30 DKK per person."
+          },
+          {
+            "name": "Luggage drop and boutique hotel check-in: Hotel Ottilia",
+            "description": "Stylish boutique hotel in the Carlsberg City District with strong design credentials and sustainability features. Official check-in begins 15:00, so drop bags first and return later if room is not ready. Two-night rate found at €242/night.",
+            "start_time": "2026-06-06T12:55:00",
+            "end_time": "2026-06-06T13:20:00",
+            "category": "lodging",
+            "location": "Hotel Ottilia, Bryggernes Plads 7, 1799 Copenhagen",
+            "cost": 484.0,
+            "links": [
+              "https://travelstack.nuitee.link/hotels/lpd49f3?checkin=2026-06-06&checkout=2026-06-08&rooms=1&adults=2&occupancies=W3siYWR1bHRzIjoyLCJjaGlsZHJlbiI6W119XQ%3D%3D&language=de&currency=EUR",
+              "https://www.brochner-hotels.com/our-locations/hotel-ottilia/contact"
+            ],
+            "notes": "Official address verified. Check-in from 15:00; check-out deadline varies by source between 11:00 and 12:00, confirm directly."
+          },
+          {
+            "name": "Lunch: Vækst",
+            "description": "Greenhouse-inspired New Nordic lunch in the Latin Quarter. Saturday service verified 12:00–23:00; good design appeal and moderate Copenhagen pricing.",
+            "start_time": "2026-06-06T13:45:00",
+            "end_time": "2026-06-06T15:00:00",
+            "category": "meal",
+            "location": "Vækst, Sankt Peders Stræde 34, 1453 Copenhagen",
+            "cost": 120.0,
+            "links": [
+              "https://cofoco.dk/vaekst/?utm_source=google&utm_medium=organic&utm_campaign=gmb-website&utm_content=vaekst",
+              "https://bookings.dineout.is/denmark-vaekst",
+              "https://guide.michelin.com/us/en/capital-region/copenhagen/restaurant/vaekst"
+            ],
+            "notes": "Reserve ahead; estimated lunch for two without heavy wine."
+          },
+          {
+            "name": "Transfer to Designmuseum Danmark",
+            "description": "Public transport from central Copenhagen via Metro toward Marmorkirken, then short walk to Designmuseum Danmark. Hotel-to-museum route is about 25–30 minutes; from Vækst area allow similar short city transfer with walking.",
+            "start_time": "2026-06-06T15:00:00",
+            "end_time": "2026-06-06T15:30:00",
+            "category": "transport",
+            "location": "Central Copenhagen to Designmuseum Danmark",
+            "cost": 6.5,
+            "links": [
+              "https://designmuseum.dk/en/besog-os/getting-here/"
+            ],
+            "notes": "Approx. 2-zone tickets for two."
+          },
+          {
+            "name": "Designmuseum Danmark: Danish chairs and Scandinavian design",
+            "description": "Visit Denmark’s key design museum, focusing on Danish furniture, craft, and the evolution of Scandinavian functionalism. Saturday hours verified 10:00–18:00; adult tickets estimated at 130 DKK each.",
+            "start_time": "2026-06-06T15:30:00",
+            "end_time": "2026-06-06T17:45:00",
+            "category": "attraction",
+            "location": "Designmuseum Danmark, Bredgade 68, 1260 Copenhagen",
+            "cost": 35.0,
+            "links": [
+              "https://www.google.com/maps/search/Designmuseum+Danmark",
+              "https://designmuseum.dk/en/besog-os/opening-hours-admission-2/",
+              "https://designmuseum.dk/en/besog-os/getting-here/"
+            ],
+            "notes": "Ticket office may close 60 minutes before closing; arrive by 15:30 as planned."
+          },
+          {
+            "name": "Walk/Metro to Høst",
+            "description": "Travel from Designmuseum Danmark to Høst. Walking route is about 20–22 minutes via Store Kongensgade/Gothersgade; Metro option via Marmorkirken and Nørreport is about 18 minutes.",
+            "start_time": "2026-06-06T17:45:00",
+            "end_time": "2026-06-06T18:15:00",
+            "category": "transport",
+            "location": "Designmuseum Danmark to Høst",
+            "cost": 0.0,
+            "links": [
+              "https://www.rome2rio.com/s/Copenhagen/Designmuseum-Denmark"
+            ],
+            "notes": "Walk if weather is good; use metro if short on time."
+          },
+          {
+            "name": "Dinner: Høst",
+            "description": "Award-winning Nordic dining room with raw Scandinavian design. Saturday dinner hours verified 17:30–00:00. Strong fit for New Nordic food and interior design appeal.",
+            "start_time": "2026-06-06T18:15:00",
+            "end_time": "2026-06-06T20:30:00",
+            "category": "meal",
+            "location": "Høst, Nørre Farimagsgade 41, 1364 Copenhagen",
+            "cost": 180.0,
+            "links": [
+              "https://cofoco.dk/hoest/?utm_source=google&utm_medium=organic&utm_campaign=gmb-website&utm_content=hoest",
+              "https://guide.michelin.com/us/en/capital-region/copenhagen/restaurant/host"
+            ],
+            "notes": "Reserve early. Estimated food for two; wine pairing would raise total."
+          },
+          {
+            "name": "Return to Hotel Ottilia",
+            "description": "Return by Metro/S-train via Nørreport or enjoy a short city walk to transit; Hotel Ottilia is near Carlsberg Station.",
+            "start_time": "2026-06-06T20:30:00",
+            "end_time": "2026-06-06T21:00:00",
+            "category": "transport",
+            "location": "Høst to Hotel Ottilia",
+            "cost": 6.5,
+            "links": [
+              "https://www.publictransport.dk/"
+            ],
+            "notes": "Approx. 2-zone public transport for two."
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "calendar_date": "2026-06-07",
+        "label": "Design museums, architecture, destination dining",
+        "slots": [
+          {
+            "name": "Breakfast at Hotel Ottilia",
+            "description": "Slow breakfast at the boutique hotel before the architecture-focused day.",
+            "start_time": "2026-06-07T08:30:00",
+            "end_time": "2026-06-07T09:30:00",
+            "category": "meal",
+            "location": "Hotel Ottilia, Bryggernes Plads 7",
+            "cost": 50.0,
+            "links": [
+              "https://www.brochner-hotels.com/our-locations/hotel-ottilia/contact"
+            ],
+            "notes": "Assumes breakfast is not included in the room rate; adjust if included."
+          },
+          {
+            "name": "Transfer to Danish Architecture Center",
+            "description": "From Hotel Ottilia/Carlsberg area to DAC at BLOX. Source-backed route: S-train to København H, then short bus or 15-minute walk to the harborfront; allow around 25–30 minutes.",
+            "start_time": "2026-06-07T09:30:00",
+            "end_time": "2026-06-07T10:00:00",
+            "category": "transport",
+            "location": "Hotel Ottilia to Danish Architecture Center",
+            "cost": 6.5,
+            "links": [
+              "https://dac.dk/en"
+            ],
+            "notes": "Approx. 2-zone public transport for two."
+          },
+          {
+            "name": "Danish Architecture Center at BLOX",
+            "description": "Architecture-focused morning at DAC in the BLOX building: exhibitions, harbor-facing terraces, and Copenhagen urban design context. Sunday hours verified 10:00–18:00; Sunday English guided tour usually 11:00, included with admission.",
+            "start_time": "2026-06-07T10:00:00",
+            "end_time": "2026-06-07T12:30:00",
+            "category": "attraction",
+            "location": "Danish Architecture Center, Bryghuspladsen 10, 1473 Copenhagen",
+            "cost": 31.0,
+            "links": [
+              "https://dac.dk/en",
+              "https://copenhagencard.com/attractions/danish-architecture-center?srsltid=AfmBOor44Vm9yIbc1lNLMFiCTNmUtQ2gliDD-smlvGqtJgaHDgH2RrOM"
+            ],
+            "notes": "Adult tickets estimated at 115 DKK each."
+          },
+          {
+            "name": "Walk to Selma via historic center/Nørreport",
+            "description": "Walk or take transit from DAC toward Nørreport. This keeps the route compact: DAC → central Copenhagen → Selma, near Torvehallerne.",
+            "start_time": "2026-06-07T12:30:00",
+            "end_time": "2026-06-07T13:00:00",
+            "category": "transport",
+            "location": "Danish Architecture Center to Selma",
+            "cost": 0.0,
+            "links": [
+              "https://dac.dk/en",
+              "http://selmacopenhagen.dk/"
+            ],
+            "notes": "Use transit if weather is poor."
+          },
+          {
+            "name": "Lunch: Selma",
+            "description": "Michelin Bib Gourmand modern smørrebrød with New Nordic sensibility. Sunday hours verified 11:30–16:00; located near Nørreport and Torvehallerne.",
+            "start_time": "2026-06-07T13:00:00",
+            "end_time": "2026-06-07T14:15:00",
+            "category": "meal",
+            "location": "Selma, Rømersgade 20, 1362 Copenhagen",
+            "cost": 100.0,
+            "links": [
+              "http://selmacopenhagen.dk/",
+              "https://www.mikkeller.com/locations/selma",
+              "https://guide.michelin.com/us/en/capital-region/copenhagen/restaurant/selma"
+            ],
+            "notes": "Reserve ahead; estimated lunch for two."
+          },
+          {
+            "name": "Design retail walk: Illums Bolighus and HAY House area",
+            "description": "Explore Copenhagen’s central design retail core around Amagertorv and Strøget. Illums Bolighus Sunday hours verified around 11:00–19:00. HAY House Sunday hours conflicted across sources, so treat it as a storefront/location check unless current opening is confirmed; if closed, focus on Illums Bolighus and nearby Danish design shops.",
+            "start_time": "2026-06-07T14:30:00",
+            "end_time": "2026-06-07T16:30:00",
+            "category": "attraction",
+            "location": "Illums Bolighus, Amagertorv 10 / HAY House, Østergade 61, Copenhagen",
+            "cost": 0.0,
+            "links": [
+              "https://www.cph.dk/en/shopping-dining/shops/illums-bolighus/illums-bolighus-close-to-gates-b",
+              "https://www.hay.com/functions/hay-stores/hay-stores-denmark"
+            ],
+            "notes": "Free browsing; shopping not included in budget."
+          },
+          {
+            "name": "Rest and refresh at Hotel Ottilia",
+            "description": "Return to the Carlsberg District for downtime before destination dinner.",
+            "start_time": "2026-06-07T16:30:00",
+            "end_time": "2026-06-07T18:00:00",
+            "category": "leisure",
+            "location": "Hotel Ottilia, Bryggernes Plads 7",
+            "cost": 6.5,
+            "links": [
+              "https://www.brochner-hotels.com/our-locations/hotel-ottilia/contact"
+            ],
+            "notes": "Cost covers estimated public transport for two."
+          },
+          {
+            "name": "Transfer to Restaurant Barr",
+            "description": "Travel from Hotel Ottilia/Carlsberg area to Christianshavn, then walk to Strandgade in the former Noma space at North Atlantic House.",
+            "start_time": "2026-06-07T18:00:00",
+            "end_time": "2026-06-07T18:35:00",
+            "category": "transport",
+            "location": "Hotel Ottilia to Restaurant Barr, Strandgade 93",
+            "cost": 6.5,
+            "links": [
+              "https://restaurantbarr.com",
+              "https://www.exploretock.com/restaurant-barr/"
+            ],
+            "notes": "Approx. 2-zone public transport for two."
+          },
+          {
+            "name": "Dinner: Restaurant Barr",
+            "description": "Destination Nordic dinner in the former Noma space, focused on Northern Sea cuisine and strong dining-room design. Sunday dinner hours verified around 17:00–23:30; reservations via Tock.",
+            "start_time": "2026-06-07T18:45:00",
+            "end_time": "2026-06-07T21:15:00",
+            "category": "meal",
+            "location": "Restaurant Barr, Strandgade 93, 1401 Copenhagen",
+            "cost": 260.0,
+            "links": [
+              "https://restaurantbarr.com",
+              "https://www.exploretock.com/restaurant-barr/",
+              "https://guide.michelin.com/us/en/capital-region/copenhagen/restaurant/barr"
+            ],
+            "notes": "Estimated dinner for two; order à la carte/set menu conservatively to stay under €2,000."
+          },
+          {
+            "name": "Return to Hotel Ottilia",
+            "description": "Evening return from Christianshavn to the Carlsberg District by Metro/S-train or taxi if preferred.",
+            "start_time": "2026-06-07T21:15:00",
+            "end_time": "2026-06-07T21:50:00",
+            "category": "transport",
+            "location": "Restaurant Barr to Hotel Ottilia",
+            "cost": 6.5,
+            "links": [
+              "https://www.publictransport.dk/"
+            ],
+            "notes": "Public transport cost estimate; taxi would increase budget."
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "calendar_date": "2026-06-08",
+        "label": "Final design stops and return to Cologne",
+        "slots": [
+          {
+            "name": "Early breakfast and check-out at Hotel Ottilia",
+            "description": "Early hotel breakfast/coffee and check-out before the morning return flight. Keep it light because of the airport and Vienna layover meals later.",
+            "start_time": "2026-06-08T06:45:00",
+            "end_time": "2026-06-08T07:30:00",
+            "category": "meal",
+            "location": "Hotel Ottilia, Bryggernes Plads 7",
+            "cost": 40.0,
+            "links": [
+              "https://www.brochner-hotels.com/our-locations/hotel-ottilia/contact"
+            ],
+            "notes": "If breakfast is included, remove this estimated cost."
+          },
+          {
+            "name": "Transfer to Copenhagen Airport",
+            "description": "Train/S-train route from Carlsberg Station via København H to Copenhagen Airport Terminal 3. Source-backed estimate is about 25–30 minutes; this slot includes buffer.",
+            "start_time": "2026-06-08T07:30:00",
+            "end_time": "2026-06-08T08:10:00",
+            "category": "transport",
+            "location": "Hotel Ottilia to Copenhagen Airport Terminal 3",
+            "cost": 8.0,
+            "links": [
+              "https://www.cph.dk/en",
+              "https://www.rome2rio.com/s/Copenhagen-Airport-CPH/Hotel-Ottilia"
+            ],
+            "notes": "Approx. 3-zone public transport ticket for two."
+          },
+          {
+            "name": "Airport coffee/pastry: Lagkagehuset or Copenhagen Coffee Lab",
+            "description": "Pre-flight Danish bakery/coffee stop airside. CPH sources list Lagkagehuset and Copenhagen Coffee Lab from around 05:00, suitable for this departure.",
+            "start_time": "2026-06-08T08:10:00",
+            "end_time": "2026-06-08T09:00:00",
+            "category": "meal",
+            "location": "Copenhagen Airport Terminal 2/3",
+            "cost": 30.0,
+            "links": [
+              "https://www.cph.dk/en/shopping-dining/dining"
+            ],
+            "notes": "Useful buffer before boarding."
+          },
+          {
+            "name": "Return flight leg: Copenhagen → Vienna",
+            "description": "Austrian OS 992: Copenhagen 09:40 → Vienna 11:20, first leg of the return itinerary.",
+            "start_time": "2026-06-08T09:40:00",
+            "end_time": "2026-06-08T11:20:00",
+            "category": "transport",
+            "location": "Copenhagen Airport to Vienna Airport",
+            "cost": 125.0,
+            "links": [
+              "https://www.google.com/travel/flights?hl=en&gl=us&curr=EUR&tfs=CBwQAhoeEgoyMDI2LTA2LTA2agcIARIDQ0dOcgcIARIDQ1BIGh4SCjIwMjYtMDYtMDhqBwgBEgNDUEhyBwgBEgNDR05AAUABSAFwAZgBAQ&tfu=EgIIAQ"
+            ],
+            "notes": "Part of the €498 round-trip fare for two."
+          },
+          {
+            "name": "Vienna Airport layover lunch: Do & Co Flight Bar / Jamie Oliver’s Bar",
+            "description": "Use the long Vienna layover for a proper airport lunch. Official airport dining sources list Do & Co Flight Bar and Jamie Oliver’s Bar in the Schengen area, with broad daytime hours.",
+            "start_time": "2026-06-08T12:30:00",
+            "end_time": "2026-06-08T13:30:00",
+            "category": "meal",
+            "location": "Vienna Airport Terminal 3, Schengen gates",
+            "cost": 60.0,
+            "links": [
+              "https://viennaairport.com/en/restaurants"
+            ],
+            "notes": "Remain airside unless you have ample buffer and documents for entry."
+          },
+          {
+            "name": "Return flight leg: Vienna → Cologne",
+            "description": "Austrian OS 249: Vienna 18:25 → Cologne Bonn 19:55, final return leg.",
+            "start_time": "2026-06-08T18:25:00",
+            "end_time": "2026-06-08T19:55:00",
+            "category": "transport",
+            "location": "Vienna Airport to Cologne Bonn Airport",
+            "cost": 124.0,
+            "links": [
+              "https://www.google.com/travel/flights?hl=en&gl=us&curr=EUR&tfs=CBwQAhoeEgoyMDI2LTA2LTA2agcIARIDQ0dOcgcIARIDQ1BIGh4SCjIwMjYtMDYtMDhqBwgBEgNDUEhyBwgBEgNDR05AAUABSAFwAZgBAQ&tfu=EgIIAQ"
+            ],
+            "notes": "Part of the €498 round-trip fare for two."
+          },
+          {
+            "name": "Vienna Airport lounge/design downtime",
+            "description": "Unstructured layover buffer: relax, work, browse airport shops, or use a paid lounge if desired. Keep boarding time in mind for the 18:25 departure.",
+            "start_time": "2026-06-08T13:30:00",
+            "end_time": "2026-06-08T17:30:00",
+            "category": "leisure",
+            "location": "Vienna Airport",
+            "cost": 0.0,
+            "links": [
+              "https://viennaairport.com/en"
+            ],
+            "notes": "Paid lounge access not included in budget."
+          },
+          {
+            "name": "Vienna Airport early dinner/snack",
+            "description": "Early light dinner/snack before boarding. Options from official airport dining include Jamie Oliver’s Bar, Do & Co Flight Bar, or quick Austrian snacks depending on gate.",
+            "start_time": "2026-06-08T17:30:00",
+            "end_time": "2026-06-08T18:05:00",
+            "category": "meal",
+            "location": "Vienna Airport Terminal 3",
+            "cost": 45.0,
+            "links": [
+              "https://viennaairport.com/en/restaurants"
+            ],
+            "notes": "This provides the second meal slot for the travel day."
+          }
+        ]
+      }
+    ]
+  },
+  "validation_passed": true,
+  "validation_attempts": 1,
+  "validation_feedback": "The itinerary perfectly adheres to all constraints and tasks. It provides a high-quality selection of Scandinavian design landmarks (Designmuseum Danmark, DAC, Illums Bolighus) and New Nordic dining (Høst, Vækst, Selma, Restaurant Barr) that align with the user's specific interests. The logistics are sound, the budget of €2,000 is respected (€1,988 total), and the boutique hotel choice (Hotel Ottilia) fits the requested aesthetic. Travel dates and traveler count are correct.",
+  "task_list": [
+    {
+      "name": "flight_search",
+      "type": "flight",
+      "text": "Find round-trip flights from Cologne (CGN) to Copenhagen (CPH) for 2 people from June 6th to June 8th, 2026, within the total budget of €2,000.",
+      "is_valid": true,
+      "validation_comment": null
+    },
+    {
+      "name": "boutique_hotel_search",
+      "type": "hotel",
+      "text": "Search for stylish boutique hotels in Copenhagen for 2 nights (June 6-8, 2026) that align with Scandinavian design aesthetics.",
+      "is_valid": true,
+      "validation_comment": null
+    },
+    {
+      "name": "new_nordic_restaurants",
+      "type": "restaurant",
+      "text": "Identify top-rated New Nordic restaurants in Copenhagen, including those with high design appeal.",
+      "is_valid": true,
+      "validation_comment": null
+    },
+    {
+      "name": "design_museums_architecture",
+      "type": "attraction",
+      "text": "Find the best design museums and architectural landmarks in Copenhagen, such as the Designmuseum Danmark.",
+      "is_valid": true,
+      "validation_comment": null
+    },
+    {
+      "name": "check_museum_hours",
+      "type": "opening_times",
+      "text": "Verify the opening hours for Designmuseum Danmark and other selected attractions for June 6-8, 2026.",
+      "is_valid": true,
+      "validation_comment": null
+    },
+    {
+      "name": "restaurant_availability",
+      "type": "opening_times",
+      "text": "Check reservation availability and opening times for recommended New Nordic restaurants for the weekend of June 6th.",
+      "is_valid": true,
+      "validation_comment": null
+    },
+    {
+      "name": "itinerary_routing",
+      "type": "routing-check",
+      "text": "Check the travel time and feasibility between the selected boutique hotel, restaurants, and design museums to ensure a smooth weekend itinerary.",
+      "is_valid": true,
+      "validation_comment": null
+    }
+  ]
+}

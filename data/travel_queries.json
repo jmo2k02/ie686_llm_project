@@ -54,22 +54,40 @@
     "query": "I need to travel from Frankfurt to New York for a business trip from June 15th to 17th, 2026. No strict budget — company covers it. I need a central business hotel, a direct or short-connection flight, and restaurant recommendations suitable for client dinners."
   },
   {
-    "id": "query_8_friends_group_tokyo_Adrian",
+    "id": "query_13_weekend_copenhagen_Adrian",
     "type": "normal",
-    "description": "Normal case: group of friends, long-haul to Tokyo",
+    "description": "Normal case: couple, short weekend city break, Northern Europe",
     "hard_constraints": {
-      "origin": "Munich",
-      "destination": "Tokyo",
-      "date_from": "2026.09.20",
-      "date_to": "2026.09.30",
-      "travelers": { "adults": 6, "children_under_6": 0, "children_6_to_16": 0 },
-      "budget_amount": 9000,
+      "origin": "Cologne",
+      "destination": "Copenhagen",
+      "date_from": "2026.06.06",
+      "date_to": "2026.06.08",
+      "travelers": { "adults": 2, "children_under_6": 0, "children_6_to_16": 0 },
+      "budget_amount": 2000,
       "budget_currency": "EUR",
-      "accommodation": "hotel or hostel with shared common areas",
+      "accommodation": "design hotel or boutique hotel",
       "transport": "Flight",
-      "interests": "anime, street food, nightlife, temples, technology, pop culture"
+      "interests": "design, architecture, New Nordic cuisine, cycling, museums"
     },
-    "query": "Six of us are flying from Munich to Tokyo from September 20th to 30th, 2026. Our total group budget is €9,000. We are all in our late 20s and love anime, Japanese street food, exploring temples, and experiencing the nightlife. We prefer a hotel or hostel with shared spaces so we can hang out together. Please plan the trip."
+    "query": "My partner and I want a quick weekend getaway from Cologne to Copenhagen from June 6th to 8th, 2026. Budget is €2,000 for two. We are into Scandinavian design, architecture, and New Nordic food. We would love a stylish boutique hotel and recommendations for the best restaurants and design museums."
+  },
+  {
+    "id": "query_10_seniors_marrakech_Adrian",
+    "type": "normal",
+    "description": "Normal case: senior couple, cultural trip to North Africa",
+    "hard_constraints": {
+      "origin": "Hamburg",
+      "destination": "Marrakech",
+      "date_from": "2026.07.05",
+      "date_to": "2026.07.12",
+      "travelers": { "adults": 2, "children_under_6": 0, "children_6_to_16": 0 },
+      "budget_amount": 3000,
+      "budget_currency": "EUR",
+      "accommodation": "riad or comfortable hotel",
+      "transport": "Flight",
+      "interests": "souks, history, architecture, local cuisine, guided tours, relaxed pace"
+    },
+    "query": "My husband and I (both in our mid-60s) would like to visit Marrakech from July 5th to 12th, 2026, flying from Hamburg. Our budget is €3,000. We enjoy history, architecture, local food markets, and would love a stay in a traditional riad. We prefer a relaxed pace with guided tours rather than rushing around. Please suggest an itinerary."
   },
   {
     "id": "query_9_honeymoon_maldives_Adrian",
@@ -90,22 +108,76 @@
     "query": "My partner and I are going on our honeymoon to the Maldives from October 10th to 20th, 2026. We have a budget of €8,000 and want a luxury overwater bungalow or high-end beach resort. We love snorkelling, diving, spa treatments, and romantic sunset dinners. Please plan the full trip including flights from Berlin."
   },
   {
-    "id": "query_10_seniors_marrakech_Adrian",
-    "type": "normal",
-    "description": "Normal case: senior couple, cultural trip to North Africa",
+    "id": "query_5_special_interest_vegan_Adrian",
+    "type": "special_interest",
+    "description": "Special interest: strictly vegan diet and sustainable travel",
+    "hard_constraints": {
+      "origin": "Cologne",
+      "destination": "Amsterdam",
+      "date_from": "2026.10.03",
+      "date_to": "2026.10.06",
+      "travelers": { "adults": 2, "children_under_6": 0, "children_6_to_16": 0 },
+      "budget_amount": 2000,
+      "budget_currency": "EUR",
+      "accommodation": "eco-certified hotel or sustainable guesthouse",
+      "transport": "No Preference",
+      "interests": "vegan restaurants, sustainability, cycling, vegan markets, eco-friendly activities"
+    },
+    "query": "My partner and I are travelling from Cologne to Amsterdam from October 3rd to 6th, 2026. Budget is €2,000 for two. We follow a strictly vegan diet and only want to eat at vegan or fully plant-based restaurants. We prefer sustainable, eco-certified accommodation. We love cycling, vegan food markets, and eco-friendly activities. Train travel is preferred over flying."
+  },
+  {
+    "id": "query_4_special_interest_astronomy_Adrian",
+    "type": "special_interest",
+    "description": "Special interest: astronomy and dark sky tourism",
     "hard_constraints": {
       "origin": "Hamburg",
-      "destination": "Marrakech",
-      "date_from": "2026.07.05",
-      "date_to": "2026.07.12",
-      "travelers": { "adults": 2, "children_under_6": 0, "children_6_to_16": 0 },
-      "budget_amount": 2500,
+      "destination": "La Palma",
+      "date_from": "2026.11.12",
+      "date_to": "2026.11.19",
+      "travelers": { "adults": 1, "children_under_6": 0, "children_6_to_16": 0 },
+      "budget_amount": 2000,
       "budget_currency": "EUR",
-      "accommodation": "riad or comfortable hotel",
+      "accommodation": "rural house or small hotel near observatory",
       "transport": "Flight",
-      "interests": "souks, history, architecture, local cuisine, guided tours, relaxed pace"
+      "interests": "stargazing, astronomy, dark sky reserves, observatory visits, hiking"
     },
-    "query": "My husband and I (both in our mid-60s) would like to visit Marrakech from July 5th to 12th, 2026, flying from Hamburg. Our budget is €2,500. We enjoy history, architecture, local food markets, and would love a stay in a traditional riad. We prefer a relaxed pace with guided tours rather than rushing around. Please suggest an itinerary."
+    "query": "I am a solo traveller flying from Hamburg to La Palma in the Canary Islands from November 12th to 19th, 2026. My budget is €2,000. I am passionate about astronomy and stargazing — I specifically want to stay near the Roque de los Muchachos observatory. Please suggest accommodation in a dark sky area, stargazing tours, and hiking options."
+  },
+  {
+    "id": "query_23_wheelchair_barcelona_Adrian",
+    "type": "special_interest",
+    "description": "Special interest: wheelchair user, full accessibility required throughout",
+    "hard_constraints": {
+      "origin": "Munich",
+      "destination": "Barcelona",
+      "date_from": "2026.09.05",
+      "date_to": "2026.09.10",
+      "travelers": { "adults": 2, "children_under_6": 0, "children_6_to_16": 0 },
+      "budget_amount": 4000,
+      "budget_currency": "EUR",
+      "accommodation": "fully accessible hotel with roll-in shower and lift",
+      "transport": "Flight",
+      "interests": "Gaudí architecture, accessible beaches, local food, accessible museums"
+    },
+    "query": "I am travelling with my partner from Munich to Barcelona from September 5th to 10th, 2026. I am a wheelchair user and need full accessibility throughout — wheelchair-accessible flights and seating, a hotel with a roll-in shower and lift access, and activities reachable by wheelchair. Budget is €4,000. We love Gaudí architecture, accessible beaches, and local food. Please plan a fully accessible trip."
+  },
+  {
+    "id": "query_3_no_flight_overseas_Adrian",
+    "type": "edge_case",
+    "description": "Edge case: no flight, but overseas route (Germany to Ireland via car and ferry)",
+    "hard_constraints": {
+      "origin": "Frankfurt",
+      "destination": "Dublin",
+      "date_from": "2026.09.05",
+      "date_to": "2026.09.10",
+      "travelers": { "adults": 1, "children_under_6": 0, "children_6_to_16": 0 },
+      "budget_amount": 3000,
+      "budget_currency": "EUR",
+      "accommodation": "hostel or budget hotel",
+      "transport": "Car",
+      "interests": "nature, hiking, coastal scenery, pubs"
+    },
+    "query": "I want to travel from Frankfurt to Dublin from September 5th to 10th, 2026, without taking any flights — I prefer to travel by car and ferry. My budget is €3,000. I am travelling solo and looking for a hostel or cheap hotel. I love hiking, coastal landscapes, and visiting local pubs."
   },
   {
     "id": "query_11_backpacker_capetown_Adrian",
@@ -117,50 +189,13 @@
       "date_from": "2026.06.01",
       "date_to": "2026.06.21",
       "travelers": { "adults": 1, "children_under_6": 0, "children_6_to_16": 0 },
-      "budget_amount": 2000,
+      "budget_amount": 4000,
       "budget_currency": "EUR",
       "accommodation": "hostel",
       "transport": "Flight",
       "interests": "hiking, wildlife, local culture, surf, budget travel, meeting people"
     },
-    "query": "I am travelling solo from Munich to Cape Town for 3 weeks from June 1st to 21st, 2026. My total budget is €2,000 including flights. I will stay in hostels, love hiking (Table Mountain, Cape Point), wildlife, and surfing. I want to experience local culture and meet other travellers. Please help me plan this trip on a tight budget."
-  },
-  {
-    "id": "query_13_weekend_copenhagen_Adrian",
-    "type": "normal",
-    "description": "Normal case: couple, short weekend city break, Northern Europe",
-    "hard_constraints": {
-      "origin": "Cologne",
-      "destination": "Copenhagen",
-      "date_from": "2026.06.06",
-      "date_to": "2026.06.08",
-      "travelers": { "adults": 2, "children_under_6": 0, "children_6_to_16": 0 },
-      "budget_amount": 800,
-      "budget_currency": "EUR",
-      "accommodation": "design hotel or boutique hotel",
-      "transport": "Flight",
-      "interests": "design, architecture, New Nordic cuisine, cycling, museums"
-    },
-    "query": "My partner and I want a quick weekend getaway from Cologne to Copenhagen from June 6th to 8th, 2026. Budget is €800 for two. We are into Scandinavian design, architecture, and New Nordic food. We would love a stylish boutique hotel and recommendations for the best restaurants and design museums."
-  },
-  
-  {
-    "id": "query_3_no_flight_overseas_Adrian",
-    "type": "edge_case",
-    "description": "Edge case: no flight, but overseas route (Germany to Ireland via car and ferry)",
-    "hard_constraints": {
-      "origin": "Frankfurt",
-      "destination": "Dublin",
-      "date_from": "2026.09.05",
-      "date_to": "2026.09.10",
-      "travelers": { "adults": 1, "children_under_6": 0, "children_6_to_16": 0 },
-      "budget_amount": 800,
-      "budget_currency": "EUR",
-      "accommodation": "hostel or budget hotel",
-      "transport": "Car",
-      "interests": "nature, hiking, coastal scenery, pubs"
-    },
-    "query": "I want to travel from Frankfurt to Dublin from September 5th to 10th, 2026, without taking any flights — I prefer to travel by car and ferry. My budget is €800. I am travelling solo and looking for a hostel or cheap hotel. I love hiking, coastal landscapes, and visiting local pubs."
+    "query": "I am travelling solo from Munich to Cape Town for 3 weeks from June 1st to 21st, 2026. My total budget is €4,000 including flights. I will stay in hostels, love hiking (Table Mountain, Cape Point), wildlife, and surfing. I want to experience local culture and meet other travellers. Please help me plan this trip on a tight budget."
   },
   {
     "id": "query_6_tight_budget_Adrian",
@@ -181,6 +216,24 @@
     "query": "I am travelling solo from Stuttgart to Prague from June 20th to 23rd, 2026 on a very tight budget of only €250 total. I am happy to stay in a shared hostel dorm. I prefer to travel by bus or carpooling rather than flying. I am interested in free or cheap attractions, street food, and the historical old town. Please plan the most budget-efficient trip possible."
   },
   {
+    "id": "query_21_mixed_group_ibiza_Adrian",
+    "type": "edge_case",
+    "description": "Edge case: mixed group with conflicting interests (families with kids + young couple)",
+    "hard_constraints": {
+      "origin": "Dusseldorf",
+      "destination": "Ibiza",
+      "date_from": "2026.08.15",
+      "date_to": "2026.08.22",
+      "travelers": { "adults": 6, "children_under_6": 1, "children_6_to_16": 1 },
+      "budget_amount": 12000,
+      "budget_currency": "EUR",
+      "accommodation": "villa with pool",
+      "transport": "Flight",
+      "interests": "beach and child-friendly activities (families), clubs and nightlife (young couple), water sports, shared dinners"
+    },
+    "query": "We are two families and one couple going to Ibiza from Dusseldorf from August 15th to 22nd, 2026 — 6 adults, a toddler (2 years old) and a 9-year-old. Total budget is €12,000. We need a villa with a pool big enough for all of us. The families want beach days and child-friendly activities; the couple wants to enjoy the nightlife. Please plan accommodation and a joint itinerary that works for everyone."
+  },
+  {
     "id": "query_16_already_at_destination_Adrian",
     "type": "edge_case",
     "description": "Edge case: traveller is already at the destination, only needs remaining days planned",
@@ -199,75 +252,21 @@
     "query": "I am already in Rome for a business trip and have 3 unexpected free days from July 5th to 8th, 2026. No flights or hotel needed — I already have both. I have €400 to spend on activities, food, and experiences. I love Roman history, street food, and discovering hidden gems off the tourist trail. Please suggest the best way to spend these 3 days."
   },
   {
-    "id": "query_4_special_interest_astronomy_Adrian",
-    "type": "special_interest",
-    "description": "Special interest: astronomy and dark sky tourism",
-    "hard_constraints": {
-      "origin": "Hamburg",
-      "destination": "La Palma",
-      "date_from": "2026.11.12",
-      "date_to": "2026.11.19",
-      "travelers": { "adults": 1, "children_under_6": 0, "children_6_to_16": 0 },
-      "budget_amount": 1500,
-      "budget_currency": "EUR",
-      "accommodation": "rural house or small hotel near observatory",
-      "transport": "Flight",
-      "interests": "stargazing, astronomy, dark sky reserves, observatory visits, hiking"
-    },
-    "query": "I am a solo traveller flying from Hamburg to La Palma in the Canary Islands from November 12th to 19th, 2026. My budget is €1,500. I am passionate about astronomy and stargazing — I specifically want to stay near the Roque de los Muchachos observatory. Please suggest accommodation in a dark sky area, stargazing tours, and hiking options."
-  },
-  {
-    "id": "query_5_special_interest_vegan_Adrian",
-    "type": "special_interest",
-    "description": "Special interest: strictly vegan diet and sustainable travel",
-    "hard_constraints": {
-      "origin": "Cologne",
-      "destination": "Amsterdam",
-      "date_from": "2026.10.03",
-      "date_to": "2026.10.06",
-      "travelers": { "adults": 2, "children_under_6": 0, "children_6_to_16": 0 },
-      "budget_amount": 900,
-      "budget_currency": "EUR",
-      "accommodation": "eco-certified hotel or sustainable guesthouse",
-      "transport": "No Preference",
-      "interests": "vegan restaurants, sustainability, cycling, vegan markets, eco-friendly activities"
-    },
-    "query": "My partner and I are travelling from Cologne to Amsterdam from October 3rd to 6th, 2026. Budget is €900 for two. We follow a strictly vegan diet and only want to eat at vegan or fully plant-based restaurants. We prefer sustainable, eco-certified accommodation. We love cycling, vegan food markets, and eco-friendly activities. Train travel is preferred over flying."
-  },
-  {
-    "id": "query_23_wheelchair_barcelona_Adrian",
-    "type": "special_interest",
-    "description": "Special interest: wheelchair user, full accessibility required throughout",
+    "id": "query_8_friends_group_tokyo_Adrian",
+    "type": "normal",
+    "description": "Normal case: group of friends, long-haul to Tokyo",
     "hard_constraints": {
       "origin": "Munich",
-      "destination": "Barcelona",
-      "date_from": "2026.09.05",
-      "date_to": "2026.09.10",
-      "travelers": { "adults": 2, "children_under_6": 0, "children_6_to_16": 0 },
-      "budget_amount": 2000,
+      "destination": "Tokyo",
+      "date_from": "2026.09.20",
+      "date_to": "2026.09.30",
+      "travelers": { "adults": 6, "children_under_6": 0, "children_6_to_16": 0 },
+      "budget_amount": 9000,
       "budget_currency": "EUR",
-      "accommodation": "fully accessible hotel with roll-in shower and lift",
+      "accommodation": "hotel or hostel with shared common areas",
       "transport": "Flight",
-      "interests": "Gaudí architecture, accessible beaches, local food, accessible museums"
+      "interests": "anime, street food, nightlife, temples, technology, pop culture"
     },
-    "query": "I am travelling with my partner from Munich to Barcelona from September 5th to 10th, 2026. I am a wheelchair user and need full accessibility throughout — wheelchair-accessible flights and seating, a hotel with a roll-in shower and lift access, and activities reachable by wheelchair. Budget is €2,000. We love Gaudí architecture, accessible beaches, and local food. Please plan a fully accessible trip."
-  },
-  {
-    "id": "query_29_impossible_car_newzealand_Adrian",
-    "type": "impossible",
-    "description": "Impossible case: car transport from Germany to New Zealand in 4 days (physically impossible)",
-    "hard_constraints": {
-      "origin": "Hamburg",
-      "destination": "Auckland",
-      "date_from": "2026.07.10",
-      "date_to": "2026.07.14",
-      "travelers": { "adults": 1, "children_under_6": 0, "children_6_to_16": 0 },
-      "budget_amount": 2000,
-      "budget_currency": "EUR",
-      "accommodation": "hotel",
-      "transport": "Car",
-      "interests": "nature, hiking, Maori culture, scenic landscapes"
-    },
-    "query": "I want to drive from Hamburg to Auckland, New Zealand from July 10th to 14th, 2026. Budget is €2,000. I love nature, hiking, and experiencing Maori culture. Please plan the trip including the route and accommodation."
+    "query": "Six of us are flying from Munich to Tokyo from September 20th to 30th, 2026. Our total group budget is €9,000. We are all in our late 20s and love anime, Japanese street food, exploring temples, and experiencing the nightlife. We prefer a hotel or hostel with shared spaces so we can hang out together. Please plan the trip."
   }
 ]

@@ -421,9 +421,16 @@ def score_node(state: JudgeState) -> dict[str, Any]:
     rv_fail = sum(1 for r in state.rationale_verifications if r.verdict == "FAIL")
     rv_missing = sum(1 for r in state.rationale_verifications if r.verdict == "MISSING_INFO")
 
+    timed_out_models = list({
+        jr.model_name
+        for jr in state.hc_judge_results + state.cc_judge_results
+        if "timed out after" in (jr.raw_response or "")
+    })
+
     scorecard = ScorecardModel(
         plan_excerpt=state.plan_markdown[:300],
         judge_models=state.judge_model_names,
+        timed_out_models=timed_out_models,
         rationale_verifications=state.rationale_verifications,
         rationale_pass_count=rv_pass,
         rationale_fail_count=rv_fail,

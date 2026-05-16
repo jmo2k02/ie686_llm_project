@@ -103,6 +103,10 @@ class ScorecardModel(BaseModel):
     """Final evaluation scorecard with Xie et al. (2024) metrics."""
     plan_excerpt: Annotated[str, Field(description="First 300 characters of plan_text for reference")]
     judge_models: list[str]
+    timed_out_models: Annotated[
+        list[str],
+        Field(description="Judge models that timed out — their verdicts defaulted to FAIL and scores are unreliable"),
+    ] = []
     rationale_verifications: Annotated[
         list[RationaleVerificationModel],
         Field(description="Per-slot rationale verification results"),

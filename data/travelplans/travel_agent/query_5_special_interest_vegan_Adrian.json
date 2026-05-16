@@ -1,0 +1,490 @@
+{
+  "id": "query_5_special_interest_vegan_Adrian",
+  "description": "Special interest: strictly vegan diet and sustainable travel",
+  "query": "My partner and I are travelling from Cologne to Amsterdam from October 3rd to 6th, 2026. Budget is €2,000 for two. We follow a strictly vegan diet and only want to eat at vegan or fully plant-based restaurants. We prefer sustainable, eco-certified accommodation. We love cycling, vegan food markets, and eco-friendly activities. Train travel is preferred over flying.",
+  "hard_constraints": {
+    "origin": "Cologne",
+    "destination": "Amsterdam",
+    "date_from": "2026.10.03",
+    "date_to": "2026.10.06",
+    "travelers": {
+      "adults": 2,
+      "children_under_6": 0,
+      "children_6_to_16": 0
+    },
+    "budget_amount": 2000,
+    "budget_currency": "EUR",
+    "accommodation": "eco-certified hotel or sustainable guesthouse",
+    "transport": "No Preference",
+    "interests": "vegan restaurants, sustainability, cycling, vegan markets, eco-friendly activities"
+  },
+  "model_name": "openrouter:google/gemini-3-flash-preview",
+  "generated_at": "2026-05-16T15:32:58.115531+00:00",
+  "duration_seconds": 696.6,
+  "travelplan": {
+    "title": "Vegan Eco Amsterdam Trip for Two — Cologne to Amsterdam, Oct 3–6 2026",
+    "days": [
+      {
+        "index": 1,
+        "calendar_date": "2026-10-03",
+        "label": "Arrival, Vegfest, vegan dinner",
+        "slots": [
+          {
+            "name": "ICE International: Cologne to Amsterdam",
+            "description": "Rail-first arrival from Köln Hauptbahnhof to Amsterdam Centraal. Exact 2026 timetable not yet released; direct ICE International usually takes about 2h40 and runs frequently. Book via DB/NS International once tickets open; seat reservations recommended.",
+            "start_time": "2026-10-03T09:40:00",
+            "end_time": "2026-10-03T12:20:00",
+            "category": "transport",
+            "location": "Köln Hbf → Amsterdam Centraal",
+            "cost": 60.0,
+            "links": [
+              "https://int.bahn.de/en/offers/saver-fare-flexible-fare/super-saver-fare-europe-netherlands",
+              "https://www.nsinternational.com/en/train/cologne-amsterdam"
+            ],
+            "notes": "Estimated cost for two one-way saver fares including seat reservations; adjust once live fares open."
+          },
+          {
+            "name": "Transit to Conscious Hotel Westerpark",
+            "description": "From Amsterdam Centraal, take GVB Bus 21 toward Geuzenveld to Haarlemmerplein/Van Hallstraat, then walk to the hotel in Westerpark. Conservative transfer buffer included.",
+            "start_time": "2026-10-03T12:20:00",
+            "end_time": "2026-10-03T12:45:00",
+            "category": "transport",
+            "location": "Amsterdam Centraal → Haarlemmerweg 10, 1014 BE Amsterdam",
+            "cost": 4.0,
+            "links": [
+              "https://www.rome2rio.com/s/Amsterdam-Centraal-Station/Conscious-Hotel-Westerpark-Amsterdam"
+            ],
+            "notes": "Routing API unavailable; web sources indicate roughly 10–15 minutes total."
+          },
+          {
+            "name": "Lunch: Koffie ende Koeck",
+            "description": "100% vegan and organic daytime café near Westerpark for pastries, sandwiches, coffee, and lunch after arrival.",
+            "start_time": "2026-10-03T13:00:00",
+            "end_time": "2026-10-03T14:00:00",
+            "category": "meal",
+            "location": "Koffie ende Koeck, Haarlemmerweg 175, 1051 LA Amsterdam",
+            "cost": 35.0,
+            "links": [
+              "https://www.iamsterdam.com/en/whats-on/calendar/eating-and-drinking/cafes-and-bars/koffie-ende-koeck",
+              "https://www.facebook.com/koffieendekoeck/"
+            ],
+            "notes": "Open Wed–Sun 10:00–17:00 per sources; fully vegan/plant-powered."
+          },
+          {
+            "name": "Check in: Conscious Hotel Westerpark",
+            "description": "Check into a Green Key Gold, 100% electric eco hotel in Westerpark. The hotel uses recycled materials, water-saving systems, organic food and beverage options, and cashless/self-service processes.",
+            "start_time": "2026-10-03T15:00:00",
+            "end_time": "2026-10-03T15:30:00",
+            "category": "lodging",
+            "location": "Conscious Hotel Westerpark, Haarlemmerweg 10, 1014 BE Amsterdam",
+            "cost": 540.0,
+            "links": [
+              "https://conscioushotels.com/stay/westerpark",
+              "https://conscioushotels.com/"
+            ],
+            "notes": "Estimated €180/night × 3 nights for two; live hotel tool alternatives ranged from €142–€250/night, while Conscious Westerpark was verified separately for sustainability credentials."
+          },
+          {
+            "name": "Unconfirmed vegan market fallback: Westergas eco-food stroll",
+            "description": "Vegfest/Amsterdam Vegan Market is not currently confirmed for 3 Oct 2026, so treat Westergas as a flexible eco-food and culture stroll rather than a fixed festival booking. Check the official vegan market calendars again in early/mid-2026; if no event is confirmed, use this slot for Westerpark/Westergas cafés, galleries, and sustainable shops before dinner.",
+            "start_time": "2026-10-03T16:00:00",
+            "end_time": "2026-10-03T18:00:00",
+            "category": "leisure",
+            "location": "Westergas, Pazzanistraat 33–37, 1014 DB Amsterdam",
+            "cost": 0.0,
+            "links": [
+              "https://vgn.me/vegan-markets",
+              "https://westergas.nl/"
+            ],
+            "notes": "Replaces the earlier unverified Vegfest slot; no event ticket assumed."
+          },
+          {
+            "name": "Dinner: Bonboon vegan fine dining",
+            "description": "Fully vegan fine-dining dinner in Jordaan with seasonal plant-based tasting menus. Reserve in advance, especially for Saturday.",
+            "start_time": "2026-10-03T19:30:00",
+            "end_time": "2026-10-03T21:30:00",
+            "category": "meal",
+            "location": "Bonboon, Rozenstraat 12, 1016 NX Amsterdam",
+            "cost": 124.0,
+            "links": [
+              "https://www.bonboon.nl/en"
+            ],
+            "notes": "Open Wed–Sun 18:00–23:00. Estimated two 5-course menus at about €62 each, drinks extra."
+          },
+          {
+            "name": "Return to hotel from Jordaan",
+            "description": "Short tram, bus, bike, or walk back from Jordaan/Westermarkt area to Westerpark hotel.",
+            "start_time": "2026-10-03T21:30:00",
+            "end_time": "2026-10-03T22:00:00",
+            "category": "transport",
+            "location": "Bonboon → Conscious Hotel Westerpark",
+            "cost": 4.0,
+            "links": [
+              "https://www.bonboon.nl/en",
+              "https://conscioushotels.com/stay/westerpark"
+            ],
+            "notes": "Allow extra time if walking after dinner."
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "calendar_date": "2026-10-04",
+        "label": "Canal clean-up, plant-based dining, cycling",
+        "slots": [
+          {
+            "name": "Organic breakfast at hotel / Westerpark",
+            "description": "Start with the hotel’s organic breakfast or a simple vegan breakfast in Westerpark before the canal clean-up.",
+            "start_time": "2026-10-04T08:00:00",
+            "end_time": "2026-10-04T08:45:00",
+            "category": "meal",
+            "location": "Conscious Hotel Westerpark, Haarlemmerweg 10, 1014 BE Amsterdam",
+            "cost": 40.0,
+            "links": [
+              "https://conscioushotels.com/stay/westerpark"
+            ],
+            "notes": "Confirm vegan items at booking/check-in; Conscious Hotels emphasize organic food and drink."
+          },
+          {
+            "name": "Lunch: Hearth Amsterdam",
+            "description": "100% plant-based lunch at Hearth in Amsterdam-Oost, known for creative vegan plates and natural wines.",
+            "start_time": "2026-10-04T12:45:00",
+            "end_time": "2026-10-04T14:00:00",
+            "category": "meal",
+            "location": "Hearth, Camperstraat 26H, 1091 AG Amsterdam",
+            "cost": 55.0,
+            "links": [
+              "https://www.hearthamsterdam.com/?utm_source=gbp&utm_medium=organic&utm_campaign=profile&utm_content=hearth",
+              "https://www.iamsterdam.com/en/whats-on/calendar/eating-and-drinking/restaurants/h-earth"
+            ],
+            "notes": "Sunday hours include lunch service; reserve via official site/TheFork."
+          },
+          {
+            "name": "Dinner: Vegan Junk Food Bar De Pijp",
+            "description": "Fully plant-based comfort-food dinner: burgers, loaded fries, and colorful vegan street-food plates at the De Pijp location.",
+            "start_time": "2026-10-04T19:00:00",
+            "end_time": "2026-10-04T20:30:00",
+            "category": "meal",
+            "location": "Vegan Junk Food Bar, Marie Heinekenplein 9-10, 1072 MH Amsterdam",
+            "cost": 60.0,
+            "links": [
+              "https://www.veganjunkfoodbar.com",
+              "https://www.iamsterdam.com/en/whats-on/calendar/eating-and-drinking/restaurants/vegan-junk-food-bar"
+            ],
+            "notes": "Open Sunday until about 23:00; walk-ins common but peak times may have waits."
+          },
+          {
+            "name": "Transit to plastic-fishing departure point",
+            "description": "Travel from Westerpark toward the central canal departure area for the plastic-fishing activity. Exact pier is confirmed on booking.",
+            "start_time": "2026-10-04T09:00:00",
+            "end_time": "2026-10-04T09:30:00",
+            "category": "transport",
+            "location": "Conscious Hotel Westerpark → central Amsterdam canal dock",
+            "cost": 4.0,
+            "links": [
+              "https://www.canalmotorboats.com/en/activities/plastic-fishing/",
+              "https://flagshipamsterdam.com/events/team-events/plastic-fishing-amsterdam/"
+            ],
+            "notes": "Use tram/bus or bike depending on assigned departure pier."
+          },
+          {
+            "name": "Eco activity: plastic fishing canal clean-up",
+            "description": "Hands-on canal clean-up by boat, collecting plastic from Amsterdam’s waterways. A sustainability-focused alternative to a standard canal cruise.",
+            "start_time": "2026-10-04T10:00:00",
+            "end_time": "2026-10-04T12:00:00",
+            "category": "attraction",
+            "location": "Amsterdam canals; departure point confirmed after booking",
+            "cost": 92.0,
+            "links": [
+              "https://www.canalmotorboats.com/en/activities/plastic-fishing/",
+              "https://flagshipamsterdam.com/events/team-events/plastic-fishing-amsterdam/"
+            ],
+            "notes": "Estimated €45.95 per person. Confirm whether individual bookings or minimum group sizes apply."
+          },
+          {
+            "name": "Rent bikes for 24 hours",
+            "description": "Pick up standard city bikes for a 24-hour cycling window. Use hotel bike rental if available or MacBike as backup.",
+            "start_time": "2026-10-04T14:30:00",
+            "end_time": "2026-10-04T15:00:00",
+            "category": "transport",
+            "location": "Conscious Hotel Westerpark or MacBike Amsterdam",
+            "cost": 30.0,
+            "links": [
+              "https://www.macbike.nl/en/",
+              "https://conscioushotels.com/stay/westerpark"
+            ],
+            "notes": "Estimated €15 per bike/day; MacBike sources showed about €12–€16 per 24 hours."
+          },
+          {
+            "name": "Cycle Westerpark, Jordaan and canal belt",
+            "description": "Low-impact cycling loop from Westerpark through Jordaan and quieter canal-side streets, with café/photo stops and flexible pacing.",
+            "start_time": "2026-10-04T15:00:00",
+            "end_time": "2026-10-04T17:30:00",
+            "category": "leisure",
+            "location": "Westerpark → Jordaan → canal belt → Westerpark",
+            "cost": 0.0,
+            "links": [
+              "https://www.macbike.nl/en/",
+              "https://www.iamsterdam.com/en"
+            ],
+            "notes": "Keep to marked cycle lanes and use two locks when parking."
+          },
+          {
+            "name": "Cycle or transit to De Pijp dinner",
+            "description": "Travel from Westerpark/city center to Vegan Junk Food Bar in De Pijp by bike or GVB transit.",
+            "start_time": "2026-10-04T18:15:00",
+            "end_time": "2026-10-04T19:00:00",
+            "category": "transport",
+            "location": "Westerpark → Marie Heinekenplein",
+            "cost": 0.0,
+            "links": [
+              "https://www.veganjunkfoodbar.com"
+            ],
+            "notes": "Bike rental already budgeted; use transit if weather is poor."
+          },
+          {
+            "name": "Return bikes / evening ride back",
+            "description": "Ride or take transit back to Westerpark after dinner; park bikes securely overnight if rental terms allow.",
+            "start_time": "2026-10-04T20:30:00",
+            "end_time": "2026-10-04T21:15:00",
+            "category": "transport",
+            "location": "De Pijp → Conscious Hotel Westerpark",
+            "cost": 0.0,
+            "links": [
+              "https://www.macbike.nl/en/"
+            ],
+            "notes": "Avoid cycling if tired or weather is poor; Amsterdam transit is a good fallback."
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "calendar_date": "2026-10-05",
+        "label": "Markets, parks, vegan food tour",
+        "slots": [
+          {
+            "name": "Bike ride to Albert Cuyp Market / De Pijp",
+            "description": "Use the 24-hour bike rental to ride from Westerpark toward De Pijp and Albert Cuyp Market, taking a conservative pace through cycle lanes.",
+            "start_time": "2026-10-05T10:00:00",
+            "end_time": "2026-10-05T10:45:00",
+            "category": "transport",
+            "location": "Conscious Hotel Westerpark → Albert Cuypstraat",
+            "cost": 0.0,
+            "links": [
+              "https://www.macbike.nl/en/",
+              "https://amsterdam.org/en/sight/9291/albert-cuyp-market.html"
+            ],
+            "notes": "Market vendors are usually fully set up by around 10:00–11:00."
+          },
+          {
+            "name": "Lunch: Vegan Temple Bar",
+            "description": "Fully plant-based casual lunch near Leidseplein, with vegan burgers, bowls, nachos, and bar-style dishes.",
+            "start_time": "2026-10-05T14:00:00",
+            "end_time": "2026-10-05T15:00:00",
+            "category": "meal",
+            "location": "Vegan Temple Bar, Lange Leidsedwarsstraat 17, 1017 NE Amsterdam",
+            "cost": 55.0,
+            "links": [
+              "http://vegantemplebar.nl/",
+              "https://www.restauplant.com/en/restaurant/vegan-tempel-bar"
+            ],
+            "notes": "Open daily from about 12:00 to 22:30; fully vegan/plant-based."
+          },
+          {
+            "name": "Return bikes / rest at hotel",
+            "description": "Return the 24-hour rental bikes or park them securely if the rental is through the hotel, then take a short rest before the Noord sustainability ride.",
+            "start_time": "2026-10-05T15:00:00",
+            "end_time": "2026-10-05T15:30:00",
+            "category": "transport",
+            "location": "Leidseplein / Westerpark",
+            "cost": 0.0,
+            "links": [
+              "https://www.macbike.nl/en/"
+            ],
+            "notes": "If weather is poor, switch the afternoon to ferry + walking in Noord."
+          },
+          {
+            "name": "Vegan food tour / Albert Cuyp Market",
+            "description": "Vegan-focused market walk in De Pijp/Albert Cuyp area with plant-based tastings and local food context. The outdoor market runs Monday–Saturday and has the strongest setup from late morning.",
+            "start_time": "2026-10-05T11:00:00",
+            "end_time": "2026-10-05T13:30:00",
+            "category": "attraction",
+            "location": "Albert Cuypstraat, 1073 BD Amsterdam",
+            "cost": 45.0,
+            "links": [
+              "https://www.viator.com/tours/Amsterdam/Vegan-food-tour-experience-in-Amsterdam/d525-43309P4",
+              "https://amsterdam.org/en/sight/9291/albert-cuyp-market.html"
+            ],
+            "notes": "Approx. €21.50/person based on tour sources. Confirm the selected operator is strictly vegan before booking."
+          },
+          {
+            "name": "Transit to Amsterdam Noord via Centraal ferry",
+            "description": "Leave the hotel/rest period earlier and allow a full hour to reach Amsterdam Noord: travel from Westerpark to Amsterdam Centraal, board the free IJ ferry, then continue to De Ceuvel by bike, bus, or walk. This fixes the previously unrealistic 15:30-to-16:00 transition.",
+            "start_time": "2026-10-05T15:30:00",
+            "end_time": "2026-10-05T16:30:00",
+            "category": "transport",
+            "location": "Conscious Hotel Westerpark → Amsterdam Centraal ferry → De Ceuvel",
+            "cost": 4.0,
+            "links": [
+              "https://www.gvb.nl/en",
+              "https://www.iamsterdam.com/en/travel-stay/getting-around/ferries"
+            ],
+            "notes": "Route timing could not be live-verified because the Maps API key was unavailable; the itinerary now includes a conservative 60-minute buffer."
+          },
+          {
+            "name": "Eco activity: De Ceuvel circular site and Amsterdam Noord",
+            "description": "Explore De Ceuvel, a circular urbanism site with houseboats on land, soil-cleaning plants, recycled materials, and Amsterdam-Noord sustainability projects. The later start allows realistic travel plus the IJ ferry crossing.",
+            "start_time": "2026-10-05T16:30:00",
+            "end_time": "2026-10-05T18:00:00",
+            "category": "attraction",
+            "location": "De Ceuvel, Korte Papaverweg 2–6, 1032 KB Amsterdam",
+            "cost": 0.0,
+            "links": [
+              "https://cosh.eco/en/stores/amsterdam/cafe-de-ceuvel",
+              "https://www.stayokay.com/en/tips/de-ceuvel-in-amsterdam"
+            ],
+            "notes": "Keep this as a flexible self-guided visit; check café/site opening details closer to travel."
+          },
+          {
+            "name": "Dinner: Trevi’s fully vegan Italian",
+            "description": "Unique Monday dinner at Trevi’s, a 100% vegan Italian restaurant in De Pijp serving plant-based pizza, handmade pasta, focaccia and vegan desserts. Monday evening hours are listed as 17:00–21:30; reserve ahead because seating is limited.",
+            "start_time": "2026-10-05T19:00:00",
+            "end_time": "2026-10-05T20:30:00",
+            "category": "meal",
+            "location": "Trevi’s, Pijnackerstraat 6, 1072 JS Amsterdam",
+            "cost": 65.0,
+            "links": [
+              "https://www.veganamsterdam.org/trevis/",
+              "https://www.restauplant.com/en/restaurant/trevis",
+              "https://www.happycow.net/reviews/trevis-amsterdam-197211"
+            ],
+            "notes": "Chosen to replace the repeated Hearth dinner and broaden the vegan dining scene exploration."
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "calendar_date": "2026-10-06",
+        "label": "Vegan brunch and return to Cologne",
+        "slots": [
+          {
+            "name": "Check out and store luggage at Amsterdam Centraal",
+            "description": "Check out by 11:00, then take bags to Amsterdam Centraal and place them in official NS luggage lockers in the East Wing or use nearby Lockerpoint if the station lockers are full. This makes the luggage plan explicit before lunch and the 15:00 train.",
+            "start_time": "2026-10-06T10:30:00",
+            "end_time": "2026-10-06T11:30:00",
+            "category": "lodging",
+            "location": "Conscious Hotel Westerpark → Amsterdam Centraal luggage lockers",
+            "cost": 12.0,
+            "links": [
+              "https://www.lockerpoint.com/lockerpoint-locations/lockerpoint-amsterdam-centraal/",
+              "https://www.amsterdam.info/central-station/luggage-lockers/how-to-details/"
+            ],
+            "notes": "Search result indicated NS station lockers are generally 05:00–01:00, card payment only, with Lockerpoint as a 24/7 backup; allow extra wayfinding time due to station works."
+          },
+          {
+            "name": "Vegan brunch/lunch: Vegan Temple Bar",
+            "description": "Final fully plant-based meal before departure, with reliable daily lunch hours and casual comfort-food options.",
+            "start_time": "2026-10-06T12:00:00",
+            "end_time": "2026-10-06T13:15:00",
+            "category": "meal",
+            "location": "Vegan Temple Bar, Lange Leidsedwarsstraat 17, 1017 NE Amsterdam",
+            "cost": 55.0,
+            "links": [
+              "http://vegantemplebar.nl/",
+              "https://www.restauplant.com/en/restaurant/vegan-tempel-bar"
+            ],
+            "notes": "Chosen over Koffie ende Koeck because Tuesday closure was reported for Koffie ende Koeck."
+          },
+          {
+            "name": "ICE International: Amsterdam to Cologne",
+            "description": "Rail return from Amsterdam Centraal to Köln Hauptbahnhof. Exact 2026 timetable not yet released; direct ICE International generally takes about 2h40.",
+            "start_time": "2026-10-06T15:00:00",
+            "end_time": "2026-10-06T17:40:00",
+            "category": "transport",
+            "location": "Amsterdam Centraal → Köln Hbf",
+            "cost": 60.0,
+            "links": [
+              "https://int.bahn.de/en/offers/saver-fare-flexible-fare/super-saver-fare-europe-netherlands",
+              "https://www.nsinternational.com/en/train/cologne-amsterdam"
+            ],
+            "notes": "Estimated two one-way saver fares with reservations; verify once booking opens."
+          },
+          {
+            "name": "Flexible vegan dinner in Cologne after buffer",
+            "description": "Fully vegan post-trip dinner after a safer buffer from the 17:40 train arrival. The later start allows time for delays, platform exit, local transit/taxi, and a short reset before dinner.",
+            "start_time": "2026-10-06T19:15:00",
+            "end_time": "2026-10-06T20:45:00",
+            "category": "meal",
+            "location": "To80 Vegan, Händelstraße 28, 50674 Köln, Germany",
+            "cost": 55.0,
+            "links": [
+              "https://www.to80vegan-koeln.de/"
+            ],
+            "notes": "Moved from 18:30 to 19:15 to avoid the previously tight Cologne arrival-to-dinner transition. Confirm opening/reservation closer to the date."
+          }
+        ]
+      }
+    ]
+  },
+  "validation_passed": true,
+  "validation_attempts": 3,
+  "validation_feedback": "The itinerary perfectly adheres to all constraints and tasks. It utilizes sustainable, eco-certified accommodation (Conscious Hotel Westerpark), prioritizes train travel via ICE International, and ensures every meal is at a strictly vegan or plant-based restaurant. The activities, including plastic fishing, cycling, and visiting De Ceuvel, align with the user's eco-friendly interests. The budget of €1,399 is well within the €2,000 limit, and the logistics (including luggage storage and travel buffers) are realistic and well-planned.",
+  "task_list": [
+    {
+      "name": "train_cologne_amsterdam",
+      "type": "routing-check",
+      "text": "Search for train connections and prices from Cologne to Amsterdam for October 3rd and returning October 6th, 2026, for two people.",
+      "is_valid": true,
+      "validation_comment": null
+    },
+    {
+      "name": "eco_certified_hotels_amsterdam",
+      "type": "hotel",
+      "text": "Find sustainable, eco-certified accommodations in Amsterdam for 3 nights (Oct 3-6) within a budget suitable for a total trip cost of €2,000.",
+      "is_valid": true,
+      "validation_comment": null
+    },
+    {
+      "name": "vegan_restaurants_amsterdam",
+      "type": "restaurant",
+      "text": "Identify strictly vegan or fully plant-based restaurants in Amsterdam for lunch and dinner options.",
+      "is_valid": true,
+      "validation_comment": null
+    },
+    {
+      "name": "vegan_food_markets",
+      "type": "general-web-search",
+      "text": "Search for vegan food markets or eco-friendly markets occurring in Amsterdam between October 3rd and 6th, 2026.",
+      "is_valid": true,
+      "validation_comment": null
+    },
+    {
+      "name": "cycling_and_eco_activities",
+      "type": "attraction",
+      "text": "Find bike rental shops and eco-friendly activities or tours in Amsterdam.",
+      "is_valid": true,
+      "validation_comment": null
+    },
+    {
+      "name": "verify_market_hours",
+      "type": "opening_times",
+      "text": "Verify the opening times for identified vegan markets and key attractions for the specific dates in October.",
+      "is_valid": true,
+      "validation_comment": null
+    },
+    {
+      "name": "check_restaurant_reservations",
+      "type": "opening_times",
+      "text": "Check if the selected vegan restaurants require reservations and verify their operating hours for the travel dates.",
+      "is_valid": true,
+      "validation_comment": null
+    },
+    {
+      "name": "local_transit_cycling_routes",
+      "type": "routing-check",
+      "text": "Check cycling routes between the selected eco-hotel and the planned vegan restaurants/attractions.",
+      "is_valid": true,
+      "validation_comment": null
+    }
+  ]
+}

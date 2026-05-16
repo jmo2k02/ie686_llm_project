@@ -1,0 +1,558 @@
+{
+  "id": "query_3_no_flight_overseas_Adrian",
+  "description": "Edge case: no flight, but overseas route (Germany to Ireland via car and ferry)",
+  "query": "I want to travel from Frankfurt to Dublin from September 5th to 10th, 2026, without taking any flights — I prefer to travel by car and ferry. My budget is €3,000. I am travelling solo and looking for a hostel or cheap hotel. I love hiking, coastal landscapes, and visiting local pubs.",
+  "hard_constraints": {
+    "origin": "Frankfurt",
+    "destination": "Dublin",
+    "date_from": "2026.09.05",
+    "date_to": "2026.09.10",
+    "travelers": {
+      "adults": 1,
+      "children_under_6": 0,
+      "children_6_to_16": 0
+    },
+    "budget_amount": 3000,
+    "budget_currency": "EUR",
+    "accommodation": "hostel or budget hotel",
+    "transport": "Car",
+    "interests": "nature, hiking, coastal scenery, pubs"
+  },
+  "model_name": "openrouter:google/gemini-3-flash-preview",
+  "generated_at": "2026-05-16T15:53:52.436342+00:00",
+  "duration_seconds": 425.63,
+  "travelplan": {
+    "title": "Frankfurt to Dublin by Car and Ferry — September 5–10, 2026",
+    "days": [
+      {
+        "index": 1,
+        "calendar_date": "2026-09-05",
+        "label": "Drive to Cherbourg",
+        "slots": [
+          {
+            "name": "Drive Frankfurt to Cherbourg",
+            "description": "Drive from Frankfurt to Cherbourg via Saarbrücken, Metz, Reims, Paris/Caen and N13 to the ferry port. Source estimates: 880–910 km, about 8h45–9h30 driving before breaks; allow extra time for rests and Paris/Reims congestion. Estimated one-way fuel/tolls: €180–€215.",
+            "start_time": "2026-09-05T07:00:00",
+            "end_time": "2026-09-05T18:30:00",
+            "category": "transport",
+            "location": "Frankfurt am Main, Germany to Cherbourg-en-Cotentin, France",
+            "cost": 215.0,
+            "links": [
+              "https://tollguru.com/toll-calculator-europe",
+              "https://www.autoroutes.sanef.com/en/my-journey/price-of-my-journey"
+            ],
+            "notes": "Passenger cars under 3.5t do not need German motorway tolls/vignettes. Pay French free-flow tolls online/at terminals within the stated deadline if applicable."
+          },
+          {
+            "name": "Dinner at Le Plouc 2",
+            "description": "Traditional French dinner in Cherbourg; moderate price level and highly rated in restaurant search.",
+            "start_time": "2026-09-05T19:30:00",
+            "end_time": "2026-09-05T21:00:00",
+            "category": "meal",
+            "location": "59 Rue au Blé, 50100 Cherbourg-en-Cotentin, France",
+            "cost": 30.0,
+            "links": [
+              "https://www.restaurantleplouc2.fr/"
+            ],
+            "notes": "Restaurant hours found: Saturday 19:00–21:00."
+          },
+          {
+            "name": "Check in: L'Autre Lieu, Cherbourg",
+            "description": "Budget accommodation with free Wi‑Fi and secured parking listed in the hotel result. Selected as a practical overnight before the ferry.",
+            "start_time": "2026-09-05T18:30:00",
+            "end_time": "2026-09-05T19:00:00",
+            "category": "lodging",
+            "location": "L'Autre Lieu, Cherbourg-en-Cotentin, France",
+            "cost": 61.0,
+            "links": [
+              "https://travelstack.nuitee.link/hotels/lp656d6d8f?checkin=2026-09-05&checkout=2026-09-06&rooms=1&adults=1&occupancies=W3siYWR1bHRzIjoxLCJjaGlsZHJlbiI6W119XQ%3D%3D&language=de&currency=EUR"
+            ],
+            "notes": "Alternative: Auberge de Jeunesse HI Cherbourg at about €42 if parking availability works for you."
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "calendar_date": "2026-09-06",
+        "label": "Ferry to Dublin",
+        "slots": [
+          {
+            "name": "Breakfast and ferry-prep in Cherbourg",
+            "description": "Easy morning after the long drive; fuel the car and prepare passport, vehicle registration, insurance and ferry booking documents.",
+            "start_time": "2026-09-06T09:00:00",
+            "end_time": "2026-09-06T10:00:00",
+            "category": "meal",
+            "location": "Cherbourg-en-Cotentin, France",
+            "cost": 15.0,
+            "links": [],
+            "notes": "Exact breakfast venue not fixed; leave flexibility before ferry check-in."
+          },
+          {
+            "name": "Lunch at Théo Grill",
+            "description": "Casual pre-ferry lunch in Cherbourg; moderate budget and highly rated.",
+            "start_time": "2026-09-06T12:00:00",
+            "end_time": "2026-09-06T13:15:00",
+            "category": "meal",
+            "location": "12 Rue Victor Grignard, 50100 Cherbourg-en-Cotentin, France",
+            "cost": 25.0,
+            "links": [
+              "https://theogrill.eatbu.com/"
+            ],
+            "notes": "Sunday hours may be limited; if closed, use this as a placeholder for a nearby open café and verify before travel."
+          },
+          {
+            "name": "Check in for Cherbourg–Dublin ferry",
+            "description": "Arrive at Gare Maritime, Cherbourg for vehicle check-in. Irish Ferries guidance found: car passengers must be checked in at least 60 minutes before departure; arriving earlier gives buffer.",
+            "start_time": "2026-09-06T14:30:00",
+            "end_time": "2026-09-06T16:30:00",
+            "category": "transport",
+            "location": "Gare Maritime, Quai de Normandie, 50100 Cherbourg-en-Cotentin, France",
+            "cost": 0.0,
+            "links": [
+              "https://www.ferryhopper.com/en/ferry-routes/direct/dublin-cherbourg",
+              "https://www.directferries.com/dublin_cherbourg_ferry.htm"
+            ],
+            "notes": "Carry passport, vehicle registration/logbook, valid insurance and ferry booking."
+          },
+          {
+            "name": "Ferry Cherbourg to Dublin with car",
+            "description": "Direct Ireland-France car ferry route, typically 18–19h+. Estimated car + driver from prior search: around €310–€334 one way before cabin/seat fluctuations. Overnight crossing avoids flights and reduces UK border complexity.",
+            "start_time": "2026-09-06T16:30:00",
+            "end_time": "2026-09-07T11:45:00",
+            "category": "transport",
+            "location": "Cherbourg, France to Dublin Port Terminal 1, Ireland",
+            "cost": 334.0,
+            "links": [
+              "https://www.ferryhopper.com/en/ferry-routes/direct/cherbourg-dublin",
+              "https://www.directferries.com/cherbourg_dublin_ferry.htm"
+            ],
+            "notes": "Exact September 2026 sailing times must be confirmed at booking; itinerary uses a typical late-afternoon departure and late-morning arrival."
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "calendar_date": "2026-09-07",
+        "label": "Dublin city and pubs",
+        "slots": [
+          {
+            "name": "Arrive Dublin Port and drive to city centre",
+            "description": "Disembark and drive from Dublin Port Terminal 1 toward the city centre. Source-backed estimate: about 10–15 minutes once clear of port controls; allow up to an hour for disembarkation and traffic.",
+            "start_time": "2026-09-07T11:45:00",
+            "end_time": "2026-09-07T12:45:00",
+            "category": "transport",
+            "location": "Dublin Port Terminal 1 to Dublin city centre",
+            "cost": 4.0,
+            "links": [
+              "https://www.dublinport.ie/to-from/",
+              "https://www.tii.ie/en/news/press-releases/toll-charge-increase-from-1st-january-2026/"
+            ],
+            "notes": "Dublin Port Tunnel off-peak/weekend toll noted at €3.50; avoid peak tunnel times where possible."
+          },
+          {
+            "name": "Check in: Abigails Hostel",
+            "description": "Central Dublin hostel option from hotel search at about €32/night; budget-friendly for a solo traveler.",
+            "start_time": "2026-09-07T14:30:00",
+            "end_time": "2026-09-07T15:00:00",
+            "category": "lodging",
+            "location": "Abigails Hostel, Dublin city centre, Ireland",
+            "cost": 64.0,
+            "links": [
+              "https://travelstack.nuitee.link/hotels/lp72ced?checkin=2026-09-06&checkout=2026-09-09&rooms=1&adults=1&occupancies=W3siYWR1bHRzIjoxLCJjaGlsZHJlbiI6W119XQ%3D%3D&language=de&currency=EUR"
+            ],
+            "notes": "Plan assigns 2 nights, Sept 7–9. The hotel result returned Sept 6–9 availability; re-check exact 2-night booking at purchase."
+          },
+          {
+            "name": "Lunch at Darkey Kelly's",
+            "description": "Traditional Irish pub lunch, moderate price, strong rating and central location.",
+            "start_time": "2026-09-07T13:00:00",
+            "end_time": "2026-09-07T14:15:00",
+            "category": "meal",
+            "location": "19 Fishamble St, Christchurch Pl, Temple Bar, Dublin 8, Ireland",
+            "cost": 25.0,
+            "links": [
+              "http://darkeykellys.ie/"
+            ],
+            "notes": "Opening hours returned include Monday 11:15–23:30."
+          },
+          {
+            "name": "Dinner and live-pub atmosphere at Darkey Kelly's",
+            "description": "Highly rated traditional pub dinner with authentic atmosphere; selected by restaurant search for solo traveler and local pub feel.",
+            "start_time": "2026-09-07T19:00:00",
+            "end_time": "2026-09-07T21:00:00",
+            "category": "meal",
+            "location": "19 Fishamble St, Christchurch Pl, Temple Bar, Dublin 8, Ireland",
+            "cost": 35.0,
+            "links": [
+              "http://darkeykellys.ie/"
+            ],
+            "notes": "Second daily restaurant slot. If you prefer variety, verify alternatives closer to travel."
+          },
+          {
+            "name": "Book of Kells Experience and Trinity College",
+            "description": "Visit Trinity College's Book of Kells Experience/Old Library. Source-backed September schedule estimate: Mon–Sat 08:30–18:30 last entry; Sunday 09:30–17:00. Estimated standard adult ticket range €18.50–€25.",
+            "start_time": "2026-09-07T15:15:00",
+            "end_time": "2026-09-07T17:15:00",
+            "category": "attraction",
+            "location": "Trinity College Dublin, College Green, Dublin 2, Ireland",
+            "cost": 25.0,
+            "links": [
+              "https://www.ad-hoc-news.de/boerse/news/ueberblick/trinity-college-dublin-ultimate-guide-for-2026-visitors/69256731",
+              "https://www.laidbacktrip.com/posts/visit-book-of-kells-trinity-college-ireland"
+            ],
+            "notes": "Book a timed ticket once 2026 inventory is live."
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "calendar_date": "2026-09-08",
+        "label": "Howth coastal hike",
+        "slots": [
+          {
+            "name": "Breakfast at Two Pups",
+            "description": "Budget breakfast café option before the coastal hike day.",
+            "start_time": "2026-09-08T08:00:00",
+            "end_time": "2026-09-08T09:00:00",
+            "category": "meal",
+            "location": "74 Francis St, The Liberties, Dublin 8, Ireland",
+            "cost": 15.0,
+            "links": [
+              "http://www.twopupscoffee.com/"
+            ],
+            "notes": "Returned hours include Tuesday 08:00–15:30."
+          },
+          {
+            "name": "DART Dublin to Howth",
+            "description": "Take the DART from central Dublin to Howth. Source-backed estimate: around 26–31 minutes from central Dublin stations; use a Leap Card for the lower fare.",
+            "start_time": "2026-09-08T09:15:00",
+            "end_time": "2026-09-08T10:00:00",
+            "category": "transport",
+            "location": "Dublin city centre to Howth DART Station",
+            "cost": 3.0,
+            "links": [
+              "https://www.irishrail.ie/",
+              "https://www.irishrail.ie/en-ie/station/howth"
+            ],
+            "notes": "Ensure destination display says Howth, not Malahide."
+          },
+          {
+            "name": "Howth Cliff Path coastal hike",
+            "description": "Coastal hike from Howth DART/harbour using the signed cliff routes. Official-style access info found: open year-round, daylight strongly recommended, free access; expect uneven, exposed paths and cliff-edge sections.",
+            "start_time": "2026-09-08T10:00:00",
+            "end_time": "2026-09-08T14:00:00",
+            "category": "attraction",
+            "location": "Howth Cliff Path Loop, Howth, Co. Dublin, Ireland",
+            "cost": 0.0,
+            "links": [
+              "https://www.sportireland.ie/outdoors/walking/trails/howth-cliff-path-loop",
+              "https://www.google.com/maps/search/Out+Out+Club"
+            ],
+            "notes": "Stay on marked routes; September coastal winds can be strong. The search_attractions tool suggested a more strenuous Bog of Frogs-style route if conditions are good."
+          },
+          {
+            "name": "Seafood lunch at Octopussy's",
+            "description": "Casual seafood lunch in Howth after the cliff walk; moderate price and highly rated.",
+            "start_time": "2026-09-08T14:00:00",
+            "end_time": "2026-09-08T15:15:00",
+            "category": "meal",
+            "location": "W Pier, Howth, Dublin, Ireland",
+            "cost": 30.0,
+            "links": [
+              "https://octopussy.ie/"
+            ],
+            "notes": "Returned hours include Tuesday 12:00–20:30."
+          },
+          {
+            "name": "Return DART Howth to Dublin",
+            "description": "Return from Howth to central Dublin by DART.",
+            "start_time": "2026-09-08T15:30:00",
+            "end_time": "2026-09-08T16:15:00",
+            "category": "transport",
+            "location": "Howth DART Station to Dublin city centre",
+            "cost": 3.0,
+            "links": [
+              "https://www.irishrail.ie/"
+            ],
+            "notes": "Allow extra time if weekend/engineering works are announced closer to travel."
+          },
+          {
+            "name": "Dublin free time / rest at hostel",
+            "description": "Recovery time after the coastal hike; shower, charge devices, and check next day ferry/route updates.",
+            "start_time": "2026-09-08T16:30:00",
+            "end_time": "2026-09-08T18:30:00",
+            "category": "leisure",
+            "location": "Dublin city centre",
+            "cost": 0.0,
+            "links": [],
+            "notes": null
+          },
+          {
+            "name": "Dinner at Darkey Kelly's",
+            "description": "Traditional pub dinner slot for the requested local pub experience.",
+            "start_time": "2026-09-08T19:00:00",
+            "end_time": "2026-09-08T21:00:00",
+            "category": "meal",
+            "location": "19 Fishamble St, Christchurch Pl, Temple Bar, Dublin 8, Ireland",
+            "cost": 35.0,
+            "links": [
+              "http://darkeykellys.ie/"
+            ],
+            "notes": "If you want variety, use this slot for another verified local pub closer to the travel date."
+          }
+        ]
+      },
+      {
+        "index": 5,
+        "calendar_date": "2026-09-09",
+        "label": "Bray Head and return ferry",
+        "slots": [
+          {
+            "name": "Check out of Abigails Hostel",
+            "description": "Check out and leave luggage in the car or with hostel storage if available.",
+            "start_time": "2026-09-09T08:00:00",
+            "end_time": "2026-09-09T08:30:00",
+            "category": "lodging",
+            "location": "Abigails Hostel, Dublin city centre, Ireland",
+            "cost": 0.0,
+            "links": [
+              "https://travelstack.nuitee.link/hotels/lp72ced?checkin=2026-09-06&checkout=2026-09-09&rooms=1&adults=1&occupancies=W3siYWR1bHRzIjoxLCJjaGlsZHJlbiI6W119XQ%3D%3D&language=de&currency=EUR"
+            ],
+            "notes": "Confirm parking/storage logistics before booking."
+          },
+          {
+            "name": "Breakfast at Two Pups",
+            "description": "Budget breakfast before the Bray Head hike and ferry departure day.",
+            "start_time": "2026-09-09T08:45:00",
+            "end_time": "2026-09-09T09:30:00",
+            "category": "meal",
+            "location": "74 Francis St, The Liberties, Dublin 8, Ireland",
+            "cost": 15.0,
+            "links": [
+              "http://www.twopupscoffee.com/"
+            ],
+            "notes": "Returned hours include Wednesday 08:00–15:30."
+          },
+          {
+            "name": "DART Dublin to Bray",
+            "description": "Take the southbound DART to Bray. Source-backed estimate: about 36 minutes; use Leap Card if available.",
+            "start_time": "2026-09-09T09:45:00",
+            "end_time": "2026-09-09T10:30:00",
+            "category": "transport",
+            "location": "Dublin city centre to Bray Daly Station, Co. Wicklow",
+            "cost": 3.0,
+            "links": [
+              "https://www.irishrail.ie/"
+            ],
+            "notes": "The Bray-to-Greystones lower cliff walk is reported closed through at least 2029; this plan uses Bray Head instead."
+          },
+          {
+            "name": "Bray Head summit walk",
+            "description": "Alternative coastal hike because the Bray-to-Greystones Cliff Walk is reported closed due to instability. Walk to Bray Head Cross for sea and Wicklow coast views, staying on open marked paths.",
+            "start_time": "2026-09-09T10:30:00",
+            "end_time": "2026-09-09T12:30:00",
+            "category": "attraction",
+            "location": "Bray Head, Bray, Co. Wicklow, Ireland",
+            "cost": 0.0,
+            "links": [
+              "https://www.irishtimes.com/environment/2026/01/16/bray-to-greystones-cliff-walk-set-to-be-closed-for-another-three-years/",
+              "https://www.independent.ie/regionals/wicklow/bray-news/will-wicklows-bray-to-greystones-cliff-walk-be-open-in-2026/a1734501315.html"
+            ],
+            "notes": "Do not bypass closure barriers on the lower cliff route."
+          },
+          {
+            "name": "Lunch at The Harbour Bar, Bray",
+            "description": "Authentic Irish pub lunch on Bray seafront; moderate price and highly rated.",
+            "start_time": "2026-09-09T12:45:00",
+            "end_time": "2026-09-09T14:00:00",
+            "category": "meal",
+            "location": "1 Strand Rd, Bray, Co. Wicklow, A98 D308, Ireland",
+            "cost": 30.0,
+            "links": [
+              "http://www.theharbourbar.ie/"
+            ],
+            "notes": "Returned Wednesday hours: 12:00–23:30."
+          },
+          {
+            "name": "Return DART Bray to Dublin",
+            "description": "Return from Bray to Dublin by DART in time to retrieve the car and head to the port.",
+            "start_time": "2026-09-09T14:15:00",
+            "end_time": "2026-09-09T15:00:00",
+            "category": "transport",
+            "location": "Bray Daly Station to Dublin city centre",
+            "cost": 3.0,
+            "links": [
+              "https://www.irishrail.ie/"
+            ],
+            "notes": null
+          },
+          {
+            "name": "Drive to Dublin Port and ferry check-in",
+            "description": "Retrieve the car and drive to Dublin Port Terminal 1. Arrive early for vehicle check-in; sources indicate cars must be checked in at least 60 minutes before departure.",
+            "start_time": "2026-09-09T15:15:00",
+            "end_time": "2026-09-09T16:30:00",
+            "category": "transport",
+            "location": "Dublin city centre to Dublin Port Terminal 1",
+            "cost": 4.0,
+            "links": [
+              "https://www.dublinport.ie/to-from/",
+              "https://www.ferryhopper.com/en/ferry-routes/direct/dublin-cherbourg"
+            ],
+            "notes": "Plan avoids the highest weekday northbound tunnel peak where possible, but allow buffer."
+          },
+          {
+            "name": "Dinner onboard ferry",
+            "description": "Onboard meal during the overnight ferry crossing.",
+            "start_time": "2026-09-09T19:00:00",
+            "end_time": "2026-09-09T20:00:00",
+            "category": "meal",
+            "location": "Irish Ferries vessel, Dublin–Cherbourg route",
+            "cost": 30.0,
+            "links": [
+              "https://www.ferryhopper.com/en/ferry-routes/direct/dublin-cherbourg"
+            ],
+            "notes": "Second restaurant/meal slot for the day; onboard options vary by vessel."
+          },
+          {
+            "name": "Overnight ferry Dublin to Cherbourg with car",
+            "description": "Return Ireland-France car ferry. Source-backed typical duration: 18–20 hours depending on weather/vessel. Estimated return fare uses the same car+driver budget allowance as outbound; check-in/boarding is captured earlier and this slot covers the overnight crossing after dinner.",
+            "start_time": "2026-09-09T20:00:00",
+            "end_time": "2026-09-10T12:00:00",
+            "category": "transport",
+            "location": "Dublin Port Terminal 1, Ireland to Cherbourg, France",
+            "cost": 334.0,
+            "links": [
+              "https://www.ferryhopper.com/en/ferry-routes/direct/dublin-cherbourg",
+              "https://www.ferryscanner.com/en/ferry-routes/ferry-dublin-cherbourg"
+            ],
+            "notes": "Exact September 2026 sailing time and cabin/seat price must be confirmed at booking."
+          }
+        ]
+      },
+      {
+        "index": 6,
+        "calendar_date": "2026-09-10",
+        "label": "Arrive Cherbourg and drive home",
+        "slots": [
+          {
+            "name": "Arrive Cherbourg and disembark",
+            "description": "Arrive at Cherbourg and clear port/disembarkation before the long drive back to Frankfurt.",
+            "start_time": "2026-09-10T12:00:00",
+            "end_time": "2026-09-10T13:00:00",
+            "category": "transport",
+            "location": "Gare Maritime, Cherbourg-en-Cotentin, France",
+            "cost": 0.0,
+            "links": [
+              "https://www.ferryhopper.com/en/ferry-routes/direct/dublin-cherbourg"
+            ],
+            "notes": "Actual arrival may vary with ferry timetable/weather."
+          },
+          {
+            "name": "Lunch in Cherbourg before drive",
+            "description": "Simple meal before the return drive.",
+            "start_time": "2026-09-10T13:00:00",
+            "end_time": "2026-09-10T14:00:00",
+            "category": "meal",
+            "location": "Cherbourg-en-Cotentin, France",
+            "cost": 20.0,
+            "links": [],
+            "notes": "Venue flexible depending on ferry arrival and parking."
+          },
+          {
+            "name": "Drive Cherbourg to Reims / motorway rest break",
+            "description": "First half of return drive from Cherbourg toward eastern France via Caen/Paris bypass/Reims direction.",
+            "start_time": "2026-09-10T14:00:00",
+            "end_time": "2026-09-10T19:00:00",
+            "category": "transport",
+            "location": "Cherbourg-en-Cotentin to Reims area, France",
+            "cost": 110.0,
+            "links": [
+              "https://tollguru.com/toll-calculator-europe",
+              "https://www.autoroutes.sanef.com/en/my-journey/price-of-my-journey"
+            ],
+            "notes": "Estimated cost split from the overall €215 one-way fuel/toll allowance."
+          },
+          {
+            "name": "Dinner/rest stop en route",
+            "description": "Meal and driver rest break during the long Cherbourg–Frankfurt return drive.",
+            "start_time": "2026-09-10T19:00:00",
+            "end_time": "2026-09-10T20:00:00",
+            "category": "meal",
+            "location": "Motorway service area between Normandy and Frankfurt",
+            "cost": 25.0,
+            "links": [],
+            "notes": "Choose a full-service aire/service area; do not drive tired."
+          },
+          {
+            "name": "Drive Reims area to Frankfurt",
+            "description": "Final return-drive segment to Frankfurt via Metz/Saarbrücken. Overall Cherbourg–Frankfurt route estimate: 880–910 km and 8h45–9h30 driving before breaks.",
+            "start_time": "2026-09-10T20:00:00",
+            "end_time": "2026-09-10T23:30:00",
+            "category": "transport",
+            "location": "Reims area, France to Frankfurt am Main, Germany",
+            "cost": 105.0,
+            "links": [
+              "https://tollguru.com/toll-calculator-europe",
+              "https://www.autoroutes.sanef.com/en/my-journey/price-of-my-journey"
+            ],
+            "notes": "If tired after ferry arrival, stop overnight instead; budget has room for a safety hotel."
+          }
+        ]
+      }
+    ]
+  },
+  "validation_passed": true,
+  "validation_attempts": 1,
+  "validation_feedback": "The itinerary successfully meets all constraints and task requirements. It respects the 'no flights' preference by utilizing a car and the Cherbourg-Dublin ferry route. The travel dates (Sept 5-10, 2026) are strictly followed, and the total estimated cost of €1,598 is well within the €3,000 budget. The plan includes the requested interests: hiking (Howth Cliff Path and Bray Head), coastal landscapes, and local pubs (Darkey Kelly's and The Harbour Bar). Accommodation is appropriately selected as a budget hostel. Travel times between Frankfurt and Cherbourg, as well as ferry durations, are realistic and include necessary check-in buffers.",
+  "task_list": [
+    {
+      "name": "ferry_route_search",
+      "type": "general-web-search",
+      "text": "Search for ferry routes from mainland Europe (e.g., Cherbourg or Holyhead) to Dublin suitable for a car traveler in September 2026, including estimated costs.",
+      "is_valid": true,
+      "validation_comment": null
+    },
+    {
+      "name": "routing_frankfurt_to_dublin",
+      "type": "routing-check",
+      "text": "Calculate driving time and route from Frankfurt to Dublin including ferry crossings to ensure feasibility within the travel dates (Sept 5-10, 2026).",
+      "is_valid": true,
+      "validation_comment": null
+    },
+    {
+      "name": "dublin_hostel_search",
+      "type": "hotel",
+      "text": "Find hostels or cheap hotels in Dublin for a solo traveler from September 5th to 10th, 2026, within a budget-friendly range.",
+      "is_valid": true,
+      "validation_comment": null
+    },
+    {
+      "name": "hiking_and_coastal_attractions",
+      "type": "attraction",
+      "text": "Identify hiking trails and coastal landscapes near Dublin, such as Howth Head, Bray to Greystones, or Dun Laoghaire.",
+      "is_valid": true,
+      "validation_comment": null
+    },
+    {
+      "name": "local_pub_recommendations",
+      "type": "restaurant",
+      "text": "Find highly-rated local pubs in Dublin that offer food and an authentic atmosphere for a solo traveler.",
+      "is_valid": true,
+      "validation_comment": null
+    },
+    {
+      "name": "attraction_hours_check",
+      "type": "opening_times",
+      "text": "Verify the opening times for major Dublin attractions and hiking park facilities for September 2026.",
+      "is_valid": true,
+      "validation_comment": null
+    },
+    {
+      "name": "car_rental_or_cost_estimation",
+      "type": "general-web-search",
+      "text": "Estimate the cost of driving from Frankfurt to Dublin, including fuel, tolls, and potential car rental fees if the user is not using their own vehicle, to ensure it fits the €3,000 budget.",
+      "is_valid": true,
+      "validation_comment": null
+    }
+  ]
+}

@@ -1,0 +1,780 @@
+{
+  "id": "query_21_mixed_group_ibiza_Adrian",
+  "description": "Edge case: mixed group with conflicting interests (families with kids + young couple)",
+  "query": "We are two families and one couple going to Ibiza from Dusseldorf from August 15th to 22nd, 2026 — 6 adults, a toddler (2 years old) and a 9-year-old. Total budget is €12,000. We need a villa with a pool big enough for all of us. The families want beach days and child-friendly activities; the couple wants to enjoy the nightlife. Please plan accommodation and a joint itinerary that works for everyone.",
+  "hard_constraints": {
+    "origin": "Dusseldorf",
+    "destination": "Ibiza",
+    "date_from": "2026.08.15",
+    "date_to": "2026.08.22",
+    "travelers": {
+      "adults": 6,
+      "children_under_6": 1,
+      "children_6_to_16": 1
+    },
+    "budget_amount": 12000,
+    "budget_currency": "EUR",
+    "accommodation": "villa with pool",
+    "transport": "Flight",
+    "interests": "beach and child-friendly activities (families), clubs and nightlife (young couple), water sports, shared dinners"
+  },
+  "model_name": "openrouter:google/gemini-3-flash-preview",
+  "generated_at": "2026-05-16T16:33:49.454813+00:00",
+  "duration_seconds": 540.54,
+  "travelplan": {
+    "title": "Ibiza family-and-couple trip, 15–22 August 2026",
+    "days": [
+      {
+        "index": 1,
+        "calendar_date": "2026-08-15",
+        "label": "Arrival in Ibiza",
+        "slots": [
+          {
+            "name": "Outbound flights: DUS → ZRH → IBZ",
+            "description": "Fly from Düsseldorf to Ibiza with SWISS LX1019 to Zurich, 120-minute layover, then Edelweiss WK252 to Ibiza. Google Flights result priced the round trip at €1,799 for 6 adults; child/toddler fares must be re-verified before booking because the flight tool returned adult-pricing detail only.",
+            "start_time": "2026-08-15T14:50:00",
+            "end_time": "2026-08-15T19:50:00",
+            "category": "transport",
+            "location": "Düsseldorf Airport / Zurich Airport / Ibiza Airport",
+            "cost": 1799.0,
+            "links": [
+              "https://www.google.com/travel/flights?hl=en&gl=us&curr=EUR&tfs=CBwQAhoeEgoyMDI2LTA4LTE1agcIARIDRFVTcgcIARIDSUJaGh4SCjIwMjYtMDgtMjJqBwgBEgNJQlpyBwgBEgNEVVNAAUABQAFAAUABQAFIAXABmAEB&tfu=EgIIAQ"
+            ],
+            "notes": "Selected cheapest returned routing; price insight marked high."
+          },
+          {
+            "name": "Pick up two rental cars at Ibiza Airport",
+            "description": "Pick up two standard cars rather than one 8-passenger van for flexibility: families can keep beach/nap schedules while the couple can go out at night. Peak-week estimate from airport operators is €1,300–€1,700 total; budgeted at €1,500.",
+            "start_time": "2026-08-15T20:15:00",
+            "end_time": "2026-08-15T21:00:00",
+            "category": "transport",
+            "location": "Ibiza Airport car rental area, 07818 Ibiza",
+            "cost": 1500.0,
+            "links": [
+              "https://www.enterprise.com/en/car-rental-locations/es/ibiza-airport-e5a2.html",
+              "https://www.kayak.com/Ibiza-8-Passenger-Van-Rentals.8085.8-lcv.ksp",
+              "https://www.skyscanner.com/car-rental-from/ibz/car-rental-from-ibiza-airport.html"
+            ],
+            "notes": "Reserve early; bring credit cards for deposits and child seats for the toddler/9-year-old if not rented."
+          },
+          {
+            "name": "Drive to San Josep villa area",
+            "description": "Drive from Ibiza Airport to the Sant Josep / San José villa area. Web-verified comparable airport-to-west-coast timings are about 23–30 minutes; allow extra time for luggage and child seats.",
+            "start_time": "2026-08-15T21:00:00",
+            "end_time": "2026-08-15T21:30:00",
+            "category": "transport",
+            "location": "Ibiza Airport to Sant Josep de sa Talaia",
+            "cost": 0.0,
+            "links": [
+              "https://www.rome2rio.com/s/Ibiza-Airport-IBZ/Cala-Vadella"
+            ],
+            "notes": "Routing API was unavailable due to missing Google Maps API key, so timing is based on source-backed web route estimates."
+          },
+          {
+            "name": "Villa check-in: private pool base for 8",
+            "description": "Check in to a 4-bedroom+ villa with private pool in the Sant Josep / interior Ibiza area. The villa API failed to return a live bookable rate, so this uses verified web guidance: focus on Ibiza Summer Villas 'sleeps 8' properties or similar San José/San Rafael villas, estimated €5,500–€7,800/week. To stay within the €12,000 trip cap, target a confirmed quote at or below €5,500/week; if not available, reduce restaurants/day trips or raise budget.",
+            "start_time": "2026-08-15T21:30:00",
+            "end_time": "2026-08-15T22:15:00",
+            "category": "lodging",
+            "location": "Sant Josep de sa Talaia / San José villa area, Ibiza",
+            "cost": 5500.0,
+            "links": [
+              "https://www.ibizasummervillas.com/size/sleeps-8",
+              "https://travelstack.nuitee.link/hotels?placeId=ChIJhRmdbbxGmRIRiPpXk_IayrY&placeTypes=&name=Ibiza&checkin=2026-08-15&checkout=2026-08-22&rooms=1&adults=8&occupancies=W3siYWR1bHRzIjo4LCJjaGlsZHJlbiI6W119XQ%3D%3D&sorting=1&language=de&currency=EUR"
+            ],
+            "notes": "Must confirm exact bedrooms, pool fencing/safety, air conditioning, cot/high chair, cancellation terms, ecotasa, cleaning fees and security deposit before paying."
+          },
+          {
+            "name": "Light late dinner / villa groceries",
+            "description": "Keep arrival night simple with pre-ordered groceries, snacks, water, breakfast supplies and toddler-friendly basics at the villa.",
+            "start_time": "2026-08-15T22:15:00",
+            "end_time": "2026-08-15T23:00:00",
+            "category": "meal",
+            "location": "Villa",
+            "cost": 120.0,
+            "links": [],
+            "notes": "Use supermarket delivery or one adult grocery stop before check-in if stores are open."
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "calendar_date": "2026-08-16",
+        "label": "Cala Vadella family beach day",
+        "slots": [
+          {
+            "name": "Breakfast at villa",
+            "description": "Easy self-catered breakfast by the pool so the toddler can settle and everyone avoids a rushed first morning.",
+            "start_time": "2026-08-16T08:30:00",
+            "end_time": "2026-08-16T09:30:00",
+            "category": "meal",
+            "location": "Villa",
+            "cost": 50.0,
+            "links": [],
+            "notes": "Use groceries from arrival night."
+          },
+          {
+            "name": "Transfer to Cala Vadella",
+            "description": "Drive from the Sant Josep villa area to Cala Vadella. Source-backed route estimate: about 12 minutes from Sant Josep; 30 minutes budgeted for parking and child logistics.",
+            "start_time": "2026-08-16T09:30:00",
+            "end_time": "2026-08-16T10:00:00",
+            "category": "transport",
+            "location": "Sant Josep villa area to Cala Vadella",
+            "cost": 0.0,
+            "links": [
+              "https://www.rome2rio.com/s/Ibiza-Airport-IBZ/Cala-Vadella"
+            ],
+            "notes": "Arrive early for parking and shade."
+          },
+          {
+            "name": "Cala Vadella shallow-water beach morning",
+            "description": "Family beach time at Cala Vadella: sheltered bay, shallow water, easy toddler splashing and enough space for the 9-year-old to swim and explore. Optional local touchpoint: traditional shoreline fishing/llaüt boats and net-mending around the beach area.",
+            "start_time": "2026-08-16T10:00:00",
+            "end_time": "2026-08-16T12:30:00",
+            "category": "attraction",
+            "location": "Cala Vadella, 07830 Sant Josep de sa Talaia",
+            "cost": 40.0,
+            "links": [
+              "https://www.google.com/maps/search/Vadella+Boats+Rent"
+            ],
+            "notes": "Cost covers parking/sunshade/snacks; beach itself is free."
+          },
+          {
+            "name": "Beach picnic lunch",
+            "description": "Budget-conscious picnic lunch at Cala Vadella with shaded toddler break, fruit, sandwiches and plenty of water.",
+            "start_time": "2026-08-16T12:30:00",
+            "end_time": "2026-08-16T13:30:00",
+            "category": "meal",
+            "location": "Cala Vadella",
+            "cost": 80.0,
+            "links": [],
+            "notes": "Choosing picnic over beach club lunch helps keep the villa trip under budget."
+          },
+          {
+            "name": "Return to villa for nap and pool time",
+            "description": "Drive back and keep the hot afternoon quiet: toddler nap, pool play, downtime for adults.",
+            "start_time": "2026-08-16T13:30:00",
+            "end_time": "2026-08-16T16:30:00",
+            "category": "leisure",
+            "location": "Villa",
+            "cost": 0.0,
+            "links": [],
+            "notes": "Keeps the first full day child-friendly and avoids August midday heat."
+          },
+          {
+            "name": "Early family dinner: Es Virot Restaurante",
+            "description": "Moderate-budget Mediterranean/Spanish dinner for the full group near Sant Josep. Selected by restaurant search; suitable timing for children.",
+            "start_time": "2026-08-16T18:00:00",
+            "end_time": "2026-08-16T19:30:00",
+            "category": "meal",
+            "location": "Carrer de Burgos, 2, 07820 Sant Josep de sa Talaia",
+            "cost": 200.0,
+            "links": [
+              "https://e-carta.es/func1/1030"
+            ],
+            "notes": "Reserve a table for 8 and request high chair."
+          },
+          {
+            "name": "Pool wind-down at villa",
+            "description": "Evening swim and quiet time while the children settle after the first beach day.",
+            "start_time": "2026-08-16T20:00:00",
+            "end_time": "2026-08-16T21:30:00",
+            "category": "leisure",
+            "location": "Villa pool",
+            "cost": 0.0,
+            "links": [],
+            "notes": "Keep bedtime predictable."
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "calendar_date": "2026-08-17",
+        "label": "Santa Eulària / gentle local day",
+        "slots": [
+          {
+            "name": "Breakfast at villa",
+            "description": "Self-catered family breakfast and pool check before heading east.",
+            "start_time": "2026-08-17T08:30:00",
+            "end_time": "2026-08-17T09:30:00",
+            "category": "meal",
+            "location": "Villa",
+            "cost": 50.0,
+            "links": [],
+            "notes": null
+          },
+          {
+            "name": "Drive to Santa Eulària / Cala Mastella area",
+            "description": "Cross-island drive to the calmer eastern coast. Allow ~45–50 minutes from the San José area in August traffic.",
+            "start_time": "2026-08-17T09:30:00",
+            "end_time": "2026-08-17T10:20:00",
+            "category": "transport",
+            "location": "Sant Josep to Santa Eulària / Cala Mastella",
+            "cost": 0.0,
+            "links": [
+              "https://www.google.com/maps/search/Cala+Mastella"
+            ],
+            "notes": "Bring beach gear, stroller carrier, and water."
+          },
+          {
+            "name": "Cala Mastella / eastern-cove beach time",
+            "description": "Low-key beach morning at Cala Mastella, selected for local character and shallow water suitable for a toddler with close supervision. The 9-year-old gets a different cove experience from Cala Vadella.",
+            "start_time": "2026-08-17T10:20:00",
+            "end_time": "2026-08-17T12:30:00",
+            "category": "attraction",
+            "location": "Cala Mastella, 07850 Ibiza",
+            "cost": 30.0,
+            "links": [
+              "https://www.google.com/maps/search/Cala+Mastella"
+            ],
+            "notes": "Natural/rugged beach; water shoes recommended."
+          },
+          {
+            "name": "Lunch: Aliño Santa Eulària",
+            "description": "Moderate-budget Mediterranean lunch in Santa Eulària. Restaurant search selected Aliño for high rating and fit; on Mondays it is dinner-only in returned hours, so treat as a reservation target only if August opening hours are extended, otherwise use Santa Eulària seafront backup.",
+            "start_time": "2026-08-17T13:00:00",
+            "end_time": "2026-08-17T14:30:00",
+            "category": "meal",
+            "location": "Carrer de Sant Vicent, 37B, 07840 Santa Eulària des Riu",
+            "cost": 200.0,
+            "links": [
+              "http://www.restaurantealiñoibiza.com/?utm_source=gmb&utm_medium=organic&utm_campaign=gmb_website&utm_id=web"
+            ],
+            "notes": "Verify August 2026 lunch hours before final booking."
+          },
+          {
+            "name": "Santa Eulària promenade and playground time",
+            "description": "Low-cost, child-friendly afternoon: shaded promenade walk, playground stop and ice cream in Santa Eulària instead of a paid guided activity. This keeps the budget under control and avoids a long hot outing for the toddler.",
+            "start_time": "2026-08-17T15:00:00",
+            "end_time": "2026-08-17T16:30:00",
+            "category": "leisure",
+            "location": "Santa Eulària des Riu promenade",
+            "cost": 40.0,
+            "links": [
+              "https://www.google.com/maps/search/Santa+Eularia+promenade+Ibiza"
+            ],
+            "notes": "Ibiza Outdoors remains an upgrade option if budget allows."
+          },
+          {
+            "name": "Dinner at villa",
+            "description": "Self-catered dinner at the villa after a cross-island day; lets the toddler sleep early and keeps costs controlled.",
+            "start_time": "2026-08-17T19:30:00",
+            "end_time": "2026-08-17T20:45:00",
+            "category": "meal",
+            "location": "Villa",
+            "cost": 100.0,
+            "links": [],
+            "notes": "Simple BBQ/pasta/salad night."
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "calendar_date": "2026-08-18",
+        "label": "Ibiza Town culture + couple nightlife",
+        "slots": [
+          {
+            "name": "Breakfast at villa",
+            "description": "Self-catered breakfast before Ibiza Town day.",
+            "start_time": "2026-08-18T08:30:00",
+            "end_time": "2026-08-18T09:30:00",
+            "category": "meal",
+            "location": "Villa",
+            "cost": 50.0,
+            "links": [],
+            "notes": null
+          },
+          {
+            "name": "Drive to Ibiza Town / Dalt Vila",
+            "description": "Drive from Sant Josep villa area to Ibiza Town. Web route estimates from the west/Sant Josep side to Ibiza Town are roughly 35–45 minutes in summer traffic.",
+            "start_time": "2026-08-18T09:30:00",
+            "end_time": "2026-08-18T10:15:00",
+            "category": "transport",
+            "location": "Sant Josep to Dalt Vila, Eivissa",
+            "cost": 0.0,
+            "links": [
+              "https://www.rome2rio.com/s/Ibiza-Airport-IBZ/Cala-Vadella"
+            ],
+            "notes": "Park outside the old town and walk; bring stroller carrier for cobbles."
+          },
+          {
+            "name": "Dalt Vila old town walk",
+            "description": "Short cultural walk in UNESCO-listed Dalt Vila, kept to the cooler morning and paced for children. Focus on viewpoints, gates and shaded breaks rather than a long museum-heavy visit.",
+            "start_time": "2026-08-18T10:15:00",
+            "end_time": "2026-08-18T12:00:00",
+            "category": "attraction",
+            "location": "Dalt Vila, 07800 Eivissa",
+            "cost": 0.0,
+            "links": [
+              "https://www.google.com/maps/search/Dalt+Vila+Ibiza"
+            ],
+            "notes": "Avoid steep sections with stroller where possible."
+          },
+          {
+            "name": "Lunch: Home Loos Ibiza Town",
+            "description": "Family-friendly Spanish/Mediterranean lunch in Ibiza Town for 8; selected by restaurant search and open midday in returned hours.",
+            "start_time": "2026-08-18T12:15:00",
+            "end_time": "2026-08-18T13:45:00",
+            "category": "meal",
+            "location": "C. d'Astúries, nº2, 07800 Eivissa",
+            "cost": 200.0,
+            "links": [
+              "http://www.homeloos-ibiza.com/"
+            ],
+            "notes": "Reserve for 8; request child-friendly seating."
+          },
+          {
+            "name": "Villa pool / rest afternoon",
+            "description": "Return to the villa for pool, naps and downtime before splitting the evening plans.",
+            "start_time": "2026-08-18T14:30:00",
+            "end_time": "2026-08-18T17:30:00",
+            "category": "leisure",
+            "location": "Villa",
+            "cost": 0.0,
+            "links": [],
+            "notes": "This keeps the families comfortable while the couple can prepare for nightlife."
+          },
+          {
+            "name": "Early family dinner at villa",
+            "description": "Children and families eat early at the villa before the couple’s Ibiza Town night out.",
+            "start_time": "2026-08-18T18:30:00",
+            "end_time": "2026-08-18T19:30:00",
+            "category": "meal",
+            "location": "Villa",
+            "cost": 100.0,
+            "links": [],
+            "notes": "Simple self-catered meal; one car stays with families."
+          },
+          {
+            "name": "Couple tapas dinner in Ibiza Town",
+            "description": "Couple-only tapas/light dinner in Ibiza Town before drinks. Sa Nansa is kept as an upscale backup, but Tuesday hours need verification; this budgeted slot keeps nightlife without overspending.",
+            "start_time": "2026-08-18T20:30:00",
+            "end_time": "2026-08-18T22:00:00",
+            "category": "meal",
+            "location": "Ibiza Town, near Dalt Vila / marina",
+            "cost": 80.0,
+            "links": [
+              "http://www.restaurantesanansa.com/es/carta.php"
+            ],
+            "notes": "If booking Sa Nansa instead, add about €60+ to the budget and verify Tuesday opening."
+          },
+          {
+            "name": "Couple nightlife: Paradise Lost",
+            "description": "Couple-only stylish bar/nightlife slot at Paradise Lost, selected for a more intimate Ibiza Town bar experience rather than an all-night superclub.",
+            "start_time": "2026-08-18T22:15:00",
+            "end_time": "2026-08-18T23:45:00",
+            "category": "leisure",
+            "location": "Carrer del Passadís, 18, 07800 Eivissa",
+            "cost": 80.0,
+            "links": [
+              "https://www.google.com/maps/search/Paradise+Lost"
+            ],
+            "notes": "One rental car/taxi for couple; families keep the second car at villa."
+          }
+        ]
+      },
+      {
+        "index": 5,
+        "calendar_date": "2026-08-19",
+        "label": "Formentera day trip",
+        "slots": [
+          {
+            "name": "Early breakfast at villa",
+            "description": "Early self-catered breakfast before ferry day.",
+            "start_time": "2026-08-19T07:15:00",
+            "end_time": "2026-08-19T08:00:00",
+            "category": "meal",
+            "location": "Villa",
+            "cost": 50.0,
+            "links": [],
+            "notes": "Pack swim gear, hats, stroller/carrier and snacks."
+          },
+          {
+            "name": "Drive to Port of Ibiza",
+            "description": "Drive to the Ibiza ferry terminal for the Formentera crossing; allow extra time for parking and boarding with children.",
+            "start_time": "2026-08-19T08:00:00",
+            "end_time": "2026-08-19T08:45:00",
+            "category": "transport",
+            "location": "Sant Josep to Estación Marítima, Puerto de Ibiza",
+            "cost": 0.0,
+            "links": [
+              "https://www.ferryhopper.com/en/ferry-routes/direct/ferry-ibiza-formentera"
+            ],
+            "notes": "Foot passengers should arrive ~30 minutes before departure."
+          },
+          {
+            "name": "Ferry Ibiza → Formentera",
+            "description": "Fast ferry from Ibiza Town to La Savina, Formentera. Web verification: crossings take about 28–30 minutes; adult round trips often €35–€50, children discounted and toddlers usually free. Budgeted at €260 total.",
+            "start_time": "2026-08-19T09:15:00",
+            "end_time": "2026-08-19T09:45:00",
+            "category": "transport",
+            "location": "Port of Ibiza to La Savina, Formentera",
+            "cost": 260.0,
+            "links": [
+              "https://www.visitformentera.com/en/reservations-offers-formentera/",
+              "https://www.ferryhopper.com/en/ferry-routes/direct/ferry-ibiza-formentera",
+              "https://www.omio.com/ferries/ibiza/la-savina"
+            ],
+            "notes": "Book open return if possible; do not bring rental cars unless Formentera.eco permit is handled."
+          },
+          {
+            "name": "Formentera Ses Illetes / Posidonia discovery",
+            "description": "Child-friendly Formentera beach and turquoise-water time focused on Ses Illetes / Posidonia seagrass awareness. A private llaüt was suggested by activity search, but to preserve the €12,000 budget this plan uses beaches and ferry rather than private charter.",
+            "start_time": "2026-08-19T10:15:00",
+            "end_time": "2026-08-19T12:45:00",
+            "category": "attraction",
+            "location": "Ses Illetes / La Savina area, Formentera",
+            "cost": 120.0,
+            "links": [
+              "https://www.google.com/maps/search/SaBarca+de+Formentera+/+Excursiones+y+Alquiler+Barcos+en+Formentera"
+            ],
+            "notes": "Cost covers local bus/taxi/shade/snacks; private boat can be added if budget increases."
+          },
+          {
+            "name": "Formentera picnic lunch",
+            "description": "Picnic/casual beach lunch on Formentera to keep the day trip affordable for a group of 8. Mama Carmen remains the restaurant backup if the group chooses to spend more.",
+            "start_time": "2026-08-19T13:00:00",
+            "end_time": "2026-08-19T14:00:00",
+            "category": "meal",
+            "location": "Ses Illetes / La Savina area, Formentera",
+            "cost": 100.0,
+            "links": [
+              "http://www.mamacarmenformentera.com/"
+            ],
+            "notes": "Buy supplies before boarding or in La Savina; reserve Mama Carmen only if budget allows."
+          },
+          {
+            "name": "Easy beach / shade time before ferry",
+            "description": "Keep the afternoon flexible: shaded beach time, ice cream, short walk near La Savina, then return to the port.",
+            "start_time": "2026-08-19T14:45:00",
+            "end_time": "2026-08-19T16:15:00",
+            "category": "leisure",
+            "location": "La Savina / nearby beach area",
+            "cost": 40.0,
+            "links": [],
+            "notes": "Avoid over-scheduling Formentera with a toddler."
+          },
+          {
+            "name": "Ferry Formentera → Ibiza",
+            "description": "Return ferry to Ibiza Town; choose a fixed return around late afternoon to avoid over-tired children.",
+            "start_time": "2026-08-19T16:45:00",
+            "end_time": "2026-08-19T17:15:00",
+            "category": "transport",
+            "location": "La Savina to Port of Ibiza",
+            "cost": 0.0,
+            "links": [
+              "https://www.ferryhopper.com/en/ferry-routes/direct/ferry-ibiza-formentera"
+            ],
+            "notes": "Cost included in round-trip ferry slot."
+          },
+          {
+            "name": "Drive back to villa",
+            "description": "Return from Port of Ibiza to the villa area.",
+            "start_time": "2026-08-19T17:15:00",
+            "end_time": "2026-08-19T18:00:00",
+            "category": "transport",
+            "location": "Port of Ibiza to Sant Josep villa area",
+            "cost": 0.0,
+            "links": [],
+            "notes": "Expect city traffic leaving the port."
+          },
+          {
+            "name": "Dinner at villa",
+            "description": "Low-effort self-catered dinner after the ferry day.",
+            "start_time": "2026-08-19T19:30:00",
+            "end_time": "2026-08-19T20:45:00",
+            "category": "meal",
+            "location": "Villa",
+            "cost": 100.0,
+            "links": [],
+            "notes": "Good night to keep everyone in."
+          }
+        ]
+      },
+      {
+        "index": 6,
+        "calendar_date": "2026-08-20",
+        "label": "Aguamar water park + west-coast sunset",
+        "slots": [
+          {
+            "name": "Breakfast at villa",
+            "description": "Self-catered breakfast before water park day.",
+            "start_time": "2026-08-20T08:15:00",
+            "end_time": "2026-08-20T09:00:00",
+            "category": "meal",
+            "location": "Villa",
+            "cost": 50.0,
+            "links": [],
+            "notes": null
+          },
+          {
+            "name": "Drive to Aguamar Water Park",
+            "description": "Drive to Playa d'en Bossa for Aguamar. Web route context suggests Playa d'en Bossa is about 25–30 minutes from Cala Vadella/west side; allow more from the villa plus parking.",
+            "start_time": "2026-08-20T09:00:00",
+            "end_time": "2026-08-20T09:45:00",
+            "category": "transport",
+            "location": "Sant Josep villa area to Playa d'en Bossa",
+            "cost": 0.0,
+            "links": [
+              "https://www.triphobo.com/places/ibiza-spain/aguamar-water-park"
+            ],
+            "notes": "Arrive close to 10:00 opening for shade."
+          },
+          {
+            "name": "Aguamar Water Park",
+            "description": "Family water-park morning in Playa d'en Bossa. Web verification: August operating pattern 10:00–18:00; estimated tickets about €18 pp, with possible child/toddler discounts. Budgeted at €130 for the group.",
+            "start_time": "2026-08-20T10:00:00",
+            "end_time": "2026-08-20T13:00:00",
+            "category": "attraction",
+            "location": "Ctra. de Platja d'en Bossa, s/n, 07817 Sant Josep de sa Talaia",
+            "cost": 130.0,
+            "links": [
+              "https://www.triphobo.com/places/ibiza-spain/aguamar-water-park"
+            ],
+            "notes": "Verify 2026 opening and height/age pricing before booking."
+          },
+          {
+            "name": "Picnic / casual lunch near Playa d'en Bossa",
+            "description": "Simple post-waterpark lunch using picnic items or a casual nearby café to avoid a long restaurant stop while children are tired.",
+            "start_time": "2026-08-20T13:00:00",
+            "end_time": "2026-08-20T14:00:00",
+            "category": "meal",
+            "location": "Playa d'en Bossa / Aguamar area",
+            "cost": 120.0,
+            "links": [],
+            "notes": "The restaurant search did not return a reliable nearby lunch option, so keep this flexible."
+          },
+          {
+            "name": "Villa rest / nap time",
+            "description": "Return to the villa for toddler nap and pool downtime after slides and sun.",
+            "start_time": "2026-08-20T14:45:00",
+            "end_time": "2026-08-20T16:45:00",
+            "category": "leisure",
+            "location": "Villa",
+            "cost": 0.0,
+            "links": [],
+            "notes": null
+          },
+          {
+            "name": "Cala Tarida sunset beach",
+            "description": "West-coast family sunset beach time at Cala Tarida, selected as a relaxed shallow-water afternoon/sunset option. Good compromise: child-friendly beach for families, scenic golden-hour setting for adults.",
+            "start_time": "2026-08-20T17:15:00",
+            "end_time": "2026-08-20T19:00:00",
+            "category": "attraction",
+            "location": "Cala Tarida, 07829 Sant Josep de sa Talaia",
+            "cost": 40.0,
+            "links": [
+              "https://www.google.com/maps/search/Cala+Tarida+ibiza"
+            ],
+            "notes": "Check sea conditions and water quality locally before swimming."
+          },
+          {
+            "name": "Dinner at villa after sunset beach",
+            "description": "Self-catered dinner after Cala Tarida sunset. Tapas Ibiza remains a restaurant upgrade option, but villa dinner is better for children and budget.",
+            "start_time": "2026-08-20T19:30:00",
+            "end_time": "2026-08-20T21:00:00",
+            "category": "meal",
+            "location": "Villa",
+            "cost": 110.0,
+            "links": [
+              "https://tapasibiza.com/"
+            ],
+            "notes": "Pick up groceries earlier; use villa BBQ if available."
+          }
+        ]
+      },
+      {
+        "index": 7,
+        "calendar_date": "2026-08-21",
+        "label": "Relaxed beach + farewell dinner",
+        "slots": [
+          {
+            "name": "Breakfast at villa",
+            "description": "Self-catered breakfast and slow final full day start.",
+            "start_time": "2026-08-21T08:30:00",
+            "end_time": "2026-08-21T09:30:00",
+            "category": "meal",
+            "location": "Villa",
+            "cost": 50.0,
+            "links": [],
+            "notes": null
+          },
+          {
+            "name": "Villa pool morning",
+            "description": "Unstructured pool time so everyone enjoys the villa you paid for; parents can pack gradually while children swim.",
+            "start_time": "2026-08-21T09:30:00",
+            "end_time": "2026-08-21T11:30:00",
+            "category": "leisure",
+            "location": "Villa pool",
+            "cost": 0.0,
+            "links": [],
+            "notes": "Confirm pool safety supervision at all times."
+          },
+          {
+            "name": "Lunch at villa",
+            "description": "Self-catered lunch from remaining groceries.",
+            "start_time": "2026-08-21T12:00:00",
+            "end_time": "2026-08-21T13:00:00",
+            "category": "meal",
+            "location": "Villa",
+            "cost": 70.0,
+            "links": [],
+            "notes": "Use up fridge items before departure day."
+          },
+          {
+            "name": "Cala Vadella or Cala Tarida final swim",
+            "description": "Flexible final swim at the best-performing nearby beach from earlier in the week. Keep it close to Sant Josep to avoid long drives before packing.",
+            "start_time": "2026-08-21T15:30:00",
+            "end_time": "2026-08-21T17:30:00",
+            "category": "attraction",
+            "location": "Cala Vadella or Cala Tarida",
+            "cost": 30.0,
+            "links": [
+              "https://www.google.com/maps/search/Cala+Vadella",
+              "https://www.google.com/maps/search/Cala+Tarida+ibiza"
+            ],
+            "notes": "Choose based on wind, parking and children’s preference."
+          },
+          {
+            "name": "Farewell dinner: Es Virot Restaurante",
+            "description": "Final group dinner in the Sant Josep area, close to the villa and child-friendly. Reuse a reliable local option rather than driving back to Ibiza Town late.",
+            "start_time": "2026-08-21T18:30:00",
+            "end_time": "2026-08-21T20:00:00",
+            "category": "meal",
+            "location": "Carrer de Burgos, 2, 07820 Sant Josep de sa Talaia",
+            "cost": 240.0,
+            "links": [
+              "https://e-carta.es/func1/1030"
+            ],
+            "notes": "Book well in advance for Friday evening in August."
+          },
+          {
+            "name": "Pack and early night",
+            "description": "Pack cars, prep breakfast bags and set alarms for early airport departure.",
+            "start_time": "2026-08-21T20:30:00",
+            "end_time": "2026-08-21T22:00:00",
+            "category": "other",
+            "location": "Villa",
+            "cost": 0.0,
+            "links": [],
+            "notes": "Return flight departs 08:25, so keep this evening calm."
+          }
+        ]
+      },
+      {
+        "index": 8,
+        "calendar_date": "2026-08-22",
+        "label": "Departure",
+        "slots": [
+          {
+            "name": "Villa checkout and drive to airport",
+            "description": "Early checkout and drive to Ibiza Airport. Allow extra time for fuel, luggage, toddler and rental-car return.",
+            "start_time": "2026-08-22T05:45:00",
+            "end_time": "2026-08-22T06:30:00",
+            "category": "transport",
+            "location": "Sant Josep villa area to Ibiza Airport",
+            "cost": 0.0,
+            "links": [
+              "https://www.rome2rio.com/s/Ibiza-Airport-IBZ/Cala-Vadella"
+            ],
+            "notes": "Villa check-out may officially be later; arrange key drop for early departure."
+          },
+          {
+            "name": "Return rental cars + airport breakfast",
+            "description": "Return both rental cars, clear security, and buy simple airport breakfast for the group.",
+            "start_time": "2026-08-22T06:30:00",
+            "end_time": "2026-08-22T07:30:00",
+            "category": "transport",
+            "location": "Ibiza Airport",
+            "cost": 80.0,
+            "links": [
+              "https://www.enterprise.com/en/car-rental-locations/es/ibiza-airport-e5a2.html"
+            ],
+            "notes": "Refuel the night before if possible."
+          },
+          {
+            "name": "Return flights: IBZ → AMS → DUS",
+            "description": "Return flight via Amsterdam: Transavia HV5680 Ibiza to Amsterdam, 115-minute layover, then KLM KL1801 Amsterdam to Düsseldorf. Included in the round-trip flight cost entered on arrival day.",
+            "start_time": "2026-08-22T08:25:00",
+            "end_time": "2026-08-22T13:55:00",
+            "category": "transport",
+            "location": "Ibiza Airport / Amsterdam Schiphol / Düsseldorf Airport",
+            "cost": 0.0,
+            "links": [
+              "https://www.google.com/travel/flights?hl=en&gl=us&curr=EUR&tfs=CBwQAhoeEgoyMDI2LTA4LTE1agcIARIDRFVTcgcIARIDSUJaGh4SCjIwMjYtMDgtMjJqBwgBEgNJQlpyBwgBEgNEVVNAAUABQAFAAUABQAFIAXABmAEB&tfu=EgIIAQ"
+            ],
+            "notes": "Check baggage and child fares directly before purchase."
+          }
+        ]
+      }
+    ]
+  },
+  "validation_passed": true,
+  "validation_attempts": 1,
+  "validation_feedback": "The itinerary successfully meets all constraints and task requirements. It accommodates the large group (6 adults, 2 children) within the €12,000 budget, including flights from Dusseldorf, a villa with a pool in the Sant Josep area, and two rental cars for flexibility. The schedule balances child-friendly beach days (Cala Vadella, Cala Tarida) and activities (Aguamar Water Park) with dedicated nightlife time for the couple in Ibiza Town. Travel times are realistic for August traffic, and the budget allocation is well-distributed across lodging, transport, and dining.",
+  "task_list": [
+    {
+      "name": "flight_search_dus_ibz",
+      "type": "flight",
+      "text": "Find round-trip flights from Dusseldorf (DUS) to Ibiza (IBZ) for 6 adults, one 9-year-old, and one toddler (2 years old) from August 15th to 22nd, 2026.",
+      "is_valid": true,
+      "validation_comment": null
+    },
+    {
+      "name": "villa_search_ibiza",
+      "type": "hotel",
+      "text": "Search for a villa in Ibiza with a private pool that can accommodate 8 people (6 adults, 2 children) for the duration of the stay within the remaining budget.",
+      "is_valid": true,
+      "validation_comment": null
+    },
+    {
+      "name": "child_friendly_beaches",
+      "type": "attraction",
+      "text": "Identify and locate child-friendly beaches in Ibiza with shallow waters and amenities suitable for a toddler and a 9-year-old.",
+      "is_valid": false,
+      "validation_comment": "task text does not clearly match its task type"
+    },
+    {
+      "name": "family_activities_ibiza",
+      "type": "attraction",
+      "text": "Find family-oriented activities and attractions in Ibiza, such as water parks or aquarium visits.",
+      "is_valid": true,
+      "validation_comment": null
+    },
+    {
+      "name": "nightlife_options_couple",
+      "type": "attraction",
+      "text": "Research and select popular nightlife spots, beach clubs, or lounges in Ibiza suitable for the couple in the group.",
+      "is_valid": false,
+      "validation_comment": "task text does not clearly match its task type"
+    },
+    {
+      "name": "restaurant_recommendations",
+      "type": "restaurant",
+      "text": "Find family-friendly restaurants in Ibiza that can accommodate a large group of 8 people.",
+      "is_valid": true,
+      "validation_comment": null
+    },
+    {
+      "name": "check_attraction_hours",
+      "type": "opening_times",
+      "text": "Verify the opening hours for the selected family attractions and beach clubs for August 2026.",
+      "is_valid": true,
+      "validation_comment": null
+    },
+    {
+      "name": "routing_villa_to_activities",
+      "type": "routing-check",
+      "text": "Check travel times and distances between the potential villa location and the primary beach and nightlife hubs to ensure feasibility.",
+      "is_valid": true,
+      "validation_comment": null
+    },
+    {
+      "name": "car_rental_search",
+      "type": "general-web-search",
+      "text": "Search for large car rental options or two standard cars in Ibiza to accommodate 8 people and luggage, as a villa stay usually requires independent transport.",
+      "is_valid": true,
+      "validation_comment": null
+    }
+  ]
+}

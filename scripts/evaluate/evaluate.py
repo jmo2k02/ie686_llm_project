@@ -120,7 +120,15 @@ def convert_hard_constraints(hc: dict) -> list[dict]:
     return out
 
 
-def discover_tasks(queries: list[dict], *, force: bool) -> list[Task]:
+def _result_has_timeout(result_path: Path) -> bool:
+    try:
+        rec = json.loads(result_path.read_text(encoding="utf-8"))
+        return bool(rec.get("has_timeout", False))
+    except (json.JSONDecodeError, OSError):
+        return False
+
+
+def discover_tasks(queries: list[dict], *, force: bool, retry_timeouts: bool = False) -> list[Task]:
     tasks: list[Task] = []
     for q in queries:
         qid = q["id"]
@@ -132,8 +140,11 @@ def discover_tasks(queries: list[dict], *, force: bool) -> list[Task]:
                 _log(f"[skip] no plan: {plan_path.relative_to(REPO_ROOT)}")
                 continue
             if result_path.exists() and not force:
-                _log(f"[resume] already done: {result_path.relative_to(REPO_ROOT)}")
-                continue
+                if retry_timeouts and _result_has_timeout(result_path):
+                    _log(f"[retry-timeout] re-queuing: {result_path.relative_to(REPO_ROOT)}")
+                else:
+                    _log(f"[resume] already done: {result_path.relative_to(REPO_ROOT)}")
+                    continue
             tasks.append(
                 Task(
                     source=source,
@@ -160,10 +171,16 @@ def evaluate_one(task: Task) -> dict:
             output_dir=str(out_subdir),
             plan_format=task.plan_format,
         )
+        has_timeout = bool(scorecard.timed_out_models) or any(
+            "timed out after" in (rv.reasoning or "")
+            for rv in scorecard.rationale_verifications
+        )
         record: dict = {
             "id": task.query_id,
             "source": task.source,
             "status": "ok",
+            "has_timeout": has_timeout,
+            "timed_out_models": scorecard.timed_out_models,
             "duration_seconds": round(time.monotonic() - t0, 1),
             "plan_path": str(task.plan_path.relative_to(REPO_ROOT)),
             "scorecard": scorecard.model_dump(mode="json"),
@@ -261,10 +278,13 @@ def aggregate(records: list[dict]) -> dict:
             row["baseline"]["rationale_pass_rate"] = base_rr
             comparison.append(row)
 
+    timeout_records = [r for r in records if r.get("has_timeout")]
     return {
         "n_total": len(records),
         "n_ok":    sum(1 for r in records if r["status"] == "ok"),
         "n_error": sum(1 for r in records if r["status"] == "error"),
+        "n_timeout": len(timeout_records),
+        "timeout_ids": [{"source": r["source"], "id": r["id"], "timed_out_models": r.get("timed_out_models", [])} for r in timeout_records],
         "summary_by_source": {
             "travel_agent": _source_metrics(by_source["travel_agent"]),
             "baseline":     _source_metrics(by_source["baseline"]),
@@ -316,6 +336,16 @@ def print_summary(summary: dict) -> None:
     print(f"travel_agent: n={ta.get('n', 0)}    baseline: n={bs.get('n', 0)}")
     n_comp = len(summary["per_query_comparison"])
     print(f"per-query comparison rows: {n_comp}")
+
+    n_timeout = summary.get("n_timeout", 0)
+    if n_timeout:
+        print()
+        print(f"WARNING: {n_timeout} evaluation(s) had a model timeout — scores are unreliable.")
+        print("Re-run with --retry-timeouts to fix them.")
+        for entry in summary.get("timeout_ids", []):
+            models = ", ".join(entry.get("timed_out_models") or ["(slot verification)"])
+            print(f"  {entry['source']}/{entry['id']}  timed-out: {models}")
+
     print(f"summary written to: {SUMMARY_PATH.relative_to(REPO_ROOT)}")
     print()
 
@@ -328,6 +358,8 @@ def main() -> None:
                         help="skip evaluation, just rebuild summary.json from existing per-id files")
     parser.add_argument("--force", action="store_true",
                         help="re-evaluate even if a per-id result file already exists")
+    parser.add_argument("--retry-timeouts", action="store_true",
+                        help="re-evaluate plans whose previous run had a model timeout")
     args = parser.parse_args()
 
     EVAL_DIR.mkdir(parents=True, exist_ok=True)
@@ -344,7 +376,7 @@ def main() -> None:
         sys.exit(f"error: queries file not found at {QUERIES_PATH}")
     queries = json.loads(QUERIES_PATH.read_text(encoding="utf-8"))
 
-    tasks = discover_tasks(queries, force=args.force)
+    tasks = discover_tasks(queries, force=args.force, retry_timeouts=args.retry_timeouts)
     _log(f"Launching {len(tasks)} evaluation(s) with max_workers={args.max_workers}")
     if not tasks:
         _log("Nothing to do — aggregating existing results.")

@@ -109,7 +109,7 @@ async def run_task_planning(
 
 
 DEFAULT_QUERIES_PATH = REPO_ROOT / "data" / "travel_queries.json"
-DEFAULT_OUTPUT_DIR = REPO_ROOT / "eval_output" / "travelplans"
+DEFAULT_OUTPUT_DIR = REPO_ROOT / "data" / "travelplans" / "travel_agent"
 
 
 def load_queries(path: Path) -> list[dict[str, Any]]:

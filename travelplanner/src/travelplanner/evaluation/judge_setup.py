@@ -225,6 +225,8 @@ def _invoke_judge(model_name: str, user_prompt: str, n: int, prefix: str) -> Jud
                 retry_count=attempt,
             )
         except Exception as exc:
+            if attempt < _MAX_JUDGE_RETRIES:
+                time.sleep(2 ** attempt)  # 1s, 2s, 4s
             last_exc = exc
 
     reason = f"Judge failed after {_MAX_JUDGE_RETRIES + 1} attempts: {last_exc}"

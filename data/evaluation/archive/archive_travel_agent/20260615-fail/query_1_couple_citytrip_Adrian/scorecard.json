@@ -68,14 +68,13 @@
         "https://www.wien.info/en/travel-info/transport/tickets-361360"
       ],
       "verdict": "PASS",
-      "reasoning": "The evidence from the official Vienna tourism board (wien.info) confirms the existence and price of the digital 7-day ticket. Specifically, it states: 'Flexible 7-day VIENNA Ticket (digital ticket and non-transferable): Valid from the time of validation for seven consecutive calendar days: € 25.20'. The slot's claim of €50.40 for two people matches this exactly (€25.20 * 2 = €50.40). The evidence also confirms the tickets are valid for the 'Vienna core zone' and can be purchased as a 'digital ticket', which aligns with the slot's mention of the WienMobil app.",
+      "reasoning": "The evidence from the official Vienna tourism website (wien.info) confirms the existence and price of the 'Flexible 7-day VIENNA Ticket (digital ticket and non-transferable)' at €25.20. The slot's total cost of €50.40 for two people matches this rate (2 x €25.20 = €50.40). The evidence also confirms these tickets are valid for the 'Vienna core zone' and cover 'streetcars, buses... subway trains and commuter trains (S-Bahn) operated by Wiener Linien', which aligns with the slot's description and notes.",
       "claims_checked": [
-        "Ticket type: Digital 7-day Vienna core-zone ticket",
-        "Price per person: €25.20",
-        "Total cost for two: €50.40",
-        "Validity: 7 consecutive days",
-        "Purchase method: Digital/App (WienMobil)",
-        "Coverage: Vienna core zone"
+        "7-day Vienna public transport ticket exists",
+        "Digital 7-day ticket price is €25.20 per person",
+        "Total cost for two tickets is €50.40",
+        "Tickets are valid for the Vienna core zone",
+        "Tickets are available via Wiener Linien/WienMobil"
       ]
     },
     {
@@ -88,12 +87,12 @@
         "https://www.travelsignposts.com/Austria/food/trzesniewski"
       ],
       "verdict": "MISSING_INFO",
-      "reasoning": "The slot provided two specific URLs (speckmittei.at and travelsignposts.com) as sources for its claims. However, no content was retrieved from these links or any other source. Without evidence to verify the location, opening hours, or pricing, a verdict of PASS or FAIL cannot be determined.",
+      "reasoning": "The slot provided two specific URLs (speckmittei.at and travelsignposts.com) as sources for its claims. However, no content was retrieved from these links or any other source. Without evidence to verify the location (Dorotheergasse 1), the opening hours (Friday daytime), or the nature of the establishment, a verdict of PASS or FAIL cannot be determined.",
       "claims_checked": [
         "Venue name: Trzesniewski",
         "Address: Dorotheergasse 1, 1010 Vienna",
         "Category: Standing snack bar with open-faced sandwiches",
-        "Open Friday daytime",
+        "Operating hours: Open Friday daytime",
         "Cost: €24.00"
       ]
     },
@@ -255,13 +254,12 @@
         "https://www.plachutta.at/en/restaurant/wollzeile/"
       ],
       "verdict": "PASS",
-      "reasoning": "The evidence (Source 1) confirms the restaurant name 'Plachutta Wollzeile' and its location in 'Vienna’s City Center' (1010). The title explicitly mentions 'Famous Tafelspitz', supporting the description. While the fetched text is partially truncated, the URL and title confirm the specific venue and its primary offering. The opening hours and address are standard for this well-known establishment and consistent with the provided link.",
+      "reasoning": "The evidence from the official website confirms the restaurant name ('Plachutta Wollzeile'), its specialty ('Famous Tafelspitz'), and its location in Vienna's city center ('Restaurant 1010'). While the fetched text is partially cut off, the title and headers explicitly support the core claims. The opening hours (11:30–23:30) and address (Wollzeile 38) are standard for this well-known establishment and consistent with the provided URL's metadata and title.",
       "claims_checked": [
         "Venue name: Plachutta Wollzeile",
         "Location: Wollzeile 38, 1010 Vienna",
-        "Category: meal/restaurant",
-        "Specialty: Tafelspitz",
-        "Opening hours: 11:30–23:30"
+        "Specialty: Traditional Tafelspitz",
+        "Opening hours: Daily 11:30–23:30"
       ]
     },
     {
@@ -290,14 +288,13 @@
       "source_urls": [
         "https://www.google.com/maps/search/Stadtpark+Vienna"
       ],
-      "verdict": "PASS",
-      "reasoning": "The evidence provided is a Google Maps search for 'Stadtpark Vienna'. While the text content is minimal, the map metadata and search results confirm the existence and location of 'Stadtpark' in Vienna. The presence of 'Meierei im Stadtpark' and the 'Johann Strauss Monument' are standard features of this specific park in Vienna, and the park is a public municipal space which is free to enter. The location 'Stadtpark, Vienna' is directly supported by the search result title and URL.",
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence is a Google Maps search result page that contains only image metadata and map tiles. It does not contain any text-based information to verify the location's features (Johann Strauss monument), cost, or the existence of 'Meierei in Stadtpark'. While the location 'Stadtpark' is confirmed by the URL and title, the specific claims within the slot cannot be verified from this source.",
       "claims_checked": [
-        "Venue name: Stadtpark",
-        "Location: Vienna",
-        "Presence of Johann Strauss monument",
-        "Presence of Meierei in Stadtpark",
-        "Cost: €0.00 (Free)"
+        "Location: Stadtpark, Vienna",
+        "Feature: Johann Strauss monument",
+        "Cost: €0.00",
+        "Note: Pairs with Meierei in Stadtpark"
       ]
     },
     {
@@ -571,11 +568,12 @@
         "https://www.wien.info/en/travel-info/transport/tickets-361360"
       ],
       "verdict": "PASS",
-      "reasoning": "The slot claims that public transport to Wien Hbf can be covered by a 'Vienna ticket' and lists a cost of €0.00 (implying it is pre-paid or included in a pass). The evidence confirms that various 'Vienna network tickets' (24-hour, 7-day) exist and are valid on 'all streetcars, buses... subway trains and commuter trains (S-Bahn) operated by Wiener Linien in the Vienna core zone.' Since both the starting point (Hotel Pension Walzerstadt) and the destination (Wien Hbf) are within the city of Vienna, they fall under this core zone coverage. The evidence supports the existence of tickets that cover this journey.",
+      "reasoning": "The slot claims that public transport to Wien Hbf is covered by a 'Vienna ticket' and lists a cost of €0.00 (implying it is pre-paid or included in a pass). The evidence confirms that 'The tickets are valid on all streetcars, buses and night buses, subway trains and commuter trains (S-Bahn) operated by Wiener Linien in the Vienna core zone.' It also lists several multi-day options like the 'Flexible 7-day VIENNA Ticket', which would cover a transfer between a hotel and the main station (Wien Hbf) within the city. The location 'Wien Hbf' is the standard abbreviation for the main station mentioned in the evidence as a destination for commuter trains.",
       "claims_checked": [
-        "Public transport to Wien Hbf is covered by a Vienna ticket.",
-        "The journey is within the Vienna core zone (implied by the use of a Vienna ticket for city transport).",
-        "Tickets are valid on streetcars, buses, subways, and commuter trains."
+        "Transfer from Hotel Pension Walzerstadt to Wien Hbf",
+        "Transport mode: public transport",
+        "Cost: €0.00 (covered by Vienna ticket)",
+        "Vienna tickets cover public transport to the main station"
       ]
     },
     {
@@ -597,12 +595,12 @@
       ]
     }
   ],
-  "rationale_pass_count": 23,
+  "rationale_pass_count": 22,
   "rationale_fail_count": 3,
-  "rationale_missing_count": 7,
-  "hc_micro_pass_rate": 1.0,
-  "cc_micro_pass_rate": 0.9231,
-  "hc_macro_pass_rate": 1.0,
+  "rationale_missing_count": 8,
+  "hc_micro_pass_rate": 0.0,
+  "cc_micro_pass_rate": 0.8462,
+  "hc_macro_pass_rate": 0.0,
   "cc_macro_pass_rate": 0.0,
   "final_pass_rate": 0.0,
   "aggregated_constraints": [
@@ -610,15 +608,15 @@
       "id": "HC-1",
       "constraint_text": "origin: Munich",
       "constraint_type": "hard",
-      "final_verdict": "PASS",
+      "final_verdict": "FAIL",
       "judge_verdicts": [
+        "FAIL",
         "PASS",
         "PASS",
-        "PASS",
-        "PASS"
+        "FAIL"
       ],
-      "pass_count": 4,
-      "fail_count": 0,
+      "pass_count": 2,
+      "fail_count": 2,
       "missing_count": 0,
       "na_count": 0
     },
@@ -626,15 +624,15 @@
       "id": "HC-2",
       "constraint_text": "destination: Vienna",
       "constraint_type": "hard",
-      "final_verdict": "PASS",
+      "final_verdict": "FAIL",
       "judge_verdicts": [
+        "FAIL",
         "PASS",
         "PASS",
-        "PASS",
-        "PASS"
+        "FAIL"
       ],
-      "pass_count": 4,
-      "fail_count": 0,
+      "pass_count": 2,
+      "fail_count": 2,
       "missing_count": 0,
       "na_count": 0
     },
@@ -642,15 +640,15 @@
       "id": "HC-3",
       "constraint_text": "travel_dates: 2026.07.10 to 2026.07.14",
       "constraint_type": "hard",
-      "final_verdict": "PASS",
+      "final_verdict": "FAIL",
       "judge_verdicts": [
+        "FAIL",
         "PASS",
         "PASS",
-        "PASS",
-        "PASS"
+        "FAIL"
       ],
-      "pass_count": 4,
-      "fail_count": 0,
+      "pass_count": 2,
+      "fail_count": 2,
       "missing_count": 0,
       "na_count": 0
     },
@@ -658,15 +656,15 @@
       "id": "HC-4",
       "constraint_text": "travelers: 2 adults",
       "constraint_type": "hard",
-      "final_verdict": "PASS",
+      "final_verdict": "FAIL",
       "judge_verdicts": [
+        "FAIL",
         "PASS",
         "PASS",
-        "PASS",
-        "PASS"
+        "FAIL"
       ],
-      "pass_count": 4,
-      "fail_count": 0,
+      "pass_count": 2,
+      "fail_count": 2,
       "missing_count": 0,
       "na_count": 0
     },
@@ -674,15 +672,15 @@
       "id": "HC-5",
       "constraint_text": "budget: 1200 EUR total",
       "constraint_type": "hard",
-      "final_verdict": "PASS",
+      "final_verdict": "FAIL",
       "judge_verdicts": [
+        "FAIL",
         "PASS",
         "PASS",
-        "PASS",
-        "PASS"
+        "FAIL"
       ],
-      "pass_count": 4,
-      "fail_count": 0,
+      "pass_count": 2,
+      "fail_count": 2,
       "missing_count": 0,
       "na_count": 0
     },
@@ -690,15 +688,15 @@
       "id": "HC-6",
       "constraint_text": "accommodation: hotel",
       "constraint_type": "hard",
-      "final_verdict": "PASS",
+      "final_verdict": "FAIL",
       "judge_verdicts": [
+        "FAIL",
         "PASS",
         "PASS",
-        "PASS",
-        "PASS"
+        "FAIL"
       ],
-      "pass_count": 4,
-      "fail_count": 0,
+      "pass_count": 2,
+      "fail_count": 2,
       "missing_count": 0,
       "na_count": 0
     },
@@ -706,15 +704,15 @@
       "id": "HC-7",
       "constraint_text": "interests: museums, food, city walks",
       "constraint_type": "hard",
-      "final_verdict": "PASS",
+      "final_verdict": "FAIL",
       "judge_verdicts": [
+        "FAIL",
         "PASS",
         "PASS",
-        "PASS",
-        "PASS"
+        "FAIL"
       ],
-      "pass_count": 4,
-      "fail_count": 0,
+      "pass_count": 2,
+      "fail_count": 2,
       "missing_count": 0,
       "na_count": 0
     },
@@ -788,15 +786,15 @@
       "constraint_type": "commonsense",
       "final_verdict": "PASS",
       "judge_verdicts": [
-        "PASS",
+        "NA",
         "PASS",
         "PASS",
         "PASS"
       ],
-      "pass_count": 4,
+      "pass_count": 3,
       "fail_count": 0,
       "missing_count": 0,
-      "na_count": 0
+      "na_count": 1
     },
     {
       "id": "CC-6",
@@ -854,8 +852,8 @@
       "judge_verdicts": [
         "PASS",
         "PASS",
-        "FAIL",
-        "PASS"
+        "PASS",
+        "FAIL"
       ],
       "pass_count": 3,
       "fail_count": 1,
@@ -882,15 +880,15 @@
       "id": "CC-11",
       "constraint_text": "Attractions must be open on the planned day and time.",
       "constraint_type": "commonsense",
-      "final_verdict": "PASS",
+      "final_verdict": "FAIL",
       "judge_verdicts": [
-        "PASS",
+        "FAIL",
         "FAIL",
         "PASS",
-        "PASS"
+        "FAIL"
       ],
-      "pass_count": 3,
-      "fail_count": 1,
+      "pass_count": 1,
+      "fail_count": 3,
       "missing_count": 0,
       "na_count": 0
     },
@@ -902,8 +900,8 @@
       "judge_verdicts": [
         "PASS",
         "PASS",
-        "FAIL",
-        "PASS"
+        "PASS",
+        "FAIL"
       ],
       "pass_count": 3,
       "fail_count": 1,
@@ -927,5 +925,5 @@
       "na_count": 0
     }
   ],
-  "timestamp": "2026-05-16T08:06:16.267722+00:00"
+  "timestamp": "2026-05-15T22:49:25.821118+00:00"
 }

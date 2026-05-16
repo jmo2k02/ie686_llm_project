@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import os
+import uuid
 from dataclasses import dataclass
 from typing import Annotated, Any, TypeAlias, TypedDict, cast
 
@@ -16,6 +17,7 @@ from pydantic import BaseModel, Field
 from tavily import TavilyClient
 
 from travelplanner.baseline_agent.config import BaselineAgentConfig, load_config_from_env
+from travelplanner.utils.checkpoint import make_memory_checkpointer
 from travelplanner.utils.llm import extract_token_usage, make_chat_model
 from travelplanner.utils.runtime_monitor import record_llm_call, record_tool_call
 
@@ -299,6 +301,7 @@ def _make_tavily_tool(config: BaselineAgentConfig) -> StructuredTool:
 
 def make_graph(
     config: BaselineAgentConfig | None = None,
+    checkpointer: Any | None = None,
 ) -> Runnable[BaselineState, BaselineState]:
     effective_config = config or load_config_from_env()
     tavily_tool = _make_tavily_tool(effective_config)
@@ -393,7 +396,7 @@ def make_graph(
         {"agent": "agent", "final": "final"},
     )
     graph.add_edge("final", END)
-    return graph.compile()
+    return graph.compile(checkpointer=checkpointer)
 
 
 def _recursion_limit_for_config(config: BaselineAgentConfig) -> int:
@@ -415,7 +418,7 @@ def run_baseline(
     config: BaselineAgentConfig | None = None,
 ) -> BaselineRunResult:
     effective_config = config or load_config_from_env()
-    graph = make_graph(effective_config)
+    graph = make_graph(effective_config, checkpointer=make_memory_checkpointer())
     input_state: BaselineState = {
         "messages": [
             SystemMessage(content=SYSTEM_PROMPT),
@@ -423,7 +426,10 @@ def run_baseline(
         ]
     }
     recursion_limit = _recursion_limit_for_config(effective_config)
-    stream_config = {"recursion_limit": recursion_limit}
+    stream_config = {
+        "configurable": {"thread_id": str(uuid.uuid4())},
+        "recursion_limit": recursion_limit,
+    }
     collected: list[AnyMessage] | None = None
     try:
         for state in graph.stream(

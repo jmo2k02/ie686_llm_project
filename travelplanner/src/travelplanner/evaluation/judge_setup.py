@@ -8,8 +8,9 @@ import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 # Disable LangSmith tracing when no API key is configured to avoid auth noise.
-if not os.getenv("LANGCHAIN_API_KEY", "").strip():
+if not (os.getenv("LANGCHAIN_API_KEY", "").strip() or os.getenv("LANGSMITH_API_KEY", "").strip()):
     os.environ["LANGCHAIN_TRACING_V2"] = "false"
+    os.environ["LANGSMITH_TRACING"] = "false"
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Literal

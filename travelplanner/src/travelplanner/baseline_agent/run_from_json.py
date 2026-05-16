@@ -10,10 +10,10 @@ from dotenv import find_dotenv, load_dotenv
 
 load_dotenv(find_dotenv(usecwd=True))
 
-if not os.getenv("LANGCHAIN_API_KEY", "").strip():
+if not (os.getenv("LANGCHAIN_API_KEY", "").strip() or os.getenv("LANGSMITH_API_KEY", "").strip()):
     os.environ["LANGCHAIN_TRACING_V2"] = "false"
+    os.environ["LANGSMITH_TRACING"] = "false"
 
-from langsmith import traceable
 from pydantic import BaseModel, Field, ValidationError
 
 from travelplanner.baseline_agent.agent import run_baseline
@@ -71,29 +71,23 @@ def _write_markdown(output_dir: Path, case: BaselineCase, markdown: str) -> Path
     return path
 
 
-@traceable(name="baseline_case")
-def _run_one_case(*, case: BaselineCase, config: Any, output_dir: Path) -> Path:
-    result = run_baseline(
-        query=case.query,
-        constraints=case.planning_constraints(),
-        config=config,
-    )
-    path = _write_markdown(output_dir, case, result.markdown)
-    print(
-        f"wrote {path} "
-        f"(model={result.model_name}, "
-        f"tavily_executed={result.executed_tool_calls}, "
-        f"tool_slots_requested={result.requested_tool_calls})"
-    )
-    return path
-
-
 def run_cases(input_path: Path, output_dir: Path | None = None) -> list[Path]:
-    config = load_config_from_env()
-    effective_output_dir = output_dir or config.output_dir
+    agent_config = load_config_from_env()
+    effective_output_dir = output_dir or agent_config.output_dir
     written_paths: list[Path] = []
     for case in _load_cases(input_path):
-        path = _run_one_case(case=case, config=config, output_dir=effective_output_dir)
+        result = run_baseline(
+            query=case.query,
+            constraints=case.planning_constraints(),
+            config=agent_config,
+        )
+        path = _write_markdown(effective_output_dir, case, result.markdown)
+        print(
+            f"wrote {path} "
+            f"(model={result.model_name}, "
+            f"tavily_executed={result.executed_tool_calls}, "
+            f"tool_slots_requested={result.requested_tool_calls})"
+        )
         written_paths.append(path)
     return written_paths
 

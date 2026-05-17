@@ -274,20 +274,157 @@ of the context-engineering lecture \cite{rajasekaran2025context}.
 \section{LLM Agent Types}
 %Justus 3-3.5
 
-As outlined in the previous chapter our system employs different Agent Types to ensure separation of concerns for every stage and all subagents. The different agent types employed and their specific functionality are defined in the following sections.
+The implementation deliberately combines several kinds of LLM agents rather
+than treating the whole planner as one monolithic chatbot. Following the
+course distinction between fixed LLM workflows and autonomous agents, the
+constraint, planning, and review stages are fixed-flow LangGraph workflows
+with structured outputs, while the execution stage is an autonomous ReAct-style
+agent that decides which tools to call next \cite{yao2023react}. Domain search
+is delegated to isolated subagents, which matches the context-engineering
+principle that each component should receive only the instructions, tools, and
+state needed for its own task \cite{rajasekaran2025context}. The resulting
+agent types are described below.
 
 \subsection{Constraint Extraction Agent}
 
+The Constraint Extraction Agent is the entry point of the multi-agent system.
+Its task is to transform the user's free-text request into an explicit,
+validated constraint set before any search or itinerary generation starts. It
+extracts eight hard-constraint categories: destination, origin, travel dates,
+travellers, budget, accommodation, transport, and interests. Missing categories
+are not guessed. Instead, the agent uses LangGraph's human-in-the-loop
+\texttt{interrupt()} mechanism to ask targeted follow-up questions, while still
+allowing the user to skip a category when it is genuinely irrelevant or
+unknown.
+
+After extraction, the agent performs two validation passes. Deterministic
+checks handle rules that can be decided without model judgement, such as a
+positive budget or an end date after the start date. Heuristic commonsense
+checks are delegated to an LLM, for example whether the requested transport
+mode is plausible for the destination. The final output is a normalized
+constraint object with derived country codes, currencies, time zones, and
+traveller counts. This makes the later agents consume a typed artifact rather
+than reinterpreting the original prompt independently.
+
+\subsection{Task Planning Agent}
+
+The Task Planning Agent converts the validated constraints into a list of
+search and construction tasks. This stage is intentionally implemented as a
+workflow rather than as an autonomous tool-using agent: it drafts a structured
+\texttt{TaskModel} list, sends the list to a planner-reviewer node, and retries
+when the reviewer finds missing task types or uncovered constraints. The
+approved list is not a rigid script for the execution agent. It is a compact
+handoff artifact that identifies likely needs such as flights, lodging,
+restaurants, attractions, web verification, or routing checks while leaving the
+final ordering and repair decisions to the execution stage.
+
 \subsection{Execution Agent}
+
+The Execution Agent is the central orchestrator of the final itinerary. Unlike
+the previous stages, it runs inside a DeepAgents harness and follows a
+multi-turn reasoning-and-acting loop. At each step it observes the current
+state, decides whether it needs more evidence or should mutate the plan, calls
+one of the available tools, and then incorporates the tool result into the next
+decision. Its prompt contains three pieces of state: the original query, the
+normalized constraints marked as mandatory, and the reviewed task list marked
+as helpful guidance.
+
+The agent has two tool families. The first family consists of domain subagents
+for flights, hotels, restaurants, attractions, general web search, and routing.
+The second family consists of plan-mutation tools over a shared
+\texttt{TravelPlan} object, including initialization, day insertion, slot
+insertion, deletion, plan viewing, and cost summarization. The plan object is
+closure-bound into the tools, so every mutation affects the same in-memory
+itinerary. Tool errors are returned as readable messages rather than crashing
+the graph, allowing the model to self-correct in the next ReAct step.
 
 \subsection{Search Agents}
 
-\textbf{Flight Search Agent} ...
+Search agents isolate API-specific reasoning from itinerary construction. Each
+one receives a focused natural-language request from the Execution Agent,
+extracts or validates the parameters needed by its service, calls the external
+provider, and returns a concise source-backed summary. This avoids exposing the
+orchestrator to every raw API response and keeps token-heavy search results out
+of the main context unless they are useful for a concrete itinerary decision.
+
+\paragraph{Flight Search Agent.}
+The Flight Search Agent queries Google Flights through SerpAPI. It first uses
+an LLM prompt to convert a natural-language flight request into structured
+parameters such as origin and destination IATA codes, travel dates, passenger
+count, currency, and trip type. It then calls the flight provider and returns
+the most relevant itinerary options with price, duration, layovers, and a
+Google Flights verification URL. Multi-leg trips are outside the current scope;
+the agent supports one-way and round-trip searches.
+
+\paragraph{Hotel Search Agent.}
+The Hotel Search Agent uses LiteAPI/Nuitee for live accommodation search. It
+extracts destination, dates, budget, and hotel preferences from the request,
+queries live rates, filters candidates against hard requirements, and ranks the
+remaining options by factors such as price, rating, facilities, and area. Its
+output is a compact recommendation list rather than a raw hotel dump, enabling
+the Execution Agent to place lodging in the itinerary without redoing the
+provider-specific filtering.
+
+\paragraph{Restaurant Search Agent.}
+The Restaurant Search Agent maps meal requirements to Google Places queries. It
+extracts cuisine, location, price level, meal type, and dietary restrictions,
+retrieves candidate venues, and selects an option that best matches the user's
+profile. The returned artifact includes the venue name, address, rating, price
+level, and opening-hour information when available.
+
+\paragraph{Attraction Search Agent.}
+The Attraction Search Agent is responsible for experience-oriented activities,
+not just landmark lookup. It parses the destination, time slot, budget, and
+traveller profile, matches the profile against curated traveller archetypes,
+generates a locally specific activity idea, and resolves it to a real mappable
+place through SerpAPI Google Maps. This gives the itinerary more personalized
+activities while still grounding each recommendation in an external place
+record.
+
+\paragraph{General Web Search Agent.}
+The General Web Search Agent covers factual questions that no structured travel
+API can answer reliably, such as public holidays, venue-specific closing days,
+entry requirements, contact details, or current disruptions. It uses Tavily to
+retrieve external evidence and returns a short answer with source URLs. The
+Execution Agent is instructed to use it for factual verification rather than as
+a substitute for the dedicated flight, hotel, or restaurant tools.
+
+\paragraph{Routing Check Agent.}
+The Routing Check Agent removes distance and travel-time estimation from the
+LLM. It calls Google Routes to check individual origin-destination pairs or to
+build a reusable distance graph for a cluster of trip locations. The Execution
+Agent can then query precomputed travel times while arranging daily slots,
+reducing impossible transitions and unrealistic schedules.
 
 \subsection{Quality Review Agent}
 
-\subsection{Baseline: }
-%-> Muss in Evaluation rein
+The Quality Review Agent acts as the final generator-evaluator component of the
+pipeline. It receives the assembled \texttt{TravelPlan}, the extracted
+constraints, and the planner task list, then returns a structured
+\texttt{ValidationResponse} containing a pass/fail decision, concrete feedback,
+and a list of issues. The review checks three categories: compliance with hard
+constraints, internal travel consistency such as chronological order and
+plausible transfers, and completeness of critical trip elements.
+
+If the plan passes, LangGraph routes the workflow to termination. If the plan
+fails, the feedback is injected into the Execution Agent in repair mode. In
+that mode the execution prompt instructs the agent to inspect the existing
+plan, preserve valid content, and make targeted changes rather than starting
+from scratch. The workflow stops after a bounded number of validation attempts
+to avoid an infinite repair loop.
+
+\subsection{Baseline: Minimal Single-Agent Approach}
+
+The baseline is not part of the multi-agent pipeline; it is the comparison
+condition used in evaluation. It collapses planning, search, synthesis, and
+formatting into one LangGraph agent with exactly one external tool: Tavily web
+search. It has no constraint dialogue, no planner-reviewer stage, no specialized
+domain search tools, no mutable \texttt{TravelPlan}, and no quality-review
+loop. The agent receives the same user query and constraints, performs a small
+number of web searches, and writes a final Markdown itinerary directly. This
+minimal design makes the architectural comparison explicit: any improvement of
+the full system must come from typed state, role separation, domain-specific
+tools, and review, rather than from giving the baseline less information.
 
 \chapter{Evaluation}
 \section{Setup and Human-Judge-Correlation}

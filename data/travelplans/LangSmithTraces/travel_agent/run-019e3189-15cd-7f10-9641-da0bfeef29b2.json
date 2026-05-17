@@ -1,0 +1,882 @@
+{
+  "inputs": {
+    "input": {
+      "goto": [],
+      "graph": null,
+      "resume": "skip",
+      "update": null
+    }
+  },
+  "outputs": {
+    "query": "I am travelling solo from Stuttgart to Prague from June 20th to 23rd, 2026 on a very tight budget of only €250 total. I am happy to stay in a shared hostel dorm. I prefer to travel by bus or carpooling rather than flying. I am interested in free or cheap attractions, street food, and the historical old town. Please plan the most budget-efficient trip possible.",
+    "message_histories": {
+      "key": {
+        "user_agent": "constraint_iteration_agent",
+        "model": "llm",
+        "agent_ref": "travelplanner.agents.constraint_iteration_agent",
+        "messages": [
+          {
+            "role": "assistant",
+            "content": "I identified the following constraints from your request:\n\n  1. destination: Prague\n  2. origin: Stuttgart\n  3. travel_dates: June 20th to 23rd, 2026\n  4. travelers: solo traveler\n  5. budget: very tight budget of only €250 total\n  6. accommodation: shared hostel dorm\n  7. transport: bus or carpooling preferred, no flying\n  8. interests: free or cheap attractions, street food, historical old town, budget-efficient pace\n\nIs this correct? Type 'ok' to confirm, or describe any corrections."
+          },
+          {
+            "role": "user",
+            "content": "skip"
+          },
+          {
+            "role": "assistant",
+            "content": "I identified the following constraints from your request:\n\n  1. destination: Prague\n  2. origin: Stuttgart\n  3. travel_dates: June 20th to 23rd, 2026\n  4. travelers: solo traveler\n  5. budget: very tight budget of only €250 total\n  6. accommodation: shared hostel dorm\n  7. transport: bus or carpooling, no flying\n  8. interests: free or cheap attractions, street food, historical old town, most budget-efficient trip possible\n\nIs this correct? Type 'ok' to confirm, or describe any corrections."
+          },
+          {
+            "role": "user",
+            "content": "ok"
+          }
+        ]
+      },
+      "planner_agent": {
+        "user_agent": "planner_agent",
+        "model": "llm",
+        "agent_ref": "travelplanner.agents.planner.graph",
+        "messages": [
+          {
+            "role": "user",
+            "content": "I am travelling solo from Stuttgart to Prague from June 20th to 23rd, 2026 on a very tight budget of only €250 total. I am happy to stay in a shared hostel dorm. I prefer to travel by bus or carpooling rather than flying. I am interested in free or cheap attractions, street food, and the historical old town. Please plan the most budget-efficient trip possible."
+          },
+          {
+            "role": "user",
+            "content": "Build a concise first-pass task list for the travel request below.\n\nUser request: I am travelling solo from Stuttgart to Prague from June 20th to 23rd, 2026 on a very tight budget of only €250 total. I am happy to stay in a shared hostel dorm. I prefer to travel by bus or carpooling rather than flying. I am interested in free or cheap attractions, street food, and the historical old town. Please plan the most budget-efficient trip possible.\n\nConstraints JSON:\n[\n  {\n    \"type\": \"hard\",\n    \"user_skipped\": false,\n    \"text\": \"destination: Prague\"\n  },\n  {\n    \"type\": \"hard\",\n    \"user_skipped\": false,\n    \"text\": \"origin: Stuttgart\"\n  },\n  {\n    \"type\": \"hard\",\n    \"user_skipped\": false,\n    \"text\": \"travel_dates: June 20th to 23rd, 2026\"\n  },\n  {\n    \"type\": \"hard\",\n    \"user_skipped\": false,\n    \"text\": \"travelers: solo traveler\"\n  },\n  {\n    \"type\": \"hard\",\n    \"user_skipped\": false,\n    \"text\": \"budget: very tight budget of only \\u20ac250 total\"\n  },\n  {\n    \"type\": \"hard\",\n    \"user_skipped\": false,\n    \"text\": \"accommodation: shared hostel dorm\"\n  },\n  {\n    \"type\": \"hard\",\n    \"user_skipped\": false,\n    \"text\": \"transport: bus or carpooling, no flying\"\n  },\n  {\n    \"type\": \"hard\",\n    \"user_skipped\": false,\n    \"text\": \"interests: free or cheap attractions, street food, historical old town, most budget-efficient trip possible\"\n  },\n  {\n    \"type\": \"commonsense\",\n    \"user_skipped\": false,\n    \"text\": \"Trip start date must be in the future.\"\n  },\n  {\n    \"type\": \"commonsense\",\n    \"user_skipped\": false,\n    \"text\": \"Trip end date must be after the trip start date.\"\n  },\n  {\n    \"type\": \"commonsense\",\n    \"user_skipped\": false,\n    \"text\": \"Trip duration must be at least 1 day.\"\n  },\n  {\n    \"type\": \"commonsense\",\n    \"user_skipped\": false,\n    \"text\": \"Budget must be a positive value.\"\n  },\n  {\n    \"type\": \"commonsense\",\n    \"user_skipped\": false,\n    \"text\": \"Car or road trip transport is not feasible for island or overseas destinations \\u2014 a flight or ferry is required.\"\n  }\n]\n\nTask type guide:\n- flight: Use for flight discovery or comparison when air travel is explicitly needed.\n- hotel: Use for lodging or accommodation selection for overnight stays.\n- restaurant: Use for dining, cuisine, or meal-specific recommendations.\n- attraction: Use for museums, landmarks, activities, sightseeing, or events to visit.\n- opening_times: Use to verify operating hours or reservation feasibility for time-sensitive places.\n- routing-check: Use to verify travel time, transit feasibility, or distance between planned stops.\n- general-web-search: Use for edge-case research that does not cleanly fit a specialized task type.\n\nLikely required task types: flight, hotel, restaurant, attraction, opening_times, routing-check\nKeep the list to at most 12 tasks.\n\nReturn strictly valid JSON with this shape:\n{\"tasks\": [{\"name\": \"...\", \"type\": \"flight|hotel|restaurant|attraction|opening_times|routing-check|general-web-search\", \"text\": \"...\", \"is_valid\": false, \"validation_comment\": null}]}"
+          },
+          {
+            "role": "assistant",
+            "content": "{\n  \"tasks\": [\n    {\n      \"name\": \"bus_transport_search\",\n      \"type\": \"general-web-search\",\n      \"text\": \"Find the cheapest bus or carpooling options from Stuttgart to Prague for June 20th and returning June 23rd, 2026.\",\n      \"is_valid\": false,\n      \"validation_comment\": null\n    },\n    {\n      \"name\": \"hostel_dorm_search\",\n      \"type\": \"hotel\",\n      \"text\": \"Find the cheapest shared hostel dorms in Prague for 3 nights (June 20-23, 2026) within walking distance of the Old Town.\",\n      \"is_valid\": false,\n      \"validation_comment\": null\n    },\n    {\n      \"name\": \"free_attractions_prague\",\n      \"type\": \"attraction\",\n      \"text\": \"Identify free or very low-cost historical attractions in Prague's Old Town and surrounding areas.\",\n      \"is_valid\": false,\n      \"validation_comment\": null\n    },\n    {\n      \"name\": \"street_food_recommendations\",\n      \"type\": \"restaurant\",\n      \"text\": \"Find budget-friendly street food spots and cheap local eateries in Prague to fit a tight daily budget.\",\n      \"is_valid\": false,\n      \"validation_comment\": null\n    },\n    {\n      \"name\": \"attraction_hours_check\",\n      \"type\": \"opening_times\",\n      \"text\": \"Verify the opening hours for major free landmarks in Prague like Charles Bridge and the Old Town Square for June 2026.\",\n      \"is_valid\": false,\n      \"validation_comment\": null\n    },\n    {\n      \"name\": \"itinerary_routing_check\",\n      \"type\": \"routing-check\",\n      \"text\": \"Check the walking distances between the selected hostel, street food spots, and free attractions to ensure no public transport costs are needed.\",\n      \"is_valid\": false,\n      \"validation_comment\": null\n    },\n    {\n      \"name\": \"budget_feasibility_check\",\n      \"type\": \"general-web-search\",\n      \"text\": \"Calculate the total estimated cost of transport, accommodation, and food to ensure it stays under the €250 limit.\",\n      \"is_valid\": false,\n      \"validation_comment\": null\n    }\n  ]\n}"
+          }
+        ]
+      },
+      "planner_reviewer_agent": {
+        "user_agent": "planner_reviewer_agent",
+        "model": "llm",
+        "agent_ref": "travelplanner.agents.planner.graph",
+        "messages": [
+          {
+            "role": "user",
+            "content": "I am travelling solo from Stuttgart to Prague from June 20th to 23rd, 2026 on a very tight budget of only €250 total. I am happy to stay in a shared hostel dorm. I prefer to travel by bus or carpooling rather than flying. I am interested in free or cheap attractions, street food, and the historical old town. Please plan the most budget-efficient trip possible."
+          },
+          {
+            "role": "user",
+            "content": "Review the planner task list for the travel request below.\n\nUser request: I am travelling solo from Stuttgart to Prague from June 20th to 23rd, 2026 on a very tight budget of only €250 total. I am happy to stay in a shared hostel dorm. I prefer to travel by bus or carpooling rather than flying. I am interested in free or cheap attractions, street food, and the historical old town. Please plan the most budget-efficient trip possible.\n\nConstraints JSON:\n[\n  {\n    \"type\": \"hard\",\n    \"user_skipped\": false,\n    \"text\": \"destination: Prague\"\n  },\n  {\n    \"type\": \"hard\",\n    \"user_skipped\": false,\n    \"text\": \"origin: Stuttgart\"\n  },\n  {\n    \"type\": \"hard\",\n    \"user_skipped\": false,\n    \"text\": \"travel_dates: June 20th to 23rd, 2026\"\n  },\n  {\n    \"type\": \"hard\",\n    \"user_skipped\": false,\n    \"text\": \"travelers: solo traveler\"\n  },\n  {\n    \"type\": \"hard\",\n    \"user_skipped\": false,\n    \"text\": \"budget: very tight budget of only \\u20ac250 total\"\n  },\n  {\n    \"type\": \"hard\",\n    \"user_skipped\": false,\n    \"text\": \"accommodation: shared hostel dorm\"\n  },\n  {\n    \"type\": \"hard\",\n    \"user_skipped\": false,\n    \"text\": \"transport: bus or carpooling, no flying\"\n  },\n  {\n    \"type\": \"hard\",\n    \"user_skipped\": false,\n    \"text\": \"interests: free or cheap attractions, street food, historical old town, most budget-efficient trip possible\"\n  },\n  {\n    \"type\": \"commonsense\",\n    \"user_skipped\": false,\n    \"text\": \"Trip start date must be in the future.\"\n  },\n  {\n    \"type\": \"commonsense\",\n    \"user_skipped\": false,\n    \"text\": \"Trip end date must be after the trip start date.\"\n  },\n  {\n    \"type\": \"commonsense\",\n    \"user_skipped\": false,\n    \"text\": \"Trip duration must be at least 1 day.\"\n  },\n  {\n    \"type\": \"commonsense\",\n    \"user_skipped\": false,\n    \"text\": \"Budget must be a positive value.\"\n  },\n  {\n    \"type\": \"commonsense\",\n    \"user_skipped\": false,\n    \"text\": \"Car or road trip transport is not feasible for island or overseas destinations \\u2014 a flight or ferry is required.\"\n  }\n]\n\nTask type guide:\n- flight: Use for flight discovery or comparison when air travel is explicitly needed.\n- hotel: Use for lodging or accommodation selection for overnight stays.\n- restaurant: Use for dining, cuisine, or meal-specific recommendations.\n- attraction: Use for museums, landmarks, activities, sightseeing, or events to visit.\n- opening_times: Use to verify operating hours or reservation feasibility for time-sensitive places.\n- routing-check: Use to verify travel time, transit feasibility, or distance between planned stops.\n- general-web-search: Use for edge-case research that does not cleanly fit a specialized task type.\n\nProposed tasks JSON:\n[\n  {\n    \"name\": \"bus_transport_search\",\n    \"type\": \"general-web-search\",\n    \"text\": \"Find the cheapest bus or carpooling options from Stuttgart to Prague for June 20th and returning June 23rd, 2026.\",\n    \"is_valid\": false,\n    \"validation_comment\": null\n  },\n  {\n    \"name\": \"hostel_dorm_search\",\n    \"type\": \"hotel\",\n    \"text\": \"Find the cheapest shared hostel dorms in Prague for 3 nights (June 20-23, 2026) within walking distance of the Old Town.\",\n    \"is_valid\": false,\n    \"validation_comment\": null\n  },\n  {\n    \"name\": \"free_attractions_prague\",\n    \"type\": \"attraction\",\n    \"text\": \"Identify free or very low-cost historical attractions in Prague's Old Town and surrounding areas.\",\n    \"is_valid\": false,\n    \"validation_comment\": null\n  },\n  {\n    \"name\": \"street_food_recommendations\",\n    \"type\": \"restaurant\",\n    \"text\": \"Find budget-friendly street food spots and cheap local eateries in Prague to fit a tight daily budget.\",\n    \"is_valid\": false,\n    \"validation_comment\": null\n  },\n  {\n    \"name\": \"attraction_hours_check\",\n    \"type\": \"opening_times\",\n    \"text\": \"Verify the opening hours for major free landmarks in Prague like Charles Bridge and the Old Town Square for June 2026.\",\n    \"is_valid\": false,\n    \"validation_comment\": null\n  },\n  {\n    \"name\": \"itinerary_routing_check\",\n    \"type\": \"routing-check\",\n    \"text\": \"Check the walking distances between the selected hostel, street food spots, and free attractions to ensure no public transport costs are needed.\",\n    \"is_valid\": false,\n    \"validation_comment\": null\n  },\n  {\n    \"name\": \"budget_feasibility_check\",\n    \"type\": \"general-web-search\",\n    \"text\": \"Calculate the total estimated cost of transport, accommodation, and food to ensure it stays under the \\u20ac250 limit.\",\n    \"is_valid\": false,\n    \"validation_comment\": null\n  }\n]\n\nDeterministic validation preview:\n[\n  {\n    \"name\": \"bus_transport_search\",\n    \"type\": \"general-web-search\",\n    \"text\": \"Find the cheapest bus or carpooling options from Stuttgart to Prague for June 20th and returning June 23rd, 2026.\",\n    \"is_valid\": true,\n    \"validation_comment\": null\n  },\n  {\n    \"name\": \"hostel_dorm_search\",\n    \"type\": \"hotel\",\n    \"text\": \"Find the cheapest shared hostel dorms in Prague for 3 nights (June 20-23, 2026) within walking distance of the Old Town.\",\n    \"is_valid\": true,\n    \"validation_comment\": null\n  },\n  {\n    \"name\": \"free_attractions_prague\",\n    \"type\": \"attraction\",\n    \"text\": \"Identify free or very low-cost historical attractions in Prague's Old Town and surrounding areas.\",\n    \"is_valid\": true,\n    \"validation_comment\": null\n  },\n  {\n    \"name\": \"street_food_recommendations\",\n    \"type\": \"restaurant\",\n    \"text\": \"Find budget-friendly street food spots and cheap local eateries in Prague to fit a tight daily budget.\",\n    \"is_valid\": true,\n    \"validation_comment\": null\n  },\n  {\n    \"name\": \"attraction_hours_check\",\n    \"type\": \"opening_times\",\n    \"text\": \"Verify the opening hours for major free landmarks in Prague like Charles Bridge and the Old Town Square for June 2026.\",\n    \"is_valid\": true,\n    \"validation_comment\": null\n  },\n  {\n    \"name\": \"itinerary_routing_check\",\n    \"type\": \"routing-check\",\n    \"text\": \"Check the walking distances between the selected hostel, street food spots, and free attractions to ensure no public transport costs are needed.\",\n    \"is_valid\": true,\n    \"validation_comment\": null\n  },\n  {\n    \"name\": \"budget_feasibility_check\",\n    \"type\": \"general-web-search\",\n    \"text\": \"Calculate the total estimated cost of transport, accommodation, and food to ensure it stays under the \\u20ac250 limit.\",\n    \"is_valid\": true,\n    \"validation_comment\": null\n  }\n]\n\nDeterministic summary:\n- Missing likely task types: flight.\n- Potentially uncovered constraints: travelers: solo traveler; Trip start date must be in the future.; Trip end date must be after the trip start date..\n\nReturn strictly valid JSON with this shape:\n{\"approved_task_list\": [{\"name\": \"...\", \"type\": \"flight|hotel|restaurant|attraction|opening_times|routing-check|general-web-search\", \"text\": \"...\", \"is_valid\": true, \"validation_comment\": null}], \"review_summary\": \"...\"}"
+          },
+          {
+            "role": "assistant",
+            "content": "{\n  \"approved_task_list\": [\n    {\n      \"name\": \"bus_transport_search\",\n      \"type\": \"general-web-search\",\n      \"text\": \"Find the cheapest bus (e.g., FlixBus) or carpooling (e.g., BlaBlaCar) options from Stuttgart to Prague for June 20th and returning June 23rd, 2026 for a solo traveler.\",\n      \"is_valid\": true,\n      \"validation_comment\": null\n    },\n    {\n      \"name\": \"hostel_dorm_search\",\n      \"type\": \"hotel\",\n      \"text\": \"Find the cheapest shared hostel dorms in Prague for 3 nights (June 20-23, 2026) within walking distance of the Old Town to minimize local transport costs.\",\n      \"is_valid\": true,\n      \"validation_comment\": null\n    },\n    {\n      \"name\": \"free_attractions_prague\",\n      \"type\": \"attraction\",\n      \"text\": \"Identify free or very low-cost historical attractions in Prague's Old Town and surrounding areas, such as Charles Bridge, Old Town Square, and free walking tours.\",\n      \"is_valid\": true,\n      \"validation_comment\": null\n    },\n    {\n      \"name\": \"street_food_recommendations\",\n      \"type\": \"restaurant\",\n      \"text\": \"Find budget-friendly street food spots and cheap local eateries in Prague to fit a tight daily budget, focusing on local specialties like Trdelník or Chlebíčky.\",\n      \"is_valid\": true,\n      \"validation_comment\": null\n    },\n    {\n      \"name\": \"attraction_hours_check\",\n      \"type\": \"opening_times\",\n      \"text\": \"Verify the opening hours for major free landmarks in Prague like Charles Bridge and the Old Town Square for June 2026.\",\n      \"is_valid\": true,\n      \"validation_comment\": null\n    },\n    {\n      \"name\": \"itinerary_routing_check\",\n      \"type\": \"routing-check\",\n      \"text\": \"Check the walking distances between the selected hostel, street food spots, and free attractions to ensure no public transport costs are needed.\",\n      \"is_valid\": true,\n      \"validation_comment\": null\n    },\n    {\n      \"name\": \"budget_feasibility_check\",\n      \"type\": \"general-web-search\",\n      \"text\": \"Calculate the total estimated cost of transport, accommodation, and food to ensure the entire trip for the solo traveler stays under the €250 limit.\",\n      \"is_valid\": true,\n      \"validation_comment\": null\n    }\n  ],\n  \"review_summary\": \"The task list is comprehensive and aligns perfectly with the user's tight budget and specific preferences. It covers transport (excluding flights as requested), low-cost accommodation, free attractions, and budget dining. All tasks are specific and grounded in the constraints.\"\n}"
+          },
+          {
+            "role": "assistant",
+            "content": "Deterministic review summary: Missing likely task types: flight. | Potentially uncovered constraints: Trip start date must be in the future.; Trip end date must be after the trip start date.; Trip duration must be at least 1 day.. | The task list is comprehensive and aligns perfectly with the user's tight budget and specific preferences. It covers transport (excluding flights as requested), low-cost accommodation, free attractions, and budget dining. All tasks are specific and grounded in the constraints."
+          }
+        ]
+      },
+      "itinerary_validator": {
+        "user_agent": "itinerary_validator",
+        "model": "openrouter:google/gemini-3-flash-preview",
+        "agent_ref": "travelplanner.agents.itinerary_validator_agent",
+        "messages": [
+          {
+            "role": "user",
+            "content": "User query: I am travelling solo from Stuttgart to Prague from June 20th to 23rd, 2026 on a very tight budget of only €250 total. I am happy to stay in a shared hostel dorm. I prefer to travel by bus or carpooling rather than flying. I am interested in free or cheap attractions, street food, and the historical old town. Please plan the most budget-efficient trip possible.\n\nConstraints:\n[\n  {\n    \"type\": \"hard\",\n    \"user_skipped\": false,\n    \"text\": \"destination: Prague\"\n  },\n  {\n    \"type\": \"hard\",\n    \"user_skipped\": false,\n    \"text\": \"origin: Stuttgart\"\n  },\n  {\n    \"type\": \"hard\",\n    \"user_skipped\": false,\n    \"text\": \"travel_dates: June 20th to 23rd, 2026\"\n  },\n  {\n    \"type\": \"hard\",\n    \"user_skipped\": false,\n    \"text\": \"travelers: solo traveler\"\n  },\n  {\n    \"type\": \"hard\",\n    \"user_skipped\": false,\n    \"text\": \"budget: very tight budget of only €250 total\"\n  },\n  {\n    \"type\": \"hard\",\n    \"user_skipped\": false,\n    \"text\": \"accommodation: shared hostel dorm\"\n  },\n  {\n    \"type\": \"hard\",\n    \"user_skipped\": false,\n    \"text\": \"transport: bus or carpooling, no flying\"\n  },\n  {\n    \"type\": \"hard\",\n    \"user_skipped\": false,\n    \"text\": \"interests: free or cheap attractions, street food, historical old town, most budget-efficient trip possible\"\n  },\n  {\n    \"type\": \"commonsense\",\n    \"user_skipped\": false,\n    \"text\": \"Trip start date must be in the future.\"\n  },\n  {\n    \"type\": \"commonsense\",\n    \"user_skipped\": false,\n    \"text\": \"Trip end date must be after the trip start date.\"\n  },\n  {\n    \"type\": \"commonsense\",\n    \"user_skipped\": false,\n    \"text\": \"Trip duration must be at least 1 day.\"\n  },\n  {\n    \"type\": \"commonsense\",\n    \"user_skipped\": false,\n    \"text\": \"Budget must be a positive value.\"\n  },\n  {\n    \"type\": \"commonsense\",\n    \"user_skipped\": false,\n    \"text\": \"Car or road trip transport is not feasible for island or overseas destinations — a flight or ferry is required.\"\n  }\n]\n\nTasks:\n[\n  {\n    \"name\": \"bus_transport_search\",\n    \"type\": \"general-web-search\",\n    \"text\": \"Find the cheapest bus (e.g., FlixBus) or carpooling (e.g., BlaBlaCar) options from Stuttgart to Prague for June 20th and returning June 23rd, 2026 for a solo traveler.\",\n    \"is_valid\": true,\n    \"validation_comment\": null\n  },\n  {\n    \"name\": \"hostel_dorm_search\",\n    \"type\": \"hotel\",\n    \"text\": \"Find the cheapest shared hostel dorms in Prague for 3 nights (June 20-23, 2026) within walking distance of the Old Town to minimize local transport costs.\",\n    \"is_valid\": true,\n    \"validation_comment\": null\n  },\n  {\n    \"name\": \"free_attractions_prague\",\n    \"type\": \"attraction\",\n    \"text\": \"Identify free or very low-cost historical attractions in Prague's Old Town and surrounding areas, such as Charles Bridge, Old Town Square, and free walking tours.\",\n    \"is_valid\": true,\n    \"validation_comment\": null\n  },\n  {\n    \"name\": \"street_food_recommendations\",\n    \"type\": \"restaurant\",\n    \"text\": \"Find budget-friendly street food spots and cheap local eateries in Prague to fit a tight daily budget, focusing on local specialties like Trdelník or Chlebíčky.\",\n    \"is_valid\": true,\n    \"validation_comment\": null\n  },\n  {\n    \"name\": \"attraction_hours_check\",\n    \"type\": \"opening_times\",\n    \"text\": \"Verify the opening hours for major free landmarks in Prague like Charles Bridge and the Old Town Square for June 2026.\",\n    \"is_valid\": true,\n    \"validation_comment\": null\n  },\n  {\n    \"name\": \"itinerary_routing_check\",\n    \"type\": \"routing-check\",\n    \"text\": \"Check the walking distances between the selected hostel, street food spots, and free attractions to ensure no public transport costs are needed.\",\n    \"is_valid\": true,\n    \"validation_comment\": null\n  },\n  {\n    \"name\": \"budget_feasibility_check\",\n    \"type\": \"general-web-search\",\n    \"text\": \"Calculate the total estimated cost of transport, accommodation, and food to ensure the entire trip for the solo traveler stays under the €250 limit.\",\n    \"is_valid\": true,\n    \"validation_comment\": null\n  }\n]\n\nProposed timetable:\n# TravelPlan: Stuttgart to Prague ultra-budget solo trip, 20–23 June 2026\n\n| Day 1 — 2026-06-20 — Arrival + Old Town first walk | Day 2 — 2026-06-21 — Old Town, Jewish Quarter + Castle viewpoints | Day 3 — 2026-06-22 — Vyšehrad + riverside budget day | Day 4 — 2026-06-23 — Final morning + return to Stuttgart |\n| --- | --- | --- | --- |\n| **1. Target carpool: Stuttgart → Prague Florenc** [transport] 08:00–14:00 @ Stuttgart Hbf/SAB → ÚAN Florenc, Prague (€29.00) — Budget target: book a BlaBlaCar seat 2–14 days before departure; typical duration about 5h49 and estimated seat price €19–€29. Fixed backup: early-book FlixBus from Stuttgart Airport/North to Prague Florenc, usually €32.50+ one-way. Time is a practical planning window; confirm the exact driver or bus time when booking. — Links: [link 1](https://www.blablacar.com/), [link 2](https://www.flixbus.com/bus-routes/bus-prague-stuttgart) | **1. Hostel/simple breakfast** [meal] 08:00–08:30 @ Hostel Florenc / Florenc supermarket (€4.00) — Use hostel breakfast if included; otherwise buy supermarket rolls/yogurt/fruit. | **1. Hostel/simple breakfast** [meal] 08:00–08:30 @ Hostel Florenc / Florenc supermarket (€4.00) — Cheap hostel/supermarket breakfast: rolls, yogurt, fruit, or included hostel breakfast if available. | **1. Hostel/simple breakfast** [meal] 08:00–08:30 @ Hostel Florenc / Florenc supermarket (€4.00) — Final cheap breakfast from hostel breakfast or supermarket/bakery food. |\n| **2. Walk Florenc bus station → Hostel Florenc** [transport] 14:00–14:10 @ ÚAN Florenc to Hostel Florenc (€0.00) — Free 5-minute walk, about 331–359 m, from ÚAN Florenc to the hostel on Pod výtopnou. — Links: [link 1](https://www.rome2rio.com/s/Florenc-Bus-Station/Hotel-Florenc-Prague) | **2. Walk to free walking tour meeting area** [transport] 08:30–09:00 @ Hostel Florenc → Old Town / Powder Tower (€0.00) — Walk from Florenc to Old Town Square/Powder Tower area. The hostel-to-Old-Town walk is under 20 minutes; arrive early for a pre-booked tip-based tour. | **2. Walk Hostel Florenc → Vítkov Hill** [transport] 08:30–09:00 @ Hostel Florenc → Vítkov Hill (€0.00) — Walk from Florenc/Karlín up toward Vítkov; free local transit and a useful viewpoint route. | **2. Check out and store/keep backpack** [lodging] 08:30–09:00 @ Hostel Florenc (€0.00) — Check out by the hostel deadline. Avoid paid luggage storage if possible by carrying a small backpack; if needed, use hostel luggage room only if free. |\n| **3. Check in: Hostel Florenc shared dorm** [lodging] 14:10–14:40 @ Hostel Florenc, Pod výtopnou 163/10, Prague (€93.00) — Shared dorm base next to Florenc bus station; live hotel search found Sir Toby’s at €31/night, while Hostel Florenc is the more location-efficient target near the arrival terminal. Budget assumes €31/night x 3 nights plus local tax separately. — Links: [link 1](https://travelstack.nuitee.link/hotels/lp4eae0?checkin=2026-06-20&checkout=2026-06-23&rooms=1&adults=1&occupancies=W3siYWR1bHRzIjoxLCJjaGlsZHJlbiI6W119XQ%3D%3D&language=de&currency=EUR) | **3. Tip-based Old Town + Jewish Quarter walking tour** [attraction] 09:00–11:30 @ Old Town Square / Josefov, Prague (€10.00) — Tip-based historical walk covering Old Town, Jewish Quarter exteriors, Charles Bridge context, Astronomical Clock, and medieval lanes. No upfront fee; budget a modest €10 tip. — Links: [link 1](https://freewalkingtourprague.eu/en/schedule), [link 2](https://www.google.com/maps/search/Guruwalk+S.L.) | **3. Vítkov Hill + National Monument exterior** [attraction] 09:00–11:30 @ Vítkov, Žižkov, Prague (€0.00) — Free historical viewpoint over Žižkov and Karlín, with the Jan Žižka equestrian statue and National Monument exterior. The outdoor park/viewpoint costs nothing; skip paid museum interiors. — Links: [link 1](https://www.google.com/maps/search/Vítkov) | **3. Final free Old Town wander / souvenir-free morning** [attraction] 09:00–11:30 @ Florenc → Old Town / Na Příkopě / riverside (€0.00) — Walk the free central route again: Powder Tower exterior, Municipal House exterior, Old Town lanes, and riverside if weather is good. No paid towers or museums. — Links: [link 1](https://www.google.com/maps/search/Old+Town+Square+Prague) |\n| **4. Prague city tax reserve** [lodging] 14:40–14:45 @ Hostel Florenc (€6.00) — Reserve for local stay tax, typically about 50 CZK / €2 per person per night, payable at hostel check-in. | **4. Budget lunch: supermarket picnic / chlebíčky** [meal] 11:30–12:15 @ Old Town / Josefov budget deli or supermarket (€7.00) — Refuel with deli sandwiches/chlebíčky, bakery items, or supermarket picnic food instead of a sit-down restaurant in Prague 1. | **4. Budget lunch: Karlín bakery / supermarket picnic** [meal] 11:30–12:15 @ Karlín / Florenc (€7.00) — Use a bakery or supermarket in Karlín/Florenc for a cheap picnic lunch rather than a tourist restaurant. | **4. Cheap lunch before departure** [meal] 11:30–12:15 @ Florenc / Na Poříčí bakery or supermarket (€7.00) — Buy a final low-cost lunch from a bakery/supermarket near Florenc: rolls, chlebíčky, fruit, or a prepared deli item. |\n| **5. Cheap transit lunch: bakery/supermarket food** [meal] 14:45–15:15 @ Florenc / Na Poříčí supermarket or bakery (€5.00) — Buy rolls, cheese, fruit, or a chlebíček-style snack after arrival instead of eating in the tourist core. | **5. Walk Charles Bridge → Prague Castle district** [transport] 12:15–13:00 @ Charles Bridge → Prague Castle / Hradčany (€0.00) — Free uphill walk via Malá Strana/Nerudova or Old Castle Stairs. Charles Bridge to Castle is roughly 2.9 km from the Old Town side and can take up to ~34 minutes because of crowds and the climb. — Links: [link 1](https://www.rome2rio.com/s/Charles-Bridge/Prague-Castle) | **5. Free self-guided New Town walk** [attraction] 12:15–14:00 @ Florenc → Náměstí Republiky → Wenceslas Square (€0.00) — Walk from Florenc toward Republic Square, Municipal House exterior, Powder Tower exterior, and Wenceslas Square. All exterior sightseeing is free; skip tower/museum tickets. — Links: [link 1](https://www.google.com/maps/search/Powder+Tower+Prague) | **5. Walk to ÚAN Florenc and check departure point** [transport] 12:15–12:30 @ Florenc area → ÚAN Florenc (€0.00) — Free short walk back to Prague’s main bus/carpool hub; arrive early enough to confirm platform or driver pickup point. — Links: [link 1](https://www.rome2rio.com/s/Florenc-Bus-Station/Hotel-Florenc-Prague) |\n| **6. Walk Hostel Florenc → Old Town Square** [transport] 15:15–15:40 @ Hostel Florenc → Staroměstské náměstí (€0.00) — Free walk of about 1.4–1.5 km, typically 16–17 minutes; buffer added for orientation and cobblestones. — Links: [link 1](https://www.rome2rio.com/s/Florenc/Old-Town-Square-Residence-by-Emblem-Prague) | **6. Prague Castle courtyards + St. Vitus exterior/free nave** [attraction] 13:00–15:00 @ Prague Castle, Hradčany (€0.00) — Explore the free castle courtyards and viewpoints; castle grounds usually open 06:00–22:00, historical buildings 09:00–17:00 in summer. Skip the paid Castle Circuit; use the free exterior and limited cathedral nave access if available. — Links: [link 1](https://www.google.com/maps/search/Prague+Castle+Hradčany) | **6. Letná Park free viewpoint walk** [attraction] 14:00–16:30 @ Letná Park, Prague (€0.00) — Free riverside/park walk to Letná for classic Vltava bridge views without paying for a tower viewpoint. — Links: [link 1](https://www.google.com/maps/search/Letná+Park+Prague) | **6. Packed dinner/snacks for the road** [meal] 12:30–13:00 @ Florenc supermarket / bakery (€8.00) — Buy supermarket snacks/water before boarding so you do not need expensive station or rest-stop food. |\n| **7. Old Town Square + Astronomical Clock exterior** [attraction] 15:40–17:20 @ Old Town Square, Prague (€0.00) — Free first look at Prague’s historical core: Old Town Square, Týn Church exterior, Astronomical Clock hourly show. Public square is open 24/7; clock show runs hourly from 09:00 to 23:00. — Links: [link 1](https://www.tours-prague.eu/tour-oldtown-free.phtml) | **7. Nový Svět + Hradčany backstreets** [attraction] 15:00–16:30 @ Nový Svět / Hradčanské náměstí, Prague (€0.00) — Free slow walk through the quieter New World/Hradčany lanes and gas-lamp area for medieval atmosphere away from the tourist core. — Links: [link 1](https://www.google.com/maps/search/Kandelábr+plynového+pouličního+osvětlení+-+Hradčanské+nám.) | **7. 30-minute PID ticket reserve to Vyšehrad area** [transport] 16:30–17:00 @ Florenc / central Prague → Vyšehrad area (€2.00) — Use one short Prague public transport ticket if needed to reach Vyšehrad/Pod Vyšehradem without over-walking. Official 2026 30-min ticket: 36 CZK in PID Lítačka app, 39 CZK paper/contactless. — Links: [link 1](https://pidlitacka.cz/en/article/tarifni_zmeny) | **7. Target carpool: Prague Florenc → Stuttgart** [transport] 13:00–19:00 @ ÚAN Florenc, Prague → Stuttgart Hbf/SAB (€29.00) — Budget target: BlaBlaCar return seat, estimated €19–€29. Fixed backup: early FlixBus Prague→Stuttgart from around €26.50+ if booked early. Exact time must be confirmed once seats/tickets are released. — Links: [link 1](https://www.blablacar.com/), [link 2](https://www.flixbus.com/bus-routes/bus-prague-stuttgart) |\n| **8. Cheap dinner: chlebíčky / street-food style meal** [meal] 17:20–18:10 @ Old Town / Florenc budget bakery or deli (€8.00) — Choose budget sandwiches, bakery food, or a small Czech takeaway meal near Old Town/Florenc; avoid tourist-priced trdelník stands on Old Town Square. | **8. Cheap Czech pub dinner: U Černého vola** [meal] 16:30–17:30 @ U Černého vola, Loretánské nám. 107/1, Prague (€11.00) — Inexpensive traditional Czech pub near Hradčany; good fit after the castle walk. Keep order simple: one main or soup + bread, tap water if available. — Links: [link 1](https://www.facebook.com/hostinecucernehovola) | **8. Cheap Czech dinner: Pod Vyšehradem** [meal] 17:00–18:00 @ Pod Vyšehradem, Vratislavova 32, Prague (€11.00) — Inexpensive Czech meal at a well-rated budget restaurant near Vyšehrad. Keep order simple to stay under budget. — Links: [link 1](http://www.podvysehradem.eu/) |  |\n| **9. Charles Bridge sunset walk** [attraction] 18:10–19:30 @ Karlův most, Prague (€0.00) — Walk the Royal Way from Old Town Square to Charles Bridge; distance about 600–700 m / 8–12 minutes. Charles Bridge is free and open 24/7. — Links: [link 1](https://www.google.com/maps/search/Karlův+most+Prague) | **9. Downhill walk via Lesser Town + Lennon Wall** [attraction] 17:30–19:00 @ Malá Strana / John Lennon Wall (€0.00) — Free downhill walk through Malá Strana, including exterior lanes and John Lennon Wall, then back toward Old Town/Florenc as energy allows. — Links: [link 1](https://www.google.com/maps/search/John+Lennon+Wall+Prague) | **9. Vyšehrad ramparts sunset walk** [attraction] 18:00–19:30 @ Vyšehrad, Prague (€0.00) — Free historical fort ramparts and river views around Vyšehrad after dinner; skip paid interiors. — Links: [link 1](https://www.google.com/maps/search/Vyšehrad+Prague) |  |\n| **10. Return walk to hostel** [transport] 19:30–20:10 @ Charles Bridge → Hostel Florenc (€0.00) — Walk back toward Florenc through Old Town/New Town, keeping the day transport cost at €0 in Prague. | **10. Return walk to Hostel Florenc** [transport] 19:00–19:45 @ Malá Strana / Old Town → Hostel Florenc (€0.00) — Walk back via Old Town to keep local transit costs at zero. | **10. 30-minute PID ticket reserve back to Florenc** [transport] 19:30–20:00 @ Vyšehrad area → Hostel Florenc (€2.00) — Use a second short PID ticket back to Florenc/hostel if needed after the long day; walk only if comfortable. — Links: [link 1](https://pidlitacka.cz/en/article/tarifni_zmeny) |  |\n\n**Total estimated cost: €247.00** (Day 1: €141.00, Day 2: €32.00, Day 3: €26.00, Day 4: €48.00)\n\nValidate the itinerary and return PASS or FAIL with feedback."
+          },
+          {
+            "role": "assistant",
+            "content": "```json\n{\n  \"passed\": true,\n  \"issues_found\": [],\n  \"feedback\": \"The itinerary successfully meets all constraints and task requirements. It adheres to the very tight budget of €250 (estimated at €247), utilizes budget-friendly transport (bus/carpool), and focuses on free historical attractions and street food as requested. The logistics are sound, with walking distances and opening hours for major landmarks like Prague Castle and the Astronomical Clock taken into account.\"\n}\n```"
+          }
+        ]
+      }
+    },
+    "constraint_list": [
+      {
+        "type": "hard",
+        "user_skipped": false,
+        "text": "destination: Prague"
+      },
+      {
+        "type": "hard",
+        "user_skipped": false,
+        "text": "origin: Stuttgart"
+      },
+      {
+        "type": "hard",
+        "user_skipped": false,
+        "text": "travel_dates: June 20th to 23rd, 2026"
+      },
+      {
+        "type": "hard",
+        "user_skipped": false,
+        "text": "travelers: solo traveler"
+      },
+      {
+        "type": "hard",
+        "user_skipped": false,
+        "text": "budget: very tight budget of only €250 total"
+      },
+      {
+        "type": "hard",
+        "user_skipped": false,
+        "text": "accommodation: shared hostel dorm"
+      },
+      {
+        "type": "hard",
+        "user_skipped": false,
+        "text": "transport: bus or carpooling, no flying"
+      },
+      {
+        "type": "hard",
+        "user_skipped": false,
+        "text": "interests: free or cheap attractions, street food, historical old town, most budget-efficient trip possible"
+      },
+      {
+        "type": "commonsense",
+        "user_skipped": false,
+        "text": "Trip start date must be in the future."
+      },
+      {
+        "type": "commonsense",
+        "user_skipped": false,
+        "text": "Trip end date must be after the trip start date."
+      },
+      {
+        "type": "commonsense",
+        "user_skipped": false,
+        "text": "Trip duration must be at least 1 day."
+      },
+      {
+        "type": "commonsense",
+        "user_skipped": false,
+        "text": "Budget must be a positive value."
+      },
+      {
+        "type": "commonsense",
+        "user_skipped": false,
+        "text": "Car or road trip transport is not feasible for island or overseas destinations — a flight or ferry is required."
+      }
+    ],
+    "normalized_constraints": {
+      "destination": "Prague",
+      "origin": "Stuttgart",
+      "date_from": "2026.06.20",
+      "date_to": "2026.06.23",
+      "travelers": {
+        "adults": 1,
+        "children_under_6": 0,
+        "children_6_to_16": 0
+      },
+      "budget_amount": 250,
+      "budget_currency": "EUR",
+      "accommodation": "shared hostel dorm",
+      "transport": "Car",
+      "interests": "free or cheap attractions, street food, historical old town, most budget-efficient trip possible",
+      "destination_country": "Czech Republic",
+      "destination_country_code": "CZ",
+      "destination_currency": "CZK",
+      "destination_timezone": "Europe/Prague",
+      "destination_language": "Czech",
+      "origin_country": "Germany",
+      "origin_country_code": "DE",
+      "origin_currency": "EUR"
+    },
+    "task_list": [
+      {
+        "name": "bus_transport_search",
+        "type": "general-web-search",
+        "text": "Find the cheapest bus (e.g., FlixBus) or carpooling (e.g., BlaBlaCar) options from Stuttgart to Prague for June 20th and returning June 23rd, 2026 for a solo traveler.",
+        "is_valid": true
+      },
+      {
+        "name": "hostel_dorm_search",
+        "type": "hotel",
+        "text": "Find the cheapest shared hostel dorms in Prague for 3 nights (June 20-23, 2026) within walking distance of the Old Town to minimize local transport costs.",
+        "is_valid": true
+      },
+      {
+        "name": "free_attractions_prague",
+        "type": "attraction",
+        "text": "Identify free or very low-cost historical attractions in Prague's Old Town and surrounding areas, such as Charles Bridge, Old Town Square, and free walking tours.",
+        "is_valid": true
+      },
+      {
+        "name": "street_food_recommendations",
+        "type": "restaurant",
+        "text": "Find budget-friendly street food spots and cheap local eateries in Prague to fit a tight daily budget, focusing on local specialties like Trdelník or Chlebíčky.",
+        "is_valid": true
+      },
+      {
+        "name": "attraction_hours_check",
+        "type": "opening_times",
+        "text": "Verify the opening hours for major free landmarks in Prague like Charles Bridge and the Old Town Square for June 2026.",
+        "is_valid": true
+      },
+      {
+        "name": "itinerary_routing_check",
+        "type": "routing-check",
+        "text": "Check the walking distances between the selected hostel, street food spots, and free attractions to ensure no public transport costs are needed.",
+        "is_valid": true
+      },
+      {
+        "name": "budget_feasibility_check",
+        "type": "general-web-search",
+        "text": "Calculate the total estimated cost of transport, accommodation, and food to ensure the entire trip for the solo traveler stays under the €250 limit.",
+        "is_valid": true
+      }
+    ],
+    "travelplan": {
+      "title": "Stuttgart to Prague ultra-budget solo trip, 20–23 June 2026",
+      "days": [
+        {
+          "index": 1,
+          "calendar_date": "2026-06-20",
+          "label": "Arrival + Old Town first walk",
+          "slots": [
+            {
+              "name": "Target carpool: Stuttgart → Prague Florenc",
+              "description": "Budget target: book a BlaBlaCar seat 2–14 days before departure; typical duration about 5h49 and estimated seat price €19–€29. Fixed backup: early-book FlixBus from Stuttgart Airport/North to Prague Florenc, usually €32.50+ one-way. Time is a practical planning window; confirm the exact driver or bus time when booking.",
+              "start_time": "2026-06-20T08:00:00",
+              "end_time": "2026-06-20T14:00:00",
+              "category": "transport",
+              "location": "Stuttgart Hbf/SAB → ÚAN Florenc, Prague",
+              "cost": 29,
+              "links": [
+                "https://www.blablacar.com/",
+                "https://www.flixbus.com/bus-routes/bus-prague-stuttgart"
+              ],
+              "notes": "Avoid paid seat reservations and extra luggage; use one small backpack."
+            },
+            {
+              "name": "Walk Florenc bus station → Hostel Florenc",
+              "description": "Free 5-minute walk, about 331–359 m, from ÚAN Florenc to the hostel on Pod výtopnou.",
+              "start_time": "2026-06-20T14:00:00",
+              "end_time": "2026-06-20T14:10:00",
+              "category": "transport",
+              "location": "ÚAN Florenc to Hostel Florenc",
+              "cost": 0,
+              "links": [
+                "https://www.rome2rio.com/s/Florenc-Bus-Station/Hotel-Florenc-Prague"
+              ],
+              "notes": "No public transport ticket needed."
+            },
+            {
+              "name": "Check in: Hostel Florenc shared dorm",
+              "description": "Shared dorm base next to Florenc bus station; live hotel search found Sir Toby’s at €31/night, while Hostel Florenc is the more location-efficient target near the arrival terminal. Budget assumes €31/night x 3 nights plus local tax separately.",
+              "start_time": "2026-06-20T14:10:00",
+              "end_time": "2026-06-20T14:40:00",
+              "category": "lodging",
+              "location": "Hostel Florenc, Pod výtopnou 163/10, Prague",
+              "cost": 93,
+              "links": [
+                "https://travelstack.nuitee.link/hotels/lp4eae0?checkin=2026-06-20&checkout=2026-06-23&rooms=1&adults=1&occupancies=W3siYWR1bHRzIjoxLCJjaGlsZHJlbiI6W119XQ%3D%3D&language=de&currency=EUR"
+              ],
+              "notes": "Book direct/early if Hostel Florenc dorm is cheaper; keep target under €31/night."
+            },
+            {
+              "name": "Prague city tax reserve",
+              "description": "Reserve for local stay tax, typically about 50 CZK / €2 per person per night, payable at hostel check-in.",
+              "start_time": "2026-06-20T14:40:00",
+              "end_time": "2026-06-20T14:45:00",
+              "category": "lodging",
+              "location": "Hostel Florenc",
+              "cost": 6,
+              "links": [],
+              "notes": "3 nights x approx. €2."
+            },
+            {
+              "name": "Cheap transit lunch: bakery/supermarket food",
+              "description": "Buy rolls, cheese, fruit, or a chlebíček-style snack after arrival instead of eating in the tourist core.",
+              "start_time": "2026-06-20T14:45:00",
+              "end_time": "2026-06-20T15:15:00",
+              "category": "meal",
+              "location": "Florenc / Na Poříčí supermarket or bakery",
+              "cost": 5,
+              "links": [],
+              "notes": "Keep lunch under 125 CZK."
+            },
+            {
+              "name": "Walk Hostel Florenc → Old Town Square",
+              "description": "Free walk of about 1.4–1.5 km, typically 16–17 minutes; buffer added for orientation and cobblestones.",
+              "start_time": "2026-06-20T15:15:00",
+              "end_time": "2026-06-20T15:40:00",
+              "category": "transport",
+              "location": "Hostel Florenc → Staroměstské náměstí",
+              "cost": 0,
+              "links": [
+                "https://www.rome2rio.com/s/Florenc/Old-Town-Square-Residence-by-Emblem-Prague"
+              ],
+              "notes": "Avoid metro fare unless weather is bad."
+            },
+            {
+              "name": "Old Town Square + Astronomical Clock exterior",
+              "description": "Free first look at Prague’s historical core: Old Town Square, Týn Church exterior, Astronomical Clock hourly show. Public square is open 24/7; clock show runs hourly from 09:00 to 23:00.",
+              "start_time": "2026-06-20T15:40:00",
+              "end_time": "2026-06-20T17:20:00",
+              "category": "attraction",
+              "location": "Old Town Square, Prague",
+              "cost": 0,
+              "links": [
+                "https://www.tours-prague.eu/tour-oldtown-free.phtml"
+              ],
+              "notes": "Skip paid Old Town Hall Tower to protect the €250 budget."
+            },
+            {
+              "name": "Cheap dinner: chlebíčky / street-food style meal",
+              "description": "Choose budget sandwiches, bakery food, or a small Czech takeaway meal near Old Town/Florenc; avoid tourist-priced trdelník stands on Old Town Square.",
+              "start_time": "2026-06-20T17:20:00",
+              "end_time": "2026-06-20T18:10:00",
+              "category": "meal",
+              "location": "Old Town / Florenc budget bakery or deli",
+              "cost": 8,
+              "links": [],
+              "notes": "Target 200 CZK or less."
+            },
+            {
+              "name": "Charles Bridge sunset walk",
+              "description": "Walk the Royal Way from Old Town Square to Charles Bridge; distance about 600–700 m / 8–12 minutes. Charles Bridge is free and open 24/7.",
+              "start_time": "2026-06-20T18:10:00",
+              "end_time": "2026-06-20T19:30:00",
+              "category": "attraction",
+              "location": "Karlův most, Prague",
+              "cost": 0,
+              "links": [
+                "https://www.google.com/maps/search/Karlův+most+Prague"
+              ],
+              "notes": "Bridge towers are paid; skip them."
+            },
+            {
+              "name": "Return walk to hostel",
+              "description": "Walk back toward Florenc through Old Town/New Town, keeping the day transport cost at €0 in Prague.",
+              "start_time": "2026-06-20T19:30:00",
+              "end_time": "2026-06-20T20:10:00",
+              "category": "transport",
+              "location": "Charles Bridge → Hostel Florenc",
+              "cost": 0,
+              "links": [],
+              "notes": "Use well-lit central streets."
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "calendar_date": "2026-06-21",
+          "label": "Old Town, Jewish Quarter + Castle viewpoints",
+          "slots": [
+            {
+              "name": "Hostel/simple breakfast",
+              "description": "Use hostel breakfast if included; otherwise buy supermarket rolls/yogurt/fruit.",
+              "start_time": "2026-06-21T08:00:00",
+              "end_time": "2026-06-21T08:30:00",
+              "category": "meal",
+              "location": "Hostel Florenc / Florenc supermarket",
+              "cost": 4,
+              "links": [],
+              "notes": "Target 100 CZK or less."
+            },
+            {
+              "name": "Walk to free walking tour meeting area",
+              "description": "Walk from Florenc to Old Town Square/Powder Tower area. The hostel-to-Old-Town walk is under 20 minutes; arrive early for a pre-booked tip-based tour.",
+              "start_time": "2026-06-21T08:30:00",
+              "end_time": "2026-06-21T09:00:00",
+              "category": "transport",
+              "location": "Hostel Florenc → Old Town / Powder Tower",
+              "cost": 0,
+              "links": [],
+              "notes": "Reserve online 1–2 days before; choose English."
+            },
+            {
+              "name": "Tip-based Old Town + Jewish Quarter walking tour",
+              "description": "Tip-based historical walk covering Old Town, Jewish Quarter exteriors, Charles Bridge context, Astronomical Clock, and medieval lanes. No upfront fee; budget a modest €10 tip.",
+              "start_time": "2026-06-21T09:00:00",
+              "end_time": "2026-06-21T11:30:00",
+              "category": "attraction",
+              "location": "Old Town Square / Josefov, Prague",
+              "cost": 10,
+              "links": [
+                "https://freewalkingtourprague.eu/en/schedule",
+                "https://www.google.com/maps/search/Guruwalk+S.L."
+              ],
+              "notes": "Do not enter paid synagogues/cemetery on this ultra-budget version."
+            },
+            {
+              "name": "Budget lunch: supermarket picnic / chlebíčky",
+              "description": "Refuel with deli sandwiches/chlebíčky, bakery items, or supermarket picnic food instead of a sit-down restaurant in Prague 1.",
+              "start_time": "2026-06-21T11:30:00",
+              "end_time": "2026-06-21T12:15:00",
+              "category": "meal",
+              "location": "Old Town / Josefov budget deli or supermarket",
+              "cost": 7,
+              "links": [],
+              "notes": "Target 175 CZK or less."
+            },
+            {
+              "name": "Prague Castle courtyards + St. Vitus exterior/free nave",
+              "description": "Explore the free castle courtyards and viewpoints; castle grounds usually open 06:00–22:00, historical buildings 09:00–17:00 in summer. Skip the paid Castle Circuit; use the free exterior and limited cathedral nave access if available.",
+              "start_time": "2026-06-21T13:00:00",
+              "end_time": "2026-06-21T15:00:00",
+              "category": "attraction",
+              "location": "Prague Castle, Hradčany",
+              "cost": 0,
+              "links": [
+                "https://www.google.com/maps/search/Prague+Castle+Hradčany"
+              ],
+              "notes": "Security checks can add time."
+            },
+            {
+              "name": "Nový Svět + Hradčany backstreets",
+              "description": "Free slow walk through the quieter New World/Hradčany lanes and gas-lamp area for medieval atmosphere away from the tourist core.",
+              "start_time": "2026-06-21T15:00:00",
+              "end_time": "2026-06-21T16:30:00",
+              "category": "attraction",
+              "location": "Nový Svět / Hradčanské náměstí, Prague",
+              "cost": 0,
+              "links": [
+                "https://www.google.com/maps/search/Kandelábr+plynového+pouličního+osvětlení+-+Hradčanské+nám."
+              ],
+              "notes": "Good low-cost alternative to paid interiors."
+            },
+            {
+              "name": "Cheap Czech pub dinner: U Černého vola",
+              "description": "Inexpensive traditional Czech pub near Hradčany; good fit after the castle walk. Keep order simple: one main or soup + bread, tap water if available.",
+              "start_time": "2026-06-21T16:30:00",
+              "end_time": "2026-06-21T17:30:00",
+              "category": "meal",
+              "location": "U Černého vola, Loretánské nám. 107/1, Prague",
+              "cost": 11,
+              "links": [
+                "https://www.facebook.com/hostinecucernehovola"
+              ],
+              "notes": "Open daily 10:00–22:00 per restaurant lookup."
+            },
+            {
+              "name": "Downhill walk via Lesser Town + Lennon Wall",
+              "description": "Free downhill walk through Malá Strana, including exterior lanes and John Lennon Wall, then back toward Old Town/Florenc as energy allows.",
+              "start_time": "2026-06-21T17:30:00",
+              "end_time": "2026-06-21T19:00:00",
+              "category": "attraction",
+              "location": "Malá Strana / John Lennon Wall",
+              "cost": 0,
+              "links": [
+                "https://www.google.com/maps/search/John+Lennon+Wall+Prague"
+              ],
+              "notes": "Lennon Wall is a free public landmark."
+            },
+            {
+              "name": "Return walk to Hostel Florenc",
+              "description": "Walk back via Old Town to keep local transit costs at zero.",
+              "start_time": "2026-06-21T19:00:00",
+              "end_time": "2026-06-21T19:45:00",
+              "category": "transport",
+              "location": "Malá Strana / Old Town → Hostel Florenc",
+              "cost": 0,
+              "links": [],
+              "notes": "If feet are done, use one PID 30-min ticket instead."
+            },
+            {
+              "name": "Walk Charles Bridge → Prague Castle district",
+              "description": "Free uphill walk via Malá Strana/Nerudova or Old Castle Stairs. Charles Bridge to Castle is roughly 2.9 km from the Old Town side and can take up to ~34 minutes because of crowds and the climb.",
+              "start_time": "2026-06-21T12:15:00",
+              "end_time": "2026-06-21T13:00:00",
+              "category": "transport",
+              "location": "Charles Bridge → Prague Castle / Hradčany",
+              "cost": 0,
+              "links": [
+                "https://www.rome2rio.com/s/Charles-Bridge/Prague-Castle"
+              ],
+              "notes": "If exhausted, Tram 22 is the fallback but costs a 30-min ticket."
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "calendar_date": "2026-06-22",
+          "label": "Vyšehrad + riverside budget day",
+          "slots": [
+            {
+              "name": "Hostel/simple breakfast",
+              "description": "Cheap hostel/supermarket breakfast: rolls, yogurt, fruit, or included hostel breakfast if available.",
+              "start_time": "2026-06-22T08:00:00",
+              "end_time": "2026-06-22T08:30:00",
+              "category": "meal",
+              "location": "Hostel Florenc / Florenc supermarket",
+              "cost": 4,
+              "links": [],
+              "notes": "Keep under 100 CZK."
+            },
+            {
+              "name": "Walk Hostel Florenc → Vítkov Hill",
+              "description": "Walk from Florenc/Karlín up toward Vítkov; free local transit and a useful viewpoint route.",
+              "start_time": "2026-06-22T08:30:00",
+              "end_time": "2026-06-22T09:00:00",
+              "category": "transport",
+              "location": "Hostel Florenc → Vítkov Hill",
+              "cost": 0,
+              "links": [],
+              "notes": "Expect an uphill section."
+            },
+            {
+              "name": "Vítkov Hill + National Monument exterior",
+              "description": "Free historical viewpoint over Žižkov and Karlín, with the Jan Žižka equestrian statue and National Monument exterior. The outdoor park/viewpoint costs nothing; skip paid museum interiors.",
+              "start_time": "2026-06-22T09:00:00",
+              "end_time": "2026-06-22T11:30:00",
+              "category": "attraction",
+              "location": "Vítkov, Žižkov, Prague",
+              "cost": 0,
+              "links": [
+                "https://www.google.com/maps/search/Vítkov"
+              ],
+              "notes": "Good contrast to touristy Old Town."
+            },
+            {
+              "name": "Budget lunch: Karlín bakery / supermarket picnic",
+              "description": "Use a bakery or supermarket in Karlín/Florenc for a cheap picnic lunch rather than a tourist restaurant.",
+              "start_time": "2026-06-22T11:30:00",
+              "end_time": "2026-06-22T12:15:00",
+              "category": "meal",
+              "location": "Karlín / Florenc",
+              "cost": 7,
+              "links": [],
+              "notes": "Target 175 CZK or less."
+            },
+            {
+              "name": "Free self-guided New Town walk",
+              "description": "Walk from Florenc toward Republic Square, Municipal House exterior, Powder Tower exterior, and Wenceslas Square. All exterior sightseeing is free; skip tower/museum tickets.",
+              "start_time": "2026-06-22T12:15:00",
+              "end_time": "2026-06-22T14:00:00",
+              "category": "attraction",
+              "location": "Florenc → Náměstí Republiky → Wenceslas Square",
+              "cost": 0,
+              "links": [
+                "https://www.google.com/maps/search/Powder+Tower+Prague"
+              ],
+              "notes": "Powder Tower entry is paid, but exterior is free."
+            },
+            {
+              "name": "Letná Park free viewpoint walk",
+              "description": "Free riverside/park walk to Letná for classic Vltava bridge views without paying for a tower viewpoint.",
+              "start_time": "2026-06-22T14:00:00",
+              "end_time": "2026-06-22T16:30:00",
+              "category": "attraction",
+              "location": "Letná Park, Prague",
+              "cost": 0,
+              "links": [
+                "https://www.google.com/maps/search/Letná+Park+Prague"
+              ],
+              "notes": "Bring water from supermarket."
+            },
+            {
+              "name": "30-minute PID ticket reserve to Vyšehrad area",
+              "description": "Use one short Prague public transport ticket if needed to reach Vyšehrad/Pod Vyšehradem without over-walking. Official 2026 30-min ticket: 36 CZK in PID Lítačka app, 39 CZK paper/contactless.",
+              "start_time": "2026-06-22T16:30:00",
+              "end_time": "2026-06-22T17:00:00",
+              "category": "transport",
+              "location": "Florenc / central Prague → Vyšehrad area",
+              "cost": 2,
+              "links": [
+                "https://pidlitacka.cz/en/article/tarifni_zmeny"
+              ],
+              "notes": "Walk instead if energy/weather allow."
+            },
+            {
+              "name": "Cheap Czech dinner: Pod Vyšehradem",
+              "description": "Inexpensive Czech meal at a well-rated budget restaurant near Vyšehrad. Keep order simple to stay under budget.",
+              "start_time": "2026-06-22T17:00:00",
+              "end_time": "2026-06-22T18:00:00",
+              "category": "meal",
+              "location": "Pod Vyšehradem, Vratislavova 32, Prague",
+              "cost": 11,
+              "links": [
+                "http://www.podvysehradem.eu/"
+              ],
+              "notes": "Open Monday 11:00–22:00 per restaurant lookup."
+            },
+            {
+              "name": "30-minute PID ticket reserve back to Florenc",
+              "description": "Use a second short PID ticket back to Florenc/hostel if needed after the long day; walk only if comfortable.",
+              "start_time": "2026-06-22T19:30:00",
+              "end_time": "2026-06-22T20:00:00",
+              "category": "transport",
+              "location": "Vyšehrad area → Hostel Florenc",
+              "cost": 2,
+              "links": [
+                "https://pidlitacka.cz/en/article/tarifni_zmeny"
+              ],
+              "notes": "This is the main local transport allowance of the trip."
+            },
+            {
+              "name": "Vyšehrad ramparts sunset walk",
+              "description": "Free historical fort ramparts and river views around Vyšehrad after dinner; skip paid interiors.",
+              "start_time": "2026-06-22T18:00:00",
+              "end_time": "2026-06-22T19:30:00",
+              "category": "attraction",
+              "location": "Vyšehrad, Prague",
+              "cost": 0,
+              "links": [
+                "https://www.google.com/maps/search/Vyšehrad+Prague"
+              ],
+              "notes": "Good value evening viewpoint."
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "calendar_date": "2026-06-23",
+          "label": "Final morning + return to Stuttgart",
+          "slots": [
+            {
+              "name": "Hostel/simple breakfast",
+              "description": "Final cheap breakfast from hostel breakfast or supermarket/bakery food.",
+              "start_time": "2026-06-23T08:00:00",
+              "end_time": "2026-06-23T08:30:00",
+              "category": "meal",
+              "location": "Hostel Florenc / Florenc supermarket",
+              "cost": 4,
+              "links": [],
+              "notes": "Keep under 100 CZK."
+            },
+            {
+              "name": "Check out and store/keep backpack",
+              "description": "Check out by the hostel deadline. Avoid paid luggage storage if possible by carrying a small backpack; if needed, use hostel luggage room only if free.",
+              "start_time": "2026-06-23T08:30:00",
+              "end_time": "2026-06-23T09:00:00",
+              "category": "lodging",
+              "location": "Hostel Florenc",
+              "cost": 0,
+              "links": [],
+              "notes": "Hostel Florenc/hostels often check out around 10:00–11:00; confirm exact time."
+            },
+            {
+              "name": "Cheap lunch before departure",
+              "description": "Buy a final low-cost lunch from a bakery/supermarket near Florenc: rolls, chlebíčky, fruit, or a prepared deli item.",
+              "start_time": "2026-06-23T11:30:00",
+              "end_time": "2026-06-23T12:15:00",
+              "category": "meal",
+              "location": "Florenc / Na Poříčí bakery or supermarket",
+              "cost": 7,
+              "links": [],
+              "notes": "Target 175 CZK or less."
+            },
+            {
+              "name": "Walk to ÚAN Florenc and check departure point",
+              "description": "Free short walk back to Prague’s main bus/carpool hub; arrive early enough to confirm platform or driver pickup point.",
+              "start_time": "2026-06-23T12:15:00",
+              "end_time": "2026-06-23T12:30:00",
+              "category": "transport",
+              "location": "Florenc area → ÚAN Florenc",
+              "cost": 0,
+              "links": [
+                "https://www.rome2rio.com/s/Florenc-Bus-Station/Hotel-Florenc-Prague"
+              ],
+              "notes": "Florenc terminal is next to the hostel."
+            },
+            {
+              "name": "Target carpool: Prague Florenc → Stuttgart",
+              "description": "Budget target: BlaBlaCar return seat, estimated €19–€29. Fixed backup: early FlixBus Prague→Stuttgart from around €26.50+ if booked early. Exact time must be confirmed once seats/tickets are released.",
+              "start_time": "2026-06-23T13:00:00",
+              "end_time": "2026-06-23T19:00:00",
+              "category": "transport",
+              "location": "ÚAN Florenc, Prague → Stuttgart Hbf/SAB",
+              "cost": 29,
+              "links": [
+                "https://www.blablacar.com/",
+                "https://www.flixbus.com/bus-routes/bus-prague-stuttgart"
+              ],
+              "notes": "If carpool availability is weak, book FlixBus early; this plan still stays close to budget with cheapest bus fares."
+            },
+            {
+              "name": "Packed dinner/snacks for the road",
+              "description": "Buy supermarket snacks/water before boarding so you do not need expensive station or rest-stop food.",
+              "start_time": "2026-06-23T12:30:00",
+              "end_time": "2026-06-23T13:00:00",
+              "category": "meal",
+              "location": "Florenc supermarket / bakery",
+              "cost": 8,
+              "links": [],
+              "notes": "Use remaining coins/CZK; target 200 CZK or less."
+            },
+            {
+              "name": "Final free Old Town wander / souvenir-free morning",
+              "description": "Walk the free central route again: Powder Tower exterior, Municipal House exterior, Old Town lanes, and riverside if weather is good. No paid towers or museums.",
+              "start_time": "2026-06-23T09:00:00",
+              "end_time": "2026-06-23T11:30:00",
+              "category": "attraction",
+              "location": "Florenc → Old Town / Na Příkopě / riverside",
+              "cost": 0,
+              "links": [
+                "https://www.google.com/maps/search/Old+Town+Square+Prague"
+              ],
+              "notes": "Use the morning for photos before crowds build."
+            }
+          ]
+        }
+      ]
+    },
+    "todos": [
+      {
+        "title": "Initialize Prague budget trip plan and days",
+        "status": "completed",
+        "description": ""
+      },
+      {
+        "title": "Research budget transport, hostel, attractions, eateries, and key opening facts",
+        "status": "completed",
+        "description": ""
+      },
+      {
+        "title": "Check walking/transfer timings to minimize local transport costs",
+        "status": "completed",
+        "description": ""
+      },
+      {
+        "title": "Add transport, lodging, meals, and attraction slots within budget",
+        "status": "completed",
+        "description": ""
+      },
+      {
+        "title": "Review cost summary and finalize concise trip summary",
+        "status": "completed",
+        "description": ""
+      }
+    ],
+    "agent_artifacts": {
+      "constraint_agent": [
+        {
+          "name": "constraint_agent",
+          "type": "constraint-extraction-result",
+          "content": {
+            "query": "I am travelling solo from Stuttgart to Prague from June 20th to 23rd, 2026 on a very tight budget of only €250 total. I am happy to stay in a shared hostel dorm. I prefer to travel by bus or carpooling rather than flying. I am interested in free or cheap attractions, street food, and the historical old town. Please plan the most budget-efficient trip possible.",
+            "corrected_query": "I am travelling solo from Stuttgart to Prague from June 20th to 23rd, 2026 on a very tight budget of only €250 total. I am happy to stay in a shared hostel dorm. I prefer to travel by bus or carpooling rather than flying. I am interested in free or cheap attractions, street food, and the historical old town. Please plan the most budget-efficient trip possible.",
+            "status": "success",
+            "hard_constraints": [
+              {
+                "type": "hard",
+                "user_skipped": false,
+                "text": "destination: Prague"
+              },
+              {
+                "type": "hard",
+                "user_skipped": false,
+                "text": "origin: Stuttgart"
+              },
+              {
+                "type": "hard",
+                "user_skipped": false,
+                "text": "travel_dates: June 20th to 23rd, 2026"
+              },
+              {
+                "type": "hard",
+                "user_skipped": false,
+                "text": "travelers: solo traveler"
+              },
+              {
+                "type": "hard",
+                "user_skipped": false,
+                "text": "budget: very tight budget of only €250 total"
+              },
+              {
+                "type": "hard",
+                "user_skipped": false,
+                "text": "accommodation: shared hostel dorm"
+              },
+              {
+                "type": "hard",
+                "user_skipped": false,
+                "text": "transport: bus or carpooling, no flying"
+              },
+              {
+                "type": "hard",
+                "user_skipped": false,
+                "text": "interests: free or cheap attractions, street food, historical old town, most budget-efficient trip possible"
+              }
+            ],
+            "commonsense_constraints": [
+              {
+                "type": "commonsense",
+                "user_skipped": false,
+                "text": "Trip start date must be in the future."
+              },
+              {
+                "type": "commonsense",
+                "user_skipped": false,
+                "text": "Trip end date must be after the trip start date."
+              },
+              {
+                "type": "commonsense",
+                "user_skipped": false,
+                "text": "Trip duration must be at least 1 day."
+              },
+              {
+                "type": "commonsense",
+                "user_skipped": false,
+                "text": "Budget must be a positive value."
+              },
+              {
+                "type": "commonsense",
+                "user_skipped": false,
+                "text": "Car or road trip transport is not feasible for island or overseas destinations — a flight or ferry is required."
+              }
+            ],
+            "categories_missing": [],
+            "categories_skipped_by_user": [],
+            "interaction_turns": 2,
+            "normalized_constraints": {
+              "destination": "Prague",
+              "origin": "Stuttgart",
+              "date_from": "2026.06.20",
+              "date_to": "2026.06.23",
+              "travelers": {
+                "adults": 1,
+                "children_under_6": 0,
+                "children_6_to_16": 0
+              },
+              "budget_amount": 250,
+              "budget_currency": "EUR",
+              "accommodation": "shared hostel dorm",
+              "transport": "Car",
+              "interests": "free or cheap attractions, street food, historical old town, most budget-efficient trip possible",
+              "destination_country": "Czech Republic",
+              "destination_country_code": "CZ",
+              "destination_currency": "CZK",
+              "destination_timezone": "Europe/Prague",
+              "destination_language": "Czech",
+              "origin_country": "Germany",
+              "origin_country_code": "DE",
+              "origin_currency": "EUR"
+            },
+            "model": "openrouter:google/gemini-3-flash-preview"
+          },
+          "description": "Constraint extraction for: I am travelling solo from Stuttgart to Prague from June 20th to 23rd, 2026 on a "
+        }
+      ]
+    },
+    "validation_passed": true,
+    "validation_feedback": "The itinerary successfully meets all constraints and task requirements. It adheres to the very tight budget of €250 (estimated at €247), utilizes budget-friendly transport (bus/carpool), and focuses on free historical attractions and street food as requested. The logistics are sound, with walking distances and opening hours for major landmarks like Prague Castle and the Astronomical Clock taken into account.",
+    "validation_attempts": 1
+  },
+  "error": null,
+  "metadata": {
+    "LANGSMITH_ENDPOINT": "https://eu.api.smith.langchain.com",
+    "LANGSMITH_PROJECT": "travelplanner",
+    "LANGSMITH_TRACING": "true",
+    "ls_integration": "langgraph",
+    "ls_run_depth": 0,
+    "revision_id": "7ae4669-dirty",
+    "thread_id": "138cc3e8-4655-4888-a014-19463ae83e59"
+  },
+  "langsmith": {
+    "organization": {
+      "name": "Personal",
+      "id": "477adfd8-a90b-45c3-95f6-1375325770e8"
+    },
+    "workspace": {
+      "name": "Workspace 1",
+      "id": "06241d75-72ec-4af5-b325-52629e7730a0"
+    },
+    "tracing_project": {
+      "id": "d92c06e8-225e-4665-a627-fdf375468f7c",
+      "name": "travelplanner"
+    }
+  }
+}

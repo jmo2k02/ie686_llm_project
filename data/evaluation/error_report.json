@@ -1,0 +1,208 @@
+{
+  "total_runs": 29,
+  "clean_runs": 27,
+  "per_class": {
+    "REPEATED_TOOL_CALL": 0,
+    "REPEATED_QUERY": 0,
+    "DEAD_LOOP": 2,
+    "CASCADING_ERROR": 0,
+    "HANDOFF_FAILURE": 0
+  },
+  "per_class_pct": {
+    "REPEATED_TOOL_CALL": 0.0,
+    "REPEATED_QUERY": 0.0,
+    "DEAD_LOOP": 6.9,
+    "CASCADING_ERROR": 0.0,
+    "HANDOFF_FAILURE": 0.0
+  },
+  "classifications": [
+    {
+      "run_id": "run-019e31d9-cb29-70f1-87d9-a7166645dacc",
+      "source": "baseline",
+      "error_classes": [],
+      "flags": {}
+    },
+    {
+      "run_id": "run-019e31db-fda5-7ff2-8455-901a16e3e706",
+      "source": "baseline",
+      "error_classes": [],
+      "flags": {}
+    },
+    {
+      "run_id": "run-019e31de-2cdd-7571-8bc5-ba9a8c44c5c8",
+      "source": "baseline",
+      "error_classes": [],
+      "flags": {}
+    },
+    {
+      "run_id": "run-019e31df-b42b-7dd0-ac94-414c430daf87",
+      "source": "baseline",
+      "error_classes": [],
+      "flags": {}
+    },
+    {
+      "run_id": "run-019e31e1-8e99-7211-aee8-9173da3a6b42",
+      "source": "baseline",
+      "error_classes": [],
+      "flags": {}
+    },
+    {
+      "run_id": "run-019e31e3-08d2-79a3-93ee-0c104e936cb6",
+      "source": "baseline",
+      "error_classes": [],
+      "flags": {}
+    },
+    {
+      "run_id": "run-019e31e4-bcfd-7500-bfa5-11bb3be6756a",
+      "source": "baseline",
+      "error_classes": [],
+      "flags": {}
+    },
+    {
+      "run_id": "run-019e31e6-f032-7973-a572-5c59b1b4b6ad",
+      "source": "baseline",
+      "error_classes": [],
+      "flags": {}
+    },
+    {
+      "run_id": "run-019e31e8-6914-7af1-b6a8-3f69d4694abb",
+      "source": "baseline",
+      "error_classes": [],
+      "flags": {}
+    },
+    {
+      "run_id": "run-019e31ea-c656-7531-a56d-08b64862bf19",
+      "source": "baseline",
+      "error_classes": [],
+      "flags": {}
+    },
+    {
+      "run_id": "run-019e31ed-8a63-77e2-9390-67b091f4b4e6",
+      "source": "baseline",
+      "error_classes": [],
+      "flags": {}
+    },
+    {
+      "run_id": "run-019e31f0-35d2-7af1-8275-9b1174b8c0b0",
+      "source": "baseline",
+      "error_classes": [],
+      "flags": {}
+    },
+    {
+      "run_id": "run-019e31f1-bc9f-7fd3-a98c-39de7d6f439c",
+      "source": "baseline",
+      "error_classes": [],
+      "flags": {}
+    },
+    {
+      "run_id": "run-019e31f3-869e-7410-8b79-72817cf738e1",
+      "source": "baseline",
+      "error_classes": [],
+      "flags": {}
+    },
+    {
+      "run_id": "run-019e30e2-040b-79d2-b82e-a5ca9c720ad1",
+      "source": "travel_agent",
+      "error_classes": [],
+      "flags": {}
+    },
+    {
+      "run_id": "run-019e30e9-5a48-7d21-8141-76c25d06e1d0",
+      "source": "travel_agent",
+      "error_classes": [],
+      "flags": {}
+    },
+    {
+      "run_id": "run-019e30f0-c457-7b72-9ad9-01656f704cdc",
+      "source": "travel_agent",
+      "error_classes": [],
+      "flags": {}
+    },
+    {
+      "run_id": "run-019e30f5-baf1-73e3-9d80-fac667a9d285",
+      "source": "travel_agent",
+      "error_classes": [
+        "DEAD_LOOP"
+      ],
+      "flags": {
+        "DEAD_LOOP": {
+          "trigger": "validation_loop",
+          "attempts": 3
+        }
+      }
+    },
+    {
+      "run_id": "run-019e3139-9620-78e2-9742-b53189867ea9",
+      "source": "travel_agent",
+      "error_classes": [],
+      "flags": {}
+    },
+    {
+      "run_id": "run-019e3140-2290-7743-b923-de2df567958e",
+      "source": "travel_agent",
+      "error_classes": [],
+      "flags": {}
+    },
+    {
+      "run_id": "run-019e3150-02bf-7471-8e63-f12ad2e4bcb4",
+      "source": "travel_agent",
+      "error_classes": [],
+      "flags": {}
+    },
+    {
+      "run_id": "run-019e3160-f2d0-71e2-9549-5b51d9dd2a4b",
+      "source": "travel_agent",
+      "error_classes": [
+        "DEAD_LOOP"
+      ],
+      "flags": {
+        "DEAD_LOOP": {
+          "trigger": "validation_loop",
+          "attempts": 3
+        }
+      }
+    },
+    {
+      "run_id": "run-019e316b-92a9-7710-8b5f-68fffa29eed2",
+      "source": "travel_agent",
+      "error_classes": [],
+      "flags": {}
+    },
+    {
+      "run_id": "run-019e3172-4f4b-7710-9792-eb015e3252b0",
+      "source": "travel_agent",
+      "error_classes": [],
+      "flags": {}
+    },
+    {
+      "run_id": "run-019e3178-3456-7aa0-804a-832c6ff0f889",
+      "source": "travel_agent",
+      "error_classes": [],
+      "flags": {}
+    },
+    {
+      "run_id": "run-019e317e-c71c-73f0-a34e-3a3b57357b6c",
+      "source": "travel_agent",
+      "error_classes": [],
+      "flags": {}
+    },
+    {
+      "run_id": "run-019e3189-15cd-7f10-9641-da0bfeef29b2",
+      "source": "travel_agent",
+      "error_classes": [],
+      "flags": {}
+    },
+    {
+      "run_id": "run-019e319b-12cf-77f1-ba10-95817e5a4aa5",
+      "source": "travel_agent",
+      "error_classes": [],
+      "flags": {}
+    },
+    {
+      "run_id": "run-019e31a3-434b-7083-8b8c-e909e9119ac5",
+      "source": "travel_agent",
+      "error_classes": [],
+      "flags": {}
+    }
+  ]
+}

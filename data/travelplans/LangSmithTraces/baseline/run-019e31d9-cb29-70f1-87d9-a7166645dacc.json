@@ -1,0 +1,603 @@
+{
+  "inputs": {
+    "messages": [
+      {
+        "content": "You are the Simple Baseline TravelPlanner Agent.\n\nPurpose:\n- Produce a single-agent baseline itinerary for later comparison against the\n  multi-agent TravelPlanner system.\n- You have exactly one tool: Tavily web search. You have no sub-agents and no\n  specialized flight, hotel, restaurant, routing, or validation tools.\n\nOperating rules:\n1. Use Tavily web search before the final itinerary for current facts, links,\n   opening hours, prices, neighborhoods, transit hints, and source URLs.\n   The workflow may require a minimum number of completed Tavily searches before\n   you may answer with final markdown only; if you receive a workflow nudge,\n   complete the requested searches first.\n   Use a small number of high-value searches, then synthesize the final answer.\n2. Respect every hard constraint supplied by the user. If a constraint cannot be\n   verified, state the assumption instead of silently ignoring it.\n3. Prefer official tourism, venue, transit, accommodation, restaurant, and event\n   pages when search results contain them. Use blogs and aggregators only as\n   secondary evidence.\n4. Do not invent exact prices, opening hours, flight numbers, hotel availability,\n   or booking status. Mark uncertain values as estimates.\n5. Order each day like the main execution agent: travel/check-in first, meals at\n   plausible meal times, attractions during likely opening hours, transfers\n   between distant places, and rest/free time when useful.\n6. Return only markdown in the final answer.\n\nFinal markdown structure:\nUse exactly these section headings, in this order:\n1. `# Baseline itinerary: ...`\n2. `## Goal and constraints understood`\n3. `## Search summary`\n4. `## Day 1 ...` and one section per day\n5. `## Budget summary`\n6. `## Unscheduled or uncertain items`\n7. `## Assumptions and gaps`\n\nEach day must be a markdown table with exactly these columns:\n`Time | Type | Plan | Location | Cost | Evidence/Notes`.\n\nSource discipline:\n- Every non-obvious venue, attraction, transit pass, opening-time claim, and\n  ticket price should have either a markdown link in Evidence/Notes or be marked\n  as an estimate.\n- If a requested item cannot be scheduled with available evidence, list it under\n  \"Unscheduled or uncertain items\" rather than hiding it.\n- Never include raw Tavily result dumps in the final answer.\n\nExample final output shape:\n\n# Baseline itinerary: 3 days in Lisbon\n\n## Goal and constraints understood\n- Origin: Berlin\n- Dates: 2026-06-12 to 2026-06-14\n- Budget: 800 EUR for 2 travelers\n\n## Search summary\n- Official tourism page for Belém Tower: https://...\n- Transit pass information: https://...\n\n## Day 1\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 09:00-10:30 | transport | Arrive and transfer to hotel | Airport to Baixa | €8 | Metro estimate; verify live schedules |\n\n## Budget summary\n- Estimated total: €...\n\n## Unscheduled or uncertain items\n- Flight number unavailable because only Tavily web search is available.\n\n## Assumptions and gaps\n- Hotel prices require live booking confirmation.\n",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "system",
+        "id": "743c416c-8525-4c0b-91e4-b77d14664045"
+      },
+      {
+        "content": "GOAL\nCreate a comparable baseline travel plan in markdown.\n\nUSER QUERY\nMy partner and I are planning a 5-day trip from Munich to Vienna from July 10th to 14th, 2026. We have a total budget of €1,200. We enjoy visiting museums, trying local food, and exploring the city on foot. Please suggest accommodations and a daily itinerary.\n\nCONSTRAINTS\n{\n  \"hard_constraints\": {\n    \"origin\": \"Munich\",\n    \"destination\": \"Vienna\",\n    \"date_from\": \"2026.07.10\",\n    \"date_to\": \"2026.07.14\",\n    \"travelers\": {\n      \"adults\": 2,\n      \"children_under_6\": 0,\n      \"children_6_to_16\": 0\n    },\n    \"budget_amount\": 1200,\n    \"budget_currency\": \"EUR\",\n    \"accommodation\": \"hotel\",\n    \"transport\": \"No Preference\",\n    \"interests\": \"museums, food, city walks\"\n  }\n}\n\nOUTPUT REQUIREMENT\nReturn the final plan as markdown using the same practical timetable style as the main execution agent, but acknowledge that this baseline only has Tavily evidence. Include source links found via Tavily.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "human",
+        "id": "047b6501-3214-42cf-9602-a09516bd06cf"
+      }
+    ]
+  },
+  "outputs": {
+    "messages": [
+      {
+        "content": "You are the Simple Baseline TravelPlanner Agent.\n\nPurpose:\n- Produce a single-agent baseline itinerary for later comparison against the\n  multi-agent TravelPlanner system.\n- You have exactly one tool: Tavily web search. You have no sub-agents and no\n  specialized flight, hotel, restaurant, routing, or validation tools.\n\nOperating rules:\n1. Use Tavily web search before the final itinerary for current facts, links,\n   opening hours, prices, neighborhoods, transit hints, and source URLs.\n   The workflow may require a minimum number of completed Tavily searches before\n   you may answer with final markdown only; if you receive a workflow nudge,\n   complete the requested searches first.\n   Use a small number of high-value searches, then synthesize the final answer.\n2. Respect every hard constraint supplied by the user. If a constraint cannot be\n   verified, state the assumption instead of silently ignoring it.\n3. Prefer official tourism, venue, transit, accommodation, restaurant, and event\n   pages when search results contain them. Use blogs and aggregators only as\n   secondary evidence.\n4. Do not invent exact prices, opening hours, flight numbers, hotel availability,\n   or booking status. Mark uncertain values as estimates.\n5. Order each day like the main execution agent: travel/check-in first, meals at\n   plausible meal times, attractions during likely opening hours, transfers\n   between distant places, and rest/free time when useful.\n6. Return only markdown in the final answer.\n\nFinal markdown structure:\nUse exactly these section headings, in this order:\n1. `# Baseline itinerary: ...`\n2. `## Goal and constraints understood`\n3. `## Search summary`\n4. `## Day 1 ...` and one section per day\n5. `## Budget summary`\n6. `## Unscheduled or uncertain items`\n7. `## Assumptions and gaps`\n\nEach day must be a markdown table with exactly these columns:\n`Time | Type | Plan | Location | Cost | Evidence/Notes`.\n\nSource discipline:\n- Every non-obvious venue, attraction, transit pass, opening-time claim, and\n  ticket price should have either a markdown link in Evidence/Notes or be marked\n  as an estimate.\n- If a requested item cannot be scheduled with available evidence, list it under\n  \"Unscheduled or uncertain items\" rather than hiding it.\n- Never include raw Tavily result dumps in the final answer.\n\nExample final output shape:\n\n# Baseline itinerary: 3 days in Lisbon\n\n## Goal and constraints understood\n- Origin: Berlin\n- Dates: 2026-06-12 to 2026-06-14\n- Budget: 800 EUR for 2 travelers\n\n## Search summary\n- Official tourism page for Belém Tower: https://...\n- Transit pass information: https://...\n\n## Day 1\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 09:00-10:30 | transport | Arrive and transfer to hotel | Airport to Baixa | €8 | Metro estimate; verify live schedules |\n\n## Budget summary\n- Estimated total: €...\n\n## Unscheduled or uncertain items\n- Flight number unavailable because only Tavily web search is available.\n\n## Assumptions and gaps\n- Hotel prices require live booking confirmation.\n",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "system",
+        "id": "743c416c-8525-4c0b-91e4-b77d14664045"
+      },
+      {
+        "content": "GOAL\nCreate a comparable baseline travel plan in markdown.\n\nUSER QUERY\nMy partner and I are planning a 5-day trip from Munich to Vienna from July 10th to 14th, 2026. We have a total budget of €1,200. We enjoy visiting museums, trying local food, and exploring the city on foot. Please suggest accommodations and a daily itinerary.\n\nCONSTRAINTS\n{\n  \"hard_constraints\": {\n    \"origin\": \"Munich\",\n    \"destination\": \"Vienna\",\n    \"date_from\": \"2026.07.10\",\n    \"date_to\": \"2026.07.14\",\n    \"travelers\": {\n      \"adults\": 2,\n      \"children_under_6\": 0,\n      \"children_6_to_16\": 0\n    },\n    \"budget_amount\": 1200,\n    \"budget_currency\": \"EUR\",\n    \"accommodation\": \"hotel\",\n    \"transport\": \"No Preference\",\n    \"interests\": \"museums, food, city walks\"\n  }\n}\n\nOUTPUT REQUIREMENT\nReturn the final plan as markdown using the same practical timetable style as the main execution agent, but acknowledge that this baseline only has Tavily evidence. Include source links found via Tavily.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "human",
+        "id": "047b6501-3214-42cf-9602-a09516bd06cf"
+      },
+      {
+        "content": "",
+        "additional_kwargs": {
+          "refusal": null
+        },
+        "response_metadata": {
+          "token_usage": {
+            "completion_tokens": 247,
+            "prompt_tokens": 1049,
+            "total_tokens": 1296,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": null,
+              "audio_tokens": 0,
+              "reasoning_tokens": 71,
+              "rejected_prediction_tokens": null,
+              "image_tokens": 0
+            },
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0,
+              "cache_write_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost": 0.012655,
+            "is_byok": false,
+            "cost_details": {
+              "upstream_inference_cost": 0.012655,
+              "upstream_inference_prompt_cost": 0.005245,
+              "upstream_inference_completions_cost": 0.00741
+            }
+          },
+          "model_provider": "openai",
+          "model_name": "openai/gpt-5.5-20260423",
+          "system_fingerprint": null,
+          "id": "gen-1778952817-WmcXhBoGHfHm5mvHF2ap",
+          "service_tier": "default",
+          "finish_reason": "tool_calls",
+          "logprobs": null
+        },
+        "type": "ai",
+        "id": "lc_run--019e31d9-cb4a-7412-898b-352400b60109-0",
+        "tool_calls": [
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "official Munich to Vienna train ÖBB July 2026 fares travel time"
+            },
+            "id": "call_t8RMjsYzsA6HpelzyDEAjgru",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Vienna public transport tickets 24 48 72 hour pass official Wiener Linien prices"
+            },
+            "id": "call_mc89dGmGCHvkMy1zbZPdKlf2",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Vienna Kunsthistorisches Museum official opening hours tickets 2026"
+            },
+            "id": "call_VEM9wgaCrBiEMkjyyMwSqd9R",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Vienna Belvedere Museum official tickets opening hours 2026"
+            },
+            "id": "call_RTqT2IK1H6fm6znEp57oYQPS",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Vienna hotel budget double room July 2026 official Motel One ibis B&B hotel"
+            },
+            "id": "call_pdPU7mXT0pfLzbxSamiStukM",
+            "type": "tool_call"
+          }
+        ],
+        "invalid_tool_calls": [],
+        "usage_metadata": {
+          "input_tokens": 1049,
+          "output_tokens": 247,
+          "total_tokens": 1296,
+          "input_token_details": {
+            "audio": 0,
+            "cache_read": 0
+          },
+          "output_token_details": {
+            "audio": 0,
+            "reasoning": 71
+          }
+        }
+      },
+      {
+        "content": "Tavily answer:\nThe Munich to Vienna train journey takes about 4 hours, with fares ranging from €25 to €100+, depending on booking time. Direct Railjet trains are available, and booking in advance offers the best prices.\n\nTavily results:\n1. Munich to Vienna by Train: Time, Cost & Travel Guide (2026) score=0.92\n   URL: https://www.get-me-there.com/munich-to-vienna\n   Snippet: # Munich to Vienna by Train: Time, Cost & Travel Guide (2026). The scenic cross-border high-speed link connects Bavarian Munich with imperial Vienna in just 4 hours on modern Railjet trains. ## Direct Railjet Train. Modern direct Railjet trains (ÖBB) with some DB/ÖBB EuroCity services – comfortable, scenic, and reliable for this popular route. | Train (Railjet direct) | ~4h | €25–100+ | Scenery, comfort, city-center |. Several direct Railjet and EuroCity departures daily from München Hbf to Wien Hbf. Fastest services around 4 hours. Advance tickets from €25–50 when booked early. Book ahead for best deals. Trains head east through Bavarian countryside, pass near Salzburg, and enter Austria with distant Alpine views. ## Who This Route Is Best For. Right side (facing forward) for best Alpine glimpses. ## Book Your Ticket. Eurail (non-EU) or Interrail (EU residents) passes are valid on ÖBB a...\n2. Vienna to Munich High-Speed OBB Train Tickets score=0.65\n   URL: https://www.austrianrailways.com/train-vienna-to-munich\n   Snippet: # **Vienna to** Munich **Train**. Vienna to Munich Train Timetable. | Vienna - Munich Rail Route Map  **​Tips to Buy Train Tickets** Plan and book in advance   * Check out various dates and times for cheaper train tickets. ## Travelling from Vienna to Munich by train. Vienna to Munich high-speed train trip is a 4-hour ride in a comfortable high-speed train run by OBB: Austrian Federal Railway and 455 km (282 mi) of breathtaking Austrian and German scenery. You can choose between 2 trains, Raijet high-speed train and a Railjet Xpress. ## Book Train Tickets from Vienna to Munich. Travel Classes Onboard Vienna to Munich Train. In this travel class onboard the high-speed Vienna to Munich train you will find individually adjustable leather seats (2 by 1 configuration) with lots of legroom and folding tables. Food and drinks from the restaurant menu are available for purchase and can be served...\n3. Munich to Vienna OBB Train | High-Speed Train Tickets score=0.65\n   URL: https://www.austrianrailways.com/train-munich-to-vienna\n   Snippet: # **Munich to Vienna Train**. Munich to Vienna Train Timetable. | Munich - Vienna Rail Route Map  **​Tips to Buy Train Tickets** Plan and book in advance   * Check out various dates and times for cheaper train tickets. If you’re looking for the best way to travel from Munich to Vienna, OBB Railjet high-speed train is your option. Munich to Vienna train can reach maximum speed of 230 km/h (143 mph), thanks to that you’ll be carried from Munich Hauptbahnhof to Vienna Hauptbahnhof in just 4 hours! ​There are up to 7 departures from Munich to Vienna carried out on a regular basis with the earliest at 06:23 am and the latest at 17:30 pm. ## Book Train Tickets from Munich - Vienna. Travel Classes Onboard Munich to Vienna Train. ​Modern Munich to Vienna Railjet high-speed train travels at speed of 230 kmp (143 mph) and covers the distance between the two cities (455 km/282 mi) in just 4 hours.\n4. Munich to Vienna train tickets from US$24.00 | Rail Europe score=0.62\n   URL: https://www.raileurope.com/en-us/destinations/munich-vienna-train\n   Snippet: How long does the train take from Munich to Vienna? The fastest travel time is 3 hours and 56 minutes. Vienna to Munich by train. Other journeys to Vienna.\n5. Munich to Vienna train with Deutsche Bahn (EC,IC,ICE) - Omio score=0.59\n   URL: https://www.omio.com/trains/munich/vienna\n   Snippet: Trains from Munich to Vienna run on average 21 times per day, taking around 4h 40m. Cheap train tickets for this journey start at $32 (€26) but you can travel",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "1bc1f8c0-77c0-4644-9ca5-6a0f3bacfc26",
+        "tool_call_id": "call_t8RMjsYzsA6HpelzyDEAjgru",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nThe Vienna City Card offers 24, 48, and 72-hour passes for €14.90, €24.90, and €34.90 respectively. The digital annual pass costs €461.00. Prices are as of 2026.\n\nTavily results:\n1. Tickets score=0.76\n   URL: https://www.wien.info/en/travel-info/transport/tickets-361360\n   Snippet: # Tickets. A valid ticket is required to travel by public transport in Vienna. The tickets are valid on all streetcars, buses and night buses, subway trains and commuter trains (S-Bahn) operated by Wiener Linien in the Vienna core zone. * Single ticket: For a journey in one direction, valid for 80 minutes from validation: € 3.20 (children € 1.60). * Flexible 7-day VIENNA Ticket (paper ticket and transferable): Valid from the time of validation for seven consecutive calendar days: € 28.90. * Flexible 7-day VIENNA Ticket (digital ticket and non-transferable): Valid from the time of validation for seven consecutive calendar days: € 25.20. ## The Vienna City Card. The Vienna City Card combines the transport services of Wiener Linien with added extras for tourists. * Includes travel by subway, streetcar and bus in the Vienna city area. For the direct City Airport Train and the Vienna Airport...\n2. Fares and Tickets - The Vienna Metro score=0.74\n   URL: https://homepage.univie.ac.at/horst.prillinger/ubahn/english/fares.html\n   Snippet: You can use the same ticket for a journey that involves trips by bus, tram, metro and/or train, and you can change as often as you have to without having to buy a new ticket. VOR tickets are not valid on the private Westbahn trains, on the City Airport Train CAT, and on the Vienna Airport Lines airport buses. ### Tickets for travel within Vienna. These tickets are valid on all means of public transport (train, metro, tramway and buses including night buses) in Vienna and the surrounding area with the exception of the City Airport Train and the special airport buses. | 24-hour ticket | **1-day pass** | €5.80 | Valid for unlimited travel for one adult within Vienna on the day of validation until 1am of the following day. | 8-day ticket | **8-day ticket** | €40.80 | Each strip on this ticket is valid for unlimited travel in Vienna for one person on the day of validation until 1:00am of the...\n3. Vienna public transport ticket changes - Facebook score=0.69\n   URL: https://www.facebook.com/groups/943838713190379/posts/1902944120613162/\n   Snippet: From 1 January ticket prices: 1 trip €3,00 for digital vs €3,20 24 hour ticket €9,70 for digital vs €10,20 7 day ticket €25,20 for digital vs €\n4. New fare structure from 1 January 2026: Wiener Linien secures its ... score=0.63\n   URL: https://www.wienerlinien.at/web/wl-en/news/new-fare-structure-from-1-january-2026\n   Snippet: # New fare structure effective from 1 January 2026: Wiener Linien secures its extensive public transport services for the long term. The public transport network has grown significantly in recent years, with additional lines and mobility services making the public transport offering more comprehensive than ever before. In order to maintain this high standard in the future, Wiener Linien will be adjusting its fare structure on 1 January 2026. In order to maintain this high level in the future, Wiener Linien will adjust its fare structure on 1 January 2026. 👉🏻 **The price of the annual pass was last adjusted in 2012 – 13 years ago.** In the meantime, the public transport network has grown massively: **36 new and extended lines, 190 additional kilometres and almost 1,000 new stops** have been added. In future, the digital annual pass will cost €461.00, which corresponds to €1.26 per day for...\n5. Vienna City Card for 24, 48 or 72 hours - Wiener Linien score=0.60\n   URL: https://www.wienerlinien.at/web/wl-en/vienna-city-card-24-48-72-hours\n   Snippet: # Vienna City Card. Your discount card in the city: Travel freely for up to 7 days and get discounts at many of Vienna's best venues. The Vienna City Card offers free travel on public transport (underground, trams and buses) in the Vienna core zone plus more than 210 discounts at museums and sights, theatres and concerts, in shops, cafés and restaurants for up to 7 days. Instructions on how to use the Vienna City Card can be found in the coupon booklet given free of charge to everyone who purchases the Vienna Card. ## Where can I buy the Vienna City Card? You can buy the ticket in the WienMobil TicketshopÖffnet in einem neuen Tab, at our ticket offices (except for the Vienna City Card for 7 days, which is available online only), in the Vienna City Card online shopÖffnet in einem neuen Tab, in hotels, from the Tourist Info office at Albertinaplatz, at the Vienna Main Station and at the ai...",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "b4f3df88-b1eb-4dfa-acdf-4c2b4d4eecbd",
+        "tool_call_id": "call_mc89dGmGCHvkMy1zbZPdKlf2",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nThe Kunsthistorisches Museum in Vienna opens from 10:00 am to 6:00 pm daily, and until 9:00 pm on Thursdays in 2026. Tickets are available online for EUR 22.\n\nTavily results:\n1. Kunsthistorisches Museum Vienna: opening hours & tickets 2026 score=1.00\n   URL: https://www.museos.com/en/vienna/vienna-art-museum/\n   Snippet: # Kunsthistorisches Museum Vienna. ## Vienna art museum KUNSTHISTORISCHES MUSEUM. The Kunsthistorisches Museum is Vienna’s answer to the Louvre, home to a prestigious collection of antiquities and Ancient Egyptian artefacts, as well as works by some of the great artists of the medieval, renaissance and baroque periods – such as Rubens, Rembrandt, Vermeer or Raphael and Titian. **Buy Online Ticket for EUR 22**. There really is something for everyone – Egyptian sarcophagi, ancient busts of Roman emperors, works by the great masters of the medieval, renaissance and baroque periods, and even an exclusive collection of exquisite baroque ivorywork. | Combi-Ticket 2 | 37 € | Admission KHM + Admission Leopold Museum | Buy Ticket |. | Tip VIENNA PASS from | 109 € | For 1, 2, 3 or 6 days, then free entry to the KHM | Buy Pass |. | VIENNA CITY CARD from | 19 € | For 1, 2 or 3 days.\n2. Plan your visit - KHM.at - Das Kunsthistorische Museum score=1.00\n   URL: https://www.khm.at/en/visit\n   Snippet: All information about your visit to the Kunsthistorisches Museum. We look forward to seeing you! Tue - Sun, 10 a.m. | Sun, 24 May 2026 | **schedule  10:00 am - 6:00 pm** |. | Thu, 4 June 2026 | **schedule  10:00 am - 9:00 pm** |. | Sat, 15 August 2026 | **schedule  10:00 am - 6:00 pm** |. | Thu, 24 September 2026 | **schedule  10:00 am - 9:00 pm** |. | Mon, 26 October 2026 | **schedule  10:00 am - 6:00 pm** |. | Mon, 2 November 2026 | **schedule  10:00 am - 6:00 pm** |. | Tue, 8 December 2026 | **schedule  10:00 am - 6:00 pm** |. You may visit the museums once on the dates and at the time selected at the time of purchase. There is no time limit on your visit to the museum. Original tickets for the Kunsthistorisches Museum are only available online at.\n3. Kunsthistorisches Museum Vienna - Museum Of Fine Arts | Tickets 2026 | Wien, Kunsthistorisches Museum Wien | score=1.00\n   URL: https://www.viennaticketoffice.com/kunsthistorisches-museum-vienna-museum-of-fine-arts-tickets-421002-en.html\n   Snippet: * **Kunsthistorisches Museum Vienna - Museum Of Fine Arts**. ## 15.05.2026 - 31.12.2026 | Kunsthistorisches Museum Wien. **Discover the Kunsthistorisches Museum Vienna – A Place Where History and Art Come to Life!**. Immerse yourself in the fascinating world of art and culture in the heart of Vienna. The Kunsthistorisches Museum (English: \"Museum of Art History\", also often referred to as the \"Museum of Fine Arts\") is an art museum in Vienna, Austria.\n4. Kunsthistorisches Museum, the Art History Museum - Tickets, opening hours and useful info score=1.00\n   URL: https://www.visitaustria.info/en/vienna/vienna-things-to-do/kunsthistorisches-museum/\n   Snippet: # Kunsthistorisches Museum, the Art History Museum. The prestigious Kunsthistorisches Museum in Vienna houses five priceless art collections in a magnificent palace. The **Kunsthistorisches Museum** (Museum of Art History) in Vienna is one of the most important and prestigious museums in the world, housing priceless art collections accumulated by the **Habsburg** dynasty over more than five centuries. ## The Collections of the Kunsthistorisches Museum. Known as the Museum of Art History, the Kunsthistorisches Museum brings together **five extraordinary collections** in its main building on the Ringstrasse, which we present below. Other collections are exhibited in the museum’s separate branches, such as the Imperial Treasury in the Hofburg, the Vienna Imperial Carriage Museum at Schönbrunn Palace and the Ephesus Museum in Neue Burg. Explore the Habsburg treasures of Vienna’s Kunsthistori...\n5. Kunsthistorisches Museum Opening Hours | Best Time to Visit score=1.00\n   URL: https://www.wien-tickets.com/kunsthistorisches-museum/opening-hours-timings/\n   Snippet: # Your Guide to the Kunsthistorisches Museum Opening Hours. Open 10:00–18:00. ## Kunsthistorisches Museum. The Kunsthistorisches Museum is open from 10am to 6pm between Monday and Sunday. Only on Thursday, the museum is open until 9pm. | Monday | 10:00–18:00 |. | Tuesday | 10:00–18:00 |. | Friday (Today) | 10:00–18:00 |. | Saturday | 10:00–18:00 |. The Kunsthistorisches Museum is open daily from June to August, with the coin cabinet only opening on Thursday, Saturday, and Sunday. * **Peak (June to August):** The museum attracts a large number of visitors, especially in the afternoons and on weekends. The opening hours are from 10am to 6pm except on Thursday and Saturday, when the museum stays open from 10am to 9pm. If you’re visiting on weekends and holidays, when the museum is typically busier, arrive early in the day so you can explore the exhibits before the crowds increase.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "1f5da091-29b2-4b4c-ba02-80db069fd569",
+        "tool_call_id": "call_VEM9wgaCrBiEMkjyyMwSqd9R",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nBelvedere Museum in Vienna opens daily from 9:00 AM to 6:00 PM in 2026. Upper Belvedere has extended hours until 7:00 PM during winter holidays. Check official announcements for special event dates.\n\nTavily results:\n1. Belvedere Castle - Tickets, opening hours and useful info - Austria score=1.00\n   URL: https://www.visitaustria.info/en/vienna/vienna-things-to-do/belvedere-castle/\n   Snippet: # Belvedere Castle. Belvedere Castle comprises two sumptuous palaces that house masterpieces of Austrian art, including Klimt's Kiss. The **Belvedere** in Vienna is one of the most extraordinary Baroque architectural complexes in Europe and houses the **world’s largest collection of works by Gustav Klimt**, including the world-famous **‘The Kiss’**. Located in the heart of the Austrian capital, this magnificent palace with its French-style gardens is a **UNESCO World Heritage Site** and one of Austria’s most important museums, with works ranging from the **Middle Ages to the present day**. Today, the Belvedere is one of the most visited museums in Vienna, with its collection including not only the **24 paintings by Gustav Klimt**, including ‘The Kiss’ and ‘Judith’, but also masterpieces by **Egon Schiele**, **Oskar Kokoschka**, **Vincent van Gogh**, **Claude Monet** and many other artist...\n2. Belvedere Museum Vienna | Official Tickets - Book at Civitatis.com score=1.00\n   URL: https://www.civitatis.com/en/vienna/belvedere-museums-ticket/?srsltid=AfmBOoqlUzCIGuYwebbOEKxZ2EItqwNhvwEpvPPuRFn9Y38pYB8qkapL\n   Snippet: You will receive an email with a summary of your bookings. Leave us your email and we'll send you a summary of your bookings. With this **ticket to the Belvedere Museum** **in Vienna,** you'll visit one of the most important art collections in Austria. Exploring the inside of the Upper Belvedere. Welcome to the Lower Belvedere Museum! The **Belvedere Museum in Vienna** is divided into **two different palaces**, the **Upper Belvedere** and the **Lower Belvedere**. Discover the world's most extensive collection of **Klimt's masterpieces** at the **Upper Belvedere Museum**. Venture into the Lower Belvedere Museum to encounter the renowned **Studio Collection**, a treasure trove of **medieval and Renaissance art**. In the **Lower Belvedere**, you can see the following temporary exhibitions:. ## Location Map. In the following **location map of the Belvedere palaces**, you can see the location...\n3. Belvedere Palace Vienna: Opening times & tickets 2026 - museos score=1.00\n   URL: https://www.museos.com/en/vienna/belvedere-palace/\n   Snippet: ## Belvedere Palace SCHLOSS BELVEDERE. # Belvedere Palace. Fine art meets stunning baroque architecture – that’s Schloss Belvedere in a nutshell. For Klimt fans in particular it’s an absolute must because here you will find a magnificent collection of no less than 24 works by this great artist. Plus, you can discover the wonderful work of Franz Xaver Messerschmidt. **Important notice:** Separate Tickets for the Upper Belvedere and the Lower Belvedere! The room layout in the Upper Belvedere needs a bit of work. You need two tickets to visit the Upper and the Lower Belvedere. Don’t try to do Schloss Belvedere and Belvedere 21 on the same day. ## Belvedere Palace Tickets. ### Upper Belvedere. Admission Upper Belvedere + Admission Lower Belvedere. Free admission to the Belvedere Palace. Fans of **Klimt** in particular are in for a real treat because Schloss Belvedere is home to the largest c...\n4. Belvedere Opening Times, Exhibitions & Best Times to Visit score=1.00\n   URL: https://www.belvederepalace.at/en/visiting-hours\n   Snippet: Belvedere, Prinz-Eugen-Straße 27, 1030 Wien, Austria. # Belvedere hours and calm windows. Seasonal openings across the palaces, exhibition schedules, and timing tips for enjoying Klimt and gardens without the crush. ### We are currently closed. | Monday | 09:00 AM - 06:00 PM | Open |. | Tuesday | 09:00 AM - 06:00 PM | Open |. | Wednesday | 09:00 AM - 06:00 PM | Open |. | Thursday | 09:00 AM - 06:00 PM | Open |. | Friday | 09:00 AM - 06:00 PM | Open |. | Saturday | 09:00 AM - 06:00 PM | Open |. | Sunday | 09:00 AM - 06:00 PM | Open |. 09:00 AM - 07:00 PM. Winter Holiday Extended (Upper Belvedere). 09:00 AM - 07:00 PM. Leave buffer for cloakroom and timed entry—don’t start too close to last admission. Special events or exhibition openings may alter access—monitor official announcements. Your personal guide for Belvedere Palace.\n5. Belvedere Palace Tickets [2026] - Trip.com score=1.00\n   URL: https://www.trip.com/travel-guide/attraction/vienna/belvedere-palace-78949/\n   Snippet: Book Belvedere Palace tickets with limited-time offers, skip-the-line access, and instant confirmation. Get the best prices and enjoy a seamless booking",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "e6e5770e-7957-4b26-82e9-c9a7d7223899",
+        "tool_call_id": "call_RTqT2IK1H6fm6znEp57oYQPS",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nMotel One Wien-Staatsoper and ibis budget Wien Messe offer budget double rooms in Vienna for July 2026. Prices and availability vary; check directly for the latest rates.\n\nTavily results:\n1. Motel One Wien-Staatsoper, Vienna | 2026 Updated Prices ... score=0.64\n   URL: https://www.agoda.com/motel-one-wien-staatsoper/hotel/vienna-at.html\n   Snippet: The Small Double Room provides 14 square meters of comfort with a double bed, ideal for travelers seeking a snug yet functional space. For solo travelers or\n2. ibis budget Wien Messe - True Traveler Reviews 2026 score=0.58\n   URL: https://www.hotels.com/ho571812/ibis-budget-wien-messe-vienna-austria/\n   Snippet: In the heart of Vienna, ibis budget Wien Messe offers a convenient retreat with free in-room WiFi and a snack bar. Explore nearby attractions like Vienna\n3. ibis budget Wien Sankt Marx Reviews, Deals & Photos 2026 score=0.57\n   URL: https://www.expedia.com/Vienna-Hotels-Ibis-Budget-Wien-Sankt-Marx.h13442148.Hotel-Information\n   Snippet: Stay at this hotel in Vienna. Enjoy free WiFi, breakfast (surcharge), and room service. Our guests praise the helpful staff and the overall value in our\n4. Motel One Wien-Hauptbahnhof - Vienna - Booking.com score=0.43\n   URL: https://www.booking.com/hotel/at/motel-one-wien-hauptbahnhof-wien17.html\n   Snippet: # Motel One Wien-Hauptbahnhof, Vienna (updated prices 2026). ## Motel One Wien-Hauptbahnhof. Image 2: a restaurant with a mural of a building at Motel One Wien-Hauptbahnhof in Vienna. Image 3: a hotel room with two beds and a window at Motel One Wien-Hauptbahnhof in Vienna. Image 4: a tall building with lights in front of it at Motel One Wien-Hauptbahnhof in Vienna. Image 5: a patio with tables and chairs and an umbrella at Motel One Wien-Hauptbahnhof in Vienna. Image 6: a restaurant with tables and chairs in a room at Motel One Wien-Hauptbahnhof in Vienna. Image 7: a bakery with different types of bread and pastries at Motel One Wien-Hauptbahnhof in Vienna. Image 8: a dining room with tables and chairs and a mural at Motel One Wien-Hauptbahnhof in Vienna. Image 9: a restaurant with tables and chairs and a mural at Motel One Wien-Hauptbahnhof in Vienna +28 photos+28 photos.\n5. cheap budget design hotel Vienna - Motel One score=0.38\n   URL: https://www.motel-one.com/en/hotels/vienna/\n   Snippet: ## Motel One Vienna. Welcome to your hotels in Vienna! Discover our hotels at this location. * The hotels in Vienna boast a central location. * Delectable delicacies from the region – you can look forward to a wide range of local food and drinks at breakfast and at the bar. * Reception   9.1 of 10. Your Hotel has the biggest problems first of all not supply Air shut down as a result all rooms do not cellculation air then air quality is no good, not only my room desk chair is broken and also housekeeping doesn't clean room after 4pm back to hotel. Overall very good and would recommend hotel for excellent location and level of comfort. First I was given a room that had not been cleaned. Really liked the hotel The room was clean and comfortable We liked the central location We also liked the bar area to relax and get a drink as there was no kettle in the room.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "687aae89-bf4f-4c11-a322-2a2cea9e5270",
+        "tool_call_id": "call_pdPU7mXT0pfLzbxSamiStukM",
+        "status": "success"
+      },
+      {
+        "content": "",
+        "additional_kwargs": {
+          "refusal": null
+        },
+        "response_metadata": {
+          "token_usage": {
+            "completion_tokens": 201,
+            "prompt_tokens": 6803,
+            "total_tokens": 7004,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": null,
+              "audio_tokens": 0,
+              "reasoning_tokens": 27,
+              "rejected_prediction_tokens": null,
+              "image_tokens": 0
+            },
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0,
+              "cache_write_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost": 0.040045,
+            "is_byok": false,
+            "cost_details": {
+              "upstream_inference_cost": 0.040045,
+              "upstream_inference_prompt_cost": 0.034015,
+              "upstream_inference_completions_cost": 0.00603
+            }
+          },
+          "model_provider": "openai",
+          "model_name": "openai/gpt-5.5-20260423",
+          "system_fingerprint": null,
+          "id": "gen-1778952826-7zX9uMfKFJsCeSflvozx",
+          "service_tier": "default",
+          "finish_reason": "tool_calls",
+          "logprobs": null
+        },
+        "type": "ai",
+        "id": "lc_run--019e31d9-ec86-7d90-8e34-0a9c17646d59-0",
+        "tool_calls": [
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "official Vienna tourism walking tours Ringstrasse historic center city walks"
+            },
+            "id": "call_IoOP3LXceVBbHkbfl8kbWnCD",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "official Albertina Vienna opening hours tickets 2026"
+            },
+            "id": "call_sBrXFXbrbbd5t7NjoUU2BmsD",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "official Schönbrunn Palace Vienna opening hours tickets 2026"
+            },
+            "id": "call_nHIZyisFmwIJ5bKZKbPdkU5H",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Vienna traditional restaurants official Figlmuller Plachutta Naschmarkt opening hours"
+            },
+            "id": "call_m8nQyRFz8jIml64HIHpmsE3A",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Vienna budget hotels official Motel One Wien Hauptbahnhof B&B Hotel Wien Hbf July 2026 rates"
+            },
+            "id": "call_0d4OVXovFSIgLWtOeHCr1u8d",
+            "type": "tool_call"
+          }
+        ],
+        "invalid_tool_calls": [],
+        "usage_metadata": {
+          "input_tokens": 6803,
+          "output_tokens": 201,
+          "total_tokens": 7004,
+          "input_token_details": {
+            "audio": 0,
+            "cache_read": 0
+          },
+          "output_token_details": {
+            "audio": 0,
+            "reasoning": 27
+          }
+        }
+      },
+      {
+        "content": "Tavily answer:\nVienna offers several walking tours focusing on the historic Ringstrasse, including guided tours that explore its architectural and cultural significance. Popular options include The Ringstrasse Project Walking Tour and self-guided routes through Vienna's historic center. Book in advance for the best experience.\n\nTavily results:\n1. The Ringstrasse Project Walking Tour score=1.00\n   URL: https://activities.marriott.com/europe/austria/vienna/activities/the_ringstrasse_project_walking_tour-XZLHZI\n   Snippet: ## What You Will Do. On a 2.5-hour history tour, embark Vienna’s most famous boulevard, the Ringstasse, which was meant to dramatically prove the city’s cosmopolitanism and modernity. In the company of a scholar guide, learn about the controversies of the boulevard’s construction, it’s brilliant architectural completion, and how the Ring became the social hub of Vienna city life. * 2.5-hour guided tour of Vienna’s Ringstrasse. Get a real feel for the elegant 19th century Vienna Coffee House by meeting in front of the iconic Cafe Landtmann. Vienna City Hall is the seat of local government of Vienna, located on Rathausplatz on the Ringstrasse. Constructed from 1872 to 1883 in a Neo-Gothic style, it houses the office of the Mayor of Vienna as well as the chambers of the city council and Vienna Landtag diet. It is the largest art museum in the country and one of the most important museums wo...\n2. Walking tour: the Ring - Visiting Vienna score=1.00\n   URL: https://www.visitingvienna.com/transport/walking-tour-ring/\n   Snippet: # Walking tour: the Ring. Part 3 of my suggested self-guided walking tour of Vienna leaves the Hofburg and wanders along a section of the giant Ringstrassen boulevard with its parks, museums, and important civic buildings. ## The Ring route. Instead of going through the Burgtor, consider first walking left, which takes you around the end of the Neue Burg (the wing of the Hofburg that’s been on your left as you crossed Heldenplatz square). The opposite corner of the Burgarten from the Mozart monument actually takes you to the Albertina art museum from an earlier part of our tour. ### On to the ring. The museum on your left as you look at the square from the road is the 1891 Kunsthistorisches Museum (KHM) building, full of art treasures from the past and home to the world’s largest Bruegel collection. Walk on along the Ring past the end of the Natural History Museum to discover the 1928 Mo...\n3. Ringstrasse, Krems an der Donau - Book Tickets & Tours score=1.00\n   URL: https://www.getyourguide.com/ringstrasse-l20085/\n   Snippet: Explore Vienna's charm and history on a walking tour, discovering iconic landmarks like Maria-Theresien-Platz, Burgtheater, St. Michael's Church, City Hall,\n4. Walking tour through Vienna's historic center - Facebook score=1.00\n   URL: https://www.facebook.com/groups/viennatraveltips/posts/1467523648121355/\n   Snippet: It's a small group walking tour through the center that takes about two and a half hours and covers many of the well known spots in the city.\n5. The Ringstrasse Project Walking Tour (with Reviews) - Tripadvisor score=1.00\n   URL: https://www.tripadvisor.com/AttractionProductReview-g190454-d11764108-The_Ringstrasse_Project_Walking_Tour-Vienna.html\n   Snippet: Guided Walking Tour of Vienna City Center Highlights · (101) · from. $31.04. $24.83. per adult ; Private Ringstrasse Project Walking Tour · (1).",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "e8cf801b-2e57-49d5-bb3f-c3809270f04c",
+        "tool_call_id": "call_IoOP3LXceVBbHkbfl8kbWnCD",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nThe Albertina Museum in Vienna is open daily from 10 a.m. to 6 p.m., with extended hours until 9 p.m. on Wednesdays and Fridays in 2026. Tickets are available for purchase.\n\nTavily results:\n1. Admission Tickets | Albertina Online-Shop score=0.89\n   URL: https://shop.albertina.at/en/tickets/admission/\n   Snippet: Open from 27 March to 15 November 2026. 99508. Annual Pass. EUR 78,00. Annual ... Opening hours. The ALBERTINA Museum Daily | 10 a.m. to 6 p.m.. Wednesday\n2. Albertina Klosterneuburg - Visiting Vienna score=0.87\n   URL: https://www.visitingvienna.com/sights/museums/albertina-klosterneuburg/\n   Snippet: The 2026 season, for example, runs from March 27th to November 15th. Opening hours are Thursdays to Sundays, 10am to 5pm. If you're planning\n3. The Albertina in Vienna: opening hours & tickets 2026 score=0.81\n   URL: https://www.museos.com/en/vienna/albertina/\n   Snippet: ## ALBERTINA The Museum. # ALBERTINA. The Albertina – one of Vienna’s busiest and best-loved art museums – can be found right at the heart of the city in a historical Habsburg residence. **Buy Albertina Tickets for EUR 19.90**. **Buy 3 Museums combination for EUR 50**. This building stands out from others in the city centre with its contrast between modern and traditional. You can marvel at the contemporary art juxtaposed with the incredible old imperial rooms it is showcased in. That’s a tricky one... I guess you won’t be too impressed if you’re not all that into art? Make sure you book your ticket online, as the Albertina is a busy attraction! Admission Albertina + Admission Albertina Modern. ## 1 Minute IN THE ALBERTINA. With our 1 minute video you get exactly that: a first impression of what there is to see in the Albertina! **Combination ticket with Albertina Modern:** EUR 24.90.\n4. The best Albertina Museum Vienna Entry tickets 2026 - GetYourGuide score=0.75\n   URL: https://www.getyourguide.com/albertina-museum-vienna-l3946/entry-tickets-tc123/\n   Snippet: # Entry tickets, Albertina Museum Vienna. Tickets for the Albertina Exhibitions. Klosterneuburg: Albertina Entry Ticket1 day • Skip the line. Vienna: Albertina Palace Ticket & Optional Audio Tour1.5 hours • Skip the line • Private group. ## Explore more of Vienna. Skip-the-Line Schönbrunn Palace & Gardens Tour1 - 2.5 hours. Vienna: Classical Concert in the World-Famous Musikverein2 hours. Performance Of The Lipizzans At Spanish Riding School70 minutes - 1.5 hours. Vienna Spanish Riding School Guided Tour55 minutes. Vienna: Classical Concert at St. Stephen's Cathedral1 - 1.5 hours. Vienna: Skip-the-Line Schönbrunn Palace and Gardens Tour2 hours • Skip the line. Skip-the-Line Sisi Museum, Hofburg and Gardens Tour2.5 hours • Skip the line. Vienna: Mozart and Strauss Concert at Schönbrunn105 minutes. Schönbrunn Palace & Gardens Skip-the-Line Tour2 hours • Skip the line • Small group. Skip-th...\n5. Opening Hours « The ALBERTINA Museum Vienna score=0.69\n   URL: https://www.albertina.at/en/visit/opening-hours/\n   Snippet: ## Newsletter. # Opening Hours. ### **The ALBERTINA Museum**. Daily | 10 a.m. to 6 p.m. Wednesday & Friday | 10 a.m. to 9 p.m. Thursday – Sunday | 10 a.m. to 5 p.m. Daily | 10 a.m. to 6 p.m. Wednesday & Friday | 10 a.m. to 9 p.m. Daily | 10 a.m. to 6 p.m. Thursday – Sunday | 10 a.m. to 5 p.m. Bank Austria Member of UniCredit. ### **ALBERTINA MODERN**. Daily | 10 a.m. to 6 p.m. ### **ALBERTINA KLOSTERNEUBURG**.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "90c78d78-6d28-4ec0-a588-3ea6ff599796",
+        "tool_call_id": "call_sBrXFXbrbbd5t7NjoUU2BmsD",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nSchönbrunn Palace in Vienna opens from 8:30 am to 5:30 pm from September 1 to November 2, 2026. Tickets can be booked online for skip-the-line access. Visit the official website for specific dates and ticket prices.\n\nTavily results:\n1. Schönbrunn Palace: Opening times & tickets 2026 - Vienna - museos score=1.00\n   URL: https://www.museos.com/en/vienna/schonbrunn-palace/\n   Snippet: # Schönbrunn Palace. ## Schönbrunn Palace THE HOME OF EMPRESS SISI. The Schönbrunn Palace is a dream destination for any Sisi fan! Here you can walk the same magnificent hallways as the beloved empress and immerse yourself in the world of her husband Emperor Franz Joseph, who was born here in 1830 and also died here 86 years later. You’re not allowed to take photographs inside the palace, so there’s no jostling for the best photo spot. You have to follow a specific route through the palace and the walls are protected with Perspex. It’s also a good idea to book your tickets online if you want to avoid the long queues at the ticket office. ## Schönbrunn Palace Tickets. | Tip 1 Vienna Pass from | EUR 109 | Admission to more than 90 Attractions | Buy Ticket |. | Families SCHÖNBRUNN ZOO | EUR 29 | Admission to the zoo Tierpark Schönbrunn | Buy Ticket |. Schönbrunn Palace, Vienna © Schloß Scho...\n2. Schönbrunn Palace Tickets 2026 • Skip-the-line score=1.00\n   URL: https://schonbrunntickets.tours/\n   Snippet: ###### Schönbrunn Palace. ###### Schönbrunn Palace. # SCHÖNBRUNN PALACE TICKETS 2026. ### Book your Schönbrunn Tickets online for fast entry into the palace! ## Where to buy Schönbrunn Palace Tickets? Reserve your Schönbrunn Skip-the-Line Tickets online for quick access and discover the palace’s imperial history. | Wine tasting & Schönbrunn Palace Ticket Wine tasting & Schönbrunn Palace Ticket Skip-the-line | Wine tasting & snack | Audio guide | € 77  More info  Book now |. ## Book your Schönbrunn Palace Tickets now! ### Schönbrunn Palace & Gardens Ticket. We recommend choosing our Schönbrunn Palace Imperial Tour to skip the lines and experience Vienna's imperial residence and gardens with a professional guide. ## Our TOP 2 Schönbrunn Palace Tickets. ## Lunch & Schönbrunn Palace Ticket. Explore Schönbrunn Palace’s royal history and skip the lines to experience the lavish lifestyle of the...\n3. Opening Times | Palace & Gardens - Schloss Schönbrunn score=1.00\n   URL: https://www.schoenbrunn.at/en/visitor-information/opening-times\n   Snippet: ### Current Opening Times Schönbrunn Palace. | 1 September to 2 November 2026 | 8.30 am–5.30 pm |. | 3 November 2026 to 31 March 2027 | 8.30 am–5.00 pm |. | Children's Museum Schönbrunn Palace | daily | 10.00 am - 5.00 pm |. The park gates are opened at 6:30 am. You can enter the Palace Park free of charge during opening hours. If you wish to visit the special attractions at Schönbrunn, such as the Privy Garden, the Orangery Garden or the Maze, you will need to purchase individual admission tickets. | January to February | 6.30 am–5.30 pm |. | April | 6.30 am–8.00 pm |. | May to July | 6.30 am–9.00 pm |. | August to September | 6.30 am–8.00 pm |. | October | 6.30 am–7.00 pm |. | November to December | 6.30 am–5.30 pm |. DOWNLOAD THE OVERALL PLAN OF SCHÖNBRUNN PALACE PARK. | Park fountains | 8.30 am – 5 pm |.\n4. Schönbrunn Palace Tickets [2026] - Promos, Prices, Reviews & Opening Hours | Trip.com score=1.00\n   URL: https://us.trip.com/travel-guide/attraction/vienna/schnbrunn-palace-78934/\n   Snippet: # Schönbrunn Palace. ## Closed for the day Open tomorrow at 8:30 AM–5:30 PM(Admission ends at 4:45 PM). ## Other visitors' reviews of Schönbrunn Palace. ## Schönbrunn Palace attraction highlights. • One of Austria's cultural landmarks, it was once the summer residence of the Austrian royal family. • The gorgeous palace has 1,441 rooms decorated with beautiful decorations and furnishings. △ Feel the charm of history and culture in the extremely gorgeous and elegant palace. △ The interior decoration of the room is also coordinated in an oriental style, with ceramics inlaid on the walls and ceiling. In the palace, there are restaurants and gorgeous ballrooms where emperors of all dynasties held banquets. ## Recommendations near Schönbrunn Palace. ## Schönbrunn Palace Reviews: Insider Insights and Visitor Experiences. \\*The above information is for reference only. Please refer to the actual...\n5. Schönbrunn Palace Tickets - Vienna 2026 | isango.com score=1.00\n   URL: https://www.isango.com/vienna/schonbrunn-palace\n   Snippet: # **Schönbrunn Palace Tickets and Tours**. Step into the illustrious history of Schönbrunn Palace, an enduring emblem of imperial splendor ensconced within Vienna, Austria. Adorned with opulent architecture, breathtaking gardens, and a storied past, Schönbrunn Palace tour invites visitors to immerse themselves in the extravagant lifestyle of the Habsburg monarchy. Join us on a journey to explore the magnificence and elegance of this UNESCO World Heritage Site with Schönbrunn Palace tickets, where each passageway resonates with tales of nobility, artistic expression, and cultural heritage. * Vienna City Tour with Schönbrunn Palace. * An Evening In Schönbrunn: Dinner & Concert. * An Evening In Schönbrunn: Palace Tour & Concert. * An Evening in Schönbrunn: Palace Tour, Dinner & Concert. The length of your stay at Schönbrunn Palace is influenced by your preferences and the tour option you se...",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "c29f9ead-dec3-498f-90c0-84c987cf0de0",
+        "tool_call_id": "call_nHIZyisFmwIJ5bKZKbPdkU5H",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nFiglmüller is open daily from 11am to 10:30pm. Plachutta restaurants are open for dinner. Naschmarkt is open Monday to Friday from 6am to 9pm.\n\nTavily results:\n1. FIGLMÜLLER - Updated May 2026 - 862 Photos & 717 Reviews - Yelp score=0.75\n   URL: https://www.yelp.com/biz/figlm%C3%BCller-wien-3\n   Snippet: FIGLMÜLLER - Try Our New Menu - Wollzeile 5, 1010 Wien, Austria, 862 Photos, +4315126177, Mon - 11:00 am - 10:30 pm, Tue - 11:00 am - 10:30 pm, Wed - 11:00\n2. FIGLMÜLLER - Updated May 2026 - 862 Photos & 717 Reviews - Yelp score=0.74\n   URL: https://www.yelp.com/biz/figlm%C3%BCller-wien-3?start=40\n   Snippet: FIGLMÜLLER - Try Our New Menu - Wollzeile 5, 1010 Wien, Austria, 862 Photos, +4315126177, Mon - 11:00 am - 10:30 pm, Tue - 11:00 am - 10:30 pm,\n3. Location & Contact » Restaurant 1010 Vienna | Figlmüller score=0.72\n   URL: https://www.figlmueller.at/en/location-contact/\n   Snippet: Figlmueller Logo in der Farbe Grün. Facebook Icon in der Farbe Weiß. Instagram Icon in der Farbe Weiß. # Location & Contact: Figlmüller Wollzeile & Bäckerstraße. ### Figlmüller at Wollzeile 5: The one true orig­inal. **Figlmüller Wollzeile: Wollzeile 5, 1010 Vienna**. Open daily 11am – 10:30pm. Kitchen daily 11am – 9:30pm. ### Figlmüller t Bäcker­straße 6: Plenty of room to feel at home. **Figlmüller Bäckerstraße: Bäckerstraße 6, 1010 Vienna**. Figlmueller Logo in der Farbe Weiß. Straßenansicht des Restaurants Figlmüller in der Wollzeile mit grüner Fensterfront und Schild. Straßenansicht des Eingangs vom Restaurant Figlmüller in der Bäckerstraße mit cremefarbener Fassade, Rundbögen und grüner Beschriftung. Straßenansicht des Gastgartens vom JOMA mit roten Sonnensegeln und Sitzplätzen. Straßenansicht des Wirtshauses Figls mit Eingang, Stufen und Kreidetafel. Café am Dom Wien – Bar und Res...\n4. Naschmarkt Vienna Opening Hours & Market Times score=0.68\n   URL: https://www.naschmarkt-vienna.com/opening-hours\n   Snippet: Colorful display of tulips and fresh produce at a Naschmarkt Vienna stall. # Naschmarkt, Vienna. # Naschmarkt Vienna Opening Hours 2025. **Monday to Friday:** 6:00 AM – 9:00 PM. Naschmarkt is Vienna's most vibrant food market, open six days a week with over 120 stalls and restaurants offering everything from fresh produce to international cuisine. The market operates year-round, with vendors setting up their stalls as early as 6:00 AM to serve the breakfast crowd. **Food Stalls and Vendors:** Most vendors open promptly at 6:00 AM, as locals come to buy fresh ingredients for their morning meals. **Restaurants and Cafés:** Many of the sit-down restaurants and cafés extend their hours beyond the market stalls, often staying open until midnight Monday through Saturday. **Early Morning (9:00-10:00 AM):** Ideal for avoiding crowds and experiencing the full selection of fresh produce and mornin...\n5. Viennese Restaurant | Plachutta Vienna score=0.45\n   URL: https://www.plachutta.at/en/\n   Snippet: # Plachutta Restaurants Vienna. The Plachutta family and the Plachutta restaurants have become synonymous with the world-renowned Viennese cuisine, particularly its prominent representative, Tafelspitz. Step into the perfection of Viennese hospitality and allow yourself to be pampered! the pride of Viennese culinary art. ## Plachutta restaurants. In the center of the city. Read more Opens \"Plachutta Wollzeile\". Read more Opens \"Stammhaus Hietzing\". Read more Opens \"Plachutta Nussdorf\". ## Wall of Fame The world visits Vienna. ## The Plachutta family across generations. Experience Viennese cuisine at Plachutta restaurants, where tradition and flavor blend at the highest level. Vienna is the only city with its own cuisine, and the Plachutta restaurants masterfully preserve this tradition. Let yourself be pampered and savor the authentic taste of Vienna. ## We’ll keep you up to date with th...",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "2f656916-ae4e-4fb4-9b3d-f808f265e65a",
+        "tool_call_id": "call_m8nQyRFz8jIml64HIHpmsE3A",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nMotel One Wien Hauptbahnhof and B&B Hotel Wien Hbf offer budget-friendly accommodations in Vienna. Rates for July 2026 are not available yet. Check their official websites for the latest prices.\n\nTavily results:\n1. B&B HOTEL Wien-Hbf, Vienna, Austria - trivago score=0.79\n   URL: https://www.trivago.com/en-US/oar/b-b-hotel-wien-hbf-vienna?search=100-16351478\n   Snippet: # B&B HOTEL Wien-Hbf. B&B HOTEL Wien-Hbf. B&B HOTEL Wien-Hbf%22%3E%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22transparent%22%3E%3C%2Fstop%3E%3Cstop%20offset%3D%2250%25%22%20stop-color%3D%22rgba(255%2C255%2C255%2C0.1)%22%3E%3C%2Fstop%3E%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22transparent%22%3E%3C%2Fstop%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22400%25%22%20height%3D%22100%25%22%20fill%3D%22url(%23shimmerGradient)%22%20x%3D%22100%25%22%3E%3Canimate%20attributeName%3D%22x%22%20from%3D%22-200%25%22%20to%3D%22100%25%22%20dur%3D%222.5s%22%20repeatCount%3D%22indefinite%22%3E%3C%2Fanimate%3E%3C%2Frect%3E%3Csvg%20x%3D%22968%22%20y%3D%22478%22%20width%3D%2264%22%20height%3D%2264%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cg%20fill%3D%22%238d8d8b%22%3E%3Cpath%20d%3D%22M20%2010H9a2%202%200%2000-2%202v8a2%202%200%20002%202h11a2%202%200%20002-2v-8a2%202%200%2000-2-2zM9%2011...\n2. Motel One Wien-Hauptbahnhof - Vienna - Booking.com score=0.73\n   URL: https://www.booking.com/hotel/at/motel-one-wien-hauptbahnhof-wien17.html\n   Snippet: # Motel One Wien-Hauptbahnhof, Vienna (updated prices 2026). ## Motel One Wien-Hauptbahnhof. Image 2: a restaurant with a mural of a building at Motel One Wien-Hauptbahnhof in Vienna. Image 3: a hotel room with two beds and a window at Motel One Wien-Hauptbahnhof in Vienna. Image 4: a tall building with lights in front of it at Motel One Wien-Hauptbahnhof in Vienna. Image 5: a patio with tables and chairs and an umbrella at Motel One Wien-Hauptbahnhof in Vienna. Image 6: a restaurant with tables and chairs in a room at Motel One Wien-Hauptbahnhof in Vienna. Image 7: a bakery with different types of bread and pastries at Motel One Wien-Hauptbahnhof in Vienna. Image 8: a dining room with tables and chairs and a mural at Motel One Wien-Hauptbahnhof in Vienna. Image 9: a restaurant with tables and chairs and a mural at Motel One Wien-Hauptbahnhof in Vienna +28 photos+28 photos.\n3. Motel One Wien-Hauptbahnhof Reviews, Deals & Photos 2026 score=0.67\n   URL: https://www.expedia.com/Vienna-Hotels-Motel-One-Wien-Hauptbahnhof.h10351283.Hotel-Information\n   Snippet: Stay at this hotel in Vienna. Enjoy free WiFi, breakfast (surcharge), and parking (surcharge). Our guests praise the property condition in our reviews.\n4. Motel One Wien-Hauptbahnhof, Vienna: Hotel Reviews, Rooms & Prices | Hotels.com score=0.62\n   URL: https://www.hotels.com/ho517123/motel-one-wien-hauptbahnhof-vienna-austria/\n   Snippet: * Unlock instant savings with Member Prices. + Learn more about One Key. # Motel One Wien-Hauptbahnhof. Hotel with bar/lounge, near Vienna State Opera. ## Choose dates to view prices. ## Photo gallery for Motel One Wien-Hauptbahnhof. Bar (on property) - Motel One Wien-Hauptbahnhof (Vienna). Property entrance - Motel One Wien-Hauptbahnhof (Vienna). Desk, soundproofing, free WiFi, bed sheets - Motel One Wien-Hauptbahnhof (Vienna). Daily buffet breakfast for a fee - Motel One Wien-Hauptbahnhof (Vienna). In the heart of Vienna, Motel One Vienna Central Station offers a charming retreat near Belvedere. Unwind on the sunny terrace, enjoy a drink at the bar, or stay connected with in-room WiFi. Previous guests rave about its perfect location. ## Reviews. ## Popular amenities. ### Main amenities(10). ### Feel at home(6). The total price is $105. Total with taxes and fees.\n5. Motel One Wien-Hauptbahnhof Hotel (Vienna) - Agoda.com score=0.58\n   URL: https://www.agoda.com/motel-one-wien-hauptbahnhof/hotel/vienna-at.html\n   Snippet: # Motel One Wien-Hauptbahnhof Hotel (Vienna) - Deals, Photos & Reviews. Begin typing property name or keyword to search, use arrow keys or tab key to navigate, press Enter to select. Press enter to start navigating through the date picker. Use arrow keys to navigate through the check-in and check-out dates. Upon selection of the date using enter key, check-in date will be selected. Repeat the same process to select the check-out date. Once both check-in and check-out date are selected, the focus will move to occupancy selection. *   Approximate prices (in USD) for 1-night stay in the searched property. *   Book Motel One Wien-Hauptbahnhof. Image 5: Exterior view, Motel One Wien-Hauptbahnhof in Vienna. Image 6: Bar/lounge, Motel One Wien-Hauptbahnhof in Vienna. Image 9: Motel One Wien-Hauptbahnhof. # Motel One Wien-Hauptbahnhof. Gold star ratings are provided by the property to reflect th...",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "bb1e7ddc-6f37-4d84-8aa8-f656bccc453d",
+        "tool_call_id": "call_0d4OVXovFSIgLWtOeHCr1u8d",
+        "status": "success"
+      },
+      {
+        "content": "",
+        "additional_kwargs": {
+          "refusal": null
+        },
+        "response_metadata": {
+          "token_usage": {
+            "completion_tokens": 187,
+            "prompt_tokens": 12788,
+            "total_tokens": 12975,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": null,
+              "audio_tokens": 0,
+              "reasoning_tokens": 82,
+              "rejected_prediction_tokens": null,
+              "image_tokens": 0
+            },
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 6656,
+              "cache_write_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost": 0.039598,
+            "is_byok": false,
+            "cost_details": {
+              "upstream_inference_cost": 0.039598,
+              "upstream_inference_prompt_cost": 0.033988,
+              "upstream_inference_completions_cost": 0.00561
+            }
+          },
+          "model_provider": "openai",
+          "model_name": "openai/gpt-5.5-20260423",
+          "system_fingerprint": null,
+          "id": "gen-1778952833-SttA01ADvCkaFF7Ed3cK",
+          "service_tier": "default",
+          "finish_reason": "tool_calls",
+          "logprobs": null
+        },
+        "type": "ai",
+        "id": "lc_run--019e31da-09ba-7290-a299-1269f3f4ae00-0",
+        "tool_calls": [
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "site:oebb.at Munich Vienna Railjet official travel time tickets"
+            },
+            "id": "call_ReOxLkZgkpUmdBigP89LOMmW",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "site:bahn.de Munich Vienna train official travel time Sparpreis"
+            },
+            "id": "call_rzTeV9G8Wsa9N2651f2uIG7O",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Vienna coffee house official Cafe Central opening hours prices menu"
+            },
+            "id": "call_Dlh46sJsuNYKKoOFu8Io55sg",
+            "type": "tool_call"
+          }
+        ],
+        "invalid_tool_calls": [],
+        "usage_metadata": {
+          "input_tokens": 12788,
+          "output_tokens": 187,
+          "total_tokens": 12975,
+          "input_token_details": {
+            "audio": 0,
+            "cache_read": 6656
+          },
+          "output_token_details": {
+            "audio": 0,
+            "reasoning": 82
+          }
+        }
+      },
+      {
+        "content": "Tavily answer:\nThe official travel time for Railjet from Vienna to Munich is approximately 3 hours and 30 minutes. Tickets can be booked up to 6 months in advance. ÖBB Railjet offers direct services with modern amenities.\n\nTavily results:\n1. Travelling to Munich by train - ÖBB score=0.68\n   URL: https://www.oebb.at/en/reiseplanung-services/oebb-zugverbindungen/zugverbindungen-europa/muenchen\n   Snippet: Fast, comfortable connections to the Bavarian capital. ÖBB offers **direct services** from cities **across Austria** such as **Graz, Klagenfurt, Innsbruck and Bregenz** ensuring **quick and comfortable** journeys to Munich. Between **Salzburg** and Munich, ÖBB long-distance services operate hourly during the day. **Every 2 hours**, the Railjet provides a fast connection to the Bavarian capital from **Vienna and Linz**. ## Travel to Munich at great prices with ÖBB Sparschiene. If you want to travel to Germany **at especially low fares**, ÖBB Sparschiene Non-Flex tickets are the perfect choice. **Book early**: each train has a **limited number of Sparschiene tickets**. For the best-value fares, tickets can be purchased **up to 6 months in advance** either online, in the app or at the ticket counter. With a punctuality rate of nearly 94%, ÖBB ranked among the most reliable railway operators...\n2. ÖBB Sparschiene - ÖBB score=0.48\n   URL: https://www.oebb.at/en/tickets-kundenkarten/oesterreich-europa/sparschiene\n   Snippet: # ÖBB Sparschiene. Discover the most beautiful cities in Austria and across Europe now with the **ÖBB Sparschiene**, the ticket for **eco-friendly and affordable rail travel**. Simply choose your favorite city in the ÖBB App or in the Ticket Shop, book your Sparschiene ticket and set off stress-free: ideal for city breaks to top destinations such as Vienna, Salzburg, Graz, Munich, Venice or Prague. You can secure affordable Sparschiene tickets **up to 6 months in advance**. ## Sparschiene Europe & Nightjet: Tickets & Prices. Did you know that in the ÖBB Ticket Shop and in the ÖBB App you can search for the **lowest ÖBB fares**: Simply tick \"Best price\" in the connection overview. The rules for traveling with children on Sparschiene Europe/Nightjet can be found in the Guide to travelling abroad with ÖBB. You can find all the details under Your ÖBB Sparschiene at a Glance. Yes. Sparschiene...\n3. ÖBB Railjet score=0.45\n   URL: https://www.oebb.at/en/reiseplanung-services/im-zug/unsere-zuege/railjet\n   Snippet: # ÖBB Railjet. The ÖBB Railjet connects Austria and Europe. The brand new generation of Railjets is in use on the Brenner line between Munich - Innsbruck - Bozen and Veron, and will offer our passengers even more comfort. There are a total of 27 Railjets new Generation and 14 new Railjet DoSto ordered for use on long distance lines. From 2024, all existing Railjets will gradually undergo an upgrade program in terms of interior design and technology: In the modernised trains, you can enjoy comfortable seats, a modern design in the cabin, additional buggy storage spaces and baggage rack space, as well as an improved passenger information system. | First & Economy Class | Yes | Yes |. | On-board restaurant | Yes | Yes |. ## Impressions of the Railjet new Generation. Raised seats with luggage storage space (2nd Class) © ÖBB / Harald Eisenberger\"). Compartments for 6 persons (2nd Class) © ÖBB...",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "2a705787-e012-4ac6-87be-fd4c0edf5656",
+        "tool_call_id": "call_ReOxLkZgkpUmdBigP89LOMmW",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nThe official travel time from Munich to Vienna by train is around 4 hours. Sparpreis tickets start from EUR 23.99. Children up to 5 years travel for free.\n\nTavily results:\n1. Low-cost train tickets between Germany and Austria from EUR 19.99 with the super saver fare Europe score=0.49\n   URL: https://int.bahn.de/en/offers/saver-fare-flexible-fare/super-saver-fare-europe-austria\n   Snippet: * **Children up to 14 years** of age travel **free of charge**in many cases with an accompanying person who is at least 15 years of age. * **Children up to 5 years of age** always travel free of charge and do not need to be indicated when booking. * **Children aged 6-14** travel free of charge when accompanied by a person aged 15 or over. * **Exception:** When using a City-Ticket, children aged 6-14 pay the children's fare for a single journey in the respective transport association. * **Children up to the age of 5 always** travel free of charge. * **Children up to the age of 5** may only travel in Austria if accompanied. You can book tickets up to 6 months in advance and up to one day before departure. The City-Ticket for flexible travel to and from the long-distance service is included in the total ticket price if the following conditions are met:.\n2. Cheap train tickets between Germany and Austria from EUR 23.99 with the saver fare Europe score=0.48\n   URL: https://int.bahn.de/en/offers/saver-fare-flexible-fare/saver-fare-europe-austria\n   Snippet: * **25% discount** on the German part of the route **with BahnCard 25/50/100**(excluding City-Ticket). * Tickets are **available up to 6 months in advance**. You will receive a **25% discount on the German section of the route**with the BahnCard 25/50/100. * **Children up to the age of 5 always** travel free of charge. * **Children up to the age of 5** may only travel in Austria if accompanied. You can book tickets up to 12 months in advance and until shortly before departure. You can book tickets up to 6 months in advance and up to one day before departure. The City-Ticket is only available for the 130 participating towns and cities in Germany. The City-Ticket for flexible travel to and from the long-distance service is included in the total ticket price if the following conditions are met:. * The departure or destination stop is in one of the 130 City-Ticket towns and cities.\n3. Affordable train tickets from EUR 6.99 nationwide score=0.42\n   URL: https://int.bahn.de/en/offers/saver-fare-flexible-fare/super-saver-fare\n   Snippet: # With the super saver fare from EUR 6.99. Green travel across Germany on the ICE with the super saver fare ticket. * **25% discount** with the **BahnCard 25** or **BahnCard 50** (excluding City-Ticket). * **Children up to 14 years of age travel free of charge** in many cases with an accompanying person who is at least 15 years of age. Further information: Now take a second person with you and they will enjoy the same discount as you with your BahnCard 50 until 30 September 2025. Now take a second person with you and they will enjoy the same discount as you with your BahnCard 50 until 30 September 2025. * **Children up to 5 years of age always travel free of charge** and do not need to be indicated when booking. * If you have a (super) saver fare ticket, you can only travel on the service indicated on the ticket.\n4. Munich to Zurich by Train - Deutsche Bahn score=0.42\n   URL: https://int.bahn.de/en/destinations/munich/zurich\n   Snippet: The journey takes approximately 4 hours. This allows you to travel efficiently between these two major cities without wasting time.\n5. Cheap train tickets between Germany and Hungary from EUR 42.99 ... score=0.41\n   URL: https://int.bahn.de/en/offers/saver-fare-flexible-fare/saver-fare-europe-hungary\n   Snippet: From EUR 42.99 on short routes, e.g. from Munich to Budapest. Advantages. Four daily connections from Munich to Budapest in 6:50 hours; Children up to 14",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "39db2f1a-6e6c-4ad7-a7b8-2c1f9b5957f5",
+        "tool_call_id": "call_rzTeV9G8Wsa9N2651f2uIG7O",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nCafé Central in Vienna is open daily from 8 AM to 10 PM. Prices for pastries and coffee range from €4.50 to €5.50. The historic coffeehouse is located at Herrengasse 14.\n\nTavily results:\n1. CAFÉ CENTRAL - Updated May 2026 - 1957 Photos & 749 Reviews score=1.00\n   URL: https://www.yelp.com/biz/caf%C3%A9-central-wien-4\n   Snippet: CAFÉ CENTRAL - Try Our New Menu - Herrengasse 14, 1010 Wien, Austria, 1957 Photos, +4315333763, Mon - 7:30 am - 10:00 pm, Tue - 7:30 am - 10:00 pm,\n2. CAFE CENTRAL, Vienna - Herrengasse 14, Inner City - Tripadvisor score=1.00\n   URL: https://www.tripadvisor.com/Restaurant_Review-g190454-d1967964-Reviews-or4285-Cafe_Central-Vienna.html\n   Snippet: Expect some waiting queue to be seated, then fast and correct service, no surprises. Most pastries : 4,60€, cup of coffee : +-4,50€, pot of coffee : 5,50€,\n3. Café Central Menu (Updated 2026) - Wheree score=1.00\n   URL: https://caf-central-7.wheree.com/menu\n   Snippet: Open 08:00 A.M - 10:00 P.M. See Hours · Herrengasse 14, 1010 Wien, Austria. Open 08:00 A.M - 10:00 P.M See Hours · +431-533-3763 · Suggest an edit · Overview\n4. Café Central, Vienna: Visitor Guide 2026 | Audiala score=1.00\n   URL: https://audiala.com/en/austria/vienna/cafe-central\n   Snippet: # Café Central. Nestled in the historic heart of Vienna, Café Central stands as a timeless emblem of the city's rich intellectual, cultural, and architectural heritage. \"Discover the hidden stories and rich heritage of Café Central.\". Café Central is not just a coffeehouse—it's a Viennese institution steeped in history, culture, and architectural splendor. Today, Café Central remains both a historical treasure and a vibrant destination for visitors seeking to immerse themselves in Vienna’s unique blend of past and present (Café Central official site; Live the World, 2022; UNESCO Viennese Coffeehouse Culture). This guide provides a comprehensive overview of Café Central’s visiting hours, reservation policies, accessibility, historical and cultural significance, menu highlights, and practical tips—ensuring you make the most of your visit to this legendary Vienna institution. Café Central o...\n5. How to Visit Café Central Vienna (and what to order!) - solosophie score=1.00\n   URL: https://www.solosophie.com/cafe-central-vienna/\n   Snippet: Café Central is open from 8 AM through to 10 PM every day (apart from Sunday, which has a slightly later opening time of 10 AM).",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "a8c79670-cb80-4e2d-b949-7fc5d7221675",
+        "tool_call_id": "call_Dlh46sJsuNYKKoOFu8Io55sg",
+        "status": "success"
+      },
+      {
+        "content": "",
+        "additional_kwargs": {
+          "refusal": null
+        },
+        "response_metadata": {
+          "token_usage": {
+            "completion_tokens": 662,
+            "prompt_tokens": 15399,
+            "total_tokens": 16061,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": null,
+              "audio_tokens": 0,
+              "reasoning_tokens": 627,
+              "rejected_prediction_tokens": null,
+              "image_tokens": 0
+            },
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 12288,
+              "cache_write_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost": 0.041559,
+            "is_byok": false,
+            "cost_details": {
+              "upstream_inference_cost": 0.041559,
+              "upstream_inference_prompt_cost": 0.021699,
+              "upstream_inference_completions_cost": 0.01986
+            }
+          },
+          "model_provider": "openai",
+          "model_name": "openai/gpt-5.5-20260423",
+          "system_fingerprint": null,
+          "id": "gen-1778952840-9y3D1dHfhe3PEgz5d7kD",
+          "service_tier": "default",
+          "finish_reason": "tool_calls",
+          "logprobs": null
+        },
+        "type": "ai",
+        "id": "lc_run--019e31da-25b8-7aa3-89c0-5e8750d64b84-0",
+        "tool_calls": [
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "official Wien Museum Karlsplatz opening hours admission free Vienna 2026"
+            },
+            "id": "call_UTZYwp2HK6e2vhixqECkwFJC",
+            "type": "tool_call"
+          }
+        ],
+        "invalid_tool_calls": [],
+        "usage_metadata": {
+          "input_tokens": 15399,
+          "output_tokens": 662,
+          "total_tokens": 16061,
+          "input_token_details": {
+            "audio": 0,
+            "cache_read": 12288
+          },
+          "output_token_details": {
+            "audio": 0,
+            "reasoning": 627
+          }
+        }
+      },
+      {
+        "content": "Tavily answer:\nThe Wien Museum on Karlsplatz is open Tuesday to Sunday, with free admission. It's closed on Mondays and January 1st and 5th. First Sunday of each month is free for all visitors.\n\nTavily results:\n1. Admission - WIEN MUSEUM score=1.00\n   URL: https://www.wienmuseum.at/admission\n   Snippet: Wien Museum Karlsplatz ; Visitors below the age of 19, free ; First Sunday of every month for all visitors ¹, free ; Flat rate for pre-booked group tours** (60 min\n2. Wien Museum Karlsplatz EN score=1.00\n   URL: https://www.wienmuseum.at/wien_museum_en\n   Snippet: Admission to VIENNA. MY STORY is free! Across three floors ... The visitor information desk in the foyer is open during the opening hours of the museum.\n3. Wien Museum (2026) - KNOW Before You Go (with Reviews) score=1.00\n   URL: https://www.tripadvisor.com/Attraction_Review-g190454-d191398-Reviews-or140-Wien_Museum-Vienna.html\n   Snippet: Admission to “Vienna. My History” is free! Additional attractions at the Wien Museum include temporary exhibitions on the top floor, numerous programs for all\n4. Wien Museum on Karlsplatz - Visiting Vienna score=1.00\n   URL: https://www.visitingvienna.com/sights/museums/wien-museum-karlsplatz/\n   Snippet: An all-new building and exhibition takes you through the history of Vienna and its people. Over 1700 objects in the (free) permanent exhibition.\n5. Free Things to Do in Vienna 2026: Ultimate Budget Travel Guide score=1.00\n   URL: https://www.machupicchu.org/free-things-to-do-in-vienna-2026-ultimate-budget-travel-guide.htm\n   Snippet: The mumok (Museum of Modern Art) offers free Thursday evening admission 6 PM – 9 PM throughout 2026, featuring avant-garde and contemporary works from Vienna",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "120a5054-329b-4407-85f2-69b1efb00063",
+        "tool_call_id": "call_UTZYwp2HK6e2vhixqECkwFJC",
+        "status": "success"
+      },
+      {
+        "content": "# Baseline itinerary: 5 days in Vienna from Munich\n\n## Goal and constraints understood\n- Trip: Munich → Vienna → Munich\n- Dates: July 10–14, 2026; 4 hotel nights, 5 calendar days\n- Travelers: 2 adults\n- Budget: €1,200 total\n- Required accommodation type: hotel\n- Interests: museums, local food, and exploring on foot\n- Baseline limitation: this plan uses Tavily web-search evidence only; no live booking, routing, hotel inventory, or ticketing validation was available.\n- Accommodation target: book a refundable double room near **Wien Hauptbahnhof / Belvedere** for easy train access and walkable sightseeing. Search-backed options include [Motel One Wien-Hauptbahnhof](https://www.motel-one.com/en/hotels/vienna/) and B&B-style budget hotels near Wien Hbf; July 2026 availability/rates must be checked directly. Budget target: **about €110–€130/night**, maximum planning cap **€480–€520 for 4 nights**.\n\n## Search summary\n- Munich–Vienna rail: ÖBB notes direct Railjet services between Vienna/Linz and Munich and early-booking Sparschiene fares via the ÖBB app/shop; DB lists Germany–Austria saver fares from [€23.99](https://int.bahn.de/en/offers/saver-fare-flexible-fare/saver-fare-europe-austria), bookable in advance.\n- Vienna transport: official Vienna info lists core-zone public transport tickets, including a **digital flexible 7-day Vienna ticket at €25.20** and single ticket at €3.20: [wien.info tickets](https://www.wien.info/en/travel-info/transport/tickets-361360).\n- Kunsthistorisches Museum: official visit page shows typical opening around **10:00–18:00**, Thursday extended evenings; ticket price evidence found via secondary source at about **€22/adult**: [KHM visit](https://www.khm.at/en/visit).\n- Albertina: official opening-hours page lists **daily 10:00–18:00**, Wednesday & Friday until **21:00**; ticket price evidence found via secondary source around **€19.90/adult**: [Albertina hours](https://www.albertina.at/en/visit/opening-hours/).\n- Belvedere: official visiting-hours page lists **daily 09:00–18:00**: [Belvedere visiting hours](https://www.belvederepalace.at/en/visiting-hours).\n- Schönbrunn: official page confirms palace park entry is free during opening hours and July park gates generally run to evening hours: [Schönbrunn opening times](https://www.schoenbrunn.at/en/visitor-information/opening-times).\n- Local food: Figlmüller official page lists Wollzeile location open daily **11:00–22:30**, kitchen until **21:30**: [Figlmüller](https://www.figlmueller.at/en/location-contact/). Plachutta is a classic Viennese-cuisine option: [Plachutta](https://www.plachutta.at/en/). Naschmarkt hours evidence came from a non-official source and should be verified before relying on exact stall times.\n\n## Day 1 — Friday, July 10: Munich to Vienna, check-in, Albertina evening\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 08:30–13:00 | transport | Take a direct or 1-change train from Munich to Vienna; choose advance saver fares if available. | München Hbf → Wien Hbf | €80–€120 for 2, estimate | DB lists Germany–Austria saver fares from [€23.99](https://int.bahn.de/en/offers/saver-fare-flexible-fare/saver-fare-europe-austria); ÖBB recommends early booking for [Sparschiene](https://www.oebb.at/en/tickets-kundenkarten/oesterreich-europa/sparschiene). Exact July 2026 fares unavailable. |\n| 13:00–14:00 | transport | Buy Vienna transit passes and transfer/check luggage. | Wien Hbf / hotel area | €50.40 total | Use 2 × digital flexible 7-day Vienna tickets at €25.20 each if still available: [wien.info](https://www.wien.info/en/travel-info/transport/tickets-361360). |\n| 14:00–15:30 | accommodation | Check in or leave bags at hotel near Wien Hauptbahnhof / Belvedere. | Hauptbahnhof / 10th district edge | Included in hotel budget | Suggested search-backed area because it is convenient for trains and walkable to Belvedere; verify live rates at [Motel One Vienna](https://www.motel-one.com/en/hotels/vienna/) or similar budget hotels. |\n| 15:30–16:30 | food | Light late lunch: sausage stand, bakery, or casual café near Hauptbahnhof. | Hauptbahnhof / Favoriten | €20–€25, estimate | Keep casual today to protect budget. |\n| 17:00–19:00 | museum | Visit the Albertina for art and imperial rooms. | Albertina, Innere Stadt | ~€39.80 for 2, estimate | Friday extended hours are listed by the official [Albertina opening-hours page](https://www.albertina.at/en/visit/opening-hours/). Ticket price from secondary source; verify before booking. |\n| 19:00–20:15 | city walk | Walk from Albertina via Vienna State Opera, Kärntner Straße, and St. Stephen’s Cathedral. | Innere Stadt | Free | Self-guided orientation walk; no booking required. |\n| 20:15–21:30 | food | Classic Viennese dinner: reserve Figlmüller if you want schnitzel. | Figlmüller Wollzeile or Bäckerstraße | €50–€65, estimate | Official Figlmüller page lists Wollzeile open daily 11:00–22:30, kitchen to 21:30: [Figlmüller](https://www.figlmueller.at/en/location-contact/). |\n\n## Day 2 — Saturday, July 11: Kunsthistorisches Museum, Naschmarkt, Ringstrasse walk\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 08:30–09:30 | food | Breakfast at hotel or nearby bakery. | Hotel / Hauptbahnhof | €15–€25, estimate | If hotel breakfast is expensive, use a bakery to stay on budget. |\n| 10:00–13:00 | museum | Visit the Kunsthistorisches Museum: Bruegel, Old Masters, Egyptian and classical collections. | Maria-Theresien-Platz | ~€44 for 2, estimate | Official visit page shows regular opening around 10:00–18:00: [KHM visit](https://www.khm.at/en/visit). Ticket price found via secondary source; verify official ticket shop before purchase. |\n| 13:15–14:30 | food | Lunch at or near Naschmarkt; try local and regional foods without committing to a formal restaurant. | Naschmarkt / Karlsplatz | €30–€40, estimate | Market-hours evidence came from a non-official source; verify exact stall hours locally. |\n| 14:30–16:30 | city walk | Walk the Ringstrasse section past MuseumsQuartier, Parliament, Rathaus, Burgtheater, and Volksgarten. | Ringstrasse | Free | Secondary walking-route evidence: [Visiting Vienna Ring walk](https://www.visitingvienna.com/transport/walking-tour-ring/). |\n| 16:30–17:30 | break | Coffee and cake break. | Café or bakery near Rathaus / Innere Stadt | €18–€25, estimate | Café Central is iconic but often has queues; use any traditional coffeehouse if busy. |\n| 18:30–20:00 | food | Casual dinner: Beisl-style tavern or budget-friendly Austrian plates. | Neubau / Josefstadt / Innere Stadt | €45–€60, estimate | Choose a neighborhood tavern rather than a premium restaurant to preserve budget. |\n| 20:00–21:30 | city walk | Evening stroll through Volksgarten and Hofburg exteriors. | Hofburg / Innere Stadt | Free | Outdoor sightseeing; no ticket needed. |\n\n## Day 3 — Sunday, July 12: Schönbrunn gardens, Wien Museum, traditional dinner\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 08:30–09:15 | food | Simple breakfast. | Hotel / bakery | €15–€25, estimate | Keep breakfast modest for budget control. |\n| 09:30–12:30 | city walk | Visit Schönbrunn Palace Park and gardens; walk to the Gloriette viewpoint if weather is good. | Schönbrunn | Free for park | Official page says palace park entry is free during opening hours and lists seasonal park hours: [Schönbrunn opening times](https://www.schoenbrunn.at/en/visitor-information/opening-times). Paid palace interiors are optional. |\n| 12:30–13:30 | food | Lunch near Schönbrunn or return toward Karlsplatz for cheaper options. | Hietzing / Karlsplatz | €30–€40, estimate | Avoid high-priced tourist cafés if budget is tight. |\n| 14:00–16:00 | museum | Visit Wien Museum Karlsplatz permanent exhibition for Vienna history. | Karlsplatz | Free | Official Wien Museum page says admission to “Vienna. My Story” is free: [Wien Museum](https://www.wienmuseum.at/wien_museum_en). Opening-day assumption: Sunday open; verify exact 2026 hours. |\n| 16:00–17:30 | city walk | Explore Karlskirche exterior, Secession exterior, and nearby streets on foot. | Karlsplatz / Secession | Free | Exterior walk; no paid ticket included. |\n| 18:30–20:00 | food | Traditional Viennese dinner; consider Plachutta for Tafelspitz if you want one splurge meal. | Plachutta or similar | €60–€80, estimate | Plachutta official site confirms Viennese cuisine focus and restaurant locations: [Plachutta](https://www.plachutta.at/en/). Reserve and check prices. |\n\n## Day 4 — Monday, July 13: Belvedere area, coffeehouse culture, neighborhoods on foot\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 08:30–09:15 | food | Breakfast near hotel. | Hauptbahnhof / Belvedere area | €15–€25, estimate | Bakery breakfast recommended. |\n| 09:30–12:00 | museum / walk | Visit Belvedere gardens and, if budget allows, Upper Belvedere for Klimt and Austrian art. | Belvedere | Gardens free; museum ticket optional, estimate €40–€50 for 2 | Official Belvedere page lists daily 09:00–18:00: [Belvedere hours](https://www.belvederepalace.at/en/visiting-hours). Exact 2026 ticket price not verified by official source in search. |\n| 12:15–13:30 | food | Lunch in the Belvedere / Hauptbahnhof area. | 3rd district / Hbf | €30–€40, estimate | Casual lunch keeps total trip under €1,200. |\n| 14:00–16:30 | city walk | Walk through Stadtpark, along the Ring, then into the old city lanes around Stephansplatz and Judenplatz. | Landstraße / Innere Stadt | Free | Self-guided walk; use transit back if tired. |\n| 16:30–17:30 | food | Viennese coffeehouse stop. | Innere Stadt | €18–€25, estimate | Café Central is a famous option; exact hours/prices should be verified directly because search evidence was not official. |\n| 18:30–20:00 | food | Low-key dinner: Würstelstand, goulash, or neighborhood tavern. | Innere Stadt / Neubau | €35–€50, estimate | Balance the previous night’s splurge. |\n| 20:00–21:00 | free time | Optional evening walk by the Danube Canal or return to hotel early. | Donaukanal / hotel | Free | Flexible rest time before departure day. |\n\n## Day 5 — Tuesday, July 14: final walk and return to Munich\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 08:00–09:00 | food | Breakfast and pack. | Hotel | €15–€25, estimate | Check out and store bags if train is later. |\n| 09:00–10:00 | accommodation | Check out; leave luggage at hotel or station lockers if needed. | Hotel / Wien Hbf | €0–€10, estimate | Locker prices not verified; ask hotel first. |\n| 10:00–12:00 | city walk | Final old-town walk: Graben, Kohlmarkt, Hofburg courtyards, and souvenir stop. | Innere Stadt | Free | Outdoor walking route; no ticket needed. |\n| 12:00–13:00 | food | Final lunch: casual Austrian lunch or bakery picnic for train. | Innere Stadt / Wien Hbf | €25–€35, estimate | Keep it simple before departure. |\n| 13:30–18:00 | transport | Train back to Munich. | Wien Hbf → München Hbf | €80–€120 for 2, estimate | Use DB/ÖBB early-booking saver fares; DB Germany–Austria saver fare page: [bahn.de](https://int.bahn.de/en/offers/saver-fare-flexible-fare/saver-fare-europe-austria). |\n| 18:00 onward | arrival | Arrive in Munich. | München Hbf | Included | Exact train time to be selected when July 2026 schedules/fares are available. |\n\n## Budget summary\n- Train Munich–Vienna–Munich for 2 adults: **€160–€240 estimate**, assuming advance saver fares.\n- Hotel, 4 nights double room near Wien Hbf: **target €480–€520** total. This is the key budget risk.\n- Vienna public transport: **€50.40** for 2 × digital flexible 7-day Vienna tickets, based on official Vienna ticket information.\n- Planned paid museums:\n  - Albertina: **~€39.80 for 2**, estimate; verify official ticket price.\n  - Kunsthistorisches Museum: **~€44 for 2**, estimate; verify official ticket price.\n- Food and coffee: **about €275–€325** total, assuming bakery breakfasts, casual lunches, and one nicer traditional dinner.\n- Miscellaneous / lockers / snacks: **€40–€60**.\n- Estimated total: **about €1,089–€1,239**.\n- Practical budget target: keep hotel at or below **€120/night average** and train tickets near **€50/person/one-way or less** to stay safely under **€1,200**.\n- Optional paid interiors at Belvedere or Schönbrunn should be added only if train or hotel costs come in low.\n\n## Unscheduled or uncertain items\n- Exact July 2026 train times, ticket prices, and seat reservations are not confirmed; book via DB or ÖBB when schedules open.\n- Hotel availability and prices for July 10–14, 2026 are not confirmed. Suggested hotel names/areas are search-backed, not live-booked.\n- Belvedere and Schönbrunn interior ticket prices were not verified from official ticket pages in the available search results, so they are treated as optional.\n- Café Central hours/prices were not verified from an official source in the Tavily results; use it as an optional coffeehouse stop, not a hard booking.\n- Naschmarkt exact stall hours should be checked closer to the date.\n\n## Assumptions and gaps\n- Assumes you are comfortable traveling by train, as no transport preference was specified.\n- Assumes a budget hotel near Wien Hauptbahnhof is acceptable because it reduces transfer friction and remains walkable to Belvedere.\n- Assumes meals average around **€55–€65 per couple per day**; higher-end dining would push the trip over budget.\n- Assumes you will reserve flexible/refundable accommodation early and monitor train saver fares.\n- This baseline has only Tavily evidence and cannot validate live availability, booking status, real-time opening exceptions, or 2026 event disruptions.",
+        "additional_kwargs": {
+          "refusal": null
+        },
+        "response_metadata": {
+          "token_usage": {
+            "completion_tokens": 5211,
+            "prompt_tokens": 15890,
+            "total_tokens": 21101,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": null,
+              "audio_tokens": 0,
+              "reasoning_tokens": 1552,
+              "rejected_prediction_tokens": null,
+              "image_tokens": 0
+            },
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 14848,
+              "cache_write_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost": 0.168964,
+            "is_byok": false,
+            "cost_details": {
+              "upstream_inference_cost": 0.168964,
+              "upstream_inference_prompt_cost": 0.012634,
+              "upstream_inference_completions_cost": 0.15633
+            }
+          },
+          "model_provider": "openai",
+          "model_name": "openai/gpt-5.5-20260423",
+          "system_fingerprint": null,
+          "id": "gen-1778952860-qhlfj7SLrWPI6G0qJYyR",
+          "service_tier": "default",
+          "finish_reason": "stop",
+          "logprobs": null
+        },
+        "type": "ai",
+        "id": "lc_run--019e31da-741f-7db0-a48f-8952f674d215-0",
+        "tool_calls": [],
+        "invalid_tool_calls": [],
+        "usage_metadata": {
+          "input_tokens": 15890,
+          "output_tokens": 5211,
+          "total_tokens": 21101,
+          "input_token_details": {
+            "audio": 0,
+            "cache_read": 14848
+          },
+          "output_token_details": {
+            "audio": 0,
+            "reasoning": 1552
+          }
+        }
+      }
+    ]
+  },
+  "error": null,
+  "metadata": {
+    "LANGSMITH_ENDPOINT": "https://eu.api.smith.langchain.com",
+    "LANGSMITH_PROJECT": "travelplanner",
+    "LANGSMITH_TRACING": "true",
+    "ls_integration": "langgraph",
+    "ls_run_depth": 0,
+    "revision_id": "10ec8d0-dirty",
+    "thread_id": "7e638eb5-4b2c-416d-a99c-e8706ae295b8"
+  },
+  "langsmith": {
+    "organization": {
+      "name": "Personal",
+      "id": "477adfd8-a90b-45c3-95f6-1375325770e8"
+    },
+    "workspace": {
+      "name": "Workspace 1",
+      "id": "06241d75-72ec-4af5-b325-52629e7730a0"
+    },
+    "tracing_project": {
+      "id": "d92c06e8-225e-4665-a627-fdf375468f7c",
+      "name": "travelplanner"
+    }
+  }
+}

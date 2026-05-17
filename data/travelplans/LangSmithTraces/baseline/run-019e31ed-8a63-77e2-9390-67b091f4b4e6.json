@@ -1,0 +1,523 @@
+{
+  "inputs": {
+    "messages": [
+      {
+        "content": "You are the Simple Baseline TravelPlanner Agent.\n\nPurpose:\n- Produce a single-agent baseline itinerary for later comparison against the\n  multi-agent TravelPlanner system.\n- You have exactly one tool: Tavily web search. You have no sub-agents and no\n  specialized flight, hotel, restaurant, routing, or validation tools.\n\nOperating rules:\n1. Use Tavily web search before the final itinerary for current facts, links,\n   opening hours, prices, neighborhoods, transit hints, and source URLs.\n   The workflow may require a minimum number of completed Tavily searches before\n   you may answer with final markdown only; if you receive a workflow nudge,\n   complete the requested searches first.\n   Use a small number of high-value searches, then synthesize the final answer.\n2. Respect every hard constraint supplied by the user. If a constraint cannot be\n   verified, state the assumption instead of silently ignoring it.\n3. Prefer official tourism, venue, transit, accommodation, restaurant, and event\n   pages when search results contain them. Use blogs and aggregators only as\n   secondary evidence.\n4. Do not invent exact prices, opening hours, flight numbers, hotel availability,\n   or booking status. Mark uncertain values as estimates.\n5. Order each day like the main execution agent: travel/check-in first, meals at\n   plausible meal times, attractions during likely opening hours, transfers\n   between distant places, and rest/free time when useful.\n6. Return only markdown in the final answer.\n\nFinal markdown structure:\nUse exactly these section headings, in this order:\n1. `# Baseline itinerary: ...`\n2. `## Goal and constraints understood`\n3. `## Search summary`\n4. `## Day 1 ...` and one section per day\n5. `## Budget summary`\n6. `## Unscheduled or uncertain items`\n7. `## Assumptions and gaps`\n\nEach day must be a markdown table with exactly these columns:\n`Time | Type | Plan | Location | Cost | Evidence/Notes`.\n\nSource discipline:\n- Every non-obvious venue, attraction, transit pass, opening-time claim, and\n  ticket price should have either a markdown link in Evidence/Notes or be marked\n  as an estimate.\n- If a requested item cannot be scheduled with available evidence, list it under\n  \"Unscheduled or uncertain items\" rather than hiding it.\n- Never include raw Tavily result dumps in the final answer.\n\nExample final output shape:\n\n# Baseline itinerary: 3 days in Lisbon\n\n## Goal and constraints understood\n- Origin: Berlin\n- Dates: 2026-06-12 to 2026-06-14\n- Budget: 800 EUR for 2 travelers\n\n## Search summary\n- Official tourism page for Belém Tower: https://...\n- Transit pass information: https://...\n\n## Day 1\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 09:00-10:30 | transport | Arrive and transfer to hotel | Airport to Baixa | €8 | Metro estimate; verify live schedules |\n\n## Budget summary\n- Estimated total: €...\n\n## Unscheduled or uncertain items\n- Flight number unavailable because only Tavily web search is available.\n\n## Assumptions and gaps\n- Hotel prices require live booking confirmation.\n",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "system",
+        "id": "186f6e45-a313-40d5-a9e0-7a8e4cb5f56d"
+      },
+      {
+        "content": "GOAL\nCreate a comparable baseline travel plan in markdown.\n\nUSER QUERY\nI am travelling solo from Munich to Cape Town for 3 weeks from June 1st to 21st, 2026. My total budget is €4,000 including flights. I will stay in hostels, love hiking (Table Mountain, Cape Point), wildlife, and surfing. I want to experience local culture and meet other travellers. Please help me plan this trip on a tight budget.\n\nCONSTRAINTS\n{\n  \"hard_constraints\": {\n    \"origin\": \"Munich\",\n    \"destination\": \"Cape Town\",\n    \"date_from\": \"2026.06.01\",\n    \"date_to\": \"2026.06.21\",\n    \"travelers\": {\n      \"adults\": 1,\n      \"children_under_6\": 0,\n      \"children_6_to_16\": 0\n    },\n    \"budget_amount\": 4000,\n    \"budget_currency\": \"EUR\",\n    \"accommodation\": \"hostel\",\n    \"transport\": \"Flight\",\n    \"interests\": \"hiking, wildlife, local culture, surf, budget travel, meeting people\"\n  }\n}\n\nOUTPUT REQUIREMENT\nReturn the final plan as markdown using the same practical timetable style as the main execution agent, but acknowledge that this baseline only has Tavily evidence. Include source links found via Tavily.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "human",
+        "id": "80d31dd9-c246-44e1-8772-7855c6b2f110"
+      }
+    ]
+  },
+  "outputs": {
+    "messages": [
+      {
+        "content": "You are the Simple Baseline TravelPlanner Agent.\n\nPurpose:\n- Produce a single-agent baseline itinerary for later comparison against the\n  multi-agent TravelPlanner system.\n- You have exactly one tool: Tavily web search. You have no sub-agents and no\n  specialized flight, hotel, restaurant, routing, or validation tools.\n\nOperating rules:\n1. Use Tavily web search before the final itinerary for current facts, links,\n   opening hours, prices, neighborhoods, transit hints, and source URLs.\n   The workflow may require a minimum number of completed Tavily searches before\n   you may answer with final markdown only; if you receive a workflow nudge,\n   complete the requested searches first.\n   Use a small number of high-value searches, then synthesize the final answer.\n2. Respect every hard constraint supplied by the user. If a constraint cannot be\n   verified, state the assumption instead of silently ignoring it.\n3. Prefer official tourism, venue, transit, accommodation, restaurant, and event\n   pages when search results contain them. Use blogs and aggregators only as\n   secondary evidence.\n4. Do not invent exact prices, opening hours, flight numbers, hotel availability,\n   or booking status. Mark uncertain values as estimates.\n5. Order each day like the main execution agent: travel/check-in first, meals at\n   plausible meal times, attractions during likely opening hours, transfers\n   between distant places, and rest/free time when useful.\n6. Return only markdown in the final answer.\n\nFinal markdown structure:\nUse exactly these section headings, in this order:\n1. `# Baseline itinerary: ...`\n2. `## Goal and constraints understood`\n3. `## Search summary`\n4. `## Day 1 ...` and one section per day\n5. `## Budget summary`\n6. `## Unscheduled or uncertain items`\n7. `## Assumptions and gaps`\n\nEach day must be a markdown table with exactly these columns:\n`Time | Type | Plan | Location | Cost | Evidence/Notes`.\n\nSource discipline:\n- Every non-obvious venue, attraction, transit pass, opening-time claim, and\n  ticket price should have either a markdown link in Evidence/Notes or be marked\n  as an estimate.\n- If a requested item cannot be scheduled with available evidence, list it under\n  \"Unscheduled or uncertain items\" rather than hiding it.\n- Never include raw Tavily result dumps in the final answer.\n\nExample final output shape:\n\n# Baseline itinerary: 3 days in Lisbon\n\n## Goal and constraints understood\n- Origin: Berlin\n- Dates: 2026-06-12 to 2026-06-14\n- Budget: 800 EUR for 2 travelers\n\n## Search summary\n- Official tourism page for Belém Tower: https://...\n- Transit pass information: https://...\n\n## Day 1\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 09:00-10:30 | transport | Arrive and transfer to hotel | Airport to Baixa | €8 | Metro estimate; verify live schedules |\n\n## Budget summary\n- Estimated total: €...\n\n## Unscheduled or uncertain items\n- Flight number unavailable because only Tavily web search is available.\n\n## Assumptions and gaps\n- Hotel prices require live booking confirmation.\n",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "system",
+        "id": "186f6e45-a313-40d5-a9e0-7a8e4cb5f56d"
+      },
+      {
+        "content": "GOAL\nCreate a comparable baseline travel plan in markdown.\n\nUSER QUERY\nI am travelling solo from Munich to Cape Town for 3 weeks from June 1st to 21st, 2026. My total budget is €4,000 including flights. I will stay in hostels, love hiking (Table Mountain, Cape Point), wildlife, and surfing. I want to experience local culture and meet other travellers. Please help me plan this trip on a tight budget.\n\nCONSTRAINTS\n{\n  \"hard_constraints\": {\n    \"origin\": \"Munich\",\n    \"destination\": \"Cape Town\",\n    \"date_from\": \"2026.06.01\",\n    \"date_to\": \"2026.06.21\",\n    \"travelers\": {\n      \"adults\": 1,\n      \"children_under_6\": 0,\n      \"children_6_to_16\": 0\n    },\n    \"budget_amount\": 4000,\n    \"budget_currency\": \"EUR\",\n    \"accommodation\": \"hostel\",\n    \"transport\": \"Flight\",\n    \"interests\": \"hiking, wildlife, local culture, surf, budget travel, meeting people\"\n  }\n}\n\nOUTPUT REQUIREMENT\nReturn the final plan as markdown using the same practical timetable style as the main execution agent, but acknowledge that this baseline only has Tavily evidence. Include source links found via Tavily.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "human",
+        "id": "80d31dd9-c246-44e1-8772-7855c6b2f110"
+      },
+      {
+        "content": "",
+        "additional_kwargs": {
+          "refusal": null
+        },
+        "response_metadata": {
+          "token_usage": {
+            "completion_tokens": 307,
+            "prompt_tokens": 1073,
+            "total_tokens": 1380,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": null,
+              "audio_tokens": 0,
+              "reasoning_tokens": 39,
+              "rejected_prediction_tokens": null,
+              "image_tokens": 0
+            },
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0,
+              "cache_write_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost": 0.014575,
+            "is_byok": false,
+            "cost_details": {
+              "upstream_inference_cost": 0.014575,
+              "upstream_inference_prompt_cost": 0.005365,
+              "upstream_inference_completions_cost": 0.00921
+            }
+          },
+          "model_provider": "openai",
+          "model_name": "openai/gpt-5.5-20260423",
+          "system_fingerprint": null,
+          "id": "gen-1778954111-PDRp5wnNX0Vcn9xaKEkd",
+          "service_tier": "default",
+          "finish_reason": "tool_calls",
+          "logprobs": null
+        },
+        "type": "ai",
+        "id": "lc_run--019e31ed-8a65-7531-ad79-a19a5a4bce42-0",
+        "tool_calls": [
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Munich to Cape Town flights June 2026 typical airfare economy return"
+            },
+            "id": "call_plIyFCXnCqhOUvvjkr1ZuJE0",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Cape Town official tourism hostel areas backpackers Long Street Green Point Observatory Muizenberg"
+            },
+            "id": "call_rsoBygHgumEF9d9QguHGSZPw",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Table Mountain National Park Cape Point Boulders penguins official entrance fees 2026 South Africa National Parks"
+            },
+            "id": "call_EjHKbDeYKEJ2nKaBCEgfQ4jC",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Table Mountain Aerial Cableway official rates hours 2026 Cape Town"
+            },
+            "id": "call_dnmVlcr3ktDWQOjSsZBcDLjY",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Cape Town MyCiTi bus fares airport route official 2026"
+            },
+            "id": "call_SCAslIqoOWCvNu1G946ePr7Q",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Cape Town surfing Muizenberg lessons official surf school prices 2026"
+            },
+            "id": "call_bsn96sxngUAyHWfzx3v2qD5u",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Robben Island Museum official tours prices 2026 Cape Town"
+            },
+            "id": "call_qWCDQoccJWh0dsHt1vdYbKfx",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Cape Town free walking tours District Six Bo-Kaap official culture budget"
+            },
+            "id": "call_RhdhMh548iUNYe4wn5NrxfE2",
+            "type": "tool_call"
+          }
+        ],
+        "invalid_tool_calls": [],
+        "usage_metadata": {
+          "input_tokens": 1073,
+          "output_tokens": 307,
+          "total_tokens": 1380,
+          "input_token_details": {
+            "audio": 0,
+            "cache_read": 0
+          },
+          "output_token_details": {
+            "audio": 0,
+            "reasoning": 39
+          }
+        }
+      },
+      {
+        "content": "Tavily answer:\nTypical airfare for economy return flights from Munich to Cape Town in June 2026 ranges from $600 to $800. Ethiopian Airlines and KLM offer competitive rates. Prices fluctuate based on demand and booking time.\n\nTavily results:\n1. Cheap Flights from Munich International Airport to Cape Town score=0.92\n   URL: https://www.trip.com/flights/airport-muc-city-cpt/\n   Snippet: June: Flights from MUC to CPT start at US$617, departing on June 7, 2026, operated by KLM. ... Displayed flight fares from Munich to Cape Town are based on\n2. Find Cheap Flights from Munich to Cape Town (MUC - CPT) - Google Flights score=0.78\n   URL: https://www.google.com/travel/flights/flights-from-munich-to-cape-town.html\n   Snippet: # Cheap flights from Munich to Cape Town. Last-minute deals apply to the cheapest weekend trips available in the next seven days, with weekend trips being flights departing between Thursday and Saturday and returning on Sunday or Monday. | Cheapest round-trip flights | €739 | Ethiopian, Lufthansa2 stops17 hrMon, Jun 22 — Tue, Jul 7 | The cheapest round-trip flight from Munich to Cape Town is currently €739 |  |. | Cheapest business class flights | €2,528 | ITA, Ethiopian2 stops18 hrThu, Jul 23 — Fri, Aug 7 | The cheapest business class round-trip flight from Munich to Cape Town is currently €2,528 |  |. Typical prices for the least expensive round-trip flights from Munich to Cape Town per month. The cheapest month to fly from Munich to Cape Town is typically November. ## Popular airlines from Munich to Cape Town. Flight suggestions are based on an airline's cheapest round-trip fares from...\n3. Cheap Flights from Munich (MUC) - Cape Town (CPT ) score=0.67\n   URL: https://www.ethiopianairlines.com/en-de/flights-from-munich-to-cape-town\n   Snippet: Flights from Munich to Cape Town from EUR1,165* ; Flight Deals from Munich to Cape Town with Ethiopian Airlines™ · Cabin Class. Cabin Class option Economy\n4. Cheap Flights from Munich to Cape Town (MUC-CPT) - Expedia score=0.67\n   URL: https://www.expedia.com/lp/flights/muc/cpt/munich-to-cape-town\n   Snippet: Cheap Flights from Munich (MUC) to Cape Town (CPT) start at $588 for one-way and $730 for round trip. Earn your airline miles on top of our rewards!\n5. Discover the cheapest flights from Munich to Cape Town score=0.65\n   URL: https://www.edreams.com/flights/munich-cape-town/MUC/CPT/\n   Snippet: On average, what is the price of a Munich to Cape Town flight? When flying from Munich to Cape Town the average price will be €802. However, this price is",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "e8eda27d-2486-4dfe-b3a0-16916f9a71c5",
+        "tool_call_id": "call_plIyFCXnCqhOUvvjkr1ZuJE0",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nLong Street Backpackers is a popular hostel in Cape Town's city center, known for its vibrant atmosphere and proximity to nightlife and attractions. It's also close to the Green Point Observatory and Muizenberg beaches. The hostel offers communal spaces and easy access to major transport links.\n\nTavily results:\n1. LONG STREET BACKPACKERS (ADULTS ONLY) HOSTEL CAPE TOWN score=0.70\n   URL: https://long-street-backpackers-adults-only.capetown-hotels-za.com/en/\n   Snippet: + Villas in Cape Town (528). + Apartments in Cape Town (6291). + Hostels in Cape Town (55). + Bed and breakfasts in Cape Town (218). + Holiday rentals in Cape Town (863). # Hostel Long Street Backpackers (Adults Only) Cape Town. Long Street Backpackers (Adults Only) Hostel Cape Town. Long Street Backpackers (adults Only) *   Long Street Backpackers (adults Only) Cape Town   Long Street Backpackers (adults Only). Long Street Backpackers (adults Only) Cape Town. Featuring Wi-Fi in public areas, Long Street Backpackers Hostel Cape Town is situated around a 25-minute walk from the 40 - meter Cape Wheel. Bree Street is a mere 450 metres away, and the long-running Cape Town Comedy Club, available to diversify your stay, is 2.1 km away. Long Street Backpackers hostel is 18 minutes' drive from Cape Town International airport and in proximity to Cape Town train station. | Sports activities Hiking...\n2. Long Street Backpackers - Cape Town - Booking.com score=0.68\n   URL: https://www.booking.com/hotel/za/longstreet-backpackers.html\n   Snippet: Located on iconic Long Street in the Cape Town City Center, Long Street Backpackers is a party hostel with convenient features such as BBQ facilities, a sun\n3. Long Street Backpackers score=0.67\n   URL: https://www.longstreetbackpackers.co.za/\n   Snippet: the most  vibrant  communal hostel in Cape Town's city centre. One of the original Cape Town hostels, Long Street Backpackers  - under new management - has been reborn as an iconic institution of contemporary South African culture. Famous for its friendly atmosphere, incredibly lush social spaces, communal activities and fantastic location, LSB is the best place to experience everything Cape Town has to offer. Set in a private and secure courtyard oasis on Long Street, in the heart of Cape Town's Central Business District, LSB is surrounded by cafes, restaurants, clubs, gyms, parks, museums and art galleries. The hostel is also ideally situated to access Cape Town's famous beaches and mountains. Our communal facilities and spaces set us apart from other Cape Town hostels, and foster a relaxed and inclusive environment. Explore Cape Town with fellow travelers, even if you are traveling al...\n4. Hostel Long Street Backpackers, Cape Town, South Africa - trivago score=0.65\n   URL: https://www.trivago.co.za/en-ZA/oar/hostel-long-street-backpackers-cape-town?search=100-927081\n   Snippet: Located directly on iconic Long Street, guests are steps away from Cape Town's vibrant nightlife, restaurants, and cultural attractions, minimizing travel costs\n5. Long Street Backpackers, Cape Town Hotels - Skyscanner score=0.63\n   URL: https://www.skyscanner.gg/hotels/south-africa/cape-town-hotels/long-street-backpackers/ht-147848416\n   Snippet: Located on iconic Long Street in the Cape Town City Centre, Long Street Backpackers is a party hostel with convenient features such as BBQ facilities,",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "1f5f985e-b1cf-4fef-b142-c2a729e15445",
+        "tool_call_id": "call_rsoBygHgumEF9d9QguHGSZPw",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nIn 2026, entrance fees for Table Mountain National Park at Cape Point are R110 for adults. Fees for Boulders Beach are R55. No individual payments per person are accepted at Cape Point.\n\nTavily results:\n1. SANParks new 2025/26 tariffs: These are SA's cheapest parks to visit score=0.69\n   URL: https://www.timeout.com/cape-town/news/26-tariffs-these-are-sas-cheapest-parks-to-visit-100825\n   Snippet: Table Mountain National Park – Boulders – R55; Tie at under R61 ... Table Mountain National Park – Cape of Good Hope / Cape Point – R110\n2. Table Mountain, Cape Point & Penguin Beach ENTRANCE ... score=0.67\n   URL: https://www.getyourguide.com/cape-town-l103/table-mountain-cape-point-penguin-beach-entrance-included-t610070/\n   Snippet: Visit Table Mountain, Cape Point, and Boulders Beach on a private guided tour of Cape Town ... Table Mountain Cable Car Ticket7 days. 4. (346). From $61.\n3. Table Mountain, Boulders Penguins & Cape Point Day Tour in Cape Town, South Africa score=0.58\n   URL: https://intotours.wetravel.com/trips/table-mountain-boulders-penguins-cape-point-day-tour-into-country-tours-pty-ltd-93297754\n   Snippet: # Table Mountain, Boulders Penguins & Cape Point Day Tour. # Table Mountain, Boulders Penguins & Cape Point Day Tour. Into Country Tours Pty Ltd. Table Mountain, Boulders Penguins & Cape Point Day Tour. Into Country Tours Pty Ltd. Into Tours is a South African tour operator offering unforgettable guided experiences to top destinations like Addo Elephant Park, Cape Town, and the Garden Route. ## Available Add-Ons. Table Mtn Fast Track Ticket Pre-Pay. Boulders Beach Fee Pre-Pay : INTL Adult. Boulders Beach Fee Pre-Pay : INTL Child. Boulders Beach Fee Pre-Pay : SA Adult. Boulders Beach Fee Pre-Pay : SA Child. Cape Point NP Pre-Pay : INTL Adult. Cape Point NP Pre-Pay : INTL Child. Cape Point NP Pre-Pay : SA Adult. Cape Point NP Pre-Pay : SA Child. Cape Point Funicular Pre-Pay: Adult. Cape Point Funicular Pre-Pay: Child. Many thanks to Nina and Gary of Into Tours for all the work and effort t...\n4. Robben Island and Table Mountain Experience - Tripadvisor score=0.51\n   URL: https://www.tripadvisor.com/AttractionProductReview-g312659-d33286607-Robben_Island_and_Table_Mountain_Experience-Cape_Town_Central_Western_Cape.html\n   Snippet: Private and Luxury. from. $61.48. per adult (price varies by group size) · Table Mountain, Boulders Penguins and Cape point Day Tour. 4.9. (383). Private and\n5. Rates & Entry Fees – Table Mountain National Park - SANParks score=0.50\n   URL: https://www.sanparks.org/parks/table-mountain/rates-entry-fees\n   Snippet: One payment per vehicle when entering at Cape Point – no individual payments per person are accepted. Reservations Payments. Table Mountain National Park does",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "444ba386-a387-4638-8174-0f7014797b41",
+        "tool_call_id": "call_EjHKbDeYKEJ2nKaBCEgfQ4jC",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nThe Table Mountain Aerial Cableway operates from 08:30 to 17:00 in 2026. Check the official website for the most current hours. Ticket prices vary by time of day.\n\nTavily results:\n1. Table Mountain Visitor Info 2026 | Hours, Tickets & Weather score=0.63\n   URL: https://www.tablemountaincablecar.com/visitor-info\n   Snippet: # Table Mountain Visitor Guide 2026: Everything You Need to Know. Rising 1,086 meters above the Atlantic Ocean, **Table Mountain** is not just a backdrop for Cape Town; it is a living, breathing landmark and one of the **New 7 Wonders of Nature**. In 2026, the experience of visiting the summit has evolved with new digital queueing systems, expanded hiking safety protocols, and a focus on sustainable \"Slow Tourism.\". This comprehensive 2026 guide provides the exact logistics, opening hours, and expert \"Insider Secrets\" to ensure your journey to the top is seamless. In 2026, the morning remains the most reliable time for a clear summit. By arriving at the Lower Cable Station at 7:45 AM, you avoid the midday heat and the high-altitude cloud cover that often rolls in by 2:00 PM. As an independent resource, we recommend booking via our **Official Third-Party Partners** to ensure your ticket r...\n2. 31 August 2026: First car up: 08:30 Last car up: 17:00 ... - Instagram score=0.61\n   URL: https://www.instagram.com/p/DX6S-qGD6TH/\n   Snippet: As we move into the winter season, please take note of our updated Cableway operating hours from 01 May – 31 August 2026:\n3. Rates & Entry Fees – Table Mountain National Park - SANParks score=0.54\n   URL: https://www.sanparks.org/parks/table-mountain/rates-entry-fees\n   Snippet: 1 November 2026 – 31 October 2027. For more information see our Filming, Photography & Events page. Table Mountain Aerial Cableway. Ticket Prices and Operating\n4. Stop 7: Table Mountain Aerial Cableway | City Sightseeing score=0.51\n   URL: https://citysightseeing.co.za/en/cape-town/table-mountain-aerial-cableway\n   Snippet: # Stop 7: Table Mountain Aerial Cableway. Cape Town City Tour to Table Mountain. Pre-buy your Table Mountain Cableway ticket from the driver before you reach the mountain (at stop 1 outside Two Oceans Aquarium, stop 5 at 81 Long Street or stop 8 on Victoria Road, Camps Bay) and skip the queue at the Cableway ticket office. Two hours will be sufficient time to hop on the cableway and explore the top of Table Mountain. ### FAQs. What are the operating hours for the Table Mountain Aerial Cableway? The operating hours for the Table Mountain Aerial Cableway vary throughout the year, so it's important to check their official website for the most current information. What is the cost of a return ticket for the Table Mountain Aerial Cableway? The cost of a return ticket for the Table Mountain Aerial Cableway varies depending on the time of day.\n5. Table Mountain Aerial Cableway Tickets [2026] - Trip.com score=0.45\n   URL: https://www.trip.com/travel-guide/attraction/cape-town/table-mountain-aerial-cableway-147559274/\n   Snippet: Book Table Mountain Aerial Cableway tickets with limited-time offers, skip-the-line access, and instant confirmation. Get the best prices and enjoy a",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "b4f140d2-9a9a-4fc0-becc-234694a00d33",
+        "tool_call_id": "call_dnmVlcr3ktDWQOjSsZBcDLjY",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nMyCiTi bus fares from Cape Town airport to city center are around 70-100 ZAR. Use the MyCiTi fare calculator for the most current prices. Peak fares apply during weekday rush hours.\n\nTavily results:\n1. Multi Day Packages | MyCiTi Fare Options score=0.71\n   URL: https://www.myciti.org.za/en/myconnect-fares/multi-day-packages/\n   Snippet: Passengers on route 104 can expect possible delays from 20 May until 28 May 2026. This is due to road resurfacing in the Green Point area. Please allow for\n2. How to Get from Cape Town International Airport to the Ma… - Lokafy score=0.55\n   URL: https://lokafy.com/blog/how-get-cape-town-international-airport-main-city\n   Snippet: Fares to the city are between 60-100 ZAR ($4-7 USD) depending on the time you ride. For updated fares visit the MyCiti fares calculator. Keep in mind that My\n3. MyCiTi Bus Ticket Bookings Cape Town 2026 - SouthAfrica.TO score=0.51\n   URL: https://www.southafrica.to/transport/Busses/My-Citi-bus/MyCiti-bus.php\n   Snippet: MyCiti Bus Ticket bookings. MCiTi is a card system, on boarding a bus show your MyCiTi card which has been loaded with sufficient credits.\n4. MYCITI (2026) All You SHOULD Absolutely Know Before You Go (w score=0.43\n   URL: https://www.tripadvisor.co.uk/Attraction_Review-g1722390-d14791917-Reviews-MyCiTi-Cape_Town_Western_Cape.html\n   Snippet: Moreover, it is not costly (approximately 7 Rand per journey outside peak hours). You have to buy a card though, but again the procedure at Adderley (hub)\n5. MyCiTi | Fare Calculator score=0.39\n   URL: https://www.myciti.org.za/en/myconnect-fares/fare-calculator/\n   Snippet: # Fare Calculator. *Note: Fare excludes once-off cost of a **my**connect card, and is based on the most direct route.*. ##### Fares. No fares were found for the addresses you have selected. MyCiTi fares are based on when you start your journey and the distance in kilometres travelled, grouped into distance bands. Peak fares apply to journeys that start on a weekday between 06:45 - 08:00 and 16:15 - 17:30. Saver fares apply if you start your journey outside Peak hours on a weekday, or any time on weekends and public holidays. Load a Mover package on your card to save on fares or you will pay Standard fares. ##### Mover Fare. Load a Mover package and save on travel at all times. Available from MyCiTi station kiosks in the following amounts: R35, R50, R60, R80, R100, R150, R200, R300, R400 and R600. ##### Standard Fare. Load any amount of money as Standard and use the value loaded for fares...",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "92ec1ce9-a63c-440b-8c68-4b0a3dbfa0ee",
+        "tool_call_id": "call_SCAslIqoOWCvNu1G946ePr7Q",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nIn Muizenberg, Cape Town, surf lessons range from $33 to $38.52 per hour, with packages available up to $1800 for four lessons. Surf Emporium offers private lessons from R535. Learn 2 Surf provides private lessons at R500.\n\nTavily results:\n1. The best Muizenberg Surfing lessons 2026 score=0.85\n   URL: https://www.getyourguide.com/muizenberg-l91848/surfing-lessons-tc59/\n   Snippet: Muizenberg Cape Town: Private Surf Lesson1 hour - 80 minutes • Private group · 5. (51) · $33 ; Privately Guided Surf Lesson Experience in Muizenberg1.5 hours •\n2. Cape Town: Muizenberg Private Surf Lesson (with Reviews) score=0.69\n   URL: https://www.viator.com/tours/Cape-Town/Private-Surf-Lesson/d318-208065P1\n   Snippet: Private Surf Lessons Muizenberg, Cape Town · From $38.52 · Why travelers loved this · Explore our promoted experiences · Overview · What's Included · Meeting and\n3. Price List - Surf Emporium score=0.63\n   URL: https://surfemporium.co.za/price-list/\n   Snippet: * 1 Person Private Surf or SUP Lesson - R535. * 2 Person Private Surf or SUP Lesson - R480 per person. * 1 Person 4 Lesson Package - R1605. * 2 Person 4 Lesson Package - R1440 per person. * 4 Lesson Package (with all own equipment) - R1290 per person. **Private Flat-Water SUP Lessons (Vlei)\\***1 Person Private Flatwater SUP Lesson - R615 per person. 2 Person Private Flatwater SUP Lesson - R550 per person3 Person Private Flatwater SUP Lesson - R520 per person 4+ Person Private Flatwater SUP Lesson - R495 per person. 1 Child 5 x 1 Hour Freezer Lesson Package - R1840 per person. Monthly Club Membership: R305 per person per monthIncludes ½ price on surfboard and wetsuit rentals, other discounted rentals and full use of surf school facilities. Monthly Club Membership Plus (+): R370 per person per monthIncludes surfboard or SUP storage, ½ price on surfboard and wetsuit rentals, other discounte...\n4. Surf Lessons in Cape Town | Ride the Waves of South Africa score=0.59\n   URL: https://wandercapetown.com/adventures/surf-lessons-in-cape-town/\n   Snippet: Lessons include the surfboard rental, while a wetsuit rental is R50. Private lessons are R500, or you can upgrade to a four-lesson package for R1800. Group\n5. Learn 2 Surf in Cape Town score=0.58\n   URL: https://southafrica.learn2surf.net/school/cape-town/\n   Snippet: ## South Africa's Top Surf Schools. top coaches at the best beaches. ## Learn 2 surf in Cape Town. ### Open Group Lesson (90min). Join an existing Group Lesson\\* or book a Group Lesson for 2 or more surfers that others may join. ### Private Group Lesson (90min). Book a Private Lesson for you and your friends/family. ### Private Surfing Lesson (90min). The LEARN 2 SURF Cape Town surf school is based at Muizenberg Beach. You can surf all year round in Muizenberg but the North West winds are the best conditions for surfing – making winter the ideal time of year to learn to surf in Cape Town. If you’re in Cape Town and want to become a surfer or are looking for an alternative, exciting team building activity to do with your friends or colleagues, please contact us for more info. ### Prices & Info Go back to page 1. # Learn 2 Surf at the world’s best beginner beaches.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "fc9469c2-d57b-4c3e-aab6-829d81c69cb5",
+        "tool_call_id": "call_bsn96sxngUAyHWfzx3v2qD5u",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nRobben Island Museum official tour prices for 2026 are R400 per adult during peak season and R210 per child. The roundtrip ferry is included with the ticket. Tours are available for both peak and off-peak seasons.\n\nTavily results:\n1. Robben Island Museum and Cape Town Highlights Tour 2026 - Viator score=0.88\n   URL: https://www.viator.com/en-CA/tours/Cape-Town/Nelson-Mandela-Robben-Island-Prison-and-Cape-Town-Tour/d318-178712P10\n   Snippet: Nelson Mandela's Robben Island Prison Museum Cape Town City Tour + Ferry Tickets · From $257.62 · Explore our promoted experiences · Overview · What's Included.\n2. The best Robben Island Entry tickets 2026 - Free cancellation score=0.83\n   URL: https://www.getyourguide.com/en-gb/robben-island-l3860/entry-tickets-tc123/\n   Snippet: From $70 · image. Cape TownRobben Island Museum Tour with Hotel Pickup1 hour ... Cape Town: Robben Island ferry ticket plus Guided Tour. Top attractions in Cape\n3. 2026 Robben Island Skip The Line Tickets (with Reviews) score=0.78\n   URL: https://www.tripadvisor.com/AttractionProductReview-g312659-d18754196-Robben_Island_Skip_The_Line_Tickets-Cape_Town_Central_Western_Cape.html\n   Snippet: Robben Island Half-Day Tour with Ticket, Hotel Pickup & Drop-Off. 4.6. (40). from $61.00 per adult (price varies by group size) ; Robben Island Tour from Cape\n4. Tour Types - test - Robben Island Museum score=0.71\n   URL: https://www.robben-island.org.za/tour-types-test/\n   Snippet: # Tour Types – test. Peak Season:**01 September to 30 April**. ###### South Africans. ## R400. ###### per adult. ###### Non South Africans. Off-peak season:**01 May to 30 August**. You will meet your Tour Guide when you have boarded the busses. The prison tour will be conducted by a **Robben Island Tour** Guide. This is part of our integrated tour model. They are fully conversant and knowledgeable about the Island’s multi-layered 500-year-old history. The tour route includes the graveyard of people who died from leprosy, the Lime Quarry, Robert Sobukwe’s house, the Bluestone quarry, the army and navy bunkers and the Maximum Security Prison where thousands of South Africa’s freedom fighters were incarcerated for years. The tour culminates with a viewing of Nelson Mandela’s cell. Please type here to search text and press enter. #### Have an Account? #### Create Account. #### Sign in to Rob...\n5. Robben Island - Official Tickets 2026 - Must See in Cape Town score=0.68\n   URL: https://robben-island-capetown.com/\n   Snippet: # Robben Island. Robben Island + Tabble Mountain Bundle. **Robben Island**, situated off the coast of Cape Town, South Africa, holds a unique place in history. Following the fall of apartheid, this Island transformed into a UNESCO World Heritage Site and a **powerful symbol of resilience**. Today, visitors can explore the island and learn about its complex past through **guided tours**. With your **Robben Island Ticket**, you will experience an immersive journey that spotlights the resilience of those who braved the oppressive regime of apartheid. With your ticket, the roundtrip ferry to the island is also included. If you don’t want to miss the two top highlights, we recommend the **Cape Town Super Combi** so you can guarantee the **Robben Island** visit and the fast-track **Table Mountain** roundtrip ticket that allows you to **skip the line** to access straight onto the Cable Car. Whe...",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "e87a926d-438b-4427-a9f8-fe16c5d34989",
+        "tool_call_id": "call_qWCDQoccJWh0dsHt1vdYbKfx",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nDistrict Six and Bo-Kaap in Cape Town offer free walking tours, with some tours charging a fee. The official culture budget for these tours is not publicly disclosed. The tours highlight the rich history and multicultural heritage of the area.\n\nTavily results:\n1. Free Walking Tours in Cape Town – Best of Bo Kaap Tours score=1.00\n   URL: https://freewalkingtourscapetown.co.za/\n   Snippet: Experience the historic & colourful bo-kaap. See the colourful houses,  smell the spices of the East,  hear the mosques calling for prayer. Your cape town story starts under the green umbrella. Experience the sites, smells and heritage of the Mother City. Get introduced to the different eras of Cape Town and South Africa’s history and some of the people who shaped it. ## Our Tours. ## Bo-Kaap Tour. You’ll experience the rich culture and history of the Cape Malay community of Cape Town. READ ABOUT OUR BO-KAAP TOUR. ## our bo-kaap tour highlights. See the colourful houses, smell the spices of the East, hear the mosques calling for prayer, let the Cape Malay food tempt your taste buds and get a feel of what else to do in Cape Town. Walk the streets of the Mother City and journey through Cape Town’s story, from Khoi and San heritage to the colonial era, in an entertaining and informative way...\n2. FREE Bo-Kaap Walking Tour - Walk Cape Town score=1.00\n   URL: https://walkcapetown.com/bo-kaap-walking-tour/\n   Snippet: Walk Cape TownWalk Cape Town. # Bo-Kaap Walking Tour. This part of Cape Town is a unique, a real gem and you will totally fall in love with it during our 90-minute walking tour. On our FREE Bo-Kaap Walking Tour, you will learn about the history of one of Cape Town’s most diverse and oldest neighbourhoods. Simply meet at City Sightseeing (Red Bus), Stop 5, 81 Long St., Cape Town (CBD). City Sightseeing Red Bus, Stop 5, 81 Long St, Cape Town. * Learn about the culture, traditions and history of the colourful Bo-Kaap. This amazing tour allows you to learn about the history of one of Cape Town’s most multicultural areas. * Guests are required to bring and wear masks. * Guests are required to record track & trace information. * Not suitable for guests who require walking assistance. ### Historical City Tour. We use cookies to ensure that we give you the best experience on our website.\n3. Cape Town District Six Bo-Kaap 2-Hour Walking Tour - Klook score=1.00\n   URL: https://www.klook.com/en-GB/activity/152718-cape-town-uncovered-history-culture-people-walking-tour/\n   Snippet: Uncover the rich history and cultural heartbeat of Cape Town on this immersive 2-hour walking tour. Starting at Truth Coffee, we'll explore\n4. Bo Kaap walking tour with local - Culture Connect score=1.00\n   URL: https://cultureconnectsa.com/upcoming-tour/bo-kaap-walking-tour-2/\n   Snippet: Cost: R750, or R550 if paid 10 days in advance. The fee includes snacks and a full briefing. Book: kate@cultureconnectsa.com | WhatsApp/Phone +27 72 377 8014.\n5. Bo-Kaap Free Walking Tour - SANDEMANs Tours score=1.00\n   URL: https://www.neweuropetours.eu/sandemans-tours/cape-town/bo-kaap-free-tour/\n   Snippet: Partner Network Tour offered by our partner Walk Cape Town. # Bo-Kaap Free Walking Tour. Homepage Tours Cape Town Bo-Kaap Free Walking Tour. **This tour is operated by our partner Walk Cape Town.**. **This Free Walking tour invites visitors to explore Bo-Kaap, one of Cape Town’s most iconic and multicultural neighbourhoods. The Bo-Kaap Walking Tour uncovers the rich history of this formerly segregated area, once home to freed slaves and members of the Cape Malay community. **Tours in Cape Town are offered by our partners, Walk Cape Town. While you may not see the trademark SANDEMANs red umbrellas, we only work with partners we know, trust, and who have been vetted by us to ensure they meet the same standards you are used to enjoying in SANDEMANs’ own cities. Walk Cape Town is our trusted partner in Cape Town. * This activity is operated by our partner Walk Cape Town. Tours in Cape Town a...",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "b99596e5-c546-4999-a49b-e60bf7744308",
+        "tool_call_id": "call_RhdhMh548iUNYe4wn5NrxfE2",
+        "status": "success"
+      },
+      {
+        "content": "",
+        "additional_kwargs": {
+          "refusal": null
+        },
+        "response_metadata": {
+          "token_usage": {
+            "completion_tokens": 370,
+            "prompt_tokens": 7686,
+            "total_tokens": 8056,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": null,
+              "audio_tokens": 0,
+              "reasoning_tokens": 110,
+              "rejected_prediction_tokens": null,
+              "image_tokens": 0
+            },
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0,
+              "cache_write_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost": 0.04953,
+            "is_byok": false,
+            "cost_details": {
+              "upstream_inference_cost": 0.04953,
+              "upstream_inference_prompt_cost": 0.03843,
+              "upstream_inference_completions_cost": 0.0111
+            }
+          },
+          "model_provider": "openai",
+          "model_name": "openai/gpt-5.5-20260423",
+          "system_fingerprint": null,
+          "id": "gen-1778954121-zGeRA9W7HWNN9iISbhvm",
+          "service_tier": "default",
+          "finish_reason": "tool_calls",
+          "logprobs": null
+        },
+        "type": "ai",
+        "id": "lc_run--019e31ed-b291-73d3-b9f6-6cba33a11981-0",
+        "tool_calls": [
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Cape Town hostel dorm prices June Long Street Backpackers official rates"
+            },
+            "id": "call_CApFw1gN9PdI1o3piOY2lhit",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Kirstenbosch National Botanical Garden official entrance fee opening hours 2026"
+            },
+            "id": "call_kTQqdNZrERRBOOltdHxMbcAe",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Lion's Head hike Cape Town official tourism safety sunrise full moon"
+            },
+            "id": "call_xoQYDKnrqTEK0aZ2HQ4uMjbZ",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Cape Town train Southern Line Simon's Town Muizenberg Metrorail 2026 fares official"
+            },
+            "id": "call_hqp7DDywLvPAawLxJP6kVwvB",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Aquila Private Game Reserve Cape Town day safari official prices 2026"
+            },
+            "id": "call_dx39TtxGhvEGYJCsajLgTtBv",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Cape Town weekend markets Oranjezicht City Farm Market official hours food culture"
+            },
+            "id": "call_B5hhXN2ojzgm9XTajlZYXvhL",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "District Six Museum Cape Town official opening hours entrance fee 2026"
+            },
+            "id": "call_7FBf20K8FU2xW7TE6jyVWAP0",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Cape Town safety hiking Table Mountain National Park official hiking safety"
+            },
+            "id": "call_CRqPhnplgvnjWSiblezTFHZd",
+            "type": "tool_call"
+          }
+        ],
+        "invalid_tool_calls": [],
+        "usage_metadata": {
+          "input_tokens": 7686,
+          "output_tokens": 370,
+          "total_tokens": 8056,
+          "input_token_details": {
+            "audio": 0,
+            "cache_read": 0
+          },
+          "output_token_details": {
+            "audio": 0,
+            "reasoning": 110
+          }
+        }
+      },
+      {
+        "content": "Tavily answer:\nLong Street Backpackers dorm prices in June range from $15 to $24 per bed. Rates vary based on dorm type and occupancy. Check their official website for the most current rates.\n\nTavily results:\n1. Long Street Backpackers $15. Cape Town Hotel Deals & Reviews score=0.83\n   URL: https://www.nz.kayak.com/Cape-Town-Hotels-Long-Street-Backpackers.2843739.ksp\n   Snippet: Essential information about Long Street Backpackers ; June. February. $74 ; Cheapest month to stay with an average 83% drop in price. Most expensive month to stay\n2. Long Street Backpackers - Cape Town Hotels - HotelsCombined score=0.80\n   URL: https://www.hotelscombined.com/Hotel/Long_Street_Backpackers.htm\n   Snippet: The expected nightly rate for Long Street Backpackers is around $51; a price that is 63% cheaper than the city average. HotelsCombined considers Long Street\n3. Long Street Backpackers - Hotels in Cape Town - momondo score=0.77\n   URL: https://www.momondo.com.au/hotels/cape-town/Long-Street-Backpackers.mhd2843739.ksp\n   Snippet: Find rooms from $12 to $228 at Long Street Backpackers. Compare room types and prices from 10 providers and read 1397 reviews of Long Street Backpackers,\n4. Long Street Backpackers, Cape Town - Is it Worth it? NEW Reviews ... score=0.77\n   URL: https://www.hostelz.com/hostel/1633-Long-Street-Backpackers\n   Snippet: Standard 8 Bed Mixed Dorm · $20.18 · $23.40/night ; Standard 6 Bed Mixed Dorm Ensuite. $20.70 ; Bed in 6-Bed Mixed Dormitory Room. $24.00 ; Standard 6 Bed Female\n5. Long Street Backpackers is an excellent choice for budget travelers ... score=0.71\n   URL: https://www.instagram.com/reel/CtmLCh6LAAh/\n   Snippet: For those seeking more privacy, private rooms are available at reasonable rates, ranging from 500 ZAR to 900 ZAR per night. The hostel provides",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "7258907e-2134-4548-a0ed-1e78f993dfe2",
+        "tool_call_id": "call_CApFw1gN9PdI1o3piOY2lhit",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nEntry fee for Kirstenbosch Botanical Garden in 2026 is R95 for adults, free for South Africans from 9-13 March. Opening hours are 8 am to 5 pm daily.\n\nTavily results:\n1. Kirstenbosch Botanical Gardens 2026: Cape Town's UNESCO Floral Kingdom Guide score=0.88\n   URL: https://www.machupicchu.org/kirstenbosch-botanical-gardens-2026-cape-towns-unesco-floral-kingdom-guide.htm\n   Snippet: # Kirstenbosch Botanical Gardens 2026: Cape Town’s UNESCO Floral Kingdom Guide. * Entry costs R95 for adults, R30 for children in 2026 with discounted rates for South African residents. Kirstenbosch National Botanical Garden ranks among the world’s most beautiful botanical gardens, occupying 528 hectares on Table Mountain’s eastern slopes within the Cape Floristic Region UNESCO World Heritage Site. The gardens protect and display approximately 7,000 plant species from South Africa’s six biomes, with particular emphasis on the Cape Floral Kingdom’s unique fynbos vegetation. Visitors in 2026 explore enhanced facilities including the iconic Tree Canopy Walkway (Boomslang) completed in 2014, which curves through forest canopy providing elevated perspectives on indigenous trees and mountain views. Beyond horticultural displays, Kirstenbosch offers extensive walking trails ascending Table Moun...\n2. 13 March 2026 Free Entry at Kirstenbosch National Botanical ... score=0.87\n   URL: https://www.instagram.com/p/DVLGA2DgqJ5/\n   Snippet: Saturday • 4 April • 9am to 3pm Stellenbosch Botanical Garden R15 Public Entry • SU staff & students enter free. No Pets Allowed. more. View\n3. Kirstenbosch Botanical Gardens (2026) - Cape Tourism score=0.87\n   URL: https://www.capetourism.com/kirstenbosch-gardens/\n   Snippet: Furthermore, it can be accessed without entering the gardens, so no entry fee is required. Opening Times: Monday – Sunday, 8 am to 5 pm. Website: https://\n4. From 09 - 13 March 2026 Free Entry at Kirstenbosch National ... score=0.84\n   URL: https://www.facebook.com/KirstenboschNBG/posts/from-09-13-march-2026-free-entry-at-kirstenbosch-national-botanical-garden-to-al/1338374388329443/\n   Snippet: From 09 - 13 March 2026 Free Entry at Kirstenbosch National Botanical Garden to all South African citizens and residents!\n5. A Week's Free Entry to These National Gardens in March! score=0.61\n   URL: https://www.goodthingsguy.com/national-gardens-week-2026/\n   Snippet: Free entry will be available at most of SANBI's gardens from 9 to 15 March. Last year, more than 126,000 South Africans walked through SANBI's",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "669daf59-9ce1-4c6a-8bb1-3f598b74b0e8",
+        "tool_call_id": "call_kTQqdNZrERRBOOltdHxMbcAe",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nLion's Head hike in Cape Town is safest during full moon due to high popularity. Sunrise hikes are also popular. Safety concerns have been raised against night hikes.\n\nTavily results:\n1. Full Moon Hike on Lion's Head - Notes from Table Mountain score=0.77\n   URL: https://capetown360.home.blog/2025/05/24/full-moon-hike-on-lions-head/\n   Snippet: Lion's Head during full moon is one of the safest times to hike this trail because of its popularity. The path transforms into a social event\n2. Hike Lion's Head score=0.72\n   URL: https://hikelionshead.co.za/\n   Snippet: # Lion’s Head Hike – All about Lion’s Head trail. ### Search Lion’s Head trail including times, map, weather, distance, price and more. Hike Lion’s Head is the only South African guided hiking company that specializes in the Lion’s Head hike. Hike in Cape Town using our guided hiking services – Hike Lion’s Head – to embark on Lion’s Head hiking tour. Questions such as, “Is it safe to hike Lion’s Head alone?“, “How high is Lion’s Head?”, “How much does it cost to hike Lion’s Head?“, “Is Lion’s Head dangerous?”,”Where does the Lion’s Head hike start?”, How long does it take to walk up Lion’s Head?”, “Is Lion’s Head closed?”. Lion’s Head hike keyword phrases include: “Lion’s Head height”, “Lion’s Head safety“, “Lion’s Head hike distance”, “Lion’s Head hike price“, “Lion’s Head hike time“, “Lion’s Head directions”, Lion’s Head hike map”, “Lion’s Head parking”, “Lion’s Head Full moon hike”, “...\n3. Concerns over safety on Signal Hill and Lion's Head - Travel News score=0.70\n   URL: https://www.travelnews.co.za/article/concerns-over-safety-on-signal-hill-and-lions-head\n   Snippet: “We would like to request that tour operators refrain from suggesting that visitors engage in full moon or night time hikes on Lions Head.\n4. Cape Town: Lion's Head Sunrise/Sunset Hike - Tripadvisor score=0.68\n   URL: https://www.tripadvisor.com/AttractionProductReview-g312659-d19872406-Cape_Town_Lion_s_Head_Sunrise_Sunset_Hike-Cape_Town_Central_Western_Cape.html\n   Snippet: An amazing hike up Lion's head. Our guide, Idrees, really took care of the group and ensured everyone felt safe. The walk spirals round the mountain on gravel\n5. Cape Town first weeks and Lion's Head full moon hike score=0.68\n   URL: https://im8hoursahead.com/cape-town-lions-head-full-moon-hike/\n   Snippet: Lion's Head full moon hike is an easy and short hike, depending on your rythim can take from 40min to 1h15min.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "1a776dc6-4489-4131-a840-fb863d45e20a",
+        "tool_call_id": "call_xoQYDKnrqTEK0aZ2HQ4uMjbZ",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nSouthern Line trains will run from Cape Town to Simon's Town during weekdays starting from February 2, 2026. Fares vary by distance, with off-peak rates being cheaper. Check Metrorail schedules for specific times.\n\nTavily results:\n1. Travel Cape Town | I can only speak for the Southern Line, Cape Town Train Station to Fish Hoek | Facebook score=0.65\n   URL: https://www.facebook.com/groups/2546123372160231/posts/24887185387627377/\n   Snippet: # Travel Cape Town | I can only speak for the Southern Line, Cape Town Train Station to Fish Hoek | Facebook. Cape Town train schedule and fares. ## Travel Cape Town ·. I can only speak for the Southern Line, Cape Town Train Station to Fish Hoek. The traffic is always hectic down to the beach resorts, so hop on a train and enjoy the ride! (Avoid peak commuter times in the direction of town in morning and 3pm in afternoon towards Muizenberg during the week) It’s only R9 for a ticket! Currently R12 from CT to Fish Hoek and rates change according to km distance travelled. Off peak is cheaper and I pay R6 within my zone and times are between 9:30am -2:30pm. It's the best and most convenient way to t…. What time is the last train from Simon's town to Cape town. Where is the best place to park to Cape Town?\n2. Cape Town Train Times And Train Schedule | Cttrains score=0.59\n   URL: https://cttrains.co.za/ss_route_select.php\n   Snippet: Note: From 2 Feb 2026, Southern line trains will go through to Simonstown during the week, but not on Saturdays, which will still use the shuttle from Fish Hoek. * Cape Town - Fish Hoek - Simonstown. Currently there are no trains on Sundays or public holidays on this line unless there are special events.\n3. Cape Town Train Times And Train Schedule | Cttrains score=0.45\n   URL: https://cttrains.co.za/\n   Snippet: Trains will only operate between Cape Town and Fish Hoek for now - Not to Simon's Town. | The Any Station-to-Any Station Schedule Search lets you choose any two stations on the Metrorail network and get the schedules across different lines. | The Southern Line travels from central Cape Town through the Southern Suburbs to Fish Hoek and onto Simonstown during the week |. | Shuttle - Fish Hoek to Simon's Town Line |. The Southern shuttle train travels from Fish Hoek through to Simon's Town. | Combined Northern Line - Cape Town to Bellville, Kraaifontein, Eerste River, Stellenbosch and Wellington |. | Central Line - To Cape Town/Nyanga or Chris Hani, and Mutual via Langa to Bellville |. | The Central Line service provides services from Cape Town via Mutual and Langa to Nolungile and from Mutual via Langa to Bellville |. | This limited Cape Town - Malmesbury line trains passes through Centur...\n4. Metrorail - City of Cape Town score=0.44\n   URL: https://www.capetown.gov.za/Family%20and%20home/transport-and-vehicles/public-transport-services/metrorail\n   Snippet: ... 2026 City of Cape Town. All rights reserved. You have disabled JavaScript on your browser. Please enable it in order to use City online applications.\n5. SOUTHERN LINE Route: Schedules, Stops & Maps - Moovit score=0.40\n   URL: https://moovitapp.com/index/en-gb/public_transportation-line-southern_line-Cape_Town-1883-1002865-596190-0\n   Snippet: Moovit Pay is the smartest, safest, and most affordable way to buy transit tickets in Cape Town. SOUTHERN LINE line train fare. Metrorail SOUTHERN LINE prices",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "19da4623-3cb6-490e-86db-0622ee86e3ae",
+        "tool_call_id": "call_hqp7DDywLvPAawLxJP6kVwvB",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nFor 2026, Aquila Private Game Reserve day safari prices start from $411.92. Rates vary by season and group size. Check specific dates for exact pricing.\n\nTavily results:\n1. Rates & Itineraries | Aquila Private Game Reserve Spa score=0.88\n   URL: https://aquilasafari.com/rates/?srsltid=AfmBOop-HrXIY1ohHiBOA-eDYNLSDHse0vMZP3GY39WDd3iw-QHoj_-Q\n   Snippet: Aquila's Safari Cottage Rates ; 01 May 2026 - 31 Oct 2026. From R4 470 / per person sharing ; 1 Nov 2026 - 19 Dec 2026. From R5 340 / per person sharing ; 20 Dec\n2. Cape Town Full Day Aquila reserve safari 2026 - BOOK NOW - Viator score=0.86\n   URL: https://www.viator.com/tours/Cape-Town/Aquila-Game-Rserve-Safari/d318-469482P3\n   Snippet: Cape Town Full Day Private Aquila Game Reserve Big 5 Safari. 11. 9 hours. Free Cancellation. From. $411.92. Big Five Full Day Safari at Aquila Game Reserve Cape\n3. Aquila Day Safari - with transport 2026 - Cape Town - BOOK NOW score=0.82\n   URL: https://www.viator.com/tours/Cape-Town/Inverdoorn-Day-Safari-with-transport/d318-114174P9\n   Snippet: Cape Town Aquila Afternoon Safari with transport and lunch. 36. 2 hours 30 minutes · $222.02 ; Cape Town Full Day Aquila reserve safari. 25. 7 hours 10 minutes\n4. Cape Town Day Safari – Aquila Game Reserve with Lunch & Park ... score=0.73\n   URL: https://www.tripadvisor.com/AttractionProductReview-g312659-d26766060-or30-Cape_Town_Day_Safari_Aquila_Game_Reserve_with_Lunch_Park_Fees-Cape_Town_Centr.html\n   Snippet: Cape Town Day Safari – Aquila Game Reserve with Lunch & Park Fees. 4.4 ... Private and Luxury. from. $65.00. per adult (price varies by group size) · Wine\n5. Aquila Game Reserve Spa Rates - May 2026 - October 2026 score=0.70\n   URL: https://www.cape-town-safari-tours.com/aquila-game-reserve-safari-tour-rates-May-2026-October-2026.html\n   Snippet: | |  |  |  |  |  | | --- | --- | --- | --- | --- | | |  |  |  |  | | --- | --- | --- | --- | | Home | 1, 2, 3 or 4 Day Aquila Safari | Aquila Game Reserve Rates | Request a Booking for Aquila | | | |  |  |  |  | | --- | --- | --- | --- | | All Aquila Full-Day Safaris | All Aquila Half-Day Safaris | All Aquila Overnight Safaris | Aquila Reserve Spa info | | | |  |  |  |  | | --- | --- | --- | --- | | Aquila Game Reserve Facilities | Gift Tour Vouchers | Currency Converter | (25) Adventure Packages Tours | | |. **Aquila Overnight Safari - 4 or 8 x Sleeper Family Luxury Cottage**.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "d1874224-2ed4-4262-97da-41617f2fd641",
+        "tool_call_id": "call_dx39TtxGhvEGYJCsajLgTtBv",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nThe Oranjezicht City Farm Market is open Saturdays from 8:15am to 2pm and Sundays from 9am to 2pm, featuring fresh produce, local crafts, and diverse food options. The market relocated to a new space in December 2025. It is recognized as one of the top farmers' markets globally.\n\nTavily results:\n1. The Oranjezicht City Farm & Market – An Organic Urban Farm in Cape Town score=0.87\n   URL: https://ozcf.co.za/\n   Snippet: ### Cape Town's best-loved organic farm and market. ***Exciting news!** On 6 December 2025 the Market moved across the road to its brand-new market space! *Stay in the loop with all the updates by following us* *@OZCFarm**. ### Find the farm. Monday to Friday 08:00 - 14:00. Saturday 08:00 - 12:00. ### Find the market. NEW LOCATION: Cnr Granger Bay Boulevard and Dock Rd. Saturday 08:00 - 14:30. Founded in 2012, Oranjezicht City Farm (OZCF) began as a small community food garden in Cape Town, promoting local food, culture, and community through urban agriculture. Over the years, we’ve developed educational programs and sustainable farming practices that connect people to the land. Today, OZCF is a vibrant hub of innovation with volunteer and workshop programmes, and provides certified organic produce straight from the farm. As a leading voice in urban farming, we continue to inspire new pr...\n2. Market – The Oranjezicht City Farm & Market score=0.83\n   URL: https://ozcf.co.za/ozcfmarket/\n   Snippet: ***Exciting news!** The Market has moved across the road to its brand-new market space! *Stay in the loop with all the updates by following us* *@OZCFarm**. ### Find the market. ### come visit us. Saturday 08:00 - 14:30. Wednesday Night Market 16:00 - 21:30 (closed June-July). ## We have come a long way... Established by Oranjezicht City Farm in 2013 and relocated to Granger Bay within the V&A Waterfront precinct in 2015, our farmers market has become the largest of its kind in Cape Town. The market is a hub for promoting local food systems and innovative retail practices, including efforts to reduce food waste and plastic use. Recognized globally, including being named one of the top 20 farmers’ markets worldwide by The Independent (UK), since 2017 the market has operated independently using the OZCF brand under licence, and continuing its strong ties with our farm. ## Contact details f...\n3. Oranjezicht City Farm - All You SHOULD Know Before Going 2026 ... score=0.76\n   URL: https://www.tripadvisor.com/Attraction_Review-g312659-d4942170-Reviews-Oranjezicht_City_Farm-Cape_Town_Central_Western_Cape.html\n   Snippet: The Market is open from 08h15-14h00 Saturdays and Sundays, and seasonally on Wednesday evenings. The Market has been privately owned and managed independently\n4. Explore the Best Markets in Cape Town (2026 Guide) - Pullman Cape Town score=0.74\n   URL: https://www.pullmancapetown.com/blog/explore-the-best-markets-in-cape-town/\n   Snippet: * Explore the Best Markets in Cape Town (2026 …. # Explore the Best Markets in Cape Town (2026 Guide). ## Download our free guide to the city’s most iconic and hidden markets — all within easy reach of Pullman Cape Town. Oranjezicht City Farm Market, V&A Waterfront, Cape Town. From bustling food halls to seaside craft markets, Cape Town’s market scene is where local flavours, design, and culture come to life. Whether you’re a curious traveller or a returning guest rediscovering the city, this curated collection of must-visit markets will help you experience Cape Town like a local. Founded in 2006 at the Old Biscuit Mill, this market revolutionized Cape Town’s farmers’ market scene and is now a vibrant hub of street culture with top street-food vendors, live music, a wine bar, and stalls offering everything from tacos to vintage collectables. Located off the Sea Point Promenade, this vibr...\n5. The Orangezicht City Farm Market open today from 8 am to 2pm at ... score=0.72\n   URL: https://www.facebook.com/100064310180385/posts/the-orangezicht-city-farm-market-open-today-from-8-am-to-2pm-at-the-waterfrontsw/1282335610586766/\n   Snippet: 8am - 12.45pm. We are running a lovely special this weekend at Oranjezicht market, our Stellenbosch square shop and on the farm: Buy any 2 of",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "11076f05-eaa4-45ac-b9c3-ae7935daf8f4",
+        "tool_call_id": "call_B5hhXN2ojzgm9XTajlZYXvhL",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nThe District Six Museum in Cape Town opens from 9 a.m. to 4 p.m. on weekdays in 2026. Admission fee is 20 ZAR. No specific opening hours for December 2026 are available.\n\nTavily results:\n1. The District Six Museum - U.S. News Travel score=1.00\n   URL: https://travel.usnews.com/Cape_Town_South_Africa/Things_To_Do/The_District_Six_Museum_62560/\n   Snippet: The museum welcomes visitors from 9 a.m. to 2 p.m. on Mondays and from 9 a.m. to 4 p.m. Tuesdays through Saturdays. Admission costs 20 ZAR (roughly $2.50 USD)\n2. District Six Museum Tickets [2026] - Trip.com score=1.00\n   URL: https://us.trip.com/travel-guide/attraction/cape-town/district-six-museum-23027436/\n   Snippet: Cape Town: District Six Museum Skip-the-Line Entrance Ticket-00:00:00 (Adult). Book now for tomorrow. Conditional cancellation. Must meet with group to use.\n3. Skip the Line: District Six Museum Admission Ticket 2026 - Cape Town score=1.00\n   URL: https://www.viator.com/tours/Cape-Town/District-Six-Museum-Admission-Ticket/d318-48769P7\n   Snippet: With this prepaid admission ticket, opt to take in the exhibitions independently or join a guided tour, and spend as long as you like inside.\n4. District Six Museum - Dark Tourism - the guide to dark travel destinations around the world score=1.00\n   URL: https://www.dark-tourism.com/index.php/702-district-six-museum\n   Snippet: # District Six Museum, Cape Town. A Cape Town museum commemorating District Six, a former residential area that the Apartheid government of South Africa decreed a \"whites-only\" area in 1966. The multi-ethnic (and predominately Muslim) inhabitants were forcefully relocated and the old houses were then bulldozed to make space for a new housing project. In 1994, the District Six Museum was launched to commemorate the brutal destruction of a formerly vibrant and defining part of Cape Town and what was lost in the process. The \"Museum\" is a somewhat quirky but utterly endearing mix of traditional museum, art gallery and community space. Absolutely worth a visit when in Cape Town – perfectly complementing the area's premier dark site, Robben Island, as it shows another side of the Apartheid ideology (though by no means one that's any less evil than the better known repression of the black majo...\n5. DISTRICT SIX MUSEUM: DECEMBER 2026 ADMISSION TICKETS score=1.00\n   URL: https://www.quicket.co.za/events/365064-district-six-museum-december-2026-admission-tickets/?ref=organiser-profile\n   Snippet: DISTRICT SIX MUSEUM: DECEMBER 2026 ADMISSION TICKETS. 25A Buitenkant St. 25A Buitenkant St, District Six, Cape Town, 8000, South Africa. Get Directions. From",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "279217a3-95d5-499e-858d-94c72df9b3f8",
+        "tool_call_id": "call_7FBf20K8FU2xW7TE6jyVWAP0",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nHike in groups of four or more for safety; always carry a map and inform someone of your plans; be prepared for changing weather and carry waterproof clothing.\n\nTavily results:\n1. Friendly... - SANParks - Table Mountain National Park score=0.79\n   URL: https://www.facebook.com/TableMountainNP/posts/friendly-reminder-visitor-safety-tipsdear-visitorstable-mountain-national-park-w/955864730150540/\n   Snippet: ## SANParks - Table Mountain National Park's Post. ### **SANParks - Table Mountain National Park**. Table Mountain National Park would like to remind visitors to take note of the following safety rules:. 👥 Don’t hike alone – Groups of four or more are recommended. 🗺️ Always carry a map, no matter how well you know the area. 📞 Tell someone who is not hiking with you what time to expect you back, so they can raise the alarm if needed. 🌦️ Check the weather before you set off – conditions can change quickly. 📱 Save emergency numbers before you start your hike:. ⚠️ Entry into the park is at all times at your own risk. May be an image of text that says 'SouthAfrican South African NATIONAL PARKS SAFETY TIP Hike or cycle in groups of four or more there's safety in numbers.\n2. Safe Guidelines for Visiting Table Mountain National Park - Instagram score=0.73\n   URL: https://www.instagram.com/reel/DP3IL_yDNJc/\n   Snippet: And boot shoes, boot hiking shoes, hat, sunblock in summer. Wear protective clothing because as you can tell the women Cape Town can catch you\n3. Prioritizing Your Safety: A Guide to Hiking Table Mountain Safely score=0.73\n   URL: https://conservationmag.org/en/hiking/hiking-table-mountain-safely\n   Snippet: Hiking Table Mountain in Cape Town. Our comprehensive guide offers safety tips, trail insights, and measures to ensure a memorable and safe\n4. Crime & Safety: Table Mountain National Park 2026 score=0.72\n   URL: https://capetrekking.co.za/current-crime-hot-spots-avoid-table-mountain/\n   Snippet: # Current Crime hot spots to Avoid on Table Mountain. **However, most of Table Mountain's hiking areas are not crime hot spots.**. ## **TABLE MOUNTAIN VISITOR SAFETY UPDATES:**. **The usually thorough Table Mountain crime map - a record of reported crime in the city-bound National Park - has 2026 marked with only two crimes so far, vehicle break in, and assault. ### **Table Mountain Crime Stats are worse than ever.**. In my experience as a regular hiker and guide on Table Mountain I've barely ever seen a Table Mountain National Park ranger patrolling the trails. Crime on Table Mountain 2024. **However, some of the nicest hiking routes in Table Mountain National Park are still statistically safe.**. Table Mountain Crime stats mapped. **NOTES** **ON A TABLE MOUNTAIN CRIME FATALITY**. ***Off-peak crime is fueling negative publicity that could keep drive visitors away from Table Mountain Nat...\n5. TMNP Safety | FOTM score=0.68\n   URL: https://www.friendsoftablemountain.org/mtn-safety\n   Snippet: # Safety on Table Mountain. We want everyone to have a great experience in Table Mountain National Park. Here’s our advice on how to keep safe while having fun and who to contact if you need help. The main risks on Table Mountain are injuries, getting lost and dangerous weather. Less common, but still important to bear in mind, is the possibility of crime. Inform someone of your route and the time you’re expected back. Some parts of the park do not have reception, but most of the time you’ll be able to reach a place with signal quicker than you’ll get to a landline. ## Crime on Table Mountain. * There is safety in numbers – hike, run or bike in a group. The vast majority of the mountain is free of crime, but there are consistent ‘hotspots’ worthy of extra caution – such as adding a couple more people to your group – or, in some cases, avoiding completely.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "13777494-de8c-40cb-9f4d-01de1399b529",
+        "tool_call_id": "call_CRqPhnplgvnjWSiblezTFHZd",
+        "status": "success"
+      },
+      {
+        "content": "# Baseline itinerary: 3 weeks in Cape Town on a €4,000 solo budget\n\n## Goal and constraints understood\n- Origin/destination: Munich → Cape Town → Munich.\n- Dates: 1 June to 21 June 2026.\n- Traveler: 1 adult, solo.\n- Transport: flights required; local travel kept mostly to MyCiTi bus, train, walking, shared rides, and occasional Uber/Bolt.\n- Accommodation: hostels only; social areas chosen to meet other travelers.\n- Interests: hiking, Table Mountain, Cape Point, wildlife, surfing, local culture, budget travel, meeting people.\n- Budget: €4,000 total including flights.\n- Baseline limitation: this plan uses only Tavily web-search evidence, not live booking, fare, weather, safety, or availability tools.\n\n## Search summary\n- Return Munich–Cape Town economy flights in June 2026 appear roughly €750–€1,100 from aggregators/airline pages; exact 1–21 June fare must be verified before booking: [Google Flights result](https://www.google.com/travel/flights/flights-from-munich-to-cape-town.html), [Ethiopian Airlines route page](https://www.ethiopianairlines.com/en-de/flights-from-munich-to-cape-town).\n- Social hostel base: [Long Street Backpackers](https://www.longstreetbackpackers.co.za/) describes itself as a communal city-centre hostel; hostel dorm rates from aggregators appeared roughly €15–€25/night, but require live confirmation.\n- Local transport: [MyCiTi fare calculator](https://www.myciti.org.za/en/myconnect-fares/fare-calculator/) confirms distance/time-band fares and Mover packages; airport/city estimates from search were about R60–R100.\n- Hiking safety: SANParks/Table Mountain guidance found via search recommends not hiking alone, hiking in groups, carrying a map, checking weather, and telling someone your plan.\n- Table Mountain Cableway: operating times and prices vary by season/weather; verify on the official cableway site before using it: [Table Mountain Cableway visitor info](https://www.tablemountaincablecar.com/visitor-info).\n- Cape Point/Boulders are in Table Mountain National Park; verify international visitor tariffs on [SANParks Table Mountain entry fees](https://www.sanparks.org/parks/table-mountain/rates-entry-fees).\n- Surfing: Muizenberg surf schools show winter is viable and beginner-friendly; [Surf Emporium price list](https://surfemporium.co.za/price-list/) showed private lessons around R535 and a 4-lesson package around R1,605.\n- Culture: free/tip-based walking tours cover Bo-Kaap and Cape Town history: [Free Walking Tours Cape Town](https://freewalkingtourscapetown.co.za/), [Walk Cape Town Bo-Kaap](https://walkcapetown.com/bo-kaap-walking-tour/).\n- Robben Island tours should be booked through the museum; prices/times require date confirmation: [Robben Island Museum tour types](https://www.robben-island.org.za/tour-types-test/).\n- Weekend food/culture market: [Oranjezicht City Farm Market](https://ozcf.co.za/ozcfmarket/) lists Saturday 08:00–14:30 and Wednesday night market closed June–July.\n\n## Day 1 — Mon 1 Jun 2026: Fly from Munich\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| Morning | transport | Travel from Munich city to MUC airport. | Munich | €15 estimate | Local Munich airport transfer estimate; verify MVV/DB fare. |\n| Day/evening | flight | Fly Munich to Cape Town, likely 1-stop or 2-stop economy. | MUC → CPT | €750–€1,100 estimate | Aggregators showed June 2026 return fares in this range; verify exact dates before booking via [Google Flights](https://www.google.com/travel/flights/flights-from-munich-to-cape-town.html) or airline pages. |\n| Evening/night | rest | Overnight on plane or connection. | In transit | €0 | Assumption: most budget routings arrive next day. |\n\n## Day 2 — Tue 2 Jun 2026: Arrive, check in, social hostel start\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| Morning/early afternoon | transport | Arrive Cape Town, buy/load MyCiTi card or use airport shuttle/Uber if tired. | CPT airport → CBD/Long Street | €5–€12 estimate | MyCiTi fares are distance/time based; use [MyCiTi fare calculator](https://www.myciti.org.za/en/myconnect-fares/fare-calculator/). |\n| 14:00–15:00 | accommodation | Check into a social hostel, preferably Long Street/CBD for first week. | Long Street / CBD | €20–€28 | [Long Street Backpackers](https://www.longstreetbackpackers.co.za/) is a communal city-centre hostel; live dorm rate required. |\n| 16:00–18:00 | orientation | Easy walk: Company’s Garden, Long Street, Kloof Street; buy groceries/SIM. | CBD | €15 | Budget groceries/SIM starter estimate. |\n| 19:00–21:00 | food/social | Hostel communal dinner, bar crawl, or backpacker meetup. | Hostel / Long Street | €10–€15 | Good first-night social option; avoid walking alone late—use hostel group or rideshare. |\n\n## Day 3 — Wed 3 Jun 2026: Bo-Kaap, city history, cheap social evening\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 08:30–09:30 | food | Hostel breakfast or supermarket breakfast. | CBD | €3–€5 | Self-catering keeps budget down. |\n| 10:00–12:00 | culture | Tip-based city or Bo-Kaap walking tour. | CBD / Bo-Kaap | €8–€12 tip | [Free Walking Tours Cape Town](https://freewalkingtourscapetown.co.za/) and [Walk Cape Town](https://walkcapetown.com/bo-kaap-walking-tour/) list Bo-Kaap/history tours. |\n| 12:30–14:00 | food | Budget Cape Malay lunch or market/café special. | Bo-Kaap / CBD | €8–€12 | Local culture/food stop; exact restaurant not fixed. |\n| 14:30–16:00 | culture | District Six Museum if open. | District Six | €2–€5 estimate | Search showed weekday hours and low admission, but verify on current museum ticket page before going. |\n| 19:00–21:00 | social | Hostel event, quiz, or traveler dinner. | Long Street | €10–€15 | Social hostel evening; [Long Street Backpackers](https://www.longstreetbackpackers.co.za/) emphasizes communal spaces. |\n\n## Day 4 — Thu 4 Jun 2026: Table Mountain hiking day\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 07:00–08:00 | prep | Check weather; join hostel hikers or book a group hike if no companions. | Hostel | €0–€50 | SANParks safety guidance found via search: do not hike alone; groups recommended. |\n| 08:30–13:00 | hiking | Hike Platteklip Gorge up Table Mountain with a group. | Table Mountain | €0 | Free hike, but only in safe weather and with companions; carry layers/water/map. |\n| 13:00–14:00 | transport | Descend by Cableway if tired or weather changes; otherwise hike down with group. | Table Mountain | €0–€25 estimate | Cableway prices/times vary; verify official [Table Mountain Cableway](https://www.tablemountaincablecar.com/visitor-info). |\n| 15:00–17:00 | rest | Recovery, laundry, groceries. | Hostel/CBD | €8–€12 | Practical long-trip buffer. |\n| 19:00–21:00 | food/social | Cheap group dinner on Kloof/Long Street. | CBD | €10–€15 | Use hostel group to avoid solo late-night walking. |\n\n## Day 5 — Fri 5 Jun 2026: Robben Island and V&A Waterfront\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 08:30–09:30 | transport | Bus/walk to V&A Waterfront ferry terminal. | CBD → V&A | €1–€5 | MyCiTi/local ride estimate; verify route with [MyCiTi](https://www.myciti.org.za/en/myconnect-fares/fare-calculator/). |\n| 10:00–14:00 | culture | Robben Island Museum tour and ferry. | Robben Island | €30–€45 estimate | Book/verify schedule and fare with [Robben Island Museum](https://www.robben-island.org.za/tour-types-test/). Weather can cancel ferries. |\n| 14:30–16:00 | food | Waterfront budget meal or supermarket picnic. | V&A Waterfront | €8–€12 | Tourist area is pricier; keep it simple. |\n| 16:00–18:00 | culture/free | Walk Sea Point Promenade or Green Point Urban Park. | Green Point / Sea Point | €0 | Free oceanfront social area; daylight walk. |\n| 19:00–21:00 | social | Hostel evening; ask around for weekend hiking/surf buddies. | Long Street | €10–€15 | Useful for meeting other travelers before weekend plans. |\n\n## Day 6 — Sat 6 Jun 2026: Oranjezicht market and Lion’s Head sunset\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 08:30–11:00 | food/culture | Oranjezicht City Farm Market breakfast and local food stalls. | Granger Bay / V&A | €10–€15 | [OZCF Market](https://ozcf.co.za/ozcfmarket/) lists Saturday 08:00–14:30. |\n| 11:30–14:00 | free | Sea Point Promenade, thrift shops, groceries. | Sea Point / CBD | €5–€10 | Low-cost downtime. |\n| 15:30–18:30 | hiking | Lion’s Head late-afternoon hike with hostel group. | Lion’s Head | €0–€10 transport | Do not hike alone; safety concerns exist for night hikes. Start early enough to descend in daylight. |\n| 19:30–21:00 | food/social | Group dinner or hostel braai if available. | CBD / hostel | €10–€15 | Social budget evening. |\n\n## Day 7 — Sun 7 Jun 2026: Kirstenbosch and easy recovery\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 09:00–10:00 | transport | Bus/rideshare to Kirstenbosch, ideally split with hostel travelers. | CBD → Kirstenbosch | €5–€10 | Public transport/rideshare estimate. |\n| 10:00–13:30 | nature | Explore Kirstenbosch gardens and canopy walkway. | Kirstenbosch | €6–€10 estimate | Search found daily opening around 08:00–17:00 and adult entry around R95; verify current SANBI/Kirstenbosch page. |\n| 13:30–15:00 | food | Picnic lunch from groceries. | Kirstenbosch | €5–€7 | Bring food to save money. |\n| 16:00–18:00 | rest | Weekly planning, laundry, check surf hostel options. | Hostel | €5–€8 | Practical buffer. |\n| 19:00–21:00 | social | Hostel common-room night. | Long Street | €8–€12 | Cheap social evening. |\n\n## Day 8 — Mon 8 Jun 2026: Move to Muizenberg for surf week\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 09:00–11:00 | accommodation | Check out Long Street hostel; move to Muizenberg-area surf hostel. | CBD → Muizenberg | €20–€28 lodging | Hostel rate estimate; verify live dorm availability. |\n| 11:00–12:30 | transport | Take Southern Line train if operating, or rideshare if not. | Cape Town → Muizenberg | €1–€15 estimate | Search found Southern Line schedules via [CT Trains](https://cttrains.co.za/); verify same-day service. |\n| 13:00–14:00 | food | Cheap lunch near beach. | Muizenberg | €6–€10 | Budget café/grocery estimate. |\n| 15:00–17:00 | surf | Beach orientation, wetsuit rental check, book 4-lesson package. | Muizenberg Beach | €0–€75 deposit/package | [Surf Emporium](https://surfemporium.co.za/price-list/) showed 4-lesson package around R1,605; verify 2026 rate. |\n| 19:00–21:00 | social | Surf hostel dinner / meet other surfers. | Muizenberg | €8–€12 | Good base for meeting travelers. |\n\n## Day 9 — Tue 9 Jun 2026: Surf lesson 1 and Kalk Bay\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 08:00–09:00 | food | Hostel breakfast. | Muizenberg | €3–€5 | Self-catering. |\n| 09:30–11:00 | surf | Surf lesson 1. | Muizenberg Beach | Included in package | [Surf Emporium](https://surfemporium.co.za/price-list/) price evidence; conditions vary. |\n| 12:00–14:00 | food/free | Lunch and beach downtime. | Muizenberg | €6–€10 | Low-cost beach day. |\n| 14:30–17:00 | culture/wildlife | Walk/train to Kalk Bay; harbour seals and fishing village atmosphere. | Kalk Bay | €0–€5 | Wildlife is informal/free; keep distance from seals. |\n| 19:00–21:00 | social | Hostel games night or group dinner. | Muizenberg | €8–€12 | Social surf base. |\n\n## Day 10 — Wed 10 Jun 2026: Cape Point and Boulders penguins\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 07:30–09:00 | transport | Train to Simon’s Town if running; otherwise shared Uber/tour split. | Muizenberg → Simon’s Town | €2–€15 estimate | Verify Southern Line on [CT Trains](https://cttrains.co.za/). |\n| 09:00–10:30 | wildlife | Visit Boulders penguin colony. | Boulders Beach | €10–€15 estimate | Verify international tariff on [SANParks Table Mountain fees](https://www.sanparks.org/parks/table-mountain/rates-entry-fees). |\n| 10:30–16:00 | hiking/wildlife | Shared transfer or budget tour to Cape Point/Cape of Good Hope; short hikes and wildlife spotting. | Cape Point | €25–€55 estimate | SANParks fees/vehicle logistics must be checked; Cape Point is hard by public transport. |\n| 16:00–18:00 | transport | Return to Muizenberg. | Cape Point → Muizenberg | Included/€10–€25 | Split rides with hostel travelers if not on a tour. |\n| 19:00–21:00 | food/rest | Simple dinner and early night. | Muizenberg | €8–€12 | Long outdoor day. |\n\n## Day 11 — Thu 11 Jun 2026: Surf lesson 2 and beach social day\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 08:30–09:30 | food | Breakfast/groceries. | Muizenberg | €3–€5 | Budget routine. |\n| 10:00–11:30 | surf | Surf lesson 2. | Muizenberg Beach | Included in package | Muizenberg is a beginner surf hub; verify sea/weather with surf school. |\n| 12:00–14:00 | food | Beach lunch. | Muizenberg | €6–€10 | Estimate. |\n| 14:00–17:00 | free | Practice pop-ups, beach walk, cafés, journaling. | Muizenberg | €0–€8 | Low-cost recovery. |\n| 19:00–21:00 | social | Join hostel/surf-school group evening. | Muizenberg | €8–€12 | Good traveler-meeting day. |\n\n## Day 12 — Fri 12 Jun 2026: Silvermine or Noordhoek nature day\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 08:00–09:00 | prep | Check weather; find hiking companions. | Muizenberg | €0 | Do not hike solo; SANParks-style guidance recommends groups. |\n| 09:30–14:00 | hiking | Silvermine reservoir/Elephant’s Eye area or Noordhoek beach walk depending on weather. | Table Mountain National Park / South Peninsula | €5–€15 estimate | Park entry/transport uncertain; verify SANParks fees and route safety. |\n| 14:30–16:00 | food | Late lunch. | Muizenberg / Kalk Bay | €8–€12 | Estimate. |\n| 16:00–18:00 | rest | Laundry/free time. | Hostel | €5–€8 | Practical buffer. |\n| 19:00–21:00 | social | Friday hostel/bar night, stay with group. | Muizenberg | €10–€15 | Safety: rideshare after dark if needed. |\n\n## Day 13 — Sat 13 Jun 2026: Surf lesson 3 and local market/culture\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 09:00–10:30 | surf | Surf lesson 3. | Muizenberg Beach | Included in package | [Surf Emporium](https://surfemporium.co.za/price-list/) package estimate. |\n| 11:00–13:00 | food | Brunch with surf group. | Muizenberg | €8–€12 | Social budget meal. |\n| 13:30–16:30 | culture/free | Explore Muizenberg murals, beach huts, local cafés/bookshops. | Muizenberg | €0–€8 | Low-cost local culture. |\n| 17:00–19:00 | rest | Sunset beach walk only if safe/weather OK. | Muizenberg | €0 | Avoid isolated areas after dark. |\n| 19:30–21:30 | social | Hostel dinner / live music if available. | Muizenberg | €10–€15 | Event availability uncertain. |\n\n## Day 14 — Sun 14 Jun 2026: Surf lesson 4 and move back toward city/Sea Point\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 08:30–10:00 | surf | Surf lesson 4 or free surf if lesson timing differs. | Muizenberg Beach | Included/€15 rental estimate | Package timing subject to surf-school availability. |\n| 10:30–12:00 | food | Brunch and check out. | Muizenberg | €8–€12 | Estimate. |\n| 12:00–14:00 | transport | Move to Green Point/Sea Point hostel or back to Long Street. | Muizenberg → Atlantic Seaboard/CBD | €2–€18 estimate | Train/bus/rideshare depending on service. |\n| 14:00–15:00 | accommodation | Check into final hostel base. | Green Point / Sea Point / CBD | €22–€32 | Hostel dorm estimate; live booking required. |\n| 16:00–18:00 | free | Sea Point Promenade walk and sunset. | Sea Point | €0 | Good social/free area in daylight. |\n\n## Day 15 — Mon 15 Jun 2026: Woodstock, street art, and local food\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 08:30–09:30 | food | Hostel breakfast. | Hostel | €3–€5 | Budget routine. |\n| 10:00–12:30 | culture | Woodstock street-art walk or self-guided daytime visit with companions. | Woodstock | €0–€20 | Guided option safer/more informative; exact tour not verified. |\n| 12:30–14:00 | food | Budget lunch/coffee. | Woodstock | €8–€12 | Estimate. |\n| 14:30–16:30 | culture | Iziko/Company’s Garden area museums or café downtime. | CBD | €5–€12 estimate | Museum prices/hours not verified; choose open option on day. |\n| 19:00–21:00 | social | Traveler dinner in hostel area. | Sea Point/CBD | €10–€15 | Keep late travel by rideshare/group. |\n\n## Day 16 — Tue 16 Jun 2026: Youth Day / public-holiday flexibility\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| Morning | planning | Check what is open because 16 June is Youth Day in South Africa. | Hostel | €0 | Public holiday may affect museums/transport; verify locally. |\n| 10:00–13:00 | culture | Attend public cultural events if listed, or take a city/Bo-Kaap walking tour if operating. | Cape Town CBD | €8–€12 tip | Walking-tour operators: [Free Walking Tours Cape Town](https://freewalkingtourscapetown.co.za/), [Walk Cape Town](https://walkcapetown.com/bo-kaap-walking-tour/). |\n| 13:00–15:00 | food | Local lunch with other travelers. | CBD/Bo-Kaap | €8–€12 | Estimate. |\n| 15:30–18:00 | free | Sea Point/Green Point walk or café if weather poor. | Sea Point/Green Point | €0–€8 | Low-cost flexible block. |\n| 19:00–21:00 | social | Hostel common room / board games. | Hostel | €5–€10 | Budget social evening. |\n\n## Day 17 — Wed 17 Jun 2026: Big hiking buffer day\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 07:00–08:00 | prep | Weather check; choose route with hostel group. | Hostel | €0 | Cape winter weather can be wet/windy; do not force summit plans. |\n| 08:30–13:30 | hiking | Backup major hike: Kasteelspoort, Pipe Track, or repeat Table Mountain route with group. | Table Mountain area | €0–€10 transport | Safety guidance: hike in groups, carry map, tell someone return time. |\n| 14:00–15:30 | food | Late lunch. | Camps Bay / CBD | €8–€12 | Estimate. |\n| 16:00–18:00 | rest | Recovery/free time. | Hostel | €0 | Important after hiking. |\n| 19:00–21:00 | food/social | Cheap dinner. | Hostel area | €10–€15 | Estimate. |\n\n## Day 18 — Thu 18 Jun 2026: Wildlife splurge option or budget nature day\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 06:00–18:00 | wildlife option | Optional Big Five day safari only if flight/accommodation costs are under control. | Aquila / similar reserve | €220–€390 estimate | Search found Aquila/Viator day-safari pricing from about $222+; official overnight rates from [Aquila](https://aquilasafari.com/rates/) were high. Verify before booking. |\n| 09:00–15:00 | wildlife budget alternative | If skipping safari: visit Hout Bay, seal viewing from harbour, beach walk, cheap fish lunch. | Hout Bay | €15–€30 estimate | Budget wildlife alternative; boat/tour prices not verified. |\n| 19:00–21:00 | rest | Early night after long tour or local dinner. | Hostel | €8–€12 | Choose either safari or budget alternative, not both. |\n\n## Day 19 — Fri 19 Jun 2026: Food, culture, and final surf or hike choice\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 08:30–09:30 | food | Hostel breakfast. | Hostel | €3–€5 | Budget routine. |\n| 10:00–13:00 | activity | Choose final surf rental at Muizenberg or short hike on Signal Hill/Promenade. | Muizenberg / Signal Hill | €0–€25 | Surf rental estimate; transport extra. |\n| 13:00–14:30 | food | Lunch with travelers. | City/beach | €8–€12 | Estimate. |\n| 15:00–17:00 | culture | Last museum/gallery/craft stop, or revisit Bo-Kaap for photos in daylight. | CBD / Bo-Kaap | €0–€10 | Keep flexible for weather and openings. |\n| 19:00–22:00 | social | Final Friday hostel night, live music, or group dinner. | CBD/Sea Point | €15–€25 | Safety: go/return with group or rideshare. |\n\n## Day 20 — Sat 20 Jun 2026: Final market, packing, sunset\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 08:30–11:00 | food/culture | Return to Oranjezicht City Farm Market for gifts/food. | Granger Bay | €10–€20 | [OZCF Market](https://ozcf.co.za/ozcfmarket/) lists Saturday 08:00–14:30. |\n| 11:30–13:30 | free | Last Sea Point/V&A walk; buy snacks for flight. | Waterfront / Sea Point | €5–€10 | Estimate. |\n| 14:00–16:00 | admin | Pack, laundry, check in online for flight. | Hostel | €5–€8 | Practical departure prep. |\n| 16:30–18:30 | nature | Sunset from Signal Hill or Promenade with hostel group. | Signal Hill / Sea Point | €0–€10 transport | Avoid isolated return after dark; use group/rideshare. |\n| 19:30–21:00 | food/social | Farewell dinner. | Hostel area | €12–€20 | Final social meal. |\n\n## Day 21 — Sun 21 Jun 2026: Fly back to Munich\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| Morning | food/admin | Breakfast, final packing, check out. | Hostel | €5 | Hostel/grocery estimate. |\n| 3–4 hrs before flight | transport | Transfer to Cape Town airport by MyCiTi/rideshare. | City → CPT airport | €5–€15 estimate | Fare depends on distance/time; verify with [MyCiTi fare calculator](https://www.myciti.org.za/en/myconnect-fares/fare-calculator/). |\n| Day/evening | flight | Return flight Cape Town to Munich. | CPT → MUC | Included in flight budget | Exact routing/fare not confirmed by baseline search. |\n| Night | rest | Overnight flight or connection. | In transit | €0 | You may arrive Munich on 22 June depending on flight schedule. |\n\n## Budget summary\n- Flights Munich–Cape Town return: **€750–€1,100 estimate**.\n- Hostels: 19 nights × €22–€30 = **€420–€570 estimate**.\n- Food: about €18–€28/day × 20 days = **€360–€560 estimate**.\n- Local transport: buses/trains/shared rides = **€180–€320 estimate**.\n- Surfing: 4-lesson Muizenberg package/rentals = **€85–€130 estimate**, based on [Surf Emporium](https://surfemporium.co.za/price-list/) search result.\n- Attractions/culture: Robben Island, Boulders, Cape Point, Kirstenbosch, museums, walking-tour tips = **€120–€230 estimate**.\n- Optional safari splurge: **€220–€390 estimate**; skip this if flight prices are high.\n- Laundry/SIM/miscellaneous: **€120–€200 estimate**.\n- Practical total without safari: **about €2,035–€3,110**.\n- Practical total with safari: **about €2,255–€3,500**.\n- Remaining buffer against €4,000 budget: **about €500–€1,700**, useful for fare changes, winter-weather rebooking, safer rideshares, gear, and hostel price increases.\n\n## Unscheduled or uncertain items\n- Exact flights for 1–21 June 2026 are not booked or live-validated; use flight alerts and book when fares are acceptable.\n- Exact hostel availability and dorm prices require live booking confirmation.\n- Robben Island ferry times and prices require direct confirmation; weather cancellations are possible.\n- Cape Point/Boulders international visitor tariffs must be verified on SANParks before visiting.\n- Table Mountain Cableway times/prices and whether it operates depend on weather and maintenance.\n- Aquila or other safari day trips are expensive and optional; this plan includes wildlife through penguins, seals, Cape Point nature, and an optional safari only if budget allows.\n- Specific hostel events, live music, and traveler meetups cannot be verified this far ahead.\n- Hiking routes must be chosen based on current weather, safety alerts, and availability of companions or a guide.\n\n## Assumptions and gaps\n- Assumed outbound flight on 1 June arrives in Cape Town on 2 June, with 19 hostel nights from 2–20 June.\n- Assumed exchange-rate planning around **€1 ≈ R20**, but actual rates will vary.\n- Assumed you are comfortable with dorm beds, self-catering breakfasts, grocery lunches, and occasional shared rides.\n- Assumed you will avoid solo mountain hikes; as a solo traveler, join hostel groups, guided hikes, or organized meetups for Table Mountain/Lion’s Head.\n- June is Cape Town winter: expect cooler weather, rain, wind, and changing mountain conditions; keep hiking days flexible.\n- This is a baseline plan using Tavily evidence only, so all tickets, opening hours, fares, safety conditions, and prices should be rechecked before booking.",
+        "additional_kwargs": {
+          "refusal": null
+        },
+        "response_metadata": {
+          "token_usage": {
+            "completion_tokens": 7997,
+            "prompt_tokens": 14064,
+            "total_tokens": 22061,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": null,
+              "audio_tokens": 0,
+              "reasoning_tokens": 1034,
+              "rejected_prediction_tokens": null,
+              "image_tokens": 0
+            },
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 7168,
+              "cache_write_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost": 0.277974,
+            "is_byok": false,
+            "cost_details": {
+              "upstream_inference_cost": 0.277974,
+              "upstream_inference_prompt_cost": 0.038064,
+              "upstream_inference_completions_cost": 0.23991
+            }
+          },
+          "model_provider": "openai",
+          "model_name": "openai/gpt-5.5-20260423",
+          "system_fingerprint": null,
+          "id": "gen-1778954133-skwoIvNOONA3zsQ88BJH",
+          "service_tier": "default",
+          "finish_reason": "stop",
+          "logprobs": null
+        },
+        "type": "ai",
+        "id": "lc_run--019e31ed-e124-70d3-b379-82b7c45ed7fd-0",
+        "tool_calls": [],
+        "invalid_tool_calls": [],
+        "usage_metadata": {
+          "input_tokens": 14064,
+          "output_tokens": 7997,
+          "total_tokens": 22061,
+          "input_token_details": {
+            "audio": 0,
+            "cache_read": 7168
+          },
+          "output_token_details": {
+            "audio": 0,
+            "reasoning": 1034
+          }
+        }
+      }
+    ]
+  },
+  "error": null,
+  "metadata": {
+    "LANGSMITH_ENDPOINT": "https://eu.api.smith.langchain.com",
+    "LANGSMITH_PROJECT": "travelplanner",
+    "LANGSMITH_TRACING": "true",
+    "ls_integration": "langgraph",
+    "ls_run_depth": 0,
+    "revision_id": "10ec8d0-dirty",
+    "thread_id": "bbde4dcc-aff7-40aa-8f35-184ba9adc59e"
+  },
+  "langsmith": {
+    "organization": {
+      "name": "Personal",
+      "id": "477adfd8-a90b-45c3-95f6-1375325770e8"
+    },
+    "workspace": {
+      "name": "Workspace 1",
+      "id": "06241d75-72ec-4af5-b325-52629e7730a0"
+    },
+    "tracing_project": {
+      "id": "d92c06e8-225e-4665-a627-fdf375468f7c",
+      "name": "travelplanner"
+    }
+  }
+}

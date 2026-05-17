@@ -1,0 +1,617 @@
+{
+  "inputs": {
+    "messages": [
+      {
+        "content": "You are the Simple Baseline TravelPlanner Agent.\n\nPurpose:\n- Produce a single-agent baseline itinerary for later comparison against the\n  multi-agent TravelPlanner system.\n- You have exactly one tool: Tavily web search. You have no sub-agents and no\n  specialized flight, hotel, restaurant, routing, or validation tools.\n\nOperating rules:\n1. Use Tavily web search before the final itinerary for current facts, links,\n   opening hours, prices, neighborhoods, transit hints, and source URLs.\n   The workflow may require a minimum number of completed Tavily searches before\n   you may answer with final markdown only; if you receive a workflow nudge,\n   complete the requested searches first.\n   Use a small number of high-value searches, then synthesize the final answer.\n2. Respect every hard constraint supplied by the user. If a constraint cannot be\n   verified, state the assumption instead of silently ignoring it.\n3. Prefer official tourism, venue, transit, accommodation, restaurant, and event\n   pages when search results contain them. Use blogs and aggregators only as\n   secondary evidence.\n4. Do not invent exact prices, opening hours, flight numbers, hotel availability,\n   or booking status. Mark uncertain values as estimates.\n5. Order each day like the main execution agent: travel/check-in first, meals at\n   plausible meal times, attractions during likely opening hours, transfers\n   between distant places, and rest/free time when useful.\n6. Return only markdown in the final answer.\n\nFinal markdown structure:\nUse exactly these section headings, in this order:\n1. `# Baseline itinerary: ...`\n2. `## Goal and constraints understood`\n3. `## Search summary`\n4. `## Day 1 ...` and one section per day\n5. `## Budget summary`\n6. `## Unscheduled or uncertain items`\n7. `## Assumptions and gaps`\n\nEach day must be a markdown table with exactly these columns:\n`Time | Type | Plan | Location | Cost | Evidence/Notes`.\n\nSource discipline:\n- Every non-obvious venue, attraction, transit pass, opening-time claim, and\n  ticket price should have either a markdown link in Evidence/Notes or be marked\n  as an estimate.\n- If a requested item cannot be scheduled with available evidence, list it under\n  \"Unscheduled or uncertain items\" rather than hiding it.\n- Never include raw Tavily result dumps in the final answer.\n\nExample final output shape:\n\n# Baseline itinerary: 3 days in Lisbon\n\n## Goal and constraints understood\n- Origin: Berlin\n- Dates: 2026-06-12 to 2026-06-14\n- Budget: 800 EUR for 2 travelers\n\n## Search summary\n- Official tourism page for Belém Tower: https://...\n- Transit pass information: https://...\n\n## Day 1\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 09:00-10:30 | transport | Arrive and transfer to hotel | Airport to Baixa | €8 | Metro estimate; verify live schedules |\n\n## Budget summary\n- Estimated total: €...\n\n## Unscheduled or uncertain items\n- Flight number unavailable because only Tavily web search is available.\n\n## Assumptions and gaps\n- Hotel prices require live booking confirmation.\n",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "system",
+        "id": "4292311d-4173-45df-a0a6-924e6b46bc3d"
+      },
+      {
+        "content": "GOAL\nCreate a comparable baseline travel plan in markdown.\n\nUSER QUERY\nI am already in Rome for a business trip and have 3 unexpected free days from July 5th to 8th, 2026. No flights or hotel needed — I already have both. I have €400 to spend on activities, food, and experiences. I love Roman history, street food, and discovering hidden gems off the tourist trail. Please suggest the best way to spend these 3 days.\n\nCONSTRAINTS\n{\n  \"hard_constraints\": {\n    \"origin\": null,\n    \"destination\": \"Rome\",\n    \"date_from\": \"2026.07.05\",\n    \"date_to\": \"2026.07.08\",\n    \"travelers\": {\n      \"adults\": 1,\n      \"children_under_6\": 0,\n      \"children_6_to_16\": 0\n    },\n    \"budget_amount\": 400,\n    \"budget_currency\": \"EUR\",\n    \"accommodation\": null,\n    \"transport\": null,\n    \"interests\": \"Roman history, street food, Colosseum, Trastevere, hidden gems\"\n  }\n}\n\nOUTPUT REQUIREMENT\nReturn the final plan as markdown using the same practical timetable style as the main execution agent, but acknowledge that this baseline only has Tavily evidence. Include source links found via Tavily.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "human",
+        "id": "ae7ef700-a9db-4ca3-a739-ee175d5cafd9"
+      }
+    ]
+  },
+  "outputs": {
+    "messages": [
+      {
+        "content": "You are the Simple Baseline TravelPlanner Agent.\n\nPurpose:\n- Produce a single-agent baseline itinerary for later comparison against the\n  multi-agent TravelPlanner system.\n- You have exactly one tool: Tavily web search. You have no sub-agents and no\n  specialized flight, hotel, restaurant, routing, or validation tools.\n\nOperating rules:\n1. Use Tavily web search before the final itinerary for current facts, links,\n   opening hours, prices, neighborhoods, transit hints, and source URLs.\n   The workflow may require a minimum number of completed Tavily searches before\n   you may answer with final markdown only; if you receive a workflow nudge,\n   complete the requested searches first.\n   Use a small number of high-value searches, then synthesize the final answer.\n2. Respect every hard constraint supplied by the user. If a constraint cannot be\n   verified, state the assumption instead of silently ignoring it.\n3. Prefer official tourism, venue, transit, accommodation, restaurant, and event\n   pages when search results contain them. Use blogs and aggregators only as\n   secondary evidence.\n4. Do not invent exact prices, opening hours, flight numbers, hotel availability,\n   or booking status. Mark uncertain values as estimates.\n5. Order each day like the main execution agent: travel/check-in first, meals at\n   plausible meal times, attractions during likely opening hours, transfers\n   between distant places, and rest/free time when useful.\n6. Return only markdown in the final answer.\n\nFinal markdown structure:\nUse exactly these section headings, in this order:\n1. `# Baseline itinerary: ...`\n2. `## Goal and constraints understood`\n3. `## Search summary`\n4. `## Day 1 ...` and one section per day\n5. `## Budget summary`\n6. `## Unscheduled or uncertain items`\n7. `## Assumptions and gaps`\n\nEach day must be a markdown table with exactly these columns:\n`Time | Type | Plan | Location | Cost | Evidence/Notes`.\n\nSource discipline:\n- Every non-obvious venue, attraction, transit pass, opening-time claim, and\n  ticket price should have either a markdown link in Evidence/Notes or be marked\n  as an estimate.\n- If a requested item cannot be scheduled with available evidence, list it under\n  \"Unscheduled or uncertain items\" rather than hiding it.\n- Never include raw Tavily result dumps in the final answer.\n\nExample final output shape:\n\n# Baseline itinerary: 3 days in Lisbon\n\n## Goal and constraints understood\n- Origin: Berlin\n- Dates: 2026-06-12 to 2026-06-14\n- Budget: 800 EUR for 2 travelers\n\n## Search summary\n- Official tourism page for Belém Tower: https://...\n- Transit pass information: https://...\n\n## Day 1\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 09:00-10:30 | transport | Arrive and transfer to hotel | Airport to Baixa | €8 | Metro estimate; verify live schedules |\n\n## Budget summary\n- Estimated total: €...\n\n## Unscheduled or uncertain items\n- Flight number unavailable because only Tavily web search is available.\n\n## Assumptions and gaps\n- Hotel prices require live booking confirmation.\n",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "system",
+        "id": "4292311d-4173-45df-a0a6-924e6b46bc3d"
+      },
+      {
+        "content": "GOAL\nCreate a comparable baseline travel plan in markdown.\n\nUSER QUERY\nI am already in Rome for a business trip and have 3 unexpected free days from July 5th to 8th, 2026. No flights or hotel needed — I already have both. I have €400 to spend on activities, food, and experiences. I love Roman history, street food, and discovering hidden gems off the tourist trail. Please suggest the best way to spend these 3 days.\n\nCONSTRAINTS\n{\n  \"hard_constraints\": {\n    \"origin\": null,\n    \"destination\": \"Rome\",\n    \"date_from\": \"2026.07.05\",\n    \"date_to\": \"2026.07.08\",\n    \"travelers\": {\n      \"adults\": 1,\n      \"children_under_6\": 0,\n      \"children_6_to_16\": 0\n    },\n    \"budget_amount\": 400,\n    \"budget_currency\": \"EUR\",\n    \"accommodation\": null,\n    \"transport\": null,\n    \"interests\": \"Roman history, street food, Colosseum, Trastevere, hidden gems\"\n  }\n}\n\nOUTPUT REQUIREMENT\nReturn the final plan as markdown using the same practical timetable style as the main execution agent, but acknowledge that this baseline only has Tavily evidence. Include source links found via Tavily.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "human",
+        "id": "ae7ef700-a9db-4ca3-a739-ee175d5cafd9"
+      },
+      {
+        "content": "",
+        "additional_kwargs": {
+          "refusal": null
+        },
+        "response_metadata": {
+          "token_usage": {
+            "completion_tokens": 436,
+            "prompt_tokens": 1070,
+            "total_tokens": 1506,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": null,
+              "audio_tokens": 0,
+              "reasoning_tokens": 210,
+              "rejected_prediction_tokens": null,
+              "image_tokens": 0
+            },
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0,
+              "cache_write_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost": 0.01843,
+            "is_byok": false,
+            "cost_details": {
+              "upstream_inference_cost": 0.01843,
+              "upstream_inference_prompt_cost": 0.00535,
+              "upstream_inference_completions_cost": 0.01308
+            }
+          },
+          "model_provider": "openai",
+          "model_name": "openai/gpt-5.5-20260423",
+          "system_fingerprint": null,
+          "id": "gen-1778954504-5YR64dgWAXs0Eszqzf4X",
+          "service_tier": "default",
+          "finish_reason": "tool_calls",
+          "logprobs": null
+        },
+        "type": "ai",
+        "id": "lc_run--019e31f3-86a0-7a31-817d-5db3bf216d65-0",
+        "tool_calls": [
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "official Colosseum Roman Forum Palatine Hill opening hours tickets 2026 Rome CoopCulture Parco archeologico del Colosseo"
+            },
+            "id": "call_61O36DYEL7jN7uc6vaLxsnmX",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "official Rome Domus Aurea opening hours tickets 2026 guided tour"
+            },
+            "id": "call_NPqmMpg02Cnz7Nx3qgjsFnlt",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "official Rome Baths of Caracalla opening hours tickets 2026 Parco archeologico"
+            },
+            "id": "call_aMOqM7tXjThLbysN4wKvmIi6",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "official Rome public transport tickets 100 minutes 24 48 72 hour pass ATAC 2026 prices"
+            },
+            "id": "call_FDqIrTMZuImXow4tnbLihhEk",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "official Rome Case Romane del Celio opening hours tickets 2026"
+            },
+            "id": "call_gANIHoUmL6QG1EEadLEVxEkQ",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "official Rome San Clemente basilica excavations opening hours tickets 2026"
+            },
+            "id": "call_VQQIdmp5mA2Oc58oeNa7UM7K",
+            "type": "tool_call"
+          }
+        ],
+        "invalid_tool_calls": [],
+        "usage_metadata": {
+          "input_tokens": 1070,
+          "output_tokens": 436,
+          "total_tokens": 1506,
+          "input_token_details": {
+            "audio": 0,
+            "cache_read": 0
+          },
+          "output_token_details": {
+            "audio": 0,
+            "reasoning": 210
+          }
+        }
+      },
+      {
+        "content": "Tavily answer:\nThe Colosseum, Roman Forum, and Palatine Hill open daily; tickets require advance booking, valid for two consecutive days. Last admission to the Colosseum is 3:30 PM, closing at 4:30 PM. Tickets are available 30 days in advance.\n\nTavily results:\n1. Opening Times and tickets - Parco archeologico del Colosseo score=1.00\n   URL: https://colosseo.it/en/opening-times-and-tickets/\n   Snippet: Last admission at 3.30 p.m. The PArCo closes at 4.30 p.m. Ticket sales, with compulsory reservation of the time slot for entry to the Colosseum, open 30 days before the date of the visit. Ticket valid for **2 consecutive days**, for a **single access to the Colosseum** (with **underground** and **arena**) and a **single access** to the archaeological areas of the **Roman Forum**, the **Palatine** and the **Imperial Fora** and the **SUPER sites**. Ticket valid **24 hours**, for a **single access only to the arena of the Colosseum** lasting **20 minutes** and a **single access** to the archaeological areas of the **Roman Forum**, the **Palatine** and the **Imperial Fora and the SUPER sites**, including the ongoing exhibitions. Ticket valid for **2 consecutive days** for **one access** to the **Colosseum** (**arena included**) and for **one access** to the archaeological areas of the **Roma...\n2. The Roman Forum and the Palatine Hill - The Colosseum score=1.00\n   URL: https://www.il-colosseo.it/en/foro-romano-palatino.php?\n   Snippet: The Roman Forum, the Palatine Hill and the Imperial Forums. Last admission: 6:15 PM (with the \"Full Experience\" ticket: 6:00 PM), (with the \"Full Experience Arena and Underground\" ticket: 5:20 PM). You can visit the archaeological area of the Roman Forum - Palatine Hill - Imperial Forums with the same ticket for the Colosseum or with the *Forum Pass SUPER* ticket. The Roman Forum and the Palatine Hill. The Roman Forum is the archaeological area between Piazza Venezia and the Coliseum, and crossed by the Via dei Fori Imperiali; continuing seamlessly on the Palatine and the Capitol, along with the area of Colosseum and the Arch of Constantine, is the largest and most important archaeological site in the world. Going back to the Capitol, you meet on the left what is commonly called the Temple of the Divine Romulus and, therefore, the beautiful ruins of the  **Basilica of Maxentius** , build...\n3. 24h – Colosseum, Roman Forum and Palatine - Parco archeologico del Colosseo score=1.00\n   URL: https://colosseo.it/en/tickets/24h-colosseum-roman-forum-and-palatine/\n   Snippet: # 24h – Colosseum, Roman Forum and Palatine. (per gli Amici del PArCo) € 14.00** for holders of a ticket to the **Museo Ebraico di Roma** (read here). **24h – Colosseum, Roman Forum and Palatine**. **Entrance**: either from the Colosseum or the Roman Forum-Palatine area. You can book the entrance time to the Colosseum and decide whether to visit the Roman Forum, the Palatine and the Imperial Fora earlier or later. * **ONLY 1 entrance** to the archaeological area of the Roman Forum-Palatine and Imperial Fora at the desired time, **within 24 hours before or after the booking time at the Colosseum**;. * access to any ongoing exhibitions at the Colosseum and to the archaeological area of the Roman Forum-Palatine. – Ticket Colosseum, Roman Forum, Palatine to visit in one single tour the Colosseum, the Roman Forum and the Palatine. – Forum Pass ticket to visit the Imperial Forum, the Roman For...\n4. Colosseum: FAQs and useful information, opening hours and tickets score=1.00\n   URL: https://www.ciaoflorence.it/en/page/442\n   Snippet: The last admissions are one hour before the closing time, while the Roman Forum and Palatine area opens at 09:00 am. Where is the ticket office? It's always\n5. How To Visit the Colosseum in 2026: Tickets, Hours & More score=1.00\n   URL: https://www.througheternity.com/travel-guide/how-to-book-colosseum-tickets\n   Snippet: ## Tickets, Hours & More. a view of the colosseum in rome from piazza del colosseo. Blog Colosseum Guide Visiting the Colosseum 2026: Tickets, Hours & More. ## It goes without saying that visiting the Colosseum is an essential part of any trip to Rome. That’s where this guide comes in. We’ll walk you through everything you need to know to book your Colosseum tickets and plan your visit, making sure that your visit will be memorable for all the right reasons. And if you’re considering a guided tour, we’ll show you why it might be the easiest way to experience the Colosseum in all its glory. Colosseum Guided Tour: Arena Floor 2026. ## Is a Tour of the Colosseum Worth it? Before diving into the details of booking tickets, it’s worth mentioning that the simplest and most rewarding way to visit the Colosseum is often on a guided tour.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "b5ad0322-5bdc-4449-afb9-b581862e68b3",
+        "tool_call_id": "call_61O36DYEL7jN7uc6vaLxsnmX",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nDomus Aurea opens Friday to Sunday from 9:15 AM to 5:15 PM in 2026. Guided tours are mandatory and cost €26. Tickets must be reserved in advance.\n\nTavily results:\n1. The Domus Aurea in Rome: Opening Hours & tickets 2026 score=0.85\n   URL: https://www.museos.com/en/rome/domus-aurea/\n   Snippet: # Domus Aurea. ## Domus Aurea THE GOLDEN HOUSE. The Domus Aurea was once the huge and ostentatious palace of Emperor Nero. The only way to get a glimpse of this ancient complex for yourself is to book onto a guided tour. The tour is really high-tech throughout (hello video projections and VR glasses), so you can imagine what the imperial palace would have looked like in all its pomp and splendour all those centuries ago. During the summer, you have to book your tickets well in advance. There’s no free time to explore the complex on your own after the guided tour. Wear something with long sleeves or take layers to wrap up in – it can get a bit cold down in the underground passages. ## Domus Aurea Tickets. Official Website: Admission, VR, Guided Tour in EN/IT, Duration: 1,5 hour, almost always booked out! But it was built on the site of the lake in the grounds of the Domus Aurea after it w...\n2. Domus Aurea Opens for Special Thematic Tours in 2026 score=0.85\n   URL: https://www.colosseum-arena-tickets.com/post/domus-aurea-opens-for-special-thematic-tours-in-2026\n   Snippet: Each visit lasts around 90 minutes with guided groups capped at 23 participants. The regular price is 26€ per visit, while reduced admission for people between\n3. Domus Aurea tickets: explore Nero's palace - Visit Italy EU score=0.76\n   URL: https://www.visititaly.eu/tickets/domus-aurea\n   Snippet: Opening hours are from 9:15 AM to 5:15 PM, with entrances scheduled every 15 minutes. Tickets and costs: It is mandatory to reserve tickets to access the Domus\n4. Domus Aurea - Tickets, opening hours and useful info - Roma score=0.74\n   URL: https://www.romaturismo.info/en/rome-things-to-do/domus-aurea/\n   Snippet: The Domus Aurea is open every Friday, Saturday and Sunday from 9.15am to 5pm, with the last admission one hour before closing. Tour slots run every 15 minutes\n5. Domus Aurea - Parco archeologico del Colosseo score=0.73\n   URL: https://colosseo.it/en/tickets/domus-aurea/\n   Snippet: Opening Hours · Ticket with educational tour and virtual reality € 26.00 · Only ticket, no educational tour and no virtual reality at 12 p.m. and 5 p.m. · Full",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "3db8bb01-9559-4803-a27d-da1330c68bbf",
+        "tool_call_id": "call_NPqmMpg02Cnz7Nx3qgjsFnlt",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nThe Baths of Caracalla are open daily from 9 a.m. to 7 p.m. in 2026, closed on Mondays. Tickets can be booked online for entry. The site is closed on January 1, May 1, and December 25.\n\nTavily results:\n1. Baths of Caracalla Opening Hours — Best Time to Visit - Rome Tickets score=1.00\n   URL: https://www.tickets-rome.com/caracalla-baths-tickets/opening-hours/\n   Snippet: The Baths of Caracalla are open daily from 9am to 7:15pm (Apr-Sep) and 9am to 4:30pm (Oct-Mar). Discover detailed hours and tips for visiting.\n2. Baths of Caracalla in Rome: Opening times & prices 2026 - museos score=1.00\n   URL: https://www.museos.com/en/rome/baths-of-caracalla/\n   Snippet: ICOM Card. Free admission for ICOM members ; Opening Hours. Tuesday – Sunday, 9 a.m. – 7 p.m.. Last Admission: 6 p.m.. Closed on Monday ; Prices.\n3. The best Baths of Caracalla Entry tickets 2026 - Free cancellation score=1.00\n   URL: https://www.getyourguide.com/baths-of-caracalla-l4845/entry-tickets-tc123/\n   Snippet: Book the most popular Entry tickets in Baths of Caracalla. Best price and money back guarantee! Read the reviews of your fellow travelers.\n4. Terme di Caracalla Ticket Reservation score=1.00\n   URL: https://www.ticketsrome.com/en/museum-reservations/caracalla-baths/179-terme-di-caracalla-tickets\n   Snippet: Open: every day from 9:00 am till one hour before sunset. Opening hours: Closed: 1 January, 1 May, 25 December. Caracalla Baths official Ticket Price\n5. Baths of Caracalla Tickets [2026] - Promos, Prices, Reviews & Opening Hours | Trip.com score=1.00\n   URL: https://us.trip.com/travel-guide/attraction/rome/baths-of-caracalla-99944/\n   Snippet: # Baths of Caracalla. ## Other visitors' reviews of Baths of Caracalla. ## Baths of Caracalla attraction highlights. The Caracalla Baths was built by King Caracalla in 217 AD. It is made of granite, and the overall decoration is complex and complicated, showing the luxurious style of the prosperous ancient Rome. Like other baths in Italy at that time, Caracalla Bath was also located in a garden with long grass and beautiful scenery. In addition to the library, there is also a stadium next to the baths, which is closely related to the life of the Romans who love sports. The Rise and Fall of the Baths Three centuries after the Baths opened, during a Roman siege, the water supply to the Baths of Caracalla was cut off by the Goths, and the Baths have since faded from Roman life. Coupled with the fact that the Baths of Caracalla deviates from the center of ancient Rome and loses its function,...",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "8c2d4e61-aec6-4af1-b76b-4c49c6d8e0db",
+        "tool_call_id": "call_aMOqM7tXjThLbysN4wKvmIi6",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nATAC 24, 48, and 72-hour passes for Rome public transport in 2026 cost €7, €12.50, and €16 respectively. These tickets allow unlimited travel for their respective durations.\n\nTavily results:\n1. Rome Transport Tickets - Tickets, Travel Cards & Transport Passes score=1.00\n   URL: https://www.rome.net/rome-transport-tickets\n   Snippet: # Rome Transport Tickets. Rome has an extensive public transport system that can make exploring the city much easier and better-value for money. Rome's public transport system is called the **ATAC** (Azienda per i Trasporti Autoferrotranviari del Comune di Roma), and boasts metro, buses, trams and urban trains. * **Unlimited use of public transport in Rome**. **Tap-and-go** **payment**has been rolled out across much of Rome's public transport network. This ticket allows **unlimited use** of Rome's public transport for **48 hours from the time it is first used**. This ticket allows unlimited use of public transport for **72 hours from the time it is used for the first time**. If you're going to spend a week in Rome and you plan to use public transport a lot, the ideal option for you is the weekly pass, as you'll be able to use unlimited public transport for **7 days**.\n2. New Rome Public Transport Ticket Prices Starting July 1st If you're ... score=1.00\n   URL: https://www.facebook.com/Romewise/posts/new-rome-public-transport-ticket-prices-starting-july-1stif-youre-visiting-rome-/1294535779340784/\n   Snippet: ... Buses: A single ticket costs €1.50 and is valid for 100 minutes. A 24-hour pass costs €7, a 48- hour pass costs €12.50, and a 72-hour pass\n3. Transport in Rome - Metro, Bus & Travel Pass score=1.00\n   URL: https://romesite.com/transport.html\n   Snippet: **No.1 Rome City Guide**  Rome / *Transport and metro Rome*. # Public transport & Metro Rome. ## Getting around in Rome: transportation, metro tickets and travel passes. *All information on the metro and public transportion in Rome; bus, metro map, metro tickets and travel passes. It is important to know that the same ticket is valid for **all public transport** (ATAC) including metro, trams, buses (with the exception of the tourist buses) and even a number of regional trains (Trenitalia 2nd class, Roma-Lido, Rome-Viterbo and Rome-Giardinetti). * *BIT Metro Ticket*: This ticket costs 1.50 € and allows you to use public transport for 100 minutes after you stamp it. **Rome City Passes**: The metro is also included in the Roma Pass, which gives you 48 or 72 hours access to public transport including one or two attractions. In the popular Rome City Turbopass (with entry tickets for main attr...\n4. Tickets and passes score=1.00\n   URL: https://www.atac.roma.it/en/tickets-and-passes\n   Snippet: #### B+, digital tickets available on partner apps. **Atac** **offers a new ticket payment method via S****martphone**. **With this new system**, in addition to traditional payment methods, you will be able to **buy and validate 100 minute BIT tickets**, **ROMA24/48/72H tickets** and the **monthly personal travel pass** directly from your smartphone. Buy ATAC tickets and passes, call a taxi, get train tickets, rent cars, bikes or e-scooters- all in one app. In Rome you can buy metro and bus tickets with your mobile phone. TABNET, an App created by Servizi in Rete, a company controlled by the Italian Tobacconist Federation, allows you to purchase public transport tickets. Buy Metrebus tickets on the Trenitalia website and app and validate them directly via app from your device. * Bpiù – Digital tickets on partner apps. ATAC launches its new app: journey planner, tickets and more. Plan, Bu...\n5. Rome Transport Passes & Tickets: Which One Should You Buy? score=1.00\n   URL: https://www.rome.info/transport/transport-passes/\n   Snippet: Looking to get the best value out of your public transport tickets in Rome? We’ll talk you through the different passes available, looking at price, validity, and how to use them to help you find the right ticket for your trip. If you want unlimited use of the Eternal City’s public transport system – including the metro, buses, trams, and some urban trains – for a full week, this ATAC pass will give you exactly what you’re looking for. With this pass, you can use the metro and buses without having to worry about purchasing multiple tickets or rushing to buy one before you depart. Please bear in mind that you would need to use public transport quite a bit for it to become a good value. You can buy a one-day, two-day, or three-day Metrobus pass, all of which grant you unlimited use of buses, trams, and metro lines, as well as some urban train lines for the duration of the ticket.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "363f8a11-6d78-49a6-bb35-738b433294d6",
+        "tool_call_id": "call_FDqIrTMZuImXow4tnbLihhEk",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nCase Romane del Celio opens from 10am to 4pm, closed Tuesdays and Thursdays. For 2026, check the official website for updated hours. Tickets available online.\n\nTavily results:\n1. Case Romane del Celio, Rome | Book Now Tickets & Tours Online score=1.00\n   URL: https://www.viator.com/Rome-attractions/Case-Romane-del-Celio/d511-a19865\n   Snippet: What are the opening hours of the Case Romane del Celio? Case Romane del Celio is open from 10am to 4pm; the attraction is closed on Tuesdays, Thursdays\n2. Case Romane del Celio 2026: Tour & Tickets from Rom… | TRAVI score=1.00\n   URL: https://travi.world/article/entry-to-case-romane-del-celio-rome\n   Snippet: Explore the Case Romane del Celio in Rome! Get tickets, tour info, visitor tips & more. Discover Roman domestic life. Plan your visit now!\n3. Case Romane del Celio Tickets - Rome - Tiqets score=1.00\n   URL: https://www.tiqets.com/en/case-romane-del-celio-tickets-l163268/\n   Snippet: ... Santi Giovanni e Paolo in Rome, Italy. Opening hours. Case Romane del Celio. Wednesday. 10:00:00 - 16:00:00. Thursday. Closed. Friday. 10:00:00 - 16:00:00.\n4. Case Romane del Celio, Rome – Tickets & admission - Turbopass score=1.00\n   URL: https://www.turbopass.com/en/rome/attractions/case-romane-del-celio\n   Snippet: Opening times are subject to change (depending on the season). For up-to-date information, please check the official website of the Case Romane del Celio.\n5. Case Romane del Celio Tickets [2026] - Rome - Trip.com score=1.00\n   URL: https://sg.trip.com/travel-guide/attraction/rome/case-romane-del-celio-22953402/\n   Snippet: Book tickets for Case Romane del Celio in Rome. Check latest ticket prices, discover deals, real visitor reviews, updated opening hours and moments by other",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "b56658d1-8d4b-4b70-8912-ca390feec1c3",
+        "tool_call_id": "call_gANIHoUmL6QG1EEadLEVxEkQ",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nExcavations at Basilica of San Clemente require online booking for entry. Opening hours and ticket details for 2026 are not yet available. Check official site for updates.\n\nTavily results:\n1. Basilica of San Clemente Tickets [2026] - Promos, Prices, Reviews & Opening Hours | Trip.com score=0.71\n   URL: https://us.trip.com/travel-guide/attraction/rome/basilica-of-san-clemente-13509147/\n   Snippet: # Basilica of San Clemente. ## Other visitors' reviews of Basilica of San Clemente. ## Basilica of San Clemente attraction highlights. The Basilica of St. Clement of Lateran, located in La Trano, Rome, is a Catholic basilica. The biggest feature of this church is that it clearly presents the historical level of the city of Rome. The lower site of St. Clement's Cathedral dates back to the Roman Republic in the 2nd century BC, but excavations are ongoing and have not yet been opened; today's deeper excavations are of 1st-century AD buildings, including an early Christian Houses of worship and temples dedicated to the Persian god Mithras (the god of light). At present, what tourists come to see directly is this post-renovation church, and they can also enter the basement for 5 euros to learn more about the history of the city of Rome. ## Basilica of San Clemente Reviews: Insider Insights an...\n2. The best Basilica di San Clemente al Laterano Architecture 2026 score=0.65\n   URL: https://www.getyourguide.com/basilica-di-san-clemente-al-laterano-l3270/architecture-tc29/\n   Snippet: Experience two of Rome's most fascinating underground sites in a 2.5-hour tour designed for comfort, depth, and smooth organization. Begin with a guided visit\n3. Basilica of San Clemente: Tickets, History & 2026 Visitor Guide score=0.57\n   URL: https://www.rome.info/attractions/st-clement-basilica/\n   Snippet: # Basilica of San Clemente. The Basilica of Sant Clemente al Laterano (English: Saint Clement) is just a stone’s throw away from the Colosseum, but many tourists don’t even know it exists. Inside the Basilica of San Clemente, Rome  borisb17/Depositphotos. ### Basilica of San Clemente Tickets. If you’re thinking of going to the Basilica of Saint Clement, it’s best to book in advance. And honestly, it’s one of those places you wouldn’t even notice from the outside, but it’s super interesting once you’re in. It’s a small group tour in English, about 1.5 hours, and the guide takes you down through all the layers under the church: old Roman streets, early Christian stuff, even a temple. If you’re planning to see places like **the Colosseum and the Vatican** while you’re in Rome, the Rome Tourist Card is actually pretty handy. It gives you entry to a few top spots, lets you skip a lot of the l...\n4. Opening hours and information - Basilica di San Clemente score=0.52\n   URL: https://www.basilicasanclemente.com/eng/opening-hours-and-info/\n   Snippet: BOOKING ENTRY TO THE EXCAVATIONSBOOKING ENTRY TO THE EXCAVATIONS. **At the entrance, the visitor will receive a brochure which will guide them through the excavations and show the location of the principal features. We draw your attention to the fact that, in order to enter the archaeological excavations, **online booking is required**. For the protection of the artistic heritage and to ensure a safe and enjoyable visit for all visitors, there is a limit on the number of daily admissions. Online booking is the only means of securing entry, allowing one to choose the date and time slot of one’s choice. Before booking online, we ask you to carefully **read the regulations with the procedures and directions for your visit**: these are necessary rules so that your visit can take place under the best and safest of conditions. The Basilica and the Excavations [Entrance on Piazza S.Clemente]. T...\n5. Basilica of San Clemente, Tickets and Tours | TicketLens score=0.43\n   URL: https://www.ticketlens.com/en/p1395320/rome/basilica-of-san-clemente\n   Snippet: Basilica of San Clemente tickets & tours | Price comparison. # Basilica of San Clemente. Quietly magical, **Basilica of San Clemente** sits a short walk from the *Colosseum* and hides one of *Rome*'s most vivid journeys underground. The local *Basilica di San Clemente al Laterano* leads from a 12th-century mosaic church down to a 4th-century AD basilica, 1st-century AD Roman rooms, and a shadowy *Mithraeum*. Start with a guided underground tour if you want the layers, frescoes, and pagan temple explained clearly while your timed excavation entry is handled for you. Best for first-timers: these tours turn the basilica, lower church, Roman rooms, and *Mithraeum* into one readable story, often with entry to the excavations included. Basilica of San Clemente Entry Tickets with Panoramic Bus Transfer. Useful when you want to fold *San Clemente* into a wider *Colosseum*, catacombs, bus, or hid...",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "9bc498bf-5201-478d-bd1c-f6235ac8ce0a",
+        "tool_call_id": "call_VQQIdmp5mA2Oc58oeNa7UM7K",
+        "status": "success"
+      },
+      {
+        "content": "",
+        "additional_kwargs": {
+          "refusal": null
+        },
+        "response_metadata": {
+          "token_usage": {
+            "completion_tokens": 225,
+            "prompt_tokens": 6702,
+            "total_tokens": 6927,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": null,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": null,
+              "image_tokens": 0
+            },
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0,
+              "cache_write_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost": 0.04026,
+            "is_byok": false,
+            "cost_details": {
+              "upstream_inference_cost": 0.04026,
+              "upstream_inference_prompt_cost": 0.03351,
+              "upstream_inference_completions_cost": 0.00675
+            }
+          },
+          "model_provider": "openai",
+          "model_name": "openai/gpt-5.5-20260423",
+          "system_fingerprint": null,
+          "id": "gen-1778954518-6OvLimZ53Tr2KA0V1nGS",
+          "service_tier": "default",
+          "finish_reason": "tool_calls",
+          "logprobs": null
+        },
+        "type": "ai",
+        "id": "lc_run--019e31f3-be91-7233-9482-992dc9f7d299-0",
+        "tool_calls": [
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "official Rome Mercato Testaccio opening hours street food"
+            },
+            "id": "call_PzZlaidc6z0CkKmnqGSrKI2X",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Rome Trastevere street food official tourism restaurants supplì Trapizzino Dar Poeta"
+            },
+            "id": "call_hjlhYZ7pWNeUB9GO0WplajTF",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Rome Jewish Ghetto street food Forno Campo de Fiori Supplizio official tourism hidden gems"
+            },
+            "id": "call_eAe1FWWhviF6iAbzXiFyJYPW",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "official Rome Appian Way catacombs opening hours tickets San Callisto San Sebastiano 2026"
+            },
+            "id": "call_UwcO7Xvc7qhxiWagp1OvyUmO",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "official Parco archeologico Appia Antica Rome sites Villa dei Quintili opening hours tickets 2026"
+            },
+            "id": "call_E8ilyM59Sba0R9XTrqoOcAR1",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Rome hidden gems official tourism Aventine keyhole Orange Garden Coppedè Quartiere Garbatella street art"
+            },
+            "id": "call_7qx8LzFtjaoImDdp7wmKj0yC",
+            "type": "tool_call"
+          }
+        ],
+        "invalid_tool_calls": [],
+        "usage_metadata": {
+          "input_tokens": 6702,
+          "output_tokens": 225,
+          "total_tokens": 6927,
+          "input_token_details": {
+            "audio": 0,
+            "cache_read": 0
+          },
+          "output_token_details": {
+            "audio": 0,
+            "reasoning": 0
+          }
+        }
+      },
+      {
+        "content": "Tavily answer:\nMercato di Testaccio in Rome is open Monday to Saturday from 7:00 am to 3:30 pm. It's famous for its street food and fresh produce. Free to enter.\n\nTavily results:\n1. MERCATO DI TESTACCIO - Via Lorenzo Ghiberti, Roma, Italy - Yelp score=0.80\n   URL: https://www.yelp.com/biz/mercato-di-testaccio-roma\n   Snippet: MERCATO DI TESTACCIO - Try Our New Menu - Via Lorenzo Ghiberti, 00153 Roma, Italy, 189 Photos, Mon - 7:00 am - 3:30 pm, Tue - 7:00 am - 3:30 pm, Wed - 7:00\n2. Visiting Testaccio Market in Rome ⤵️ Testaccio Market Is a perfect ... score=0.76\n   URL: https://www.instagram.com/reel/DHqygRcNSqt/\n   Snippet: From Monday to Saturday from 7:00 to 15:30. Free entrance. What you can find here: 1.Loads of fresh food Vegetables & fruit, fish &\n3. Mercato di Testaccio - U.S. News Travel score=0.70\n   URL: https://travel.usnews.com/Rome_Italy/Things_To_Do/Mercato_di_Testaccio_66464/\n   Snippet: Mercato di Testaccio is ranked #25 out of 26 things to do in Rome. See ... Mon-Sat 7 a.m.-3:30 p.m.. Details. Free, Shopping, Sightseeing Type. 1 to 2 hours Time\n4. How to Celebrate Thanksgiving in Rome in 2026 score=0.38\n   URL: https://romewithchef.com/rome-food-markets/\n   Snippet: # Rome Food Markets: Where to Try Real Roman Street Food. Pasta stall in Mercato Testaccio (Testaccio Market). Most visitors to Rome never venture outside the historic centre, meaning the only food market they ever come across is the daily farmers’ market at Campo de’ Fiori. Rome’s most authentic food markets (*mercati rionali*) are on the peripheries, in more residential areas, far from the madding crowds. This guide shares the best food markets in Rome for street food, for fresh produce, and for overall variety. (After all, how many food markets can you realistically fit into one trip?) So we’ll be honing in on the highlights of three Roman food markets and focusing on what makes them really worth visiting. Campo de Fiori, Rome food market. Campo de’ Fiori Market: Great for Instagram; Crap for food. ## Testaccio Market. Testaccio Market is our favourite food market in Rome, combining r...\n5. Testaccio Food Market Where Romans Shop For Fresh, Sustainable Eats score=0.36\n   URL: https://etuktoursrome.com/testaccio-food-market-rome-guide/\n   Snippet: # Testaccio Food Market Where Romans Shop For Fresh, Sustainable Eats. At **Testaccio Food Market**, the air smells of tomatoes still warm from the sun, fried meatballs, and just‑ground coffee. We love this place because it feels like the *real* Rome. Testaccio is the city’s old working‑class food district, shaped by more than two thousand years of cooking and trade. In this guide, we walk through everything needed to enjoy **Testaccio Food Market** like someone who lives nearby. We share which stalls to seek out, how to order the perfect *panino*, where to find the freshest produce, and how to fit a visit into a tight Rome schedule. Whether someone has a single day in the city or a full week, this market can turn a quick stop into a real taste of Roman life. * **Testaccio Food Market** brings together ready‑to‑eat street food and fresh local ingredients in one place, so we can snack and...",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "f0665789-3a55-43c9-be71-472934a0f596",
+        "tool_call_id": "call_PzZlaidc6z0CkKmnqGSrKI2X",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nDar Poeta in Trastevere offers unique pizza with top-quality ingredients. Trapizzino is popular street food in Rome's Trastevere, available at The Winery. Supplì and Trapizzino are popular street foods in Rome.\n\nTavily results:\n1. DAR POETA, Rome - Trastevere - Menu, Prices & Restaurant Reviews score=1.00\n   URL: https://www.tripadvisor.com/Restaurant_Review-g187791-d946638-Reviews-Dar_Poeta-Rome_Lazio.html\n   Snippet: Dar Poeta ; Special Diets. Vegetarian friendly, Vegan options ; FEATURES. Accepts Credit Cards. Outdoor Seating. Seating. Serves Alcohol. Table Service. Takeout.\n2. Sebastian Messinger | Rome's newest street food creation @trapizzino score=1.00\n   URL: https://www.instagram.com/p/DX4LD0aslzX/\n   Snippet: Where to Eat (street food): Supplì Roma, Ercoli Trastevere, Bar San Calisto, Trapizzino, Otaleg, Biscottificio Innocenti, Pasticceria Valzani.\n3. Trapizzino Trastevere | Piazza Trilussa 46 | Info and Details score=1.00\n   URL: https://www.trapizzino.it/en/trapizzino/trapizzino-roma-trastevere/\n   Snippet: In the heart of Trastevere, piazza Trilussa: Trapizzino The Winery in Rome. The restaurant offers a wine list dedicated to Lazio’s vintners to accompany Trapizzini and Supplì sat at the counter and in the room available to our guests. These are our 5 classic Trapizzino’s:. In Rome we don’t offer the Delivery Service, but you can receive your Trapizzini delivered straight to your home from our other locations in Rome trought the delivery service offered by Justeat, Deliveroo, Glovo and Ubereats. Of these, the cookies classified as necessary are stored in your browser as they are essential for the functioning of the basic functionality of the website. The cookie is used to store user consent for cookies in the \"Advertising\" category. | viewed\\_cookie\\_policy | 11 months | The cookie is set by the GDPR Cookie Consent plug-in and is used to store whether or not the user has consented to the...\n4. Home – Dar Poeta score=1.00\n   URL: https://www.darpoeta.com/en/home-2/\n   Snippet: Dar Poeta pizzeria, which is about to blow out 30 candles, is now a regular stop for Italian and foreign tourists but also for Romans who appreciate our pizza and service. Dar Poeta pizzeria, which is about to blow out 30 candles, is now a regular stop for Italian and foreign tourists but also for Romans who appreciate our pizza and service. Dar Poeta for almost 30 years has been churning out pizza that is neither Roman nor Neapolitan but unique. **QUALITY |** To prepare a unique pizza that you will never forget, we Dar Poeta use only top quality ingredients: from flours to dairy products to vegetables to sausages. Dar Poeta for almost 30 years has been churning out pizza that is neither Roman nor Neapolitan but unique. **QUALITY |** To prepare a unique pizza that you will never forget, we Dar Poeta use only top quality ingredients: from flours to dairy products to vegetables to sausages...\n5. Il Trapizzino: discover the most loved Roman street food in the world score=1.00\n   URL: https://www.trapizzino.it/en/\n   Snippet: Trapizzino is the Roman street food loved throughout Italy and in the world, with premises in Rome, Milan, Turin, Florence, Trieste and New York.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "b0d5f074-0fc4-4fee-aa0b-9bd239e2097c",
+        "tool_call_id": "call_hjlhYZ7pWNeUB9GO0WplajTF",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nForno Campo de' Fiori in Rome's Jewish Ghetto is famous for street food like supplì. Tours highlight Campo de' Fiori and the Ghetto's culinary delights. Hidden gems include local food experiences.\n\nTavily results:\n1. Rome Campo de Fiori and Jewish Ghetto Street Food Tour - Viator score=1.00\n   URL: https://www.viator.com/tours/Rome/Rome-Campo-de-Fiori-Ghetto-and-Pantheon-street-food-tour/d511-135460P1\n   Snippet: Private and Luxury in Rome: Check out 55 reviews and photos of Viator's Rome Campo de Fiori and Jewish Ghetto Street Food Tour.\n2. Rome Street Food Tour: Campo de Fiori & Ghetto Area Delights score=1.00\n   URL: https://www.getyourguide.com/rome-l33/rome-street-food-delights-at-campo-dei-fiori-ghetto-area-t603192/\n   Snippet: Guided tour, Sightseeing, Walk (10 minutes). Via dei Chiavari. Food tasting (30 minutes). Jewish Ghetto, Rome. Sightseeing, Walk, Food tasting (45 minutes)\n3. Rome Campo de Fiori and Jewish Ghetto Street Food Tour score=1.00\n   URL: https://www.tripadvisor.com/AttractionProductReview-g187791-d17446349-Rome_Campo_de_Fiori_and_Jewish_Ghetto_Street_Food_Tour-Rome_Lazio.html\n   Snippet: Eternal Rome Food Tour: Campo de Fiori, Jewish Ghetto, Trastevere · Rome Food Tour: Hidden Gems of Trastevere with Dinner & Wine · Special Offer · Rome Street Food\n4. Campo de' Fiori, Jewish Ghetto and Trastevere – Food tour of Rome score=1.00\n   URL: https://gourmetaly.com/campo-de-fiori-jewish-ghetto-and-trastevere-food-tour-of-rome/\n   Snippet: Campo de' Fiori, Jewish Ghetto and Trastevere. The first & original Rome's city centre food tour since 2013.\n5. Rome Campo de Fiori and Jewish Ghetto Street Food Tour - byFood score=1.00\n   URL: https://www.byfood.com/experiences/rome-campo-de-fiori-and-jewish-ghetto-street-food-tour-26882\n   Snippet: Savor Rome's street food delights in Campo de Fiori and Jewish Ghetto. Taste pizza, supplì, and wine while exploring historical sites and stories. Enjoy deep-",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "42b87528-7c18-4748-9e7d-2e23a9241258",
+        "tool_call_id": "call_eAe1FWWhviF6iAbzXiFyJYPW",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nThe Catacombs of San Callisto and San Sebastiano open daily except Wednesdays; tickets start from €14. Book in advance for discounts. Visit via guided tours.\n\nTavily results:\n1. Catacombe San Sebastiano score=0.56\n   URL: https://www.catacombe.org/\n   Snippet: The origins of Christianity in Rome's oldest catacombs. ... Catacombe San Sebastiano. © Catacombe San Sebastiano 2026. Via Appia Antica 134 Roma\n2. Appian Way, Rome - Book Tickets & Tours | GetYourGuide score=0.53\n   URL: https://www.getyourguide.com/en-gb/appian-way-l2904/\n   Snippet: On Monday, Tuesday, Thursday, Friday, Saturday, and Sunday we go to the catacombs of San Callisto. On Wednesdays, as San Callisto is closed we go to the\n3. Catacombs of San Callisto in Rome | buy ticket online score=0.50\n   URL: https://www.omniavaticanrome.org/en/cards/the-catacombs-of-saint-callixtus\n   Snippet: Purchase the **Omnia Card  72H by Sunday 17 May** and receive a **10% discount!**. The catacombs are underground areas that were born between the end of the second and the beginning of the third century AD, used for the burial and funeral commemoration of the members of the Christian community. These burial grounds were dug mainly in the tuff and in the pozzolana, as well as in other types of soil characterized by ease of processing and great resistance, such as to guarantee the creation of complex systems of tunnels and cubicles structured on different floors. Callisto** extends between the Via Appia Antica and the Via Ardeatina and is, according to sources, the oldest official cemetery of the Christian community in Rome. In a nearby cubicle there are some of the oldest frescoes in the Roman catacombs (late 2nd - early 3rd century) : on the ceiling a **Good Shepherd** with prayers and,...\n4. Rome Catacombs Tours & Tickets 2026 | Guided Tours score=0.47\n   URL: https://catacombs.tours/rome-catacombs-tours/\n   Snippet: # Rome Catacombs Tours & Tickets. Book your Rome Catacombs tour online with skip-the-line access, expert local guides, and small group options. ## How to Book Your Catacomb Tickets. Our booking specialists are available to help you choose the perfect tour and answer any questions about your catacomb visit. Book your Rome Catacombs tour online with skip-the-line access, expert local guides, and small group options. Join thousands of satisfied visitors who have booked their catacomb tours through our platform. ## Best Rome Catacombs Tours. All bookings are protected by our Best Price Guarantee and Free Cancellation Policy. #### Why Book With Us? ## Book Early & Save Big. Reserve your catacomb tickets 7+ days in advance and receive an automatic 15% discount on all tours and experiences. Rome Catacombs ticket prices start from €14. #### How do I receive my tickets after booking? That's our c...\n5. Catacombs of St. Callixtus in Rome: Tickets, Tips & Visiting Info score=0.43\n   URL: https://www.rome.info/attractions/catacombs-of-callixtus/\n   Snippet: # Catacombs of St. Callixtus. Narrow underground passage with carved burial niches along the walls in the Catacombs of St. Callixtus. The Catacombs of Saint Callixtus are not only the most famous of Rome’s Christian catacombs, but they’re also one of the oldest official cemeteries of the Church of Rome. ### Catacombs of St. Callixtus Tickets. If you’re interested in early Christian history, the Catacombs of St. Callixtus are worth checking out. **🎟️ Entry Ticket + Guided Tour of Catacombs of St. Callixtus**. This one includes a 40-minute guided tour inside the catacombs, where a live guide walks you through the tunnels and explains the history. If you want to see more than just one site, this ticket gives you access to both the Catacombs (usually St. Callixtus, unless it’s Wednesday) and the Capuchin Crypt, which is known for its bone displays. This combo combines a visit to the catacomb...",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "a19f24ee-7864-41a7-b752-20efad2981c7",
+        "tool_call_id": "call_UwcO7Xvc7qhxiWagp1OvyUmO",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nVilla dei Quintili opening hours and tickets for 2026 are not yet available; check the official website for updates. The site will be open for Open House Roma 2026 on May 11, 2026.\n\nTavily results:\n1. Home page - Sito ufficiale Parco Archeologico dell'Appia Antica score=1.00\n   URL: https://www.parcoarcheologicoappiaantica.it/\n   Snippet: 11 Maggio 2026. Il Mausoleo degli Equinozi vi aspetta per Open House Roma 2026. Eventi · In evidenza · Il Mausoleo degli Equinozi vi aspetta per Open House Roma\n2. Villa dei Quintili - Archaeological Park of Appia Antica - Trip.com score=1.00\n   URL: https://ae.trip.com/travel-guide/attraction/rome/villa-dei-quintili-archaeological-park-of-appia-antica-22953049\n   Snippet: Book Villa dei Quintili - Archaeological Park of Appia Antica tickets with limited-time offers, skip-the-line access, and instant confirmation.\n3. Villa dei Quintili, Rome - Book Tickets & Tours | GetYourGuide score=1.00\n   URL: https://www.getyourguide.com/villa-dei-quintili-l30853/\n   Snippet: Book your Villa dei Quintili tickets online. Save time and money with our best price guarantee. Make the most of your visit to Rome.\n4. Villa of the Quintilii (Villa dei Quintili) Tours & Tickets - Viator score=1.00\n   URL: https://www.viator.com/Rome-attractions/Villa-of-the-Quintilii-Villa-dei-Quintili/d511-a24702\n   Snippet: Villa of the Quintilii (Villa dei Quintili) Tours and Tickets ; Appian Way, Catacombs and Aqueducts Park Tour with Top E-Bike. 4 to 6 hours · $101 ; Rome: Appian\n5. Archaeological Park of Ostia Antica - Ostia Antica Parco Archeologico score=1.00\n   URL: https://ostiaantica.cultura.gov.it/en/info/archaeological-area-of-ostia-antica-visitor-information/\n   Snippet: Discover all the sites of the Park, a journey through the history of the ancient Roman port city. Archaeological area of Ostia antica. **The Ostiense Museum** is open to the public from Tuesday to Sunday. * From October 25 to February 28 (or 29): last admission at 3:00 PM, exit by 3:30 PM. * From April 1 to September 30: last admission at 5:30 PM, exit by 6:00 PM. * From October 1 to October 24: last admission at 5:00 PM, exit by 5:30 PM. The Museum is always closed on the first Sunday of the month and on other free admission days scheduled by the Ministry of Culture (April 25, June 2, and November 4). By presenting a ticket for a show from the *Ostia Antica Festival* summer theatre season at the ticket office, you are entitled to a reduced admission to the Archaeological Park of Ostia Antica at the special price of €14 (instead of €18).",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "58b9b4fa-af84-4ad4-83e0-07dc0be454d4",
+        "tool_call_id": "call_E8ilyM59Sba0R9XTrqoOcAR1",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nAventine Hill, Orange Garden, Quartiere Coppedè, and Garbatella street art are lesser-known attractions in Rome. Explore these for unique experiences away from the crowds.\n\nTavily results:\n1. Hidden Gems in Rome 2026: Unique Art Spots Beyond the Crowds - Trip in Art score=0.77\n   URL: https://tripinartitaly.com/hidden-gems-in-rome-2026/\n   Snippet: ## Hidden Gems in Rome 2026: Unique Art Spots Beyond the Crowds. Exploring the **hidden gems in Rome 2026** means discovering a city that reveals itself slowly, far from the usual routes. Beyond iconic landmarks, Rome offers intimate corners, quiet museums and unexpected art spaces that preserve its real identity. Walking through the garden afterwards completes the experience, giving you time to absorb the textures and stories hidden in this unique corner of Rome. View from hidden gem Villa Torlonia in Rome. The Aventine Hill offers one of the quietest atmospheres in Rome, a place where time seems to slow down as you walk between elegant residences and leafy streets. Consequently, the Aventine stands as one of the most meaningful hidden gems in Rome, perfect for travelers who appreciate beauty without crowds. Rome offers intimate spaces such as Villa Torlonia, Quartiere Coppedè, the Capi...\n2. # Hidden Gems in Rome! **1. Orange Garden (Giardino degli Aranci ... score=0.71\n   URL: https://www.facebook.com/groups/traveltipsrome/posts/839494262335511/\n   Snippet: Top 10 Hidden Gems in Rome 🏛️ Aventine Keyhole: Peek through to see a perfectly framed view of St. Peter's Basilica. Quartiere Coppedè: An\n3. # Hidden Gems in Rome! **1. Orange Garden (Giardino degli Aranci ... score=0.57\n   URL: https://www.facebook.com/groups/traveltipsrome/posts/834176619533942/\n   Snippet: 1. Orange Garden (Giardino degli Aranci) Right next to the keyhole, this quiet garden has beautiful views over the city. Great for a break or\n4. Rome Hidden Gems 2026 | 12 Places Most Tourists Miss | Rome's Ultimate Free Walking Tour score=0.52\n   URL: https://romesultimatefreetour.com/blog/rome-hidden-gems/\n   Snippet: A hidden cobblestone alley in Rome's historic center. But the Rome I actually love is somewhere else, on the streets most tourists walk past without looking up. After fifteen years of guiding here, I keep coming back to the same list of Rome hidden gems. Work even three or four into your trip and you'll come home with a completely different idea of what this city is. Monti is the oldest residential rione in Rome, and it still feels residential: tailors, vintage shops, wine bars squeezed into medieval alleys, laundry strung across windows. That's the whole evening. There's a green door on the Aventine Hill, on the quiet side of Piazza dei Cavalieri di Malta. This is one of the best things to do in the whole city and almost no one does it. Our evening tour begins in Rione Monti — one of Rome's best hidden gems — before winding through the Colosseum, Trajan's Column, and Capitoline Hill at...\n5. 8 Hidden Gems in Rome, According to a Tour Guide - Travel + Leisure score=0.50\n   URL: https://www.travelandleisure.com/hidden-gems-in-rome-from-tour-guide-11900285\n   Snippet: A garden walkway with tall trees and a view of St Peters Basilica in the distance. The Orange Garden at Aventine Hill and Rome cityscape at",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "a27bacab-e06d-4e40-b8bd-262a2178ba22",
+        "tool_call_id": "call_7qx8LzFtjaoImDdp7wmKj0yC",
+        "status": "success"
+      },
+      {
+        "content": "",
+        "additional_kwargs": {
+          "refusal": null
+        },
+        "response_metadata": {
+          "token_usage": {
+            "completion_tokens": 402,
+            "prompt_tokens": 11652,
+            "total_tokens": 12054,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": null,
+              "audio_tokens": 0,
+              "reasoning_tokens": 200,
+              "rejected_prediction_tokens": null,
+              "image_tokens": 0
+            },
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0,
+              "cache_write_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost": 0.07032,
+            "is_byok": false,
+            "cost_details": {
+              "upstream_inference_cost": 0.07032,
+              "upstream_inference_prompt_cost": 0.05826,
+              "upstream_inference_completions_cost": 0.01206
+            }
+          },
+          "model_provider": "openai",
+          "model_name": "openai/gpt-5.5-20260423",
+          "system_fingerprint": null,
+          "id": "gen-1778954527-pcqFAtC0BC1SiUPrf3lT",
+          "service_tier": "default",
+          "finish_reason": "tool_calls",
+          "logprobs": null
+        },
+        "type": "ai",
+        "id": "lc_run--019e31f3-e456-7280-ab21-8c5b8e35f478-0",
+        "tool_calls": [
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "official tourism Rome Testaccio neighborhood food Monte dei Cocci Mattatoio Mercato Testaccio"
+            },
+            "id": "call_Bu8oDoYdEpvRrbxlwgGHvHk9",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "official Rome tourism Trastevere neighborhood Santa Cecilia hidden gems"
+            },
+            "id": "call_GUWXMduux7QvEE6120aNEYXu",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Centrale Montemartini official Rome museum opening hours tickets 2026"
+            },
+            "id": "call_X7zb9jE4hyrHUTO0IEOFMGqA",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Rome Non-Catholic Cemetery official opening hours tickets Testaccio 2026"
+            },
+            "id": "call_J1nSd4pxJKQLxLWpwvgqUJTO",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "official Rome Largo Argentina archaeological area opening hours tickets 2026"
+            },
+            "id": "call_umy9OBRFBIm7KPB5AeIGYNgY",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "official Rome Museum Crypta Balbi opening hours tickets 2026"
+            },
+            "id": "call_OgK7ilxaA2zYaIJBTAocXe88",
+            "type": "tool_call"
+          }
+        ],
+        "invalid_tool_calls": [],
+        "usage_metadata": {
+          "input_tokens": 11652,
+          "output_tokens": 402,
+          "total_tokens": 12054,
+          "input_token_details": {
+            "audio": 0,
+            "cache_read": 0
+          },
+          "output_token_details": {
+            "audio": 0,
+            "reasoning": 200
+          }
+        }
+      },
+      {
+        "content": "Tavily answer:\nTestaccio is Rome's historic food district, known for its vibrant market and Monte dei Cocci, an ancient amphora hill. The Mattatoio complex now hosts cultural events. Testaccio remains a favorite for local culinary experiences.\n\nTavily results:\n1. Testaccio Rome: 4 history, flavors, and authentic Roman life score=0.70\n   URL: https://tourguiderome.it/testaccio-rome-history-flavors-authentic-rome/\n   Snippet: Testaccio Rome is one of Rome’s most authentic neighborhoods. **Ancient times:** Testaccio was the commercial heart of imperial Rome, with the **Emporium** (river port) and **Monte dei Cocci** (Mons Testaceus), an artificial hill created by the accumulation of fragments of amphorae. ## What to see in Testaccio, Rome. The Mattatoio complex, the economic heart of the neighborhood in the 19th century, has now been converted into a cultural space hosting exhibitions, events, and MACRO Testaccio, Rome’s Museum of Contemporary Art. Between industrial pavilions and art installations, the neighborhood shows its most contemporary side. * **Symbol of Testaccio:** designed by **Pietro Lombardi** in 1927, the fountain echoes the shape of the amphorae piled up on Monte dei Cocci, a historic symbol of the neighborhood. Testaccio Rome Fountain of the Amphorae. * Archeology Rome, Art and culture Rome, A...\n2. Testaccio Market (Mercato Di Testaccio) Tours & Tickets - Viator score=0.57\n   URL: https://www.viator.com/Rome-attractions/Testaccio-Market-Mercato-Di-Testaccio/d511-a101875\n   Snippet: Discover the vibrant Testaccio neighborhood on a small-group food and culture tour led by an expert guide. Savor local specialties at family-owned bakeries,\n3. Testaccio: The foodie neighbourhood where Romans go to eat score=0.56\n   URL: https://www.bbc.com/travel/article/20241205-testaccio-the-foodie-neighbourhood-where-romans-go-to-eat\n   Snippet: **Once an important port that supplied food to ancient Rome, off-the-beaten-path Testaccio remains the city's favourite culinary destination.**. On a warm Saturday evening last autumn in Rome, I took two friends and first-time visitors, Boba and Smiljana, to Testaccio, a centrally located neighbourhood on the left bank of the Tiber River. Alamy Testaccio has long been one of Rome's main food destinations (Credit: Alamy). Instead, Romans from across the city flock here to shop for ingredients, chat with vendors – often in Roman dialect – and bite into what has always been one of the city's favourite food destinations. The ground floor houses a modern market, the first floor has exhibits showcasing Testaccio's 2,000-year-old role as the kitchen of ancient Rome, and below it all lies one of Rome's most unique archaeological treasures: an amphora graveyard from the 1st to 3rd Centuries CE wh...\n4. Testaccio Food Market Where Romans Shop For Fresh, Sustainable ... score=0.54\n   URL: https://etuktoursrome.com/testaccio-food-market-rome-guide/\n   Snippet: # Testaccio Food Market Where Romans Shop For Fresh, Sustainable Eats. At **Testaccio Food Market**, the air smells of tomatoes still warm from the sun, fried meatballs, and just‑ground coffee. We love this place because it feels like the *real* Rome. Testaccio is the city’s old working‑class food district, shaped by more than two thousand years of cooking and trade. In this guide, we walk through everything needed to enjoy **Testaccio Food Market** like someone who lives nearby. We share which stalls to seek out, how to order the perfect *panino*, where to find the freshest produce, and how to fit a visit into a tight Rome schedule. Whether someone has a single day in the city or a full week, this market can turn a quick stop into a real taste of Roman life. * **Testaccio Food Market** brings together ready‑to‑eat street food and fresh local ingredients in one place, so we can snack and...\n5. Monte dei Cocci | Turismo Roma score=0.48\n   URL: https://turismoroma.it/en/places/monte-dei-cocci\n   Snippet: ## Social Block. The most famous of the Roman fountains: a jewel of water and stone. According to legend, the history of Rome begins right here. * Accademie, istituti, università e scuole di moda a Roma. An unmissable opportunity to plan your own future in the field of Fashion. Rome is a perfect destination for tourism and in particular for school trips. The inestimable artistic heritage of Rome is the preferred destination for the many students who decide to benefit from the many cultural opportunities that the city offers. Rome is the perfect choice for a romantic and refined wedding, enriched by a millenary history. Fashion between history and tradition. Glamour, myth and beauty: a city where even fashion is a legend. Beauty and art, magnificent spectators of a thousand-year history. History, fascinating facts, and useful information to fully experience the magic of the Eternal City....",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "20e58880-a9bd-479b-858b-9be7f3b4dd78",
+        "tool_call_id": "call_Bu8oDoYdEpvRrbxlwgGHvHk9",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nSanta Cecilia in Trastevere Basilica is a hidden gem in Rome's Trastevere neighborhood, featuring an underground crypt with ancient ruins. It's lesser-known but offers fascinating archaeological sites. The church is a must-visit for its historical significance and unique architecture.\n\nTavily results:\n1. Santa Cecilia in Trastevere Basilica - Discovering a hidden gem in Rome score=0.78\n   URL: https://www.romeactually.com/santa-cecilia-in-trastevere-basilica/\n   Snippet: Image of Santa Cecilia in Trastevere Basilica. # Santa Cecilia in Trastevere Basilica – A lesser-known gem in Rome’s popular neighborhood. One of the lesser-known churches in Rome, Santa Cecilia in Trastevere Basilica is a fantastic stop if you are exploring Trastevere neighborhood. Santa Cecilia in Trastevere Basilica is one of those landmarks often left out of the classic tours but I totally recommend carving some time for it as it hosts one of the best archaeological sites in Rome. Image of St. Cecilia tomb in Santa Cecilia in Trastevere Basilica. ## Visiting Santa Cecilia in Trastevere Basilica. Located in Piazza di Santa Cecilia, the Basilica was built on the site of the house of the Roman martyr and her husband Valeriano. Image of Santa Cecilia in Trastevere Basilica in Rome. Image of mosaic in the crypt of Santa Cecilia in Trastevere Basilica. ### What to see in Santa Cecilia in T...\n2. Things to do in the Trastevere neighborhood in Rome | Live Virtual Guide score=0.75\n   URL: https://www.livevirtualguide.com/post/things-to-do-in-the-trastevere-neighborhood-in-rome/\n   Snippet: Hidden gems of Rome | Rome things to do. # Things to do in the Trastevere neighborhood in Rome. But they are missing out on so many things to do and discover in this beautiful neighborhood. Here’s a list of what’s worth your time to see in Trastevere. If you are looking for something special to do in Trastevere, Rome, the Ancient Pharmacy is a must-see for you. Sculpture of Santa Cecilia in Trastevere things to do. But visiting this church is something you must absolutely do when in the Trastevere neighborhood in Rome. After you explore the church you can go downstairs and discover the **underground crypt**, where you can see the **ancient ruins of Cecilia’s apartment building**, as well as the crypt **where her body is still today**. Visiting this hidden gem is one of the things we do during our **Hidden gems of Trastevere tour** in Rome.\n3. Santa Cecilia In Trastevere: Rome's Hidden Gem - Cs score=0.67\n   URL: https://cs.grinnell.edu/lunar-note/santa-cecilia-in-trastevere-romes-hidden-gem-1767646879\n   Snippet: Hey everyone! Today, we're diving deep into one of Rome's most enchanting spots, the Basilica di Santa Cecilia in Trastevere.\n4. Basilica of Santa Cecilia in Trastevere | Turismo Roma score=0.66\n   URL: https://www.turismoroma.it/en/places/basilica-santa-cecilia-trastevere\n   Snippet: ## Social Block. The most famous of the Roman fountains: a jewel of water and stone. According to legend, the history of Rome begins right here. An unmissable opportunity to plan your own future in the field of Fashion. Rome is a perfect destination for tourism and in particular for school trips. The inestimable artistic heritage of Rome is the preferred destination for the many students who decide to benefit from the many cultural opportunities that the city offers. Rome is the perfect choice for a romantic and refined wedding, enriched by a millenary history. Fashion between history and tradition. Glamour, myth and beauty: a city where even fashion is a legend. The endless opportunities for fun in Rome. Rome is the ideal destination for Tourism Business. History, fascinating facts, and useful information to fully experience the magic of the Eternal City. A break from the chaos of the c...\n5. infos here ⤵️ Inside the Basilica of Santa Cecilia in Trastevere ... score=0.65\n   URL: https://www.instagram.com/reel/DT02lyCDug0/\n   Snippet: Hidden inside the stunning Basilica of Santa Maria in Trastevere, the Altemps Chapel is one of Rome's most fascinating late Renaissance",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "37d86b10-bf82-4122-8aab-917538380640",
+        "tool_call_id": "call_GUWXMduux7QvEE6120aNEYXu",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nThe Centrale Montemartini museum in Rome is open daily except Mondays, May 1st, and December 25th. From February 2026, it will be free for Rome residents. Current specific opening hours are not available for 2026.\n\nTavily results:\n1. Tickets | Musei Capitolini Centrale Montemartini score=1.00\n   URL: https://www.centralemontemartini.org/en/biglietti-e-prenotazioni/tickets-0\n   Snippet: Starting from February 2026, admission to the museum will be free of charge for residents of Rome and the Metropolitan City, upon presentation of a valid\n2. CENTRALE MONTEMARTINI - Vivaticket score=1.00\n   URL: https://museiincomuneroma.vivaticket.it/eng/tour/centrale-montemartini/2384\n   Snippet: ... MUSEUM OPENING HOURS 09 ... Montemartini – is the newest addition to the Capitoline Museums exhibition space.\n3. Montemartini Museum: opening hours, Capitoline ... - JustRoma.it score=1.00\n   URL: https://www.justroma.it/en/museums-and-galleries/montemartini-power-plant/\n   Snippet: 060608 · Via Ostiense 106 - 00154 Rome · Average visit duration 1 hour · Fully accessible (motor, auditory, visual) · Closed on Mondays, May 1st, December 25th.\n4. Capitolini and Centrale Montemartini Museums Full Experience score=1.00\n   URL: https://www.viator.com/tours/Rome/Capitolini-and-Centrale-Montemartini-Museums-Full-Experience/d511-41353P62\n   Snippet: Your ticket also includes access to the special exhibition “Cartier e il Mito ai Musei Capitolini,” on display from November 19, 2025, to March 15, 2026.\n5. Concessions and free admission: conditions - Centrale Montemartini score=1.00\n   URL: https://www.centralemontemartini.org/en/infopage/condizioni-di-gratuit%C3%A0-e-riduzioni\n   Snippet: FREE ADMISSION · to everyone on the first Sunday of each month; · starting from February 2026, to residents in Rome and in the Metropolitan City of Rome, upon",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "257c1349-aeaa-4e85-99f2-eef5748b200a",
+        "tool_call_id": "call_X7zb9jE4hyrHUTO0IEOFMGqA",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nThe Non-Catholic Cemetery in Rome is open Monday to Saturday from 9:00 am to 5:00 pm, and on Sundays from 9:00 am to 1:00 pm in 2026. Check the official website for ticket details.\n\nTavily results:\n1. Non-Catholic Cemetery (Testaccio) Rome (2026) score=0.82\n   URL: https://airial.travel/attractions/italy/roma/non-catholic-cemetery-testaccio-rome-N3G-4c96\n   Snippet: Opening hours can vary, but it's generally open during daylight hours. It's advisable to check the official website or recent visitor information for the most\n2. Non-Catholic Cemetery Tickets [2026] score=0.55\n   URL: https://in.trip.com/travel-guide/attraction/rome/non-catholic-cemetery-22953281/\n   Snippet: Book Non-Catholic Cemetery tickets with limited-time offers, skip-the-line access, and instant confirmation ... Opening hours of Non-Catholic Cemetery.. Via\n3. Protestant Cemetery of Rome (Cimitero Acattolico di Roma ... score=0.52\n   URL: https://www.viator.com/Rome-attractions/Protestant-Cemetery-of-Rome-Cimitero-Acattolico-di-Roma/d511-a9915\n   Snippet: The Protestant Cemetery of Rome is open daily: Monday to Saturday from 9am to 5pm, and Sunday from 9am to 1pm. The last entrance is half an hour before closing.\n4. Information - Cimitero acattolico di Roma score=0.50\n   URL: https://cemeteryrome.it/en/information/\n   Snippet: OPENING HOURS. Monday-Saturday from 9.00 am to 5.00 pm (last entrance: 16.30 pm) Sundays and public holidays 9.00 am to 1.00 pm (last entrance: 12.30 pm).\n5. The Non-Catholic Cemetery in Rome - Romabbella's guide score=0.35\n   URL: https://www.romabbella.com/en/places-to-visit-in-rome/alternative/non-catholic-cemetery/\n   Snippet: # The Non-Catholic Cemetery. If you’re in Rome and wish to visit a **place that’s out of the usual tourist itinerary**, then the Non-Catholic Cemetery may be exactly what you’re looking for. Despite the fact that its fame can’t be compared to Père-Lachaise or Montmartre in Paris, the Non-Catholic Cemetery in Rome features illustrious poets such as John Keats and Percy Shelley. Tombs at the Non-Catholic Cemetery. **To whom is dedicated to?** Known also as Protestant Cemetery or Cemetery of the English, the Non-Catholic Cemetery features the graves of *almost four thousand people*. **The origin of the Non-Catholic Cemetery.** The Catholic Church rules and regulations forbid the burial of protestant worshippers in Catholic churches and consecrated lands. Reception centre of the Non-Catholic Cemetery. The request must be forwarded at least 10 days in advance using the form on the official we...",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "ed3d73dc-e47a-4762-98e6-91e58bbbca1c",
+        "tool_call_id": "call_J1nSd4pxJKQLxLWpwvgqUJTO",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nThe Largo di Torre Argentina archaeological area opens daily from 9 AM to 7 PM in 2026. Tickets can be booked online, with skip-the-line options available. Check the official website for any changes.\n\nTavily results:\n1. Largo di Torre Argentina Tickets 2026 | Book TicketsToDo Online score=1.00\n   URL: https://www.ticketstodo.com/rome/largo-di-torre-argentina-tickets\n   Snippet: Home   Rome   Largo di Torre Argentina Tickets. Package options Highlights Cancellation & Refund Policy Activity Information. # Largo di Torre Argentina Tickets Rome. Largo di Torre Argentina Tickets. Free Cancellation Available Up to 24 hours before the start time. Discover the ancient Roman temples and ruins at Largo di Torre Argentina, now home to a famous cat sanctuary. Admission tickets to Largo di Torre Argentina. ### Entry ticket. * Admission to: The Largo Argentina excavations reserved entrance. ### Select a time. Free cancellation, refund, or rescheduling available up to 24 hours before the start time (Rome time). * You can enter the attraction directly with this ticket. * **By Public Transport:** Take tram 8 or buses 40, 60, 64, 70, 87, 492 and get off at Largo di Torre Argentina stop, which is right next to the site. * **On Foot:** The square is in the historic center of Rome,...\n2. Largo Di Torre Argentina, Rome: Visitor Guide 2026 | Audiala score=1.00\n   URL: https://audiala.com/en/italy/rome/largo-di-torre-argentina\n   Snippet: Largo di Torre Argentina is open to visitors every day from 9 AM to 7 PM. It is advisable to check for any changes in opening hours on the official website\n3. Archaeological Area Largo Argentina Skip-The-Line Tickets score=1.00\n   URL: https://www.musement.com/us/rome/archaeological-area-largo-argentina-skip-the-line-tickets-439047/\n   Snippet: you will need to redeem your ticket at the local operator's office during working hours, from 9.30am to 3.00pm · your booking includes an audio guide of the city\n4. Rome: Archeological Area Largo Argentina Entry Ticket - Satoorday score=1.00\n   URL: https://en.satoorday.com/tickets-rome-archeological-area-largo-argentina-entry-ticket\n   Snippet: Archeological Area Largo Argentina: Skip The Line Ticket. from. 20€. Choose dates. Official Distributor. No management fees. Guaranteed. Official tickets always.\n5. Largo di Torre Argentina Tickets [2026] - Trip.com score=1.00\n   URL: https://www.trip.com/travel-guide/attraction/rome/largo-di-torre-argentina-13502806/\n   Snippet: Book Largo di Torre Argentina tickets with limited-time offers, skip-the-line access, and instant confirmation. Get the best prices and enjoy a seamless",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "bc12bed7-2d93-4ce3-86a6-f2a88294658a",
+        "tool_call_id": "call_umy9OBRFBIm7KPB5AeIGYNgY",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nCrypta Balbi opens Tuesday to Sunday from 9:00 AM to 7:00 PM in 2026. It is closed on Mondays. Confirm latest hours on the official website.\n\nTavily results:\n1. Museo Nazionale Romano – Crypta Balbi Rome (2026) score=1.00\n   URL: https://airial.travel/attractions/italy/roma/museo-nazionale-romano-crypta-balbi-rome-PvGBQFtj\n   Snippet: What are the opening hours for Crypta Balbi? Opening hours can vary, and the ... Always confirm the latest hours on the official National Roman Museum website\n2. Museo Nazionale Romano, Crypta Balbi Tickets [2026] - Trip.com score=1.00\n   URL: https://www.trip.com/travel-guide/attraction/rome/museo-nazionale-romano-crypta-balbi-22953143/\n   Snippet: Temporarily closedOpening hours of Museo Nazionale Romano, Crypta Balbi · Museo Nazionale Romano, Crypta Balbi Highlights: Must-See Features and Attractions.\n3. CRYPTA BALBI - Updated May 2026 - 77 Photos - Yelp score=1.00\n   URL: https://www.yelp.com/biz/crypta-balbi-roma\n   Snippet: More info about Crypta Balbi ; Crypta Balbi opens at 9:00 AM on Tuesday, Wednesday, Thursday, Friday, Saturday and Sunday. ; Crypta Balbi is closed on Monday.\n4. Schedule Skip-the-Line Tickets Guided Tour Crypta Balbi Rome score=1.00\n   URL: https://www.visit-rome-in-italy.com/museums/balbi/schedule-tickets-tour-crypta-balbi-museum-rome-italy.html\n   Snippet: Crypta Balbi Opening Hours ... Tuesday to Friday from 2:00 p.m. to 7:45 p.m.. Saturday and Sunday from 10:30 a.m. to 7:45 p.m.. Closed: Monday, 25 December and 1\n5. Crypta Balbi - Opening hours, tickets and how to get there – Rome score=1.00\n   URL: https://www.rome.net/balbi-crypt\n   Snippet: As one of the **four branches of the National Museum of Rome**, the Crypta Balbi offers its visitors **a historical trip through** Rome’s past thanks to the excavations carried out on its site. Originally, **the Crypta housed a theatre, a block of four apartments and a patio**. Excavations on the site started in 1981 and twenty years later the remains were opened to the public and became part of the National Museum of Rome. The basement is the most surprising part of the Crypta, housing the archaeological remains of the Theatre of Balbus, which **can be explored while walking down the damp and dark passageways**. Although the **Crypta Balbi archaeological remains** might not be as interesting as those found in the **Basilica di San Clemente**, the **entry to the Crypt is included in the ticket to the other branches of the National Museum of Rome**, (Palazzo Massimo alle Terme, Baths of D...",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "402df9eb-c0b8-470a-a10c-6973a34f3ccb",
+        "tool_call_id": "call_OgK7ilxaA2zYaIJBTAocXe88",
+        "status": "success"
+      },
+      {
+        "content": "# Baseline itinerary: 3 days in Rome\n\n## Goal and constraints understood\n- Destination: Rome\n- Dates treated as 3 free days: **Sunday July 5, Monday July 6, Tuesday July 7, 2026**; July 8 is treated as the endpoint / return to business schedule.\n- Travelers: 1 adult\n- No flights or hotel needed.\n- Budget: **€400** for activities, food, local transport, and experiences.\n- Interests: **Roman history, street food, Colosseum, Trastevere, hidden gems / off-tourist-trail Rome**.\n- Baseline limitation: this plan uses **Tavily web-search evidence only**; booking availability, exact 2026 seasonal hours, and final ticket prices should be verified before purchase.\n\n## Search summary\n- Colosseum / Roman Forum / Palatine: official Parco archeologico del Colosseo page for opening times, tickets, timed booking, and 30-day sales window: [colosseo.it](https://colosseo.it/en/opening-times-and-tickets/)\n- Domus Aurea: official Colosseum park ticket page surfaced by Tavily; guided/VR ticket listed at **€26**: [colosseo.it Domus Aurea](https://colosseo.it/en/tickets/domus-aurea/)\n- Rome public transport: official ATAC tickets/pass page plus secondary fare summaries for 24/48/72h ticket estimates: [ATAC tickets and passes](https://www.atac.roma.it/en/tickets-and-passes)\n- Basilica di San Clemente excavations: official page says online booking is required for excavations: [basilicasanclemente.com](https://www.basilicasanclemente.com/eng/opening-hours-and-info/)\n- Baths of Caracalla: Tavily surfaced ticket/hour summaries; July opening and price must be checked on the official ticketing page before booking.\n- Appian Way / Villa dei Quintili: official Appia Antica archaeological park homepage for current site information: [parcoarcheologicoappiaantica.it](https://www.parcoarcheologicoappiaantica.it/)\n- Catacombs of San Sebastiano: official catacomb website surfaced by Tavily: [catacombe.org](https://www.catacombe.org/)\n- Centrale Montemartini: official museum ticket and visitor information pages: [centralemontemartini.org](https://www.centralemontemartini.org/en/biglietti-e-prenotazioni/tickets-0)\n- Non-Catholic Cemetery in Testaccio: official hours page: [cemeteryrome.it](https://cemeteryrome.it/en/information/)\n- Trastevere street food: Trapizzino official Trastevere page: [trapizzino.it](https://www.trapizzino.it/en/trapizzino/trapizzino-roma-trastevere/)\n- Santa Cecilia in Trastevere: Rome tourism page: [turismoroma.it](https://www.turismoroma.it/en/places/basilica-santa-cecilia-trastevere)\n- Monte dei Cocci / Testaccio: Rome tourism page: [turismoroma.it](https://turismoroma.it/en/places/monte-dei-cocci)\n\n## Day 1 — Sunday, July 5, 2026: Nero, the Colosseum, and Trastevere\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 08:30-09:00 | food | Coffee and cornetto near your hotel; keep it quick so you can make a timed underground visit. | Near hotel / Monti | €5 | Food cost estimate. |\n| 09:30-11:00 | history | **Domus Aurea guided visit** — Nero’s palace is ideal for Roman-history depth and is less obvious than the Colosseum itself. | Colle Oppio / near Colosseum | €26 | Tavily surfaced the official Domus Aurea ticket page; guided/VR ticket listed at **€26**: [colosseo.it](https://colosseo.it/en/tickets/domus-aurea/). Book well ahead because access is limited. |\n| 11:00-11:45 | hidden gem / break | Walk through Colle Oppio toward the Colosseum; pause for views over the amphitheatre without entering yet. | Colle Oppio | Free | Sensible route between Domus Aurea and Colosseum; no ticket needed. |\n| 12:00-13:00 | food | Monti street-food lunch: pizza al taglio, supplì, or a porchetta sandwich. | Monti | €15 | Cost estimate; Monti is a practical lunch base between Domus Aurea and the Colosseum. |\n| 13:15-16:30 | history | **Colosseum + Roman Forum + Palatine Hill** with a timed Colosseum slot, then Forum/Palatine. Prioritize arena/underground only if official tickets are available within budget. | Colosseum / Forum / Palatine | €24 | Exact July 2026 ticket type and price must be verified. Official page notes timed booking and that sales open 30 days before visit: [colosseo.it](https://colosseo.it/en/opening-times-and-tickets/). Cost is an estimate for a standard or modest upgraded ticket. |\n| 16:30-17:30 | rest | Gelato / cold drink break after the archaeological circuit. | Monti or Via dei Fori Imperiali | €7 | Cost estimate. July heat makes a rest stop important. |\n| 17:30-18:30 | viewpoint / hidden gem | Walk to the **Capitoline Hill viewpoint** over the Forum for a free “after the ruins” perspective. | Campidoglio | Free | Free outdoor viewpoint; no opening-time dependency. |\n| 19:00-20:00 | neighborhood | Head to **Trastevere** and wander quieter lanes before dinner; include the exterior of Santa Cecilia if nearby. | Trastevere | €2 | Transit estimate using a single ticket or pass. Santa Cecilia tourism reference: [Turismo Roma](https://www.turismoroma.it/en/places/basilica-santa-cecilia-trastevere). |\n| 20:00-21:30 | street food / dinner | Casual Trastevere dinner: **Trapizzino + supplì + Lazio wine/beer**, then evening walk around Piazza Trilussa and backstreets. | Trastevere | €25 | Trapizzino Trastevere official page: [trapizzino.it](https://www.trapizzino.it/en/trapizzino/trapizzino-roma-trastevere/). Meal cost estimate. |\n\n## Day 2 — Monday, July 6, 2026: Testaccio and the Appian Way\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 08:30-09:00 | transport | Buy/use a **72-hour Rome public transport pass** if you expect multiple bus/metro rides across the 3 days. | Metro / tobacconist / app | €16 | Tavily surfaced ATAC official ticket page plus secondary fare summaries listing 72h at about €16; verify live fare on [ATAC](https://www.atac.roma.it/en/tickets-and-passes). |\n| 09:00-10:00 | hidden gem | **Non-Catholic Cemetery**: quiet Testaccio stop with Keats/Shelley associations and the Pyramid of Cestius nearby. | Testaccio | €5 | Official hours page lists Mon-Sat 09:00-17:00, Sunday/holidays 09:00-13:00: [cemeteryrome.it](https://cemeteryrome.it/en/information/). Cost treated as estimated donation/entry. |\n| 10:00-11:15 | street food | **Mercato Testaccio** brunch: look for Roman market snacks, sandwiches, supplì, and fresh fruit. | Testaccio Market | €16 | Tavily found market-hour evidence Mon-Sat around 07:00-15:30, but not an official market page; verify locally. Cost estimate. |\n| 11:15-11:45 | history / hidden gem | Walk by **Monte dei Cocci**, the ancient amphora-shard hill that explains Testaccio’s Roman port/food history. | Testaccio | Free | Rome tourism page for Monte dei Cocci: [Turismo Roma](https://turismoroma.it/en/places/monte-dei-cocci). |\n| 11:45-12:30 | transport | Travel toward the **Appian Way**. | Testaccio to Appia Antica | Included | Covered if using the 72h pass; routes must be checked live. |\n| 12:30-15:00 | Roman / early Christian history | Appian Way walk or bike ride; visit **Catacombs of San Sebastiano** or another open catacomb if timed tours align. | Via Appia Antica | €14 | Official San Sebastiano site: [catacombe.org](https://www.catacombe.org/). Ticket/tour cost estimate; check 2026 opening days and language slots. |\n| 15:00-17:00 | hidden gem / outdoors | Continue along the Appian Way toward archaeological remains; if open and practical, add **Villa dei Quintili** or a section of the Appia Antica archaeological park. | Appia Antica | €10 | Official Appia Antica park homepage: [parcoarcheologicoappiaantica.it](https://www.parcoarcheologicoappiaantica.it/). Exact July 2026 hours/ticket not verified; cost estimate. |\n| 17:00-18:30 | rest | Return to hotel and cool down. | Hotel | Included | July afternoon heat buffer. |\n| 20:00-21:30 | food | Dinner in **Testaccio or Garbatella** rather than the historic center: carbonara, coda alla vaccinara, or simple Roman trattoria meal. | Testaccio / Garbatella | €35 | Cost estimate; neighborhood choice fits off-tourist-trail food focus. |\n\n## Day 3 — Tuesday, July 7, 2026: Rome underground, industrial antiquity, and the Ghetto\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 08:30-09:00 | food | Breakfast: espresso, pastry, water for the day. | Near hotel | €6 | Cost estimate. |\n| 09:15-10:30 | Roman history / hidden gem | **Basilica di San Clemente excavations** — one of the best “layers of Rome” sites: medieval basilica, earlier church, Roman rooms, Mithraeum. | San Clemente / Celio | €10 | Official page says online booking is required for excavations: [basilicasanclemente.com](https://www.basilicasanclemente.com/eng/opening-hours-and-info/). Price is an estimate; verify before booking. |\n| 10:45-12:30 | Roman history | **Baths of Caracalla** — monumental imperial leisure complex; good complement to the Colosseum because it shows everyday elite/public life. | Caracalla | €12 | Tavily surfaced July opening summaries, but official 2026 price/hours should be verified. Cost estimate. |\n| 12:30-13:15 | transport / break | Bus or walk toward Ostiense/Testaccio; cold drink stop. | Caracalla to Ostiense/Testaccio | €4 | Transit covered by pass if purchased; drink cost estimate. |\n| 13:15-14:15 | street food | Second Testaccio/Ostiense food stop: pizza by the slice, trapizzino-style snack, supplì, or market-style lunch if open. | Testaccio / Ostiense | €16 | Cost estimate; Testaccio fits street-food and local-food interests. |\n| 14:30-16:00 | museum / hidden gem | **Centrale Montemartini** — ancient Roman sculpture displayed inside a former power plant; excellent offbeat history/art pairing. | Ostiense | €11 | Official museum ticket page: [centralemontemartini.org](https://www.centralemontemartini.org/en/biglietti-e-prenotazioni/tickets-0). Exact July 2026 ticket price should be verified. |\n| 16:15-17:15 | hidden gem / viewpoint | **Aventine Hill**: Orange Garden and the famous keyhole area for a quieter sunset-adjacent view. | Aventine | Free | Tavily surfaced hidden-gem references; free outdoor stop. |\n| 17:45-18:45 | archaeology | **Largo di Torre Argentina archaeological area** if open and not too hot; otherwise view the ruins from street level for free. | Historic center | €5 | Tavily found 2026 visitor summaries listing daily 09:00-19:00, but official confirmation is needed. Cost estimate; street-level viewing is free. |\n| 19:00-20:00 | history walk | Walk through the **Jewish Ghetto**, Portico d’Ottavia area, and nearby lanes toward Campo de’ Fiori. | Jewish Ghetto / Campo de’ Fiori | Free | Good Roman-history + food-history area; no ticket required for a self-guided walk. |\n| 20:00-21:30 | final dinner | Jewish-Roman / street-food-style dinner: fried artichoke if in season, supplì, pizza bianca, or casual osteria meal. | Jewish Ghetto / Campo de’ Fiori | €38 | Cost estimate. Specific restaurant availability not verified with Tavily. |\n\n## Budget summary\n- Activities and admissions:\n  - Domus Aurea: **€26**\n  - Colosseum / Forum / Palatine: **€24 estimate**\n  - Non-Catholic Cemetery: **€5 estimate**\n  - Catacombs / Appian Way site: **€14 estimate**\n  - Appia Antica extra site such as Villa dei Quintili: **€10 estimate**\n  - San Clemente excavations: **€10 estimate**\n  - Baths of Caracalla: **€12 estimate**\n  - Centrale Montemartini: **€11 estimate**\n  - Largo Argentina archaeological area: **€5 estimate**\n  - **Activities subtotal: ~€117**\n- Local transport:\n  - 72-hour ATAC pass: **~€16**, verify on [ATAC](https://www.atac.roma.it/en/tickets-and-passes)\n- Food and drinks:\n  - Day 1: **~€52**\n  - Day 2: **~€56**\n  - Day 3: **~€64**\n  - **Food subtotal: ~€172**\n- Estimated total: **~€305**\n- Suggested contingency / upgrades within €400 budget: **~€95**\n  - Use this for an official guided Colosseum/Forum upgrade, e-bike rental on the Appian Way, a better final dinner, or taxi rides in July heat.\n\n## Unscheduled or uncertain items\n- **Case Romane del Celio** was not scheduled because Tavily evidence indicated closures on Tuesdays/Thursdays and the strongest available hours were from third-party sources, not official confirmation.\n- **Exact July 2026 Colosseum ticket price and time slots** are not guaranteed; official tickets open closer to the visit date, and the Colosseum page should be checked 30 days before July 5.\n- **Baths of Caracalla 2026 official price/hours** were not fully verified through an official page in Tavily results; treat the plan as conditional on confirmation.\n- **Villa dei Quintili / Appia Antica individual site hours** need final confirmation from the official Appia Antica park page before committing.\n- Specific restaurants in Testaccio, Garbatella, the Ghetto, and Monti were kept flexible because Tavily evidence was stronger for neighborhoods and general street-food options than for live restaurant opening/booking status.\n\n## Assumptions and gaps\n- Accommodation location is unknown, so travel times are approximate and assume a central Rome hotel.\n- The plan assumes you can start each day around 08:30-09:00 and are comfortable with full sightseeing days in July heat.\n- Food prices are estimates for casual meals, street food, coffee, gelato, and one or two sit-down dinners.\n- Transport cost assumes public transport rather than taxis; taxi use would reduce the contingency.\n- All booking-dependent sites should be reconfirmed in June 2026, especially Domus Aurea, Colosseum, San Clemente excavations, catacombs, and Appia Antica sites.",
+        "additional_kwargs": {
+          "refusal": null
+        },
+        "response_metadata": {
+          "token_usage": {
+            "completion_tokens": 5176,
+            "prompt_tokens": 16493,
+            "total_tokens": 21669,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": null,
+              "audio_tokens": 0,
+              "reasoning_tokens": 1552,
+              "rejected_prediction_tokens": null,
+              "image_tokens": 0
+            },
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 11264,
+              "cache_write_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost": 0.187057,
+            "is_byok": false,
+            "cost_details": {
+              "upstream_inference_cost": 0.187057,
+              "upstream_inference_prompt_cost": 0.031777,
+              "upstream_inference_completions_cost": 0.15528
+            }
+          },
+          "model_provider": "openai",
+          "model_name": "openai/gpt-5.5-20260423",
+          "system_fingerprint": null,
+          "id": "gen-1778954541-Gl3vLyjqDRHPT7R8Kyw6",
+          "service_tier": "default",
+          "finish_reason": "stop",
+          "logprobs": null
+        },
+        "type": "ai",
+        "id": "lc_run--019e31f4-1851-7450-b3df-d829d87f8f20-0",
+        "tool_calls": [],
+        "invalid_tool_calls": [],
+        "usage_metadata": {
+          "input_tokens": 16493,
+          "output_tokens": 5176,
+          "total_tokens": 21669,
+          "input_token_details": {
+            "audio": 0,
+            "cache_read": 11264
+          },
+          "output_token_details": {
+            "audio": 0,
+            "reasoning": 1552
+          }
+        }
+      }
+    ]
+  },
+  "error": null,
+  "metadata": {
+    "LANGSMITH_ENDPOINT": "https://eu.api.smith.langchain.com",
+    "LANGSMITH_PROJECT": "travelplanner",
+    "LANGSMITH_TRACING": "true",
+    "ls_integration": "langgraph",
+    "ls_run_depth": 0,
+    "revision_id": "10ec8d0-dirty",
+    "thread_id": "5b779198-44f8-45dd-9092-3274d8efb36a"
+  },
+  "langsmith": {
+    "organization": {
+      "name": "Personal",
+      "id": "477adfd8-a90b-45c3-95f6-1375325770e8"
+    },
+    "workspace": {
+      "name": "Workspace 1",
+      "id": "06241d75-72ec-4af5-b325-52629e7730a0"
+    },
+    "tracing_project": {
+      "id": "d92c06e8-225e-4665-a627-fdf375468f7c",
+      "name": "travelplanner"
+    }
+  }
+}

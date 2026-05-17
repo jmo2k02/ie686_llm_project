@@ -1,0 +1,737 @@
+{
+  "inputs": {
+    "messages": [
+      {
+        "content": "You are the Simple Baseline TravelPlanner Agent.\n\nPurpose:\n- Produce a single-agent baseline itinerary for later comparison against the\n  multi-agent TravelPlanner system.\n- You have exactly one tool: Tavily web search. You have no sub-agents and no\n  specialized flight, hotel, restaurant, routing, or validation tools.\n\nOperating rules:\n1. Use Tavily web search before the final itinerary for current facts, links,\n   opening hours, prices, neighborhoods, transit hints, and source URLs.\n   The workflow may require a minimum number of completed Tavily searches before\n   you may answer with final markdown only; if you receive a workflow nudge,\n   complete the requested searches first.\n   Use a small number of high-value searches, then synthesize the final answer.\n2. Respect every hard constraint supplied by the user. If a constraint cannot be\n   verified, state the assumption instead of silently ignoring it.\n3. Prefer official tourism, venue, transit, accommodation, restaurant, and event\n   pages when search results contain them. Use blogs and aggregators only as\n   secondary evidence.\n4. Do not invent exact prices, opening hours, flight numbers, hotel availability,\n   or booking status. Mark uncertain values as estimates.\n5. Order each day like the main execution agent: travel/check-in first, meals at\n   plausible meal times, attractions during likely opening hours, transfers\n   between distant places, and rest/free time when useful.\n6. Return only markdown in the final answer.\n\nFinal markdown structure:\nUse exactly these section headings, in this order:\n1. `# Baseline itinerary: ...`\n2. `## Goal and constraints understood`\n3. `## Search summary`\n4. `## Day 1 ...` and one section per day\n5. `## Budget summary`\n6. `## Unscheduled or uncertain items`\n7. `## Assumptions and gaps`\n\nEach day must be a markdown table with exactly these columns:\n`Time | Type | Plan | Location | Cost | Evidence/Notes`.\n\nSource discipline:\n- Every non-obvious venue, attraction, transit pass, opening-time claim, and\n  ticket price should have either a markdown link in Evidence/Notes or be marked\n  as an estimate.\n- If a requested item cannot be scheduled with available evidence, list it under\n  \"Unscheduled or uncertain items\" rather than hiding it.\n- Never include raw Tavily result dumps in the final answer.\n\nExample final output shape:\n\n# Baseline itinerary: 3 days in Lisbon\n\n## Goal and constraints understood\n- Origin: Berlin\n- Dates: 2026-06-12 to 2026-06-14\n- Budget: 800 EUR for 2 travelers\n\n## Search summary\n- Official tourism page for Belém Tower: https://...\n- Transit pass information: https://...\n\n## Day 1\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 09:00-10:30 | transport | Arrive and transfer to hotel | Airport to Baixa | €8 | Metro estimate; verify live schedules |\n\n## Budget summary\n- Estimated total: €...\n\n## Unscheduled or uncertain items\n- Flight number unavailable because only Tavily web search is available.\n\n## Assumptions and gaps\n- Hotel prices require live booking confirmation.\n",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "system",
+        "id": "e730f751-9a15-45ff-b6d8-05e2e93b9c7b"
+      },
+      {
+        "content": "GOAL\nCreate a comparable baseline travel plan in markdown.\n\nUSER QUERY\nMy partner and I want a quick weekend getaway from Cologne to Copenhagen from June 6th to 8th, 2026. Budget is €2,000 for two. We are into Scandinavian design, architecture, and New Nordic food. We would love a stylish boutique hotel and recommendations for the best restaurants and design museums.\n\nCONSTRAINTS\n{\n  \"hard_constraints\": {\n    \"origin\": \"Cologne\",\n    \"destination\": \"Copenhagen\",\n    \"date_from\": \"2026.06.06\",\n    \"date_to\": \"2026.06.08\",\n    \"travelers\": {\n      \"adults\": 2,\n      \"children_under_6\": 0,\n      \"children_6_to_16\": 0\n    },\n    \"budget_amount\": 2000,\n    \"budget_currency\": \"EUR\",\n    \"accommodation\": \"design hotel or boutique hotel\",\n    \"transport\": \"Flight\",\n    \"interests\": \"design, architecture, New Nordic cuisine, cycling, museums\"\n  }\n}\n\nOUTPUT REQUIREMENT\nReturn the final plan as markdown using the same practical timetable style as the main execution agent, but acknowledge that this baseline only has Tavily evidence. Include source links found via Tavily.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "human",
+        "id": "fb31dfcd-4cb9-42e0-9f32-a54ecf93a34f"
+      }
+    ]
+  },
+  "outputs": {
+    "messages": [
+      {
+        "content": "You are the Simple Baseline TravelPlanner Agent.\n\nPurpose:\n- Produce a single-agent baseline itinerary for later comparison against the\n  multi-agent TravelPlanner system.\n- You have exactly one tool: Tavily web search. You have no sub-agents and no\n  specialized flight, hotel, restaurant, routing, or validation tools.\n\nOperating rules:\n1. Use Tavily web search before the final itinerary for current facts, links,\n   opening hours, prices, neighborhoods, transit hints, and source URLs.\n   The workflow may require a minimum number of completed Tavily searches before\n   you may answer with final markdown only; if you receive a workflow nudge,\n   complete the requested searches first.\n   Use a small number of high-value searches, then synthesize the final answer.\n2. Respect every hard constraint supplied by the user. If a constraint cannot be\n   verified, state the assumption instead of silently ignoring it.\n3. Prefer official tourism, venue, transit, accommodation, restaurant, and event\n   pages when search results contain them. Use blogs and aggregators only as\n   secondary evidence.\n4. Do not invent exact prices, opening hours, flight numbers, hotel availability,\n   or booking status. Mark uncertain values as estimates.\n5. Order each day like the main execution agent: travel/check-in first, meals at\n   plausible meal times, attractions during likely opening hours, transfers\n   between distant places, and rest/free time when useful.\n6. Return only markdown in the final answer.\n\nFinal markdown structure:\nUse exactly these section headings, in this order:\n1. `# Baseline itinerary: ...`\n2. `## Goal and constraints understood`\n3. `## Search summary`\n4. `## Day 1 ...` and one section per day\n5. `## Budget summary`\n6. `## Unscheduled or uncertain items`\n7. `## Assumptions and gaps`\n\nEach day must be a markdown table with exactly these columns:\n`Time | Type | Plan | Location | Cost | Evidence/Notes`.\n\nSource discipline:\n- Every non-obvious venue, attraction, transit pass, opening-time claim, and\n  ticket price should have either a markdown link in Evidence/Notes or be marked\n  as an estimate.\n- If a requested item cannot be scheduled with available evidence, list it under\n  \"Unscheduled or uncertain items\" rather than hiding it.\n- Never include raw Tavily result dumps in the final answer.\n\nExample final output shape:\n\n# Baseline itinerary: 3 days in Lisbon\n\n## Goal and constraints understood\n- Origin: Berlin\n- Dates: 2026-06-12 to 2026-06-14\n- Budget: 800 EUR for 2 travelers\n\n## Search summary\n- Official tourism page for Belém Tower: https://...\n- Transit pass information: https://...\n\n## Day 1\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 09:00-10:30 | transport | Arrive and transfer to hotel | Airport to Baixa | €8 | Metro estimate; verify live schedules |\n\n## Budget summary\n- Estimated total: €...\n\n## Unscheduled or uncertain items\n- Flight number unavailable because only Tavily web search is available.\n\n## Assumptions and gaps\n- Hotel prices require live booking confirmation.\n",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "system",
+        "id": "e730f751-9a15-45ff-b6d8-05e2e93b9c7b"
+      },
+      {
+        "content": "GOAL\nCreate a comparable baseline travel plan in markdown.\n\nUSER QUERY\nMy partner and I want a quick weekend getaway from Cologne to Copenhagen from June 6th to 8th, 2026. Budget is €2,000 for two. We are into Scandinavian design, architecture, and New Nordic food. We would love a stylish boutique hotel and recommendations for the best restaurants and design museums.\n\nCONSTRAINTS\n{\n  \"hard_constraints\": {\n    \"origin\": \"Cologne\",\n    \"destination\": \"Copenhagen\",\n    \"date_from\": \"2026.06.06\",\n    \"date_to\": \"2026.06.08\",\n    \"travelers\": {\n      \"adults\": 2,\n      \"children_under_6\": 0,\n      \"children_6_to_16\": 0\n    },\n    \"budget_amount\": 2000,\n    \"budget_currency\": \"EUR\",\n    \"accommodation\": \"design hotel or boutique hotel\",\n    \"transport\": \"Flight\",\n    \"interests\": \"design, architecture, New Nordic cuisine, cycling, museums\"\n  }\n}\n\nOUTPUT REQUIREMENT\nReturn the final plan as markdown using the same practical timetable style as the main execution agent, but acknowledge that this baseline only has Tavily evidence. Include source links found via Tavily.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "human",
+        "id": "fb31dfcd-4cb9-42e0-9f32-a54ecf93a34f"
+      },
+      {
+        "content": "",
+        "additional_kwargs": {
+          "refusal": null
+        },
+        "response_metadata": {
+          "token_usage": {
+            "completion_tokens": 132,
+            "prompt_tokens": 1057,
+            "total_tokens": 1189,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": null,
+              "audio_tokens": 0,
+              "reasoning_tokens": 49,
+              "rejected_prediction_tokens": null,
+              "image_tokens": 0
+            },
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0,
+              "cache_write_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost": 0.009245,
+            "is_byok": false,
+            "cost_details": {
+              "upstream_inference_cost": 0.009245,
+              "upstream_inference_prompt_cost": 0.005285,
+              "upstream_inference_completions_cost": 0.00396
+            }
+          },
+          "model_provider": "openai",
+          "model_name": "openai/gpt-5.5-20260423",
+          "system_fingerprint": null,
+          "id": "gen-1778953204-SVb23F3Oq3FFUnyM0fPB",
+          "service_tier": "default",
+          "finish_reason": "tool_calls",
+          "logprobs": null
+        },
+        "type": "ai",
+        "id": "lc_run--019e31df-b42d-75c1-ba9a-e72114d55a1a-0",
+        "tool_calls": [
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Cologne Bonn Airport Copenhagen flights Eurowings June 2026 official"
+            },
+            "id": "call_ew1SWqUbfXbsPaK3PDgagE1v",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Copenhagen design boutique hotel official Sanders Coco Hotel SP34 prices 2026"
+            },
+            "id": "call_pCrh7GHlO0AkTvd4UwL0xYrz",
+            "type": "tool_call"
+          }
+        ],
+        "invalid_tool_calls": [],
+        "usage_metadata": {
+          "input_tokens": 1057,
+          "output_tokens": 132,
+          "total_tokens": 1189,
+          "input_token_details": {
+            "audio": 0,
+            "cache_read": 0
+          },
+          "output_token_details": {
+            "audio": 0,
+            "reasoning": 49
+          }
+        }
+      },
+      {
+        "content": "Tavily answer:\nEurowings flies from Cologne Bonn Airport to Copenhagen Airport in June 2026. The airline offers 21 connecting flights per week. Check Eurowings' official website for the latest schedules and fares.\n\nTavily results:\n1. Flights from Cologne-Bonn to Kos in June 2026 | Eurowings score=1.00\n   URL: https://www.eurowings.com/en/booking/offers/flights-from/DE/CGN/to/GR/KGS/2026-6.html\n   Snippet: Secure low fares from Cologne-Bonn to Kos in June 2026 ✈ Eurowings will fly you to your dream destination from just €74.99*. Book now.\n2. Flights Cologne-Bonn - Germany in June 2026 - Eurowings score=1.00\n   URL: https://www.eurowings.com/en/booking/offers/flights-from/DE/CGN/to/DE/2026-6.html\n   Snippet: To book, simply select your desired flights. The best prices for flights Cologne-Bonn – Germany start at just €64.99* in June 2026.\n3. Affordable flights from Cologne-Bonn (CGN) | Eurowings score=1.00\n   URL: https://www.eurowings.com/en/booking/offers/flights-from/DE/CGN.html\n   Snippet: Flights available from Cologne-Bonn during June 2026. Barcelona starting at €24.88*. Barcelona. starting at €24.88*. Malaga starting at €29.99*. Malaga.\n4. Eurowings Flights from Cologne-Bonn to Copenhagen - eDreams score=1.00\n   URL: https://www.edreams.com/offers/flights/airline/EW/eurowings/CGN/cologne-bonn/CPH/copenhagen/\n   Snippet: Buy your Eurowings tickets from Cologne-Bonn to Copenhagen here. Compare prices, find the best deals, and book your flight on eDreams!\n5. Find Cheap Flights from Cologne to Copenhagen (CGN - Google score=1.00\n   URL: https://www.google.com/travel/flights/flights-from-cologne-to-copenhagen.html\n   Snippet: Eurowings offers 21 connecting flights per week. Eurowings flies from Cologne Bonn Airport (CGN) to Copenhagen Airport (CPH). Pegasus offers 21 connecting",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "64ddd24f-2009-4fe5-b77b-48cbcd54399c",
+        "tool_call_id": "call_ew1SWqUbfXbsPaK3PDgagE1v",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nIn 2026, Boutique Hotel SP34 in Copenhagen starts from $246 per night for a 1-night stay for 2 adults. Prices include taxes and fees. Current date is May 16, 2026.\n\nTavily results:\n1. Boutique Hotel SP34 Reviews, Deals & Photos 2026 - Expedia score=0.91\n   URL: https://www.expedia.com/Copenhagen-Hotels-Hotel-SP34.h14797.Hotel-Information\n   Snippet: As of May 9, 2026, prices found for a 1-night stay for 2 adults at Boutique Hotel SP34 on May 10, 2026 start from $252, including taxes and fees. This price is\n2. Boutique Hotel SP34, Copenhagen: Room, Prices & Reviews score=0.88\n   URL: https://www.travelocity.com/Copenhagen-Hotels-Hotel-SP34.h14797.Hotel-Information\n   Snippet: Nobis Hotel Copenhagen, a Member of Design Hotels. Copenhagen City ... SP34 on May 3, 2026 start from $246, including taxes and fees.\n3. Boutique Hotel SP34 in Copenhagen | Best Rates & Deals on Orbitz score=0.88\n   URL: https://www.orbitz.com/Copenhagen-Hotels-Hotel-SP34.h14797.Hotel-Information\n   Snippet: Nobis Hotel Copenhagen, a Member of Design Hotels. Copenhagen City Centre ... SP34 on May 10, 2026 start from $250, including taxes and fees. This price\n4. Hotel SP34, Copenhagen | 2026 Updated Prices, Deals - Agoda.com score=0.86\n   URL: https://www.agoda.com/hotel-sp34/hotel/copenhagen-dk.html\n   Snippet: With an average price of $259 per room, this boutique hotel offers exceptional value for travelers seeking a memorable stay in the heart of the city. Compared\n5. Boutique Hotel SP34, Copenhagen (updated prices 2026) score=0.66\n   URL: https://www.booking.com/hotel/dk/hotel-sp34.html\n   Snippet: All rooms at Boutique Hotel SP34 have tea/coffee facilities and a large, flat-screen TV with WiFi connectivity. Designer wooden furnishings and quality humdakin",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "f3acb1c3-7d98-4fd7-bb74-7417410b08ea",
+        "tool_call_id": "call_pCrh7GHlO0AkTvd4UwL0xYrz",
+        "status": "success"
+      },
+      {
+        "content": "",
+        "additional_kwargs": {
+          "refusal": null
+        },
+        "response_metadata": {
+          "token_usage": {
+            "completion_tokens": 146,
+            "prompt_tokens": 2157,
+            "total_tokens": 2303,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": null,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": null,
+              "image_tokens": 0
+            },
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0,
+              "cache_write_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost": 0.015165,
+            "is_byok": false,
+            "cost_details": {
+              "upstream_inference_cost": 0.015165,
+              "upstream_inference_prompt_cost": 0.010785,
+              "upstream_inference_completions_cost": 0.00438
+            }
+          },
+          "model_provider": "openai",
+          "model_name": "openai/gpt-5.5-20260423",
+          "system_fingerprint": null,
+          "id": "gen-1778953210-zcDBDU2IpMfAQZZBMfEJ",
+          "service_tier": "default",
+          "finish_reason": "tool_calls",
+          "logprobs": null
+        },
+        "type": "ai",
+        "id": "lc_run--019e31df-caa5-7f70-ab6f-fcb66621f112-0",
+        "tool_calls": [
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "official Copenhagen design museums Designmuseum Denmark Danish Architecture Center opening hours tickets 2026"
+            },
+            "id": "call_2rksyOEoqMfrSP2PdPOlCXdA",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Copenhagen New Nordic restaurants official tasting menu prices 2026 Noma Alchemist Barr Kadeau"
+            },
+            "id": "call_PL3OaCt1cnvAnMXPSbWwPRBL",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Copenhagen public transport airport city pass official prices 2026 metro"
+            },
+            "id": "call_WH1xQwvBXmvrVQqfSk8fCMCp",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Copenhagen cycling bike rental official Donkey Republic prices 2026"
+            },
+            "id": "call_l0NKde6GcjkFcHFMPmUDyqJU",
+            "type": "tool_call"
+          }
+        ],
+        "invalid_tool_calls": [],
+        "usage_metadata": {
+          "input_tokens": 2157,
+          "output_tokens": 146,
+          "total_tokens": 2303,
+          "input_token_details": {
+            "audio": 0,
+            "cache_read": 0
+          },
+          "output_token_details": {
+            "audio": 0,
+            "reasoning": 0
+          }
+        }
+      },
+      {
+        "content": "Tavily answer:\nDesign Museum Denmark is open Tuesday–Sunday 10:00–18:00, Thursday until 20:00. The Danish Architecture Center is open Tuesday–Sunday 10:00–18:00. Tickets for both are available online.\n\nTavily results:\n1. Danish Architecture Center Tickets [2026] - Trip.com score=1.00\n   URL: https://www.trip.com/travel-guide/attraction/copenhagen/danish-architecture-centre-13551491?poiType=3\n   Snippet: Danish Architecture Center Ticket · Adult. Book now for today. Non-refundable. No ticket collection required.. US$28.36. Book · Student. Book\n2. Opening hours & admission - Design Museum Denmark score=1.00\n   URL: https://designmuseum.dk/en/besog-os/opening-hours-admission-2/\n   Snippet: * Open today 10:00 - 18:00. # Opening hours & admission. Here you’ll find information on opening hours, ticket prices and our annual pass. Get an overview of how to plan your visit and discover the many benefits of purchasing an annual pass. ### OPENING HOURS. **Tuesday – Sunday:** 10.00 – 18.00. **Thursday:** 10.00 – 20.00. *Please note: The ticket office closes one hour before the museum (17:00 Tuesday–Sunday; 19:00 on Thursdays). **Monday 25 May** (Whit Monday): 10.00 – 18.00. **Friday 5 June** (Constitution Day): 10.00 – 18.00. **See the library opening hours.**. **Under 27 and students:** DKK 90 *(valid ID and student card required)* **Schools and other educational institutions**visiting as part of a teaching programme have free admission to the museum. For groups larger than 10 people, please notify us of your visit at least one day in advance here. Groups of 10 or more are kindly...\n3. Forside - Design Museum Denmark score=1.00\n   URL: https://designmuseum.dk/en/\n   Snippet: May 01 — September 27 2026. This exhibition reflects on the course of life itself, while opening a dialogue with Designmuseum Danmark’s rich collection. February 06 — August 09 2026. # Japan Modern Poster. The exhibition 'Japan Modern Poster' introduces the development of Japanese graphic design from the postwar era to the present through iconic posters. JAPAN MODERN POSTER, Designmuseum Danmark. # Latest News from the Museum. From exclusive collaborations and exciting podcasts to new additions to the collection that you can experience at the museum. Here, you'll find updates on projects and initiatives that bring the museum to life and enhance your experience. Are you interested in design stories, events, or other news from Designmuseum Danmark? Sign up for our newsletter. At the heart of the museum, you will find café FORMAT. ### SIGN UP FOR THE MUSEUM'S NEWSLETTER. Do you want to be t...\n4. Plan Your Visit to DAC: Opening Hours, Tickets & Practical Info - Danish Architecture Center - DAC score=1.00\n   URL: https://dac.dk/en/plan-your-visit\n   Snippet: Everything practical, so that you can spend your time on the experiences. Learn more about how to navigate DAC in BLOX so you can prepare for your visit in advance. In the ticket office at Welcome, you can get information about the exhibitions, and here you will be provided with a map of the building. Are you curious to know why there are apartments on top of the BLOX building? As a DAC Club member, you get free admission and exclusive benefits all year round. ##### Children in DAC. DAC features two exhibition rooms, our children’s universe Educatorium, several conference rooms, the art installation DAC Slide, DAC Design Shop, and a spectacular view of the city from the café and its large rooftop terraces. DAC is in the heart of the BLOX building, which also houses a co-working space, a fitness center, 2 restaurants, a parking facility, and 22 apartments on the top.\n5. Danish Architecture Center | Museum in Copenhagen score=1.00\n   URL: https://www.visitcopenhagen.com/copenhagen/planning/danish-architecture-center-gdk414885\n   Snippet: ## Select site. * The official guide to Copenhagen. ## Select language. # Danish Architecture Center. DAC is deeply committed to the green transition and works purposefully with sustainability across exhibitions, communication and operations. Take a journey through 1000 years of Danish architecture - from the Viking Age to the present day. Here you can dive into the architectural style periods, meet the leading architects and experience the projects that have left a decisive mark on our surroundings - and our way of living together. In the exhibitions, there are children's trails and experiences at children's height, and in the family workshop you can build, experiment and explore the world of architecture. Access to the café requires an entrance ticket or DAC Annual Pass. ## DAC Design Shop - design favourites in the heart of the city. The shop is open to everyone and does not require a...",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "b0e41566-25ca-4d60-9180-06bb558c22d6",
+        "tool_call_id": "call_2rksyOEoqMfrSP2PdPOlCXdA",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nIn 2026, the tasting menu at Copenhagen's Alchemist costs around 1800 kr. Noma closed in 2024. Kadeau and Barr's prices are not specified.\n\nTavily results:\n1. Best Nordic Cuisine Restaurants in Copenhagen 2026 score=0.73\n   URL: https://thingstodocph.com/best-traditional-nordic-restaurants-copenhagen/\n   Snippet: # Best Nordic Cuisine Restaurants in Copenhagen 2026. best-traditional-nordic-restaurants-copenhagen-featured. **Copenhagen’s traditional Nordic cuisine scene spans smørrebrød (open-faced rye sandwiches), New Nordic tasting menus, and everything between. Smørrebrød lunch at a traditional restaurant costs 150–300 DKK per person. The city has 20 Michelin-starred restaurants (2026 guide), with Geranium (three stars) ranked among the world’s top 10. New Nordic cuisine was pioneered by Noma, which closed in 2024 after revolutionising global fine dining.**. As someone who’s spent countless evenings exploring Copenhagen’s restaurant scene (yes, it’s tough work, but someone’s gotta do it), I’ve experienced firsthand why this city holds 23 Michelin stars and counting. But here’s the thing: you don’t need to spend a fortune to taste incredible Nordic cuisine. In this guide, I’m sharing my personal...\n2. Copenhagen Under $300 USD - Barr vs… : r/finedining - Reddit score=0.50\n   URL: https://www.reddit.com/r/finedining/comments/1nrk29f/copenhagen_under_300_usd_barr_vs/\n   Snippet: I scanned the subreddit for cheaper fine dining and Barr came up the most. It looks very approachable at around $111 for tasting menu. But I'm\n3. Alchemist, Geranium, or Kadeau? - Copenhagen - Facebook score=0.41\n   URL: https://www.facebook.com/groups/WonderfulCopenhagen/posts/3672439462971195/\n   Snippet: We are beginning a new chapter; noma 3.0. In 2025, our restaurant ... With Noma's tasting menu, which includes dishes such as grilled\n4. Alchemist (Copenhagen, Denmark) - kevinEats score=0.31\n   URL: http://www.kevineats.com/2023/08/alchemist-copenhagen-denmark.html?m=0\n   Snippet: Wine pairings start at 1800 kr ($263.29), and go up to a eye-popping 8500 kr ($1243.33), though we chose to order bottles off of the\n5. ALCHEMIST - Official website of Restaurant Alchemist, Copenhagen ... score=0.30\n   URL: https://alchemist.dk/\n   Snippet: Gastronomy, drama, art and spectacular visuals blend to create the Alchemist universe. A fine dining experience is the core of the restaurant – but keeping",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "66baffd4-7688-4c98-a38f-425e53f4b2b3",
+        "tool_call_id": "call_PL3OaCt1cnvAnMXPSbWwPRBL",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nA single metro ticket in Copenhagen costs 24 DKK for zones 1-2, while a 24-hour City Pass for these zones is 80 DKK. Airport trips require zones 1-4, costing 30 DKK per journey.\n\nTavily results:\n1. Copenhagen public transport 2026: fares & zones - DenmarkGuide score=1.00\n   URL: https://denmarkguide.dk/en/oplev-danmark/transport-og-mobilitet/offentlig-transport/copenhagen-public-transport-fares-2026/\n   Snippet: 2026: minimum ride (2 zones) — 24 DKK; airport ↔ centre (3 zones) — 30 DKK; from 18 Jan 2026 4–6 zones are 40/46/50 DKK. City Pass remains the\n2. Ticket and prices of public transportation | City of Copenhagen score=1.00\n   URL: https://international.kk.dk/live/transport-and-parking/public-transport/ticket-and-prices-of-public-transportation\n   Snippet: # Ticket and prices of public transportation. The types of tickets you choose depend on your journey and length of stay in Copenhagen. You can use public transport tickets on all buses, trains and the metro in Copenhagen. Always remember to have a valid ticket with you to avoid getting fined (DKK 750) during ticket inspection. Adults with a valid ticket or city pass can bring 2 children under the age of 12 free of charge. You can buy your tickets using the following options:. ## Ticket types and prices. You can find out more about ticket prices using journeyplanner.dk or DOT. If you are staying for a longer period or living in Copenhagen, you can save money by getting a Rejsekort. Find out about the different Rejsekort options to suit your travel needs below:. If you are a tourist in Copenhagen, you can consider getting a Copenhagen Card that includes access to public transport and vario...\n3. How to get around Denmark with public transport | VisitDenmark score=1.00\n   URL: https://www.visitdenmark.com/denmark/plan-your-trip/transport/public-transport\n   Snippet: You can also buy a City Pass, a digital travel ticket for unlimited public transport over a 24, 48, 72, 96 or 120-hour period, costing from DKK 80  for 24 hours for unlimited travel in Copenhagen zones 1-4, including the airport. The journey is the destination when you’re travelling around Denmark – if you want to travel car-free, you can choose from a reliable train, bus, ferry and boat network. ### Train travel in Denmark. It's easy to travel by train beyond Copenhagen to the rest of Denmark. Trains also run from Denmark to Sweden from the main central station in Copenhagen, with Swedish rail company SJ. There are several daily flights from Copenhagen to cities around Denmark. The Danish national rail operator DSB operates regular train services between Copenhagen and towns across Denmark and southern Sweden. There are several daily flights from Copenhagen to cities around Denmark.\n4. PRICES - Copenhagen Card score=0.99\n   URL: https://copenhagencard.com/view/prices?srsltid=AfmBOorUfayGr3INP-n91qSp6e_QJtm3k4QJt-lwYw-5XApeG-kqtdBt\n   Snippet: Unlimited public transport in the entire Capital Region (zone 1 -99). Free public transport to and from Copenhagen Airport. Experience attractions in and\n5. City Pass score=0.99\n   URL: https://www.publictransport.dk/tickets/citypass\n   Snippet: # Enjoy unlimited travel by bus, train, and metro with a City Pass. Travel as much as you want with all modes of public transport for up to five days. A city pass is often the best choice if you plan to use public transport multiple times during your stay. With access to unlimited travel by bus, train, light rail, harbour bus and metro, a City Pass is a convenient and inexpensive way to enjoy the many great experiences Copenhagen and the rest of Zealand have to offer. City Pass Small covers Copenhagen as well as the trip from Copenhagen Airport to the city centre (zones 1-4). City Pass Large covers Copenhagen and the Greater Copenhagen area (zones 1-99). City Pass X-Large covers Copenhagen and all of Zealand as well as Lolland, Falster, and Møn (zones 1-299). * A City Pass provides you access to unlimited travel by all modes of public transportation in the area your City Pass covers for...",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "74abb6ea-1379-4094-b909-7cc2470a745a",
+        "tool_call_id": "call_WH1xQwvBXmvrVQqfSk8fCMCp",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nDonkey Republic bike rental prices in Copenhagen for 2026 are available via the app or website. Rentals are pay-as-you-go or by day/week membership. Exact rates depend on duration and type of bike.\n\nTavily results:\n1. DONKEY REPUBLIC - Updated May 2026 - Bike Rentals - Yelp score=1.00\n   URL: https://www.yelp.com/biz/donkey-republic-k%C3%B8benhavn\n   Snippet: Donkey Republic is easy to figure out. You have to download an app, but once you do that, you can just go where bikes are available and rent from your phone.\n2. Bike Rental Pricing & Membership Plans | Donkey Republic score=1.00\n   URL: https://www.donkey.bike/pricing\n   Snippet: # Riding a Donkey, a priceless experience. Find a flexible and affordable solution that fits you. Unlock a bike on demand and pay only for the time you ride. Find a Donkey nearby, start riding in seconds, and end your trip anywhere within the drop-off zone. Want a bike for a day, weekend or week? Start and stop as needed and enjoy the freedom of the city on two wheels. How do I rent a Donkey Bike? Renting a Donkey Bike is simple! Just download the Donkey Republic app, find a nearby bike, unlock it with your phone, and start riding. You can check the exact pricing on our pricing page or in the app. Can I pause my ride and keep the bike? With a membership, you get unlimited rides in your city at a fixed monthly price, plus access to bikes in other Donkey Republic locations. Transform the way you bike with Donkey Republic.\n3. Donkey Republic | Bike rental in Copenhagen score=1.00\n   URL: https://www.visitcopenhagen.com/copenhagen/planning/donkey-republic-gdk1080355\n   Snippet: Check the prices on Donkey Republic's website via this link. Facebook Instagram Tripadvisor. Read more. Contact information. Email: support@donkeyrepublic.com\n4. How much does it cost to rent a Donkey Republic bike? | Donkey Republic score=1.00\n   URL: https://www.donkey.bike/blogs/blog-how-much-does-it-cost-to-rent-a-donkey-republic-bike\n   Snippet: # How much does it cost to rent a Donkey Republic bike? Donkey Republic pricing offers a variety of options and types of rides that you can take. Just Ride Pricing which is paying as you ride. Note: To find the exact price for Donkey Bikes in your city, download the Donkey Republic app and follow this guide. ## What is Donkey Republic’s Just Ride Pricing? Just Ride Pricing allows you to find a bike, select it, unlock and ride and lock the bike, only paying for the time you use the bike. The more minutes/hours you keep your bike, the cheaper it gets. However, if you want to keep the bike for a day or more, we advise you to take a look at our day deals. In short Donkey Republic’s Just Ride Pricing allows for flexibility in the way you bike. Do you need a bike for more than just a ride or two?\n5. Rent a Bike in Copenhagen with Donkey Republic | Pedal & E-Bikes 24/7 score=1.00\n   URL: https://www.donkey.bike/cities/copenhagen\n   Snippet: # Rent a bike in Copenhagen. Rent a bike in Copenhagen with Donkey Republic and enjoy the freedom of explore the city on two wheels. A woman riding a bike down a street. ## The best way to get around Copenhagen. With just a few taps in the app, you can unlock a high-quality bikes and get moving on your own terms. ### How to Rent a Bike. Open the Donkey Republic app to locate a nearby bike and choose your rental option. Use the app to unlock the bike and start your ride in seconds. Check out the map on the left to explore all of the virtual hubs in your city, where you can find Donkey bikes. ## Urban Mobility, the Donkey Way. How to rent a bike. Simply open the Donkey Republic app, select a bike, and unlock it with a tap to start your ride. A man riding donkey bike in Copenhagen.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "cb39d835-ce82-4c89-b756-54b4e37e61d3",
+        "tool_call_id": "call_l0NKde6GcjkFcHFMPmUDyqJU",
+        "status": "success"
+      },
+      {
+        "content": "",
+        "additional_kwargs": {
+          "refusal": null
+        },
+        "response_metadata": {
+          "token_usage": {
+            "completion_tokens": 149,
+            "prompt_tokens": 5943,
+            "total_tokens": 6092,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": null,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": null,
+              "image_tokens": 0
+            },
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 2048,
+              "cache_write_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost": 0.024969,
+            "is_byok": false,
+            "cost_details": {
+              "upstream_inference_cost": 0.024969,
+              "upstream_inference_prompt_cost": 0.020499,
+              "upstream_inference_completions_cost": 0.00447
+            }
+          },
+          "model_provider": "openai",
+          "model_name": "openai/gpt-5.5-20260423",
+          "system_fingerprint": null,
+          "id": "gen-1778953217-NyKw5Dp1BlkPxwt5rVqz",
+          "service_tier": "default",
+          "finish_reason": "tool_calls",
+          "logprobs": null
+        },
+        "type": "ai",
+        "id": "lc_run--019e31df-e556-72f1-bc62-2ce353d3d8a7-0",
+        "tool_calls": [
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Copenhagen official tourism architecture design attractions BLOX CopenHill Superkilen Copenhagen Contemporary opening hours 2026"
+            },
+            "id": "call_S06w17bgS06KpN8j6332XAz0",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Copenhagen best New Nordic restaurants official Barr Restaurant Radio Høst Marv & Ben menu prices 2026"
+            },
+            "id": "call_kyc6sy40eebzTCBN0ewT9Tsv",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Copenhagen boutique design hotels official Hotel Sanders SP34 Nobis Copenhagen"
+            },
+            "id": "call_ZgHHSZtGMx36xY3w1HZUC7Fg",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Copenhagen Airport to city centre official metro duration"
+            },
+            "id": "call_APSJGyLmKeK4llVEaqE1TYif",
+            "type": "tool_call"
+          }
+        ],
+        "invalid_tool_calls": [],
+        "usage_metadata": {
+          "input_tokens": 5943,
+          "output_tokens": 149,
+          "total_tokens": 6092,
+          "input_token_details": {
+            "audio": 0,
+            "cache_read": 2048
+          },
+          "output_token_details": {
+            "audio": 0,
+            "reasoning": 0
+          }
+        }
+      },
+      {
+        "content": "Tavily answer:\nCopenhagen Contemporary is open Tuesday to Saturday from 11:00 to 18:00. BLOX in Copenhagen, featuring DAC, is open until 9:00 PM. Superkilen and CopenHill are major attractions in Copenhagen.\n\nTavily results:\n1. Free Exhibition Opening: What the BLOX ⁠ ⁠ We're kicking off 2026 ... score=0.74\n   URL: https://www.instagram.com/p/DTz6r5Pki2E/\n   Snippet: (Light installations and DAC open until 9:00 PM)⁠ ... Program⁠ 5:00 PM: Refreshments in Welcome⁠ 5:00–9:00 PM: Experience DAC's three light\n2. Copenhagen Contemporary - Åbningstider, priser, årskort mm. score=0.58\n   URL: https://copenhagencontemporary.org/en/visit/\n   Snippet: #### Copenhagen Contemporary (CC) is Copenhagen’s international art center showing installation art created by world stars and new emerging talents. # Welcome to CC. Tuesday 11:00 – 18:00. Wednesday 11:00 – 18:00. Friday 11:00 – 18:00. Saturday 11:00 – 18:00. # Copenhagen Contemporary. James Turrell’s *Aftershock* will be closed on Tuesday, April 14 and Wednesday, April 15 due to maintenance. Thursday 2 April (Easter) 11:00 – 21:00. Friday 3 April (Easter) 11:00 – 18:00. Sunday 24 May (Pentecost) 11:00 – 18:00. You will find the payment machine on the same side of Refshalevej as  CC’s building between the small roundabout (where bus 2A stops) and CC’s main entrance. The entrance to Copenhagen Contemporary is marked with a vertical sign saying “Art Center” and two large, orange C’s. When you reach the yellow house at the end, turn right and walk to the other side of the building – then fo...\n3. Copenhagen Travel Guide 2026: Best Things to Do & See score=0.54\n   URL: https://www.machupicchu.org/copenhagen-travel-guide-2026-best-things-to-do-see.htm\n   Snippet: Museum admission costs 120 DKK adults (free with Copenhagen Card) with opening hours Tuesday-Sunday 10:00-16:00 (extended to 17:00 June-August)\n4. BLOX Copenhagen: Modern Architecture & 2026 Visitor Guide score=0.45\n   URL: https://www.storyhunt.io/en/articles/blox-copenhagen?srsltid=AfmBOoqpHpT845RX72jsJ5mnN5psichPDl2wvktQUlJfRS46P430gn8P\n   Snippet: By clicking \"Enable Full Functionality,\" you agree to the use of cookies that enhance site navigation, analyze site usage, and assist in our marketing efforts, as outlined in our privacy policy. # Copenhagen's BLOX: Bold Design, Big Views, and a Thrilling Slide. Unlock the story behind BLOX in Copenhagen. > **TLDR**: BLOX in Copenhagen is a bold, modern, green-glazed architectural hub housing the Danish Architecture Center (DAC), with engaging exhibitions, a thrilling slide, and harbor views, but its striking design can be polarizing and a bit confusing to navigate. I recently found myself in the building called BLOX in Copenhagen, which isn't your typical historical landmark. If you're curious about modern urban development, architecture, or just looking for a unique experience that blends culture with city life, you'll want to read on. ## What is the story behind BLOX? BLOX stands on w...\n5. Things to Do in Copenhagen: 50+ Best Attractions (2026) score=0.39\n   URL: https://www.copenhagentourism.org/things-to-do-in-copenhagen/\n   Snippet: # Things to Do in Copenhagen: The Complete Guide (2026). Copenhagen’s skyline, defined by its green copper spires, harbour and meandering canals. Copenhagen is one of those cities that rewards curiosity. You can arrive with a checklist of the greatest hits — **Tivoli Gardens, Nyhavn, the Little Mermaid** — and end up spending your favourite afternoon at a harbour bath you’d never heard of, drinking natural wine in a butcher shop turned wine bar, or cycling over a bridge that didn’t exist five years ago. The Danish capital is compact, walkable, ruthlessly well-designed and genuinely fun, and this guide is built to help you make the most of every hour you spend here. Below you’ll find more than 50 of the best **things to do in Copenhagen** in 2026, broken down by category — iconic attractions, museums, neighbourhoods, outdoor activities, rainy-day ideas, nightlife, seasonal events and day...",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "2766bfa7-b97a-4539-81ad-f3a34828748a",
+        "tool_call_id": "call_S06w17bgS06KpN8j6332XAz0",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nMarv & Ben is a top New Nordic restaurant in Copenhagen, known for its organic menu and wine pairings. Menu prices in 2026 are not available, but it offers a range of six dishes each evening. Visit their website for current details.\n\nTavily results:\n1. Marv & Ben | Bib Gourmand restaurant | VisitCopenhagen score=1.00\n   URL: https://www.visitcopenhagen.com/copenhagen/planning/marv-ben-gdk412650\n   Snippet: ## Select site. * The official guide to Copenhagen. ## Select language. Photo: PR Photo© Marv & Ben. Photo: PR Photo© Marv & Ben. Photo: PR Photo© Marv & Ben. Photo: PR Photo© Marv & Ben. In August 2017, two young gastro enthusiasts, David Andersen and Johan Burich-Holck took over Marv & Ben from its former owner, Frederik Hvidt, who through 10 years had been serving great food experiences, and secured the restaurant the Bib Gourmand award from the Michelin guide six years in a row. At David and Johan's 'Marv & Ben version 2.0', you can dive into Nordic gastronomy, and a menu that's based on the best local ingredients and as much organic produce as possible. The two guys are carrying on the legacy of the restaurant in one of Copenhagen's charming, old apartments, where you can enjoy your organic dinner in a cosy environment.\n2. MARV & BEN, Copenhagen - Menu, Prices & Restaurant Reviews score=1.00\n   URL: https://www.tripadvisor.com/Restaurant_Review-g189541-d2187950-Reviews-Marv_Ben-Copenhagen_Zealand.html\n   Snippet: Marv & Ben, Copenhagen: See 1304 unbiased reviews of Marv & Ben, rated 4.8 of 5 on Tripadvisor and ranked #31 of 2590 restaurants in Copenhagen.\n3. Marv & Ben – Copenhagen - a MICHELIN Guide Restaurant score=1.00\n   URL: https://guide.michelin.com/us/en/capital-region/copenhagen/restaurant/marv-ben\n   Snippet: Unfussy modern dishes display purity, depth of flavour and finesse. Six options are offered each evening – try them all via the 'Six Favourites' menu.\n4. Se Marv & Bens menukort — Marv & Ben score=1.00\n   URL: https://www.marvogben.dk/menu\n   Snippet: Raw beef - pine - Jerusalem artichokes – 150. Teres major - yellow beets - smoked bone marrow – 150. Teres major - yellow beets - smoked bone marrow. Raw beef - pine - Jerusalem artichokes. Teres major - yellow beets - smoked bone marrow. # Wine. We have put together the wine list from an inspiring mix of organic, biodynamic and conventional wines as well as natural wines. All the wines are carefully selected so that they match the food we serve, but above all, they are wines we personally love the most. ### Wine by the glass. We open all wines from our selection priced below DKK 1.000 when ordering a minimum of two glasses. Does not apply for sparkling wines. At our sister restaurant, we offer a 100 % exclusive private dining experience with your personal waiter or waitress in a grand room. * **Food & Wine**: Marv & Ben menu.\n5. Welcome at Marv & Ben — Marv & Ben score=0.99\n   URL: https://www.marvogben.dk/front\n   Snippet: Here we invite you to try Nordic gastronomy, where everything is prepared from scratch with a sincere curiosity for new taste experiences and textures.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "3c543ab7-bd40-46ef-927a-d74e4b821d78",
+        "tool_call_id": "call_kyc6sy40eebzTCBN0ewT9Tsv",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nHotel Sanders is a luxury boutique hotel in Copenhagen, owned by Danish ballet dancer Alexander Kølpin, known for its classic Danish design. It is part of the Design Hotels collection. Nobis Hotel Copenhagen is another luxury boutique hotel in the city, also part of the Design Hotels group.\n\nTavily results:\n1. Hotel Sanders (Copenhagen, Denmark) 54 Verified Reviews score=1.00\n   URL: https://www.tablethotels.com/en/copenhagen-hotels/hotel-sanders\n   Snippet: Hotel Sanders is a a 54-room luxury boutique hotel owned and operated by the celebrated Danish ballet dancer Alexander Kølpin. In 2017 the London-based design\n2. Hotel Sanders | Bon Appétit score=1.00\n   URL: https://www.bonappetit.com/city-guides/copenhagen/venue/hotel-sanders?srsltid=AfmBOoq4XeKRlzPXNO9qMGM8YroJO5XWAhI3fD8uPIfRgoU-qc6elJn4\n   Snippet: This luxurious boutique avoids the current hotel design tropes by going back to an earlier period of Danish design. Here you'll find a more wicker-and-velvet\n3. Nobis Hotel Copenhagen, a Member of Design Hotels - Marriott score=1.00\n   URL: https://www.marriott.com/en-us/hotels/cphds-nobis-hotel-copenhagen-a-member-of-design-hotels/overview/\n   Snippet: Experience boutique luxury at Nobis Hotel Copenhagen, a Member of Design Hotels™. Artfully designed accommodations & great service await you.\n4. Hotel in Copenhagen Centre | Hotel SP34 in Latin Quarter… score=1.00\n   URL: https://www.brochner-hotels.com/our-locations/hotel-sp34\n   Snippet: Hotel in Copenhagen City Centre - Hotel SP34 Lobby Bar. We wouldn’t blame you if you wanted to stay in the rooms of Hotel SP34 all the time. So, the real choice lies in which room to pick at the hotel. There are plenty to choose from – all of them designed with a Nordic touch. Hotel SP34 Small Single Room. ### Small Single Room. This is a small little number just for one, but it has all the overnight essentials you need. ### Small Double Room. It is a smaller room for two, but still spacious enough for everything you need. Superior Double Room Copenhagen - Bright Hotel Room With Twin Beds. You will be staying in quite a food-centric area, but it’s at the hotel the real magic is happening. We make it happen right at the hotel – from the best organic breakfast in town to the best restaurants in town!\n5. HOTEL SANDERS - Updated 2026 Prices & Reviews (Copenhagen ... score=1.00\n   URL: https://www.tripadvisor.com/Hotel_Review-g189541-d12704075-Reviews-Hotel_Sanders-Copenhagen_Zealand.html\n   Snippet: Providing an ideal mix of value, comfort and convenience, it offers a romantic setting with an array of amenities designed for travelers like you.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "40fbcc8d-facb-44ed-8772-78ceb070be9f",
+        "tool_call_id": "call_ZgHHSZtGMx36xY3w1HZUC7Fg",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nFrom Copenhagen Airport to the city centre by metro takes about 15 minutes. The metro runs every 4-6 minutes during the day and evening. The journey can be as short as 13 minutes.\n\nTavily results:\n1. Getting there score=0.85\n   URL: https://intergrafconference.com/copenhagen/getting-there\n   Snippet: Copenhagen, the capital of Denmark, is easily accessible, with excellent infrastructure ensuring quick travel to both the Bella Center and the city centre. You can reach the city centre in just 12 to 17 minutes. After landing, the Bella Center is just a 6-kilometer journey away, with easy access to the city centre as well. You can take the **M1 metro** directly to the **Bella Center Station** (just a short walk to the venue). From the airport, it takes just **13 minutes** to reach **Kongens Nytorv**, where you can transfer to the **M3 metro line**, which circles the city with 17 stops and takes 28 minutes to complete a full loop. **Copenhagen Airport to** **Copenhagen Central Station**: trains depart from the train station in Terminal 3 and a train ride to the city centre takes just 15 minutes. **Regional trains** stop at **Ørestad Station**, from where you can transfer to the metro to B...\n2. Metro - Getting to & from Copenhagen Airport by Metro | CPH score=0.85\n   URL: https://www.cph.dk/en/parking-transport/bus-train-metro-taxi/metro\n   Snippet: # Metro. Get quickly to and from Copenhagen Airport and the city centre by metro. #### How to travel to and from the airport by metro. The metro station is located in direct extension of Terminal 3. The Metro runs every 4–6 minute during the day and evening hours, and at a 15–20 minute intervals at night. It takes 15 minutes from Nørreport Station to the airport by metro. Tickets for the Metro can be purchased at the station and at DSB's ticket office in Terminal 3. #### Go straight to security from the metro via the footbridge. If you are traveling with hand luggage only, then you can go directly form the metro to the security checkpoint, Terminal 2 and SAS Fast Track via the 100 metre long footbridge. #### Check-in at the station. At the metro station (at the end of Terminal 3) the airport has two self-service machines where you can print boarding cards and labels for your luggage.\n3. Copenhagen Airport To City Centre By Metro: First-Timers Step By Step Guide! score=0.83\n   URL: https://theflainstravel.com/copenhagen-airport-to-city-centre/\n   Snippet: # COPENHAGEN AIRPORT TO CITY CENTRE BY METRO: FIRST-TIMERS STEP BY STEP GUIDE! #### ***DISCOVER THE EASIEST & CHEAPEST WAY TO GET FROM COPENHAGEN AIRPORT TO THE CITY CENTRE!***. I don’t know about you, but I get this weird anxiety about the journey from the airport to a destination, and get all flustered about it. We’ve just spent a wonderful **4 days in Copenhagen**, and can vouch Copenhagen’s Metro is the easiest, most convenient and budget-friendly way to get straight from Copenhagen airport to the city centre – *in just 15 minutes!*. *It also includes: The cost of Copenhagen Metro, the routes and lines explained, how to buy a ticket, all other transport alternatives and much more!*. Completed in 2002, Copenhagen’s modern Metro creates a direct link from the airport straight into the city. A photograph of the Copenhagen Metro service pulling into Copenhagen Airport metro station. ####...\n4. Is it easy to get from the airport to the city centre? - Facebook score=0.78\n   URL: https://www.facebook.com/groups/WonderfulCopenhagen/posts/3890274757854330/\n   Snippet: The journey takes about 40 minutes, trains depart 30 minutes, and a ticket costs 10 euro. Regular 1.20 euro metro tickets are not accepted for\n5. How To: Copenhagen Airport to City Centre in 13 minutes ✈️ score=0.76\n   URL: https://destinationwellknown.com/copenhagen-airport-to-city/\n   Snippet: HomeDenmarkCopenhagenHow to get from Copenhagen Airport to City Centre in 13 minutes ✈️. # How to get from Copenhagen Airport to City Centre in 13 minutes ✈️. ## Getting from Copenhagen Airport to the city centre is easy and cheap. Copenhagen airport to city centre. Welcome to my comprehensive guide, designed to help you get smoothly **from Copenhagen Airport to the city centre**. I’ve also made a video that shows precisely how to get from Copenhagen Airport to the city centre in just 13 minutes:. Let’s get started with the guide and I’ll tell you how to get from the airport to the city centre in just 13 minutes. ### Metro – best way to get to the city centre. Copenhagen Airport metro station, the metro is the best way to get to the city centre. The metro and the train are the best ways to get from Copenhagen Airport to the city centre.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "2d94f6c5-8d99-424f-91b9-dd66215f4947",
+        "tool_call_id": "call_APSJGyLmKeK4llVEaqE1TYif",
+        "status": "success"
+      },
+      {
+        "content": "",
+        "additional_kwargs": {
+          "refusal": null
+        },
+        "response_metadata": {
+          "token_usage": {
+            "completion_tokens": 337,
+            "prompt_tokens": 9736,
+            "total_tokens": 10073,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": null,
+              "audio_tokens": 0,
+              "reasoning_tokens": 227,
+              "rejected_prediction_tokens": null,
+              "image_tokens": 0
+            },
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0,
+              "cache_write_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost": 0.05879,
+            "is_byok": false,
+            "cost_details": {
+              "upstream_inference_cost": 0.05879,
+              "upstream_inference_prompt_cost": 0.04868,
+              "upstream_inference_completions_cost": 0.01011
+            }
+          },
+          "model_provider": "openai",
+          "model_name": "openai/gpt-5.5-20260423",
+          "system_fingerprint": null,
+          "id": "gen-1778953224-sEcltc18mjeBtLCaJyWJ",
+          "service_tier": "default",
+          "finish_reason": "tool_calls",
+          "logprobs": null
+        },
+        "type": "ai",
+        "id": "lc_run--019e31e0-0154-7b92-81e9-d4c34b2f6fd2-0",
+        "tool_calls": [
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Restaurant Barr Copenhagen official menu prices 2026 New Nordic"
+            },
+            "id": "call_mLjIRHRhrD9KtQWmOk27RHfz",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Restaurant Høst Copenhagen official menu prices 2026 New Nordic"
+            },
+            "id": "call_XbHqcagoSOJtz9l6TuuECHcb",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Selma Copenhagen official menu prices smorrebrod Michelin Bib Gourmand 2026"
+            },
+            "id": "call_nWx5bQbITWVlH5fk22nKD5Cc",
+            "type": "tool_call"
+          }
+        ],
+        "invalid_tool_calls": [],
+        "usage_metadata": {
+          "input_tokens": 9736,
+          "output_tokens": 337,
+          "total_tokens": 10073,
+          "input_token_details": {
+            "audio": 0,
+            "cache_read": 0
+          },
+          "output_token_details": {
+            "audio": 0,
+            "reasoning": 227
+          }
+        }
+      },
+      {
+        "content": "Tavily answer:\nRestaurant Barr Copenhagen's 2026 menu prices are not yet available; contact the restaurant directly for current pricing. The average price per person is around $65. The tasting menu starts from $90.\n\nTavily results:\n1. Barr Menu (Updated 2026) - Wheree score=1.00\n   URL: https://barr.wheree.com/menu\n   Snippet: Prices and items may change. Please contact the restaurant directly for the most current menu and pricing. Source: Menu photos and verified business information\n2. Barr - Copenhagen - Restaurant - 50Best Discovery score=1.00\n   URL: https://www.theworlds50best.com/discovery/Establishments/Denmark/Copenhagen/Barr.html\n   Snippet: Average price per person $65 · Tasting menu from $90 · Lunch: Fri – Sun Dinner: Mon – Sun · +45 32 96 32 93 · Visit Barr's Website\n3. At Restaurant Barr they take on New Nordic cooking with a twist ... score=1.00\n   URL: https://www.facebook.com/VisitCopenhagen/posts/at-restaurant-barr-they-take-on-new-nordic-cooking-with-a-twist-they-call-it-the/10157206945101519/\n   Snippet: Perfect location with views of the canal, music late on Fridays, selected courses on their menu, and friendly prices.\n4. Restaurant Barr | InstaHop score=1.00\n   URL: https://www.instahop.com/hops/restaurant-barr/\n   Snippet: The menu features a mix of classic and innovative dishes, accompanied by an extensive selection of Danish and international wines. The restaurant's elegant yet\n5. Copenhagen Under $300 USD - Barr vs… : r/finedining - Reddit score=1.00\n   URL: https://www.reddit.com/r/finedining/comments/1nrk29f/copenhagen_under_300_usd_barr_vs/\n   Snippet: I scanned the subreddit for cheaper fine dining and Barr came up the most. It looks very approachable at around $111 for tasting menu. But I'm",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "4d1efe76-ebdf-4c7f-b575-5fc2012a1390",
+        "tool_call_id": "call_mLjIRHRhrD9KtQWmOk27RHfz",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nIn 2026, Høst Copenhagen offers two 3-course set menus: the Höst Menu for 325 DKK and the Signature Menu for 425 DKK. Prices are in Danish Kroner. Menus may vary.\n\nTavily results:\n1. New Nordic Dining at Höst - Love Live Travel score=1.00\n   URL: https://www.lovelivetravel.co.uk/new-nordic-dining-at-host/\n   Snippet: Höst offers a choice of two 3-course set menus – the Höst Menu (325 DKK) or the Signature Menu (425 DKK) – or you can order various components à la carte.\n2. Restaurant Høst | COFOCO score=1.00\n   URL: https://cofoco.dk/en/restaurant/hoest\n   Snippet: As the name reveals, great Nordic ingredients and seasonal greens set the agenda at Høst, combining rustic and elegance, and always with big flavors. Høst is located in a classic Copenhagen building on the corner of Nørre Farimagsgade and Ahlefeldtsgade, where exposed brick walls and Danish midcentury furniture design reflect the kitchens’ ability to mix the minimalist and the idyllic. **Looking for a place to stay in Copenhagen?**. Book a room at Coco Hotel or Bella Grande and get 15% discount for up to 5 guests on all our restaurants. | Mcon Solutré-Pouilly, Chardonnay, Bourgogne |. | Apéritif, 3 course menu, 3 glass wine pairing, water and coffee |. | Cheverny Blanc, Sauvignon Blanc, Loire |. | Sparkling wine, 5 course menu, 5 glass wine pairing, coffee and water |. | 2023 La Chassornade - Aligoté, Frédéric Cossard, Bourgogne | **650,-** |. | 2024 Sauvignon Blanc Hervé Villemade Loire...\n3. HØST - Updated May 2026 - 1132 Photos & 301 Reviews - Yelp score=1.00\n   URL: https://www.yelp.com/biz/h%C3%B8st-k%C3%B8benhavn-k\n   Snippet: HØST - Try Our New Menu - Nørre Farimagsgade 41, 1364 København K, Denmark, 1132 Photos, +4589938409, Mon - 5:30 pm - 12:00 am, Tue - 5:30 pm - 12:00 am,\n4. Experience Creative Nordic Cuisine - Høst - København Menu score=1.00\n   URL: https://hst-kbenhavn.menu-world.com/menu\n   Snippet: Discover Høst in Copenhagen, where traditional Nordic dishes meet innovative flair. Enjoy a unique five-course meal with wine pairings, exceptional service,\n5. Høst, Copenhagen - Menu, Prices & Restaurant Reviews - Tripadvisor score=1.00\n   URL: https://www.tripadvisor.com.my/Restaurant_Review-g189541-d4106509-Reviews-Host-Copenhagen_Zealand.html\n   Snippet: Meal types. Dinner, Drinks ; Special Diets. Vegetarian friendly, Gluten free options ; FEATURES. Accepts Credit Cards. American Express. Discover.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "c853070f-14cb-4ffb-958d-0726ec5446dc",
+        "tool_call_id": "call_XbHqcagoSOJtz9l6TuuECHcb",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nSelma in Copenhagen offers smørrebrød with a modern twist, priced at a single euro, and holds a Michelin Bib Gourmand for 2026.\n\nTavily results:\n1. Selma, Copenhagen: Menu, Prices & Ratings | Restaurant Ranking score=0.56\n   URL: https://www.restaurant-ranking.com/restaurants/details/selma/\n   Snippet: Michelin \"stars\", Bib, 13,0. White Guide \"master level\", master, 17,0. Falstaff \"points\", 83-84, 14,0. OAD · Danske Spiseguide, ***, 14,0.\n2. Selma - Copenhagen, Denmark - Pearl score=0.52\n   URL: https://joinpearl.co/restaurants/copenhagen/selma\n   Snippet: Selma is Copenhagen's strongest smørrebrød case at the single-euro price tier: two consecutive Michelin Bib Gourmands, a top-20 Opinionated About Dining Casual\n3. Selma | Smørrebrød | VisitCopenhagen score=0.51\n   URL: https://www.visitcopenhagen.com/copenhagen/planning/selma-gdk1111195\n   Snippet: ## Select site. * The official guide to Copenhagen. ## Select language. Photo: Daniel Rasmussen© Wonderful Copenhagen. Swedish Magnus Peterson has joined forces with specialty brewery, Mikkeller, and opened Selma in the heart of Copenhagen. Here, he breaks the rules of what you thought ‘smørrebrød’ could be, which has quickly made Selma one of the city’s best smørrebrød restaurants. They serve a rotating a la carte smørrebrød-menu at Selma that changes daily and with the seasons. You can pair your smørrebrød of choice with one of the 12 rotating Mikkeller beers on tap. If you’re feeling adventurous, you can commit to the “small” or the “large” curated menu with either 5 or 7 servings, where the chef guides you around the pleasures of smørrebrød. Selma is the only smørrebrød restaurant in Copenhagen which has been awarded a Bib Gourmand in the Nordic Guide Michelin, which it got the first...\n4. SELMA, Copenhagen - Restaurant Reviews, Photos & Phone Number score=0.39\n   URL: https://www.tripadvisor.com/Restaurant_Review-g189541-d12351478-Reviews-Selma-Copenhagen_Zealand.html\n   Snippet: MICHELIN Bib Gourmand. Good quality, good value cooking. View more on MICHELIN Guide. Selma serveres traditional danish \"Smørrebrød\", with a modern take on it.\n5. Bib Gourmand restaurants | Visit Copenhagen score=0.38\n   URL: https://www.visitcopenhagen.com/copenhagen/eat-drink/restaurants/bib-gourmand-restaurants\n   Snippet: ## Select site. * The official guide to Copenhagen. ## Select language. # Bib Gourmand restaurants. Since 1955, the Michelin guide has highlighted restaurants offering exceptional food at reasonable prices - the mark is called Bib Gourmand. In Guide Michelin Nordic, 20 restaurants in Copenhagen were awarded a Bib Gourmand. So, if you want to go out and eat great food at affordable prices, we have listed the restaurants for you. We also recommend our guide to Michelin-starred restaurants. Restaurant Gabrielle is an authentic French bistro in the heart of Copenhagen. Selma is the only smørrebrød restaurant in Copenhagen which has been awarded a Bib Gourmand in the Nordic Guide Michelin, which it got the first time in 2019. Entrepreneurial Claus Meyer has along with two other chefs opened Restaurant Radio in Copenhagen, close to the Lakes and the beautiful old Broadcasting House. Photo: Sim...",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "87cdd507-6f27-4f79-8b0c-de2d0d54736b",
+        "tool_call_id": "call_nWx5bQbITWVlH5fk22nKD5Cc",
+        "status": "success"
+      },
+      {
+        "content": "",
+        "additional_kwargs": {
+          "refusal": null
+        },
+        "response_metadata": {
+          "token_usage": {
+            "completion_tokens": 191,
+            "prompt_tokens": 11829,
+            "total_tokens": 12020,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": null,
+              "audio_tokens": 0,
+              "reasoning_tokens": 154,
+              "rejected_prediction_tokens": null,
+              "image_tokens": 0
+            },
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 9216,
+              "cache_write_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost": 0.023403,
+            "is_byok": false,
+            "cost_details": {
+              "upstream_inference_cost": 0.023403,
+              "upstream_inference_prompt_cost": 0.017673,
+              "upstream_inference_completions_cost": 0.00573
+            }
+          },
+          "model_provider": "openai",
+          "model_name": "openai/gpt-5.5-20260423",
+          "system_fingerprint": null,
+          "id": "gen-1778953237-qjXHemJOmQuUE3HhQ3wq",
+          "service_tier": "default",
+          "finish_reason": "tool_calls",
+          "logprobs": null
+        },
+        "type": "ai",
+        "id": "lc_run--019e31e0-3383-7131-9a39-fce7af158712-0",
+        "tool_calls": [
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Danish Architecture Center official ticket prices adult 2026 DAC Copenhagen opening hours"
+            },
+            "id": "call_XKBQS1kGlV166aUgqhQxKFUn",
+            "type": "tool_call"
+          }
+        ],
+        "invalid_tool_calls": [],
+        "usage_metadata": {
+          "input_tokens": 11829,
+          "output_tokens": 191,
+          "total_tokens": 12020,
+          "input_token_details": {
+            "audio": 0,
+            "cache_read": 9216
+          },
+          "output_token_details": {
+            "audio": 0,
+            "reasoning": 154
+          }
+        }
+      },
+      {
+        "content": "Tavily answer:\nAdult ticket price for Danish Architecture Center in 2026 is QAR 101.54. Opening hours are Wednesday 10:00–18:00. DAC is in Copenhagen.\n\nTavily results:\n1. Danish Architecture Center Tickets [2026] - Trip.com score=0.77\n   URL: https://qa.trip.com/travel-guide/attraction/copenhagen/danish-architecture-centre-13551491/?locale=en-QA&curr=QAR\n   Snippet: Danish Architecture Center Ticket ; Adult · QAR 103.04 ; Student · QAR 66.89 ; Youth · QAR 66.89.\n2. Danish Architecture Centre Tickets [2026] - Trip.com score=0.76\n   URL: https://qa.trip.com/travel-guide/attraction/copenhagen/danish-architecture-centre-13551491\n   Snippet: Danish Architecture Centre Ticket ; Youth · QAR 65.92 ; Adult · QAR 101.54 ; Student · QAR 65.92.\n3. Danish Architecture Center: Entry Ticket | Book Online - Tiqets score=0.72\n   URL: https://www.tiqets.com/en/copenhagen-attractions-c113/tickets-for-danish-architecture-center-p980780/\n   Snippet: Opening hours. Danish Architecture Center. Wednesday. 10:00:00 - 18:00:00 ... Many of the exhibitions at DAC are for both adults and children, including virtual\n4. Packages and prices at DAC as a venue score=0.55\n   URL: https://dac.dk/en/packages-and-prices\n   Snippet: Packages and Prices · Meeting Packages. Photo: Dansk Arkitektur Center (DAC). 8:30 AM–12:00 PM or 1:00–5:00 PM. Half-Day Meeting · Photo: Hanne Fuglbjerg. 8:30 AM\n5. Danish Architecture Center - ATTRACTIONS - Copenhagen Card score=0.38\n   URL: https://copenhagencard.com/attractions/danish-architecture-center?srsltid=AfmBOoql-uUsJVdvtNrdVoQeVRluUlCqLGsjVlkjuEpfLMy_nnjHi_xN\n   Snippet: # Danish Architecture Center. The **Danish Architecture Center (DAC)** is an international cultural hotspot that creates engaging experiences and sparks dialogue about architecture, design, and urban development. Through exhibitions, tours, events, learning activities, and networking, DAC welcomes both kids and adults to explore the world of architecture. You can also browse new design pieces, artwork, and books at the **DAC Design Shop**, or enjoy a cup of coffee with a stunning view of the harbor at the **DAC Café**. Located in the iconic **BLOX** building on Copenhagen’s inner harbor, DAC is a key part of the city’s vibrant Cultural District. **Exhibitions Featuring Danish and International Icons**Experience the latest trends and leading voices in architecture and design through DAC’s inspiring exhibitions. is Danish Architecture Center’s first permanent exhibition on Danish architect...",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "33f0aeb2-0e39-4519-99fb-cd13e365dfb4",
+        "tool_call_id": "call_XKBQS1kGlV166aUgqhQxKFUn",
+        "status": "success"
+      },
+      {
+        "content": "",
+        "additional_kwargs": {
+          "refusal": null
+        },
+        "response_metadata": {
+          "token_usage": {
+            "completion_tokens": 324,
+            "prompt_tokens": 12536,
+            "total_tokens": 12860,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": null,
+              "audio_tokens": 0,
+              "reasoning_tokens": 288,
+              "rejected_prediction_tokens": null,
+              "image_tokens": 0
+            },
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 11264,
+              "cache_write_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost": 0.021712,
+            "is_byok": false,
+            "cost_details": {
+              "upstream_inference_cost": 0.021712,
+              "upstream_inference_prompt_cost": 0.011992,
+              "upstream_inference_completions_cost": 0.00972
+            }
+          },
+          "model_provider": "openai",
+          "model_name": "openai/gpt-5.5-20260423",
+          "system_fingerprint": null,
+          "id": "gen-1778953245-L6Q05IJDFGdAFzgySYUf",
+          "service_tier": "default",
+          "finish_reason": "tool_calls",
+          "logprobs": null
+        },
+        "type": "ai",
+        "id": "lc_run--019e31e0-549b-72a3-b7b5-fcc30fcc2a0c-0",
+        "tool_calls": [
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Designmuseum Denmark admission adult price DKK official opening hours 2026"
+            },
+            "id": "call_rKRTqIF8Tyk02frtxTimALDa",
+            "type": "tool_call"
+          }
+        ],
+        "invalid_tool_calls": [],
+        "usage_metadata": {
+          "input_tokens": 12536,
+          "output_tokens": 324,
+          "total_tokens": 12860,
+          "input_token_details": {
+            "audio": 0,
+            "cache_read": 11264
+          },
+          "output_token_details": {
+            "audio": 0,
+            "reasoning": 288
+          }
+        }
+      },
+      {
+        "content": "Tavily answer:\nAdult admission to Designmuseum Denmark in 2026 is 140 DKK. The museum is open Tuesday to Sunday from 10:00 to 18:00, and Thursdays until 20:00.\n\nTavily results:\n1. Reduced admission in January - Design Museum Denmark score=0.91\n   URL: https://designmuseum.dk/en/reduced-admission-in-january/\n   Snippet: Reduced admission at Designmuseum Danmark between January 2 and 15, 2026. · Adults: 100 DKK. · Young people and students: 75 DKK.\n2. Designmuseum Danmark Tickets [2026] - Trip.com score=0.90\n   URL: https://www.trip.com/travel-guide/attraction/copenhagen/designmuseum-danmark-13551529/\n   Snippet: Important Visitor Information: · Admission: Adults DKK 140 (approx. $$ Moderate). Children under 18 enter free—a great perk for families. · Hours: Open Tuesday\n3. DESIGNMUSEUM DANMARK - Updated May 2026 - Yelp score=0.86\n   URL: https://www.yelp.com/biz/designmuseum-danmark-k%C3%B8benhavn-2\n   Snippet: We explored the museum for 1-1.5 hours. Admission is 140 DKK (~19 EUR or $21 USD) per person. There's free storage lockers to put away your coat and\n4. Opening hours & admission - Design Museum Denmark score=0.83\n   URL: https://designmuseum.dk/en/besog-os/opening-hours-admission-2/\n   Snippet: * Open today 10:00 - 18:00. # Opening hours & admission. Here you’ll find information on opening hours, ticket prices and our annual pass. Get an overview of how to plan your visit and discover the many benefits of purchasing an annual pass. ### OPENING HOURS. **Tuesday – Sunday:** 10.00 – 18.00. **Thursday:** 10.00 – 20.00. *Please note: The ticket office closes one hour before the museum (17:00 Tuesday–Sunday; 19:00 on Thursdays). **Monday 25 May** (Whit Monday): 10.00 – 18.00. **Friday 5 June** (Constitution Day): 10.00 – 18.00. **See the library opening hours.**. **Under 27 and students:** DKK 90 *(valid ID and student card required)* **Schools and other educational institutions**visiting as part of a teaching programme have free admission to the museum. For groups larger than 10 people, please notify us of your visit at least one day in advance here. Groups of 10 or more are kindly...\n5. Opening hours & admission - Design Museum Denmark score=0.79\n   URL: https://designmuseum.dk/en/besog-os/opening-hours-admission/\n   Snippet: # Opening hours & admission. ### Opening hours. Tuesday – Sunday 10 AM – 6 PM. Thursday 10 AM – 8 PM. Tickets are sold until 1 hour before closing time (5 PM at Tuesday – Sunday and 7 PM at Thursday). * Thursday, April 17 (Maundy Thursday) from 10 AM to 8 PM. * Friday, April 18 (Good Friday) from 10 AM to 6 PM. * Sunday, April 20 (Easter Sunday) from 10 AM to 6 PM. * Monday, April 21 (Easter Monday) from 10 AM to 6 PM. * Thursday, June 5 (Constitution Day) from 10 AM to 8 PM. * Monday, June 9 (Whit Monday) from 10 AM to 6 PM. Groups of schools and educational institutions that visit the museum on their own in connection with a teaching course have free entrance to the museum.School groups of more than 10 people are asked to book entry via the online Group Booking.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "f5efb6a8-1d4d-4f62-82a6-3a63b5648cd9",
+        "tool_call_id": "call_rKRTqIF8Tyk02frtxTimALDa",
+        "status": "success"
+      },
+      {
+        "content": "# Baseline itinerary: Cologne to Copenhagen weekend, 6–8 June 2026\n\n## Goal and constraints understood\n- Travelers: 2 adults\n- Route: Cologne → Copenhagen → Cologne\n- Dates: Saturday 6 June to Monday 8 June 2026\n- Required transport: flight\n- Budget: €2,000 total for two\n- Accommodation: stylish design or boutique hotel\n- Interests: Scandinavian design, architecture, New Nordic cuisine, cycling, museums\n- Baseline limitation: this plan uses only Tavily web-search evidence; flight schedules, hotel availability, restaurant reservations, and live prices must be verified before booking.\n\n## Search summary\n- Flights: Tavily surfaced Eurowings/Google/eDreams evidence that Cologne Bonn Airport–Copenhagen Airport flights exist, but exact June 2026 weekend flight times/fares were not verified via airline booking inventory.\n- Hotel shortlist: [Hotel SP34 official page](https://www.brochner-hotels.com/our-locations/hotel-sp34) describes Nordic-touch rooms in Copenhagen’s Latin Quarter; Tavily also surfaced 2026 OTA pricing around US$246–252/night for 2 adults, but availability for these exact dates is unverified.\n- Design museum: [Designmuseum Danmark official opening/admission page](https://designmuseum.dk/en/besog-os/opening-hours-admission-2/) shows Tue–Sun 10:00–18:00, Thu until 20:00; Tavily found adult admission around DKK 140.\n- Architecture museum: [Danish Architecture Center official visit page](https://dac.dk/en/plan-your-visit) and [VisitCopenhagen DAC page](https://www.visitcopenhagen.com/copenhagen/planning/danish-architecture-center-gdk414885) support DAC/BLOX as a core architecture stop; ticket price should be verified.\n- Public transport: [Copenhagen Airport metro page](https://www.cph.dk/en/parking-transport/bus-train-metro-taxi/metro) says metro to/from the airport is quick, with Nørreport–airport about 15 minutes and frequent service; [City of Copenhagen transport ticket page](https://international.kk.dk/live/transport-and-parking/public-transport/ticket-and-prices-of-public-transportation) and [City Pass page](https://www.publictransport.dk/tickets/citypass) explain public-transport tickets/passes.\n- Cycling: [Donkey Republic Copenhagen page](https://www.donkey.bike/cities/copenhagen) supports app-based bike rental; [pricing page](https://www.donkey.bike/pricing) says exact prices are shown in app.\n- New Nordic food: [Høst official/COFOCO page](https://cofoco.dk/en/restaurant/hoest), [Marv & Ben official menu](https://www.marvogben.dk/menu), [VisitCopenhagen Marv & Ben page](https://www.visitcopenhagen.com/copenhagen/planning/marv-ben-gdk412650), and [VisitCopenhagen Selma page](https://www.visitcopenhagen.com/copenhagen/planning/selma-gdk1111195) support the restaurant choices.\n\n## Day 1 — Saturday 6 June 2026: Fly in, design-first Copenhagen, New Nordic dinner\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 07:00–10:30 | transport | Fly Cologne Bonn Airport to Copenhagen Airport; choose a morning departure if available. | CGN → CPH | €350–€500 estimate for 2 return tickets | Flight availability and exact fare not verified; Tavily surfaced Cologne–Copenhagen flight evidence via Eurowings/aggregators, but book directly after checking schedules. |\n| 10:30–11:15 | transport | Metro/train from Copenhagen Airport to city centre, then walk or short metro to hotel. | CPH → Latin Quarter / city centre | €16–€25 estimate for 2 | CPH says metro runs frequently and Nørreport–airport takes about 15 min: [CPH metro](https://www.cph.dk/en/parking-transport/bus-train-metro-taxi/metro). |\n| 11:15–12:00 | hotel | Drop bags at Hotel SP34; early check-in only if available. | Hotel SP34, Latin Quarter | Included in hotel estimate | Nordic-touch boutique option: [Hotel SP34 official](https://www.brochner-hotels.com/our-locations/hotel-sp34). |\n| 12:00–13:15 | food | Casual arrival lunch near the Latin Quarter; keep it light before museums. | Indre By / Latin Quarter | €45–€70 estimate for 2 | Specific venue not fixed; choose based on flight timing. |\n| 13:30–15:30 | museum / architecture | Visit Danish Architecture Center at BLOX: exhibitions, DAC Design Shop, rooftop/café views. | BLOX, Copenhagen waterfront | €45–€60 estimate for 2 | Core architecture stop via [DAC visit page](https://dac.dk/en/plan-your-visit) and [VisitCopenhagen DAC](https://www.visitcopenhagen.com/copenhagen/planning/danish-architecture-center-gdk414885); ticket price to verify. |\n| 15:30–16:15 | architecture walk | Walk the harborfront around BLOX, Lille Langebro, and Christianshavn edge for contemporary urban design. | BLOX / harborfront | Free | Outdoor architecture route; no ticket needed. |\n| 16:15–17:30 | hotel / rest | Check in, rest, freshen up. | Hotel SP34 | Included | Hotel availability and check-in time must be confirmed. |\n| 18:00–19:00 | drinks | Aperitif at hotel bar or nearby natural-wine bar. | Latin Quarter / Indre By | €35–€60 estimate for 2 | Flexible; keep reservation-dependent. |\n| 19:30–22:00 | food | Dinner at Høst for Nordic ingredients, seasonal greens, rustic-elegant design setting. Reserve well ahead. | Høst, Nørre Farimagsgade | €115–€175 estimate for 2 before extra drinks | Høst is described as Nordic/seasonal with midcentury design elements: [Høst official](https://cofoco.dk/en/restaurant/hoest). Tavily surfaced set-menu prices from secondary sources; verify current menu. |\n| 22:00–22:30 | transport | Walk or short metro back to hotel. | Nørreport / Latin Quarter | €0–€10 estimate | Use public transport if tired; tickets/passes via [City of Copenhagen](https://international.kk.dk/live/transport-and-parking/public-transport/ticket-and-prices-of-public-transportation). |\n\n## Day 2 — Sunday 7 June 2026: Designmuseum, cycling, modern smørrebrød, New Nordic dinner\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 08:30–09:30 | food | Boutique-hotel breakfast or nearby bakery/coffee. | Latin Quarter | €0–€45 estimate for 2 | Depends whether breakfast is included in hotel rate. |\n| 09:45–10:15 | cycling / transport | Pick up bikes via Donkey Republic or use metro/bus if weather is poor. | City centre | €20–€40 estimate for 2 half-day | Donkey Republic supports app-based rentals in Copenhagen; exact prices are in app: [Copenhagen bikes](https://www.donkey.bike/cities/copenhagen), [pricing](https://www.donkey.bike/pricing). |\n| 10:30–12:30 | museum / design | Visit Designmuseum Danmark for Scandinavian furniture, craft, graphic/design history. | Bredgade / Frederiksstaden | €38 estimate for 2 | Official hours Tue–Sun 10:00–18:00, Thu until 20:00: [Designmuseum hours/admission](https://designmuseum.dk/en/besog-os/opening-hours-admission-2/). Tavily found adult admission about DKK 140. |\n| 12:30–13:00 | architecture walk | Short walk through Frederiksstaden / Amalienborg axis toward Nyhavn. | Bredgade → Nyhavn | Free | Good compact architecture walk after the museum. |\n| 13:15–14:30 | food | Lunch at Selma for modern smørrebrød and Mikkeller beer pairing. Reserve if possible. | Central Copenhagen | €70–€110 estimate for 2 | VisitCopenhagen describes Selma’s rotating smørrebrød menu and Bib Gourmand status: [Selma](https://www.visitcopenhagen.com/copenhagen/planning/selma-gdk1111195). |\n| 14:45–16:45 | cycling / architecture | Cycle to Superkilen and around Nørrebro for urban design, public space, and everyday Copenhagen cycling culture. | Nørrebro / Superkilen | Included in bike estimate | Outdoor urban-design stop; exact route flexible. |\n| 17:00–18:30 | free time | Coffee, design shopping, or rest before dinner. | Jægersborggade / Latin Quarter | €25–€60 estimate for 2 | Flexible buffer for weather and museum pace. |\n| 19:30–22:00 | food | Dinner at Marv & Ben for Nordic gastronomy using local/organic ingredients. Reserve ahead. | Old Copenhagen apartment setting | €180–€260 estimate for 2 before premium wine | VisitCopenhagen and Michelin describe Marv & Ben as Nordic/Bib Gourmand; official menu shows individual dishes around DKK 150: [VisitCopenhagen](https://www.visitcopenhagen.com/copenhagen/planning/marv-ben-gdk412650), [official menu](https://www.marvogben.dk/menu). |\n| 22:00–22:30 | transport | Return to hotel by bike, walk, taxi, or metro depending on drinks/weather. | City centre | €0–€25 estimate | Keep bikes only if safe and allowed by rental terms. |\n\n## Day 3 — Monday 8 June 2026: Harbor architecture, design shopping, fly home\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 08:30–09:30 | food | Breakfast and check-out; leave bags at hotel. | Hotel SP34 | €0–€45 estimate for 2 | Breakfast inclusion unverified. |\n| 09:45–11:30 | architecture / cycling | Morning architecture loop: Inner Harbour, Royal Library “Black Diamond” exterior, Cirkelbroen, Christianshavn. | Copenhagen harbor | €0–€30 estimate | Outdoor architecture/cycling plan avoids Monday museum-closure risk. |\n| 11:45–13:00 | shopping / design | Design shopping and browsing: Illums Bolighus / Hay House / nearby Danish design stores. | Strøget / Indre By | Variable | Retail hours and purchases not budgeted; verify individual store hours. |\n| 13:00–14:15 | food | Final New Nordic-leaning lunch; choose Barr if open/available or a relaxed café depending on departure time. | Indre By / harbor area | €80–€140 estimate for 2 | Barr is a relevant New Nordic-adjacent option; Tavily surfaced 50Best evidence but official prices were not verified, so treat as optional. |\n| 14:15–15:15 | free time | Retrieve bags, final coffee, buffer for airport transfer. | Latin Quarter | €15–€35 estimate for 2 | Keep buffer because flight time is unverified. |\n| 15:15–16:00 | transport | Metro/train to Copenhagen Airport. | City centre → CPH | €16–€25 estimate for 2 | Metro to airport is frequent; see [CPH metro](https://www.cph.dk/en/parking-transport/bus-train-metro-taxi/metro). |\n| 17:00–20:30 | transport | Fly Copenhagen to Cologne Bonn; choose late-afternoon/evening return if available. | CPH → CGN | Included in flight estimate | Exact return flight not verified with live airline inventory. |\n\n## Budget summary\n- Flights Cologne–Copenhagen return for 2: €350–€500 estimate\n- Hotel SP34 or similar boutique/design hotel, 2 nights: €500–€700 estimate\n- Local transport / City Pass / airport transfers: €60–€100 estimate for 2\n- Bike rental: €20–€50 estimate for 2\n- Museums:\n  - Designmuseum Danmark: about €38 for 2 based on DKK 140 adult admission found via Tavily\n  - DAC: €45–€60 estimate for 2; verify current ticket price\n- Food and drinks:\n  - Høst dinner: €115–€175 estimate for 2\n  - Selma lunch: €70–€110 estimate for 2\n  - Marv & Ben dinner: €180–€260 estimate for 2 before premium wine\n  - Other breakfasts, coffees, lunch/drinks: €200–€320 estimate\n- Estimated total: **€1,578–€2,313**\n- Practical target to stay under €2,000:\n  - Book flights early and aim for ≤€450 total.\n  - Choose Hotel SP34 or similar around ≤€600 for 2 nights.\n  - Keep one dinner wine-light, or choose Høst + Marv & Ben rather than ultra-luxury tasting menus such as Alchemist/Geranium.\n  - Avoid large design purchases in the core trip budget.\n\n## Unscheduled or uncertain items\n- Exact Cologne–Copenhagen flight times, fares, airline, and baggage fees are not confirmed by Tavily evidence.\n- Hotel SP34 exact availability and rate for 6–8 June 2026 must be checked before booking.\n- Restaurant reservations are essential but not confirmed.\n- DAC current 2026 ticket price was not reliably retrieved from an official source in Tavily results.\n- Noma is not scheduled; Tavily results indicated it closed in 2024 / changed format, so it is not treated as a bookable dinner option.\n- Alchemist and Geranium are not scheduled because they would likely put the weekend over budget once flights and hotel are included.\n\n## Assumptions and gaps\n- Currency conversion used rough planning logic: DKK 7.45 ≈ €1; actual card rates may differ.\n- The itinerary assumes morning outbound and late-afternoon/evening return flights; if only midday flights are available, compress Day 1 or Day 3.\n- Monday 8 June is treated as a lower-museum day because several Copenhagen museums commonly close Mondays; outdoor architecture, shopping, and harbor routes are safer.\n- Costs are planning estimates, not live quotes.\n- This is a baseline plan only, using Tavily search evidence rather than live booking APIs.",
+        "additional_kwargs": {
+          "refusal": null
+        },
+        "response_metadata": {
+          "token_usage": {
+            "completion_tokens": 3737,
+            "prompt_tokens": 13425,
+            "total_tokens": 17162,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": null,
+              "audio_tokens": 0,
+              "reasoning_tokens": 516,
+              "rejected_prediction_tokens": null,
+              "image_tokens": 0
+            },
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 12288,
+              "cache_write_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost": 0.123939,
+            "is_byok": false,
+            "cost_details": {
+              "upstream_inference_cost": 0.123939,
+              "upstream_inference_prompt_cost": 0.011829,
+              "upstream_inference_completions_cost": 0.11211
+            }
+          },
+          "model_provider": "openai",
+          "model_name": "openai/gpt-5.5-20260423",
+          "system_fingerprint": null,
+          "id": "gen-1778953258-nwFzAHj98DB0onmNtClb",
+          "service_tier": "default",
+          "finish_reason": "stop",
+          "logprobs": null
+        },
+        "type": "ai",
+        "id": "lc_run--019e31e0-8755-7832-93b5-3bc95adfc545-0",
+        "tool_calls": [],
+        "invalid_tool_calls": [],
+        "usage_metadata": {
+          "input_tokens": 13425,
+          "output_tokens": 3737,
+          "total_tokens": 17162,
+          "input_token_details": {
+            "audio": 0,
+            "cache_read": 12288
+          },
+          "output_token_details": {
+            "audio": 0,
+            "reasoning": 516
+          }
+        }
+      }
+    ]
+  },
+  "error": null,
+  "metadata": {
+    "LANGSMITH_ENDPOINT": "https://eu.api.smith.langchain.com",
+    "LANGSMITH_PROJECT": "travelplanner",
+    "LANGSMITH_TRACING": "true",
+    "ls_integration": "langgraph",
+    "ls_run_depth": 0,
+    "revision_id": "10ec8d0-dirty",
+    "thread_id": "332bf812-b428-4757-895f-4ef438df0d90"
+  },
+  "langsmith": {
+    "organization": {
+      "name": "Personal",
+      "id": "477adfd8-a90b-45c3-95f6-1375325770e8"
+    },
+    "workspace": {
+      "name": "Workspace 1",
+      "id": "06241d75-72ec-4af5-b325-52629e7730a0"
+    },
+    "tracing_project": {
+      "id": "d92c06e8-225e-4665-a627-fdf375468f7c",
+      "name": "travelplanner"
+    }
+  }
+}

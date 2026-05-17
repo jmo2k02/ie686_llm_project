@@ -1,0 +1,451 @@
+{
+  "inputs": {
+    "messages": [
+      {
+        "content": "You are the Simple Baseline TravelPlanner Agent.\n\nPurpose:\n- Produce a single-agent baseline itinerary for later comparison against the\n  multi-agent TravelPlanner system.\n- You have exactly one tool: Tavily web search. You have no sub-agents and no\n  specialized flight, hotel, restaurant, routing, or validation tools.\n\nOperating rules:\n1. Use Tavily web search before the final itinerary for current facts, links,\n   opening hours, prices, neighborhoods, transit hints, and source URLs.\n   The workflow may require a minimum number of completed Tavily searches before\n   you may answer with final markdown only; if you receive a workflow nudge,\n   complete the requested searches first.\n   Use a small number of high-value searches, then synthesize the final answer.\n2. Respect every hard constraint supplied by the user. If a constraint cannot be\n   verified, state the assumption instead of silently ignoring it.\n3. Prefer official tourism, venue, transit, accommodation, restaurant, and event\n   pages when search results contain them. Use blogs and aggregators only as\n   secondary evidence.\n4. Do not invent exact prices, opening hours, flight numbers, hotel availability,\n   or booking status. Mark uncertain values as estimates.\n5. Order each day like the main execution agent: travel/check-in first, meals at\n   plausible meal times, attractions during likely opening hours, transfers\n   between distant places, and rest/free time when useful.\n6. Return only markdown in the final answer.\n\nFinal markdown structure:\nUse exactly these section headings, in this order:\n1. `# Baseline itinerary: ...`\n2. `## Goal and constraints understood`\n3. `## Search summary`\n4. `## Day 1 ...` and one section per day\n5. `## Budget summary`\n6. `## Unscheduled or uncertain items`\n7. `## Assumptions and gaps`\n\nEach day must be a markdown table with exactly these columns:\n`Time | Type | Plan | Location | Cost | Evidence/Notes`.\n\nSource discipline:\n- Every non-obvious venue, attraction, transit pass, opening-time claim, and\n  ticket price should have either a markdown link in Evidence/Notes or be marked\n  as an estimate.\n- If a requested item cannot be scheduled with available evidence, list it under\n  \"Unscheduled or uncertain items\" rather than hiding it.\n- Never include raw Tavily result dumps in the final answer.\n\nExample final output shape:\n\n# Baseline itinerary: 3 days in Lisbon\n\n## Goal and constraints understood\n- Origin: Berlin\n- Dates: 2026-06-12 to 2026-06-14\n- Budget: 800 EUR for 2 travelers\n\n## Search summary\n- Official tourism page for Belém Tower: https://...\n- Transit pass information: https://...\n\n## Day 1\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 09:00-10:30 | transport | Arrive and transfer to hotel | Airport to Baixa | €8 | Metro estimate; verify live schedules |\n\n## Budget summary\n- Estimated total: €...\n\n## Unscheduled or uncertain items\n- Flight number unavailable because only Tavily web search is available.\n\n## Assumptions and gaps\n- Hotel prices require live booking confirmation.\n",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "system",
+        "id": "eb2fe371-0ab8-486b-9965-e93ff4e8bd9e"
+      },
+      {
+        "content": "GOAL\nCreate a comparable baseline travel plan in markdown.\n\nUSER QUERY\nWe are two families and one couple going to Ibiza from Dusseldorf from August 15th to 22nd, 2026 — 6 adults, a toddler (2 years old) and a 9-year-old. Total budget is €12,000. We need a villa with a pool big enough for all of us. The families want beach days and child-friendly activities; the couple wants to enjoy the nightlife. Please plan accommodation and a joint itinerary that works for everyone.\n\nCONSTRAINTS\n{\n  \"hard_constraints\": {\n    \"origin\": \"Dusseldorf\",\n    \"destination\": \"Ibiza\",\n    \"date_from\": \"2026.08.15\",\n    \"date_to\": \"2026.08.22\",\n    \"travelers\": {\n      \"adults\": 6,\n      \"children_under_6\": 1,\n      \"children_6_to_16\": 1\n    },\n    \"budget_amount\": 12000,\n    \"budget_currency\": \"EUR\",\n    \"accommodation\": \"villa with pool\",\n    \"transport\": \"Flight\",\n    \"interests\": \"beach and child-friendly activities (families), clubs and nightlife (young couple), water sports, shared dinners\"\n  }\n}\n\nOUTPUT REQUIREMENT\nReturn the final plan as markdown using the same practical timetable style as the main execution agent, but acknowledge that this baseline only has Tavily evidence. Include source links found via Tavily.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "human",
+        "id": "77cc1e0e-b989-4c1d-9891-301edd4e21e4"
+      }
+    ]
+  },
+  "outputs": {
+    "messages": [
+      {
+        "content": "You are the Simple Baseline TravelPlanner Agent.\n\nPurpose:\n- Produce a single-agent baseline itinerary for later comparison against the\n  multi-agent TravelPlanner system.\n- You have exactly one tool: Tavily web search. You have no sub-agents and no\n  specialized flight, hotel, restaurant, routing, or validation tools.\n\nOperating rules:\n1. Use Tavily web search before the final itinerary for current facts, links,\n   opening hours, prices, neighborhoods, transit hints, and source URLs.\n   The workflow may require a minimum number of completed Tavily searches before\n   you may answer with final markdown only; if you receive a workflow nudge,\n   complete the requested searches first.\n   Use a small number of high-value searches, then synthesize the final answer.\n2. Respect every hard constraint supplied by the user. If a constraint cannot be\n   verified, state the assumption instead of silently ignoring it.\n3. Prefer official tourism, venue, transit, accommodation, restaurant, and event\n   pages when search results contain them. Use blogs and aggregators only as\n   secondary evidence.\n4. Do not invent exact prices, opening hours, flight numbers, hotel availability,\n   or booking status. Mark uncertain values as estimates.\n5. Order each day like the main execution agent: travel/check-in first, meals at\n   plausible meal times, attractions during likely opening hours, transfers\n   between distant places, and rest/free time when useful.\n6. Return only markdown in the final answer.\n\nFinal markdown structure:\nUse exactly these section headings, in this order:\n1. `# Baseline itinerary: ...`\n2. `## Goal and constraints understood`\n3. `## Search summary`\n4. `## Day 1 ...` and one section per day\n5. `## Budget summary`\n6. `## Unscheduled or uncertain items`\n7. `## Assumptions and gaps`\n\nEach day must be a markdown table with exactly these columns:\n`Time | Type | Plan | Location | Cost | Evidence/Notes`.\n\nSource discipline:\n- Every non-obvious venue, attraction, transit pass, opening-time claim, and\n  ticket price should have either a markdown link in Evidence/Notes or be marked\n  as an estimate.\n- If a requested item cannot be scheduled with available evidence, list it under\n  \"Unscheduled or uncertain items\" rather than hiding it.\n- Never include raw Tavily result dumps in the final answer.\n\nExample final output shape:\n\n# Baseline itinerary: 3 days in Lisbon\n\n## Goal and constraints understood\n- Origin: Berlin\n- Dates: 2026-06-12 to 2026-06-14\n- Budget: 800 EUR for 2 travelers\n\n## Search summary\n- Official tourism page for Belém Tower: https://...\n- Transit pass information: https://...\n\n## Day 1\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 09:00-10:30 | transport | Arrive and transfer to hotel | Airport to Baixa | €8 | Metro estimate; verify live schedules |\n\n## Budget summary\n- Estimated total: €...\n\n## Unscheduled or uncertain items\n- Flight number unavailable because only Tavily web search is available.\n\n## Assumptions and gaps\n- Hotel prices require live booking confirmation.\n",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "system",
+        "id": "eb2fe371-0ab8-486b-9965-e93ff4e8bd9e"
+      },
+      {
+        "content": "GOAL\nCreate a comparable baseline travel plan in markdown.\n\nUSER QUERY\nWe are two families and one couple going to Ibiza from Dusseldorf from August 15th to 22nd, 2026 — 6 adults, a toddler (2 years old) and a 9-year-old. Total budget is €12,000. We need a villa with a pool big enough for all of us. The families want beach days and child-friendly activities; the couple wants to enjoy the nightlife. Please plan accommodation and a joint itinerary that works for everyone.\n\nCONSTRAINTS\n{\n  \"hard_constraints\": {\n    \"origin\": \"Dusseldorf\",\n    \"destination\": \"Ibiza\",\n    \"date_from\": \"2026.08.15\",\n    \"date_to\": \"2026.08.22\",\n    \"travelers\": {\n      \"adults\": 6,\n      \"children_under_6\": 1,\n      \"children_6_to_16\": 1\n    },\n    \"budget_amount\": 12000,\n    \"budget_currency\": \"EUR\",\n    \"accommodation\": \"villa with pool\",\n    \"transport\": \"Flight\",\n    \"interests\": \"beach and child-friendly activities (families), clubs and nightlife (young couple), water sports, shared dinners\"\n  }\n}\n\nOUTPUT REQUIREMENT\nReturn the final plan as markdown using the same practical timetable style as the main execution agent, but acknowledge that this baseline only has Tavily evidence. Include source links found via Tavily.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "human",
+        "id": "77cc1e0e-b989-4c1d-9891-301edd4e21e4"
+      },
+      {
+        "content": "",
+        "additional_kwargs": {
+          "refusal": null
+        },
+        "response_metadata": {
+          "token_usage": {
+            "completion_tokens": 246,
+            "prompt_tokens": 1099,
+            "total_tokens": 1345,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": null,
+              "audio_tokens": 0,
+              "reasoning_tokens": 41,
+              "rejected_prediction_tokens": null,
+              "image_tokens": 0
+            },
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0,
+              "cache_write_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost": 0.012875,
+            "is_byok": false,
+            "cost_details": {
+              "upstream_inference_cost": 0.012875,
+              "upstream_inference_prompt_cost": 0.005495,
+              "upstream_inference_completions_cost": 0.00738
+            }
+          },
+          "model_provider": "openai",
+          "model_name": "openai/gpt-5.5-20260423",
+          "system_fingerprint": null,
+          "id": "gen-1778954386-s8cdVX3CB9DEyahr1H0t",
+          "service_tier": "default",
+          "finish_reason": "tool_calls",
+          "logprobs": null
+        },
+        "type": "ai",
+        "id": "lc_run--019e31f1-bca1-7b23-b42f-6a5628144442-0",
+        "tool_calls": [
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Dusseldorf to Ibiza flights August airlines direct Eurowings 2026"
+            },
+            "id": "call_X5LXSvV835glj5bPg4WKeXYT",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Ibiza villa with private pool 4 bedrooms 8 guests August official rental Ibiza family"
+            },
+            "id": "call_5dfkamWXdAMhsqXQAog4aMWE",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Ibiza family beaches child friendly Cala Bassa Cala Tarida official tourism"
+            },
+            "id": "call_p4PBt3KcD4PysaVSQGnANBUq",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Ibiza child friendly activities aquarium caves water park official hours prices"
+            },
+            "id": "call_kSlySUzCuzQDaJXWDKnWPAxM",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Ibiza nightlife clubs official tickets Pacha Ushuaia Hï Ibiza 2026"
+            },
+            "id": "call_4x1Q4BHOZRMVPWhR8v0KjXTK",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Ibiza public transport airport bus taxi car rental family travel official"
+            },
+            "id": "call_7nQ8t7TkNkIXOSBhohEZ9VXM",
+            "type": "tool_call"
+          }
+        ],
+        "invalid_tool_calls": [],
+        "usage_metadata": {
+          "input_tokens": 1099,
+          "output_tokens": 246,
+          "total_tokens": 1345,
+          "input_token_details": {
+            "audio": 0,
+            "cache_read": 0
+          },
+          "output_token_details": {
+            "audio": 0,
+            "reasoning": 41
+          }
+        }
+      },
+      {
+        "content": "Tavily answer:\nEurowings offers direct flights from Dusseldorf to Ibiza in August 2026 starting from €54.99. The flight duration is about 2 hours and 35 minutes.\n\nTavily results:\n1. Flights from Dusseldorf to Ibiza in August 2026 | Eurowings score=0.95\n   URL: https://www.eurowings.com/en/booking/offers/flights-from/DE/DUS/to/ES/IBZ/2026-8.html\n   Snippet: Secure low fares from Dusseldorf to Ibiza in August 2026 ✈ Eurowings will fly you to your dream destination from just €54.99*. Book now.\n2. Flight from Dusseldorf (DUS) in August 2026 - Eurowings score=0.84\n   URL: https://www.eurowings.com/en/booking/offers/flights-from/DE/DUS/2026-8.html\n   Snippet: Fly to many dream destinations in Europe from Dusseldorf in August 2026 ✈ Book your flight with Eurowings now from as little as €29.99*.\n3. Direct (non-stop) flights from Dusseldorf to Ibiza - schedules score=0.81\n   URL: https://www.flightsfrom.com/DUS-IBZ\n   Snippet: This route is operated by Eurowings and TUI fly Deutschland and the flight time is 2 hours and 35 minutes. The distance is 900 miles. Monthly schedule. Week\n4. Affordable flights from Dusseldorf to Ibiza - Eurowings score=0.73\n   URL: https://www.eurowings.com/en/booking/offers/flights-from/DE/DUS/to/ES/IBZ.html\n   Snippet: Looking for affordable flights from Dusseldorf to Ibiza? Then have a look at our deals. Eurowings can fly you to Ibiza (IBZ) in June 2026 from just €54.99*.\n5. Find Cheap Flights from Düsseldorf to Ibiza - Google score=0.72\n   URL: https://www.google.com/travel/flights/flights-from-dusseldorf-to-eivissa.html\n   Snippet: Eurowings and TUI fly fly direct from Düsseldorf to Ibiza. There are 11 Eurowings direct flights from Düsseldorf to Ibiza per week. Flights are available",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "c83971d7-06ac-4c9b-9022-0dd628b22c4c",
+        "tool_call_id": "call_X5LXSvV835glj5bPg4WKeXYT",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nA 4-bedroom Ibiza villa with a private pool for 8 guests is available in August. It features modern amenities and is located near Santa Eulalia. Rental prices start from £1309 per night.\n\nTavily results:\n1. Luxury 4-Bedroom Villa With Private Pool, Ibiza score=0.80\n   URL: https://excellenceluxuryvillas.com/luxury-villas-rentals/balearic-islands/villa-garbi-benirras-ibiza/\n   Snippet: Luxury villa rental Ibiza with private pool and air-con. 4 bedrooms, sleeps 8. From £1309/night. Enquire now.\n2. Villa Santa Eulalia – beautifully decorated villa with pool for 8 people located in the town of Santa Eulalia - Villa rental in ibiza - exclusive fincas and houses to rent score=0.79\n   URL: https://www.ferienhaus-ibiza.de/en/rentals/villa-santa-eulalia-beautifully-decorated-villa-with-pool-for-8-people-located-in-the-town-of-santa-eulalia/\n   Snippet: ### Villa Santa Eulalia – beautifully decorated villa with pool for 8 people located in the town of Santa Eulalia. Villa Santa Eulalia is a contemporary 4 bedroom modern Villa with huge open plan living space and perfectly situated close to Santa Eulalia. Villa Santa Eulalia is a new-build home with large open living spaces and natural indoor/outdoor flow. The villa has bi-folding glass doors opening to the garden, swimming pool (7m x 3.5m), terraces and dining area. Villa Santa Eulalia is a less than a five minute walk to the restaurants, shops and vibrancy of Santa Eulalia as well as the picturesque town-beach. Adjacent to the dining area is a bedroom, which can serve as a double or twin, with bathroom. On the same floor is a double bedroom and twin bedroom with access to the first floor terrace with views over the pool, garden towards the hilltop Santa Eulalia church.\n3. Ibiza 4-bedroom Accommodations & villas for Families & Groups score=0.75\n   URL: https://www.villa-finder.com/en/4-bedroom-ibiza\n   Snippet: With four bedrooms to sleep up to eight guests, Casa Alvira offers plenty of outdoor spaces, a swimming pool, and barbecue facilities in Ibiza. from USD 942\n4. Gorgeous Ibiza Villa Las Palomas 4 Bedrooms Beautiful Sunset ... score=0.66\n   URL: https://www.booking.com/hotel/es/gorgeous-ibiza-villa-las-palomas-4-bedrooms-beautiful-sunset-country-view-san-jo.en-gb.html\n   Snippet: The property features a spacious layout with a private pool, balcony, and patio. Modern Amenities: Guests enjoy free WiFi, air-conditioning, and a fully\n5. Ibiza City Villas and Beach house | Best Price on cozycozy score=0.65\n   URL: https://www.cozycozy.com/us/ibiza-town-villa-rentals\n   Snippet: house , Santa Eulària des Riu. Villa Lola, a four-bedroom house rental in Santa Eulalia del Rio, is a five-minute drive from Ibiza Town and Talamanca Beach, offering easy access to popular attractions. This San Jose house rental, located in the Sa Carroca residential area, is a 10-minute drive from Ibiza Town and the airport. Villa Close To Ibiza Town Sleeps 12 - Ibiza City. house , Santa Eulària des Riu. Villa Tino is located in Can Furnet, a quiet area close to Talamanca Beach and a short drive from Ibiza Town. The villa features a fully equipped kitchen, air conditioning, a private pool, a terrace, a garden, and parking, making it ideal for a comfortable and enjoyable stay. Villa 'Can Sole' With Private Pool, Wi-fi And Air Conditioning - Ibiza City. This 5-bedroom villa features a private pool, a terrace, a garden, and a fully equipped kitchen with a dishwasher, making it perfect for...",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "3f626ad0-8e05-4907-b754-ef0e394fec8b",
+        "tool_call_id": "call_5dfkamWXdAMhsqXQAog4aMWE",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nCala Tarida and Cala Bassa are family-friendly beaches in Ibiza with shallow waters and amenities. Both beaches are popular for families and have facilities nearby.\n\nTavily results:\n1. Cala Tarida, an ideal beach for families score=0.79\n   URL: https://www.barcelo.com/guia-turismo/en/spain/ibiza/things-to-do/cala-tarida/\n   Snippet: Cala Tarida is an Ibizan seaside area popular with families. Don't miss its magnificent setting and its sunsets — among the island's most impressive.\n2. Best Ibiza Calm Beaches for Families and Activities score=0.76\n   URL: https://www.clubtickets.com/blog/ibiza-calm-beaches-families-activities\n   Snippet: Cala Llonga is one of the most family-friendly beaches on the island. ; Cala Tarida is a larger beach with white sand and a mix of shallow areas and small rocky\n3. Cala Tarida - One of Ibiza's most family-friendly beaches score=0.74\n   URL: https://www.introducingibiza.com/cala-tarida\n   Snippet: Cala Tarida is an urbanised beach where hotels, flats and restaurants have been incorporated into the landscape, creating multiple services.\n4. Ideal beaches for family fun in Sant Josep score=0.72\n   URL: https://www.santjosep.net/en/ideal-beaches-for-family-fun-in-sant-josep/\n   Snippet: Cala Bassa. This beach with its dazzling white sand and crystal-clear waters ... Official tourism site of the City Council of Sant Josep de Sa Talaia.\n5. Family Beaches in Ibiza: Best Spots With Facilities score=0.72\n   URL: https://nightfallgroup.com/what-are-the-best-family-friendly-beaches-in-ibiza-that-have-facilities-and-are-close-to-restaurants/\n   Snippet: Cala Tarida has shallow swimming areas for kids and beach bars for parents. Pedalos, small paddle boats, as well as inflatables, are available",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "6f85e443-77c3-4b4f-8904-0e844bd93d34",
+        "tool_call_id": "call_p4PBt3KcD4PysaVSQGnANBUq",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nIbiza offers family-friendly activities like Aguamar Water Park, Caves of Can Marca, and the Aquarium of Ibiza. Water park hours and prices vary; check the official site for details. Prices for 2 hours at Aguamar are 40€ for adults and 20€ for children.\n\nTavily results:\n1. 10 things to do in Ibiza with family - Villanovo score=0.72\n   URL: https://www.villanovo.com/guides/spain/ibiza/activities-with-children\n   Snippet: For 2 hours, the prices are 40€ for adults and 20€ for children. Advance ... Located in Playa d'en Bossa, the Aguamar Water Park is a perfect alternative to the\n2. Kids Activities in Ibiza | MiCasaTuCasa score=0.68\n   URL: https://micasatucasaibiza.com/ibiza-guide/kids-activities/\n   Snippet: Kids Activities in Ibiza · Waterparks · Aquarium · Can Marca Caves · Go Karting · Horse Riding · Bam Bu Ku by O Beach · Farm Visits.\n3. Family things to do | Ibiza Spotlight score=0.63\n   URL: https://www.ibiza-spotlight.com/activity/family-things-do\n   Snippet: # Family things to do. ### Beaches, excursions and boat trips, bouncy castles and a world of watersports await you for lots of excellent Ibiza-style family fun. Discover the hidden Ibiza on a thrilling quad bike tour. A healthy, ecological and fun way to discover Ibiza's…. Discover Ibiza's coastline on board San Antonio's favourite…. ### Bike Ibiza. By bicycle or e-bike, discover Ibiza as a true cycling…. Cruise on a catamaran to visit some of Ibiza’s best beaches…. Two mini train excursions through some of the northeast's…. Ibiza is truly a **special destination for family holidays**, and from aquariums to stalactite caves, you will find no shortage of fun and exciting things for children of all ages to do during your holiday. **Watersports**, including diving, stand up paddle, sailing, parasailing, banana-boat and pedalos can be found on most of Ibiza's beaches, and the island's water...\n4. Waterparks & Aquariums in Ibiza — 3 of Our Favourites score=0.52\n   URL: https://www.seeibiza.com/waterparks/\n   Snippet: Sirenis Aquagames Waterpark. Located inside the family-friendly Sirenis Seaview Country Club Aparthotel, this waterpark is open to guests of the hotel for free,\n5. Best 8 Ibiza Plans With Kids in the Afternoon score=0.45\n   URL: https://www.clubtickets.com/blog/ibiza-plans-kids-afternoon\n   Snippet: The best afternoons in Ibiza follow a simple structure: Start around 4–5 PM when the heat drops. Choose one main activity (beach, cave, or park). Add a",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "bd2be757-8b15-434c-bc89-60315dca6c74",
+        "tool_call_id": "call_kSlySUzCuzQDaJXWDKnWPAxM",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nFor official tickets to Pacha, Ushuaia, and Hï Ibiza in 2026, visit their respective websites: https://pacha.com/events, https://www.clubtickets.com/clubbing/ushuaia-ibiza, and https://www.theushuaiaexperience.com/en/club.\n\nTavily results:\n1. Pacha Ibiza 2026 Events | Official Website Calendar & Tickets score=1.00\n   URL: https://pacha.com/events\n   Snippet: # Ibiza 2026 Party Calendar — Pacha Ibiza. ## Get ready for Ibiza's most electrifying events in 2026 at Pacha Ibiza. ## La Familia. BECOME A PART OF THE PACHA FAMILY. ### DESTINO FIVE IBIZA. ### PACHA HOTEL. ### RESTAURANTE PACHA. ### PACHA ICONS. ### PACHA COLLECTION. © 2026 Pacha Nightclub All Rights Reserved. ![RÜFÜS DU SOL [DJ Set]](/_next/image? url=https%3A%2F%2Fpacha-production.s3.eu-west-1.amazonaws.com%2F9e373c0e-1ed2-49bb-920c-d857013e6a51%2Ffd3a15c9-7358-470c-88dd-b97fe682605f.webp&w=3840&q=75). RÜFÜS DU SOL [DJ Set].\n2. Official tickets for Ushuaïa Ibiza 2026 score=1.00\n   URL: https://www.clubtickets.com/clubbing/ushuaia-ibiza\n   Snippet: by David Guetta tickets and info, party calendar Ushuaïa Ibiza club ibiza. tickets and info, party calendar Ushuaïa Ibiza club ibiza. USHUAÏA IBIZA party Tomorrowland and Dimitri Vegas & Like Mike tickets and info, party calendar Ushuaïa Ibiza club ibiza. USHUAÏA IBIZA party Martin Garrix at Ushuaïa Ibiza tickets and info, party calendar Ushuaïa Ibiza club ibiza. USHUAÏA IBIZA party Calvin Harris tickets and info, party calendar Ushuaïa Ibiza club ibiza. USHUAÏA IBIZA party ANTS tickets and info, party calendar Ushuaïa Ibiza club ibiza. USHUAÏA IBIZA party Swedish House Mafia tickets and info, party calendar Ushuaïa Ibiza club ibiza. USHUAÏA IBIZA party I Love Reggaeton Ibiza tickets and info, party calendar Ushuaïa Ibiza club ibiza. USHUAÏA IBIZA party elrow Ushuaïa Ibiza tickets and info, party calendar Ushuaïa Ibiza club ibiza. USHUAÏA IBIZA party Ozuna tickets and info, party calenda...\n3. Ushuaïa Ibiza | Iconic Open-Air Parties | Season 2026 score=1.00\n   URL: https://www.theushuaiaexperience.com/en/club\n   Snippet: Buy tickets   Let's go   Book a table   Let's go   Find out more   Let's go. ## Experience the Ushuaïa Ibiza spirit to the utmost. Book your VIP table   Let's go. Buy Tickets   Let's go. ### Tuesdays 16 June / 23 June / 30 June. Dimitri Vegas & Like Mike invite you to Planaxis. Ozuna plays three day parties at Ushuaïa Ibiza on Tuesdays 16, 23 and 30 June 2026. elrow returns to Ushuaïa Ibiza for three special outdoor events. editorial Special Guests announced for Armin van Buuren at Ushuaïa Ibiza. editorial USHUAÏA IBIZA TO HOST WORLD PREMIERE OF NEW CONCEPT FROM J BALVIN & DJ SNAKE. * Dimitri Vegas and Like Mike at Tomorrow Ushuaïa Ibiza residency. * Armin van Buuren performs at his Ushuaïa Ibiza DJ residency in 2023. **Safety:** You are responsible for your own safety and the security of your belongings while attending (or traveling to and from) events at Ushuaïa and/or Hï Ibiza.\n4. Pacha Ibiza Club Events | ibizafiestas.com score=1.00\n   URL: https://ibizafiestas.com/en/club/pacha-ibiza?iteration=79\n   Snippet: All official tickets links, guestlists contacts and DJs lineups of the main parties of Ibiza ... Chris Stussy presents USS Closing Party season 2026. A-Z\n5. Ibiza Calendar 2026 - Clubs, Events, Tickets & Lineups ☀️ score=1.00\n   URL: https://ticketsibiza.com/ibiza-calendar/\n   Snippet: Our Ibiza Calendar 2026 has all the Ibiza Event listings, line ups, parties, club information, DJs and tickets you need for planning your trip to Ibiza in",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "fc0546db-e68f-448f-a241-258e9f68e0d3",
+        "tool_call_id": "call_4x1Q4BHOZRMVPWhR8v0KjXTK",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nFor Ibiza travel, buses, taxis, and car rentals are available. The L9 bus is the cheapest option from the airport. Taxis cost around €20-25.\n\nTavily results:\n1. Essential Transport Information for Ibiza Travelers - TikTok score=1.00\n   URL: https://www.tiktok.com/@everythingibiza/video/7487522608070659383\n   Snippet: ... transport options in Ibiza, including taxis and buses to help navigate the island. Get ready for your trip! #ibiza #taxi #bus #travel”.\n2. Transport - Getting around Ibiza score=1.00\n   URL: https://www.introducingibiza.com/transport\n   Snippet: Transport · Buses · Taxis · Car Rental · Boats · Airport transfers · Take your guide everywhere with you · Hotel deals.\n3. Getting around in Ibiza with kids – A family friendly guide score=1.00\n   URL: https://www.taxibambino.com/single-post/getting-around-in-ibiza-with-kids-a-family-friendly-guide\n   Snippet: Family travel in Ibiza made easy: buses for towns and beaches, plus pre-booked taxis with child seats for safe, stress-free family trips.\n4. Ibiza Transportation: Best Ways to Get Around the Island score=1.00\n   URL: https://www.tickets-ibiza.com/ibiza-transportation/\n   Snippet: Airport transfers are available at the Ibiza airport. It'll cost you around €20–25 for a taxi (15–20 min) and €4 for the Line 10 bus. You also\n5. Getting around Ibiza. Transportation in Ibiza Guide - Clubtickets score=1.00\n   URL: https://www.clubtickets.com/blog/transportation-in-ibiza-budget-travel\n   Snippet: After arriving at the airport, the cheapest form of transport is the bus. The L9 bus will take you from the bus stop outside Ibiza airport via San Josep to San",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "315f4542-b73a-4fc5-9d95-39b04fbe5090",
+        "tool_call_id": "call_7nQ8t7TkNkIXOSBhohEZ9VXM",
+        "status": "success"
+      },
+      {
+        "content": "",
+        "additional_kwargs": {
+          "refusal": null
+        },
+        "response_metadata": {
+          "token_usage": {
+            "completion_tokens": 204,
+            "prompt_tokens": 5261,
+            "total_tokens": 5465,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": null,
+              "audio_tokens": 0,
+              "reasoning_tokens": 21,
+              "rejected_prediction_tokens": null,
+              "image_tokens": 0
+            },
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 1024,
+              "cache_write_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost": 0.027817,
+            "is_byok": false,
+            "cost_details": {
+              "upstream_inference_cost": 0.027817,
+              "upstream_inference_prompt_cost": 0.021697,
+              "upstream_inference_completions_cost": 0.00612
+            }
+          },
+          "model_provider": "openai",
+          "model_name": "openai/gpt-5.5-20260423",
+          "system_fingerprint": null,
+          "id": "gen-1778954395-cZbWtm8VYYwX0PRqDWDP",
+          "service_tier": "default",
+          "finish_reason": "tool_calls",
+          "logprobs": null
+        },
+        "type": "ai",
+        "id": "lc_run--019e31f1-e029-7ac0-aee7-ec350bf9eafc-0",
+        "tool_calls": [
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Ibiza official tourism beaches Cala Bassa Cala Llonga family"
+            },
+            "id": "call_TIqmzPhUUCS7Vx4igQMbbHnr",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Ibiza bus official airport route fares 2026"
+            },
+            "id": "call_c37XaIVGJ0Y8HEXBxjYIByhu",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "official Ibiza aquarium Cap Blanc opening hours prices"
+            },
+            "id": "call_KzaEzEpNjwhGIfZy7ptZCNFr",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Can Marca caves Ibiza official opening hours prices"
+            },
+            "id": "call_mm2Fyq1J3rCb0IK8bFqhPXgA",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Ibiza restaurants family friendly Santa Eulalia beach official menus reservations"
+            },
+            "id": "call_NuYDVIQwPf6SkYsIvajp5oi5",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Ibiza boat trip Formentera family official tickets 2026"
+            },
+            "id": "call_CaFilg6hUWWoSrdQXZoHsTgZ",
+            "type": "tool_call"
+          }
+        ],
+        "invalid_tool_calls": [],
+        "usage_metadata": {
+          "input_tokens": 5261,
+          "output_tokens": 204,
+          "total_tokens": 5465,
+          "input_token_details": {
+            "audio": 0,
+            "cache_read": 1024
+          },
+          "output_token_details": {
+            "audio": 0,
+            "reasoning": 21
+          }
+        }
+      },
+      {
+        "content": "Tavily answer:\nCala Llonga and Cala Bassa are popular family-friendly beaches in Ibiza, known for their safe, shallow waters and scenic surroundings. Cala Llonga offers water sports and family activities, while Cala Bassa is famous for its clear turquoise waters and golden sand.\n\nTavily results:\n1. Cala Longa - The perfect cove for families - Ibiza score=1.00\n   URL: https://www.introducingibiza.com/cala-llonga\n   Snippet: Cala Llonga is a quiet and easily accessible beach that's perfect for families and young people interested in water sports.\n2. The five best family-friendly beaches in Ibiza - Charles Marlow score=1.00\n   URL: https://www.charlesmarlow.com/stories/family-friendly-beaches-ibiza\n   Snippet: Cala Bassa, on the west coast of Ibiza, is regarded as one of the most beautiful on the island. The water is clear and shallow, and a thick band of trees\n3. Cala Llonga beach | Ibiza Spotlight score=1.00\n   URL: https://www.ibiza-spotlight.com/beach/cala_llonga_i.htm\n   Snippet: The small resort is popular with families and couples and offers everything one needs when on holiday. The immensely picturesque bay is sheltered by green hills\n4. WHITE IBIZA Beaches — Cala Llonga score=1.00\n   URL: https://white-ibiza.com/beaches/cala-llonga/\n   Snippet: White Ibiza Magazine: Issue 11 – The Wedding Edition. # Cala Llonga. Papaya, L’Altre Balagar, Restaurante Cala Llonga. Surrounded by an amazing pine forest, the 360-degree view from the sand is postcard perfect and the tranquil waters are shallow, crystal clear and safe – a very popular choice for families with young children of the beaches in Ibiza. Cala Llonga is a mecca for families on holiday, thanks to the multitude of things to do, water sports, shops, activities and safe, shallow water. It’s worth arriving early to Cala Llonga, as early morning beach goers get their pick of the sun beds closest to the water of course! A weekly digest to the best curated guide of Ibiza.\n5. 7 Great beaches for families on Ibiza Whether you want to relax on ... score=1.00\n   URL: https://www.facebook.com/ibizaspotlight/posts/7-great-beaches-for-families-on-ibiza-whether-you-want-to-relax-on-pristine-whit/579265874233924/\n   Snippet: ✨ Cala Bassa is famous for its crystal-clear turquoise waters and soft golden sand, surrounded by centuries- old pine and juniper trees that",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "468e319f-f5a1-477d-8c10-c3042b878b19",
+        "tool_call_id": "call_TIqmzPhUUCS7Vx4igQMbbHnr",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nThe official airport bus fare to Ibiza Town in 2026 is €4.90. This is the standard price for the route. Check the latest updates for any changes.\n\nTavily results:\n1. Getting Around Ibiza: A Local's Complete Transport Guide for ... score=1.00\n   URL: https://www.ibiza-calendar.com/blog/getting-around-ibiza-transport-guide-2026\n   Snippet: Bus L9: From the airport to Ibiza Town bus station for €1.80. Slow, but extremely cheap. Taxi: Fixed fare of ~€15–€18 to the port area. Around 10–15 minutes\n2. Airport Bus Prices 2026 across the 5 upgraded routes. See ... score=1.00\n   URL: https://www.facebook.com/ibizaexplorer/posts/airport-bus-prices-2026-across-the-5-upgraded-routes-see-early-post-for-timetabl/921203754277431/\n   Snippet: Airport Bus Prices 2026 across the 5 upgraded routes. See early post for timetable and dates! ✅️ #Ibiza2026.\n3. Buses - Lines, timetables and fares score=1.00\n   URL: https://www.introducingibiza.com/bus\n   Snippet: The price is 4- € 5 ( US$ 5.86) per trip. Check out the routes on the Discobus website. Airport Bus Tranfers. If you're looking for a quick, easy, and cost-\n4. Ibiza's new bus system has different prices for same journey score=1.00\n   URL: https://www.facebook.com/groups/ibizaessentials/posts/3384837615017360/\n   Snippet: Trips like Sant Antoni to Cala Tarida can reach around €4.70, while airport routes to Ibiza town can go up to €4.90 when paying cash. The\n5. Ibiza's new bus system just dropped… and people are ... score=1.00\n   URL: https://www.facebook.com/repeatibiza/posts/ibizas-new-bus-system-just-dropped-and-people-are-already-confusedwith-the-launc/1780638309739285/\n   Snippet: Trips like Sant Antoni to Cala Tarida can reach around €4.70, while airport routes to Ibiza town can go up to €4.90 when paying cash. The",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "8719a69a-c5c6-491d-8ae3-fddca11f2d54",
+        "tool_call_id": "call_c37XaIVGJ0Y8HEXBxjYIByhu",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nAquarium Cap Blanc in Ibiza is open daily from 09:30 to 22:00 from May to October. In November to April, it opens Saturdays from 10:00 to 14:00. Adult tickets cost €7.00.\n\nTavily results:\n1. Aquarium Cap Blanc San Antonio Ibiza | The White Isle score=0.80\n   URL: https://www.thewhiteisle.co.uk/aquarium-cap-blanc-san-antonio-ibiza/\n   Snippet: Opening times are June, July, August & September 0930 – 2220 daily, October open daily 9.30 – 18.30, November – April Winter opening – Saturdays only 1000 –\n2. Aquarium Cap Blanc, Ibiza | Ticket Price | Timings | Address: TripHobo score=0.78\n   URL: https://www.triphobo.com/places/formentera-spain/aquarium-cap-blanc\n   Snippet: Address: Ctra. de Cala Gració, s/n, 07820 Sant Antoni de Portmany, Illes Balears, Spain, Ibiza ; Timings: 10:00 am - 10:00 pm Details ; Phone: +34-663945475\n3. Aquarium Cap Blanc - Discover Ibiza score=0.78\n   URL: https://discoveribiza.com/thingstodo/aquarium-cap-blanc/\n   Snippet: Everyday open from 09.30 to 22.00. On May and October we close at 18.30. Winter Timetable (1st November – 30th April):. Open saturdays from 10.00 to 14.00; (For\n4. Visit Ibiza - The Cap Blanc Aquarium - Arts & Culture score=0.75\n   URL: https://visit.today/ibiza/en/about/the-cap-blanc-aquarium-305\n   Snippet: Summer time is from 1 May until 31 October. During the summer time, the Aquarium Cap Blanc is open from 09.30 to 22.00. In May and October, the Aquarium Cap\n5. Aquarium Cap Blanc (San Antonio Abad) - Whichmuseum score=0.65\n   URL: https://whichmuseum.com/museum/aquarium-cap-blanc-san-antonio-abad-33716\n   Snippet: More opening hours. Admission. 4 – 12, €5.00. Adults, €7.00. More ticket prices. Facilities. We don't have information about the facilities of Aquarium Cap",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "4b033394-12b5-4346-9bfe-291af6cfc869",
+        "tool_call_id": "call_KzaEzEpNjwhGIfZy7ptZCNFr",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nCan Marca Caves in Ibiza open from 10:30 a.m. to 7:30 p.m. from May to October, and 10:30 a.m. to 5:30 p.m. from November to April. Entry price starts at $101. Office hours are 09:00 to 14:00 Monday to Friday.\n\nTavily results:\n1. Can Marça caves | Ibiza Spotlight score=0.79\n   URL: https://www.ibiza-spotlight.com/activity/can-marca-caves\n   Snippet: Tel: (+34) 971 34 66 71. Office hours: 09:00 - 14:00 Ibiza time, Monday - Friday. If you can't get through, please Contact us.\n2. Cova de Can Marçà - The ancient smugglers' cave - Ibiza score=0.77\n   URL: https://www.introducingibiza.com/cova-can-marca\n   Snippet: From May 1st to October 31st: 10:30 a.m. to 7:30 p.m. Visits every 30 minutes. From November 1st to April 30th: 10:30 a.m. to 5:30 p.m. Visits every 45 minutes.\n3. Can Marca Caves (Cueva de Can Marcà) Tours and Tickets - Viator score=0.76\n   URL: https://www.viator.com/Ibiza-attractions/Can-Marca-Caves/d4217-a6083\n   Snippet: 5 hours; Free Cancellation. from. $101. Price varies by group size. Check Availability ... The Can Marca Caves are a must-see for all first-time visitors to Ibiza\n4. Tickets for Cova de Can Marça in Ibiza | Clubtickets score=0.73\n   URL: https://www.clubtickets.com/activities/cova-de-can-marca/cova-de-can-marca\n   Snippet: - Guided tours in various languages. Important information. - Opening times: May to October 10:30am - 7:30pm (visit every 30 minutes); November to April\n5. Cova de Can Marçà Tours & Activities - GetYourGuide score=0.55\n   URL: https://www.getyourguide.com/cova-de-can-marca-l150278/\n   Snippet: We had to wait an hour for them to open, since they open at 10:45 and not at 10:00 as you say. Thumbnail Image. +0. Can Marca caves, Las Dalias Hippie Market",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "e3b8ea37-066d-40e2-abe8-458fec6e6382",
+        "tool_call_id": "call_mm2Fyq1J3rCb0IK8bFqhPXgA",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nOhana Ibiza Restaurant in Santa Eulalia is family-friendly with reservations available. Pura Vida Beach Restaurant is also family-friendly and located on Santa Eulalia Beach. Both offer menus suitable for families.\n\nTavily results:\n1. Family-Friendly Restaurant in Santa Eulalia - Ohana Ibiza score=0.77\n   URL: https://ohanaibizarestaurant.com/santa-eulalia/\n   Snippet: A cozy dining experience inspired by the warmth of hawaiian hospitality and the flavors of the Mediterranean. Ohana Santa Eulalia Restaurant combines the warmth of hawaiian hospitality with the freshness of mediterranean cuisine. Located in the heart of Santa Eulalia Ibiza, it’s the perfect spot to gather, share, and enjoy. Experience the welcoming spirit of Ohana Santa Eulalia, a family-friendly restaurant in Ibiza known for its relaxed ambiance and flavorful dishes. ## Bringing the essence of the islands to your table. Our dishes are crafted with **fresh, high-quality ingredients**, blending the best of **mediterranean flavors and tropical inspiration**. From light and colorful poké bowls to rich, flavorful seafood dishes, every bite is designed to bring you closer to the spirit of Ohana. Discover our curated selection of signature cocktails, fine wines, and refreshing drinks—perfectly...\n2. Santa Eulalia del Río Family Restaurants - Ibiza - Tripadvisor score=0.75\n   URL: https://www.tripadvisor.com/Restaurants-g642208-zfp5-Santa_Eulalia_del_Rio_Ibiza_Balearic_Islands.html\n   Snippet: Santa Eulalia del Río Family Restaurants · 1. Brunchit - Ibiza. 4.9. (911 reviews) · 2. Donde Marián Y Miguel. 4.7. (1,141 reviews) · 3. Ohana\n3. The 50 best family restaurants in Santa Eulalia del Rio - Wanderlog score=0.70\n   URL: https://wanderlog.com/list/geoCategory/551346/best-family-restaurants-in-santa-eulalia-del-rio\n   Snippet: Lagom Ibiza is a top-rated restaurant located in Santa Eulalia del Rio, Ibiza. It offers a Spanish menu with a variety of dishes, including seafood and\n4. Kids in Ibiza at Pura Vida Beach Restaurant score=0.70\n   URL: https://puravida-ibiza.com/kids-in-ibiza-at-pura-vida-beach-restaurant/\n   Snippet: Our Santa Eulalia Beach Restaurant, located directly on the beach of Playa Niu Blau, on the outskirts of the main town, is an especially family-friendly spot.\n5. Any recommendations for family friendly restaurants in Santa Eulalia ... score=0.69\n   URL: https://www.facebook.com/groups/ibizaessentials/posts/3004593933041732/\n   Snippet: We offer a kids' menu, delicious burgers, and incredible fall-off-the-bone meat, smoked for up to 17 hours before serving. Perfect for a family",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "be0e5d5d-4e46-4b5f-93a2-6bfe79f67ac8",
+        "tool_call_id": "call_NuYDVIQwPf6SkYsIvajp5oi5",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nFor 2026, official tickets for the Formentera boat trip from Ibiza are available via Clubtickets and Ferries offer discounts up to 25%. Book in advance for the best rates.\n\nTavily results:\n1. Tickets for the boat trip The Formentera Cruise 2026 - Clubtickets score=0.89\n   URL: https://www.clubtickets.com/boat/the-formentera-cruise/the-formentera-cruise/2026-06-15\n   Snippet: Buy your official tickets for the boat trip The Formentera Cruise on the island of Ibiza departing from Figueretas with Clubtickets in 2026 - 15/06/2026.\n2. Tickets for the boat trip The Formentera Cruise 2026 - Clubtickets score=0.88\n   URL: https://www.clubtickets.com/boat/the-formentera-cruise/the-formentera-cruise\n   Snippet: Buy your official tickets for the boat trip The Formentera Cruise on the island of Ibiza departing from Figueretas with Clubtickets in 2026.\n3. Formentera Wonders Boat Trip 15th May 2026 - Tickets Ibiza ☀️ score=0.81\n   URL: https://ticketsibiza.com/event/formentera-wonders-boat-trip-playa-den-bossa-boat-parties-2026-05-15/\n   Snippet: Formentera Wonders Boat Trip ... We partner with primary ticket vendors in Ibiza to bring you the cheapest Official Ibiza Club Tickets.\n4. Ibiza - Formentera Ferry: Schedules, Prices & Official Deals | Visitformentera.com score=0.79\n   URL: https://www.visitformentera.com/en/ferry-ibiza-formentera-schedules/\n   Snippet: ## Ibiza – Formentera Ferry: Schedules, Prices & Official Deals | Visitformentera.com. # Ibiza ↔ Formentera Ferry: 2026 Schedules, Prices, Offers & Official Discounts. Check Ibiza-Formentera Ferry schedules, prices & deals. Save up to 25% on your official 2026 ticket using our exclusive discount code. Updated schedules and ferry frequency between Ibiza and Formentera (both directions). Ibiza to Formentera Ferry Schedules. Ibiza to Formentera ferry schedules and bookings. ## Ferry Ibiza Formentera schedules. A search will be carried out in **Trasmapi, FormenteraLines and Mediterránea Pitiusa,** to have all the available ferry schedules between Ibiza and Formentera and to be able to make the reservation completely online with discounts of up to 25% with the promotional code **2026VISITFORMENTERA**. With the promo code **2026VISITFORMENTERA**, you can get up to 25% off on online ferry booki...\n5. Ferry Ibiza to Formentera: Timetable, Prices and Discount 2026 score=0.75\n   URL: https://www.affittoformentera.com/en/ferry-ibiza-formentera/\n   Snippet: # Ferry Ibiza to Formentera: Timetable, Prices and Discount 2026. Book your **fast ferry from Ibiza to Formentera** online at the best guaranteed price. Use the code **ESTATE123** for an exclusive discount. By purchasing an **OPEN ticket**, you will have maximum flexibility: you can board any ferry from the **Formentera Lines** and **Trasmapi** companies. Booking your **Ibiza to Formentera ferry** in advance is not just about convenience; it’s the best strategy to secure **discounted tickets** at the lowest price. * **Guaranteed Web Rate:** by purchasing online, the price is always lower than at the ticket office at Ibiza port. + **Guaranteed Refund:** if you need to cancel your trip, you are entitled to a **90% refund** (if requested at least 48 hours before departure). > **Affitto Formentera’s Tip:** if you are traveling with children or want maximum flexibility, the Optima fare costs...",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "f9abb20d-1b7f-47da-8783-7da8481268ff",
+        "tool_call_id": "call_CaFilg6hUWWoSrdQXZoHsTgZ",
+        "status": "success"
+      },
+      {
+        "content": "# Baseline itinerary: Ibiza from Dusseldorf, 15–22 August 2026\n\n## Goal and constraints understood\n- Trip: Dusseldorf → Ibiza, 15–22 August 2026, by flight.\n- Group: 6 adults, 1 toddler aged 2, 1 child aged 9.\n- Accommodation requirement: villa with private pool, large enough for all 8 travelers.\n- Total budget: €12,000.\n- Interests to balance:\n  - Families: beach days, child-friendly activities, water sports, manageable evenings.\n  - Couple: Ibiza nightlife and clubs.\n  - Whole group: shared dinners and relaxed villa time.\n- Baseline limitation: this plan uses Tavily web evidence only. It does **not** confirm live flight seats, villa availability, final accommodation quote, restaurant reservations, or club line-ups for the exact dates.\n\n## Search summary\n- Direct Dusseldorf–Ibiza flights appear to be offered by Eurowings in August 2026, with advertised fares “from €54.99” and about 2h35 flight time: [Eurowings DUS–IBZ August 2026](https://www.eurowings.com/en/booking/offers/flights-from/DE/DUS/to/ES/IBZ/2026-8.html).\n- Villa evidence found for 4-bedroom / sleeps-8 pool villas, including a Santa Eulalia villa with 4 bedrooms, pool, and walkable town/beach access: [Villa Santa Eulalia](https://www.ferienhaus-ibiza.de/en/rentals/villa-santa-eulalia-beautifully-decorated-villa-with-pool-for-8-people-located-in-the-town-of-santa-eulalia/). Prices and availability for 15–22 Aug 2026 require direct confirmation.\n- Family beach evidence found for Cala Llonga and Cala Bassa as family-friendly / shallow-water options: [Cala Llonga](https://www.introducingibiza.com/cala-llonga), [Sant Josep family beaches incl. Cala Bassa](https://www.santjosep.net/en/ideal-beaches-for-family-fun-in-sant-josep/).\n- Child-friendly activity evidence found for Aquarium Cap Blanc and Cova de Can Marçà: [Aquarium Cap Blanc](https://discoveribiza.com/thingstodo/aquarium-cap-blanc/), [Cova de Can Marçà](https://www.introducingibiza.com/cova-can-marca).\n- Nightlife evidence found for official / primary club pages: [Pacha Ibiza events](https://pacha.com/events), [Ushuaïa Ibiza](https://www.theushuaiaexperience.com/en/club), [Hï / Ushuaïa-related ticketing via Clubtickets](https://www.clubtickets.com/clubbing/ushuaia-ibiza).\n- Formentera day-trip evidence found for ferry / boat options: [Visit Formentera ferry schedules and offers](https://www.visitformentera.com/en/ferry-ibiza-formentera-schedules/).\n\n## Day 1 - Saturday 15 August: Fly to Ibiza, villa check-in, easy pool evening\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| Morning | transport | Fly Dusseldorf to Ibiza; choose a direct flight if available and book with luggage for families. | DUS → IBZ | ~€2,400–€3,200 group estimate | Eurowings shows DUS–IBZ August 2026 fares from €54.99 and ~2h35 flight time, but final fares/baggage/toddler rules need live booking: [Eurowings](https://www.eurowings.com/en/booking/offers/flights-from/DE/DUS/to/ES/IBZ/2026-8.html). |\n| 12:00-13:30 | transport | Pick up 2 rental cars or 1 large 9-seat van with toddler/child seats; drive to Santa Eulalia-area villa. | Ibiza Airport → Santa Eulalia | ~€900–€1,400/week estimate | A car/van is strongly recommended for beaches, caves, clubs, and children; exact rental prices and child-seat fees unverified. |\n| 14:00-16:00 | accommodation | Check in to target villa: 4-bedroom private-pool villa sleeping 8, ideally Santa Eulalia for family access and safer evenings. | Santa Eulalia area | Target ≤€6,500–€7,200 for 7 nights | Suitable evidence: 4-bedroom Villa Santa Eulalia, pool 7m x 3.5m, sleeps 8, walkable to shops/restaurants/beach: [Villa Santa Eulalia](https://www.ferienhaus-ibiza.de/en/rentals/villa-santa-eulalia-beautifully-decorated-villa-with-pool-for-8-people-located-in-the-town-of-santa-eulalia/). Availability/price must be confirmed. |\n| 16:00-18:30 | rest | Pool time, unpack, grocery run for breakfasts/snacks/toddler supplies. | Villa / Santa Eulalia | ~€250 groceries estimate | Self-catering helps keep the group inside the €12,000 budget. |\n| 19:00-21:00 | food | First shared dinner close to the villa; choose an easy family-friendly restaurant. | Santa Eulalia | ~€220–€300 group estimate | Ohana Santa Eulalia describes itself as family-friendly: [Ohana Ibiza](https://ohanaibizarestaurant.com/santa-eulalia/). |\n| 21:00 onward | rest | Early night for families; couple has optional low-key drinks only, no big club night after travel. | Santa Eulalia | Variable | Keep first night light due to children and travel fatigue. |\n\n## Day 2 - Sunday 16 August: Cala Llonga beach day and relaxed dinner\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 08:00-09:00 | food | Breakfast at villa. | Villa | Included in groceries | Self-catering. |\n| 09:30-13:00 | beach | Family beach morning at Cala Llonga: shallow water, easy facilities, optional paddle boat / gentle water sports. | Cala Llonga | Beach free; water sports ~€80–€150 estimate | Cala Llonga is described as quiet, accessible, and good for families/water sports: [Cala Llonga](https://www.introducingibiza.com/cala-llonga). |\n| 13:00-14:30 | food | Lunch near beach; keep toddler nap needs flexible. | Cala Llonga | ~€180–€240 group estimate | Restaurant choice to be booked locally; cost estimate only. |\n| 15:00-17:30 | rest | Return to villa for toddler nap, pool, shade, and downtime. | Villa | €0 | Avoids peak afternoon heat. |\n| 18:30-20:30 | food | Shared dinner at villa: barbecue / simple cooking night. | Villa | ~€180 groceries estimate | Uses villa amenities and reduces restaurant spend. |\n| 22:30-02:30 | nightlife | Couple optional first club night: Pacha or similar, depending on 2026 programme. Families stay at villa. | Ibiza Town | ~€160–€250 for 2 estimate | Check official 2026 calendar before booking: [Pacha events](https://pacha.com/events). Taxi/driver plan required; no one should drive after drinking. |\n\n## Day 3 - Monday 17 August: Aquarium Cap Blanc and San Antonio sunset\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 08:00-09:00 | food | Breakfast at villa. | Villa | Included in groceries | Self-catering. |\n| 09:30-11:00 | transport | Drive across island toward San Antonio with snack stop. | Santa Eulalia → San Antonio | Fuel/parking ~€20 estimate | Drive time varies by traffic; August congestion likely. |\n| 11:00-12:30 | activity | Visit Aquarium Cap Blanc, a short child-friendly cave-style aquarium visit. | San Antonio | ~€45–€55 group estimate | Summer hours reported 09:30–22:00; adult €7 and child €5 noted by secondary sources: [Aquarium Cap Blanc](https://discoveribiza.com/thingstodo/aquarium-cap-blanc/). Verify 2026 prices. |\n| 12:45-14:15 | food | Lunch in San Antonio. | San Antonio | ~€180–€240 estimate | Flexible restaurant choice; reserve if waterfront. |\n| 14:30-17:00 | beach/rest | Cala Gració or return to villa depending on toddler energy. | San Antonio / villa | Free | Light day after first nightlife option. |\n| 18:30-21:00 | food | Group sunset dinner on the west coast or early dinner back near villa. | San Antonio / Santa Eulalia | ~€250–€350 estimate | Sunset venues should be booked early for August; exact restaurant unverified. |\n| 21:30 onward | rest | Families return to villa. Couple can choose a second light nightlife option only if rested. | Villa / Ibiza Town | Variable | Avoid overscheduling after cross-island day. |\n\n## Day 4 - Tuesday 18 August: Cala Bassa beach club-style family day\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 08:00-09:00 | food | Breakfast at villa; pack beach toys, toddler shade, water, and snacks. | Villa | Included in groceries | August sun protection essential. |\n| 09:30-10:30 | transport | Drive to Cala Bassa; arrive early for parking and shade. | Santa Eulalia → Cala Bassa | Fuel/parking ~€20 estimate | August parking can be difficult; early arrival recommended. |\n| 10:30-14:30 | beach | Cala Bassa beach day: shallow water, swimming, sand play, optional loungers. | Cala Bassa | Beach free; loungers/umbrellas variable estimate €80–€160 | Cala Bassa listed among family-friendly beaches by Sant Josep tourism: [Sant Josep family beaches](https://www.santjosep.net/en/ideal-beaches-for-family-fun-in-sant-josep/). |\n| 14:30-16:00 | food | Lunch at/near beach; families can leave earlier if toddler needs nap. | Cala Bassa | ~€220–€320 estimate | Beach restaurant prices can be high; verify menus. |\n| 17:00-19:00 | rest | Villa pool and downtime. | Villa | €0 | Keeps day workable for both children. |\n| 20:00-22:00 | food | Shared dinner in Santa Eulalia or at villa. | Santa Eulalia / villa | ~€180–€300 estimate | Choose villa dinner if beach lunch was expensive. |\n| 23:00-04:00 | nightlife | Couple big club night option: Hï Ibiza / Ushuaïa-related event in Playa d’en Bossa, depending on exact 2026 schedule. | Playa d’en Bossa | ~€180–€300 for 2 estimate | Check official / primary ticketing: [Ushuaïa Ibiza](https://www.theushuaiaexperience.com/en/club), [Clubtickets Ushuaïa](https://www.clubtickets.com/clubbing/ushuaia-ibiza). Pre-book taxi both ways. |\n\n## Day 5 - Wednesday 19 August: Slow villa morning, Cova de Can Marçà caves\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 09:00-11:30 | rest | Late breakfast, pool, laundry, toddler nap flexibility; couple recovers from nightlife. | Villa | Included in groceries | Intentional slow morning. |\n| 12:00-13:30 | food | Simple lunch at villa. | Villa | ~€100 groceries estimate | Keeps budget controlled. |\n| 14:00-15:00 | transport | Drive to Port de Sant Miquel / cave area. | Santa Eulalia → Cova de Can Marçà | Fuel/parking ~€20 estimate | Confirm route and parking locally. |\n| 15:00-16:30 | activity | Guided cave visit at Cova de Can Marçà. | Port de Sant Miquel | ~€100–€140 group estimate | Opening May–Oct reported 10:30–19:30 with visits every 30 minutes: [Cova de Can Marçà](https://www.introducingibiza.com/cova-can-marca). 2026 prices need confirmation. |\n| 17:00-18:30 | beach/rest | Short beach stop at Port de Sant Miquel or return for villa pool. | Port de Sant Miquel / villa | Free | Keep optional due to heat/children. |\n| 19:30-21:30 | food | Shared dinner near Santa Eulalia. | Santa Eulalia | ~€220–€300 estimate | Reserve ahead in August. |\n| 22:00 onward | rest | Quiet night for all. | Villa | €0 | Recovery night after clubbing. |\n\n## Day 6 - Thursday 20 August: Formentera option or easier Ibiza beach fallback\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 07:30-08:30 | food | Early breakfast and pack day bags. | Villa | Included in groceries | Formentera is a longer day; bring toddler supplies. |\n| 09:00-10:00 | transport | Drive to Ibiza port / ferry departure area. | Santa Eulalia → Ibiza Port | Fuel/parking ~€25 estimate | Allow August traffic and parking time. |\n| 10:00-11:00 | transport | Ferry to Formentera, if sea/weather and child energy are suitable. | Ibiza → Formentera | ~€250–€400 group estimate | Ferry schedules/deals are listed via Visit Formentera; final 2026 prices need confirmation: [Visit Formentera ferry](https://www.visitformentera.com/en/ferry-ibiza-formentera-schedules/). |\n| 11:30-14:30 | beach | Easy Formentera beach time; keep shade and short swims. | Formentera | Beach free; transfers/loungers variable | Do not over-plan with a toddler; choose one accessible beach only. |\n| 14:30-16:00 | food | Lunch on Formentera. | Formentera | ~€220–€320 estimate | Restaurant cost estimate; reserve if possible. |\n| 16:30-18:00 | transport | Ferry back to Ibiza and drive to villa. | Formentera → Ibiza → villa | Included above | Choose earlier return rather than last ferry with children. |\n| 19:30-21:30 | food | Casual villa dinner / takeaway. | Villa | ~€150–€220 estimate | Lower-effort evening after ferry day. |\n| 22:30 onward | nightlife | Couple optional late-night Ibiza Town drinks only, not a must-do. | Ibiza Town | ~€80–€150 estimate | Keep optional due to long day. |\n\n## Day 7 - Friday 21 August: Final beach morning, shared farewell dinner, optional last club\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 08:30-09:30 | food | Breakfast at villa. | Villa | Included in groceries | Use remaining groceries. |\n| 10:00-13:00 | beach | Return to favorite family beach, likely Cala Llonga for convenience and shallow water. | Cala Llonga | Beach free; extras variable | Family-friendly evidence: [Cala Llonga](https://www.introducingibiza.com/cala-llonga). |\n| 13:00-14:30 | food | Beach lunch or picnic. | Cala Llonga | ~€150–€240 estimate | Picnic helps budget if farewell dinner is higher-end. |\n| 15:00-17:30 | rest | Villa pool, packing, toddler nap, downtime. | Villa | €0 | Practical pre-departure block. |\n| 19:30-22:00 | food | Farewell shared dinner at a family-friendly Santa Eulalia restaurant or beach restaurant. | Santa Eulalia | ~€300–€450 estimate | Pura Vida describes its Playa Niu Blau / Santa Eulalia beach restaurant as family-friendly: [Pura Vida kids/family note](https://puravida-ibiza.com/kids-in-ibiza-at-pura-vida-beach-restaurant/). |\n| 23:30-04:00 | nightlife | Couple optional final major club night, only if next-day flight timing allows. | Ibiza Town / Playa d’en Bossa | ~€180–€300 for 2 estimate | Check final line-up and tickets through official pages such as [Pacha](https://pacha.com/events) or [Ushuaïa](https://www.theushuaiaexperience.com/en/club). Families stay at villa. |\n\n## Day 8 - Saturday 22 August: Check-out and fly home\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| Morning | food | Breakfast, final packing, villa check-out. | Villa | Included in groceries | Confirm villa check-out time directly. |\n| 09:30-11:00 | transport | Drive to airport, return rental cars/van, allow extra time for child seats and baggage. | Santa Eulalia → IBZ | Included in rental estimate | Build buffer for August traffic. |\n| Midday/afternoon | transport | Fly Ibiza to Dusseldorf. | IBZ → DUS | Included in flight estimate | Return fare must be confirmed in live flight booking; direct DUS–IBZ route evidence from [Eurowings](https://www.eurowings.com/en/booking/offers/flights-from/DE/DUS/to/ES/IBZ/2026-8.html). |\n| Arrival | transport | Transfer home from Dusseldorf Airport. | DUS | Not included | Local home transfer not specified. |\n\n## Budget summary\n- Target total budget: **€12,000**.\n- Estimated baseline spend:\n  - Flights Dusseldorf–Ibiza return for 6 adults + 1 child + toddler, with bags/seats: **~€2,400–€3,200**.\n  - Villa with pool, 7 nights, sleeps 8: **target €6,000–€7,200**. Must confirm; August villas can exceed this.\n  - Rental transport: 2 cars or 9-seat van, child seats, fuel, parking: **~€1,000–€1,600**.\n  - Groceries / villa breakfasts / some villa dinners: **~€700–€1,000**.\n  - Restaurants and shared dinners: **~€1,700–€2,400**.\n  - Activities: aquarium, caves, water sports, possible Formentera ferry: **~€500–€900**.\n  - Couple nightlife tickets/taxis/drinks for 2–3 nights: **~€500–€1,000**.\n- Practical budget target: **~€11,800–€12,500** depending mainly on the villa and flights.\n- To stay reliably under €12,000:\n  - Cap villa at about **€6,500–€6,800** total.\n  - Do 2–3 villa dinners instead of restaurants.\n  - Limit Formentera if ferry prices are high.\n  - Book flights early and avoid premium luggage bundles where possible.\n\n## Unscheduled or uncertain items\n- Exact flight numbers, departure times, baggage costs, and toddler fare rules are not confirmed.\n- Villa Santa Eulalia or any similar villa is **not confirmed available** for 15–22 August 2026.\n- Final villa price is uncertain; Tavily evidence confirms capacity/pool/location features but not the exact August 2026 quote.\n- Club line-ups for the exact nights of 16, 18, and 21 August 2026 must be checked closer to booking.\n- Restaurant reservations are not confirmed.\n- Formentera ferry times and exact 2026 group prices must be checked before committing.\n- Water sports availability and child age/height restrictions need local confirmation.\n\n## Assumptions and gaps\n- Assumption: Santa Eulalia is the best compromise base because it is family-friendly, has restaurants/beach access, and remains drivable to Ibiza Town / Playa d’en Bossa for nightlife.\n- Assumption: a 4-bedroom villa sleeping 8 is acceptable if the toddler can use a cot and the 9-year-old has a proper bed.\n- Assumption: the group is comfortable renting either two cars or a 9-seat van; this is strongly preferred over relying on taxis/buses with children and beach gear.\n- Gap: Tavily cannot verify live booking inventory or hold prices.\n- Gap: Exact opening hours and prices for 2026 should be rechecked on official venue pages before payment.\n- Gap: The budget is feasible only if accommodation is controlled; a luxury villa above ~€8,000 would likely push the trip over €12,000.",
+        "additional_kwargs": {
+          "refusal": null
+        },
+        "response_metadata": {
+          "token_usage": {
+            "completion_tokens": 5207,
+            "prompt_tokens": 9187,
+            "total_tokens": 14394,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": null,
+              "audio_tokens": 0,
+              "reasoning_tokens": 516,
+              "rejected_prediction_tokens": null,
+              "image_tokens": 0
+            },
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0,
+              "cache_write_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost": 0.202145,
+            "is_byok": false,
+            "cost_details": {
+              "upstream_inference_cost": 0.202145,
+              "upstream_inference_prompt_cost": 0.045935,
+              "upstream_inference_completions_cost": 0.15621
+            }
+          },
+          "model_provider": "openai",
+          "model_name": "openai/gpt-5.5-20260423",
+          "system_fingerprint": null,
+          "id": "gen-1778954402-bNtKnkf3vqTT8mLNUTF6",
+          "service_tier": "default",
+          "finish_reason": "stop",
+          "logprobs": null
+        },
+        "type": "ai",
+        "id": "lc_run--019e31f1-fbe5-7c03-9a06-8b17a3afd6d7-0",
+        "tool_calls": [],
+        "invalid_tool_calls": [],
+        "usage_metadata": {
+          "input_tokens": 9187,
+          "output_tokens": 5207,
+          "total_tokens": 14394,
+          "input_token_details": {
+            "audio": 0,
+            "cache_read": 0
+          },
+          "output_token_details": {
+            "audio": 0,
+            "reasoning": 516
+          }
+        }
+      }
+    ]
+  },
+  "error": null,
+  "metadata": {
+    "LANGSMITH_ENDPOINT": "https://eu.api.smith.langchain.com",
+    "LANGSMITH_PROJECT": "travelplanner",
+    "LANGSMITH_TRACING": "true",
+    "ls_integration": "langgraph",
+    "ls_run_depth": 0,
+    "revision_id": "10ec8d0-dirty",
+    "thread_id": "2b08e130-fd2a-409a-acab-11c7f70613ca"
+  },
+  "langsmith": {
+    "organization": {
+      "name": "Personal",
+      "id": "477adfd8-a90b-45c3-95f6-1375325770e8"
+    },
+    "workspace": {
+      "name": "Workspace 1",
+      "id": "06241d75-72ec-4af5-b325-52629e7730a0"
+    },
+    "tracing_project": {
+      "id": "d92c06e8-225e-4665-a627-fdf375468f7c",
+      "name": "travelplanner"
+    }
+  }
+}

@@ -1,0 +1,527 @@
+{
+  "inputs": {
+    "messages": [
+      {
+        "content": "You are the Simple Baseline TravelPlanner Agent.\n\nPurpose:\n- Produce a single-agent baseline itinerary for later comparison against the\n  multi-agent TravelPlanner system.\n- You have exactly one tool: Tavily web search. You have no sub-agents and no\n  specialized flight, hotel, restaurant, routing, or validation tools.\n\nOperating rules:\n1. Use Tavily web search before the final itinerary for current facts, links,\n   opening hours, prices, neighborhoods, transit hints, and source URLs.\n   The workflow may require a minimum number of completed Tavily searches before\n   you may answer with final markdown only; if you receive a workflow nudge,\n   complete the requested searches first.\n   Use a small number of high-value searches, then synthesize the final answer.\n2. Respect every hard constraint supplied by the user. If a constraint cannot be\n   verified, state the assumption instead of silently ignoring it.\n3. Prefer official tourism, venue, transit, accommodation, restaurant, and event\n   pages when search results contain them. Use blogs and aggregators only as\n   secondary evidence.\n4. Do not invent exact prices, opening hours, flight numbers, hotel availability,\n   or booking status. Mark uncertain values as estimates.\n5. Order each day like the main execution agent: travel/check-in first, meals at\n   plausible meal times, attractions during likely opening hours, transfers\n   between distant places, and rest/free time when useful.\n6. Return only markdown in the final answer.\n\nFinal markdown structure:\nUse exactly these section headings, in this order:\n1. `# Baseline itinerary: ...`\n2. `## Goal and constraints understood`\n3. `## Search summary`\n4. `## Day 1 ...` and one section per day\n5. `## Budget summary`\n6. `## Unscheduled or uncertain items`\n7. `## Assumptions and gaps`\n\nEach day must be a markdown table with exactly these columns:\n`Time | Type | Plan | Location | Cost | Evidence/Notes`.\n\nSource discipline:\n- Every non-obvious venue, attraction, transit pass, opening-time claim, and\n  ticket price should have either a markdown link in Evidence/Notes or be marked\n  as an estimate.\n- If a requested item cannot be scheduled with available evidence, list it under\n  \"Unscheduled or uncertain items\" rather than hiding it.\n- Never include raw Tavily result dumps in the final answer.\n\nExample final output shape:\n\n# Baseline itinerary: 3 days in Lisbon\n\n## Goal and constraints understood\n- Origin: Berlin\n- Dates: 2026-06-12 to 2026-06-14\n- Budget: 800 EUR for 2 travelers\n\n## Search summary\n- Official tourism page for Belém Tower: https://...\n- Transit pass information: https://...\n\n## Day 1\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 09:00-10:30 | transport | Arrive and transfer to hotel | Airport to Baixa | €8 | Metro estimate; verify live schedules |\n\n## Budget summary\n- Estimated total: €...\n\n## Unscheduled or uncertain items\n- Flight number unavailable because only Tavily web search is available.\n\n## Assumptions and gaps\n- Hotel prices require live booking confirmation.\n",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "system",
+        "id": "06a19165-b7f4-43ff-a302-24388c6caf19"
+      },
+      {
+        "content": "GOAL\nCreate a comparable baseline travel plan in markdown.\n\nUSER QUERY\nI need to travel from Frankfurt to New York for a business trip from June 15th to 17th, 2026. No strict budget — company covers it. I need a central business hotel, a direct or short-connection flight, and restaurant recommendations suitable for client dinners.\n\nCONSTRAINTS\n{\n  \"hard_constraints\": {\n    \"origin\": \"Frankfurt\",\n    \"destination\": \"New York\",\n    \"date_from\": \"2026.06.15\",\n    \"date_to\": \"2026.06.17\",\n    \"travelers\": {\n      \"adults\": 1,\n      \"children_under_6\": 0,\n      \"children_6_to_16\": 0\n    },\n    \"budget_amount\": null,\n    \"budget_currency\": \"EUR\",\n    \"accommodation\": \"business hotel, city centre\",\n    \"transport\": \"Flight\",\n    \"interests\": \"business meetings, efficient transport, good restaurants for client dinners\"\n  }\n}\n\nOUTPUT REQUIREMENT\nReturn the final plan as markdown using the same practical timetable style as the main execution agent, but acknowledge that this baseline only has Tavily evidence. Include source links found via Tavily.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "human",
+        "id": "74729e3c-0673-4feb-a7ea-2e3d1e94073c"
+      }
+    ]
+  },
+  "outputs": {
+    "messages": [
+      {
+        "content": "You are the Simple Baseline TravelPlanner Agent.\n\nPurpose:\n- Produce a single-agent baseline itinerary for later comparison against the\n  multi-agent TravelPlanner system.\n- You have exactly one tool: Tavily web search. You have no sub-agents and no\n  specialized flight, hotel, restaurant, routing, or validation tools.\n\nOperating rules:\n1. Use Tavily web search before the final itinerary for current facts, links,\n   opening hours, prices, neighborhoods, transit hints, and source URLs.\n   The workflow may require a minimum number of completed Tavily searches before\n   you may answer with final markdown only; if you receive a workflow nudge,\n   complete the requested searches first.\n   Use a small number of high-value searches, then synthesize the final answer.\n2. Respect every hard constraint supplied by the user. If a constraint cannot be\n   verified, state the assumption instead of silently ignoring it.\n3. Prefer official tourism, venue, transit, accommodation, restaurant, and event\n   pages when search results contain them. Use blogs and aggregators only as\n   secondary evidence.\n4. Do not invent exact prices, opening hours, flight numbers, hotel availability,\n   or booking status. Mark uncertain values as estimates.\n5. Order each day like the main execution agent: travel/check-in first, meals at\n   plausible meal times, attractions during likely opening hours, transfers\n   between distant places, and rest/free time when useful.\n6. Return only markdown in the final answer.\n\nFinal markdown structure:\nUse exactly these section headings, in this order:\n1. `# Baseline itinerary: ...`\n2. `## Goal and constraints understood`\n3. `## Search summary`\n4. `## Day 1 ...` and one section per day\n5. `## Budget summary`\n6. `## Unscheduled or uncertain items`\n7. `## Assumptions and gaps`\n\nEach day must be a markdown table with exactly these columns:\n`Time | Type | Plan | Location | Cost | Evidence/Notes`.\n\nSource discipline:\n- Every non-obvious venue, attraction, transit pass, opening-time claim, and\n  ticket price should have either a markdown link in Evidence/Notes or be marked\n  as an estimate.\n- If a requested item cannot be scheduled with available evidence, list it under\n  \"Unscheduled or uncertain items\" rather than hiding it.\n- Never include raw Tavily result dumps in the final answer.\n\nExample final output shape:\n\n# Baseline itinerary: 3 days in Lisbon\n\n## Goal and constraints understood\n- Origin: Berlin\n- Dates: 2026-06-12 to 2026-06-14\n- Budget: 800 EUR for 2 travelers\n\n## Search summary\n- Official tourism page for Belém Tower: https://...\n- Transit pass information: https://...\n\n## Day 1\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 09:00-10:30 | transport | Arrive and transfer to hotel | Airport to Baixa | €8 | Metro estimate; verify live schedules |\n\n## Budget summary\n- Estimated total: €...\n\n## Unscheduled or uncertain items\n- Flight number unavailable because only Tavily web search is available.\n\n## Assumptions and gaps\n- Hotel prices require live booking confirmation.\n",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "system",
+        "id": "06a19165-b7f4-43ff-a302-24388c6caf19"
+      },
+      {
+        "content": "GOAL\nCreate a comparable baseline travel plan in markdown.\n\nUSER QUERY\nI need to travel from Frankfurt to New York for a business trip from June 15th to 17th, 2026. No strict budget — company covers it. I need a central business hotel, a direct or short-connection flight, and restaurant recommendations suitable for client dinners.\n\nCONSTRAINTS\n{\n  \"hard_constraints\": {\n    \"origin\": \"Frankfurt\",\n    \"destination\": \"New York\",\n    \"date_from\": \"2026.06.15\",\n    \"date_to\": \"2026.06.17\",\n    \"travelers\": {\n      \"adults\": 1,\n      \"children_under_6\": 0,\n      \"children_6_to_16\": 0\n    },\n    \"budget_amount\": null,\n    \"budget_currency\": \"EUR\",\n    \"accommodation\": \"business hotel, city centre\",\n    \"transport\": \"Flight\",\n    \"interests\": \"business meetings, efficient transport, good restaurants for client dinners\"\n  }\n}\n\nOUTPUT REQUIREMENT\nReturn the final plan as markdown using the same practical timetable style as the main execution agent, but acknowledge that this baseline only has Tavily evidence. Include source links found via Tavily.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "human",
+        "id": "74729e3c-0673-4feb-a7ea-2e3d1e94073c"
+      },
+      {
+        "content": "",
+        "additional_kwargs": {
+          "refusal": null
+        },
+        "response_metadata": {
+          "token_usage": {
+            "completion_tokens": 252,
+            "prompt_tokens": 1047,
+            "total_tokens": 1299,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": null,
+              "audio_tokens": 0,
+              "reasoning_tokens": 45,
+              "rejected_prediction_tokens": null,
+              "image_tokens": 0
+            },
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0,
+              "cache_write_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost": 0.012795,
+            "is_byok": false,
+            "cost_details": {
+              "upstream_inference_cost": 0.012795,
+              "upstream_inference_prompt_cost": 0.005235,
+              "upstream_inference_completions_cost": 0.00756
+            }
+          },
+          "model_provider": "openai",
+          "model_name": "openai/gpt-5.5-20260423",
+          "system_fingerprint": null,
+          "id": "gen-1778953104-D3Ua5mAkQS0gvLkGqyh9",
+          "service_tier": "default",
+          "finish_reason": "tool_calls",
+          "logprobs": null
+        },
+        "type": "ai",
+        "id": "lc_run--019e31de-2cdf-7033-8a29-5a85df69e70b-0",
+        "tool_calls": [
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Frankfurt to New York direct flights airlines 2026 FRA JFK EWR official airline schedule"
+            },
+            "id": "call_TJ2uvR75Lp5UHlSO8isMz0P0",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "New York City business hotels Midtown Manhattan official hotel meeting business traveler central"
+            },
+            "id": "call_0QGsXGFKXtgQql9Dc7TVsYlp",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "NYC airport to Midtown Manhattan official AirTrain LIRR taxi fare 2026"
+            },
+            "id": "call_FGR7q8QeL55me77VLXNyCzj8",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "New York client dinner restaurants Midtown Manhattan business dinner Michelin official reservations"
+            },
+            "id": "call_JSc8KiRuEedwEu7UjJsi0akE",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "New York business trip attractions meeting areas Midtown Manhattan Bryant Park Grand Central official hours"
+            },
+            "id": "call_ifimLFf3nSTC1oq5Kx3DqZU4",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "MTA OMNY subway fare New York City official 2026"
+            },
+            "id": "call_hfFTBrPLpdIUGfjWMR6yDCqE",
+            "type": "tool_call"
+          }
+        ],
+        "invalid_tool_calls": [],
+        "usage_metadata": {
+          "input_tokens": 1047,
+          "output_tokens": 252,
+          "total_tokens": 1299,
+          "input_token_details": {
+            "audio": 0,
+            "cache_read": 0
+          },
+          "output_token_details": {
+            "audio": 0,
+            "reasoning": 45
+          }
+        }
+      },
+      {
+        "content": "Tavily answer:\nDirect flights from Frankfurt to New York in 2026 are offered by United, Lufthansa, Delta, and Condor. United and Lufthansa provide direct flights to Newark/New York. Prices start from $660.\n\nTavily results:\n1. Cheap Flights from Frankfurt to Newark/New York | United Airlines score=0.86\n   URL: https://www.united.com/en-us/flights-from-frankfurt-to-new-york\n   Snippet: # Flights from Frankfurt to Newark/New York from $ 660\\*. ## Featured daily fares for flights from Frankfurt (FRA) to Newark/New York (EWR). Displaying fares for May-2026. For Economy class, fares listed may be Basic Economy, which is our most restrictive fare option and subject to additional restrictions. Additional baggage charges and fees for other optional service may apply. ## More United deals on Frankfurt (FRA) to Newark/New York (EWR) flights. | From | To | Fare Type | Dates | Price |. | Frankfurt (FRA) | Newark/New York (EWR) | Roundtrip | Economy | 09/10/26 - 09/21/26 | from  $ 660\\*  Viewed: 6 hours ago |. | Frankfurt (FRA) | Newark/New York (EWR) | Roundtrip | Economy | 10/01/26 - 10/12/26 | from  $ 661\\*  Viewed: 1 day ago |. | Frankfurt (FRA) | Newark/New York (EWR) | Roundtrip | Economy | 06/13/26 - 06/28/26 | from  $ 738\\*  Viewed: 58 minutes ago |. ## Explore more United...\n2. Flights from Frankfurt to New York City: FRA to JFK Flights + Flight Schedule score=0.81\n   URL: https://www.flightconnections.com/flights-from-fra-to-jfk\n   Snippet: # Direct flights from Frankfurt to New York City. Did you mean flights from New York City to Frankfurt? Home  Flights from Frankfurt (FRA)\")  to New York City (JFK). ### Frankfurt. ## Frankfurt to New York City Flights. ### New York City. ## Frankfurt to New York City Flight Schedule. Scan through all non-stop flights from Frankfurt to New York City. The full flight schedule below gives an overview of all non-stop flights from FRA to JFK, which includes the daily timetable of every operating airline for the upcoming 12 months. You can visit New York City any time of the year, but the best months to explore are from to and from to . ## Airlines flying from Frankfurt to New York City. ### Airline-specific flight schedules from Frankfurt to New York City. In total there are 4 airlines operating nonstop flights from Frankfurt FRA to New York City JFK. Condor, Delta, Lufthansa and Singapore A...\n3. $329 Cheap Flights from Frankfurt am Main to New York in 2026 | momondo score=0.77\n   URL: https://www.momondo.com/flights/frankfurt/new-york-city\n   Snippet: ##### This is the cheapest one-way flight price found by a momondo user in the last 72 hours by searching for a flight from Frankfurt am Main to New York departing on 9/28. Click the price to refresh the search for this deal. ## Find the cheapest flights from Frankfurt am Main to New York. ## Scandinavian Airlines flights from Frankfurt am Main to New York. ##### Our best Scandinavian Airlines deals on Frankfurt am Main to New York flight tickets. ## Finnair flights from Frankfurt am Main to New York. ##### Our best Finnair deals on Frankfurt am Main to New York flight tickets. ##### Use the filters below to find and compare flights from Frankfurt am Main to New York that are best for you. ### What is the cheapest time of day to depart on your flight to New York? ### What is the cheapest Frankfurt am Main to New York flight route?\n4. Flight Schedule From Frankfurt To New York City | FRA - Wego score=0.73\n   URL: https://www.wego.com.tr/en/schedules/fra/nyc/flight-schedules-from-frankfurt-to-new-york-ny\n   Snippet: Flight Schedules From Frankfurt to New York City ; 13:20 · 15:40 · 8 Hrs,20m · Lufthansa ; 10:55 · 13:20 · 8 Hrs,25m · Lufthansa ; 11:10 · 13:40 · 8 Hrs,30m · United\n5. Direct flights from Frankfurt to New York (FRA-EWR) score=0.73\n   URL: https://www.directflights.com/FRA-EWR\n   Snippet: This is a weekly direct flight schedule for Lufthansa. Use the arrows or click on the date to change week. Click on any flight departure time to show more",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "5f0fad9f-c031-4432-87d2-f03214b8a6ad",
+        "tool_call_id": "call_TJ2uvR75Lp5UHlSO8isMz0P0",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nFor business travelers in Midtown Manhattan, The Peninsula New York and Millennium Hotel Broadway Times Square offer central locations and business amenities. These hotels provide convenient access to major business districts and essential services.\n\nTavily results:\n1. THE 10 BEST Midtown (New York City) Business Hotels 2026 (with Prices) - Tripadvisor score=0.80\n   URL: https://www.tripadvisor.com/Hotels-g60763-zff7-zfn7102352-New_York_City_New_York-Hotels.html\n   Snippet: # THE 10 BEST Midtown (New York City) Business Hotels. # Business Hotels in Midtown. ## Find the right hotel for you. ### Hard Rock Hotel New York. Ameritania at Times Square Hotel. ### The Peninsula New York. Cambria Hotel New York - Chelsea. Millennium Hotel Broadway Times Square. Hotel 32 32 New York. M Social Hotel New York Times Square. Holiday Inn Express Manhattan Times Square South By IHG. Casablanca Hotel By Library Hotel Collection. The Westin New York at Times Square. ## Midtown Hotels Information. ### Hotels in Midtown. ### Hotels Prices From. This is the version of our website addressed to speakers of English in the United States. If you are a resident of another country or region, please select the appropriate version of Tripadvisor for your country or region in the drop-down menu. Tripadvisor LLC is not responsible for any content on external web sites that are not owned o...\n2. Top Business Hotels in Midtown, NY, New York from CA $143 score=0.72\n   URL: https://ca.hotels.com/nh1737998-th14/business-hotels-in-midtown-new-york-united-states-of-america/\n   Snippet: Business Hotels in Midtown ; Aloft New York Chelsea · 9.2 out of 10, Wonderful, (1,213 reviews). 9.2/10 ; The Lexington Hotel, Autograph Collection · 8.2 out of 10,\n3. New York City for the Business Class: Where to Stay, Dine, and ... score=0.66\n   URL: https://www.businesstraveller.com/news/away-may-2025-new-york-city/\n   Snippet: Located in the heart of Midtown Manhattan, Le Jardinier offers a serene escape amid the city's bustle. Rooted in the refined elegance of French\n4. Best Hotels For Business Travelers in New York 2026 - NYC.com score=0.62\n   URL: https://www.nyc.com/best-of-new-york/best_hotels_for_business_travelers_in_new_york.2222/123/\n   Snippet: NYC.com has great hotel rates that meet your travel budget and corporate guidelines. ... The Bryant Park Hotel is a luxury hotel located in the heart of midtown\n5. Best business hotels in NYC for a successful stay score=0.60\n   URL: https://www.timeout.com/newyork/hotels/best-business-hotels-in-nyc\n   Snippet: The best of New York straight to your inbox. Sign up for our newsletter for the best of the city. #### Choose a Time Out City. #### Choose a Time Out Market. # The best business hotels in NYC. From power lunch spots to private car service, the best business hotels in NYC know how to get the job done. Whether just for the night or an extended work-related trip, ensuring your jam-packed schedule of breakfast meetings and client benefits at The Museum of Modern Art end at the best business hotels in the NYC is your prerogative. Next time you’re traveling to Gotham for work, or just meeting with top headhunters in NYC, rest-assured these business-savvy hotels make it their top priority to provide a successful stay. **RECOMMENDED: Full guide to the best hotels in NYC**. Smack dab in the center of the city, and just blocks from Grand Central Station, this is your go-to no muss, no fuss hotel.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "6fb999c9-cd66-4401-9694-bf520d3402af",
+        "tool_call_id": "call_0QGsXGFKXtgQql9Dc7TVsYlp",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nThe official fare from NYC airport to Midtown Manhattan via AirTrain and LIRR in 2026 is $13.50–$18.50. AirTrain costs $8.50, and LIRR varies from $2.75–$7.75 depending on time of day.\n\nTavily results:\n1. Cheapest Way from JFK to Manhattan in 2026: Best Budget Option score=1.00\n   URL: https://nyctouristtipsandtricks.com/cheapest-way-from-jfk-to-manhattan/\n   Snippet: Quick Cost Comparison ; AirTrain + LIRR Train, $12–$16, 35–45 min ; Shared shuttle van, $30–$40 per person, 60–90 min ; Private transfer (sedan/SUV)\n2. JFK to Manhattan Transportation: Complete 2026 Guide score=1.00\n   URL: https://www.detaileddrivers.com/blog/jfk-to-manhattan-transportation-guide\n   Snippet: Complete 2026 guide to JFK→Manhattan transportation. Compare prices: taxi ... Cost: $11.40–$16.50 (AirTrain $8.75 + LIRR $2.75–$7.75 depending on time of day).\n3. Fixed taxi price from JFK to Midtown Manhattan? - Facebook score=1.00\n   URL: https://www.facebook.com/groups/what.to.do.in.new.york/posts/2771733889825900/\n   Snippet: Is there a set rate for a taxi from Manhattan to JFK airport? ... AirTrain fare: $8.25 LIRR fare: • Off-peak hours: $8.25 • Peak hours\n4. The Best (and Cheapest) Ways to Get to Manhattan from JFK Airport score=1.00\n   URL: https://davidwilliamrosales.com/2026/03/06/jfk-airport-to-manhattan-transit/\n   Snippet: LIRR + AirTrain, $13.50-$18.50. $5 (off-peak) or $7 (peak) + $8.50 + $3 if you take the subway after, ~45–55 min, Faster, more comfortable,\n5. JFK to Manhattan by Train: Step-by-Step AirTrain + LIRR Guide score=1.00\n   URL: https://yourtravelmoves.com/jfk-to-manhattan-airtrain-lirr-guide\n   Snippet: At the time of the video, the AirTrain fare is $8.50. Payment has shifted toward contactless. Most people use the OMNY payments now just tap and",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "df437faf-82c8-49e2-8fbb-56916d525178",
+        "tool_call_id": "call_FGR7q8QeL55me77VLXNyCzj8",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nFor business dinners in Midtown Manhattan, consider Le Bernardin, Del Frisco's Double Eagle Steakhouse, and private chef experiences with Michelin-trained chefs. Reservations are recommended.\n\nTavily results:\n1. Where To Have Dinner With Clients - New York - The Infatuation score=0.60\n   URL: https://www.theinfatuation.com/new-york/guides/client-dinner-nyc\n   Snippet: Another high-end spot where you can easily land a reservation, The Grill is perfect for a pricey meal with an important client who watched a lot\n2. 17 Luxurious NYC Restaurants to Woo a Client | Eater NY score=0.60\n   URL: https://ny.eater.com/maps/best-nyc-restaurants-for-client-dinners\n   Snippet: # 17 Luxurious NYC Restaurants to Woo a Client. Here are New York restaurants to wine and dine a client. The Best Sushi Restaurants in Manhattan. The Best Lower East Side Restaurants. ## Boulud Sud. Theater dining suddenly looked less staid with the opening of Daniel Boulud’s Mediterranean restaurant near Lincoln Center in 2011, peddling welcome visions of the south of France and Greece inside its expansive space with an open kitchen on 64th Street. A Guide to Octopus in New York City, Mapped. Where to Slurp Caviar in New York City. Le Bernardin’s dining room has a floral arrangement in the middle with white flowers, plus tables with white tablecloths. The 38 Best Restaurants in New York City. The Best Fancy Restaurants in NYC. The Best Classic Restaurants in NYC, According to Eater Editors. The Best Italian Restaurants in New York City. The Best New Restaurants in Manhattan.\n3. Michelin starred restaurants in mid-town? | New York City, NY score=0.59\n   URL: https://www.facebook.com/groups/3135585626680301/posts/4221955534709966/\n   Snippet: Le Bernardin, The River Cafe, Frevo, & Sixty Three Clinton You'll need a reservation. Le Bernardin offers dining in their bar. Seating is first\n4. 68 Best Restaurants for Business Meals in Midtown West | OpenTable score=0.52\n   URL: https://www.opentable.com/features/best-restaurants-for-business-meals-midtown-west-ny\n   Snippet: 68 restaurants available nearby · 1. Del Frisco's Double Eagle Steakhouse - New York City · 2. Quality Meats · 3. Nobu Fifty Seven · 4. Tony's Di Napoli - Midtown.\n5. Private Dinner Reservations With Michelin Chefs NYC — Resident score=0.52\n   URL: https://www.meetresident.com/reservations\n   Snippet: # **DINE AT THE CHEF’S TABLE**. ### Our Michelin-trained chefs craft **one-night-only,** **5-course tasting menus** in exclusive venues — from private apartments to members-only clubs across NYC. Savor innovative dishes from chefs who've mastered kitchens like **The French Laundry** and **Eleven Madison Park**, paired with sommelier-selected wines and personal stories behind each creation. **Chef Mark Garcia** specializes in Elevated New American and Central American comfort flavors and techniques, enhanced by his fine-dining training at the Michelin-starred restaurant **Eleven Madison Park** (★★★). Now working as a freelance private chef, his cuisine is deeply personal and memory-driven—beginning not with ingredients, but with the people he's cooking for, their stories, and the flavors that shaped them. Thursday, June 25, 2026 at The One Manhattan Square Chef’s Kitchen. **Hosted in stun...",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "1fc8122b-7ed7-4745-96c6-a24a6715e0cc",
+        "tool_call_id": "call_JSc8KiRuEedwEu7UjJsi0akE",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nBryant Park and Grand Central Station are popular meeting areas in Midtown Manhattan; Bryant Park's official hours are 11am to park closing, weather permitting.\n\nTavily results:\n1. Places to Stay Near Bryant Park in Midtown East Manhattan | Westgate New York Grand Central score=1.00\n   URL: https://www.westgateresorts.com/hotels/new-york/midtown-manhattan/westgate-new-york-grand-central/things-to-do-nyc/bryant-park\n   Snippet: # Stay Near Bryant Park in Midtown Manhattan. # Stay Near Bryant Park in Midtown Manhattan. If you're looking for things to do near Bryant Park in Midtown Manhattan, then Westgate New York Grand Central is your ticket to this interesting (and often underrated) public park space that so many visitors have come to know and love over the years! After a multi-year project to revitalize this storied-park with a rich historical background, the modern Bryant Park boasts a full spectrum of things to do, public events, historical park and New York City tours, music concerts, and special, seasonal themed venues that bring the surrounding neighborhood a truly unique energy, found nowhere else in Manhattan. Only a block and half away from Grand Central Station, Bryant Park is the perfect day-outing if you're looking for things to do in Murray Hill or near our hotel in near Grand Central Station! Boo...\n2. Places to Stay Near Bryant Park in Midtown East Manhattan | Westgate New York Grand Central score=1.00\n   URL: https://westgateresorts.com/hotels/new-york/midtown-manhattan/westgate-new-york-grand-central/things-to-do-nyc/bryant-park\n   Snippet: # Stay Near Bryant Park in Midtown Manhattan. # Stay Near Bryant Park in Midtown Manhattan. If you're looking for things to do near Bryant Park in Midtown Manhattan, then Westgate New York Grand Central is your ticket to this interesting (and often underrated) public park space that so many visitors have come to know and love over the years! After a multi-year project to revitalize this storied-park with a rich historical background, the modern Bryant Park boasts a full spectrum of things to do, public events, historical park and New York City tours, music concerts, and special, seasonal themed venues that bring the surrounding neighborhood a truly unique energy, found nowhere else in Manhattan. Only a block and half away from Grand Central Station, Bryant Park is the perfect day-outing if you're looking for things to do in Murray Hill or near our hotel in near Grand Central Station! Boo...\n3. Midtown Manhattan Attractions near Our Hotel | Kimpton Ashbel New York - Park Avenue score=0.98\n   URL: http://www.70parkave.com/midtown-manhattan-hotels\n   Snippet: Title: Midtown Manhattan Attractions near Our Hotel | Kimpton Ashbel New York - Park Avenue\nBy booking direct on our website and becoming an IHG® One Rewards member, you'll enjoy what you can't get elsewhere. * Guaranteed best rates when you book on our website. * Earn credit towards reward nights. # Attractions near our Midtown Manhattan Hotel. ## Easy Access to the Most-Loved Midtown Manhattan Attractions. A true NYC adventure is just outside your window when you stay at Kimpton Ashbel New York - Park Avenue in Midtown. Literally packed with iconic things to do and see around every corner, this central-as-it-gets Manhattan neighborhood features Times Square, the Empire State Building, Broadway, Grand Central Station, the world’s top businesses and more dazzling and exciting landmarks, attractions and activities than we can count! For a small city, New York is BIG. ### Midtown. ### Midt...\n4. Midtown Manhattan Attractions near Our Hotel | Kimpton Ashbel New York - Park Avenue score=0.98\n   URL: https://www.70parkave.com/midtown-manhattan-hotels\n   Snippet: Title: Midtown Manhattan Attractions near Our Hotel | Kimpton Ashbel New York - Park Avenue\nBy booking direct on our website and becoming an IHG® One Rewards member, you'll enjoy what you can't get elsewhere. * Guaranteed best rates when you book on our website. * Earn credit towards reward nights. # Attractions near our Midtown Manhattan Hotel. ## Easy Access to the Most-Loved Midtown Manhattan Attractions. A true NYC adventure is just outside your window when you stay at Kimpton Ashbel New York - Park Avenue in Midtown. Literally packed with iconic things to do and see around every corner, this central-as-it-gets Manhattan neighborhood features Times Square, the Empire State Building, Broadway, Grand Central Station, the world’s top businesses and more dazzling and exciting landmarks, attractions and activities than we can count! For a small city, New York is BIG. ### Midtown. ### Midt...\n5. Midtown Manhattan Attractions near Our Hotel | Kimpton Ashbel New York - Park Avenue score=0.97\n   URL: https://www.ashbelhotelnewyork.com/midtown-manhattan-hotels\n   Snippet: By booking direct on our website and becoming an IHG® One Rewards member, you'll enjoy what you can't get elsewhere. ## Easy Access to the Most-Loved Midtown Manhattan Attractions. A true NYC adventure is just outside your window when you stay at Kimpton Ashbel New York - Park Avenue in Midtown. Literally packed with iconic things to do and see around every corner, this central-as-it-gets Manhattan neighborhood features Times Square, the Empire State Building, Broadway, Grand Central Station, the world’s top businesses and more dazzling and exciting landmarks, attractions and activities than we can count! #### Where in Midtown Manhattan is Kimpton Ashbel New York - Park Avenue located? :   Our hotel is located at 70 Park Avenue New York City, NY 10016, on the corner of Park Avenue and E 38th Street. :   Discover some of the top attractions near Kimpton Ashbel New York - Park Avenue in Mi...",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "731c78b7-c723-49a2-b89f-06a474533c8a",
+        "tool_call_id": "call_ifimLFf3nSTC1oq5Kx3DqZU4",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nThe MTA subway fare in New York City will increase to $3 in 2026, and MetroCards will no longer be sold. OMNY will replace MetroCards entirely by this time.\n\nTavily results:\n1. NYC subway and bus fares going up to $3 in 2026, MTA officials say score=1.00\n   URL: https://www.reddit.com/r/nyc/comments/1mdbiwk/nyc_subway_and_bus_fares_going_up_to_3_in_2026/\n   Snippet: OMNY is essentially a 7 day unlimited for $34.80. Multiple that by 4 (which is less than most months) and that's $139.20 every 28 days.\n2. [PDF] the news on Access-A-Ride - 2026 Fare & Toll Increases - MTA score=1.00\n   URL: https://www.mta.info/document/190086\n   Snippet: OMNY Transition: In 2026, the MTA will complete its switch from the. MetroCard to OMNY. All Access-A-Ride (AAR) customers — except temporary\n3. Will MetroCards still be sold in 2026? MTA changes for next year | FOX 5 New York score=1.00\n   URL: https://www.fox5ny.com/news/nyc-transit-commute-2026-subwas-bus-lirr-train-metro-north\n   Snippet: # NYC transit changes in 2026: Subways, buses, LIRR, Metro-North, tolls. * + Several changes are coming to New York City's public transportation in the new year. **NEW YORK** - Several changes are coming to New York City's public transportation in the new year. The base fare for subways, local buses and [Access-A-Ride](https://portal.311.nyc.gov/article/?kanumber=KA-02352) will increase from $2.90 to $3, with the [reduced fare](https://www.mta.info/fares-tolls/subway-bus/reduced-fare) increasing from $1.45 to $1.50. MetroCards will [no longer be available for purchase](https://www.mta.info/fares-tolls/subway-bus/metrocard). MTA officials told **FOX 5 NY's** Arthur Chi'en that they predict the biggest adjustment will be to the 5% of New Yorkers who are currently still using MetroCards. There will be no increase to fares on all [West of Hudson lines](https://www.mta.info/agency/metro-north...\n4. How to Use the NYC Subway in 2026 | OMNY Update + Fare Cap ... score=1.00\n   URL: https://www.youtube.com/watch?v=syujA6Xvh6k\n   Snippet: ... subway in 2026? This video is an updated guide to navigating New York City's transit system now that MetroCards have been officially phased out\n5. MTA Board Adopts Fare and Toll Increases to Take Effect January 2026 score=1.00\n   URL: https://www.mta.info/press-release/mta-board-adopts-fare-and-toll-increases-take-effect-january-2026\n   Snippet: [Skip to main content](https://www.mta.info/press-release/mta-board-adopts-fare-and-toll-increases-take-effect-january-2026#main-content). *   [Schedules](https://www.mta.info/schedules). *   [Maps](https://www.mta.info/maps). *   [Fares and tolls](https://www.mta.info/fares-tolls). *   [Accessibility](https://www.mta.info/accessibility). *   [Guides](https://www.mta.info/guides). *   [About the MTA](https://www.mta.info/about). *   [Transparency](https://www.mta.info/transparency). *   [Projects](https://www.mta.info/project). *   [Careers](https://www.mta.info/careers). *   [Metro-North Railroad](https://www.mta.info/agency/metro-north-railroad). *   [Other agencies and departments](https://www.mta.info/agency). *   [Contact the MTA](https://www.mta.info/contact-us). [](https://www.mta.info/ \"MTA\"). [Schedules](https://www.mta.info/schedules)[Maps](https://www.mta.info/maps)[Fares & To...",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "796af23d-a990-4a28-8629-c9b34bd61ac0",
+        "tool_call_id": "call_hfFTBrPLpdIUGfjWMR6yDCqE",
+        "status": "success"
+      },
+      {
+        "content": "",
+        "additional_kwargs": {
+          "refusal": null
+        },
+        "response_metadata": {
+          "token_usage": {
+            "completion_tokens": 220,
+            "prompt_tokens": 6700,
+            "total_tokens": 6920,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": null,
+              "audio_tokens": 0,
+              "reasoning_tokens": 36,
+              "rejected_prediction_tokens": null,
+              "image_tokens": 0
+            },
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0,
+              "cache_write_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost": 0.0401,
+            "is_byok": false,
+            "cost_details": {
+              "upstream_inference_cost": 0.0401,
+              "upstream_inference_prompt_cost": 0.0335,
+              "upstream_inference_completions_cost": 0.0066
+            }
+          },
+          "model_provider": "openai",
+          "model_name": "openai/gpt-5.5-20260423",
+          "system_fingerprint": null,
+          "id": "gen-1778953118-eqajMvRQPWKyBRXvfhVo",
+          "service_tier": "default",
+          "finish_reason": "tool_calls",
+          "logprobs": null
+        },
+        "type": "ai",
+        "id": "lc_run--019e31de-61d2-7f72-86f6-7c8a92f592ac-0",
+        "tool_calls": [
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "official Hyatt Grand Central New York hotel Midtown Manhattan business hotel Grand Central"
+            },
+            "id": "call_thKeBDGoqkvpQVH3IX797FOu",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "official The Bryant Park Hotel New York address Midtown Manhattan"
+            },
+            "id": "call_8zph44Uio43ByA6SC6GhtR7s",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Le Bernardin New York official reservations hours Midtown client dinner"
+            },
+            "id": "call_sUn5BZu9i33DHBgwGHf1qB0W",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "The Grill New York official reservations hours Midtown client dinner"
+            },
+            "id": "call_LV7vTE3ZnCGIVTQVfHwKRTfK",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Grand Central Terminal official hours New York"
+            },
+            "id": "call_DlOqOSh9nJJdz9QcLjNoRu6B",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "JFK AirTrain official fare LIRR Grand Central Madison MTA official"
+            },
+            "id": "call_MSCCUG9kHzWtPBbR2mW846gu",
+            "type": "tool_call"
+          }
+        ],
+        "invalid_tool_calls": [],
+        "usage_metadata": {
+          "input_tokens": 6700,
+          "output_tokens": 220,
+          "total_tokens": 6920,
+          "input_token_details": {
+            "audio": 0,
+            "cache_read": 0
+          },
+          "output_token_details": {
+            "audio": 0,
+            "reasoning": 36
+          }
+        }
+      },
+      {
+        "content": "Tavily answer:\nThe Hyatt Grand Central New York is a hotel in Midtown Manhattan, adjacent to Grand Central Terminal, offering on-site dining and fitness facilities.\n\nTavily results:\n1. Hyatt Grand Central New York - Wikipedia score=1.00\n   URL: https://en.wikipedia.org/wiki/Hyatt_Grand_Central_New_York\n   Snippet: The Hyatt Grand Central New York is a hotel located at 109 East 42nd Street, adjoining Grand Central Terminal, in the Midtown Manhattan neighborhood of New\n2. Hyatt Grand Central New York - Booking.com score=1.00\n   URL: https://www.booking.com/hotel/us/grand-hyatt-new-york.html\n   Snippet: Located adjacent to Grand Central Terminal, this Manhattan hotel features onsite dining and the 24/7 StayFit fitness center.\n3. Hyatt Grand Central New York - Tripadvisor score=1.00\n   URL: https://www.tripadvisor.com/Hotel_Review-g60763-d93450-Reviews-Hyatt_Grand_Central_New_York-New_York_City_New_York.html\n   Snippet: Located in the heart of midtown Manhattan, elevate your stay at Hyatt Grand Central New York, the only hotel connected to the majesty and advantages of Grand\n4. Hotel Hyatt Grand Central New York, USA - www.trivago.com score=1.00\n   URL: https://www.trivago.com/en-US/oar/hotel-hyatt-grand-central-new-york?search=100-8733\n   Snippet: The Grand Hyatt New York is a four-star highrise hotel located on East 42nd Street, next to Grand Central Station. Its Midtown location provides easy access\n5. Hyatt Grand Central New York Reviews, Deals & Photos 2026 score=1.00\n   URL: https://www.expedia.com/New-York-Hotels-Grand-Hyatt-New-York.h23677.Hotel-Information\n   Snippet: Hyatt Grand Central New York places visitors in Midtown Manhattan's shopping district with an on-site coffee shop. Enjoy free in-room WiFi, a 24-hour gym,",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "43a4066a-4d64-4991-8dc8-7126b18062e2",
+        "tool_call_id": "call_thKeBDGoqkvpQVH3IX797FOu",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nThe Bryant Park Hotel is located at 40 W 40th St, New York, NY, 10018, in Midtown Manhattan. It is directly across from historic Bryant Park.\n\nTavily results:\n1. The Bryant Park Hotel, 40 W 40th St, New York ... score=0.89\n   URL: https://www.mapquest.com/us/new-york/the-bryant-park-hotel-1162950\n   Snippet: 40 W 40th St, New York, NY, 10018. The Bryant Park Hotel is nestled in the vibrant Midtown Manhattan neighborhood, directly across from historic Bryant Park.\n2. THE BRYANT PARK HOTEL - Updated May 2026 score=0.85\n   URL: https://www.yelp.com/biz/the-bryant-park-hotel-new-york\n   Snippet: 40 W 40th St. New York, NY 10018. Midtown West · (212) 869-0100. Call Now · Payment methods. Does The Bryant Park Hotel take credit cards? Yes, The Bryant Park\n3. THE BRYANT PARK HOTEL - Updated 2026 Prices & ... score=0.83\n   URL: https://www.tripadvisor.com/Hotel_Review-g60763-d224214-Reviews-The_Bryant_Park_Hotel-New_York_City_New_York.html\n   Snippet: Nestled at the entrance of Bryant Park on 40th Street, between 5th and 6th Avenues, The Bryant Park Hotel is a serene retreat in the heart of Midtown Manhattan.\n4. The Bryant Park Hotel- First Class New York, NY Hotels score=0.81\n   URL: https://www.travelweekly.com/Hotels/New-York-NY/The-Bryant-Park-Hotel-p3669962\n   Snippet: ANdAZ 5th Avenue. New York, New York. 7 Superior First Class. Manhattan hotel in mid-town focusing on art and personal style. Near all attractions of New York\n5. The Bryant Park Hotel | New York NY score=0.77\n   URL: https://www.facebook.com/TheBryantParkHotel/\n   Snippet: Details. 󰡍. 90% recommend (1,065 Reviews). 󰦁. $$$. 󰛏. Always open. 󰘛. 40 W 40th St, New York, NY, United States, 10018 ; Links. 󰤂. bryantparkhotel.com ; Contact",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "55c1dddf-ad00-4e72-933f-52c2ed4890e6",
+        "tool_call_id": "call_8zph44Uio43ByA6SC6GhtR7s",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nLe Bernardin is open Tuesday through Saturday for lunch and dinner. Reservations can be made online. Final seating is often at 10:30 pm.\n\nTavily results:\n1. Le Bernardin, New York City | En Primeur Club score=0.77\n   URL: https://www.enprimeurclub.com/restaurants/le-bernardin\n   Snippet: Le Bernardin operates Tuesday through Friday for both lunch (12:00 to 2:30 pm) and dinner (5:00 to 10:30 pm), with Friday dinner extending to 11:00 pm. Saturday\n2. LE BERNARDIN - Updated May 2026 - 10401 Photos & 3227 Reviews score=0.65\n   URL: https://m.yelp.com/biz/le-bernardin-new-york\n   Snippet: LE BERNARDIN - Try Our New Menu - 155 W 51st St, The Equitable Bldg, New York, NY 10019, 10401 Photos, (212) 554-1515, Mon - 12:00 pm - 2:30 pm,\n3. 10:30pm Seating at Le Bernardin : r/finedining - Reddit score=0.54\n   URL: https://www.reddit.com/r/finedining/comments/1ih76ql/1030pm_seating_at_le_bernardin/\n   Snippet: Could there be any reason why dining at 10:30pm, which I assume is the final seating time, is less than ideal? The main thing I'm worried about\n4. No reservations, no pressure. Lunch and dinner walk-ins welcome ... score=0.42\n   URL: https://www.facebook.com/LeBernardin/posts/no-reservations-no-pressure-lunch-and-dinner-walk-ins-welcome-in-the-lounge/1186539480184766/\n   Snippet: No reservations, no pressure. Lunch and dinner walk- ins welcome in the Lounge · Lunch in the Lounge at Le Bernardin.\n5. Le Bernardin | Menu, Reservations, Chef & Dining Guide score=0.38\n   URL: https://supremarine.com/post/le-bernardin-dining-guide/\n   Snippet: Reservations at Le Bernardin can be made online through the restaurant's official website. Due to its popularity and limited seating, tables often book out",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "d4bc90c7-b996-4d10-a0f8-dd9ea76445e4",
+        "tool_call_id": "call_sUn5BZu9i33DHBgwGHf1qB0W",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nThe Grill in New York City is open for dinner from 5:00 pm to 11:00 pm. Reservations can be made up to 30 days in advance starting at 10:00 AM EST. Contact reservations@thegrillnewyork.com for reservations.\n\nTavily results:\n1. Book Your THE GRILL Reservation Now on Resy score=0.70\n   URL: https://resy.com/cities/new-york-ny/venues/the-grill-ny\n   Snippet: Reservations can be made through Resy or via email up to 30 days in advance, starting at 10:00 AM EST. For reservations, modifications, or cancellations of\n2. THE GRILL - Updated May 2026 - 1143 Photos & 316 Reviews - Yelp score=0.66\n   URL: https://www.yelp.com/biz/the-grill-new-york-4\n   Snippet: THE GRILL - Try Our New Menu - 99 E 52nd St, New York, NY 10022, 1143 Photos, (212) 254-3000, Mon - 11:45 am - 2:00 pm, 5:00 pm - 11:00 pm, Tue - 11:45 am\n3. THE GRILL - Updated May 2026 - 1143 Photos & 316 Reviews - Yelp score=0.66\n   URL: https://www.yelp.com/biz/the-grill-new-york-4?start=40\n   Snippet: THE GRILL - Try Our New Menu - 99 E 52nd St, New York, NY 10022, 1143 Photos, (212) 254-3000, Mon - 11:45 am - 2:00 pm, 5:00 pm - 11:00 pm, Tue - 11:45 am\n4. Contact Us | The Grill New York score=0.46\n   URL: https://thegrillnewyork.com/contact-us\n   Snippet: Reserve a Table. The Seagram Building 99 East 52nd Street New York, NY, 10022. Email: reservations@thegrillnewyork.com · facebook instagram · Reserve a Table.\n5. THE GRILL score=0.34\n   URL: https://www.majorfood.com/brands/the-grill\n   Snippet: America’s most essential chophouse. Manhattan’s most glamorous room. The crown jewel of Manhattan’s iconic Seagram Building and one of the most acclaimed steakhouses in the world, THE GRILL is a contemporary celebration of mid-century American dining by Major Food Group. The experience at THE GRILL features debonair service captains, a powerhouse wine list, and expertly prepared classics like The Seagram Crab Cake and a perfect prime rib. 99 East 52nd StreetNew York, NY 10022.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "6d8ee147-b1f4-4dec-be2d-ce3aa1819fb4",
+        "tool_call_id": "call_LV7vTE3ZnCGIVTQVfHwKRTfK",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nGrand Central Terminal is open daily from 5:15 AM to 2:00 AM. Individual stores and restaurants may have different hours. For specific store hours, check individual listings.\n\nTavily results:\n1. Grand Central Terminal - Landmarks & Historical Buildings - Yelp score=0.86\n   URL: https://www.yelp.com/biz/grand-central-terminal-new-york\n   Snippet: GRAND CENTRAL TERMINAL, 89 E 42nd St, New York, NY 10017, 6415 Photos, (212) 340-2583, Mon - 5:30 am - 2:00 am, Tue - 5:30 am - 2:00 am, Wed - 5:30 am\n2. Contact - Grand Central Terminal score=0.85\n   URL: https://grandcentralterminal.com/contact-us/\n   Snippet: 89 E 42nd Street New York, NY 10017. Grand Central Terminal is open to the public daily 5:15 AM – 2:00 AM. Individual store, restaurant, market, dining\n3. Visit - Grand Central Terminal score=0.82\n   URL: https://grandcentralterminal.com/visit/\n   Snippet: Open to Public Daily 5:15 AM – 2:00 AM. Individual stores, restaurants, Grand Central Market, Dining Concourse, and holiday hours may differ.\n4. Grand Central Terminal | New York NY - Facebook score=0.82\n   URL: https://www.facebook.com/GrandCentralTerminal/\n   Snippet: Official U.S. Soccer Store presented by Visa. 89 East 42nd Street, New ... ✨ Store Hours 8:30AM-4:30PM 45th Street Passage · May be an image of\n5. Grand Central Terminal score=0.64\n   URL: https://www.mta.info/stations/grand-central-terminal\n   Snippet: We have detected you are using an out-of-date browser. We no longer support this browser, so parts of the site might not work as you expect them to. This is an accessible station with elevators, ramps, tactile warning strips, and audiovisual passenger information systems. There are 37 ticket machines in Grand Central Terminal:. * 10 in the Ticket Machine Center near Track 32. * Nine in the East Ticket Machine Center under the arch leading to the ​​​ trains. * Nine in the West Ticket Machine Center under the arch leading to the ​ 42 St Shuttle. * Two in the Lower Level (Dining Concourse). * Daily: 5:10 a.m.-2 a.m. Two sets of restrooms are located on the Lower Level (Dining Concourse). The Metro-North Railroad Lost & Found Office is located on the Lower Level of Grand Central Terminal between Track 100 and the MTA Police Department. Visit the Metro-North Care program page for more informa...",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "0782db17-96eb-4f7f-a088-d8d52cfe14c4",
+        "tool_call_id": "call_DlOqOSh9nJJdz9QcLjNoRu6B",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nThe official fare for AirTrain from JFK Airport is $8.75. The LIRR fare from Grand Central Madison to JFK varies by time of day. Combine AirTrain and LIRR for a total cost.\n\nTavily results:\n1. There's a new way to get from midtown Manhattan to JFK score=1.00\n   URL: https://thepointsguy.com/news/new-nyc-jfk-lirr-service-grand-central-madison/\n   Snippet: An \"off-peak\" city ticket on the LIRR from Grand Central to Jamaica is $5 and the AirTrain from Jamaica to the airport terminals is another $8,\n2. Public Transportation - JFK Airport score=1.00\n   URL: https://www.jfkairport.com/transportation/public-transport\n   Snippet: All fares include AirTrain fee of $8.75. Midtown Manhattan - Penn Station. Midtown Manhattan - Grand Central Madison.\n3. Did you know it only takes 20 minutes to get from Grand Central ... score=1.00\n   URL: https://www.facebook.com/JFKairport.Official/posts/did-you-know-it-only-takes-20-minutes-to-get-from-grand-central-madison-or-ny-pe/786455023629791/\n   Snippet: Anthony Picone Needs to be more than four people. $75 cab, $18.75 a person. Airtrain and LIRR, $15.50 per person. Airtrain and Subway, $11.40 a\n4. How to get to Manhattan from JFK Airport - MTA score=1.00\n   URL: https://www.mta.info/guides/airports/jfk/jfk-airport-to-manhattan\n   Snippet: Whether you take the subway or LIRR, you will need to pay the $8.75 AirTrain fare when you exit the AirTrain at Jamaica Station. You can use your credit or\n5. Visiting NYC, best way to get from JFK to Grand Central? : r/manhattan score=1.00\n   URL: https://www.reddit.com/r/manhattan/comments/12fy79b/visiting_nyc_best_way_to_get_from_jfk_to_grand/\n   Snippet: The fare for the AirTrain is $7.75, and the LIRR fare will depend on the time of day. You can use a MetroCard to pay for both services. Shuttle",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "6d32449e-4983-4aa7-af7e-2a36bdbbc09f",
+        "tool_call_id": "call_MSCCUG9kHzWtPBbR2mW846gu",
+        "status": "success"
+      },
+      {
+        "content": "",
+        "additional_kwargs": {
+          "refusal": null
+        },
+        "response_metadata": {
+          "token_usage": {
+            "completion_tokens": 421,
+            "prompt_tokens": 10174,
+            "total_tokens": 10595,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": null,
+              "audio_tokens": 0,
+              "reasoning_tokens": 383,
+              "rejected_prediction_tokens": null,
+              "image_tokens": 0
+            },
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 6144,
+              "cache_write_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost": 0.035852,
+            "is_byok": false,
+            "cost_details": {
+              "upstream_inference_cost": 0.035852,
+              "upstream_inference_prompt_cost": 0.023222,
+              "upstream_inference_completions_cost": 0.01263
+            }
+          },
+          "model_provider": "openai",
+          "model_name": "openai/gpt-5.5-20260423",
+          "system_fingerprint": null,
+          "id": "gen-1778953124-Gh87umOJY2C8kZeqHHsV",
+          "service_tier": "default",
+          "finish_reason": "tool_calls",
+          "logprobs": null
+        },
+        "type": "ai",
+        "id": "lc_run--019e31de-7b8b-7c80-a5b8-acdc2741fb72-0",
+        "tool_calls": [
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "site:hyatt.com Hyatt Grand Central New York official hotel address Grand Central Terminal"
+            },
+            "id": "call_b6mdowkLYRxcCyzcAusArmMh",
+            "type": "tool_call"
+          }
+        ],
+        "invalid_tool_calls": [],
+        "usage_metadata": {
+          "input_tokens": 10174,
+          "output_tokens": 421,
+          "total_tokens": 10595,
+          "input_token_details": {
+            "audio": 0,
+            "cache_read": 6144
+          },
+          "output_token_details": {
+            "audio": 0,
+            "reasoning": 383
+          }
+        }
+      },
+      {
+        "content": "Tavily answer:\nHyatt Grand Central New York is located at 109 East 42nd Street, adjacent to Grand Central Terminal, New York, NY 10017.\n\nTavily results:\n1. Hotel Photos | Hyatt Grand Central New York score=0.89\n   URL: https://www.hyatt.com/hyatt-hotels/en-US/nycgh-hyatt-grand-central-new-york/gallery\n   Snippet: Hyatt Hotels. Hyatt Grand Central New York. 109 East 42nd Street at Grand Central Terminal, New York, NY 10017, United States of America · Tel: +1 212 883 1234\n2. New York City Hotel Deals | Hyatt Grand Central score=0.88\n   URL: https://www.hyatt.com/en-US/hotel/new-york/hyatt-grand-central-new-york/nycgh/offers?%252Fhyatt%252Fhotels%252Foffers%252Foffers.jsp%253Bjsessionid=5E1445F43637F851292DC424B55E3F50.atg04-prd-atg1\n   Snippet: Hotel Policies · Gallery · Reviews. Hyatt Grand Central New York. 109 East 42nd Street at Grand Central Terminal, New York, NY 10017, United States of America.\n3. Hyatt Grand Central New York score=0.88\n   URL: https://www.hyatt.com/fr-FR/destinations/new-york-city\n   Snippet: Hyatt Grand Central New York · 109 East 42nd Street at Grand Central Terminal. New York, New York, États-Unis, 10017 ; Andaz 5th Avenue · 485 5th Avenue At, E 41st\n4. Hyatt Grand Central New York score=0.88\n   URL: https://www.hyatt.com/pt-PT/destinations/new-york-city\n   Snippet: Hyatt Grand Central New York · 109 East 42nd Street, Grand Central Terminal. Nova York, Nova Iorque, Estados Unidos, 10017 ; Andaz 5th Avenue · 485 5th Avenue com\n5. Hyatt Grand Central New York score=0.88\n   URL: https://www.hyatt.com/es-ES/destinations/new-york-city\n   Snippet: Hyatt Grand Central New York · 109 East 42nd Street at Grand Central Terminal. New York, Nueva York, Estados Unidos, 10017 ; Andaz 5th Avenue · 485 5th Avenue At,",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "8991175c-11ba-4566-a27a-cc59de15de86",
+        "tool_call_id": "call_b6mdowkLYRxcCyzcAusArmMh",
+        "status": "success"
+      },
+      {
+        "content": "# Baseline itinerary: Frankfurt to New York business trip, June 15–17, 2026\n\n## Goal and constraints understood\n- Origin: Frankfurt, Germany\n- Destination: New York City, USA\n- Dates: June 15–17, 2026\n- Traveler: 1 adult\n- Transport: flight; preference for nonstop or short-connection service\n- Accommodation: central business hotel in New York City\n- Trip purpose: business meetings, efficient transport, client-suitable dinners\n- Budget: no strict cap; company covered\n- Baseline limitation: this plan uses only Tavily web-search evidence, not live booking, flight inventory, hotel availability, or restaurant reservation systems.\n\n## Search summary\n- Nonstop Frankfurt–New York options appear to exist on Lufthansa, United, Delta, Condor, and Singapore Airlines depending on JFK/EWR routing; live booking must confirm exact June 2026 schedules. Evidence: [United FRA–EWR page](https://www.united.com/en-us/flights-from-frankfurt-to-new-york), [FlightConnections FRA–JFK schedule overview](https://www.flightconnections.com/flights-from-fra-to-jfk).\n- Central hotel recommendation: Hyatt Grand Central New York at 109 East 42nd Street, directly at Grand Central Terminal. Evidence: [Hyatt official listing](https://www.hyatt.com/hyatt-hotels/en-US/nycgh-hyatt-grand-central-new-york/gallery).\n- JFK to Midtown can be handled by AirTrain + LIRR to Grand Central Madison; JFK’s official page notes fares include the AirTrain fee, and MTA guidance cites an $8.75 AirTrain fare. Evidence: [JFK public transportation](https://www.jfkairport.com/transportation/public-transport), [MTA JFK to Manhattan guide](https://www.mta.info/guides/airports/jfk/jfk-airport-to-manhattan).\n- NYC subway/local bus base fare is expected to be $3 in 2026 per MTA fare-increase release. Evidence: [MTA 2026 fare/toll increase release](https://www.mta.info/press-release/mta-board-adopts-fare-and-toll-increases-take-effect-january-2026).\n- Client-dinner candidates: The Grill, Le Bernardin, Del Frisco’s/Quality Meats/Nobu-type Midtown business-dinner options. Evidence: [The Grill official contact](https://thegrillnewyork.com/contact-us), [The Grill / Major Food Group](https://www.majorfood.com/brands/the-grill), [Eater client dinner list](https://ny.eater.com/maps/best-nyc-restaurants-for-client-dinners), [OpenTable Midtown business meals](https://www.opentable.com/features/best-restaurants-for-business-meals-midtown-west-ny).\n- Grand Central Terminal is useful as a meeting point and transit hub; official site lists public hours as 5:15 AM–2:00 AM. Evidence: [Grand Central Terminal visit page](https://grandcentralterminal.com/visit/).\n\n## Day 1 — Monday, June 15, 2026: Frankfurt to New York, hotel check-in, first client dinner\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 07:30-09:30 | transport | Arrive at Frankfurt Airport and use airline lounge / priority check-in if booked in business class. | Frankfurt Airport, FRA | Included/varies | Exact airline and flight not bookable with Tavily; choose nonstop FRA–JFK or FRA–EWR where available. |\n| 10:30-13:30 | flight | Target nonstop daytime flight from Frankfurt to New York. Prefer JFK if Midtown/Grand Central access is the priority; EWR is also acceptable for direct service. | FRA to JFK/EWR | Estimate: €700-€4,500+ round trip depending cabin | Nonstop operators shown in search evidence include Lufthansa/United/Delta/Condor/Singapore depending airport/date: [United](https://www.united.com/en-us/flights-from-frankfurt-to-new-york), [FlightConnections](https://www.flightconnections.com/flights-from-fra-to-jfk). |\n| 13:30-15:00 | transport | Clear immigration, collect baggage, transfer to Midtown. If arriving JFK: AirTrain to Jamaica + LIRR to Grand Central Madison. If arriving EWR: car service/taxi is simplest for business timing. | JFK/EWR to Midtown Manhattan | JFK rail estimate: $15-$20; car estimate: $90-$160 | JFK AirTrain fee cited by MTA as $8.75; total varies by LIRR time/ticket: [MTA guide](https://www.mta.info/guides/airports/jfk/jfk-airport-to-manhattan), [JFK public transport](https://www.jfkairport.com/transportation/public-transport). |\n| 15:00-15:30 | hotel | Check in at recommended central business hotel: Hyatt Grand Central New York. | 109 East 42nd Street, Midtown Manhattan | Estimate: €350-€700/night before tax | Official Hyatt listing gives address at Grand Central Terminal: [Hyatt](https://www.hyatt.com/hyatt-hotels/en-US/nycgh-hyatt-grand-central-new-york/gallery). |\n| 15:30-17:30 | rest/work | Refresh, review meeting materials, handle email, and adjust to time zone. | Hotel / Midtown | $0 | Practical buffer after transatlantic arrival. |\n| 17:30-18:30 | business | Informal prep meeting or coffee near Grand Central / Bryant Park. | Midtown East / Bryant Park area | Estimate: $10-$30 | Grand Central is open to public 5:15 AM–2:00 AM: [Grand Central Terminal](https://grandcentralterminal.com/visit/). |\n| 19:30-21:30 | dinner | Client dinner option 1: The Grill — polished Midtown power-dinner setting in the Seagram Building. Reserve well ahead. | The Grill, 99 E 52nd St | Estimate: $175-$300+ pp | Official/contact pages identify location and reservations: [The Grill](https://thegrillnewyork.com/contact-us), [Major Food Group](https://www.majorfood.com/brands/the-grill). |\n| 21:30-22:00 | transport | Taxi or black car back to hotel. | Midtown to Grand Central area | Estimate: $15-$40 | Taxi/ride-hail cost estimate; verify live fare. |\n\n## Day 2 — Tuesday, June 16, 2026: meetings and formal client dinner\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 07:30-08:30 | meal | Breakfast at hotel or nearby Midtown café; keep morning flexible for calls with Europe. | Hyatt Grand Central / Midtown | Estimate: $25-$50 | Hotel breakfast availability and pricing require booking confirmation. |\n| 08:30-09:00 | transport | Walk, taxi, or subway to first meeting depending office location. | Midtown Manhattan | Subway: about $3; taxi varies | MTA release indicates NYC subway/local bus base fare rises to $3 in 2026: [MTA](https://www.mta.info/press-release/mta-board-adopts-fare-and-toll-increases-take-effect-january-2026). |\n| 09:00-12:00 | business | Primary business meetings. | Client office, assumed Midtown / Financial District | $0 | Exact meeting address not provided; Midtown hotel keeps transfers efficient. |\n| 12:00-13:30 | meal | Business lunch near meeting location; choose quiet venue close to client office. | Midtown / client area | Estimate: $60-$120 pp | Restaurant to be selected after meeting location is known. |\n| 13:30-16:30 | business | Afternoon meetings / workshops. | Client office / coworking / hotel meeting space | Varies | Hyatt/nearby business venues require live availability confirmation. |\n| 16:30-17:30 | buffer | Return to hotel, call Europe, change for dinner. | Midtown Manhattan | $0-$30 | Buffer reduces risk before client dinner. |\n| 18:00-18:30 | transport | Taxi or walk to dinner depending final reservation. | Midtown | Estimate: $15-$40 | For senior-client dinner, taxi/black car recommended for punctuality. |\n| 18:30-21:30 | dinner | Client dinner option 2: Le Bernardin for high-end seafood/fine dining, if reservation is available. Backup: Del Frisco’s Double Eagle Steakhouse, Quality Meats, or Nobu Fifty Seven for business-dinner style. | Le Bernardin, Midtown West, or alternate Midtown restaurant | Estimate: $250-$450+ pp at top fine dining; lower at steakhouse alternatives | Search evidence suggests Le Bernardin is a premium client-dinner candidate; Eater/OpenTable list client-dinner and business-meal options: [Eater](https://ny.eater.com/maps/best-nyc-restaurants-for-client-dinners), [OpenTable](https://www.opentable.com/features/best-restaurants-for-business-meals-midtown-west-ny). |\n| 21:30-22:00 | transport | Return to hotel. | Midtown to Grand Central area | Estimate: $15-$40 | Ride-hail/taxi estimate. |\n\n## Day 3 — Wednesday, June 17, 2026: final meetings and return flight\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 07:30-08:30 | meal | Breakfast and check out; leave bags with hotel concierge. | Hyatt Grand Central New York | Estimate: $25-$50 | Late checkout/luggage storage to be confirmed with hotel. |\n| 08:30-09:00 | transport | Transfer to meeting location. | Midtown / client office | Subway: about $3; taxi varies | MTA 2026 base fare evidence: [MTA](https://www.mta.info/press-release/mta-board-adopts-fare-and-toll-increases-take-effect-january-2026). |\n| 09:00-12:00 | business | Final meetings, contract discussions, or follow-up workshop. | Client office | $0 | Exact location not provided. |\n| 12:00-13:00 | meal | Working lunch or executive debrief near client office. | Midtown / Financial District | Estimate: $50-$100 | Keep close to meeting location to protect airport-transfer buffer. |\n| 13:00-14:30 | business | Wrap-up, notes, and internal calls. | Hotel lobby / client office / quiet café | $0-$30 | Grand Central area is practical for transit and meeting point. |\n| 14:30-15:00 | hotel | Collect luggage from hotel. | Hyatt Grand Central New York | $0-$10 tip | Hotel luggage storage assumed; confirm directly. |\n| 15:00-16:30 | transport | Transfer to JFK/EWR for evening nonstop return to Frankfurt. Use car service for predictability; JFK rail via Grand Central + LIRR + AirTrain is an efficient backup. | Midtown to JFK/EWR | Car estimate: $90-$170; JFK rail estimate: $15-$20 | JFK public transit evidence: [JFK Airport](https://www.jfkairport.com/transportation/public-transport), [MTA JFK guide](https://www.mta.info/guides/airports/jfk/jfk-airport-to-manhattan). |\n| 17:00-20:30 | flight | Target nonstop overnight flight New York to Frankfurt. | JFK/EWR to FRA | Included in round trip estimate | Exact departure time/flight number requires live airline booking; nonstop routes evidenced by [United](https://www.united.com/en-us/flights-from-frankfurt-to-new-york) and [FlightConnections](https://www.flightconnections.com/flights-from-fra-to-jfk). |\n| Overnight | flight | In-flight rest; expected arrival in Frankfurt on June 18 due eastbound overnight timing. | En route to FRA | Included | Assumption: trip ends with departure from New York on June 17 and arrival Frankfurt on June 18. |\n\n## Budget summary\n- No strict budget was supplied; company coverage assumed.\n- Indicative reimbursable range, subject to live booking:\n  - Round-trip nonstop flight FRA–NYC: approximately €700-€4,500+ depending economy / premium economy / business class.\n  - Hotel, 2 nights Midtown business hotel: approximately €700-€1,400+ before taxes and fees.\n  - Airport transfers: approximately $30-$40 total using JFK rail, or $180-$330 total using taxi/black car both ways.\n  - Local taxis/subway: approximately $50-$150.\n  - Client dinners: approximately $400-$900+ depending restaurant, wine, and number of hosted guests.\n- Estimated solo traveler base total excluding hosted client covers: roughly €1,800-€6,500+, highly dependent on flight cabin and hotel rate.\n\n## Unscheduled or uncertain items\n- Exact flight numbers, departure times, aircraft, fare class, and availability for June 15 and June 17, 2026 require live airline or corporate travel booking.\n- Exact hotel availability and corporate rate at Hyatt Grand Central New York require live booking confirmation.\n- Restaurant reservations are not confirmed; The Grill and Le Bernardin should be booked as soon as reservation windows open.\n- Client office location was not provided, so meeting transfers are optimized around a Midtown / Grand Central hotel base.\n- If nonstop flights are unavailable at acceptable times, use a short one-stop connection via London, Amsterdam, Zurich, Munich, or another major hub, but direct service should be attempted first.\n\n## Assumptions and gaps\n- Assumed “June 15–17” means depart Frankfurt June 15, depart New York June 17, and arrive Frankfurt June 18 on an overnight eastbound flight.\n- Assumed Midtown Manhattan is the best “city centre” business base because it provides Grand Central access, many corporate offices, and strong restaurant coverage.\n- Assumed the traveler may use business class, premium economy, taxi, or black car because there is no strict budget.\n- Tavily evidence is suitable for baseline planning but not a substitute for live reservation, fare, immigration, schedule, or company-policy validation.",
+        "additional_kwargs": {
+          "refusal": null
+        },
+        "response_metadata": {
+          "token_usage": {
+            "completion_tokens": 3619,
+            "prompt_tokens": 10760,
+            "total_tokens": 14379,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": null,
+              "audio_tokens": 0,
+              "reasoning_tokens": 516,
+              "rejected_prediction_tokens": null,
+              "image_tokens": 0
+            },
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 9728,
+              "cache_write_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost": 0.118594,
+            "is_byok": false,
+            "cost_details": {
+              "upstream_inference_cost": 0.118594,
+              "upstream_inference_prompt_cost": 0.010024,
+              "upstream_inference_completions_cost": 0.10857
+            }
+          },
+          "model_provider": "openai",
+          "model_name": "openai/gpt-5.5-20260423",
+          "system_fingerprint": null,
+          "id": "gen-1778953137-lOUhFzPSoPZgsYwhpFAN",
+          "service_tier": "default",
+          "finish_reason": "stop",
+          "logprobs": null
+        },
+        "type": "ai",
+        "id": "lc_run--019e31de-ac21-7be1-bfe9-706cd6683a51-0",
+        "tool_calls": [],
+        "invalid_tool_calls": [],
+        "usage_metadata": {
+          "input_tokens": 10760,
+          "output_tokens": 3619,
+          "total_tokens": 14379,
+          "input_token_details": {
+            "audio": 0,
+            "cache_read": 9728
+          },
+          "output_token_details": {
+            "audio": 0,
+            "reasoning": 516
+          }
+        }
+      }
+    ]
+  },
+  "error": null,
+  "metadata": {
+    "LANGSMITH_ENDPOINT": "https://eu.api.smith.langchain.com",
+    "LANGSMITH_PROJECT": "travelplanner",
+    "LANGSMITH_TRACING": "true",
+    "ls_integration": "langgraph",
+    "ls_run_depth": 0,
+    "revision_id": "10ec8d0-dirty",
+    "thread_id": "e490ffcc-b3c4-4265-88ab-b86ffc9d4f89"
+  },
+  "langsmith": {
+    "organization": {
+      "name": "Personal",
+      "id": "477adfd8-a90b-45c3-95f6-1375325770e8"
+    },
+    "workspace": {
+      "name": "Workspace 1",
+      "id": "06241d75-72ec-4af5-b325-52629e7730a0"
+    },
+    "tracing_project": {
+      "id": "d92c06e8-225e-4665-a627-fdf375468f7c",
+      "name": "travelplanner"
+    }
+  }
+}

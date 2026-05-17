@@ -1,0 +1,751 @@
+{
+  "inputs": {
+    "messages": [
+      {
+        "content": "You are the Simple Baseline TravelPlanner Agent.\n\nPurpose:\n- Produce a single-agent baseline itinerary for later comparison against the\n  multi-agent TravelPlanner system.\n- You have exactly one tool: Tavily web search. You have no sub-agents and no\n  specialized flight, hotel, restaurant, routing, or validation tools.\n\nOperating rules:\n1. Use Tavily web search before the final itinerary for current facts, links,\n   opening hours, prices, neighborhoods, transit hints, and source URLs.\n   The workflow may require a minimum number of completed Tavily searches before\n   you may answer with final markdown only; if you receive a workflow nudge,\n   complete the requested searches first.\n   Use a small number of high-value searches, then synthesize the final answer.\n2. Respect every hard constraint supplied by the user. If a constraint cannot be\n   verified, state the assumption instead of silently ignoring it.\n3. Prefer official tourism, venue, transit, accommodation, restaurant, and event\n   pages when search results contain them. Use blogs and aggregators only as\n   secondary evidence.\n4. Do not invent exact prices, opening hours, flight numbers, hotel availability,\n   or booking status. Mark uncertain values as estimates.\n5. Order each day like the main execution agent: travel/check-in first, meals at\n   plausible meal times, attractions during likely opening hours, transfers\n   between distant places, and rest/free time when useful.\n6. Return only markdown in the final answer.\n\nFinal markdown structure:\nUse exactly these section headings, in this order:\n1. `# Baseline itinerary: ...`\n2. `## Goal and constraints understood`\n3. `## Search summary`\n4. `## Day 1 ...` and one section per day\n5. `## Budget summary`\n6. `## Unscheduled or uncertain items`\n7. `## Assumptions and gaps`\n\nEach day must be a markdown table with exactly these columns:\n`Time | Type | Plan | Location | Cost | Evidence/Notes`.\n\nSource discipline:\n- Every non-obvious venue, attraction, transit pass, opening-time claim, and\n  ticket price should have either a markdown link in Evidence/Notes or be marked\n  as an estimate.\n- If a requested item cannot be scheduled with available evidence, list it under\n  \"Unscheduled or uncertain items\" rather than hiding it.\n- Never include raw Tavily result dumps in the final answer.\n\nExample final output shape:\n\n# Baseline itinerary: 3 days in Lisbon\n\n## Goal and constraints understood\n- Origin: Berlin\n- Dates: 2026-06-12 to 2026-06-14\n- Budget: 800 EUR for 2 travelers\n\n## Search summary\n- Official tourism page for Belém Tower: https://...\n- Transit pass information: https://...\n\n## Day 1\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 09:00-10:30 | transport | Arrive and transfer to hotel | Airport to Baixa | €8 | Metro estimate; verify live schedules |\n\n## Budget summary\n- Estimated total: €...\n\n## Unscheduled or uncertain items\n- Flight number unavailable because only Tavily web search is available.\n\n## Assumptions and gaps\n- Hotel prices require live booking confirmation.\n",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "system",
+        "id": "151e5bbb-6590-44c0-83a3-944cc510e5dc"
+      },
+      {
+        "content": "GOAL\nCreate a comparable baseline travel plan in markdown.\n\nUSER QUERY\nMy partner and I are travelling from Cologne to Amsterdam from October 3rd to 6th, 2026. Budget is €2,000 for two. We follow a strictly vegan diet and only want to eat at vegan or fully plant-based restaurants. We prefer sustainable, eco-certified accommodation. We love cycling, vegan food markets, and eco-friendly activities. Train travel is preferred over flying.\n\nCONSTRAINTS\n{\n  \"hard_constraints\": {\n    \"origin\": \"Cologne\",\n    \"destination\": \"Amsterdam\",\n    \"date_from\": \"2026.10.03\",\n    \"date_to\": \"2026.10.06\",\n    \"travelers\": {\n      \"adults\": 2,\n      \"children_under_6\": 0,\n      \"children_6_to_16\": 0\n    },\n    \"budget_amount\": 2000,\n    \"budget_currency\": \"EUR\",\n    \"accommodation\": \"eco-certified hotel or sustainable guesthouse\",\n    \"transport\": \"No Preference\",\n    \"interests\": \"vegan restaurants, sustainability, cycling, vegan markets, eco-friendly activities\"\n  }\n}\n\nOUTPUT REQUIREMENT\nReturn the final plan as markdown using the same practical timetable style as the main execution agent, but acknowledge that this baseline only has Tavily evidence. Include source links found via Tavily.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "human",
+        "id": "9839e966-8d13-4e3b-a068-74e8745dbdf8"
+      }
+    ]
+  },
+  "outputs": {
+    "messages": [
+      {
+        "content": "You are the Simple Baseline TravelPlanner Agent.\n\nPurpose:\n- Produce a single-agent baseline itinerary for later comparison against the\n  multi-agent TravelPlanner system.\n- You have exactly one tool: Tavily web search. You have no sub-agents and no\n  specialized flight, hotel, restaurant, routing, or validation tools.\n\nOperating rules:\n1. Use Tavily web search before the final itinerary for current facts, links,\n   opening hours, prices, neighborhoods, transit hints, and source URLs.\n   The workflow may require a minimum number of completed Tavily searches before\n   you may answer with final markdown only; if you receive a workflow nudge,\n   complete the requested searches first.\n   Use a small number of high-value searches, then synthesize the final answer.\n2. Respect every hard constraint supplied by the user. If a constraint cannot be\n   verified, state the assumption instead of silently ignoring it.\n3. Prefer official tourism, venue, transit, accommodation, restaurant, and event\n   pages when search results contain them. Use blogs and aggregators only as\n   secondary evidence.\n4. Do not invent exact prices, opening hours, flight numbers, hotel availability,\n   or booking status. Mark uncertain values as estimates.\n5. Order each day like the main execution agent: travel/check-in first, meals at\n   plausible meal times, attractions during likely opening hours, transfers\n   between distant places, and rest/free time when useful.\n6. Return only markdown in the final answer.\n\nFinal markdown structure:\nUse exactly these section headings, in this order:\n1. `# Baseline itinerary: ...`\n2. `## Goal and constraints understood`\n3. `## Search summary`\n4. `## Day 1 ...` and one section per day\n5. `## Budget summary`\n6. `## Unscheduled or uncertain items`\n7. `## Assumptions and gaps`\n\nEach day must be a markdown table with exactly these columns:\n`Time | Type | Plan | Location | Cost | Evidence/Notes`.\n\nSource discipline:\n- Every non-obvious venue, attraction, transit pass, opening-time claim, and\n  ticket price should have either a markdown link in Evidence/Notes or be marked\n  as an estimate.\n- If a requested item cannot be scheduled with available evidence, list it under\n  \"Unscheduled or uncertain items\" rather than hiding it.\n- Never include raw Tavily result dumps in the final answer.\n\nExample final output shape:\n\n# Baseline itinerary: 3 days in Lisbon\n\n## Goal and constraints understood\n- Origin: Berlin\n- Dates: 2026-06-12 to 2026-06-14\n- Budget: 800 EUR for 2 travelers\n\n## Search summary\n- Official tourism page for Belém Tower: https://...\n- Transit pass information: https://...\n\n## Day 1\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 09:00-10:30 | transport | Arrive and transfer to hotel | Airport to Baixa | €8 | Metro estimate; verify live schedules |\n\n## Budget summary\n- Estimated total: €...\n\n## Unscheduled or uncertain items\n- Flight number unavailable because only Tavily web search is available.\n\n## Assumptions and gaps\n- Hotel prices require live booking confirmation.\n",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "system",
+        "id": "151e5bbb-6590-44c0-83a3-944cc510e5dc"
+      },
+      {
+        "content": "GOAL\nCreate a comparable baseline travel plan in markdown.\n\nUSER QUERY\nMy partner and I are travelling from Cologne to Amsterdam from October 3rd to 6th, 2026. Budget is €2,000 for two. We follow a strictly vegan diet and only want to eat at vegan or fully plant-based restaurants. We prefer sustainable, eco-certified accommodation. We love cycling, vegan food markets, and eco-friendly activities. Train travel is preferred over flying.\n\nCONSTRAINTS\n{\n  \"hard_constraints\": {\n    \"origin\": \"Cologne\",\n    \"destination\": \"Amsterdam\",\n    \"date_from\": \"2026.10.03\",\n    \"date_to\": \"2026.10.06\",\n    \"travelers\": {\n      \"adults\": 2,\n      \"children_under_6\": 0,\n      \"children_6_to_16\": 0\n    },\n    \"budget_amount\": 2000,\n    \"budget_currency\": \"EUR\",\n    \"accommodation\": \"eco-certified hotel or sustainable guesthouse\",\n    \"transport\": \"No Preference\",\n    \"interests\": \"vegan restaurants, sustainability, cycling, vegan markets, eco-friendly activities\"\n  }\n}\n\nOUTPUT REQUIREMENT\nReturn the final plan as markdown using the same practical timetable style as the main execution agent, but acknowledge that this baseline only has Tavily evidence. Include source links found via Tavily.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "human",
+        "id": "9839e966-8d13-4e3b-a068-74e8745dbdf8"
+      },
+      {
+        "content": "",
+        "additional_kwargs": {
+          "refusal": null
+        },
+        "response_metadata": {
+          "token_usage": {
+            "completion_tokens": 274,
+            "prompt_tokens": 1076,
+            "total_tokens": 1350,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": null,
+              "audio_tokens": 0,
+              "reasoning_tokens": 64,
+              "rejected_prediction_tokens": null,
+              "image_tokens": 0
+            },
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0,
+              "cache_write_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost": 0.0136,
+            "is_byok": false,
+            "cost_details": {
+              "upstream_inference_cost": 0.0136,
+              "upstream_inference_prompt_cost": 0.00538,
+              "upstream_inference_completions_cost": 0.00822
+            }
+          },
+          "model_provider": "openai",
+          "model_name": "openai/gpt-5.5-20260423",
+          "system_fingerprint": null,
+          "id": "gen-1778953534-J8mDYnI3kd9hV3rP7OXQ",
+          "service_tier": "default",
+          "finish_reason": "tool_calls",
+          "logprobs": null
+        },
+        "type": "ai",
+        "id": "lc_run--019e31e4-bcff-7150-8ad9-c7ef617c94e8-0",
+        "tool_calls": [
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Cologne to Amsterdam train official ICE 2026 Deutsche Bahn NS International duration fare"
+            },
+            "id": "call_qsCL8LDKcUnfdrb4dxWEhv7T",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Amsterdam eco certified sustainable hotel Green Key official Conscious Hotels Amsterdam The Tire Station"
+            },
+            "id": "call_5ZVtjEDXH93BDl3e1pi2CrF5",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Amsterdam vegan restaurants fully plant based official Vegan Junk Food Bar Mr & Mrs Watson Men Impossible Dutch Weed Burger"
+            },
+            "id": "call_7onSpMqAOiYwgNxxLEvCIY9L",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Amsterdam vegan market plant based market October 2026 official events"
+            },
+            "id": "call_I78yUlATNmKjlkHM4EncNBX8",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Amsterdam cycling rental tours eco friendly activities official I amsterdam bike rental parks ferry"
+            },
+            "id": "call_aYVchaM2IyY0yLB2Lm8dwvyY",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Amsterdam public transport GVB day ticket prices official 2026 96 hours"
+            },
+            "id": "call_vrgDeebgYlvPi9gFKG9pm1RJ",
+            "type": "tool_call"
+          }
+        ],
+        "invalid_tool_calls": [],
+        "usage_metadata": {
+          "input_tokens": 1076,
+          "output_tokens": 274,
+          "total_tokens": 1350,
+          "input_token_details": {
+            "audio": 0,
+            "cache_read": 0
+          },
+          "output_token_details": {
+            "audio": 0,
+            "reasoning": 64
+          }
+        }
+      },
+      {
+        "content": "Tavily answer:\nThe Cologne to Amsterdam train takes about 2.5 hours, with fares starting from €20. Tickets can be booked in advance for the best prices. Direct ICE services are available.\n\nTavily results:\n1. COLOGNE to AMSTERDAM train from $19 (€16) with Deutsche Bahn (ICE,IC,RB,RE) - Omio score=1.00\n   URL: https://www.omio.com/trains/cologne/amsterdam\n   Snippet: # Cologne to Amsterdam train with Deutsche Bahn (ICE,IC,RB,RE). ## The cheapest and fastest trains from Cologne to Amsterdam. The best way to find a cheap train ticket from Cologne to Amsterdam is to book your journey as far in advance as possible and to avoid traveling at rush hour. The average ticket from Cologne to Amsterdam will cost around £60 if you buy it on the day, but the cheapest tickets can be found for only £51. Of the 37 trains that leave Cologne for Amsterdam on Sun, May 17, 7 travel direct so it’s quite easy to avoid journeys where you’ll have to change along the way. ### Compare train, bus, and flight for Cologne to Amsterdam. The cheapest way to travel from Cologne to Amsterdam is a bus with an average price of $34 (€28). The fastest way to travel from Cologne to Amsterdam is by train with an average journey time of 3h 40m.\n2. Train Cologne – Amsterdam - tickets from € 20 | NS International score=1.00\n   URL: https://www.nsinternational.com/en/train/cologne-amsterdam\n   Snippet: ### All about service. # From **Cologne** To **Amsterdam** You can book from **€ 20**. When you walk outside of the beautiful, historic station, you will immediately feel the distinctive atmosphere of ‘Mokum’ (Amsterdam’s nickname). From the canal boats to the pigeons in front of the Palace on the Dam. In this vibrant city, you can soak up culture at the Rijksmuseum, shop at the Albert Cuyp or wander through the Vondel Park. From € 20 you can travel to Amsterdam in 2.37 hours. How long does the train from Cologne to Amsterdam take? The fastest travel time by train between Cologne to Amsterdam takes  2.37 hours. How much does a train ticket from Cologne to Amsterdam cost? Train ticket prices from Cologne to Amsterdam start from € 20 one way. What time does the first train from Cologne to Amsterdam leave? The train between Cologne to Amsterdam departs from Cologne Central Station. The trai...\n3. AMSTERDAM to COLOGNE by train or coach (2026 Guide) score=1.00\n   URL: https://www.amsterdamtips.com/travel-amsterdam-cologne\n   Snippet: # How To Travel Amsterdam to Cologne (2026). **Amsterdam to Cologne travel is possible by train or coach.**. | Amsterdam to Cologne travel overview  * **ICE train service** (2hrs 38mins, from €20) – **book at Trainline or NS International** * **Flixbus/RegioJet coaches** (4-6 hrs, from €14)   Below we will review each Amsterdam-Cologne travel option in more detail. ## [1] Amsterdam-Cologne by Train (recommended). **The best way to travel between Amsterdam and Cologne is by rail.** Travel by train gives you centre-to-centre convenience, no check-in or security lines and a regular direct train service. For more info and details about the ICE train service see our complete guide here: **Amsterdam to Frankfurt by ICE Train**. ICE train at Amsterdam Central. #### Amsterdam-Cologne train ticket fares. The Amsterdam-Cologne ICE train has 2nd class and 1st class tickets with the following possib...\n4. Cologne to Amsterdam train tickets from ₹ 2,320.19 score=1.00\n   URL: https://in.trip.com/trains/germany/route/cologne-to-amsterdam/\n   Snippet: Cologne to Amsterdam Train Tickets from ₹ 2,320.19. ## Search and buy cheap tickets for ICE trains in Germany. ## Cologne to Amsterdam train timetable. Organizing a journey from Cologne to Amsterdam? At Trip.com, you can find ICE tickets for as little as ₹ 2,320.19, with the average cost for this route being about ₹ 7,497.97. The cost of a train ticket from Cologne to Amsterdam typically starts at ₹ 2,320.19. ## ICE and DB trains offers. The Saver fare (\"Sparpreis\" in German) is an economical ticket option for train travel on ICE, IC, or EC trains in Germany. This fare is valid for ICE, IC, and EC trains and tickets can be purchased up to nine months in advance on Trip.com. This fare is valid for ICE, IC, and EC trains, and tickets can be bought as early as nine months in advance on Trip.com. ## Cologne to Amsterdam DB tickets.\n5. Köln Hbf to Amsterdam-Centraal Train Tickets from €23.99 | Trainline score=0.99\n   URL: https://www.thetrainline.com/en-us/train-times/koln-hbf-to-amsterdam-centraal\n   Snippet: No tickets in your cart. # Trains from Köln Hbf to Amsterdam-Centraal. ## TrainlineTrainline is Europe’s Nº 1 destination for train and bus tickets\\*. ## Taking the train from Köln Hbf to Amsterdam-Centraal in 2 hours 40 minutes. It usually takes around 3 hours 39 minutes to travel the 214 km from Köln Hbf to Amsterdam-Centraal by train, although you can get there in as little as 2 hours 40 minutes on the fastest services. ## Köln Hbf to Amsterdam-Centraal by train. There are normally 34 trains per day traveling from Köln Hbf to Amsterdam-Centraal and tickets for this journey start from €23.99 when you book in advance. How do you travel to Amsterdam-Centraal from Köln Hbf? To get to Amsterdam-Centraal from Köln Hbf, why not take the train? The price of a train ticket from Köln Hbf to Amsterdam-Centraal can start from as little as €23.99, depending on the time of day, route and class you...",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "7856ab4c-b24c-4ff4-8583-2d494ac35274",
+        "tool_call_id": "call_qsCL8LDKcUnfdrb4dxWEhv7T",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nThe Tire Station is a certified sustainable eco-hotel in Amsterdam, running on solar and wind energy, with 112 rooms near Vondelpark.\n\nTavily results:\n1. Hotel Amsterdam City (The Tire Station) - Conscious Hotels score=1.00\n   URL: https://conscioushotels.com/stay/amsterdam-city\n   Snippet: # Welcome to The Tire Station (Amsterdam City). ## The Tire Station Hotel. Conscious Hotel The Tire Staion (Amsterdam city) is a hip eco-hotel on the Amstelveenseweg with 112 rooms. The Vondelpark is your backyard when you stay in our hotel, so you can hear the squirrels… Sustainability and style go hand in hand, we have solar panels on the roof and other clever features in the building that allow us to run entirely on solar and wind energy. * A large double Royal Dutch Auping bed. * Parking spot for your car in our garage. * Double Royal Dutch Auping bed. With the Vondelpark as backyard and our Royal Dutch Auping beds in the bedroom, your stay is guaranteed to be a success. In the morning, you’ll be awakened by the seductive coffee smell of Sticky Fingers in the lobby. Thanks to the solar panels on the roof and the thermal storage system, the hotel runs entirely on solar and wind energy...\n2. Conscious Hotel The Tire Station - Amsterdam - Booking.com score=1.00\n   URL: https://www.booking.com/hotel/nl/conscious-the-tire-station.html\n   Snippet: Sustainability. This property has 1 third-party sustainability certification. Learn more about certifications. Green Key (FEE). Eco-friendly Big Double room.\n3. Conscious Hotel The Tire Station, Amsterdam - Agoda.com score=1.00\n   URL: https://www.agoda.com/conscious-hotel-the-tire-station/hotel/amsterdam-nl.html\n   Snippet: Located in the vibrant neighborhood of Amsterdam Oud-West, Conscious Hotel The Tire Station offers a sustainable and stylish accommodation option for travelers\n4. Conscious Hotel Amsterdam City (The Tire Station) - Tripadvisor score=1.00\n   URL: https://www.tripadvisor.com/Hotel_Review-g188590-d11825957-Reviews-Conscious_Hotel_Amsterdam_City_The_Tire_Station-Amsterdam_North_Holland_Province.html\n   Snippet: Conscious Hotel Amsterdam City (The Tire Station) is a 112-bedroom stylish eco designer hotel so close to Vondelpark you can hear the squirrels dreaming.\n5. Conscious Hotel Amsterdam City (The Tire Station) - Iamsterdam.com score=1.00\n   URL: https://www.iamsterdam.com/en/whats-on/calendar/accomodations/all-accomodations/conscious-hotel-amsterdam-city-the-tire-station\n   Snippet: Conscious Hotel Amsterdam City (The Tire Station) is a stylish eco-hotel with 112 rooms within walking distance of Amsterdam's most famous park: the Vondelpark.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "bac28b28-2e78-419b-b174-48f3a274287f",
+        "tool_call_id": "call_5ZVtjEDXH93BDl3e1pi2CrF5",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nVegan Junk Food Bar in Amsterdam offers fully plant-based vegan burgers and fries. It has locations on Marie Heinekenplein and Reguliersdwarsstraat. The menu is updated regularly.\n\nTavily results:\n1. VEGAN JUNK FOOD BAR - Updated May 2026 - Yelp score=1.00\n   URL: https://www.yelp.com/biz/vegan-junk-food-bar-amsterdam-2\n   Snippet: VEGAN JUNK FOOD BAR - Try Our New Menu - Marie Heinekenplein 9-10, 1072 MH Amsterdam, The Netherlands, 108 Photos, Mon - 12:00 pm - 12:00 am, Tue - 12:00 pm\n2. VEGAN JUNK FOOD BAR - Updated May 2026 - Yelp score=1.00\n   URL: https://www.yelp.com/biz/vegan-junk-food-bar-amsterdam-3\n   Snippet: VEGAN JUNK FOOD BAR - Try Our New Menu - Reguliersdwarsstraat 57, 1017 BK Amsterdam, The Netherlands, 102 Photos, Mon - 11:00 am - 12:00 am, Tue - 11:00 am\n3. Vegan Junk Food Bar Amsterdam - Passionately plant-based score=1.00\n   URL: https://www.spottedbylocals.com/amsterdam/vegan-junk-food-bar/\n   Snippet: \"Vegan Junk Food Bar\" Amsterdam is perfect if you believe vegan burgers and parmesan fries can never be as good as 'the real thing'. I'm a convert myself.\n4. Vegan Junk Food Bar Amsterdam, Netherlands - Facebook score=1.00\n   URL: https://www.facebook.com/groups/9708307952618021/posts/26685153534506864/\n   Snippet: Vegan Junk Food Bar in Amsterdam serves great signature burger and chickpea fries. Kimberly Garnes Howard ▻ Vegan Amsterdam. 7y · Public.\n5. Vegan Junk Food Bar | I amsterdam score=1.00\n   URL: https://www.iamsterdam.com/en/whats-on/calendar/eating-and-drinking/restaurants/vegan-junk-food-bar\n   Snippet: Whether you opt for the original burger or shawarma sandwich: everything at the Vegan Junk Food Bar is plant-based, so it&#39;s better for the world.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "5a0a9d5e-e8ae-485a-9312-ba518fcab1bf",
+        "tool_call_id": "call_7onSpMqAOiYwgNxxLEvCIY9L",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nThe Great Vegan Gathering will occur from August 27-31, 2026, in Amsterdam. The event is a major plant-based festival. Specific details on other events are not available.\n\nTavily results:\n1. FPP x CMS Amsterdam | November 4-5 2026 score=0.73\n   URL: https://www.futureofproteinproduction.com/\n   Snippet: # The Future of Protein Production Summit. **The Future of Protein Production Amsterdam** will take place alongside the **Cultured Meat Symposium (CMS)** on **November 4-5 at RAI Amsterdam**, bringing **two of the most influential platforms in alternative proteins under one roof**. In 2026, the event will be **co-located with the Cultured Meat Symposium for the first time in Europe**, with **two dedicated conference tracks running side by side**. ‍**The Future of Protein Production** will cover the full breadth of alternative proteins, including **plant-based, fermentation-derived, and other novel and emerging food technologies**, with an expanded focus on **health and wellness, longevity, and functional protein development**. Together, the two agendas offer both **depth and breadth** — giving attendees the ability to focus on their core area while gaining insight into adjacent technolog...\n2. Vegan Amsterdam | Plant powered info, news and events score=0.61\n   URL: https://www.veganamsterdam.org/\n   Snippet: SAVE THE DATE – 2026 – Let's start the year off right! ACTIVISM JOINED FORCES & VEGAN HANGOUT – COMMUNITY EVENT – SUNDAY 18 JANUARY 2026.\n3. Vegan Amsterdam | SAVE THE DATE - 2026 - Let's start the year off ... score=0.50\n   URL: https://www.instagram.com/p/DS0QFmXj4Is/\n   Snippet: The Great Vegan Gathering - 27th to 31st August 2026. What We Stand For The Great Vegan Gathering is a grassroots festival set up by a group of\n4. VEGAN FESTIVAL GUIDE 2026 ⁠ ⁠ The ultimate guide to the best ... score=0.46\n   URL: https://www.facebook.com/vegansofzuri/videos/vegan-festival-guide-2026-the-ultimate-guide-to-the-best-vegan-festivals-of-2026/1328912439356448/\n   Snippet: ... events across Europe to must-visit plant-based ... fest Barcelona, Spain dates TBA @veganlife_live London, UK 16-18 Oct\n5. VEGAN FESTIVAL GUIDE 2026 ⁠ ⁠ @vegansofzuri's ... - Instagram score=0.45\n   URL: https://www.instagram.com/reel/DUKzdryiKPY/\n   Snippet: to the best vegan festivals of 2026 is here. From iconic events across Europe to must-visit plant-based gatherings around the world, this is",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "3aa1989a-b9d9-4021-8389-9ed6623929a2",
+        "tool_call_id": "call_I78yUlATNmKjlkHM4EncNBX8",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nAmsterdam offers eco-friendly cycling tours and bike rentals, with central rental locations and routes through parks and canals. Follow local cycling rules for safety. Rent bikes for affordable, sustainable exploration.\n\nTavily results:\n1. Sustainable Travel in Amsterdam: How to Explore the City and Stay ... score=0.64\n   URL: https://www.cityden.com/blog/sustainable-travel-amsterdam-eco-friendly-exploration-cityden/\n   Snippet: Amsterdam offers a variety of eco-friendly activities. You can explore parks like Vondelpark on foot or by bike, take sustainable canal cruises, or visit eco\n2. Amsterdam Bike Rent - Iamsterdam.com score=0.63\n   URL: https://www.iamsterdam.com/en/whats-on/calendar/transportation/rental/amsterdam-bike-rent\n   Snippet: The rental locations of Amsterdam Bicycle Rental are centrally located, close to Central Station and Dam Square. You can rent a bicycle with 7 gears from € 5.\n3. Cycling in Amsterdam | I amsterdam score=0.60\n   URL: https://www.iamsterdam.com/en/travel-stay/getting-around/cycling-in-amsterdam\n   Snippet: ### Editorial tips this month. ### This season. Van Gogh reproduction at RTXP. What's on in Amsterdam. ### This month. New in Town (May 2026). Colourful tram with Pride flag arriving at Javaplein. Couple cycling in the park holding hands. ## Amsterdam: a cycling city. Young Caucasian woman in purple coat riding bicycle in the  city at dusk. Especially around Central Station, Leidseplein and hotels, you can find many rental companies. Locals find nothing more irritating than a lousy cyclist, so make sure you follow the (unwritten) rules of the road! Cycling at Nationaal Park Zuid-Kennemerland. Explore more of Amsterdam and the Amsterdam Area with our Cycleseeing routes. Just see what you feel like seeing. ## Rules for safe cycling in Amsterdam. On de sides bicycle storages. Some locations allow you to leave your bike for up to two weeks, and some for up to six weeks. Check the Fietsdepot...\n4. Amsterdam Bike Rental - Tickets - Fever score=0.52\n   URL: https://feverup.com/m/534656/en?srsltid=AfmBOooKi8E_3aTa0U152Pxr_fPUb5_og0weFlTynzagxT8Qpg16nKJG\n   Snippet: Explore Amsterdam by bicycle. See the parks, museums and, of course, the canals. Get your tickets today!\n5. Rent a Bike Amsterdam - All You SHOULD Know Before Going 2026 ... score=0.52\n   URL: https://www.tripadvisor.com/Attraction_Review-g188590-d4291730-Reviews-Rent_a_Bike_Amsterdam-Amsterdam_North_Holland_Province.html\n   Snippet: Rent a Bike Amsterdam offers good quality bicycles for the lowest price in Amsterdam. Bicycles are part of the Dutch culture and often used for transport.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "2ffc14e9-d9b7-4a5d-9170-72003ec64de8",
+        "tool_call_id": "call_aYVchaM2IyY0yLB2Lm8dwvyY",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nFor 2026, the Amsterdam GVB day ticket for 96 hours costs €27. Multiday tickets are available for 1-7 days, starting at €10 for 1 day. Buy in advance online for convenience.\n\nTavily results:\n1. GVB tickets in Amsterdam 2026 (Essential Guide) score=1.00\n   URL: https://www.amsterdamtips.com/gvb-tickets-amsterdam\n   Snippet: # GVB tickets in Amsterdam 2026 (Essential Guide). **Searching for GVB tickets for Amsterdam public transport? In this guide we will highlight all GVB ticket options with fares and prices for 2026.**. Amsterdam GVB passes are valid on all modes of GVB transport with transfers possible within the time validity. | **GVB Tickets Amsterdam – Summary** GVB Ticket Types  * GVB Distance Fare – pay-as-you-go with contactless payment/OVpas/OV-chipcard * GVB 1 hour single ticket – **€3.40** * GVB Multiday tickets – excellent value 1-7 days at **€10-€43** * GVB Group Ticket – restricted to GVB app only (single user) – **€27** up to 5 people * GVB Night Bus Ticket – **€5.70** (90 minutes)  GVB Ticket Tips  * **Buy multiday tickets in advance online** (for maximum convenience and minimum stress). The GVB 1 hour ticket is valid for **60 minutes** on all GVB transport (bus/metro/tram) in Amsterdam, inc...\n2. Amsterdam Public Transport TICKETS (2026 Complete Guide) score=1.00\n   URL: https://www.amsterdamtips.com/transport-tickets\n   Snippet: **Looking for public transport tickets in Amsterdam? Our complete guide below gives the lowdown on all Amsterdam travel cards and ticket options – including our top choice the 1-7 day GVB ticket (order here)**. **There is an excellent network of public transport in Amsterdam which includes buses, metro, trams and ferries. When making a journey you are required to **check-in** and **check-out** by holding your ticket against one of the card readers/barriers or scanning a valid QR-code. | **Best Value & Validity**gvb day ticket | **GVB Multiday Ticket**  1-7 days / €10-€43  Unlimited GVB bus/metro/trams  **Buy GVB tickets** |. | **Best for Regional Excursions**amsterdam and region travel ticket | **Amsterdam & Region Travel Ticket**  1-3 days / €23-€44  GVB + regional transport  **Buy Amsterdam & Region tickets** |. | **Good for Airport Trip**amsterdam travel ticket | **Amsterdam Travel Ti...\n3. Public transport tickets in Amsterdam: options and prices in 2026 score=1.00\n   URL: https://amsterdam-explorer.com/public-transport-tickets/\n   Snippet: **How to pay for the tram, bus or metro in Amsterdam? And which public transport ticket is the best? #### **Which public transport ticket in Amsterdam is the best? | **Amsterdam & Region Travel Ticket** | from € 23,00 | **Airport** + city + region | **Day trips** | **Tickets** |. | **GVB tickets** | from € 3,40 | City transport | City | **Tickets** |. * If you’re planning to take a few **short trips** – don’t worry about buying a ticket, just pay with your card using **OV-pay**. * If you need a public transport ticket for travel around the city **plus the airport** – your option is the **Amsterdam Travel Ticket**. Then the best public transport ticket choice is the **Amsterdam & Region Travel Ticket**. * And if you plan to use public transport in Amsterdam **and visit museums** – check the **I amsterdam City Card**. | Ticket valid in the GVB tram, bus, metro for | Price | Cost per day |.\n4. Amsterdam Public Transport: Complete Guide with Prices 2026 score=1.00\n   URL: https://www.youtube.com/watch?v=KakLIpgscgo\n   Snippet: ... gvb.nl/en/travel-products/hour-and-day-tickets/gvb-night-bus-1-ride] Casa da Anne Frank: [https://www.annefrank.org/en/museum/tickets\n5. PUBLIC TRANSPORT AMSTERDAM: tickets, fares 2026 score=1.00\n   URL: https://www.travelguide.amsterdam/en/publictransport-gvb/tickets-fares/\n   Snippet: # Amsterdam: Public Transport Tickets & Passes. * But which ticket is the right one for you? * Single tickets, day passes or the“I amsterdam Card” combining sightseeing and public transport? With our tips on purchasing tickets, you can save both time and money.**. * **Save time with online purchases:** Many tickets can be bought online in advance, helping you avoid queues and reducing stress during your visit (see tips below). * **Unified fare system – easy to change between metro, bus and tram:** Most public transport in Amsterdam—such as the **metro**, **trams**, and **GVB buses**—operates under the unified fare system of the municipal transport company, **GVB** (*Gemeente Vervoer Bedrijf*). ### if you are staying in Amsterdam for a longer period of time but do not want to use public transport very often. * **Validity:** The OV chip card / e-purse is valid, for example, on trams, buses...",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "c65788bc-efaf-41f1-842f-57e3248bda88",
+        "tool_call_id": "call_vrgDeebgYlvPi9gFKG9pm1RJ",
+        "status": "success"
+      },
+      {
+        "content": "",
+        "additional_kwargs": {
+          "refusal": null
+        },
+        "response_metadata": {
+          "token_usage": {
+            "completion_tokens": 355,
+            "prompt_tokens": 6249,
+            "total_tokens": 6604,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": null,
+              "audio_tokens": 0,
+              "reasoning_tokens": 176,
+              "rejected_prediction_tokens": null,
+              "image_tokens": 0
+            },
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0,
+              "cache_write_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost": 0.041895,
+            "is_byok": false,
+            "cost_details": {
+              "upstream_inference_cost": 0.041895,
+              "upstream_inference_prompt_cost": 0.031245,
+              "upstream_inference_completions_cost": 0.01065
+            }
+          },
+          "model_provider": "openai",
+          "model_name": "openai/gpt-5.5-20260423",
+          "system_fingerprint": null,
+          "id": "gen-1778953544-idr5A19Z3edanmpFo2x2",
+          "service_tier": "default",
+          "finish_reason": "tool_calls",
+          "logprobs": null
+        },
+        "type": "ai",
+        "id": "lc_run--019e31e4-e249-7050-862e-83ec28d51eff-0",
+        "tool_calls": [
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Amsterdam fully vegan restaurant official Meatless District Amsterdam hours"
+            },
+            "id": "call_Ht94uT4v0OPo4LorTEyRvA2b",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Amsterdam fully vegan restaurant Mr Mrs Watson official hours Amsterdam"
+            },
+            "id": "call_ek69cvPRLo2h04JJG6CPRgQw",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Amsterdam sustainable circular De Ceuvel official opening hours cafe vegan"
+            },
+            "id": "call_YrSxcgLFbbJKmUImD82kIE9h",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Amsterdam farmers market organic Noordermarkt official Saturday hours vegan"
+            },
+            "id": "call_JtMPf8aCE8NwJoJh8jBloZJc",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Amsterdam Hortus Botanicus official opening hours tickets sustainability"
+            },
+            "id": "call_dqaUx6t4TtBctgZI8cdJoCBJ",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Amsterdam Conscious Hotels Green Key certification official"
+            },
+            "id": "call_sN0y43VjhEgKNVshiboPZ8MZ",
+            "type": "tool_call"
+          }
+        ],
+        "invalid_tool_calls": [],
+        "usage_metadata": {
+          "input_tokens": 6249,
+          "output_tokens": 355,
+          "total_tokens": 6604,
+          "input_token_details": {
+            "audio": 0,
+            "cache_read": 0
+          },
+          "output_token_details": {
+            "audio": 0,
+            "reasoning": 176
+          }
+        }
+      },
+      {
+        "content": "Tavily answer:\nMeatless District Amsterdam is fully vegan. It's open Monday to Sunday from 5:30 pm to 10:00 pm, closed Tuesdays.\n\nTavily results:\n1. Contact | Vegan Restaurant Amsterdam - Meatless District score=1.00\n   URL: https://meatlessdistrict.nl/en/contact/\n   Snippet: Opening hours. Mo & Tue: Closed Woo-hoo! 17:30 – 22:00. Kitchen hours may vary. To be sure of a\n2. Meatless District: Award-winning Vegan Restaurant in Amsterdam score=1.00\n   URL: https://meatlessdistrict.nl/en/\n   Snippet: Meatless District is an award-winning vegan restaurant in Amsterdam. 100% vegetable, with brunch, dinner and cocktails in the heart of Old-West.\n3. Meatless District - Da Costabuurt - Amsterdam Restaurant score=1.00\n   URL: https://www.happycow.net/reviews/meatless-district-amsterdam-75164\n   Snippet: Vegan bar and kitchen with a changing menu. Est. 2016 as vegetarian then turned fully vegan. Open Mon 17:30-22:00, Wed-Sun 17:30-22:00. Closed Tue.\n4. MEATLESS DISTRICT - Updated May 2026 - Yelp score=1.00\n   URL: https://www.yelp.com/biz/meatless-district-amsterdam?start=40\n   Snippet: MEATLESS DISTRICT - Try Our New Menu - Bilderdijkstraat 65-67, 1053 LA Amsterdam, The Netherlands, 128 Photos, +31207220804, Mon - 5:30 pm - 10:00 pm,\n5. Meatless District menu photos - Vegan - Yelp score=1.00\n   URL: https://www.yelp.com/biz/meatless-district-amsterdam\n   Snippet: MEATLESS DISTRICT - Try Our New Menu - Bilderdijkstraat 65-67, 1053 LA Amsterdam, The Netherlands, 128 Photos, +31207220804, Mon - 5:30 pm - 10:00 pm,",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "5459b7d0-5813-4933-ada2-a87a056f66e8",
+        "tool_call_id": "call_Ht94uT4v0OPo4LorTEyRvA2b",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nMr. & Mrs. Watson is a fully vegan restaurant in Amsterdam, open Wednesday to Sunday from 17:00 to 00:00, and closed on Mondays and Tuesdays. The restaurant is located on Linnaeuskade in Amsterdam East.\n\nTavily results:\n1. Mr. & Mrs. Watson, Vegan Food Bar in Amsterdam - Wander-Lust score=1.00\n   URL: https://www.wander-lust.nl/mr-mrs-watson-vegan-food-bar/\n   Snippet: & Mrs. Watson, Vegan Food Bar in Amsterdam. Posted at 21:40h in Amsterdam Guide, Food, Tasty Hotspots  by Wander-lust  0 Comments. ## **If you are following the latest food trends a little bit, you know that plant based food is making waves right now. & Mrs. Watson is THE vegan food bar in the heart of Amsterdam that serves the best vegan cheeses in town! ### The women behind Mr. The idea to open a plant based food bar came only natural when founders Aleid Koopal & Kirsi Rautiainen discovered that there is only 1 vegan restaurant per 1000 vegans in Amsterdam while in Berlin and New York you can find vegan restaurants all over the place. mr-mrs-watson *The location at the Linnaeuskade in Amsterdam East photo by Mr. & Mrs. Watson** Linnaeuskade, Amsterdam East*. vegan restaurants in Amsterdam that offer take away. 18X VEGAN RESTAURANTS IN AMSTERDAM THAT OFFER TAKE OUT. & Mrs. Watson, Plant...\n2. Mr Watson - Amsterdam Restaurant - HappyCow score=1.00\n   URL: https://www.happycow.net/reviews/mr-watson-amsterdam-503733\n   Snippet: Open Wed-Sat 17:00-00:00, Sun 17:00-23:00. Closed Mon. & Tues. More.\n3. CLOSED: Mr. & Mrs. Watson - Amsterdam Restaurant - HappyCow score=1.00\n   URL: https://www.happycow.net/reviews/mr-and-mrs-watson-amsterdam-99503\n   Snippet: CLOSED: Mr. & Mrs. Watson ... A plant-based food and drinks bar that features artisan cheese platters, sandwich with carrot lox or croquettes, four burgers, vegan\n4. Mister Watson | Amsterdam - Facebook score=1.00\n   URL: https://www.facebook.com/misterwatson.ams/\n   Snippet: Plant-based restaurant in Amsterdam Oost on Wibautstraat. Open fire, bold cocktails and mushroom dishes that push every boundary.\n5. Vegan restaurants in Amsterdam: Mr & Mrs Watson, Vegan Junk Food Bar score=0.99\n   URL: https://www.amsterdamfoodie.nl/2018/vegan-restaurants-in-amsterdam-mr-and-mrs-watson-vegan-junk-food-bar/\n   Snippet: # Vegan restaurants in Amsterdam: Mr & Mrs Watson and Vegan Junk Food Bar – reviewed. Not only does Amsterdam still boast a host of vegetarian restaurants, but vegan restaurants in Amsterdam are on the up and up too. It’s vegan cheese, vegan BBQ, and vegan junk food – all of which taste every bit as unhealthy as their non-vegan namesakes. ## **Vegan Junk Food Bar**. Vegan Junk Food Bar Amsterdam - kapsalon. Then again, I never do: there’s something sad about veggie burgers that I just can’t overcome; and the American-style “plastic cheese” on the burger tasted just as ghastly as the real thing – which might be a win for the vegan fake food department, but is definitely a loss for the world of cheese. Vegan restaurants in Amsterdam - Vegan Junk Food Bar. The “notorious SUMO burger” at Vegan Junk Food Bar. Sweet potato fries were a hit – properly crispy and served with the by-now familiar...",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "b19e5a5a-6067-486f-90dc-f7c968970e35",
+        "tool_call_id": "call_ek69cvPRLo2h04JJG6CPRgQw",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nCafé de Ceuvel is open Tuesday to Sunday from 12:00 to 23:00, closed Monday, with kitchen closing at 21:00. It's a vegan café in Amsterdam focused on sustainability and circular design. Hours may vary.\n\nTavily results:\n1. DE CEUVEL - Updated May 2026 - 88 Photos & 33 Reviews - Yelp score=0.76\n   URL: https://www.yelp.com/biz/de-ceuvel-amsterdam\n   Snippet: DE CEUVEL - Try Our New Menu - Korte Papaverweg 2 t/m 6, 1032 KB Amsterdam, The Netherlands, 88 Photos, +31202296210, Mon - 11:00 am - 12:00 am, Tue - 11:00\n2. Café de Ceuvel | COSH! score=0.73\n   URL: https://cosh.eco/en/stores/amsterdam/cafe-de-ceuvel\n   Snippet: ### Subscribe to receive weekly tips and tricks for a *more sustainable lifestyle!*. I’d like to receive the monthly newsletter with updates on the blog and exclusive events. # Café de Ceuvel. Eco café and meeting space on the creative, circular site De Ceuvel. Boutique café in Amsterdam North serving vegan meals, CO₂-free coffee and circular values. Café De Ceuvel is located at Korte Papaverweg 4, right in the heart of De Ceuvel — a renowned circular workspace and cultural hotspot in Amsterdam North. The café is part of a larger experimental site focused on sustainability, reuse and social connection. Café De Ceuvel also partners with Stadspas, offering discounted meals for people on a limited budget — making sustainable dining accessible to all. Surrounded by refurbished houseboats now used as offices, studios and social spaces, Café De Ceuvel is not just a place to eat, but a living e...\n3. Reservations - SOIL VEGAN CAFE score=0.54\n   URL: https://www.soilvegancafe.com/bookings?srsltid=AfmBOoq6e_2fIcdOqsHVBUI1WTegUCZj52mz_lrffVS9UqcKD9FaBk3-\n   Snippet: OPENING HOURS. MON-SAT: 12-22 hrs. SUN: 12-21 hrs. Our kitchen closes one hour before closing time. Walk-ins are welcome,. Pets are welcome. No cash. card only\n4. Café de Ceuvel - Restaurant in KB Amsterdam - Website score=0.52\n   URL: https://cafe-de-ceuvel.weeblyte.com/\n   Snippet: # Café de Ceuvel. Café de Ceuvel stands out as a unique culinary destination in Amsterdam, offering an inviting atmosphere that combines relaxation with creativity. Nestled by the water, this fully vegan restaurant is celebrated for its innovative dishes crafted from locally sourced ingredients. The ambiance is described as hippie chic, providing a comfortable and serene escape from the bustling city center. ## Culinary Delights at Café de Ceuvel. The visual charm of Café de Ceuvel captivates guests through its beautiful waterfront location surrounded by lush greenery creating a serene backdrop perfect for dining al fresco on sunny days or cozy indoor settings during cooler weather. ## Reservation Information for Dining at Café de Ceuvel. Unique features of Caf de Ceuvel include its focus on sustainability, diverse plant-based offerings, and a serene setting beside water which enhances b...\n5. Café de Ceuvel | I amsterdam - Iamsterdam.com score=0.50\n   URL: https://www.iamsterdam.com/en/whats-on/calendar/eating-and-drinking/cafes-and-bars/cafe-de-ceuvel\n   Snippet: Café de Ceuvel is a bohemian waterside café and bar situated in Amsterdam North. It blends a strong dedication to sustainability with a laid-back artsy feel.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "fa8abe8c-a216-4a35-9b3b-e5f36197a208",
+        "tool_call_id": "call_YrSxcgLFbbJKmUImD82kIE9h",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nThe Noordermarkt organic farmers market in Amsterdam is open every Saturday from 9:00 AM to 4:00 PM. It offers vegan and organic produce.\n\nTavily results:\n1. Boerenmarkt op de Noordermarkt - Farmer's Market - HappyCow score=1.00\n   URL: https://www.happycow.net/reviews/boerenmarkt-op-de-noordermarkt-amsterdam-92370\n   Snippet: One of the only one organic market in Amsterdam. Perfect for your breakfast or late lunch. You can find lot of vegan stuff. Read more. Pros: Organic and vegan ,\n2. Calendar - Biologische Noordermarkt score=1.00\n   URL: https://www.biologischenoordermarkt.nl/en/calendar/?date=20260620\n   Snippet: ... Saturday, rain or shine ... Organic Farmers Market. 20 Jun. Time: 07:00 - 14:00. @ Noordermarkt. The Noordermarkt is one of Amsterdam's oldest organic markets\n3. Noordermarkt: Amsterdam's Beloved Organic Market score=1.00\n   URL: https://amsterdamian.com/see/shopping-and-lifestyle/the-biological-market-on-the-noordermarkt/\n   Snippet: It is open each Saturday from 9.00 to 16.00 and it's packed with fresh, local produce: fruits, vegetables, fish, honey, fresh handmade pasta and great cheese\n4. Noordermarkt Amsterdam score=1.00\n   URL: https://www.amsterdamsights.com/attractions/noordermarkt.html\n   Snippet: Which markets are held on the Noordermarkt? every Saturday from 9am to 4pm. Organic Farmers Market. The Biologische Noordermarkt is a biological food market\n5. Noordermarkt | I amsterdam - Iamsterdam.com score=1.00\n   URL: https://www.iamsterdam.com/en/whats-on/calendar/shopping/markets/noordermarkt\n   Snippet: On both Monday morning (9:00 AM - 2:00 PM) and Saturday (9:00 AM - 4:00 PM), the range on the Noordermarkt can be called unique. In no other market in Amsterdam",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "3d26312e-baed-4889-b0c1-b8a1ddd9fb21",
+        "tool_call_id": "call_JtMPf8aCE8NwJoJh8jBloZJc",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nHortus Botanicus in Amsterdam is open daily from 10:00 to 17:00. Tickets are available online. The garden emphasizes sustainability practices.\n\nTavily results:\n1. Hortus Botanicus - Amsterdam Local Gems score=1.00\n   URL: https://www.amsterdamlocalgems.com/places/hortus-botanicus/\n   Snippet: Find Hortus Botanicus in Amsterdam. Address: Plantage Middenlaan 2a, 1018 DD Amsterdam. Hours: Monday: 10am-5pm | Tuesday: 10am-5pm | Wednesday:.\n2. Hortus Botanicus Amsterdam score=1.00\n   URL: https://www.amsterdamsights.com/attractions/hortus.html\n   Snippet: Hortus Botanicus is situated in the stately Plantagebuurt, the green ... Opening hours. Sun, 10:00, -, 17:00. Mon, 10:00, -, 17:00. Tue, 10:00, -, 17:00. Wed, 10\n3. Opening hours Hortus Botanicus Amsterdam - Whichmuseum score=1.00\n   URL: https://whichmuseum.com/museum/hortus-botanicus-amsterdam-934/opening-hours\n   Snippet: The daily opening times of Hortus Botanicus Amsterdam in Amsterdam ; Monday. 10:00 – 17:00 ; Tuesday. 10:00 – 17:00 ; Wednesday. 10:00 – 17:00 ; Thursday. 10:00 –\n4. Hortus Botanicus Amsterdam: Home score=1.00\n   URL: https://www.dehortus.nl/en/\n   Snippet: Hoofdpagina. open today from 10:00 to 17:00.\n5. Hortus Botanicus - Opening Hours, Price and Location - Amsterdam score=1.00\n   URL: https://www.introducingamsterdam.com/hortus-botanicus\n   Snippet: Designed in 1638, Amsterdam's Hortus Botanicus is one of the oldest botanical gardens in Europe. Located in Plantage, it was first built as a herb garden.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "a1127664-316b-48e9-93ec-bac7e45236c0",
+        "tool_call_id": "call_dqaUx6t4TtBctgZI8cdJoCBJ",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nINK Hotel Amsterdam, W Amsterdam, and De L'Europe Amsterdam hold the Green Key certification for sustainability. This certification reflects their commitment to eco-friendly practices.\n\nTavily results:\n1. INK Hotel Amsterdam - MGallery - Green Key Gold Certification score=0.70\n   URL: https://www.ink-hotel-amsterdam.com/newsinformation/green-key-gold-certification/\n   Snippet: INK Hotel Amsterdam - MGallery INK Hotel Amsterdam - MGallery **INK Hotel Amsterdam - MGallery**. ## INK Hotel Amsterdam - MGallery. + Team Member Front Office Parttime. **Tel:** **+31 (0)20 627 5900**. * See this hotel on all.accor.com or brand website in other languages :. ## Green Key Gold Certification. We are proud to share that INK Hotel Amsterdam – MGallery Collection has maintained its Green Key Gold certification, reflecting our ongoing commitment to sustainability and environmental responsibility. For years, we have been dedicated to minimizing our environmental impact, and we continue to strive for excellence in sustainable practices. We sincerely thank our guests, staff, and partners for their continued support in helping us uphold this important achievement. #### **Meaningful.** **Memorable.** *Moments.*. Unexpected experiences, generous benefits and exclusive rewards. Open...\n2. Big news: W Amsterdam is now Green Key Certified. We are proud to receive one of the world’s leading eco-labels in hospitality. From scaling down on energy and water use to minimizing waste and… | W Amsterdam score=0.69\n   URL: https://www.linkedin.com/posts/wamsterdam_big-news-w-amsterdam-is-now-green-key-certified-activity-7338925219203477506-Vik_\n   Snippet: # W Amsterdam’s Post. Big news: W Amsterdam is now Green Key Certified. We are proud to receive one of the world’s leading eco-labels in hospitality. From scaling down on energy and water use to minimizing waste and embracing planet-friendly practices, we’re taking bold steps to lower our footprint. All while delivering the exceptional guest experience you expect from W Amsterdam. A massive shoutout to our team for making this happen—and to Madyne Lamar for leading the charge toward a greener tomorrow. Congratulations, well done Mady and team 🎉👏🏼. To view or add a comment, sign in. ## Explore content categories. ## Sign in to view more content. Create your free account or sign in to continue your search. By clicking Continue to join or sign in, you agree to LinkedIn’s User Agreement, Privacy Policy, and Cookie Policy. By clicking Continue to join or sign in, you agree to LinkedIn’s User...\n3. [PDF] Met Hotel Amsterdam score=0.68\n   URL: https://methotelamsterdam.com/wp-content/uploads/2023/12/Met-_MVO-verklaring-ENG_CMYK-2023.pdf\n   Snippet: Green Key Netherlands has three levels: Bronze, Silver and Gold. Met Hotel strives for a golden Green Key certification. More information can be found at\n4. A Sustainable Future - Eco-sexy - Conscious Hotels score=0.62\n   URL: https://conscioushotels.com/about/eco-sexy\n   Snippet: All our hotels have the Green Key Gold, the biggest sustainability mark in the Dutch tourism industry. We're Eco-Sexy and we know it. No Burning. No Burning.\n5. Sustainable & Green Hospitality - De L'Europe Amsterdam score=0.58\n   URL: https://www.deleurope.com/green-hospitality/\n   Snippet: As trailblazers in sustainable hospitality, we proudly earned the Green Key distinction in 2006, becoming the first five-star hotel to do so.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "296b8845-555a-4859-82ea-16fa787ea164",
+        "tool_call_id": "call_sN0y43VjhEgKNVshiboPZ8MZ",
+        "status": "success"
+      },
+      {
+        "content": "",
+        "additional_kwargs": {
+          "refusal": null
+        },
+        "response_metadata": {
+          "token_usage": {
+            "completion_tokens": 279,
+            "prompt_tokens": 10338,
+            "total_tokens": 10617,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": null,
+              "audio_tokens": 0,
+              "reasoning_tokens": 245,
+              "rejected_prediction_tokens": null,
+              "image_tokens": 0
+            },
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 6144,
+              "cache_write_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost": 0.032412,
+            "is_byok": false,
+            "cost_details": {
+              "upstream_inference_cost": 0.032412,
+              "upstream_inference_prompt_cost": 0.024042,
+              "upstream_inference_completions_cost": 0.00837
+            }
+          },
+          "model_provider": "openai",
+          "model_name": "openai/gpt-5.5-20260423",
+          "system_fingerprint": null,
+          "id": "gen-1778953554-vdg865AIUf6pQiFlzAC1",
+          "service_tier": "default",
+          "finish_reason": "tool_calls",
+          "logprobs": null
+        },
+        "type": "ai",
+        "id": "lc_run--019e31e5-0b6c-78c0-8b67-ceef229d926f-0",
+        "tool_calls": [
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "official GVB Amsterdam day multi day ticket prices 4 day"
+            },
+            "id": "call_JILpHs1GDsV9shMd1ZagvDdT",
+            "type": "tool_call"
+          }
+        ],
+        "invalid_tool_calls": [],
+        "usage_metadata": {
+          "input_tokens": 10338,
+          "output_tokens": 279,
+          "total_tokens": 10617,
+          "input_token_details": {
+            "audio": 0,
+            "cache_read": 6144
+          },
+          "output_token_details": {
+            "audio": 0,
+            "reasoning": 245
+          }
+        }
+      },
+      {
+        "content": "Tavily answer:\nThe GVB Amsterdam 4-day multi-day ticket costs €27.50. It allows unlimited travel on trams, buses, and metros for 96 hours. This ticket is valid for four consecutive days.\n\nTavily results:\n1. prices score=0.86\n   URL: https://www.gvb.nl/en/prices\n   Snippet: GVB Multi-day ticket, 2 - 7 days ; 4 days (96 hours). € 27,50 ; 5 days (120 hours). € 34,00 ; 6 days (144 hours). € 39,00 ; 7 days (168 hours). € 43,00.\n2. Public Transport Amsterdam Day Ticket- GVB score=0.56\n   URL: https://www.public-transport-holland.com/product/amsterdam-day-ticket/\n   Snippet: The Amsterdam Day Ticket grants you unlimited travel in Amsterdam for 24, 48, 72, 96 120 or 168 hours. Easy to use all over in Amsterdam.\n3. GVB Multi-day ticket, 2 - Amsterdam score=0.50\n   URL: https://www.gvb.nl/en/travel-products/gvb-multi-day-ticket\n   Snippet: Travel unlimitedly on all GVB trams, buses and metros, day and night, for the number of days that perfectly suits your plans.\n4. Amsterdam: GVB Public Transport Ticket score=0.48\n   URL: https://www.getyourguide.com/amsterdam-l36/gvb-1-7-day-amsterdam-public-transport-ticket-t97926/\n   Snippet: Purchase a ticket valid for a day or a multi-day ticket that best suits your plans. Travel on the metro, trams, buses, and ferries and experience the city like\n5. Travel products tourist score=0.46\n   URL: https://www.gvb.nl/en/travel-products/tourists\n   Snippet: # A day out in and around Amsterdam. Depending on your travel plans and the duration of your stay, there are a number of different public transport tickets that are especially valuable for visitors of Amsterdam and the region. Which one suits your plans best? Do nice things in and around Amsterdam? See which ticket best suits your plans. Also book the best things to do in Amsterdam with our partner Tiqets. ## GVB Day ticket. The GVB day ticket provides you with unlimited travel on all GVB routes, regardless of distance, both day and night. The GVB multi-day ticket provides you with unlimited travel on all GVB routes, regardless of distance, both day and night. ## Amsterdam Travel Ticket. Are you visiting Amsterdam for a day or two and will arrive via Schiphol Airport? ## Amsterdam & Region Travel Ticket. ## Book the best activities in Amsterdam. Get inspiration for the best things to do...",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "5bc7da85-5430-496a-963e-f777b5b51b5f",
+        "tool_call_id": "call_JILpHs1GDsV9shMd1ZagvDdT",
+        "status": "success"
+      },
+      {
+        "content": "",
+        "additional_kwargs": {
+          "refusal": null
+        },
+        "response_metadata": {
+          "token_usage": {
+            "completion_tokens": 551,
+            "prompt_tokens": 10976,
+            "total_tokens": 11527,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": null,
+              "audio_tokens": 0,
+              "reasoning_tokens": 516,
+              "rejected_prediction_tokens": null,
+              "image_tokens": 0
+            },
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 10240,
+              "cache_write_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost": 0.02533,
+            "is_byok": false,
+            "cost_details": {
+              "upstream_inference_cost": 0.02533,
+              "upstream_inference_prompt_cost": 0.0088,
+              "upstream_inference_completions_cost": 0.01653
+            }
+          },
+          "model_provider": "openai",
+          "model_name": "openai/gpt-5.5-20260423",
+          "system_fingerprint": null,
+          "id": "gen-1778953564-8rmvkzQIxGFIFtVakD5e",
+          "service_tier": "default",
+          "finish_reason": "tool_calls",
+          "logprobs": null
+        },
+        "type": "ai",
+        "id": "lc_run--019e31e5-30cb-7673-8fd3-7d0a5e970ed2-0",
+        "tool_calls": [
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Amsterdam Hortus Botanicus official ticket prices adults 2026"
+            },
+            "id": "call_WJ7B6qaJLqem2dzcZHDmWXLI",
+            "type": "tool_call"
+          }
+        ],
+        "invalid_tool_calls": [],
+        "usage_metadata": {
+          "input_tokens": 10976,
+          "output_tokens": 551,
+          "total_tokens": 11527,
+          "input_token_details": {
+            "audio": 0,
+            "cache_read": 10240
+          },
+          "output_token_details": {
+            "audio": 0,
+            "reasoning": 516
+          }
+        }
+      },
+      {
+        "content": "Tavily answer:\nThe official ticket price for adults at Amsterdam Hortus Botanicus in 2026 is €13.50. Students and kids aged 5-17 pay €7.00, and children under 5 enter free. Always check the official website for the most current information.\n\nTavily results:\n1. Hortus Botanicus Amsterdam (2026) – Best of TikTok, Instagram ... score=1.00\n   URL: https://airial.travel/attractions/netherlands/amsterdam/hortus-botanicus-amsterdam-VeW-Yg7c\n   Snippet: Ticket prices can vary, but typically an adult ticket is around €12-€15. It's always best to check the official Hortus Botanicus Amsterdam website for the\n2. Hortus Botanicus Amsterdam Tickets [2026] - Trip.com score=1.00\n   URL: https://www.trip.com/travel-guide/attraction/amsterdam/hortus-botanicus-amsterdam-13526166/\n   Snippet: Hortus Botanicus: Entry Ticket (Adult). Immediate access. Non-refundable. No ticket collection required.. US$17.32. Book · Hortus Botanicus: Entry Ticket (\n3. Hortus Botanicus Amsterdam Tickets [2026] - Trip.com score=1.00\n   URL: https://www.trip.com/travel-guide/attraction/amsterdam/hortus-botanicus-amsterdam-13526166?curr=USD&locale=en-XX&tagId=569&poiType=3\n   Snippet: Hortus Botanicus: Entry Ticket (Adult). Immediate access. Non-refundable. No ticket collection required.. US$17.31. Book · Hortus Botanicus: Entry Ticket (\n4. Tickets & prices Hortus Botanicus Amsterdam - Whichmuseum score=1.00\n   URL: https://whichmuseum.com/museum/hortus-botanicus-amsterdam-934/tickets-prices\n   Snippet: Ticket prices & discounts ; 18+, €13.50 ; Museumkaart, Not valid ; CJP Pass, €7.00 ; I Amsterdam City Card, Free ; City pass, Free.\n5. Hortus By Night - winter evenings at Hortus Botanicus Amsterdam score=1.00\n   URL: https://www.iamexpat.nl/lifestyle/events-festivals-netherlands/hortus-night-winter-evenings-hortus-botanicus-amsterdam\n   Snippet: It costs 9,75 euros for a standard adult ticket. To help keep visitors safe and help prevent further spread of coronavirus, time slots are allocated and limited",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "80a53654-f91d-4ab5-9354-96084a5c2b60",
+        "tool_call_id": "call_WJ7B6qaJLqem2dzcZHDmWXLI",
+        "status": "success"
+      },
+      {
+        "content": "",
+        "additional_kwargs": {
+          "refusal": null
+        },
+        "response_metadata": {
+          "token_usage": {
+            "completion_tokens": 420,
+            "prompt_tokens": 11580,
+            "total_tokens": 12000,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": null,
+              "audio_tokens": 0,
+              "reasoning_tokens": 258,
+              "rejected_prediction_tokens": null,
+              "image_tokens": 0
+            },
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 10752,
+              "cache_write_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost": 0.022116,
+            "is_byok": false,
+            "cost_details": {
+              "upstream_inference_cost": 0.022116,
+              "upstream_inference_prompt_cost": 0.009516,
+              "upstream_inference_completions_cost": 0.0126
+            }
+          },
+          "model_provider": "openai",
+          "model_name": "openai/gpt-5.5-20260423",
+          "system_fingerprint": null,
+          "id": "gen-1778953580-7R0p4RDbscTJM1yKCwd7",
+          "service_tier": "default",
+          "finish_reason": "tool_calls",
+          "logprobs": null
+        },
+        "type": "ai",
+        "id": "lc_run--019e31e5-6e25-78c0-8ba4-2ccdbf9aa445-0",
+        "tool_calls": [
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Amsterdam vegan breakfast cafe official Koffie ende Koeck opening hours fully vegan"
+            },
+            "id": "call_XTxTDHYE9jjUk7y4uZbt1ily",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Amsterdam fully vegan breakfast lunch restaurant official Trevi's Amsterdam opening hours vegan"
+            },
+            "id": "call_C3cdxhTkl5KcO941OpBOOuxK",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Amsterdam fully vegan restaurant SOIL Vegan Cafe official opening hours"
+            },
+            "id": "call_sJjOvrpjWDLRGmEc1IdNxZsj",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Amsterdam sustainable canal cruise electric official prices"
+            },
+            "id": "call_R021xXDSbsPVdm0iGozZp7Pc",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Amsterdam Bike Rent official prices 7 gears bike from 5 euros"
+            },
+            "id": "call_uNnODgoOuSYrNFqm2QgbB46S",
+            "type": "tool_call"
+          }
+        ],
+        "invalid_tool_calls": [],
+        "usage_metadata": {
+          "input_tokens": 11580,
+          "output_tokens": 420,
+          "total_tokens": 12000,
+          "input_token_details": {
+            "audio": 0,
+            "cache_read": 10752
+          },
+          "output_token_details": {
+            "audio": 0,
+            "reasoning": 258
+          }
+        }
+      },
+      {
+        "content": "Tavily answer:\nKoffie ende Koeck is a fully vegan café in Amsterdam, open Wednesday to Sunday from 10am to 5pm. It specializes in organic treats and brunch. The café is located in the Westerpark area.\n\nTavily results:\n1. Koffie ende Koeck | Vegan Food (@koffieendekoeck) · Amsterdam score=1.00\n   URL: https://www.instagram.com/koffieendekoeck/\n   Snippet: Vegan Pastry Shop Amsterdam Cake & Baked Treats. Brunch @cocoon_ams coming Summer 2026! Wed-Sun 10am-5pm. Reservations & orders: see website\n2. Koffie Ende Koeck, 175 Haarlemmerweg, Amsterdam, Noord ... score=1.00\n   URL: https://www.mapquest.com/nl/noord-holland/koffie-ende-koeck-777409518\n   Snippet: Koffie Ende Koeck is a fully vegan café located in the Westerpark area of Amsterdam, specializing in organic treats that cater to everyone.\n3. Koffie Ende Koeck - Vegan Amsterdam score=1.00\n   URL: https://www.veganamsterdam.org/koffie-ende-koeck/\n   Snippet: This vegan organic pastry shop / lunchroom opened 2014. It's small but offers space for five tables, as well as some tables and benches outside if the weather\n4. Home | Koffie ende Koeck score=1.00\n   URL: https://www.koffieendekoeck.nl/\n   Snippet: # Come have a treat at our cozy café! ## OUR cafe. ### In & Out. From march until october you can enjoy your treats on our sunny outdoor terrace too :). ### Vegan & organic treats for everyone. We're a fully vegan cosy daytime cafe in Amsterdam, Westerpark area. Our specialties are cakes & patisserie, lunch, afternoon tea, specialty coffee & tea and breakfast. \"We've been here two weeks ago and are still enjoying the memory of a very pleasant breakfast and wonderful coffee, nice bio cola, delicious cake... and a truly friendly service\". ## ​. Do you want to know more? ## Follow us on Instagram.\n5. Koffie Ende Koeck - Amsterdam Restaurants - Tripadvisor score=1.00\n   URL: https://www.tripadvisor.com/Restaurant_Review-g188590-d8288159-Reviews-Koffie_Ende_Koeck-Amsterdam_North_Holland_Province.html\n   Snippet: A great little café serving amazing vegan food and desserts. The quality of the breakfast was outstanding. The cake selection is also to die for; especially the",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "dc7edf58-1ca3-4dc2-a72c-43a99e7e01c7",
+        "tool_call_id": "call_XTxTDHYE9jjUk7y4uZbt1ily",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nTrevi's in Amsterdam is a fully vegan Italian restaurant open Mon 17:00-21:30, Wed 05:30-21:30, Thu 17:00-21:30, Fri-Sun 13:00-21:30. Reservations are required, and it offers vegan Italian dishes online via Uber Eats.\n\nTavily results:\n1. Trevi's: 36 vegan meals - RestauPlant score=0.83\n   URL: https://www.restauplant.com/en/restaurant/trevis\n   Snippet: for Restaurants Register my restaurant  /  Promotion opportunities. ### for Restaurants. Register my restaurant   Promotion opportunities. Restaurants   */*   NL   */*   Amsterdam   */* Trevi's. # Trevi's. Now open: 17:00 tot 21:30. Mon  17:00 to 21:30. Trevi's is a 100% plant based Italian restaurant. Trevi's brings the authentic Italian cuisine to Amsterdam. Trevi's has a small restaurant inside and if the weather allows, it is possible to eat outside. Besides the fact that you can eat at Trevi's, they also have a web shop with all kinds of vegan Italian dishes to prepare at home. 9,0  Excellent 1 reviews. My boyfriend and I have now eaten at Trevi's twice and we really enjoyed it both times. It is a nice, cozy restaurant with delicious vegan Italian food and good service. + vrij  17:00 to 21:30. Amsterdam | Overview 35x Vegan restaurants in Amsterdam. The best vegan pizza in Amsterdam...\n2. #586 Pizza Ok, but not very welcoming, Trevi’s, Amsterdam (NL) | The Bruges Vegan score=0.60\n   URL: https://brugesvegan.com/2025/12/27/trevis-amsterdam-nl/\n   Snippet: # The Bruges Vegan. # #586 Pizza Ok, but not very welcoming, Trevi’s, Amsterdam (NL). restaurant review #586 – Italian vegan restaurant! We were here on a Saturday afternoon for a late lunch (around 2.30 pm) as this place is listed as being open all afternoon. When we entered we were asked whether we had a reservation?? She looked in the agenda, and finally said we could take a seat (like it was a favour?) but for one hour maximum. We had a pizza pesto ricotta 16€ and a pizza Mona Lisa 16.50€. We didn’t bother for dessert anymore, as our hour was nearly over … (Meanwhile, nobody had entered …). Small restaurant, small tables, not so comfy. All in all, an OK pizza, but not a very welcoming experience. See my lists of restaurants where vegans are welcome in the menu section of The Bruges vegan! ### #598 Nice lunch, small place, vegan café Lief, Haarlem (NL). ## Discover more from The Bruge...\n3. Hi. Anywhere good for vegan food in Amsterdam. - Facebook score=0.52\n   URL: https://www.facebook.com/groups/amsterdamtraveltips/posts/8141287349231521/\n   Snippet: If you are looking for quality ingredients... there are so many to choose from; don't settle on terrible vegan options. Check out \"Trevi's\n4. Trevi's - Vegan Amsterdam score=0.52\n   URL: https://www.veganamsterdam.org/trevis/\n   Snippet: ### Pizza all his life. No surprise with his Moroccan-Italian background, Salah Ait has been eating pizza all of his life. It has always been his dream to open up his own place, and with Trevi’s this dream has become reality! Since he has been vegetarian all of his life, and recently gone vegan, of course his restaurant had to be a vegan place. The technical storage or access is strictly necessary for the legitimate purpose of enabling the use of a specific service explicitly requested by the subscriber or user, or for the sole purpose of carrying out the transmission of a communication over an electronic communications network. The technical storage or access is necessary for the legitimate purpose of storing preferences that are not requested by the subscriber or user. The technical storage or access that is used exclusively for statistical purposes. The technical storage or access tha...\n5. Vegan Breakfast Amsterdam: 6 Spots for Pancakes, Waffles, & More 2026 - Veggies Abroad score=0.41\n   URL: https://veggiesabroad.com/vegan-breakfast-amsterdam/\n   Snippet: a small bowl with fresh cut fruit next to a vegan omelet topped with fresh herbs and veggies for breakfast. # Vegan Breakfast Amsterdam: 6 Spots for Pancakes, Waffles, & More. Unfortunately, vegan breakfast options aren’t always plentiful everywhere you go; luckily, that’s not the case in lovely Amsterdam! From cozy cafes serving up vegan pancakes to trendy eateries dishing out avocado toast with a twist, Amsterdam offers a diverse array of options to tantalize your taste buds and fuel your day. So, grab your appetite and start figuring out where you’re going to have a **vegan breakfast feast in Amsterdam.**. ## **Vegan & Vegetarian Breakfast Spots in Amsterdam**. a small buffet filled with vegan breakfast items like fresh fruit, coconut yogurt, pancakes, and more at spirit amsterdam. ## **Vegan-Friendly Breakfast Spots in Amsterdam**.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "1414b2f8-684b-4c58-9c44-81c750cb10aa",
+        "tool_call_id": "call_C3cdxhTkl5KcO941OpBOOuxK",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nSOIL Vegan Cafe in Amsterdam is open Monday to Saturday from 12:00 to 22:00 and Sunday from 12:00 to 21:00. Kitchen closes one hour before closing time. Walk-ins are welcome.\n\nTavily results:\n1. SOIL | I amsterdam score=0.90\n   URL: https://www.iamsterdam.com/en/whats-on/calendar/eating-and-drinking/restaurants/soil\n   Snippet: It is a fully vegan restaurant but has a range of plant-based alternatives, including the Beyond Meat burger. SOIL. Opening hours. Open until 22:00. Monday. 12\n2. WEST | Amsterdam - SOIL VEGAN CAFE score=0.89\n   URL: https://www.soilvegancafe.com/soil-west?srsltid=AfmBOorho6p96KNjkAHxU4GRT0uk87IAHBMn79od4TkhrALyXuWw3Ngw\n   Snippet: OPENING HOURS. MON-SAT: 12-22 hrs. SUN: 12-21 hrs. Our kitchen closes one hour ... Amsterdam - 1053KN. ©2024 by SOIL VEGAN CAFE. Vegan Restaurant Amsterdam.\n3. Opening hours for SOIL Vegan Café, Amsterdam - novacircle.com score=0.87\n   URL: https://www.novacircle.com/spots/europe/netherlands/noord-holland/amsterdam-municipality/amsterdam/soil-vegan-cafe-east-deeae4/opening-hours\n   Snippet: Monday. 17:00–22:00 ; Tuesday. Closed ; Wednesday. Closed ; Thursday. 12:00–23:00 ; Friday. 12:00–23:00.\n4. Reservations - SOIL VEGAN CAFE score=0.82\n   URL: https://www.soilvegancafe.com/bookings?srsltid=AfmBOoqU_tcDDYF_vtP7GXxw-ROnRf29tpau6WXb5gFnmvpzEv2V7Xsa\n   Snippet: OPENING HOURS. MON-SAT: 12-22 hrs. SUN: 12-21 hrs. Our kitchen closes one hour before closing time. Walk-ins are welcome,. Pets are welcome.\n5. #553 SOIL Vegan Cafe, Amsterdam | The Bruges Vegan score=0.46\n   URL: https://brugesvegan.com/2025/08/25/553-soil-vegan-cafe-amsterdam/\n   Snippet: # #553 SOIL Vegan Cafe, Amsterdam. front and outdoor seating, SOIL Vegan Cafe, Amsterdam, the Netherlands. Menu QR-code, SOIL Vegan Cafe, Amsterdam, the Netherlands. drinks, SOIL Vegan Cafe, Amsterdam, the Netherlands. bitterballen, SOIL Vegan Cafe, Amsterdam, the Netherlands. seitan ribs, SOIL Vegan Cafe, Amsterdam, the Netherlands. bitterabllen en seitan ribs, SOIL Vegan Cafe, Amsterdam, the Netherlands. main dishes, SOIL Vegan Cafe, Amsterdam, the Netherlands. kimchi fried rice, SOIL Vegan Cafe, Amsterdam, the Netherlands. bali salad, SOIL Vegan Cafe, Amsterdam, the Netherlands. interior, SOIL Vegan Cafe, Amsterdam, the Netherlands. pantry, SOIL Vegan Cafe, Amsterdam, the Netherlands. toilet/sink SOIL Vegan Cafe, Amsterdam, the Netherlands – Why do I include a pic of the toilet? gender neutral toilets, SOIL Vegan Cafe, Amsterdam, the Netherlands. interior, SOIL Vegan Cafe, Amsterdam,...",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "2b41816e-25fb-4910-bdd0-b4bec6a2ec09",
+        "tool_call_id": "call_sJjOvrpjWDLRGmEc1IdNxZsj",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nThe official price for a 1-hour Amsterdam sustainable canal cruise on an electric boat is €19.50 for adults, €9.75 for children, and €55.00 for a family ticket. The cruise offers panoramic views and eco-friendly travel.\n\nTavily results:\n1. Amsterdam: canal cruise on an open-top boat - Ceetiz score=1.00\n   URL: https://www.ceetiz.com/amsterdam/amsterdam-canal-cruise-on-an-open-top-boat\n   Snippet: # Amsterdam canal cruise on an open-top boat. **Board an open-top electric boat for a one-hour cruise on the Amsterdam canals!**. ## Panoramic views from the open-top boat. Starting from one of the boarding points at the Damrak, Rijksmuseum or Leidseplein, you'll be greeted by your skipper, who will also act as your guide. Thanks to the boat's open roof, you'll enjoy exceptional panoramic views and access to narrower canals, offering a unique perspective on the city. An unmissable experience to fully appreciate the beauty and history of Amsterdam from its famous canals. * Electric boat cruise on the Amsterdam canals - Audioguide included. * Amsterdam canal cruise from Central Station or Rijksmuseum - Audioguide included. * Pedal boat trip on the Amsterdam canals. * Amsterdam canal cruise from the Red Light District - Audioguide included. * Panoramic cruise on the Amsterdam canals (1h). 2...\n2. Amsterdam: 1-Hour Sightseeing Canal Cruise on Electric Boat score=1.00\n   URL: https://www.headout.com/sightseeing-cruises/lovers-1-hour-amsterdam-canal-cruise-with-audio-guide-e-9731/\n   Snippet: Sail in comfort aboard a closed, glass-roofed electric boat that's both heated and eco-friendly for smooth and quiet sailing, with discounted\n3. Electric Boat Amsterdam Tickets | Eco-Friendly Luxury Canal Tours score=1.00\n   URL: https://www.canal-cruise-amsterdam.com/electric-boat/\n   Snippet: Experience Amsterdam's canals on a silent electric boat. Enjoy luxury sloops, open-air views, and onboard bars. Sustainable, scenic, and serene. Book now!\n4. Amsterdam: 1-Hour Semi-Open Electric Boat Cruise - tickadoo score=1.00\n   URL: https://www.tickadoo.com/amsterdam/amsterdam-canal-semi-open-boat-cruise-tickets?srsltid=AfmBOorvoKFAl1nX-ZFKW0p5_Yj4l07fdoUVcntMAdSZ-HjRA7Be_7ds\n   Snippet: This eco-friendly cruise uses solar-powered electric motors for a quiet journey that lets you appreciate the city's architecture without engine noise. You'll\n5. Amsterdam: Canal Cruise on Eco Boat with Live Local Skipper score=1.00\n   URL: https://www.getyourguide.com/en-gb/amsterdam-l36/amsterdam-the-newest-canal-cruise-with-drink-option-t630694/\n   Snippet: See Amsterdam the way locals do: from the water, on a silent electric boat with a live skipper who actually talks to you.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "6519f74c-82d4-4ffc-b74a-bb03ec6cd4f6",
+        "tool_call_id": "call_R021xXDSbsPVdm0iGozZp7Pc",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nAmsterdam bike rentals for 7-gear bikes start from €14.50 for 24 hours. Prices vary, but €17.50 for 6 hours is also available. Some rentals offer theft insurance options.\n\nTavily results:\n1. Rent a bike in Amsterdam at Discount Bike Rental score=0.85\n   URL: https://www.discountbikerental.nl/\n   Snippet: 7 gears. 6 hours. €17,50. Excluding optional theft insurance: 5,- € per day. Reservation. 7 gears. 24 hours. €19,50. Excluding optional theft insurance: 5,- €\n2. How to rent a bike in Amsterdam in 2026: places, prices, and tips score=0.81\n   URL: https://dutchreview.com/traveling/how-to-rent-a-bike-in-amsterdam/\n   Snippet: Amsterdam Bike Rent's got city bikes with seven gears and cargo bikes to put the kids. Price: from €14.50 for 24 hours Location\n3. Bike Rental Amsterdam City Centre | 40+ Years Experience score=0.81\n   URL: https://www.rentabike.nl/en\n   Snippet: Rent a Bike Amsterdam ; Kids cargo. (7 gears) · € 26,00. € 34,00. € 34,00. € 20,00 ; Touring bike. (7 gears) · € 15,00. € 21,00. € 21,00. € 13,00 ; Hybrid bike. (27\n4. Prices - Rent a Bike Amsterdam score=0.71\n   URL: https://rent-a-bike-amsterdam.com/en/prices/\n   Snippet: – €50 per bike by creditcard authorization. *or* – €200 per bike by creditcard authorization. * Without insurance you will be charged €350,- for replacing the bicycle in the event of theft. *or*  – € 650 per bicycle (by means of a credit card authorization). * Without insurance, you pay the new value of the bicycle in the event of theft of € 1,000. – €200 per cargo bike (by means of a credit card authorization). – €400 per cargo bike (by means of a credit card authorization). – The insurance applies to theft of the bicycle and damage to the bicycle. – Without insurance you will be charged €500,- for replacing the bicycle in the event of theft. – The excess in case of theft only applies if you are able to give the keys of the bicycle to “Rent a Bike Amsterdam”. Als je doorgaat met het gebruiken van de website, gaan we er vanuit dat ermee instemt.\n5. Explore Amsterdam Like a Local – Bike Rentals & Tours by Frédéric score=0.65\n   URL: https://www.frederic.nl/\n   Snippet: Affordable Bikes: 7-Speed Shimano bikes for just €250 (new €900). Sustainable: Choosing a second-hand bike is a smart choice. Full Warranty: 6-month warranty",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "88f203ff-3b2f-4145-9c60-7fe9aaa6b539",
+        "tool_call_id": "call_uNnODgoOuSYrNFqm2QgbB46S",
+        "status": "success"
+      },
+      {
+        "content": "# Baseline itinerary: Cologne to Amsterdam, 3–6 October 2026\n\n## Goal and constraints understood\n- Trip: 2 adults travelling from Cologne to Amsterdam, 3 nights / 4 days.\n- Dates: 2026-10-03 to 2026-10-06.\n- Budget: €2,000 total for two.\n- Diet: strictly vegan; meals scheduled only at vegan / fully plant-based restaurants or plant-based market stops.\n- Accommodation preference: eco-certified hotel or sustainable guesthouse.\n- Interests: cycling, vegan restaurants, vegan/organic markets, sustainability, eco-friendly activities.\n- Transport preference: train over flying; plan uses rail both ways.\n- Baseline limitation: this itinerary uses Tavily web-search evidence only; live train fares, hotel availability, restaurant reservations, and 2026 event calendars must be rechecked before booking.\n\n## Search summary\n- Rail: NS International says Cologne–Amsterdam train tickets start from €20 one way and fastest travel time is about 2h37: [NS International Cologne–Amsterdam](https://www.nsinternational.com/en/train/cologne-amsterdam).\n- Eco hotel: Conscious Hotel Amsterdam City / The Tire Station is described as an eco-hotel near Vondelpark using solar/wind energy: [Conscious Hotels](https://conscioushotels.com/stay/amsterdam-city). Conscious Hotels state all hotels have Green Key Gold: [eco-sexy sustainability page](https://conscioushotels.com/about/eco-sexy).\n- Amsterdam city transit: official GVB prices list a 4-day / 96-hour multi-day ticket at €27.50: [GVB prices](https://www.gvb.nl/en/prices).\n- Organic market: Noordermarkt has a Saturday organic farmers market; I amsterdam lists Saturday 09:00–16:00: [Noordermarkt](https://www.iamsterdam.com/en/whats-on/calendar/shopping/markets/noordermarkt).\n- Vegan restaurants/cafés found: [Koffie ende Koeck](https://www.koffieendekoeck.nl/), [Meatless District](https://meatlessdistrict.nl/en/), [SOIL Vegan Café](https://www.soilvegancafe.com/soil-west), [Vegan Junk Food Bar via I amsterdam](https://www.iamsterdam.com/en/whats-on/calendar/eating-and-drinking/restaurants/vegan-junk-food-bar), [Mr Watson / HappyCow listing](https://www.happycow.net/reviews/mr-watson-amsterdam-503733).\n- Cycling: I amsterdam confirms Amsterdam is a cycling city with rental companies around Central Station, Leidseplein, and hotels: [Cycling in Amsterdam](https://www.iamsterdam.com/en/travel-stay/getting-around/cycling-in-amsterdam). Bike rental price evidence found around €19.50/24h for a 7-gear bike at Discount Bike Rental: [Discount Bike Rental](https://www.discountbikerental.nl/).\n- Eco activity: De Ceuvel is a sustainability-focused waterside café/circular site in Amsterdam North: [I amsterdam Café de Ceuvel](https://www.iamsterdam.com/en/whats-on/calendar/eating-and-drinking/cafes-and-bars/cafe-de-ceuvel).\n- Botanical/sustainability activity: Hortus Botanicus official page shows open 10:00–17:00: [Hortus Botanicus](https://www.dehortus.nl/en/). Ticket price evidence found as approx. €13.50 adult, but not from the official site in search results.\n\n## Day 1 — Saturday, 3 October 2026\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 08:00–11:00 | transport | Take a morning train from Cologne Hbf to Amsterdam Centraal. Use direct ICE/NS International if available. | Cologne Hbf → Amsterdam Centraal | €80–€140 estimate for 2 | NS International lists fares from €20 one way and fastest journey about 2h37: [NS International](https://www.nsinternational.com/en/train/cologne-amsterdam). Exact 2026 schedules/fares unavailable via baseline search. |\n| 11:00–11:45 | transport | Buy/check in with 4-day GVB tickets and tram/metro toward hotel area. | Amsterdam Centraal → Oud-West / Vondelpark area | €55 for 2 | Official GVB 4-day / 96-hour ticket listed at €27.50 pp: [GVB prices](https://www.gvb.nl/en/prices). |\n| 12:00–12:30 | accommodation | Drop luggage at eco-certified hotel; check-in later if room not ready. | Conscious Hotel Amsterdam City / The Tire Station, near Vondelpark | Included below | Eco-hotel near Vondelpark with solar/wind energy: [Conscious Hotels](https://conscioushotels.com/stay/amsterdam-city). Green Key Gold statement: [Conscious sustainability](https://conscioushotels.com/about/eco-sexy). |\n| 12:45–14:00 | food / market | Lunch from vegan-friendly organic market stalls; choose produce, bread, juices, or clearly vegan prepared items only. | Noordermarkt, Jordaan | €30 estimate | Saturday organic market 09:00–16:00 via I amsterdam: [Noordermarkt](https://www.iamsterdam.com/en/whats-on/calendar/shopping/markets/noordermarkt). Verify each stall is fully vegan/plant-based before buying. |\n| 14:00–15:30 | activity | Walk Jordaan canals and sustainable-shopping streets; low-impact orientation afternoon. | Jordaan / Westerstraat area | Free | Self-guided; no fixed ticket. |\n| 15:30–16:30 | food | Vegan cake/coffee stop. | Koffie ende Koeck, Westerpark area | €20 estimate | Fully vegan daytime café in Westerpark per official site: [Koffie ende Koeck](https://www.koffieendekoeck.nl/). Search result indicated Wed–Sun 10:00–17:00; verify close time before travel. |\n| 17:00–18:00 | accommodation | Check in and rest. | Conscious Hotel Amsterdam City / The Tire Station | €570–€750 estimate for 3 nights | Live 2026 availability/pricing not verifiable with Tavily alone; budget assumes approx. €190–€250/night double. |\n| 19:00–20:30 | dinner | Fully vegan dinner at Meatless District. | Bilderdijkstraat, Amsterdam Old-West | €70 estimate | Official site describes Meatless District as 100% plant-based/vegan: [Meatless District](https://meatlessdistrict.nl/en/). Search result indicated Wed–Sun 17:30–22:00 and closed Mon/Tue; Saturday fits. |\n| 20:30–21:30 | activity | Evening walk or tram back via Vondelpark edge; keep first night relaxed. | Oud-West / Vondelpark | Free | Low-impact activity near hotel; park route is flexible and weather-dependent. |\n\n## Day 2 — Sunday, 4 October 2026\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 09:30–10:30 | breakfast | Vegan breakfast/brunch at Koffie ende Koeck. | Westerpark area | €35 estimate | Fully vegan café per official site: [Koffie ende Koeck](https://www.koffieendekoeck.nl/). Search result indicated Wed–Sun 10:00–17:00; verify 2026 hours. |\n| 10:45–11:15 | cycling | Rent bikes for a 24-hour cycling window. | Central / hotel-area bike rental | €39–€49 estimate for 2 | I amsterdam notes many rental companies around Central Station, Leidseplein, and hotels: [Cycling in Amsterdam](https://www.iamsterdam.com/en/travel-stay/getting-around/cycling-in-amsterdam). Price evidence: 7-gear bike 24h about €19.50 excluding optional insurance: [Discount Bike Rental](https://www.discountbikerental.nl/). |\n| 11:15–13:00 | cycling / activity | Cycle a gentle loop through Vondelpark and Oud-West, avoiding the busiest inner-centre lanes. | Vondelpark / Oud-West | Included in bike rental | Hotel is near Vondelpark per Conscious Hotels: [hotel page](https://conscioushotels.com/stay/amsterdam-city). Follow I amsterdam cycling safety guidance: [Cycling in Amsterdam](https://www.iamsterdam.com/en/travel-stay/getting-around/cycling-in-amsterdam). |\n| 13:00–14:15 | lunch | Lunch at SOIL Vegan Café. | Amsterdam West | €50 estimate | SOIL official page lists vegan restaurant opening hours Mon–Sat 12–22, Sun 12–21: [SOIL West](https://www.soilvegancafe.com/soil-west). |\n| 14:30–16:30 | cycling / eco activity | Continue by bike to Amsterdamse Bos edge or quieter western canal routes; return before dusk if weather is poor. | Amsterdam West / park routes | Free | Self-guided cycling; route and safety to be adjusted locally. |\n| 17:00–18:00 | rest | Return bikes to hotel lock-up or rental point if using same-day rental; rest before dinner. | Hotel / Oud-West | Included | Check rental return rules and theft-insurance conditions. |\n| 19:00–21:00 | dinner | Fully plant-based dinner at Mr Watson / Mister Watson. | Amsterdam East | €90 estimate | HappyCow listing says Mr Watson is open Wed–Sat 17:00–00:00 and Sun 17:00–23:00: [HappyCow](https://www.happycow.net/reviews/mr-watson-amsterdam-503733). Evidence is not official; reserve and verify. |\n| 21:00–21:45 | transport | Tram/metro back to hotel. | Amsterdam East → Oud-West | Included in GVB pass | GVB multi-day pass covers GVB tram/bus/metro: [GVB prices](https://www.gvb.nl/en/prices). |\n\n## Day 3 — Monday, 5 October 2026\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 09:00–10:00 | breakfast | Light self-catered vegan breakfast from market/grocery items bought Saturday, or coffee only if not dining. | Hotel room / nearby park | €15 estimate | Used to avoid non-vegan hotel breakfast uncertainty. Only buy clearly vegan items. |\n| 10:30–12:30 | eco activity | Visit Hortus Botanicus, Amsterdam’s botanical garden. | Plantage Middenlaan | €27 estimate for 2 | Official site shows open 10:00–17:00: [Hortus Botanicus](https://www.dehortus.nl/en/). Ticket price approx. €13.50 adult from secondary evidence; verify on official site before booking. |\n| 12:45–14:00 | lunch | Fully vegan lunch at SOIL Vegan Café, or another confirmed fully vegan branch if more convenient. | Amsterdam West / East depending route | €50 estimate | SOIL is a fully vegan restaurant per I amsterdam/search evidence and official hours from SOIL page: [SOIL West](https://www.soilvegancafe.com/soil-west). |\n| 14:30–16:30 | sustainability activity | Visit De Ceuvel circular/sustainable waterfront site; have drinks/snacks only if the café’s vegan status is reconfirmed that day. | Amsterdam North | €25 estimate | I amsterdam describes Café de Ceuvel as sustainability-focused: [Café de Ceuvel](https://www.iamsterdam.com/en/whats-on/calendar/eating-and-drinking/cafes-and-bars/cafe-de-ceuvel). Search evidence said vegan/circular café, but official vegan status/hours were not fully verified. |\n| 16:30–17:15 | transport | Ferry/tram/metro back toward hotel; free time. | Amsterdam North → Oud-West | Included in GVB pass | Check live route; GVB pass covers GVB services, but some ferry details should be checked locally: [GVB prices](https://www.gvb.nl/en/prices). |\n| 18:30–20:00 | dinner | Dinner at Vegan Junk Food Bar for a casual plant-based meal. | Amsterdam centre / De Pijp branch | €70 estimate | I amsterdam states everything at Vegan Junk Food Bar is plant-based: [Vegan Junk Food Bar](https://www.iamsterdam.com/en/whats-on/calendar/eating-and-drinking/restaurants/vegan-junk-food-bar). |\n| 20:15–21:15 | optional activity | Optional electric canal cruise if you want a low-emission sightseeing activity. | Central canals | €39 estimate for 2 | Search found electric-boat cruise evidence around €19.50 pp from third-party source; official operator/prices not firmly verified. Treat as optional and book only after checking operator sustainability claims. |\n\n## Day 4 — Tuesday, 6 October 2026\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 08:30–09:30 | breakfast | Simple vegan breakfast from groceries, or choose a confirmed fully vegan café open Tuesday. | Hotel / nearby | €20 estimate | Many identified vegan cafés have limited hours; Koffie ende Koeck appears Wed–Sun only, and Meatless District is closed Tuesday. Verify Tuesday options locally. |\n| 09:30–10:30 | accommodation | Check out and store luggage if needed. | Conscious Hotel Amsterdam City / The Tire Station | Included | Hotel selected for sustainability profile: [Conscious Hotels](https://conscioushotels.com/stay/amsterdam-city). |\n| 10:30–12:00 | activity | Final low-impact walk around Vondelpark or canal belt; avoid paid activities to keep departure day flexible. | Vondelpark / Oud-West | Free | Vondelpark is adjacent to hotel area per Conscious Hotels description: [hotel page](https://conscioushotels.com/stay/amsterdam-city). |\n| 12:00–13:00 | lunch | Lunch at SOIL Vegan Café if convenient before train, or takeaway from a verified fully vegan venue. | Amsterdam West / centre | €45 estimate | SOIL official hours show Tue open under the general Mon–Sat schedule on searched page: [SOIL West](https://www.soilvegancafe.com/soil-west). Verify branch hours and kitchen times. |\n| 13:00–14:00 | transport | Pick up luggage and travel to Amsterdam Centraal. | Hotel → Amsterdam Centraal | Included in GVB pass | GVB pass evidence: [GVB prices](https://www.gvb.nl/en/prices). |\n| 14:00–17:00 | transport | Afternoon train back to Cologne Hbf. | Amsterdam Centraal → Cologne Hbf | €80–€140 estimate for 2 | NS International lists Amsterdam/Cologne rail from €20 one way and about 2h37 fastest: [NS International](https://www.nsinternational.com/en/train/cologne-amsterdam). Exact 2026 train times/fares unavailable. |\n| 17:00 onward | trip end | Arrive in Cologne. | Cologne | €0 | Arrival time is an estimate pending live rail timetable. |\n\n## Budget summary\n- Return train Cologne–Amsterdam for 2: €160–€280 estimate; low fares start at €20 one way but realistic 2026 weekend fares may be higher.\n- Eco-certified/sustainable hotel, 3 nights: €570–€750 estimate.\n- GVB 4-day city transport tickets: €55 for 2, based on €27.50 pp official GVB price.\n- Bike rental: €39–€49 estimate for 2 for 24h, depending on insurance.\n- Vegan meals, cafés, market snacks: €450–€550 estimate.\n- Activities:\n  - Hortus Botanicus: approx. €27 for 2.\n  - Optional electric canal cruise: approx. €39 for 2, if booked.\n  - De Ceuvel / walks / parks: mostly free, drinks/snacks estimated above.\n- Estimated total: **€1,340–€1,750 for two**, leaving roughly **€250–€660 buffer** within the €2,000 budget for fare increases, hotel taxes, reservations, luggage lockers, bike insurance, and spontaneous vegan purchases.\n\n## Unscheduled or uncertain items\n- No dedicated vegan festival or vegan market was found for 3–6 October 2026. The Great Vegan Gathering search result was for August 2026, not the trip dates.\n- Exact 2026 Cologne–Amsterdam train departures and booking-class fares were not verifiable with Tavily alone.\n- Hotel room availability and exact October 2026 rates at Conscious Hotel Amsterdam City / The Tire Station must be checked directly.\n- De Ceuvel’s current café hours and fully vegan status need reconfirmation before treating it as a meal stop; it is scheduled mainly as a sustainability site.\n- Electric canal cruise is optional because the sustainable/electric cruise price evidence came from third-party sources rather than a confirmed official operator page.\n- Mr Watson evidence came mainly from HappyCow/social/search results; verify official opening status, location, and reservations before relying on it.\n\n## Assumptions and gaps\n- Assumed both travellers are comfortable cycling in Amsterdam traffic; if not, substitute extra walking, trams, and Vondelpark only.\n- Assumed a double room at an eco-certified hotel is available within €190–€250/night; this requires live booking confirmation.\n- Assumed the travellers will avoid non-vegan hotel breakfasts unless the hotel can confirm a fully plant-based breakfast prepared without animal products.\n- All meal costs are estimates and exclude alcohol unless noted.\n- This is a baseline plan using Tavily evidence only; final booking should verify official opening hours, menus, reservations, hotel certification, and rail tickets closer to the travel date.",
+        "additional_kwargs": {
+          "refusal": null
+        },
+        "response_metadata": {
+          "token_usage": {
+            "completion_tokens": 4465,
+            "prompt_tokens": 15552,
+            "total_tokens": 20017,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": null,
+              "audio_tokens": 0,
+              "reasoning_tokens": 516,
+              "rejected_prediction_tokens": null,
+              "image_tokens": 0
+            },
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 11264,
+              "cache_write_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost": 0.161022,
+            "is_byok": false,
+            "cost_details": {
+              "upstream_inference_cost": 0.161022,
+              "upstream_inference_prompt_cost": 0.027072,
+              "upstream_inference_completions_cost": 0.13395
+            }
+          },
+          "model_provider": "openai",
+          "model_name": "openai/gpt-5.5-20260423",
+          "system_fingerprint": null,
+          "id": "gen-1778953594-neyHOsvpgbMlHtTGCW65",
+          "service_tier": "default",
+          "finish_reason": "stop",
+          "logprobs": null
+        },
+        "type": "ai",
+        "id": "lc_run--019e31e5-a6e2-7722-bd2a-3c0bce93e568-0",
+        "tool_calls": [],
+        "invalid_tool_calls": [],
+        "usage_metadata": {
+          "input_tokens": 15552,
+          "output_tokens": 4465,
+          "total_tokens": 20017,
+          "input_token_details": {
+            "audio": 0,
+            "cache_read": 11264
+          },
+          "output_token_details": {
+            "audio": 0,
+            "reasoning": 516
+          }
+        }
+      }
+    ]
+  },
+  "error": null,
+  "metadata": {
+    "LANGSMITH_ENDPOINT": "https://eu.api.smith.langchain.com",
+    "LANGSMITH_PROJECT": "travelplanner",
+    "LANGSMITH_TRACING": "true",
+    "ls_integration": "langgraph",
+    "ls_run_depth": 0,
+    "revision_id": "10ec8d0-dirty",
+    "thread_id": "2dddcf4a-46fc-4582-b59c-6c7ac35f43e2"
+  },
+  "langsmith": {
+    "organization": {
+      "name": "Personal",
+      "id": "477adfd8-a90b-45c3-95f6-1375325770e8"
+    },
+    "workspace": {
+      "name": "Workspace 1",
+      "id": "06241d75-72ec-4af5-b325-52629e7730a0"
+    },
+    "tracing_project": {
+      "id": "d92c06e8-225e-4665-a627-fdf375468f7c",
+      "name": "travelplanner"
+    }
+  }
+}

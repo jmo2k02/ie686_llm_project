@@ -1,0 +1,321 @@
+{
+  "inputs": {
+    "messages": [
+      {
+        "content": "You are the Simple Baseline TravelPlanner Agent.\n\nPurpose:\n- Produce a single-agent baseline itinerary for later comparison against the\n  multi-agent TravelPlanner system.\n- You have exactly one tool: Tavily web search. You have no sub-agents and no\n  specialized flight, hotel, restaurant, routing, or validation tools.\n\nOperating rules:\n1. Use Tavily web search before the final itinerary for current facts, links,\n   opening hours, prices, neighborhoods, transit hints, and source URLs.\n   The workflow may require a minimum number of completed Tavily searches before\n   you may answer with final markdown only; if you receive a workflow nudge,\n   complete the requested searches first.\n   Use a small number of high-value searches, then synthesize the final answer.\n2. Respect every hard constraint supplied by the user. If a constraint cannot be\n   verified, state the assumption instead of silently ignoring it.\n3. Prefer official tourism, venue, transit, accommodation, restaurant, and event\n   pages when search results contain them. Use blogs and aggregators only as\n   secondary evidence.\n4. Do not invent exact prices, opening hours, flight numbers, hotel availability,\n   or booking status. Mark uncertain values as estimates.\n5. Order each day like the main execution agent: travel/check-in first, meals at\n   plausible meal times, attractions during likely opening hours, transfers\n   between distant places, and rest/free time when useful.\n6. Return only markdown in the final answer.\n\nFinal markdown structure:\nUse exactly these section headings, in this order:\n1. `# Baseline itinerary: ...`\n2. `## Goal and constraints understood`\n3. `## Search summary`\n4. `## Day 1 ...` and one section per day\n5. `## Budget summary`\n6. `## Unscheduled or uncertain items`\n7. `## Assumptions and gaps`\n\nEach day must be a markdown table with exactly these columns:\n`Time | Type | Plan | Location | Cost | Evidence/Notes`.\n\nSource discipline:\n- Every non-obvious venue, attraction, transit pass, opening-time claim, and\n  ticket price should have either a markdown link in Evidence/Notes or be marked\n  as an estimate.\n- If a requested item cannot be scheduled with available evidence, list it under\n  \"Unscheduled or uncertain items\" rather than hiding it.\n- Never include raw Tavily result dumps in the final answer.\n\nExample final output shape:\n\n# Baseline itinerary: 3 days in Lisbon\n\n## Goal and constraints understood\n- Origin: Berlin\n- Dates: 2026-06-12 to 2026-06-14\n- Budget: 800 EUR for 2 travelers\n\n## Search summary\n- Official tourism page for Belém Tower: https://...\n- Transit pass information: https://...\n\n## Day 1\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 09:00-10:30 | transport | Arrive and transfer to hotel | Airport to Baixa | €8 | Metro estimate; verify live schedules |\n\n## Budget summary\n- Estimated total: €...\n\n## Unscheduled or uncertain items\n- Flight number unavailable because only Tavily web search is available.\n\n## Assumptions and gaps\n- Hotel prices require live booking confirmation.\n",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "system",
+        "id": "8500f12d-a7d9-46eb-95fc-fd0ec6fce256"
+      },
+      {
+        "content": "GOAL\nCreate a comparable baseline travel plan in markdown.\n\nUSER QUERY\nMy husband and I (both in our mid-60s) would like to visit Marrakech from July 5th to 12th, 2026, flying from Hamburg. Our budget is €3,000. We enjoy history, architecture, local food markets, and would love a stay in a traditional riad. We prefer a relaxed pace with guided tours rather than rushing around. Please suggest an itinerary.\n\nCONSTRAINTS\n{\n  \"hard_constraints\": {\n    \"origin\": \"Hamburg\",\n    \"destination\": \"Marrakech\",\n    \"date_from\": \"2026.07.05\",\n    \"date_to\": \"2026.07.12\",\n    \"travelers\": {\n      \"adults\": 2,\n      \"children_under_6\": 0,\n      \"children_6_to_16\": 0\n    },\n    \"budget_amount\": 3000,\n    \"budget_currency\": \"EUR\",\n    \"accommodation\": \"riad or comfortable hotel\",\n    \"transport\": \"Flight\",\n    \"interests\": \"souks, history, architecture, local cuisine, guided tours, relaxed pace\"\n  }\n}\n\nOUTPUT REQUIREMENT\nReturn the final plan as markdown using the same practical timetable style as the main execution agent, but acknowledge that this baseline only has Tavily evidence. Include source links found via Tavily.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "human",
+        "id": "b6f6fe2a-f192-4df4-a253-b3838d7de6e0"
+      }
+    ]
+  },
+  "outputs": {
+    "messages": [
+      {
+        "content": "You are the Simple Baseline TravelPlanner Agent.\n\nPurpose:\n- Produce a single-agent baseline itinerary for later comparison against the\n  multi-agent TravelPlanner system.\n- You have exactly one tool: Tavily web search. You have no sub-agents and no\n  specialized flight, hotel, restaurant, routing, or validation tools.\n\nOperating rules:\n1. Use Tavily web search before the final itinerary for current facts, links,\n   opening hours, prices, neighborhoods, transit hints, and source URLs.\n   The workflow may require a minimum number of completed Tavily searches before\n   you may answer with final markdown only; if you receive a workflow nudge,\n   complete the requested searches first.\n   Use a small number of high-value searches, then synthesize the final answer.\n2. Respect every hard constraint supplied by the user. If a constraint cannot be\n   verified, state the assumption instead of silently ignoring it.\n3. Prefer official tourism, venue, transit, accommodation, restaurant, and event\n   pages when search results contain them. Use blogs and aggregators only as\n   secondary evidence.\n4. Do not invent exact prices, opening hours, flight numbers, hotel availability,\n   or booking status. Mark uncertain values as estimates.\n5. Order each day like the main execution agent: travel/check-in first, meals at\n   plausible meal times, attractions during likely opening hours, transfers\n   between distant places, and rest/free time when useful.\n6. Return only markdown in the final answer.\n\nFinal markdown structure:\nUse exactly these section headings, in this order:\n1. `# Baseline itinerary: ...`\n2. `## Goal and constraints understood`\n3. `## Search summary`\n4. `## Day 1 ...` and one section per day\n5. `## Budget summary`\n6. `## Unscheduled or uncertain items`\n7. `## Assumptions and gaps`\n\nEach day must be a markdown table with exactly these columns:\n`Time | Type | Plan | Location | Cost | Evidence/Notes`.\n\nSource discipline:\n- Every non-obvious venue, attraction, transit pass, opening-time claim, and\n  ticket price should have either a markdown link in Evidence/Notes or be marked\n  as an estimate.\n- If a requested item cannot be scheduled with available evidence, list it under\n  \"Unscheduled or uncertain items\" rather than hiding it.\n- Never include raw Tavily result dumps in the final answer.\n\nExample final output shape:\n\n# Baseline itinerary: 3 days in Lisbon\n\n## Goal and constraints understood\n- Origin: Berlin\n- Dates: 2026-06-12 to 2026-06-14\n- Budget: 800 EUR for 2 travelers\n\n## Search summary\n- Official tourism page for Belém Tower: https://...\n- Transit pass information: https://...\n\n## Day 1\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 09:00-10:30 | transport | Arrive and transfer to hotel | Airport to Baixa | €8 | Metro estimate; verify live schedules |\n\n## Budget summary\n- Estimated total: €...\n\n## Unscheduled or uncertain items\n- Flight number unavailable because only Tavily web search is available.\n\n## Assumptions and gaps\n- Hotel prices require live booking confirmation.\n",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "system",
+        "id": "8500f12d-a7d9-46eb-95fc-fd0ec6fce256"
+      },
+      {
+        "content": "GOAL\nCreate a comparable baseline travel plan in markdown.\n\nUSER QUERY\nMy husband and I (both in our mid-60s) would like to visit Marrakech from July 5th to 12th, 2026, flying from Hamburg. Our budget is €3,000. We enjoy history, architecture, local food markets, and would love a stay in a traditional riad. We prefer a relaxed pace with guided tours rather than rushing around. Please suggest an itinerary.\n\nCONSTRAINTS\n{\n  \"hard_constraints\": {\n    \"origin\": \"Hamburg\",\n    \"destination\": \"Marrakech\",\n    \"date_from\": \"2026.07.05\",\n    \"date_to\": \"2026.07.12\",\n    \"travelers\": {\n      \"adults\": 2,\n      \"children_under_6\": 0,\n      \"children_6_to_16\": 0\n    },\n    \"budget_amount\": 3000,\n    \"budget_currency\": \"EUR\",\n    \"accommodation\": \"riad or comfortable hotel\",\n    \"transport\": \"Flight\",\n    \"interests\": \"souks, history, architecture, local cuisine, guided tours, relaxed pace\"\n  }\n}\n\nOUTPUT REQUIREMENT\nReturn the final plan as markdown using the same practical timetable style as the main execution agent, but acknowledge that this baseline only has Tavily evidence. Include source links found via Tavily.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "human",
+        "id": "b6f6fe2a-f192-4df4-a253-b3838d7de6e0"
+      },
+      {
+        "content": "",
+        "additional_kwargs": {
+          "refusal": null
+        },
+        "response_metadata": {
+          "token_usage": {
+            "completion_tokens": 357,
+            "prompt_tokens": 1078,
+            "total_tokens": 1435,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": null,
+              "audio_tokens": 0,
+              "reasoning_tokens": 68,
+              "rejected_prediction_tokens": null,
+              "image_tokens": 0
+            },
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0,
+              "cache_write_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost": 0.0161,
+            "is_byok": false,
+            "cost_details": {
+              "upstream_inference_cost": 0.0161,
+              "upstream_inference_prompt_cost": 0.00539,
+              "upstream_inference_completions_cost": 0.01071
+            }
+          },
+          "model_provider": "openai",
+          "model_name": "openai/gpt-5.5-20260423",
+          "system_fingerprint": null,
+          "id": "gen-1778953326-uvUriR5heZxKgRz5h6SX",
+          "service_tier": "default",
+          "finish_reason": "tool_calls",
+          "logprobs": null
+        },
+        "type": "ai",
+        "id": "lc_run--019e31e1-8e9a-7853-81bd-a9f545d00413-0",
+        "tool_calls": [
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Hamburg to Marrakech flights July 2026 airlines one stop typical flight time official airport"
+            },
+            "id": "call_OPW2H5Smc1ZUygkjwKEF9hVT",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Marrakech official tourism Bahia Palace opening hours ticket price 2026 Saadian Tombs Ben Youssef Madrasa"
+            },
+            "id": "call_m0JnAF1LeOHyRCtTGaXVkk3Y",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Marrakech Jardin Majorelle official opening hours tickets 2026 Yves Saint Laurent museum"
+            },
+            "id": "call_621a1NdHESu8anEp79gqamWY",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Marrakech airport official transport taxi fare medina 2026 official"
+            },
+            "id": "call_2b0G1r5hDSD1QdGZ6YnqU2R8",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Marrakech riad medina official comfortable riad July prices 2026 couples"
+            },
+            "id": "call_r7bhJFzHjtQQqYFEERiG1CaM",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Marrakech guided food tour souks cooking class official July local cuisine"
+            },
+            "id": "call_jr3n7f6EThAFO0RCUUqyVZfY",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Marrakech official tourism medina souks Jemaa el-Fnaa Koutoubia history architecture"
+            },
+            "id": "call_bv3aUn6WzbfRiBvpABYkpYyn",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Marrakech day trip Ourika Valley guided tour official tourism relaxed seniors"
+            },
+            "id": "call_Q95y2LzNLvC6rLQyxX3MSzDX",
+            "type": "tool_call"
+          }
+        ],
+        "invalid_tool_calls": [],
+        "usage_metadata": {
+          "input_tokens": 1078,
+          "output_tokens": 357,
+          "total_tokens": 1435,
+          "input_token_details": {
+            "audio": 0,
+            "cache_read": 0
+          },
+          "output_token_details": {
+            "audio": 0,
+            "reasoning": 68
+          }
+        }
+      },
+      {
+        "content": "Tavily answer:\nFlights from Hamburg to Marrakech in July 2026 typically involve one stop, with an average flight time of around 7 hours. EasyJet operates direct flights taking 4 hours and 20 minutes. The primary airports are Hamburg Airport and Marrakech-Menara Airport.\n\nTavily results:\n1. Direct (non-stop) flights from Hamburg to Marrakech - schedules score=0.77\n   URL: https://www.flightsfrom.com/HAM-RAK\n   Snippet: This route is operated by easyJet and the flight time is 4 hours and 20 minutes. The distance is 1774 miles. Monthly schedule. Week schedules. Airlines.\n2. Flights from Hamburg to Marrakech (HAM to RAK) – Airlines & ... score=0.75\n   URL: https://www.flightroutes.com/HAM-RAK\n   Snippet: You can fly non-stop from Hamburg (HAM) to Marrakech (RAK) with easyJet. The flight takes approximately 4 hours and 20 minutes. If you travel with a connecting\n3. Book cheap flights from Hamburg to Marrakesh (HAM – RAK) score=0.70\n   URL: https://www.booking.com/flights/route/city-to-city/de-hamburg-to-ma-marrakech.html\n   Snippet: # Search flights from Hamburg (HAM) to Marrakesh (RAK). Book your plane tickets from Hamburg to Marrakesh with ease. ## Cheapest flights to Marrakesh. The cheapest flights available in the next 60 days – prices are updated regularly. Plan your trip based on our price predictions one-way flights to Marrakesh. ## Flying from Hamburg to Marrakesh: things to know. The most popular route is from Hamburg Airport in Hamburg to Marrakech-Menara Airport in Marrakesh. On average this flight takes 6 hours 58 minutes one-way and costs £506 round-trip. | Fly from Hamburg to Marrakesh | 23 airlines |  |. ## Airlines that fly from Hamburg to Marrakesh. It takes about 6 hours 58 minutes to fly from Hamburg to Marrakesh. Flight durations are based on flights booked in the last 6 months. The average price for a round-trip from Hamburg Airport (HAM) to Marrakech-Menara Airport (RAK) is £506. Prices are bas...\n4. Cheap Flights from Hamburg to Marrakech (HAM-RAK) - Expedia score=0.68\n   URL: https://www.expedia.com/lp/flights/ham/rak/hamburg-to-marrakech\n   Snippet: Average flight time. 3 hours 20 mins. Book with confidence. Hamburg to ... The best time to book a flight from Hamburg to Marrakech. Sunday is one of the\n5. Hamburg (HAM) to Marrakech (RAK) Flight Schedule - FlyTeam score=0.66\n   URL: https://flyteam.jp/en/airline_route/ham_rak/flight_schedule\n   Snippet: The time difference between Hamburg Airport(Hamburg) and Marrakech Menara Airport(Marrakech) is -1 hour. Marrakech is 1 hour behind Hamburg.Hamburg is currently",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "ee361217-b122-40ff-8a07-0bf0f4d912ac",
+        "tool_call_id": "call_OPW2H5Smc1ZUygkjwKEF9hVT",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nBahia Palace and Madrasa Ben Youssef are open daily from 9 AM to 7 PM in 2026. Entry fees are 100 MAD for Bahia Palace and 50 MAD for Madrasa Ben Youssef.\n\nTavily results:\n1. Madrasa Ben Youssef Timings & Best Time to Visit score=1.00\n   URL: https://www.tours-marrakesh.com/madrasa-ben-youssef/madrasa-ben-youssef-timings/\n   Snippet: # Madrasa Ben Youssef timings in Marrakech: Opening hours & visitor information. Open 09:00–19:00. ## Medersa Ben Youssef. Jardin Majorelle courtyard with fountain, lush greenery, and vibrant blue building in Marrakech, Morocco. Bahia Palace courtyard with fountain and arched colonnade in Marrakech, Morocco. Visitors at the ornate entrance of Madrasa Ben Youssef, Marrakech, with intricate tilework and carvings. ## Is Madrasa Ben Youssef open year-round? Yes. Madrasa Ben Youssef is generally open every day of the year. On most days, the madrasa closes at **7pm**, with last entry around **30 minutes earlier**. No. Madrasa Ben Youssef does not offer nighttime visits. General admission tickets are purchased **on-site only**, but **guided tours, skip-the-line experiences, and combo tours** should be booked in advance—especially during peak travel seasons—to secure your preferred time slot. ##...\n2. BAHIA PALACE - All You SHOULD Know Before Going 2026 (with ... score=1.00\n   URL: https://www.tripadvisor.com/Attraction_Review-g293734-d610173-Reviews-Bahia_Palace-Marrakech_Marrakech_Safi.html\n   Snippet: 3–4 hours. Free cancellation. from. $31. Reserve · 2. Marrakech: Bahia Palace, Saadian Tombs, Souk & Medina Guided Tour. (88). Duration: 4h. Free cancellation.\n3. Bahia Palace: tickets and tours | TicketLens score=1.00\n   URL: https://www.ticketlens.com/en/p279308387/marrakesh/bahia-palace\n   Snippet: Bahia Palace tickets & tours | Price comparison. # Bahia Palace. Majestic and intricate, **Bahia Palace**, also called *Palais Bahia*, is the 19th-century courtly showpiece of southern *Marrakech* medina near the old *Mellah*. Its marble courtyards, painted cedar ceilings, zellige, and riad gardens turn a short palace stop into one of the city's most atmospheric interiors. Start with a guided medina tour or guided entry ticket if you want the palace politics, craft details, and nearby souks explained without losing time at the gate. Choose this if you want *Bahia Palace* to make sense inside the southern *Marrakech* medina. Most mapped tours pair the palace with the souks, *Saadian Tombs*, *Ben Youssef Madrasa*, or *Koutoubia Mosque*, so you get history and route-finding in one booking. Marrakech: Bahia Palace, Madrasa Ben Youssef and Medina Tour. Marrakech: Saadian Tombs, Bahia Palace,...\n4. Bahia Palace Tickets [2026] - Promos, Prices, Reviews & Opening ... score=1.00\n   URL: https://www.trip.com/travel-guide/attraction/marrakech/bahia-palace-20904727/\n   Snippet: Book Bahia Palace tickets with limited-time offers, skip-the-line access, and instant confirmation. Get the best prices and enjoy a seamless booking\n5. Marrakech: Bahia Palace, Madrasa Ben Youssef and Medina Tour score=1.00\n   URL: https://www.getyourguide.com/marrakesh-l208/marrakech-bahia-palace-madrasa-ben-youssef-and-medina-tour-t563312/\n   Snippet: Entry tickets to the monuments are not included in the price of the tour: Bahia Palace: 100 MAD and Medrassa Ben Youssef: 50 MAD per adult. Children aged 7–13",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "2539d164-d202-4c57-9019-22aa436f5522",
+        "tool_call_id": "call_m0JnAF1LeOHyRCtTGaXVkk3Y",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nJardin Majorelle is open daily from 8:30am to 6pm, with last entry at 5:30pm. The Yves Saint Laurent Museum in Marrakech is open every day except Wednesdays, from 10 a.m. to 5 p.m.\n\nTavily results:\n1. A museum entirely devoted to the work of the legendary fashion designer Yves Saint Laurent in Marrakech, Morocco. - Yves Saint Laurent Marrakech museum score=0.86\n   URL: https://www.museeyslmarrakech.com/en/\n   Snippet: **www.tickets.jardinmajorelle.com** is THE ONLY OFFICIAL WEBSITE of the JARDIN MAJORELLE where you can purchase your tickets and get a valid QR code which will allow you to access the Jardin Majorelle, the Pierre Bergé Museum of Berber Arts and Musée Yves Saint Laurent Marrakech. + The Yves Saint Laurent Exhibition hall. + Musée Yves Saint Laurent Paris. Oiseau Senufo acquis par Yves Saint Laurent et Pierre bergé, année 1960. ## **WELCOME TO THE MUSÉE YVES SAINT LAURENT MARRAKECH**. Musée Yves Saint Laurent Marrakech. We do not accept any responsibility for tickets sold on any non-authorized websites. Please note: These tickets will not allow access to the garden or the museums. **Opening hours during the month of Ramadan:**. The Musée Yves Saint Laurent Marrakech is open every day of the week, except Wednesdays, from 10 a.m. to 5 p.m. The last entry is at 4:30 p.m. ## Your visit. ## Yve...\n2. Jardin Majorelle – Site officiel Jardin Majorelle score=0.85\n   URL: https://www.jardinmajorelle.com/en/\n   Snippet: # Welcome to the Jardin Majorelle. **www.tickets.jardinmajorelle.com** is THE ONLY OFFICIAL WEBSITE of the JARDIN MAJORELLE where you can purchase your tickets and get a valid QR code which will allow you to access the Jardin Majorelle, the Pierre Bergé Museum of Berber Arts and Musée Yves Saint Laurent Marrakech. Please note: These tickets will not allow access to the garden or the museums. The Jardin Majorelle is open every day of the week, from 8:0O a.m to 6:30 p.m. The last entry is at 6 p.m. The Private Garden of the Villa Oasis is open every day except Wednesday, from 8:00 a.m. to 5:30 p.m. The last entry is at 5 p.m. The Pierre Bergé Museum of Berber Arts is open every day of the week, from 8:30 a.m to 6 p.m. The last entry is at 5:30 p.m. Jardin Majorelle, botanique, Marrakech, site officiel. #### The Jardin Majorelle. From 8:30 a.m. to 6 p.m. Last entry at 5:30 p.m. The garden a...\n3. E-Ticket - JARDIN MAJORELLE score=0.84\n   URL: https://tickets.jardinmajorelle.com/Visite\n   Snippet: Please provide your e-mail address so that we can send you a link to reset your password. # Welcome to the official ticket office of the. Welcome to the official ticket office of the Jardin Majorelle. The Jardin Majorelle is open every day of the week,. from 8:00 a.m. to 6:30 p.m. The last entry is at 6:00 p.m. The Pierre Bergé Museum of Berber Arts is open every day of the week,. from 8:30 a.m. to 6:00 p.m. The last entry is at 5:30 p.m. The Musée Yves Saint Laurent Marrakech is open every day of the week, except Wednesdays,. Please choose the museums to visit. ##### Select your nationality. Please select the maximum number of places available. Please select the details of your tickets. Please select the date of your visit. ##### Time of visit. You will need to present the e-ticket upon your arrival at the entrance at the day and time of your scheduled visit.\n4. Jardin Majorelle - How To Visit The YSL Gardens In Marrakech (2026)! score=0.72\n   URL: https://thirdeyetraveller.com/how-to-visit-jardin-majorelle-marrakech/\n   Snippet: # Jardin Majorelle – How to Visit the YSL Gardens in Marrakech (2026)! Jardin Majorelle is an enchanting botanic garden and colourful oasis in Marrakesh. As the former home of Yves Saint Laurent, it’s become a pilgrimage for fashion and garden enthusiasts. Walking around here feels like you’ve entered a dream as it’s so serene and beautiful…if you can ignore all the other tourists, of course! Here is how to visit the YSL Gardens in Marrakech with everything you need to know. Shortly after, he permanently settled in Marrakech and bought a plot of land where he constructed a villa with a painting studio and gardens. This is now the Museum of the Berber Arts. The gardens are open to the public and are one of the most popular tourist attractions in Morocco. ## How to visit the YSL Gardens in Marrakech. You can also buy combination tickets for the gardens, Berber Museum and YSL Museum if you...\n5. Jardin Majorelle Tours & Tickets score=0.67\n   URL: https://www.ticketsjardinmajorelle.com/\n   Snippet: # Jardin Majorelle Tours & Tickets. Majorelle Garden Entry & YSL Museum Combo Tickets – Marrakech. ## Jardin Majorelle Top Tours. Discover the most popular guided tours and experiences at the iconic Jardin Majorelle in Marrakech. ### Marrakech: Majorelle Garden Ticket Access. ### Marrakech: Majorelle Garden, YSL & Berber Museum Tickets. ### Marrakech: Majorelle Garden Tour with Guide and Transfer. **How can I buy Majorelle Garden tickets online?**. **Are there skip-the-line tickets for Majorelle Garden?**. **What are the opening hours of the Majorelle Garden?**. **Can I visit the Majorelle Garden in the evening or at night?**. **What is the Yves Saint Laurent Museum in Marrakech?**. **Can I visit the Yves Saint Laurent Museum and Majorelle Garden together?**. **Is there a separate ticket for the Yves Saint Laurent Museum?**. **What are the opening hours of the Yves Saint Laurent Museum?*...",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "cd4d3eab-831e-4f69-8a43-fe2826b772f6",
+        "tool_call_id": "call_621a1NdHESu8anEp79gqamWY",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nThe official petit taxi fare from Marrakech Menara Airport to the Medina is 100–150 MAD during the day and 150–240 MAD after 22:00. The journey typically takes 15–20 minutes. These rates are fixed and set by local authorities.\n\nTavily results:\n1. How To Get A Taxi From Marrakech Airport To Medina 2026 | Kechtaxi.com score=1.00\n   URL: https://www.kechtaxi.com/taxi-from-marrakech-airport-to-medina/\n   Snippet: You are currently viewing How to Get a Taxi from Marrakech Airport to Medina? ## How to Get a Taxi from Marrakech Airport to Medina? Getting a taxi from Marrakech Menara Airport to the Medina is one of the first things travelers need to organize when arriving in the Red City. The Medina (old town) is only **5 km from the airport**, but choosing the right transport option can save you time, money, and stress, especially if you are arriving at night or with luggage. This guide explains how to get a taxi from Marrakech Airport to Medina, taxi prices, alternatives, travel time, and useful local tips for a smooth arrival. ## **Getting a Taxi from Marrakech Airport to Medina**. Getting a taxi from Marrakech Airport to the Medina is the fastest and most convenient way to reach the old town. Official taxi prices range from 70 MAD during the day to 100 MAD at night for small taxis, while private...\n2. Getting from Marrakech Airport to Medina Old Town score=1.00\n   URL: https://www.welcomepickups.com/marrakech/airport-transfer-to-medina/\n   Snippet: A Marrakech airport taxi will normally last around 15 minutes and fares tend to range from €6.50 (70MAD) to €11 (120MAD) depending on the type\n3. How Much Should a Taxi Be From Marrakech Airport to the Medina? - Marrakech Transport Agency score=1.00\n   URL: https://www.marrakechtransportagency.com/how-much-should-a-taxi-be-from-marrakech-airport-to-the-medina/\n   Snippet: # How Much Should a Taxi Be From Marrakech Airport to the Medina? Typical taxi prices from Marrakech Menara Airport to the Medina range between 70 MAD and 150 MAD ($7–$15) depending on the taxi type, the time of day, and your negotiation skills. Official airport taxis usually charge 100–150 MAD, while ride apps or private transfers may cost 150–250 MAD for a fixed-price, stress-free service. Understanding these prices is the first step in learning how to get around in Marrakech without overpaying. ## Official Taxi Price From Marrakech Airport to Medina. The local government sets official regulated price ranges for airport taxis. However, the exact price you pay usually depends on the time of day. ## Distance and Travel Time From Marrakech Airport to Medina. Traveling from the airport to the city center is quick and easy. Most airport transfers to the Medina use these petit taxis. ## Priv...\n4. Marrakech Airport Transfer To Medina: Safe, Easy & Affordable 2026 score=1.00\n   URL: https://themoroccancompass.com/marrakech-airport-transfer-to-medina/\n   Snippet: Planning a Marrakech airport transfer to Medina? Compare private transfers, taxis, prices, and local tips to reach your riad safely and without stress.\n5. How to Get from Marrakech Airport to Medina - MerzougaWay Tours score=1.00\n   URL: https://www.merzougaway.com/en/blog/marrakech-airport-to-medina\n   Snippet: Look for official airport taxi booth (not unofficial taxi drivers) · Show your hotel address · Negotiate/confirm fixed price (€10-15) · Take direct",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "7f2742a0-c753-4d94-8e72-9bd3813969f2",
+        "tool_call_id": "call_2b0G1r5hDSD1QdGZ6YnqU2R8",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nRiad Medina Art & Suites in Marrakech offers comfortable rooms with modern amenities for couples in July 2026. Prices and availability should be confirmed directly with the official website.\n\nTavily results:\n1. Riad Medina, Marrakech - 2026 Reviews, Pictures & Deals score=1.00\n   URL: https://www.agoda.com/en-ie/riad-medina/hotel/marrakech-ma.html\n   Snippet: At Riad Medina, you can choose from a range of comfortable and spacious rooms that will make your stay in Marrakech truly memorable. The Comfort Triple Room\n2. Riad Medina, Marrakesh, Morocco score=1.00\n   URL: https://www.booking.com/hotel/ma/riad-kifkif.html\n   Snippet: # Riad Medina, Marrakesh (updated prices 2026). Check-in date — Check-out date. **Excellent** location – rated 9.3/10!(score from **172** reviews). Image 2: an overhead view of a living room with a couch at Riad Medina in Marrakesh. Image 3: a balcony with a table and a bed in a room at Riad Medina in Marrakesh. Image 4: a bathroom with a sink and blue and white tiles at Riad Medina in Marrakesh. Image 5: a room with a table and chairs and a couch at Riad Medina in Marrakesh. Image 6: a living room with a blue couch and a table at Riad Medina in Marrakesh. Image 7: a wooden walkway with potted plants on a building at Riad Medina in Marrakesh. Image 8: a bedroom with two beds and a mirror at Riad Medina in Marrakesh. Image 9: a bathroom with a sink and a mirror at Riad Medina in Marrakesh +68 photos+68 photos.\n3. Riad medina d'or, Marrakesh (updated prices 2026) - Booking.com score=1.00\n   URL: https://www.booking.com/hotel/ma/casa-merhaba.html\n   Snippet: Comfortable Accommodations: Rooms feature air-conditioning, private bathrooms, and inner courtyard views. Additional amenities include a lounge, sauna, and\n4. RIAD CK MEDINA - Updated 2026 Prices & Hotel Reviews ... score=1.00\n   URL: https://www.tripadvisor.com/Hotel_Review-g293734-d26336141-Reviews-Riad_CK_Medina-Marrakech_Marrakech_Safi.html\n   Snippet: This is the charm of Moroccan riad with European comfort. Rooms and common areas tastefully decorated, everything is in perfect condition, plumbing and\n5. Riad Medina Art & Suites | Official website score=1.00\n   URL: https://www.riadmedinaart.com/en/\n   Snippet: The Riad Medina Art, former charming hot and luxury house in the center of Marrakech, just next to the Jamaa El Fna square and the Koutoubia, is a timeless dwelling, real gem hidden behind the austere walls of the Medina, worthy of an oriental tale, of a harmonious fusion between Moorish style and perfectly contemporary comfort. The Riad Medina Art, former charming hot and luxury house in the center of Marrakech, just next to the Jamaa El Fna square and the... The air-conditioned twin/double room provides a flat-screen TV with cable channels, soundproof walls, a wardrobe, a safe deposit box as well as an inner courtyard view. The air-conditioned twin/double room features a flat-screen TV with cable channels, soundproof walls, a seating area, a wardrobe as well as an inner courtyard view. The air-conditioned triple room provides a flat-screen TV with cable channels, soundproof walls, a se...",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "5722f855-fae5-4d08-9a67-f4ba7bb78aa6",
+        "tool_call_id": "call_r7bhJFzHjtQQqYFEERiG1CaM",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nSouk Cuisine offers a half-day cooking class in Marrakech, including a market visit, for $36. Classes teach traditional Moroccan dishes. Reserve in advance for July.\n\nTavily results:\n1. Souk Cuisine - All You SHOULD Know Before Going ... - Tripadvisor score=0.61\n   URL: https://www.tripadvisor.com/Attraction_Review-g293734-d1014909-Reviews-Souk_Cuisine-Marrakech_Marrakech_Safi.html\n   Snippet: Half-Day Cooking Class with Local Chef Laila in Marrakech. (846). Duration: 4h. Free cancellation. from. $36. Reserve · Moroccan Cooking Class with Market Visit\n2. Cooking class in Marrakech - The culinary Morocco | wavesnbackpack score=0.59\n   URL: https://wavesnbackpack.com/en/cooking-class-marrakech/\n   Snippet: # Cooking class in Marrakech – The culinary Morocco. Before we left to Morocco, one thing was certain: we wanted to get to know as many facets of Morocco as possible, and of course, the culinary mustn’t be missing. Attending a cooking class in Marrakech was the best way to do so! We wanted to learn how everything is prepared by locals and that’s why we decided against “teaching ourselves” and decided to take part in a cooking class in the heart of Marrakech. Julian searched for a possible **cooking class in Marrakech** and so we luckily decided in favor of  **Souk Cuisine**, which is run by the Dutch Gemma. ## Cooking class in Marrakech – The Shopping. ## Cooking Class in Marrakech – The Location. The recipes of all dishes, which we were supposed to be prepared in a group of 14 people, was already on the table and made our hearts beat faster: Carrot salad with almonds and raisins, Zaahlo...\n3. Marrakech Cooking Class with Market Visit - Moratra - Morocco Tours score=0.57\n   URL: https://moratra.com/marrakech-cooking-class-with-market-visit/\n   Snippet: Start the experience in a traditional Marrakech souk, learning how locals select fresh vegetables, spices, herbs, and meats used in everyday Moroccan cooking.\n4. Marrakech: Cooking Class and Market Visit | GetYourGuide score=0.56\n   URL: https://www.getyourguide.com/marrakesh-l208/marrakech-cooking-class-and-market-visit-t621525/\n   Snippet: Enjoy life like Local ! Make your shop from a local souk and learn to cook a special Moroccan dish. About this activity. Reserve now & pay laterKeep your\n5. The Marrakech souks are a sensory adventure filled with colourful ... score=0.52\n   URL: https://www.facebook.com/toursbylocals/posts/the-marrakech-souks-are-a-sensory-adventure-filled-with-colourful-spices-handwov/787235203951823/\n   Snippet: Join a Moroccan Cooking Class To fully understand Moroccan cuisine, learn how to prepare traditional dishes like tagine or pastilla with a local",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "b5cecca6-7176-4342-a9b2-5851a77c949a",
+        "tool_call_id": "call_jr3n7f6EThAFO0RCUUqyVZfY",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nThe Koutoubia Mosque dates back to the 12th century, and Jemaa el-Fnaa Square is a UNESCO-recognized cultural hub. The Medina's souks are famous for their vibrant markets and historic sites. Marrakech's architecture reflects its rich heritage and Islamic influence.\n\nTavily results:\n1. Marrakech: medina, souks, palaces, and gardens - Karlobag.eu score=1.00\n   URL: https://karlobag.eu/en/travel/marrakech-as-a-living-stage-of-heritage-the-medina-markets-palaces-and-gardens-t-rwqdr/\n   Snippet: The Koutoubia Mosque, according to the official description on “Visit Marrakech”, is associated with the 12th century and a complex construction\n2. Marrakech Medina: Explore Souks and Historic Sites - Peek score=1.00\n   URL: https://www.peek.com/marrakesh-marrakesh-safi-morocco/r0azmn/marrakech-medina-explore-souks-and-historic-sites/a0dzz38\n   Snippet: Immerse yourself in the vibrant medina of Marrakech on a private half-day tour. Explore the souks, visit historical sites like the Kotoubia Mosque, and\n3. Marrakech: Jemaa el-Fnaa, Souks & Riads - Tour Guide score=1.00\n   URL: https://tour-guide.com/morocco/marrakech/\n   Snippet: Built in the 12th century by the Almohad dynasty, the tower served as the architectural model for both the Giralda in Seville and the Hassan\n4. Jemaa El Fnaa Square Marrakech | History, Culture, Snakes, Description score=1.00\n   URL: https://www.alksar.com/en/jemaa-el-fnaa-square-marrakech/\n   Snippet: … From the sunrise to the confines of the night, the Jemaa El Fnaa Square Marrakech is strolled all day long by foreign tourists **for the pleasure of the eyes a**nd the purchase of souvenirs, and by the national tourists for Moroccan folk tales and attractions, and by many workers and trades (from the shopkeeper to the restaurant owners to the animators of all kinds). Decried or beloved, the thrilling Jemaa El Fnaa Square Marrakech has been for centuries the heart of the Medina of Marrakech: place of justice of the ancient times, place of passage for tourists, place of Entertainment r**ecognized by UNESCO since 2001**, agora of ancient and recent cultural events. Positioned not far from the Royal Palace and at the foot of the minaret of the famous **Mosque of Koutoubia**, after having skirted the El Koutoubia Trek where are parked the horse carriages of Marrakech, it is the starting poi...\n5. Visit of the Souks and Historical Monuments of Marrakech - Tripadvisor score=1.00\n   URL: https://www.tripadvisor.com/AttractionProductReview-g293734-d27347842-Visit_of_the_Souks_and_Historical_Monuments_of_Marrakech-Marrakech_Marrakech_Safi.html\n   Snippet: The Koutoubia Mosque is the most important in Marrakech and was one of the largest in the Islamic world at the end of its construction in 1158. The construction",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "6241df8a-c267-4826-a381-5f18222fb1da",
+        "tool_call_id": "call_bv3aUn6WzbfRiBvpABYkpYyn",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nA guided day trip from Marrakech to the Ourika Valley offers seniors a peaceful escape with visits to waterfalls and Berber villages. Tours include a knowledgeable guide and comfortable transport. Highly recommended for relaxation and cultural exploration.\n\nTavily results:\n1. THE 10 BEST Ourika Tours & Excursions (2026) - Tripadvisor score=1.00\n   URL: https://www.tripadvisor.com/Attractions-g1847424-Activities-c42-Ourika_Marrakech_Safi.html\n   Snippet: Take a day trip to Marrakech and explore the relaxing Ourika Valley with a Berber market. This will give you an escape from the hectic\n2. Day Trip From Marrakech to Ourika Valley - Morocco Excursions score=1.00\n   URL: https://morocco-excursion.com/tours/day-trip-to-ourika/\n   Snippet: Discover the beauty of the Ourika Valley on a day tour from Marrakech. Explore the Atlas Mountains, Berber villages, and peaceful nature.\n3. Day Trip to Ourika Valley from Marrakech (with Reviews) - Tripadvisor score=1.00\n   URL: https://www.tripadvisor.com/AttractionProductReview-g293734-d27159538-Day_Trip_to_Ourika_Valley_from_Marrakech-Marrakech_Marrakech_Safi.html\n   Snippet: Good value for money. Appreciated the guide to the waterfall hike, and driver fun to hang out with for the day. Definitely recommend.\n4. day trip to the Ourika Valley from Marrakech is a perfect escape into ... score=1.00\n   URL: https://www.instagram.com/reel/DVmDHtjjPtL/\n   Snippet: ... visit a traditional argan oil cooperative, explore the lively local ... Guided walk to the waterfalls ▫️Visit to a local Berber house\n5. If you're ever in Marrakech, take a day trip to Ourika Valley for a b... score=1.00\n   URL: https://www.tiktok.com/@matadornetwork/video/7247998601413020971\n   Snippet: Ouzoud Falls travel guide, tallest waterfall in North Africa, must visit Morocco attractions, stunning waterfalls in Morocco, adventure trips",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "b838d82e-4e7e-42f1-a94f-26e14ee7ae67",
+        "tool_call_id": "call_Q95y2LzNLvC6rLQyxX3MSzDX",
+        "status": "success"
+      },
+      {
+        "content": "# Baseline itinerary: Marrakech, July 5–12, 2026\n\n## Goal and constraints understood\n- Travelers: 2 adults, mid-60s.\n- Route: Hamburg → Marrakech → Hamburg by flight.\n- Dates: July 5–12, 2026; 7 nights.\n- Budget: €3,000 total.\n- Accommodation preference: traditional riad or comfortable hotel.\n- Interests: souks, history, architecture, local cuisine, guided tours, relaxed pace.\n- Planning style: heat-aware July schedule, with mornings for sightseeing, afternoons for rest, and guided help in the Medina.\n\n## Search summary\n- Flight evidence: Tavily found Hamburg–Marrakech route information indicating possible non-stop service by easyJet, about 4h20, but July 2026 schedules/prices must be confirmed closer to booking: [FlightsFrom HAM–RAK](https://www.flightsfrom.com/HAM-RAK), [FlightRoutes HAM–RAK](https://www.flightroutes.com/HAM-RAK).\n- Airport transfer evidence: Marrakech airport to Medina taxi/transfer estimates found via Tavily range roughly 70–150 MAD for taxis or higher for private transfers; official/live rates should be confirmed on arrival: [Marrakech Transport Agency](https://www.marrakechtransportagency.com/how-much-should-a-taxi-be-from-marrakech-airport-to-the-medina/), [Welcome Pickups](https://www.welcomepickups.com/marrakech/airport-transfer-to-medina/).\n- Riad evidence: Tavily found centrally located traditional riad options near Jemaa el-Fnaa/Koutoubia, including [Riad Medina Art & Suites official site](https://www.riadmedinaart.com/en/). Availability/prices for July 2026 require direct booking confirmation.\n- Garden/museum evidence: Official Jardin Majorelle site and official ticket office show opening information and ticketing: [Jardin Majorelle official](https://www.jardinmajorelle.com/en/), [official ticket office](https://tickets.jardinmajorelle.com/Visite), [Musée Yves Saint Laurent Marrakech](https://www.museeyslmarrakech.com/en/).\n- History/architecture evidence: Tavily found monument/tour evidence for Bahia Palace and Ben Youssef Madrasa, including typical entry fees shown by guided-tour listings: [GetYourGuide Bahia Palace / Ben Youssef / Medina tour](https://www.getyourguide.com/marrakesh-l208/marrakech-bahia-palace-madrasa-ben-youssef-and-medina-tour-t563312/), plus secondary timing pages.\n- Local cuisine evidence: Tavily found cooking class and market-visit options such as Souk Cuisine/cooking-class listings: [Souk Cuisine on Tripadvisor](https://www.tripadvisor.com/Attraction_Review-g293734-d1014909-Reviews-Souk_Cuisine-Marrakech_Marrakech_Safi.html).\n- Day-trip evidence: Tavily found Ourika Valley guided day-trip options from Marrakech as a relaxed Atlas foothills excursion: [Morocco Excursions Ourika day trip](https://morocco-excursion.com/tours/day-trip-to-ourika/), [Tripadvisor Ourika tours](https://www.tripadvisor.com/Attractions-g1847424-Activities-c42-Ourika_Marrakech_Safi.html).\n\n## Day 1 — Sunday, July 5: Fly from Hamburg and settle into the riad\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| Morning–Afternoon | transport | Fly Hamburg to Marrakech; choose a direct flight if available, otherwise one-stop via a European hub. | Hamburg Airport to Marrakech-Menara Airport | €900–€1,200 total estimate | Tavily found possible non-stop easyJet service around 4h20, but July 2026 fares/schedules are not confirmed: [FlightsFrom](https://www.flightsfrom.com/HAM-RAK). |\n| Afternoon | transport | Pre-book a private transfer or use official airport taxi to the Medina riad. | Marrakech-Menara Airport to Medina | €15–€30 estimate | Taxi/private transfer estimates vary; confirm fixed price before departure: [Marrakech Transport Agency](https://www.marrakechtransportagency.com/how-much-should-a-taxi-be-from-marrakech-airport-to-the-medina/). |\n| 16:00–17:30 | accommodation | Check in to a traditional riad, rest, drink mint tea, unpack. | Medina, preferably near Jemaa el-Fnaa/Koutoubia but on a quiet side street | Included in lodging | Example riad style/location: [Riad Medina Art & Suites](https://www.riadmedinaart.com/en/); book refundable rate and request a quiet room on lower floor if stairs are a concern. |\n| 18:30–20:00 | meal | Easy first dinner at the riad or nearby restaurant; avoid heavy sightseeing after travel. | Medina | €40–€60 | Estimate; riad dinner is practical after arrival and avoids navigating the Medina tired. |\n| 20:00–20:45 | walk | Optional short escorted orientation walk to Jemaa el-Fnaa edge, then return early. | Jemaa el-Fnaa / Koutoubia area | Free–€10 | Jemaa el-Fnaa is the Medina’s main evening hub; use riad staff directions or escort for first night. |\n\n## Day 2 — Monday, July 6: Gentle guided introduction to the Medina, Koutoubia and souks\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 08:00–09:00 | meal | Breakfast at riad. | Riad | Included/estimate | Most riads include breakfast, but confirm when booking. |\n| 09:00–12:30 | guided tour | Private half-day Medina orientation: Koutoubia exterior, Jemaa el-Fnaa, artisans’ lanes and selected souks. Keep pace slow with café/water stops. | Medina / Koutoubia / souks | €80–€130 for 2 estimate | Souk/Medina guided tours are widely offered; Tavily found Medina/souks tour evidence via secondary listings such as [Peek Medina tour](https://www.peek.com/marrakesh-marrakesh-safi-morocco/r0azmn/marrakech-medina-explore-souks-and-historic-sites/a0dzz38). |\n| 12:30–14:00 | meal | Lunch in or near the Medina, choosing Moroccan salads, tagine or couscous. | Medina | €30–€45 | Estimate; guide can help avoid tourist traps. |\n| 14:00–17:00 | rest | Riad siesta during July heat. | Riad | Free | Heat-aware pacing for mid-summer Marrakech. |\n| 17:30–19:00 | culture | Return independently or with guide to less crowded souk lanes; focus on spices, textiles and architecture details rather than shopping pressure. | Souks north of Jemaa el-Fnaa | Free–€20 | Relaxed continuation of morning orientation. |\n| 19:30–21:00 | meal | Dinner near riad. | Medina | €45–€65 | Estimate. |\n\n## Day 3 — Tuesday, July 7: Bahia Palace, Mellah and Saadian heritage\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 08:00–09:00 | meal | Breakfast at riad. | Riad | Included/estimate | Confirm breakfast inclusion with riad. |\n| 09:00–11:00 | guided tour | Visit Bahia Palace with a licensed guide; focus on courtyards, cedar ceilings, zellige tilework and 19th-century palace life. | Bahia Palace | ~€18 entry for 2 + guide estimate | Tavily found Bahia Palace entry listed as 100 MAD/adult on tour pages: [GetYourGuide listing](https://www.getyourguide.com/marrakesh-l208/marrakech-bahia-palace-madrasa-ben-youssef-and-medina-tour-t563312/). Opening hours should be reconfirmed locally. |\n| 11:00–12:15 | guided walk | Gentle walk through the Mellah area and optional spice market stop. | Mellah / Kasbah area | Free–€15 | Local guide recommended for context and navigation; cost estimate. |\n| 12:15–13:45 | meal | Lunch near the palace or back toward the Medina. | Southern Medina | €30–€45 | Estimate. |\n| 14:00–16:30 | rest | Riad rest / pool or shaded courtyard time. | Riad | Free | July midday heat buffer. |\n| 17:00–18:30 | history | Optional Saadian Tombs visit if energy allows, or postpone. | Kasbah | €15–€25 estimate | Not fully verified by Tavily official source; schedule as optional and reconfirm hours/ticket locally. |\n| 19:30–21:00 | meal | Dinner at a rooftop or riad restaurant. | Medina | €45–€70 | Estimate; request a table with minimal stairs if mobility is a concern. |\n\n## Day 4 — Wednesday, July 8: Jardin Majorelle, Berber Arts and relaxed Gueliz café time\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 08:00–08:45 | meal | Early breakfast. | Riad | Included/estimate | Early start helps avoid heat and crowds. |\n| 09:00–09:20 | transport | Taxi to Jardin Majorelle. | Medina to Majorelle/Gueliz | €5–€10 estimate | City taxi fare estimate; ask riad to call a reliable taxi. |\n| 09:30–11:00 | attraction | Visit Jardin Majorelle and the Pierre Bergé Museum of Berber Arts. | Jardin Majorelle | Ticket price not verified; allow €30–€45 for 2 | Official site confirms visitor information and ticketing: [Jardin Majorelle](https://www.jardinmajorelle.com/en/), [official tickets](https://tickets.jardinmajorelle.com/Visite). |\n| 11:15–12:15 | museum | Optional Musée Yves Saint Laurent Marrakech if interested and open that day. | Near Jardin Majorelle | Ticket price not verified; allow €20–€30 for 2 | Official museum page notes opening information and that it is closed Wednesdays in some periods; because this day is Wednesday, verify before scheduling: [Musée YSL Marrakech](https://www.museeyslmarrakech.com/en/). |\n| 12:30–14:00 | meal | Lunch in Gueliz, a calmer modern neighborhood break from the Medina. | Gueliz | €35–€55 | Estimate. |\n| 14:00–16:30 | rest | Return to riad and rest. | Riad | €5–€10 taxi estimate | Heat buffer. |\n| 17:30–19:00 | free time | Hammam/spa appointment or quiet rooftop tea. | Riad or spa | €60–€120 for 2 estimate | Good relaxed mid-trip activity; book reputable riad/spa. |\n| 19:30–21:00 | meal | Light dinner. | Medina or Gueliz | €40–€60 | Estimate. |\n\n## Day 5 — Thursday, July 9: Ben Youssef Madrasa and architecture-focused Medina morning\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 08:00–09:00 | meal | Breakfast at riad. | Riad | Included/estimate | Confirm with lodging. |\n| 09:00–10:30 | attraction | Visit Ben Youssef Madrasa, emphasizing Islamic architecture, carved cedar, stucco and courtyard design. | Ben Youssef Madrasa | ~€10 entry for 2 estimate | Tavily found tour evidence listing Madrasa Ben Youssef entry at 50 MAD/adult: [GetYourGuide listing](https://www.getyourguide.com/marrakesh-l208/marrakech-bahia-palace-madrasa-ben-youssef-and-medina-tour-t563312/). Hours should be reconfirmed. |\n| 10:30–12:00 | guided walk | Nearby heritage lanes: fountains, funduqs/caravanserai-style buildings and artisan quarters. | Northern Medina | €60–€100 guide estimate | Best done with guide to reduce getting lost and avoid rushing. |\n| 12:15–13:45 | meal | Lunch at a calm courtyard restaurant. | Medina | €30–€45 | Estimate. |\n| 14:00–17:00 | rest | Riad rest. | Riad | Free | Heat-aware pacing. |\n| 17:30–19:00 | shopping | Guided or riad-assisted return to selected souk shops for spices, leather or textiles. | Medina souks | Optional purchases | Use guide/riad recommendations to reduce haggling pressure. |\n| 19:30–21:00 | meal | Dinner at the riad or nearby restaurant. | Medina | €45–€65 | Estimate. |\n\n## Day 6 — Friday, July 10: Market cooking class and Moroccan cuisine\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 08:00–09:00 | meal | Light breakfast. | Riad | Included/estimate | Keep breakfast light before cooking class. |\n| 09:30–14:00 | food experience | Half-day cooking class with market visit: shop for vegetables/spices, prepare Moroccan dishes, then eat lunch. | Medina cooking school / local market | €70–€120 for 2 estimate | Tavily found cooking class/market visit evidence such as [Souk Cuisine on Tripadvisor](https://www.tripadvisor.com/Attraction_Review-g293734-d1014909-Reviews-Souk_Cuisine-Marrakech_Marrakech_Safi.html); book ahead and verify 2026 price. |\n| 14:00–17:00 | rest | Riad rest. | Riad | Free | July heat buffer. |\n| 17:30–18:30 | culture | Optional photography-light walk near Koutoubia gardens or quiet Medina lanes. | Koutoubia exterior / Medina | Free | Koutoubia exterior is a key landmark; non-Muslim interior access is generally restricted, verify locally. |\n| 19:30–21:00 | meal | Very light dinner or rooftop drinks/snacks after large cooking-class lunch. | Medina | €25–€45 | Estimate. |\n\n## Day 7 — Saturday, July 11: Relaxed Ourika Valley excursion or Marrakech leisure day\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 07:30–08:15 | meal | Early breakfast. | Riad | Included/estimate | Early departure helps with heat. |\n| 08:30–16:30 | guided excursion | Private or small-group Ourika Valley day trip: Atlas foothills scenery, Berber village stop, riverside lunch. Avoid strenuous waterfall hiking unless conditions feel safe. | Ourika Valley | €120–€200 for 2 estimate, lunch sometimes extra | Tavily found Ourika Valley day-trip evidence: [Morocco Excursions](https://morocco-excursion.com/tours/day-trip-to-ourika/), [Tripadvisor Ourika tours](https://www.tripadvisor.com/Attractions-g1847424-Activities-c42-Ourika_Marrakech_Safi.html). |\n| 12:30–14:00 | meal | Lunch during excursion, ideally riverside or village restaurant. | Ourika Valley | €30–€45 estimate | Confirm whether lunch is included in tour. |\n| 16:30–18:30 | rest | Return to riad and rest. | Marrakech Medina | Included in tour | Build in recovery after excursion. |\n| 19:30–21:00 | meal | Farewell dinner in a riad restaurant or atmospheric courtyard setting. | Medina | €60–€90 | Estimate. |\n\n## Day 8 — Sunday, July 12: Departure to Hamburg\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| Morning | meal | Breakfast and check out. | Riad | Included/estimate | Ask riad for luggage help and transfer timing. |\n| 3 hours before flight | transport | Private transfer or official taxi to Marrakech-Menara Airport. | Medina to airport | €15–€30 estimate | Taxi/transfer costs vary; confirm fixed rate: [Marrakech Transport Agency](https://www.marrakechtransportagency.com/how-much-should-a-taxi-be-from-marrakech-airport-to-the-medina/). |\n| Midday–Evening | transport | Fly Marrakech to Hamburg, direct if available or via a European hub. | Marrakech-Menara Airport to Hamburg Airport | Included in flight estimate | July 2026 flight times and prices require live airline/booking confirmation; Tavily only confirms route evidence: [FlightRoutes](https://www.flightroutes.com/HAM-RAK). |\n\n## Budget summary\n- Flights Hamburg–Marrakech return for 2: €900–€1,200 estimate.\n- Riad, 7 nights double room with breakfast: €900–€1,300 estimate for a comfortable traditional riad; confirm availability/prices directly.\n- Airport transfers and local taxis: €80–€150 estimate.\n- Meals not included in lodging/classes: €500–€700 estimate.\n- Guided Medina/history tours: €200–€330 estimate.\n- Monument/garden/museum entries: €80–€150 estimate; some ticket prices not verified for 2026.\n- Cooking class with market visit: €70–€120 estimate.\n- Ourika Valley private/small-group excursion: €120–€200 estimate.\n- Hammam/spa optional: €60–€120 estimate.\n\n**Estimated total:** approximately **€2,910–€4,270** depending mainly on flight fare and riad choice.  \n**To keep within €3,000:** target flights under €1,000 total, choose a riad around €130/night or less, use one private Medina guide plus one cooking class, and make the Ourika trip small-group rather than private.\n\n## Unscheduled or uncertain items\n- Exact Hamburg–Marrakech flight times, airline operation dates and fares for July 2026 are not confirmed with Tavily evidence.\n- Exact riad availability and July 2026 pricing are not confirmed; book a refundable riad early.\n- Exact 2026 ticket prices and opening hours for Bahia Palace, Saadian Tombs, Ben Youssef Madrasa, Jardin Majorelle and Musée YSL should be reconfirmed before travel.\n- Musée Yves Saint Laurent may be closed on Wednesdays according to official information found by Tavily; Day 4 includes it only as an optional item and should be verified.\n- Saadian Tombs are included only as an optional visit because this baseline did not find a strong official source in the available Tavily search results.\n- Restaurant reservations are not fixed; ask the riad to reserve calm, air-conditioned or courtyard restaurants suitable for a relaxed pace.\n\n## Assumptions and gaps\n- This is a baseline plan using only Tavily web-search evidence, not live booking engines or supplier APIs.\n- Currency conversion used for Moroccan dirham costs is approximate; verify current rates in 2026.\n- July in Marrakech is very hot, so the itinerary deliberately avoids dense midday sightseeing.\n- The plan assumes both travelers are comfortable with short walks on uneven Medina lanes; request taxis, luggage help and ground/lower-floor riad rooms if mobility is a concern.\n- The most suitable base is a quiet traditional riad in or near the Medina, close enough for guided walks but not directly on the busiest square.",
+        "additional_kwargs": {
+          "refusal": null
+        },
+        "response_metadata": {
+          "token_usage": {
+            "completion_tokens": 4864,
+            "prompt_tokens": 7769,
+            "total_tokens": 12633,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": null,
+              "audio_tokens": 0,
+              "reasoning_tokens": 516,
+              "rejected_prediction_tokens": null,
+              "image_tokens": 0
+            },
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0,
+              "cache_write_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost": 0.184765,
+            "is_byok": false,
+            "cost_details": {
+              "upstream_inference_cost": 0.184765,
+              "upstream_inference_prompt_cost": 0.038845,
+              "upstream_inference_completions_cost": 0.14592
+            }
+          },
+          "model_provider": "openai",
+          "model_name": "openai/gpt-5.5-20260423",
+          "system_fingerprint": null,
+          "id": "gen-1778953337-ZHTeWFu0y2ei9x9i95fA",
+          "service_tier": "default",
+          "finish_reason": "stop",
+          "logprobs": null
+        },
+        "type": "ai",
+        "id": "lc_run--019e31e1-b9ab-7ae3-a7ed-0600b2cb7aef-0",
+        "tool_calls": [],
+        "invalid_tool_calls": [],
+        "usage_metadata": {
+          "input_tokens": 7769,
+          "output_tokens": 4864,
+          "total_tokens": 12633,
+          "input_token_details": {
+            "audio": 0,
+            "cache_read": 0
+          },
+          "output_token_details": {
+            "audio": 0,
+            "reasoning": 516
+          }
+        }
+      }
+    ]
+  },
+  "error": null,
+  "metadata": {
+    "LANGSMITH_ENDPOINT": "https://eu.api.smith.langchain.com",
+    "LANGSMITH_PROJECT": "travelplanner",
+    "LANGSMITH_TRACING": "true",
+    "ls_integration": "langgraph",
+    "ls_run_depth": 0,
+    "revision_id": "10ec8d0-dirty",
+    "thread_id": "e8c329d6-9979-45b4-bf0e-3f58d8f289ba"
+  },
+  "langsmith": {
+    "organization": {
+      "name": "Personal",
+      "id": "477adfd8-a90b-45c3-95f6-1375325770e8"
+    },
+    "workspace": {
+      "name": "Workspace 1",
+      "id": "06241d75-72ec-4af5-b325-52629e7730a0"
+    },
+    "tracing_project": {
+      "id": "d92c06e8-225e-4665-a627-fdf375468f7c",
+      "name": "travelplanner"
+    }
+  }
+}

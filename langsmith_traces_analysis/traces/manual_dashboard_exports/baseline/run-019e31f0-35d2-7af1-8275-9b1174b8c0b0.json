@@ -1,0 +1,415 @@
+{
+  "inputs": {
+    "messages": [
+      {
+        "content": "You are the Simple Baseline TravelPlanner Agent.\n\nPurpose:\n- Produce a single-agent baseline itinerary for later comparison against the\n  multi-agent TravelPlanner system.\n- You have exactly one tool: Tavily web search. You have no sub-agents and no\n  specialized flight, hotel, restaurant, routing, or validation tools.\n\nOperating rules:\n1. Use Tavily web search before the final itinerary for current facts, links,\n   opening hours, prices, neighborhoods, transit hints, and source URLs.\n   The workflow may require a minimum number of completed Tavily searches before\n   you may answer with final markdown only; if you receive a workflow nudge,\n   complete the requested searches first.\n   Use a small number of high-value searches, then synthesize the final answer.\n2. Respect every hard constraint supplied by the user. If a constraint cannot be\n   verified, state the assumption instead of silently ignoring it.\n3. Prefer official tourism, venue, transit, accommodation, restaurant, and event\n   pages when search results contain them. Use blogs and aggregators only as\n   secondary evidence.\n4. Do not invent exact prices, opening hours, flight numbers, hotel availability,\n   or booking status. Mark uncertain values as estimates.\n5. Order each day like the main execution agent: travel/check-in first, meals at\n   plausible meal times, attractions during likely opening hours, transfers\n   between distant places, and rest/free time when useful.\n6. Return only markdown in the final answer.\n\nFinal markdown structure:\nUse exactly these section headings, in this order:\n1. `# Baseline itinerary: ...`\n2. `## Goal and constraints understood`\n3. `## Search summary`\n4. `## Day 1 ...` and one section per day\n5. `## Budget summary`\n6. `## Unscheduled or uncertain items`\n7. `## Assumptions and gaps`\n\nEach day must be a markdown table with exactly these columns:\n`Time | Type | Plan | Location | Cost | Evidence/Notes`.\n\nSource discipline:\n- Every non-obvious venue, attraction, transit pass, opening-time claim, and\n  ticket price should have either a markdown link in Evidence/Notes or be marked\n  as an estimate.\n- If a requested item cannot be scheduled with available evidence, list it under\n  \"Unscheduled or uncertain items\" rather than hiding it.\n- Never include raw Tavily result dumps in the final answer.\n\nExample final output shape:\n\n# Baseline itinerary: 3 days in Lisbon\n\n## Goal and constraints understood\n- Origin: Berlin\n- Dates: 2026-06-12 to 2026-06-14\n- Budget: 800 EUR for 2 travelers\n\n## Search summary\n- Official tourism page for Belém Tower: https://...\n- Transit pass information: https://...\n\n## Day 1\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 09:00-10:30 | transport | Arrive and transfer to hotel | Airport to Baixa | €8 | Metro estimate; verify live schedules |\n\n## Budget summary\n- Estimated total: €...\n\n## Unscheduled or uncertain items\n- Flight number unavailable because only Tavily web search is available.\n\n## Assumptions and gaps\n- Hotel prices require live booking confirmation.\n",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "system",
+        "id": "cea8314b-9d36-4ae8-999a-66eddf958a88"
+      },
+      {
+        "content": "GOAL\nCreate a comparable baseline travel plan in markdown.\n\nUSER QUERY\nI am travelling solo from Stuttgart to Prague from June 20th to 23rd, 2026 on a very tight budget of only €250 total. I am happy to stay in a shared hostel dorm. I prefer to travel by bus or carpooling rather than flying. I am interested in free or cheap attractions, street food, and the historical old town. Please plan the most budget-efficient trip possible.\n\nCONSTRAINTS\n{\n  \"hard_constraints\": {\n    \"origin\": \"Stuttgart\",\n    \"destination\": \"Prague\",\n    \"date_from\": \"2026.06.20\",\n    \"date_to\": \"2026.06.23\",\n    \"travelers\": {\n      \"adults\": 1,\n      \"children_under_6\": 0,\n      \"children_6_to_16\": 0\n    },\n    \"budget_amount\": 250,\n    \"budget_currency\": \"EUR\",\n    \"accommodation\": \"hostel shared dorm\",\n    \"transport\": \"Car\",\n    \"interests\": \"free attractions, street food, city history, budget travel\"\n  }\n}\n\nOUTPUT REQUIREMENT\nReturn the final plan as markdown using the same practical timetable style as the main execution agent, but acknowledge that this baseline only has Tavily evidence. Include source links found via Tavily.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "human",
+        "id": "48625745-3172-4bfe-9fc9-7eea336af77a"
+      }
+    ]
+  },
+  "outputs": {
+    "messages": [
+      {
+        "content": "You are the Simple Baseline TravelPlanner Agent.\n\nPurpose:\n- Produce a single-agent baseline itinerary for later comparison against the\n  multi-agent TravelPlanner system.\n- You have exactly one tool: Tavily web search. You have no sub-agents and no\n  specialized flight, hotel, restaurant, routing, or validation tools.\n\nOperating rules:\n1. Use Tavily web search before the final itinerary for current facts, links,\n   opening hours, prices, neighborhoods, transit hints, and source URLs.\n   The workflow may require a minimum number of completed Tavily searches before\n   you may answer with final markdown only; if you receive a workflow nudge,\n   complete the requested searches first.\n   Use a small number of high-value searches, then synthesize the final answer.\n2. Respect every hard constraint supplied by the user. If a constraint cannot be\n   verified, state the assumption instead of silently ignoring it.\n3. Prefer official tourism, venue, transit, accommodation, restaurant, and event\n   pages when search results contain them. Use blogs and aggregators only as\n   secondary evidence.\n4. Do not invent exact prices, opening hours, flight numbers, hotel availability,\n   or booking status. Mark uncertain values as estimates.\n5. Order each day like the main execution agent: travel/check-in first, meals at\n   plausible meal times, attractions during likely opening hours, transfers\n   between distant places, and rest/free time when useful.\n6. Return only markdown in the final answer.\n\nFinal markdown structure:\nUse exactly these section headings, in this order:\n1. `# Baseline itinerary: ...`\n2. `## Goal and constraints understood`\n3. `## Search summary`\n4. `## Day 1 ...` and one section per day\n5. `## Budget summary`\n6. `## Unscheduled or uncertain items`\n7. `## Assumptions and gaps`\n\nEach day must be a markdown table with exactly these columns:\n`Time | Type | Plan | Location | Cost | Evidence/Notes`.\n\nSource discipline:\n- Every non-obvious venue, attraction, transit pass, opening-time claim, and\n  ticket price should have either a markdown link in Evidence/Notes or be marked\n  as an estimate.\n- If a requested item cannot be scheduled with available evidence, list it under\n  \"Unscheduled or uncertain items\" rather than hiding it.\n- Never include raw Tavily result dumps in the final answer.\n\nExample final output shape:\n\n# Baseline itinerary: 3 days in Lisbon\n\n## Goal and constraints understood\n- Origin: Berlin\n- Dates: 2026-06-12 to 2026-06-14\n- Budget: 800 EUR for 2 travelers\n\n## Search summary\n- Official tourism page for Belém Tower: https://...\n- Transit pass information: https://...\n\n## Day 1\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 09:00-10:30 | transport | Arrive and transfer to hotel | Airport to Baixa | €8 | Metro estimate; verify live schedules |\n\n## Budget summary\n- Estimated total: €...\n\n## Unscheduled or uncertain items\n- Flight number unavailable because only Tavily web search is available.\n\n## Assumptions and gaps\n- Hotel prices require live booking confirmation.\n",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "system",
+        "id": "cea8314b-9d36-4ae8-999a-66eddf958a88"
+      },
+      {
+        "content": "GOAL\nCreate a comparable baseline travel plan in markdown.\n\nUSER QUERY\nI am travelling solo from Stuttgart to Prague from June 20th to 23rd, 2026 on a very tight budget of only €250 total. I am happy to stay in a shared hostel dorm. I prefer to travel by bus or carpooling rather than flying. I am interested in free or cheap attractions, street food, and the historical old town. Please plan the most budget-efficient trip possible.\n\nCONSTRAINTS\n{\n  \"hard_constraints\": {\n    \"origin\": \"Stuttgart\",\n    \"destination\": \"Prague\",\n    \"date_from\": \"2026.06.20\",\n    \"date_to\": \"2026.06.23\",\n    \"travelers\": {\n      \"adults\": 1,\n      \"children_under_6\": 0,\n      \"children_6_to_16\": 0\n    },\n    \"budget_amount\": 250,\n    \"budget_currency\": \"EUR\",\n    \"accommodation\": \"hostel shared dorm\",\n    \"transport\": \"Car\",\n    \"interests\": \"free attractions, street food, city history, budget travel\"\n  }\n}\n\nOUTPUT REQUIREMENT\nReturn the final plan as markdown using the same practical timetable style as the main execution agent, but acknowledge that this baseline only has Tavily evidence. Include source links found via Tavily.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "human",
+        "id": "48625745-3172-4bfe-9fc9-7eea336af77a"
+      },
+      {
+        "content": "",
+        "additional_kwargs": {
+          "refusal": null
+        },
+        "response_metadata": {
+          "token_usage": {
+            "completion_tokens": 281,
+            "prompt_tokens": 1073,
+            "total_tokens": 1354,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": null,
+              "audio_tokens": 0,
+              "reasoning_tokens": 82,
+              "rejected_prediction_tokens": null,
+              "image_tokens": 0
+            },
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0,
+              "cache_write_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost": 0.013795,
+            "is_byok": false,
+            "cost_details": {
+              "upstream_inference_cost": 0.013795,
+              "upstream_inference_prompt_cost": 0.005365,
+              "upstream_inference_completions_cost": 0.00843
+            }
+          },
+          "model_provider": "openai",
+          "model_name": "openai/gpt-5.5-20260423",
+          "system_fingerprint": null,
+          "id": "gen-1778954286-aR6Iu5iaosq63cs98Rn0",
+          "service_tier": "default",
+          "finish_reason": "tool_calls",
+          "logprobs": null
+        },
+        "type": "ai",
+        "id": "lc_run--019e31f0-35d4-7f42-9c52-4f9501662dcf-0",
+        "tool_calls": [
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Stuttgart to Prague bus June 2026 FlixBus official price duration"
+            },
+            "id": "call_DM2GCkwKMyKrnNvWHLcuco9x",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "BlaBlaCar Stuttgart Prague carpool price duration official"
+            },
+            "id": "call_QadZFyrnw95zKVjV9Ke8k6XR",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Prague hostel dorm bed budget June 2026 official hostel Old Town Prague prices"
+            },
+            "id": "call_PpyQbtrU9x8drcAIACdiYpLh",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Prague public transport 72 hour ticket official price 2026"
+            },
+            "id": "call_lk1aVD7VlkLUNI8eeFSo7rCF",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Prague free attractions old town Charles Bridge Prague Castle grounds official tourism"
+            },
+            "id": "call_ZGwTb4z6SxOIQf34xyfvD3tQ",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Prague cheap street food markets official tourism farmers markets street food"
+            },
+            "id": "call_zmJ2kFP6WAih6jKe88ZtpO3l",
+            "type": "tool_call"
+          }
+        ],
+        "invalid_tool_calls": [],
+        "usage_metadata": {
+          "input_tokens": 1073,
+          "output_tokens": 281,
+          "total_tokens": 1354,
+          "input_token_details": {
+            "audio": 0,
+            "cache_read": 0
+          },
+          "output_token_details": {
+            "audio": 0,
+            "reasoning": 82
+          }
+        }
+      },
+      {
+        "content": "Tavily answer:\nFlixBus offers Stuttgart to Prague bus rides in June 2026 starting from $24, with an average duration of 7h 10m. Prices may vary; check FlixBus for the latest rates.\n\nTavily results:\n1. STUTTGART to PRAGUE bus from $24 with FlixBus - Omio score=0.81\n   URL: https://www.omio.sg/buses/stuttgart/prague-el0j1\n   Snippet: Average Duration. 7h 10m. Cheapest Price. $33. Luggage included. One carry-on bag ... The average coach ticket price for Stuttgart to Prague is $51; however,\n2. STUTTGART to PRAGUE bus from $24 (€19) with FlixBus - Omio score=0.77\n   URL: https://www.omio.com/buses/stuttgart/prague\n   Snippet: Buses from Stuttgart to Prague run on average 10 times per day, taking around 8h 31m. Cheap bus tickets for this journey start at $24 (€19) if you book in\n3. Bus Stuttgart to Prague from €25 | Refundable Tickets | Busbud score=0.77\n   URL: https://www.busbud.com/en/bus-stuttgart-prague/r/u0wt8b-u2fkbn\n   Snippet: # Bus from Stuttgart to Prague: Tickets & Schedules. | Flixbus | Bus | 11:20pm | STR Airport | 9h 50m | 9:10am | Prague (Central Bus Station Florenc) | No tags | €48 |. | KLR Bus | Bus | 8:00pm | Flughafen / Airport (STR) | 11h 50m | 7:50am | Florenc | Cheapest | €36 |. | Flixbus | Bus | 2:45pm | Kornwestheim | 8h 40m | 11:25pm | PRG Airport | No tags | €51 |. | Flixbus | Bus | 12:35am | Kornwestheim | 6h 35m | 7:10am | PRG Airport | Cheapest | €34 |. | Flixbus | Bus | 3:20am | STR Airport | 9h 5m | 12:25pm | Prague (Central Bus Station Florenc) | No tags | €37 |. | Flixbus | Bus | 12:35am | Kornwestheim | 6h 35m | 7:10am | PRG Airport | No tags | €38 |.\n4. Bus from Stuttgart to Prague - Affordable bus tickets score=0.39\n   URL: https://www.flixbus.com/bus-routes/bus-stuttgart-prague\n   Snippet: # Cheap bus tickets from Stuttgart to Prague. ## Connecting you to the world. ## What to expect of your trip. ## Bus stations and stops in Stuttgart. ## Bus stations and stops in Prague. ### Prague (Bus Station Holešovice). ## Buses from Stuttgart to Prague. ### Find the cheapest buses from Stuttgart to Prague. It couldn't be easier to book your travel from Stuttgart to Prague with FlixBus - and when you book in advance, you can save money too! ### What to expect onboard the FlixBus bus from Stuttgart to Prague. Traveling from Stuttgart to Prague is stess-free, clean and comfortable - and it couldn't be easier to book a ticket. **You can reserve a seat** when you book on the app or website, and you can choose from a variety of seat options. Once you're settled in your seat, you can sit back and relax with plenty of onboard services to help you make the most of your trip.\n5. Bus from Prague to Stuttgart - Affordable bus tickets score=0.39\n   URL: https://www.flixbus.com/bus-routes/bus-prague-stuttgart\n   Snippet: # Cheap bus tickets from Prague to Stuttgart. ## Connecting you to the world. ## What to expect of your trip. ## Bus stations and stops in Prague. ### Prague (Central Bus Station Florenc). ### Prague (Bus Station Holešovice). ## Bus stations and stops in Stuttgart. ## Buses from Prague to Stuttgart. ### Find the cheapest buses from Prague to Stuttgart. It couldn't be easier to book your travel from Prague to Stuttgart with FlixBus - and when you book in advance, you can save money too! ### What to expect onboard the FlixBus bus from Prague to Stuttgart. Traveling from Prague to Stuttgart is stess-free, clean and comfortable - and it couldn't be easier to book a ticket. **You can reserve a seat** when you book on the app or website, and you can choose from a variety of seat options. Once you're settled in your seat, you can sit back and relax with plenty of onboard services to help you ma...",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "c35764b6-93ab-4929-86f2-e217bca181c3",
+        "tool_call_id": "call_DM2GCkwKMyKrnNvWHLcuco9x",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nThe cheapest BlaBlaCar rideshare from Stuttgart to Prague is $19. The average duration is around 7 hours. Prices and durations can vary.\n\nTavily results:\n1. STUTTGART to PRAGUE bus from $24 with FlixBus - Omio score=1.00\n   URL: https://www.omio.sg/buses/stuttgart/prague-el0j1\n   Snippet: Book a cheap bus ticket from Stuttgart to Prague from $24 with FlixBus, BlaBlaCar and KLR ... Average Duration. 7h 10m. Cheapest Price. $33. Luggage included. One\n2. Rideshare Stuttgart to Prague from $19 | gopili.com score=1.00\n   URL: https://www.gopili.com/en-us/rideshare/route/rideshare-from-stuttgart-to-prague-t13380-11492.html\n   Snippet: # Rideshare Stuttgart to Prague. 4. Stuttgart to Prague rideshare. ## Price calendar for traveling between Stuttgart and Prague. Find the least expensive day and price on a **drive from Stuttgart to Prague** via rideshare, as well as prices for transportation by train, bus, and plane. ## Carpool Stuttgart to Prague for the best prices. Gopili compares the seat prices for a **rideshare Stuttgart to Prague** on the major rideshare sites and helps you to find the best price for your travel. Looking for a rideshare Stuttgart to Prague? Here are the best prices selected for the days to come for the drive from Stuttgart to Prague. | Distance from Stuttgart to Prague | 406 km |. If you choose to travel by rideshare for this trip, the best available price among all the offers from is $19, a very cheap price for covering the distance from Stuttgart to Prague since you will be sharing the total co...\n3. Prague to Stuttgart - 12 ways to travel via train, bus, car, and plane score=1.00\n   URL: https://www.rome2rio.com/s/Prague/Stuttgart\n   Snippet: blablacar.com. rideshare. Rideshare from Prague to Stuttgart. Ave. Duration: 5h 47m; Frequency: 3 times a day; Estimated price: €29; Schedules at: blablacar.com\n4. PRAGUE to STUTTGART bus from $28 (€22) with FlixBus - Omio score=1.00\n   URL: https://www.omio.com/buses/prague/stuttgart\n   Snippet: Average Duration. 9h 40m. Cheapest Price. $33 (€27). BlaBlaCar Bus frequency. 1 a day. Luggage included. One carry-on bag up to 7kg and one checked bag up to\n5. Affordable Travel with Our Carpool Community - BlaBlaCar score=1.00\n   URL: https://www.blablacar.co.uk/carpool\n   Snippet: The costs of a carpool ride can vary greatly, and depend on factors like distance, time of departure, the demand of that ride and more. It is also up to the",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "fa254d3c-6b39-46c4-ba3b-4699cc1c7999",
+        "tool_call_id": "call_QadZFyrnw95zKVjV9Ke8k6XR",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nIn June 2026, budget dorm beds in Prague hostels range from $4 to $44 per night. Hostel Downtown and Plus Prague Hostel offer affordable options. Check Booking.com for updated prices.\n\nTavily results:\n1. Hostel Downtown, Prague (updated prices 2026) - Booking.com score=1.00\n   URL: https://www.booking.com/hotel/cz/hostel-downtown.html\n   Snippet: Located in the historic center of Prague, only 2625 feet from the Old Town Square, Hostel Downtown offers affordable dormitory and private accommodations\n2. Backpacker Hostels in Old Town, Prague 2026 (from $4 🤑) score=1.00\n   URL: https://www.hostelz.com/hostels/Czech-Republic/Prague/old-town\n   Snippet: ## Top Picks: The Best Hostels in Prague. Best for Solo Traveler: The Roadhouse, Prague. Best for Female Solo Traveler: Women's Only Hostel Prague. Best for Female Solo Traveler. Women's Only Hostel Pra...9.5. Best Party Hostel: Onefam Míru, Prague. We help you find the perfect hostel and compare prices from Hostelworld and Booking. #### Top Social Hostels. **Looking for a hostel near Old Town?** Find the best and cheapest hostels near Old Town in Prague, sorted by distance. Because this is useful for you! # Hostels in Old Town, Prague. Celine Prague Luxury Hostel, Prague. The RoadHouse Prague is very well located, close to the city centre and Old Town. \"…By the way, except for the bad experience I had with that receptionist, my overall opinion of the hostel is very good and I would advice you to stay there. \"…This is the best place to stay in Prague.\n3. Old Prague Hostel, Prague - 2026 Prices & Reviews - Hostelworld score=1.00\n   URL: https://www.hostelworld.com/hostels/p/12616/old-prague-hostel/\n   Snippet: Stay at Old Prague Hostel in Prague and meet global travellers. Best prices, real backpacker reviews, and free cancellation with Hostelworld.\n4. Plus Prague Hostel, Prague | 2026 Updated Prices, Deals score=1.00\n   URL: https://www.agoda.com/plus-prague-hostel/hotel/prague-cz.html\n   Snippet: # Plus Prague Hostel, Prague | 2026 Updated Prices, Deals. Begin typing property name or keyword to search, use arrow keys or tab key to navigate, press Enter to select. Use arrow keys to navigate through the check-in and check-out dates. Upon selection of the date using enter key, check-in date will be selected. Once both check-in and check-out date are selected, the focus will move to occupancy selection. *   Approximate prices (in USD) for 1-night stay in the searched property. Image 7: Exterior view, Plus Prague Hostel in Prague. Gold star ratings are provided by the property to reflect the comfort, facilities, and amenities you can expect. Good place to stay if you are on a budget! Plus Prague Hostel, located in the trendy Prague 07 area, offers a blend of modern culture and historic charm, making it an ideal base for two travelers.\n5. Hostel IN school - Prague - Booking.com score=1.00\n   URL: https://www.booking.com/hotel/cz/budget-hostel.html\n   Snippet: “It's super cheap, and if you're used to hostels, its price is unbeatable. $44 USD for 4 nights is incredible.” Read more.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "c4faa527-e405-40a1-8cd5-ba4ad7e8b827",
+        "tool_call_id": "call_PpyQbtrU9x8drcAIACdiYpLh",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nThe 72-hour ticket for Prague public transport costs 340 CZK in the app and 350 CZK in paper form. Seniors aged 60-65 pay a discounted price of 18 CZK for a 30-minute ticket in the app. Prices will increase from January 2026.\n\nTavily results:\n1. public transport | Prague City Tourism score=0.90\n   URL: https://prague.eu/en/public-transport/\n   Snippet: 72-hour ticket — paper ticket CZK 350 (Lítačka app CZK 340). More. free and ... © 2026 Prague City Tourism. added to cart. continue shopping. to cart to\n2. How to Navigate Prague’s Public Transport Like a Local: 2026 Updated Prices🚋💰 — Real Prague Guides score=0.85\n   URL: https://www.realpragueguides.com/blog/the-complete-guide-to-using-prague-public-transport\n   Snippet: # How to Navigate Prague’s Public Transport Like a Local: 2026 Updated Prices🚋💰. **Prague’s public transport** system is one of Europe’s best—efficient, affordable, and easy to navigate once you know the basics. Whether you’re a **first-time visitor** or a frequent traveler, this guide will walk you through every step, from buying tickets to **avoiding fines**, and share insider tips for a smooth journey. You can buy tickets directly in the app and choose when to activate them. 🎟️ You’ll need to buy a paper ticket before boarding. * **PID Lítačka App**: Buy and activate tickets for immediate or scheduled use. Prague ticket machines located in the metro. **⚠️ Important:** From **January 2026**, the prices for **30-minute** and **90-minute** tickets will increase to **39 CZK** and **50 CZK**, respectively. 📱 SMS tickets will increase to 42 CZK for the 30-minute ticket and 55 CZK for the 90...\n3. New PID Tariff from 1 January 2026: Don’t pay more than you have to | Pražská integrovaná doprava Pražská integrovaná doprava score=0.64\n   URL: https://pid.cz/en/new-pid-tariff-from-1-january-2026-dont-pay-more-than-you-have-to/\n   Snippet: # New PID Tariff from 1 January 2026: Don’t pay more than you have to. From 1 January 2026, a new Prague Integrated Transport (PID) tariff will come into effect. The changes will mainly affect fare prices – there will be an increase in the price of single journey tickets in Prague and the outer zones, and also in the price of season tickets in the outer tariff zones. The price of season tickets within Prague will remain unchanged. Prague will now be counted as 3 tariff zones (previously 4 zones), which will soften the impact of price increases for cross-border journeys between Prague and the Central Bohemian region. The new tariff also brings several changes to rail transport and an increase in surcharges for travelling without a valid ticket. The main change is the increase in the price of single tickets and their discount when purchased through the PID Lítačka app.\n4. Tickets and fare | Pražská integrovaná doprava Pražská integrovaná doprava score=0.58\n   URL: https://pid.cz/en/tickets-and-fare/\n   Snippet: # Tickets and fare. The easiest way to travel around Prague is with a 24 hour or 72 hour ticket. What are the advantages of using a 24/72 hour ticket? * Is valid on the funicular to Petřín which otherwise costs 60 CZK one-way. For visitors to Prague, the convenient option is a 24 or 72 hour ticket. ## Single tickets for Prague. \\*Full fare | From 15 to 60 years old. **Half price|** Seniors from 60 years until 65 years bearing a valid proof of their discount entitlement. A special single-ride ticket valid for funicular can be bought for 60 CZK at the funicular station. If you use a 24 hour, 72 hour or subscription ticket, the ride on funicular is included. ## Subscription tickets for Prague. **Half price|** Adolescents from 15 until 18 years, Students from 18 to 26 years *(only full-time students of high schools and colleges bearing a valid study certificate)* a Seniors from 60 until 65 y...\n5. Fares Increase on Public Transport : r/Prague - Reddit score=0.42\n   URL: https://www.reddit.com/r/Prague/comments/1pe331b/fares_increase_on_public_transport/\n   Snippet: 1110 CZK: a tourist visiting Prague for 10 days and using PID daily. 183 CZK: a person spending 10 days in Prague with a monthly PID pass,",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "50b8f254-0f11-4db9-81bb-0ec62325610a",
+        "tool_call_id": "call_lk1aVD7VlkLUNI8eeFSo7rCF",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nFree attractions in Prague's Old Town include Charles Bridge and Prague Castle grounds. The Old Town Square and Astronomical Clock are also free to visit. Enjoy the free views from the Charles Bridge.\n\nTavily results:\n1. 14 Free Things to Do in Prague | U.S. News Travel score=1.00\n   URL: https://travel.usnews.com/Prague_Czech_Republic/Things_To_Do/Free/\n   Snippet: Free Things To Do in Prague · Old Town Square (Staromestské námestí) · Charles Bridge (Karluv most) · Prague Castle · St. Vitus Cathedral (Chrám svatého Víta).\n2. THE 10 BEST Free Things to Do in Prague (2026) - Tripadvisor score=1.00\n   URL: https://www.tripadvisor.com/Attractions-g274707-Activities-zft11292-Prague_Bohemia.html\n   Snippet: Best Free Things to Do in Prague · 1. Staromestske namesti · 2. Charles Bridge · 3. Old Town Hall with Astronomical Clock · 4. Lesser Town · 5.\n3. Free Things to Do in Prague: Best Local Experiences score=1.00\n   URL: https://bestpragueguide.com/en/blog/free-things-to-do-in-prague\n   Snippet: # Free Things to Do in Prague — Experiences That Cost Nothing. Prague is one of those rare cities where the best experiences are often free. The architecture is the attraction, and you do not need a ticket to stand on Charles Bridge at sunrise, walk through the baroque streets of Malá Strana, or watch the light change over the Old Town rooftops from Letná Park. The city's beauty is structural — it is in the stone, the layout, the views — and nobody charges admission for it. But if your budget is tight, or if you simply prefer experiences over tickets, you can fill several days in Prague without spending a koruna on entrance fees. The 14th-century stone bridge spans the Vltava between the Old Town and Malá Strana, lined with 30 baroque statues and offering views in both directions that are genuinely spectacular. The bridge is free to walk, day or night, in any direction.\n4. 20 Free Places To Visit In Prague - Facebook score=1.00\n   URL: https://www.facebook.com/groups/traveltipsprague/posts/934813655162856/\n   Snippet: Join us for the Old Town & Jewish Quarter, Charles Bridge & Prague Castle or the New Town free tour. Each walk covers different places and\n5. Prague Sights & Tourist Attractions | Things to do in Prague | Visitor Information score=0.99\n   URL: https://www.pragueexperience.com/sightseeing/sights-tourist-attractions.asp\n   Snippet: | | | |  |  |  |  |  |  | | --- | --- | --- | --- | --- | --- | | |  |  |  | | --- | --- | --- | | |  |  | | --- | --- | | Astronomical Clock & Old Town Hall Tower | One of Prague's must see attractions |  Address: Old Town Square, Old Town, Prague 1 | | The Astronomical Clock (Pražský orloj) on the side of the Old Town Hall Tower (Věž Staroměstské radnice) is one of the most popular tourist attractions in Prague. | |  |  |  |  |  |  | | --- | --- | --- | --- | --- | | |  |  |  | | --- | --- | --- | | |  |  | | --- | --- | | Charles Bridge | One of Prague's must see attractions |  Prague 1 | | Charles Bridge (Karlův most) is a 14th-century stone bridge linking the two sides of Prague, connecting the Old Town to the Lesser Town.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "48d41769-db46-4ecc-bee5-4f1aa366ba44",
+        "tool_call_id": "call_ZGwTb4z6SxOIQf34xyfvD3tQ",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nPrague's farmers markets, especially on the Rašín Embankment and Jiřího z Poděbrad, offer affordable fresh produce and street food. Popular spots include Náplavka and Kulaťák markets. Street food is also cheap and widely available.\n\nTavily results:\n1. Farmers markets in Prague: Where to go and what to taste — Prague Food Tour | Original since 2011 | Taste of Prague score=1.00\n   URL: https://www.tasteofprague.com/pragueblog/farmers-market-in-prague-where-to-go-and-what-to-taste\n   Snippet: # Farmers markets in Prague: Where to go and what to taste. While we rarely visit them during our Prague food tours, Prague farmers markets are, without a doubt, one of the best things to do in Prague. Visiting Prague farmers markets is a great idea for so many reasons, but primarily, they nicely show what is in season at the particular time of the year and what you should expect - and demand - on the menu in the best restaurants in Prague. We have picked the four best farmers markets in Prague we think are worth visiting. The riverside market is so popular it made our perfect Saturday itinerary for Prague, and is one of the places to visit if you're spending the weekend in Prague. The market is on every day from Wednesday to Saturday, so it's one of the best places to visit in Prague if you're here during the week.\n2. THE 15 BEST Prague Farmers Markets (2026) - Praha - Tripadvisor score=1.00\n   URL: https://www.tripadvisor.com/Attractions-g274707-Activities-c26-t207-Prague_Bohemia.html\n   Snippet: Good quality for price ranto and great authentic restaurants. Great place where a person finds everything and everything is cheap. Especially considering it's\n3. The 39 best street markets in Prague - Wanderlog score=1.00\n   URL: https://wanderlog.com/list/geoCategory/173010/best-street-markets-in-prague\n   Snippet: The Farmers' Saturday Market in Prague is a popular spot for locals and tourists ... Cheap eats · Breakfast and brunch · Bakeries · Breweries and beer · Romantic\n4. markets | Prague City Tourism score=1.00\n   URL: https://prague.eu/en/objevujte-kategorie/markets/\n   Snippet: new lift at the old town hall tower. the best hotels in prague. send us a **contact form**. Get up early and take a walk along the banks of the Vltava River. Every Saturday morning from eight o’clock, the Rašín Embankment comes alive with regular farmers’ markets. You can also enjoy them on many of Prague’s squares, such as Jiřího z Poděbrad, where you can select fresh produce under the shade of the trees four times a week. ## Náplavka Farmers’ Market. ## Farmers’ Market at Kulaťák. ## Farmers’ Market at Jiřák. ## Farmers’ Market at Anděl. ## Heřmaňák Farmers’ Market. ## Market in Holešovice. ## Flea Markets at Heřmaňák. ## Flea market. ## Holešovice Market Hall. ## get periodical news and tips about what’s on in prague. \\* by sending, you consent to the privacy policy. ## contact form. I have read and agree to the Terms and Conditions and Privacy Policy.\n5. Prague Markets and Hot Street Food - Livingprague.com score=1.00\n   URL: https://livingprague.com/food-and-drink/prague-markets-hot-street-food/\n   Snippet: Have fun. My Own Guided Tours – Cheaper Than You Think! prague tour guide jason next to the vltava river “Like being shown around by a knowledgeable friend",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "0b60a957-9411-466d-9756-c6fb13abbcdf",
+        "tool_call_id": "call_zmJ2kFP6WAih6jKe88ZtpO3l",
+        "status": "success"
+      },
+      {
+        "content": "",
+        "additional_kwargs": {
+          "refusal": null
+        },
+        "response_metadata": {
+          "token_usage": {
+            "completion_tokens": 379,
+            "prompt_tokens": 6489,
+            "total_tokens": 6868,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": null,
+              "audio_tokens": 0,
+              "reasoning_tokens": 240,
+              "rejected_prediction_tokens": null,
+              "image_tokens": 0
+            },
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0,
+              "cache_write_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost": 0.043815,
+            "is_byok": false,
+            "cost_details": {
+              "upstream_inference_cost": 0.043815,
+              "upstream_inference_prompt_cost": 0.032445,
+              "upstream_inference_completions_cost": 0.01137
+            }
+          },
+          "model_provider": "openai",
+          "model_name": "openai/gpt-5.5-20260423",
+          "system_fingerprint": null,
+          "id": "gen-1778954296-sNZn8SGjaXLgEg42STEo",
+          "service_tier": "default",
+          "finish_reason": "tool_calls",
+          "logprobs": null
+        },
+        "type": "ai",
+        "id": "lc_run--019e31f0-5af5-7613-8479-b0cd58969fa4-0",
+        "tool_calls": [
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Prague Castle official visitor information opening hours grounds free 2026"
+            },
+            "id": "call_O9ec5cB0h9Ahr3TinIOSi5cF",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Prague astronomical clock official tourism free Old Town Square hourly"
+            },
+            "id": "call_zEzCFHiA037NRp4FGpVfptaX",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Prague official tourism Charles Bridge Old Town Square historical route free"
+            },
+            "id": "call_GC6eT21ICYf3WmCORTXkZkM8",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Prague cheap eats street food official tourism food markets Lokál Sisters chlebicky prices"
+            },
+            "id": "call_omzaf9mIgRpffM3epvPSqktL",
+            "type": "tool_call"
+          }
+        ],
+        "invalid_tool_calls": [],
+        "usage_metadata": {
+          "input_tokens": 6489,
+          "output_tokens": 379,
+          "total_tokens": 6868,
+          "input_token_details": {
+            "audio": 0,
+            "cache_read": 0
+          },
+          "output_token_details": {
+            "audio": 0,
+            "reasoning": 240
+          }
+        }
+      },
+      {
+        "content": "Tavily answer:\nPrague Castle grounds are open daily from 6:00 a.m. to 10:00 p.m. in 2026; historic buildings open from 9:00 a.m. to 5:00 p.m. The South Gardens will be closed on May 4 due to ceremonies.\n\nTavily results:\n1. Opening hours - Prague Castle for visitors score=1.00\n   URL: https://www.hrad.cz/en/prague-castle-for-visitors/opening-hours\n   Snippet: ## Closure of the South Gardens on 4. The South Gardens will be closed on May 4, 2026, due to operational and state-ceremonial reasons. ## Summer Tourist Season (April 1 till October 31). ### Prague **Castle complex**. Old Royal Palace, The Story of Prague Castle, St. George's Basilica, Castle Guard Exhibition, Golden Lane with Daliborka Tower, The Picture Galery at Prague Castle. **Mo - Sa: 9.00 – 17.00; Su: 12.00 - 17.00**. For more information about regular services and special ceremonies see website of the St. Vitus Cathedral. ### **Great South Tower of St. Vitus Cathedral**. ### **Prague Castle Gardens**. April - June 10.00  - 19.00,. July - August 10.00 - 20.00,. September 10.00 - 19.00,. October 10.00 - 17.00. #### The Garden on the Bastion. ### The opening hours of the **Château Park in Lany**can be found here. 1st November till 28th of February: the gardens are closed to the pub...\n2. Prague Castle Opening Hours (2026) + Best time to visit to avoid the crowds – View from Prague score=1.00\n   URL: https://www.viewfromprague.com/prague-castle-opening-hours/\n   Snippet: # Prague Castle Opening Hours (2026) + Best time to visit to avoid the crowds. Prague Castle’s opening hours for 2026, including attractions, gardens and private palaces as well as the best times to visit Prague Castle to avoid the crowds. I have included the opening hours of the whole Prague Castle complex, the individual attractions, gardens and private palaces as well as my top tips on the best times to visit Prague Castle to avoid the crowds. I should also mention, that the security gates at the Prague Castle complex have been now removed, so there are no longer queues to get in or out and you don’t need to worry about being delayed if you are visiting the inside of the castle buildings. The Prague Castle complex is open 6 am – 10 pm every day, all year round. Entry with a valid ticket to the Castle Complex during every day is between 9.00 – 17.00 (summer), and 9.00 – 16.00 (winter),...\n3. Prague Castle Opening Hours & Best Times to Visit score=1.00\n   URL: https://prazskyhrad.org/en/visiting-hours\n   Snippet: Visiting timetable09:00 AM – 05:00 PM. Pražský hrad, Hradčany, 119 08 Praha 1, Czechia. # Castle hours and best visiting windows. Seasonal schedules for interiors and grounds, plus timing tips to enjoy quiet courtyards, garden paths, and golden‑hour views over the city. ### We are currently open. Today: **09:00 AM - 05:00 PM**. | Monday | 06:00 AM - 10:00 PM | Open |. | Tuesday | 06:00 AM - 10:00 PM | Open |. | Wednesday | 06:00 AM - 10:00 PM | Open |. | Saturday | 06:00 AM - 10:00 PM | Open |. 09:00 AM - 05:00 PM. Opening hour for calm courtyards; spring and autumn for mild air; late afternoon for golden terraces. Book ahead for spring festivals, Easter week, and busy summer mornings. Occasional special programs and free‑entry initiatives happen city‑wide—monitor official announcements. Your personal guide for Prague Castle (Pražský hrad). Ask me anything about tickets, visiting hours,...\n4. Prague Castle Opening Hours – Best Times & Visitor Tips | Castle of Prague score=1.00\n   URL: https://castleofprague.com/opening-hours/\n   Snippet: # Prague Castle Opening Hours – When and How to Visit. Prague Castle is a vast historic complex open to the public every day. On this page, you’ll find all the information you need to plan your visit at the best possible time: access hours, seasonal schedules, helpful tips, and key recommendations. | **Outdoor complex** | Every day | 6:00 a.m. (summer) 9:00 a.m. | **Gardens** | Every day | 10:00 a.m. * The castle grounds (courtyards, terraces, and outdoor areas) are open **from 6:00 a.m. to 10:00 p.m.** daily. * Historic buildings (palaces, basilica, Golden Lane, etc.) are open **from 9:00 a.m. to 5:00 p.m.**. * St. Vitus Cathedral: Monday–Saturday **9:00 a.m.–5:00 p.m.**; Sunday **12:00 p.m.–5:00 p.m.**. * The outdoor complex remains open **from 6:00 a.m. to 10:00 p.m.** every day. * Historic buildings are open **from 9:00 a.m. to 4:00 p.m.**. Access to the historic buildings depends on...\n5. Visit Prague Castle | A Complete Guide for Visitors score=1.00\n   URL: https://www.praguecastletickets.com/plan-your-visit-prague-castle/\n   Snippet: # Your Detailed Guide to Visiting Prague Castle | Timings, Getting There, Tickets & More. Built in the 9th century, Prague Castle, or Pražský hrad is the largest ancient castle in the world. The castle complex covers over 70,000 square meters and is currently used as the office of the President Of the Czech Republic. With its rich heritage, stunning architecture, and breathtaking views, this magnificent castle is a must-visit destination in Prague. Keep reading to find all the information you need to plan an unforgettable visit to Prague Castle. ## Prague Castle at a glance. **Timings:** The castle complex is open from 6am to 10pm. Try to visit the Castle grounds by 8:40am to spend some time in the beautiful Prague Castle gardens before exploring the historical buildings. **Location:**Prague Castle is located in the heart of Prague, the capital city of the Czech Republic. Tram is probabl...",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "f11488bb-04a9-46d3-b465-70397750063b",
+        "tool_call_id": "call_O9ec5cB0h9Ahr3TinIOSi5cF",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nThe Prague Astronomical Clock shows a spectacle hourly from 08:00 to 23:00 in Old Town Square, free to view. The clock features zodiac medallions added in 1865. It's a must-see attraction.\n\nTavily results:\n1. Old Town Hall with Astronomical Clock - Prague - Tripadvisor score=0.77\n   URL: https://www.tripadvisor.com/Attraction_Review-g274707-d275152-Reviews-Old_Town_Hall_with_Astronomical_Clock-Prague_Bohemia.html\n   Snippet: The old town square is a must see when visiting Prague. It's free to see and watch the clock at the hour when the characters come in and out of the tiny doors.\n2. Prague Astronomical Clock - U.S. News Travel score=0.75\n   URL: https://travel.usnews.com/Prague_Czech_Republic/Things_To_Do/Old_Town_Hall_and_Astronomical_Clock_Staromestska_Radnice_27929/\n   Snippet: Free, Neighborhood/Area, Sightseeing Type. 1 to 2 hours Time to Spend. #1 Old Town Square (Staromestské námestí). Old Town Square is a popular spot in Prague\n3. Tours & tickets Prague Astronomical Clock - GetYourGuide score=0.74\n   URL: https://www.getyourguide.com/prague-astronomical-clock-l3554/\n   Snippet: Prague's Astronomical Clock is a 15th‑century marvel in Old Town Square. Catch the hourly show with the Apostles, then study the dials for zodiac, sun,\n4. Prague Astronomical Clock: Performance Times & Review score=0.69\n   URL: https://www.free-city-guides.com/prague/astronomical-clock/\n   Snippet: The Prague Astronomical Clock is located on the wall of the Town Hall in the Old Town square. This clock is like no clock you will have seen before and as\n5. Prague Astronomical Clock - A Local's Guide - LaidBack Trip score=0.67\n   URL: https://www.laidbacktrip.com/posts/astronomical-clock-prague-guide\n   Snippet: That said, you can easily spend an hour or two in Old Town Square. There is plenty to see and do, so make sure to have enough time to explore.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "2933f0be-566e-4e3c-8c04-670173e86195",
+        "tool_call_id": "call_zEzCFHiA037NRp4FGpVfptaX",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nThe Charles Bridge connects to Old Town Square in Prague; free walking tours are available for both.\n\nTavily results:\n1. Every tourist will at some point walk the Royal Way of Prague, from ... score=1.00\n   URL: https://www.facebook.com/HonestPragueGuide/posts/every-tourist-will-at-some-point-walk-the-royal-way-of-prague-from-the-old-town-/851838493427426/\n   Snippet: Cross the 14th-century Charles Bridge. Continue to Old Town Square (Staromestske Namesti) and you'll find rows of well-preserved historic\n2. Charles Bridge to Old Town Square Walk - Walking Tours score=1.00\n   URL: https://www.prague.fm/15162/charles-bridge-to-old-town-square-walk/\n   Snippet: # Charles Bridge to Old Town Square Walk. On glancing across the Vltava from its East Bank towards the Castle, it has been said by many that they feel they are in the pages of a fairytale book.*. Prague’s Old Town is a mediaeval settlement, joined later by Charles IV’s New Town in the 14th century, transforming Prague into the third-largest city in Europe. Though its alias ‘the Golden City’ is often attributed to Prague’s stunning vistas when it catches the sunlight, the origin is a much more practical one. Looking at all the other bridges that span the Vltava today, it’s hard to believe that the Charles Bridge was, in fact, the only one to do so until 1841. 2. As you force your way through the happy snappers, buskers and hucksters (that is, unless you’ve managed to get up at dawn and beat the rush), try to work your way up one of the sides, each of which is lined with the baroque statue...\n3. Old Town, Jewish Quarter, Charles Bridge (Tip-based tour) score=1.00\n   URL: https://www.tripadvisor.com/AttractionProductReview-g274707-d19147434-Prague_s_TOP_Sights_Old_Town_Jewish_Quarter_Charles_Bridge_Tip_based_tour-Prague_B.html\n   Snippet: Kickstart your Prague adventure with certified local guides covering Old Town's must-sees + hidden gems, Jewish Quarter history, and Charles Bridge legends.\n4. Free Walking Tour Prague score=1.00\n   URL: https://freewalkingtourprague.eu/\n   Snippet: Check our Schedule for the latest free Prague tour availability. # Free Walking Tour Prague. Experience the best of Prague with our professional guides. Discover the most famous sights and hidden gems of Prague on our unique free tours in English & Spanish. Discover the most interesting sights of Prague Old Town & Jewish Quarter and hear fascinating local legends! Explore Prague’s mysterious Hradčany District and Malá Strana through ghost stories, myths, and forgotten legends.Ghosts and Legends of Prague - Eerie Stories of the Old Town. ### Ghosts and Legends of Prague - Eerie Stories of the Old Town. In order to ensure the best quality of our free walking tours, the group size for each experience is limited. Old Town & Jewish Quarter or Charles Bridge & Prague Castle are probably the best choice to discover the main sights but the slightly more alternative New Town tour, or any of our s...\n5. Free Prague Old Town Tour with Jewish Quarter & Charles Bridge score=1.00\n   URL: https://praguewalkingtours.eu/prague-old-town-tour/\n   Snippet: # Iconic Free Tour of Prague: Old Town, Jewish Quarter & Charles Bridge. ## What to expect on the tour. ### Highlights of the Old Town Tour. We take you to all the famous monuments and highlights of Prague’s Old Town. After you join this tour, check out our Prague Castle Free Tour. She has such deep knowledge about what it means to live in Prague, combined with great appreciation for the local culture and a good sense of humour! I had such a great time learning about the history and culture of Prague, and walking through Old Town and seeing some of the major landmarks in the city. I had a great experience with two different tours, one of the castle and the other one of the old town centre and more. Dylan was an exceptional guide on our Ivon walking tour of Prague old town and Jewish quarter.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "26a5d356-7475-4a74-ac59-f8db74219ddf",
+        "tool_call_id": "call_GC6eT21ICYf3WmCORTXkZkM8",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nLokál Sisters offers affordable chlebíčky and cakes in Prague. Prices are budget-friendly. It's a popular spot for street food.\n\nTavily results:\n1. Sisters, chlebíčky Praha | Avantgarde Prague score=0.46\n   URL: https://www.avantgarde-prague.com/sisters-chlebicky-praha/\n   Snippet: Budget. $. Free Wi-Fi. Wheelchair accessible. Terrace. Suitable for families with ... Christmas Markets in Prague · Tips for you · Romantic Prague · Visit Prague\n2. Save this tasty and cheap foodie spot in Prague for traditional Czech ... score=0.41\n   URL: https://www.threads.com/@eat_with_carina/post/DXeKDbPjZTY/video-save-this-tasty-and-cheap-foodie-spot-in-prague-for-traditional-czech-open\n   Snippet: Save this tasty and cheap foodie spot in Prague for traditional Czech open faced sandwiches called chlebíčky and cakes - bistrosisters ‍↕️\n3. Whenever I travel, I study the food. AI said Sisters Sandwiches was ... score=0.40\n   URL: https://www.instagram.com/reel/DVE95sPkmjw/\n   Snippet: Save this tasty and cheap foodie spot in Prague for traditional Czech open faced sandwiches called chlebíčky and cakes -\n4. Prague Street Food: Expert Guide to 10 Cheap Eats score=0.40\n   URL: https://sillysuitcase.com/prague-street-food-cheap-eats/\n   Snippet: Home EuropeCzech RepublicPrague Local Food: 10 Cheap & Authentic Street Eats Hotspots. Czech RepublicEuropeTop 10 Local Eateries & Street Food Hotspots. # Prague Local Food: 10 Cheap & Authentic Street Eats Hotspots. Prague Local Food 10 Cheap Authentic Street Eats Hotspots - SillySuitcase. # SillySuitcase’s Guide to Prague Street Food: 10 Local Eateries You Can’t Miss. This isn’t your typical tourist trap **Prague food guide**; we’re diving deep into the heart of **Prague street food**, uncovering **affordable Prague food** and the **best Prague restaurants** where locals actually eat. Prepare your **SillySuitcase** and your taste buds for an unforgettable culinary adventure! Find this hidden gem at Celetná 557/10, open from 11:30 AM to 9:00 PM most days. * Authentic Indian Flavors at INDelicious Bistro: Experience a burst of flavor at this **Prague hidden gem food** spot serving authen...\n5. Cheap Eats in Prague score=0.39\n   URL: https://www.tasteofprague.com/pragueblog/budget-eats-in-prague\n   Snippet: Cheap Eats in Prague · Lunch specials · Budget Coffee Shops in Prague · MASO A KOBLIHA · SISTERS · Nase maso · Pho Vietnam · Home Kitchen · Osteria da",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "f1f212e1-ded9-4eff-91f5-8d30136993ac",
+        "tool_call_id": "call_omzaf9mIgRpffM3epvPSqktL",
+        "status": "success"
+      },
+      {
+        "content": "# Baseline itinerary: Stuttgart to Prague, June 20–23, 2026\n\n## Goal and constraints understood\n- Solo trip from **Stuttgart to Prague**, **20–23 June 2026**.\n- Total budget: **€250 maximum**.\n- Accommodation: **shared hostel dorm**.\n- Transport preference/constraint: **car / carpooling preferred**, with bus as a budget backup; no flying.\n- Interests: **free attractions, street food, city history, Old Town, budget travel**.\n- Baseline limitation: this plan uses **Tavily web-search evidence only**. I cannot verify live 2026 carpool seats, hostel availability, or exact booking prices.\n\n## Search summary\n- Stuttgart–Prague bus: [FlixBus official route page](https://www.flixbus.com/bus-routes/bus-stuttgart-prague); search evidence also showed third-party estimates from about **€19–€36+ one way**, but exact June 2026 fares must be checked live.\n- Carpooling: search evidence found Stuttgart–Prague rideshare estimates from about **$19–€29 one way**, but exact BlaBlaCar listings for June 2026 are not yet verifiable.\n- Hostel dorms: search evidence found central/budget hostel options such as [Hostel Downtown](https://www.booking.com/hotel/cz/hostel-downtown.html), [Old Prague Hostel](https://www.hostelworld.com/hostels/p/12616/old-prague-hostel/), and budget options via Hostelworld/Booking/Agoda; assumed **€25–€30 per dorm night**.\n- Prague transit: [Prague City Tourism public transport](https://prague.eu/en/public-transport/) and [PID tickets and fare](https://pid.cz/en/tickets-and-fare/) show a **72-hour ticket around 340–350 CZK** in 2026 evidence.\n- Prague Castle: official opening-hours evidence from [Prague Castle](https://www.hrad.cz/en/prague-castle-for-visitors/opening-hours) shows the castle complex is open broadly daily, with interiors requiring tickets; this plan uses mainly free exterior areas.\n- Markets/street food: [Prague City Tourism markets page](https://prague.eu/en/objevujte-kategorie/markets/) mentions Náplavka Saturday farmers’ market from 08:00 and other markets such as Jiřího z Poděbrad.\n- Free Old Town sights: search evidence supports free visits to **Old Town Square, Charles Bridge, Prague Castle grounds/exteriors, Letná views**, and the **Astronomical Clock exterior show**; official/near-official links are used where available.\n\n## Day 1 — Saturday, June 20, 2026: Stuttgart to Prague, Old Town first walk\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 07:00–14:00 | transport | Take a **carpool from Stuttgart to Prague** if available; backup: cheapest FlixBus/KLR-style bus booked early. | Stuttgart → Prague Florenc / central Prague | €25–€35 estimate | Carpool exact listings cannot be verified yet; search found rideshare estimates from about $19–€29. Backup route supported by [FlixBus Stuttgart–Prague](https://www.flixbus.com/bus-routes/bus-stuttgart-prague). |\n| 14:00–14:45 | transport | Transfer from arrival point to hostel; buy/activate **72-hour Prague public transport ticket** if staying outside Old Town. | Florenc / Prague arrival stop → hostel | €14 estimate | 72-hour ticket evidence: [Prague City Tourism public transport](https://prague.eu/en/public-transport/) and [PID fares](https://pid.cz/en/tickets-and-fare/); 340–350 CZK ≈ €14. |\n| 15:00–16:00 | accommodation | Check in to cheapest acceptable shared dorm. Prioritize central hostels only if price is close; otherwise Prague 7 / Žižkov / Florenc can be cheaper. | Hostel dorm, Prague | €25–€30 | Examples found: [Hostel Downtown](https://www.booking.com/hotel/cz/hostel-downtown.html), [Old Prague Hostel](https://www.hostelworld.com/hostels/p/12616/old-prague-hostel/). Price is an estimate; book early. |\n| 16:00–17:00 | food | Cheap late lunch: supermarket bakery, chlebíček, or market-style snack. | Near hostel / city centre | €4–€6 | Budget food estimate; exact vendor prices not verified. |\n| 17:00–19:30 | attraction | Self-guided historical walk: **Powder Gate → Celetná → Old Town Square → Astronomical Clock exterior → Charles Bridge**. | Old Town / Staré Město | Free | Old Town and Charles Bridge are free public areas; Astronomical Clock exterior viewing supported by tourism/search evidence. |\n| 19:30–20:30 | food | Street-food-style dinner: sausage, kebab, Vietnamese takeaway, or supermarket meal to avoid tourist restaurants. | Old Town edge / Florenc / Žižkov | €6–€8 | Budget estimate; avoid Old Town Square sit-down restaurants. |\n| 20:30–22:00 | attraction | Sunset/evening stroll on **Charles Bridge** and Vltava riverbanks. | Charles Bridge / Vltava | Free | Charles Bridge is a free public landmark; go later to avoid crowds. |\n\n## Day 2 — Sunday, June 21, 2026: Prague Castle exteriors, Malá Strana, Letná views\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 08:00–08:45 | food | Hostel breakfast if included; otherwise supermarket yogurt/pastry/fruit. | Hostel / supermarket | €3–€5 | Estimate; choose hostel with kitchen/free breakfast if possible. |\n| 09:00–10:00 | transport/attraction | Tram or walk uphill toward **Prague Castle**; use transit pass if purchased. | Hostel → Hradčany / Prague Castle | Included | 72-hour ticket assumed; official transit info: [PID fares](https://pid.cz/en/tickets-and-fare/). |\n| 10:00–12:30 | attraction | Visit **Prague Castle courtyards/exteriors**, viewpoints, and free-access areas; skip paid interiors unless budget remains. | Prague Castle / Hradčany | Free | Official opening-hours page: [Prague Castle opening hours](https://www.hrad.cz/en/prague-castle-for-visitors/opening-hours). Interiors need tickets; this plan uses free exterior areas. |\n| 12:30–13:30 | food | Cheap lunch from bakery/supermarket or simple Czech/Vietnamese takeaway away from castle tourist streets. | Hradčany / Malá Strana edge | €5–€7 | Estimate; prices near castle can be inflated, so walk downhill before eating. |\n| 13:30–15:30 | attraction | Walk down through **Malá Strana**, Wallenstein Garden area if open, Kampa, and riverside views. | Malá Strana / Kampa | Free | Public-area walking route; garden opening can vary, so treat as optional. |\n| 15:30–17:00 | attraction | Cross to **Letná Park** for one of Prague’s best free skyline views. | Letná Park | Free | Free public park/viewpoint; timing flexible. |\n| 17:00–18:00 | rest | Hostel/kitchen break; refill water, recharge phone. | Hostel | Free | Keeps spending low. |\n| 18:00–19:30 | food | Budget dinner: cook hostel meal or buy takeaway. | Hostel kitchen / Žižkov / Florenc | €5–€8 | Estimate; hostel kitchen is the cheapest option. |\n| 20:00–21:30 | attraction | Optional free/tip-based walking tour or independent Jewish Quarter/Old Town evening walk. | Old Town / Josefov | €0–€5 tip optional | Free walking tours found via search, but tip is expected; skip if budget is tight. |\n\n## Day 3 — Monday, June 22, 2026: Old Town history, markets, New Town\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 08:00–08:45 | food | Simple hostel/supermarket breakfast. | Hostel / supermarket | €3–€5 | Estimate. |\n| 09:00–11:00 | attraction | Early Old Town history loop before crowds: **Old Town Square, Týn Church exterior, Ungelt, Jewish Quarter streets**. | Staré Město / Josefov | Free | Exterior/public-area plan; museum/synagogue interiors are not included to protect budget. |\n| 11:00–12:00 | attraction | Watch the **Astronomical Clock** from the square; do not pay for tower entry. | Old Town Hall exterior | Free | Search evidence supports free exterior viewing; exact hourly show times should be verified locally. |\n| 12:00–13:00 | food | Cheap lunch: chlebíčky, kebab, supermarket salad, or Vietnamese takeaway. | Old Town edge / New Town | €5–€7 | Budget estimate; chlebíčky and takeaway are usually cheaper than sit-down meals. |\n| 13:00–15:00 | attraction | Walk **Wenceslas Square → Lucerna passage → National Museum exterior**. | New Town / Václavské náměstí | Free | Free public-space city-history walk; museum entry skipped. |\n| 15:00–16:30 | food/market | Visit a market area if operating, such as **Jiřího z Poděbrad** or another farmers’ market; buy snack only if cheap. | Jiřího z Poděbrad / market area | €3–€5 | [Prague City Tourism markets](https://prague.eu/en/objevujte-kategorie/markets/) lists markets including Jiřák; exact Monday stalls/hours should be verified locally. |\n| 16:30–18:00 | rest | Free time at hostel or park; avoid paid attractions. | Hostel / park | Free | Budget control. |\n| 18:00–19:30 | food | Cook pasta/rice in hostel kitchen or supermarket ready meal. | Hostel kitchen | €4–€6 | Cheapest dinner strategy; estimate. |\n| 20:00–21:30 | attraction | Final night walk: riverbanks, Charles Bridge from a distance, or Letná/Old Town viewpoint repeat. | Vltava / Old Town | Free | Free public areas. |\n\n## Day 4 — Tuesday, June 23, 2026: Cheap morning, return to Stuttgart\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 07:30–08:15 | food | Breakfast from hostel/supermarket; pack snacks for the ride. | Hostel / supermarket | €4–€6 | Estimate; buying snacks before travel avoids expensive station food. |\n| 08:15–09:00 | accommodation | Check out; store bag only if free. | Hostel | Free | Confirm hostel luggage-storage policy. |\n| 09:00–10:30 | attraction | Short final walk through Old Town or along the Vltava, depending on departure time. | Old Town / riverbank | Free | Flexible free time. |\n| 10:30–11:30 | food | Early cheap lunch or packed supermarket meal before departure. | Florenc / supermarket | €4–€6 | Estimate. |\n| 12:00–19:00 | transport | Return by **carpool to Stuttgart** if available; backup: cheapest bus booked early. | Prague → Stuttgart | €25–€35 estimate | Carpool exact seat not verifiable yet. Bus backup supported by [FlixBus Prague–Stuttgart route](https://www.flixbus.com/bus-routes/bus-prague-stuttgart). |\n| 19:00–20:00 | arrival | Arrive in Stuttgart; local onward travel not budgeted unless needed. | Stuttgart | €0–€5 estimate | Depends on final arrival stop and personal local transport needs. |\n\n## Budget summary\n- Return Stuttgart–Prague transport by carpool/bus: **€50–€70 estimate**\n- Hostel shared dorm, 3 nights: **€75–€90 estimate**\n- Prague 72-hour public transport ticket: **about €14**\n- Food, very tight budget style: **€50–€65**\n- Optional walking-tour tip / small extras: **€0–€10**\n- Emergency buffer: **€10–€25**\n\n**Estimated total:** **€189–€249**\n\nThis fits the **€250** budget only if:\n- transport is booked early or a cheap carpool is found,\n- dorm beds stay near **€25–€30/night**,\n- most meals are supermarket/hostel-kitchen/takeaway,\n- paid interiors such as Prague Castle buildings, Old Town Hall tower, museums, and synagogue tickets are skipped.\n\n## Unscheduled or uncertain items\n- Exact **BlaBlaCar/carpool seats for June 20 and June 23, 2026** cannot be verified with Tavily alone this far out.\n- Exact **hostel dorm availability and final June 2026 prices** require live booking confirmation.\n- Exact **bus departure times and fares** for the chosen dates must be checked on FlixBus/Busbud/Omio closer to booking.\n- Market operating days/hours can change; Náplavka is best for Saturday morning, but arrival from Stuttgart likely makes it impractical on Day 1.\n- Paid attractions are intentionally excluded unless there is leftover budget.\n\n## Assumptions and gaps\n- Currency conversion assumed roughly **25 CZK ≈ €1**; actual rates may differ.\n- The plan assumes one small backpack and no checked-luggage surcharges beyond standard bus/carpool arrangements.\n- The accommodation budget assumes a **basic mixed dorm**, possibly outside the most central Old Town area.\n- “Transport: Car” is interpreted as **carpooling/rideshare**, not renting a car, because rental/fuel/parking would likely break the €250 budget.\n- If carpooling is unavailable, take the cheapest early-booked bus; the trip should still be possible but with less budget buffer.",
+        "additional_kwargs": {
+          "refusal": null
+        },
+        "response_metadata": {
+          "token_usage": {
+            "completion_tokens": 3665,
+            "prompt_tokens": 10190,
+            "total_tokens": 13855,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": null,
+              "audio_tokens": 0,
+              "reasoning_tokens": 516,
+              "rejected_prediction_tokens": null,
+              "image_tokens": 0
+            },
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 6144,
+              "cache_write_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost": 0.133252,
+            "is_byok": false,
+            "cost_details": {
+              "upstream_inference_cost": 0.133252,
+              "upstream_inference_prompt_cost": 0.023302,
+              "upstream_inference_completions_cost": 0.10995
+            }
+          },
+          "model_provider": "openai",
+          "model_name": "openai/gpt-5.5-20260423",
+          "system_fingerprint": null,
+          "id": "gen-1778954309-FXpGAyoubwbC1L6rDJzs",
+          "service_tier": "default",
+          "finish_reason": "stop",
+          "logprobs": null
+        },
+        "type": "ai",
+        "id": "lc_run--019e31f0-8f9d-7950-b6c4-a64901d66701-0",
+        "tool_calls": [],
+        "invalid_tool_calls": [],
+        "usage_metadata": {
+          "input_tokens": 10190,
+          "output_tokens": 3665,
+          "total_tokens": 13855,
+          "input_token_details": {
+            "audio": 0,
+            "cache_read": 6144
+          },
+          "output_token_details": {
+            "audio": 0,
+            "reasoning": 516
+          }
+        }
+      }
+    ]
+  },
+  "error": null,
+  "metadata": {
+    "LANGSMITH_ENDPOINT": "https://eu.api.smith.langchain.com",
+    "LANGSMITH_PROJECT": "travelplanner",
+    "LANGSMITH_TRACING": "true",
+    "ls_integration": "langgraph",
+    "ls_run_depth": 0,
+    "revision_id": "10ec8d0-dirty",
+    "thread_id": "fae1e28c-1b7e-4682-bf91-a53e2f13f549"
+  },
+  "langsmith": {
+    "organization": {
+      "name": "Personal",
+      "id": "477adfd8-a90b-45c3-95f6-1375325770e8"
+    },
+    "workspace": {
+      "name": "Workspace 1",
+      "id": "06241d75-72ec-4af5-b325-52629e7730a0"
+    },
+    "tracing_project": {
+      "id": "d92c06e8-225e-4665-a627-fdf375468f7c",
+      "name": "travelplanner"
+    }
+  }
+}

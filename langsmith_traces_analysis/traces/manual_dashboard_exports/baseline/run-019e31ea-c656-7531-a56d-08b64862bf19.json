@@ -1,0 +1,639 @@
+{
+  "inputs": {
+    "messages": [
+      {
+        "content": "You are the Simple Baseline TravelPlanner Agent.\n\nPurpose:\n- Produce a single-agent baseline itinerary for later comparison against the\n  multi-agent TravelPlanner system.\n- You have exactly one tool: Tavily web search. You have no sub-agents and no\n  specialized flight, hotel, restaurant, routing, or validation tools.\n\nOperating rules:\n1. Use Tavily web search before the final itinerary for current facts, links,\n   opening hours, prices, neighborhoods, transit hints, and source URLs.\n   The workflow may require a minimum number of completed Tavily searches before\n   you may answer with final markdown only; if you receive a workflow nudge,\n   complete the requested searches first.\n   Use a small number of high-value searches, then synthesize the final answer.\n2. Respect every hard constraint supplied by the user. If a constraint cannot be\n   verified, state the assumption instead of silently ignoring it.\n3. Prefer official tourism, venue, transit, accommodation, restaurant, and event\n   pages when search results contain them. Use blogs and aggregators only as\n   secondary evidence.\n4. Do not invent exact prices, opening hours, flight numbers, hotel availability,\n   or booking status. Mark uncertain values as estimates.\n5. Order each day like the main execution agent: travel/check-in first, meals at\n   plausible meal times, attractions during likely opening hours, transfers\n   between distant places, and rest/free time when useful.\n6. Return only markdown in the final answer.\n\nFinal markdown structure:\nUse exactly these section headings, in this order:\n1. `# Baseline itinerary: ...`\n2. `## Goal and constraints understood`\n3. `## Search summary`\n4. `## Day 1 ...` and one section per day\n5. `## Budget summary`\n6. `## Unscheduled or uncertain items`\n7. `## Assumptions and gaps`\n\nEach day must be a markdown table with exactly these columns:\n`Time | Type | Plan | Location | Cost | Evidence/Notes`.\n\nSource discipline:\n- Every non-obvious venue, attraction, transit pass, opening-time claim, and\n  ticket price should have either a markdown link in Evidence/Notes or be marked\n  as an estimate.\n- If a requested item cannot be scheduled with available evidence, list it under\n  \"Unscheduled or uncertain items\" rather than hiding it.\n- Never include raw Tavily result dumps in the final answer.\n\nExample final output shape:\n\n# Baseline itinerary: 3 days in Lisbon\n\n## Goal and constraints understood\n- Origin: Berlin\n- Dates: 2026-06-12 to 2026-06-14\n- Budget: 800 EUR for 2 travelers\n\n## Search summary\n- Official tourism page for Belém Tower: https://...\n- Transit pass information: https://...\n\n## Day 1\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 09:00-10:30 | transport | Arrive and transfer to hotel | Airport to Baixa | €8 | Metro estimate; verify live schedules |\n\n## Budget summary\n- Estimated total: €...\n\n## Unscheduled or uncertain items\n- Flight number unavailable because only Tavily web search is available.\n\n## Assumptions and gaps\n- Hotel prices require live booking confirmation.\n",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "system",
+        "id": "0c32e58c-4f9a-4780-ae65-2fd2fce3499e"
+      },
+      {
+        "content": "GOAL\nCreate a comparable baseline travel plan in markdown.\n\nUSER QUERY\nI want to travel from Frankfurt to Dublin from September 5th to 10th, 2026, without taking any flights — I prefer to travel by car and ferry. My budget is €3,000. I am travelling solo and looking for a hostel or cheap hotel. I love hiking, coastal landscapes, and visiting local pubs.\n\nCONSTRAINTS\n{\n  \"hard_constraints\": {\n    \"origin\": \"Frankfurt\",\n    \"destination\": \"Dublin\",\n    \"date_from\": \"2026.09.05\",\n    \"date_to\": \"2026.09.10\",\n    \"travelers\": {\n      \"adults\": 1,\n      \"children_under_6\": 0,\n      \"children_6_to_16\": 0\n    },\n    \"budget_amount\": 3000,\n    \"budget_currency\": \"EUR\",\n    \"accommodation\": \"hostel or budget hotel\",\n    \"transport\": \"Car\",\n    \"interests\": \"nature, hiking, coastal scenery, pubs\"\n  }\n}\n\nOUTPUT REQUIREMENT\nReturn the final plan as markdown using the same practical timetable style as the main execution agent, but acknowledge that this baseline only has Tavily evidence. Include source links found via Tavily.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "human",
+        "id": "1f8ce1e6-5b32-46ec-b28a-c5d374737752"
+      }
+    ]
+  },
+  "outputs": {
+    "messages": [
+      {
+        "content": "You are the Simple Baseline TravelPlanner Agent.\n\nPurpose:\n- Produce a single-agent baseline itinerary for later comparison against the\n  multi-agent TravelPlanner system.\n- You have exactly one tool: Tavily web search. You have no sub-agents and no\n  specialized flight, hotel, restaurant, routing, or validation tools.\n\nOperating rules:\n1. Use Tavily web search before the final itinerary for current facts, links,\n   opening hours, prices, neighborhoods, transit hints, and source URLs.\n   The workflow may require a minimum number of completed Tavily searches before\n   you may answer with final markdown only; if you receive a workflow nudge,\n   complete the requested searches first.\n   Use a small number of high-value searches, then synthesize the final answer.\n2. Respect every hard constraint supplied by the user. If a constraint cannot be\n   verified, state the assumption instead of silently ignoring it.\n3. Prefer official tourism, venue, transit, accommodation, restaurant, and event\n   pages when search results contain them. Use blogs and aggregators only as\n   secondary evidence.\n4. Do not invent exact prices, opening hours, flight numbers, hotel availability,\n   or booking status. Mark uncertain values as estimates.\n5. Order each day like the main execution agent: travel/check-in first, meals at\n   plausible meal times, attractions during likely opening hours, transfers\n   between distant places, and rest/free time when useful.\n6. Return only markdown in the final answer.\n\nFinal markdown structure:\nUse exactly these section headings, in this order:\n1. `# Baseline itinerary: ...`\n2. `## Goal and constraints understood`\n3. `## Search summary`\n4. `## Day 1 ...` and one section per day\n5. `## Budget summary`\n6. `## Unscheduled or uncertain items`\n7. `## Assumptions and gaps`\n\nEach day must be a markdown table with exactly these columns:\n`Time | Type | Plan | Location | Cost | Evidence/Notes`.\n\nSource discipline:\n- Every non-obvious venue, attraction, transit pass, opening-time claim, and\n  ticket price should have either a markdown link in Evidence/Notes or be marked\n  as an estimate.\n- If a requested item cannot be scheduled with available evidence, list it under\n  \"Unscheduled or uncertain items\" rather than hiding it.\n- Never include raw Tavily result dumps in the final answer.\n\nExample final output shape:\n\n# Baseline itinerary: 3 days in Lisbon\n\n## Goal and constraints understood\n- Origin: Berlin\n- Dates: 2026-06-12 to 2026-06-14\n- Budget: 800 EUR for 2 travelers\n\n## Search summary\n- Official tourism page for Belém Tower: https://...\n- Transit pass information: https://...\n\n## Day 1\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 09:00-10:30 | transport | Arrive and transfer to hotel | Airport to Baixa | €8 | Metro estimate; verify live schedules |\n\n## Budget summary\n- Estimated total: €...\n\n## Unscheduled or uncertain items\n- Flight number unavailable because only Tavily web search is available.\n\n## Assumptions and gaps\n- Hotel prices require live booking confirmation.\n",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "system",
+        "id": "0c32e58c-4f9a-4780-ae65-2fd2fce3499e"
+      },
+      {
+        "content": "GOAL\nCreate a comparable baseline travel plan in markdown.\n\nUSER QUERY\nI want to travel from Frankfurt to Dublin from September 5th to 10th, 2026, without taking any flights — I prefer to travel by car and ferry. My budget is €3,000. I am travelling solo and looking for a hostel or cheap hotel. I love hiking, coastal landscapes, and visiting local pubs.\n\nCONSTRAINTS\n{\n  \"hard_constraints\": {\n    \"origin\": \"Frankfurt\",\n    \"destination\": \"Dublin\",\n    \"date_from\": \"2026.09.05\",\n    \"date_to\": \"2026.09.10\",\n    \"travelers\": {\n      \"adults\": 1,\n      \"children_under_6\": 0,\n      \"children_6_to_16\": 0\n    },\n    \"budget_amount\": 3000,\n    \"budget_currency\": \"EUR\",\n    \"accommodation\": \"hostel or budget hotel\",\n    \"transport\": \"Car\",\n    \"interests\": \"nature, hiking, coastal scenery, pubs\"\n  }\n}\n\nOUTPUT REQUIREMENT\nReturn the final plan as markdown using the same practical timetable style as the main execution agent, but acknowledge that this baseline only has Tavily evidence. Include source links found via Tavily.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "human",
+        "id": "1f8ce1e6-5b32-46ec-b28a-c5d374737752"
+      },
+      {
+        "content": "",
+        "additional_kwargs": {
+          "refusal": null
+        },
+        "response_metadata": {
+          "token_usage": {
+            "completion_tokens": 261,
+            "prompt_tokens": 1057,
+            "total_tokens": 1318,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": null,
+              "audio_tokens": 0,
+              "reasoning_tokens": 90,
+              "rejected_prediction_tokens": null,
+              "image_tokens": 0
+            },
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0,
+              "cache_write_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost": 0.013115,
+            "is_byok": false,
+            "cost_details": {
+              "upstream_inference_cost": 0.013115,
+              "upstream_inference_prompt_cost": 0.005285,
+              "upstream_inference_completions_cost": 0.00783
+            }
+          },
+          "model_provider": "openai",
+          "model_name": "openai/gpt-5.5-20260423",
+          "system_fingerprint": null,
+          "id": "gen-1778953930-2zZL7E7tgPqZw6EsDv0J",
+          "service_tier": "default",
+          "finish_reason": "tool_calls",
+          "logprobs": null
+        },
+        "type": "ai",
+        "id": "lc_run--019e31ea-c657-7da2-9e4f-cda62083f07e-0",
+        "tool_calls": [
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "official ferry Calais Dover car passenger fares DFDS P&O 2026 booking crossing time"
+            },
+            "id": "call_ATcnxXZil5gmH4Sroth4E5qi",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "official Irish Ferries Holyhead Dublin car passenger crossing time fares"
+            },
+            "id": "call_5y1GZPTxdlAoYltRPVe817tv",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Stena Line Holyhead Dublin ferry car passenger crossing time fares official"
+            },
+            "id": "call_uqp4RdCy6WlXJFBHtbmgyhcy",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Dublin hostels budget hotels official rates September Generator Abbey Court hostel Dublin"
+            },
+            "id": "call_4VQRK2TbIHEgEycnSbRpYuk2",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Dublin public transport Leap Visitor Card fare official 2026"
+            },
+            "id": "call_asV9DgH2oJZ6a5YUMiyfjUHP",
+            "type": "tool_call"
+          }
+        ],
+        "invalid_tool_calls": [],
+        "usage_metadata": {
+          "input_tokens": 1057,
+          "output_tokens": 261,
+          "total_tokens": 1318,
+          "input_token_details": {
+            "audio": 0,
+            "cache_read": 0
+          },
+          "output_token_details": {
+            "audio": 0,
+            "reasoning": 90
+          }
+        }
+      },
+      {
+        "content": "Tavily answer:\nFor 2026, car, passenger fares from Dover to Calais are from £70 with Irish Ferries, £76 with P&O Ferries, and £77 with DFDS. The crossing time is typically around 1 hour 35 minutes.\n\nTavily results:\n1. Ferry to Europe | Plan your 2026 Holiday | P&O Ferries score=0.79\n   URL: https://www.poferries.com/en\n   Snippet: Travel until 31 December 2026 3 or 5 day breaks  Dover to Calais. Please enter the number of passengers, if you have more than 9 passengers Click here;). #### Small Pet. For more information on travelling with your pet, visit our dedicated page here. #### Pet Staying in Car. On our Cairnryan to Larne route pets are welcome and can travel free of charge at all times. On our Cairnryan to Larne route pets are welcome and can travel free of charge at all times. #### More than 9 of you travelling? If you are travelling on our Dover to Calais route as a foot passenger and have selected the need for special assistance, please ensure you inform us of your needs at least 48hrs in advance of travel. Take a Short Break from just £134 on our Dover to Calais route, with travel up to 31 December 2026. Valid for travel on our Dover to Calais route, up to 31 December 2026.\n2. Ferry - Schedules & Tickets - Port of Dover score=0.75\n   URL: https://www.portofdover.com/ferry/tickets/\n   Snippet: EES Travel and Check-In guidance for Coach Passengers. EES Travel and Check-In guidance for Freight Drivers. EES Travel and Check-In guidance for Foot Passengers. ###### Travel by car. Arrival & check-in procedure guidance for when travelling by car. Arrival & check-in procedure guidance for cyclists. Find out the latest travel advice before you travel. Regulations and guidelines concerning ID cards for entry to the UK. Find out the latest requirements for permitted pet travel. Immerse yourself in comfort and convenience with the wide array of exceptional services waiting for you at the Passenger Services Building West. | 13th May 2026 | 11:15 | 12:00 | DFDS Group | Dover Seaways |. | 13th May 2026 | 12:35 | 13:40 | P&O Ferries | P&O Pioneer |. The P&O Ferries foot passenger ticket desk can be found in the Passenger Terminal. An Irish ferry and transport company that operates passenger a...\n3. Calais to Dover Ferry | Tickets, Prices & Schedules - Direct Ferries score=0.72\n   URL: https://www.directferries.com/calais_dover_ferry.htm\n   Snippet: Ferries from Calais to Dover are operated by 3 ferry companies, including Irish Ferries, P&O Ferries & DFDS Seaways. The crossing typically takes around 1 hour 35 minutes. There are currently 167 weekly sailings on this route, with prices starting from as little as $151. Use our Deal Finder to compare prices and availability, and book your ferry to Dover today. # Calais to Dover Ferry. ## How to book a ferry from Calais to Dover. ### How do I book a Calais to Dover ferry ticket? Booking your Calais to Dover ferry is simple. ### When is the best time to book a Calais to Dover ferry? The best time to book ferries from Calais to Dover is as early as possible. ## Calais to Dover Ferry Price. ### What is the cheapest ferry from Calais to Dover? The fastest ferry from Calais to Dover is with Irish Ferries & P&O Ferries in 1 hour 30 minutes.\n4. Dover to Calais ferry | Tickets, Prices and Schedules - Direct Ferries score=0.70\n   URL: https://www.directferries.com/dover_calais_ferry.htm\n   Snippet: # Ferry from Dover to Calais, Prices starting from $155. The Dover to Calais ferry route is provided by 3 ferry companies. The ferry crossing from Dover to Calais is approximately 1 hour 35 minutes on most ferries servicing this route. Ferries between Dover to Calais cost around $155 and $395, depending on ticket details. Ferry timetables change seasonally, use our Deal Finder to get live pricing and availability for ferries from Dover to Calais. ## Dover to Calais Ferry. The ferry crossing from Dover to Calais takes approximately 1 hour 35 minutes on ferries servicing this route. The ferry duration for the Dover to Calais ferry can range between 40 minutes and 2 hours 35 minutes depending on the operator that you decide to travel with. The fastest ferry from Dover to Calais is with P&O Ferries in 40 minutes. Yes, you can bring your car on the Dover to Calais ferry with Irish Ferries, P&...\n5. Dover calais ferry price score=0.67\n   URL: https://calais-dover.com/price/\n   Snippet: Irish Ferries: From ± £70 for a car with up to 9 passengers ; P&O ferries: From ± £76 for a car with a maximum of 9 passengers ; DFDS: From ± £77 for a car with",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "70ea622c-8c9c-4adb-9ef8-19924b7e1b88",
+        "tool_call_id": "call_ATcnxXZil5gmH4Sroth4E5qi",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nThe Holyhead to Dublin ferry crossing takes about 2 to 5 hours, with fares for a car and two passengers starting around £119 to £200 one way. The fastest crossing is 2 hours 15 minutes with Irish Ferries.\n\nTavily results:\n1. Irish Sea Crossings one-way fare from €178 including a car and driver score=1.00\n   URL: https://www.facebook.com/IrishFerriesOfficial/posts/irish-sea-crossings-one-way-fare-from-178-including-a-car-and-driver/1405680404929568/\n   Snippet: • Holyhead > Dublin is £307.92 for a car and 2 folks • Cairnryan ... Saturday to Saturday crossings so very much peak times Irish Ferries\n2. Holyhead to Dublin ferry | Tickets, Prices, Schedules - Direct Ferries score=1.00\n   URL: https://www.directferries.com/holyhead_dublin_ferry.htm\n   Snippet: The Holyhead to Dublin ferry route is provided by **2 ferry companies**. The ferry crossing from Holyhead to Dublin is approximately **3 hours 15 minutes** on most ferries servicing this route. Ferry timetables change seasonally, use our Deal Finder to get live pricing and availability for ferries from Holyhead to Dublin. # Holyhead to Dublin Ferry. The ferry crossing from Holyhead to Dublin takes approximately 3 hours 15 minutes on ferries servicing this route. The ferry duration for the Holyhead to Dublin ferry can range between 2 hours 15 minutes and 5 hours 45 minutes depending on the operator that you decide to travel with. The fastest ferry from Holyhead to Dublin is with Irish Ferries in 2 hours 15 minutes. ## What is the price of a fast ferry from Holyhead to Dublin? ## How much is a cabin on the ferry from Holyhead to Dublin? Yes, you can travel as a foot passenger on the Holyhe...\n3. Ferry Holyhead to Dublin | Routes & Times | Irish Ferries score=1.00\n   URL: https://www.irishferries.com/uk-en/routes-and-times/dublin-holyhead/\n   Snippet: # Dublin Holyhead. | Dublin Swift returns this July, check out our quick quote for details. | Dublin Swift returns this July, check out our quick quote for details See our latest sailing information here |. ### Enjoy the ease of travelling between Ireland and Britain on our Dublin/Holyhead route. ## Ferry to Dublin & Holyhead. The Dublin-Holyhead route offers a direct connection between Ireland and the UK, allowing passengers to experience comfortable travel across the Irish Sea. Bring the car aboard and enjoy the freedom of travel between Ireland and Wales. The Dublin-Holyhead ferry is one of Irish Ferries’ most popular routes, with up to 4 sailings each day. # Our Ferries on the Dublin Holyhead Route. Irish Ferries currently have 3 ferries on the Dublin Holyhead route. Cross the Irish Sea in just over 2 hours on the “Dublin Swift”, the only Fast Ferry on the route.\n4. Ferry prices explained | Holyhead-Dublin crossing score=1.00\n   URL: https://holyhead-dublin.com/price/\n   Snippet: A standard car with two adults typically costs between £119 and £200 one way. During the busiest summer sailings, prices can be higher if you book close to the\n5. Ferry Holyhead to Dublin (Guide) | Fast & Reliable Travel score=1.00\n   URL: https://www.go-ferry.com/routes/irish-routes/ferry-holyhead-dublin\n   Snippet: With a vehicle: Arrive 90 minutes before departure · As a foot passenger: Arrive at least 60 minutes before departure · If coming by train, Holyhead station is",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "5ed958ec-4fc4-4f43-94b5-498152aa1699",
+        "tool_call_id": "call_5y1GZPTxdlAoYltRPVe817tv",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nThe Stena Line ferry from Holyhead to Dublin takes about 3 hours 15 minutes. Fares start from €41. Book in advance for the best prices.\n\nTavily results:\n1. HOLYHEAD to DUBLIN ferry from $45 (€36) with Stena Line - Omio score=0.78\n   URL: https://www.omio.com/ferries/holyhead/dublin-aq8o6\n   Snippet: Ferries from Holyhead to Dublin run on average 4 times per day, taking around 3h 22m. Cheap ferry tickets for this journey start at $45 (€36) if you book in\n2. Stena Line Ferry Tickets | Book Now, Cancel Up to 15 Min Before score=0.73\n   URL: https://www.busbud.com/en-ie/o/stena-line\n   Snippet: Holyhead → Dublin ; First and last departures04:00 — 22:15 ; Average duration3h 30m ; Minimum price€41\n3. Holyhead to Dublin ferry | Tickets, Prices, Schedules - Direct Ferries score=0.72\n   URL: https://www.directferries.com/holyhead_dublin_ferry.htm\n   Snippet: The Holyhead to Dublin ferry route is provided by **2 ferry companies**. The ferry crossing from Holyhead to Dublin is approximately **3 hours 15 minutes** on most ferries servicing this route. Ferry timetables change seasonally, use our Deal Finder to get live pricing and availability for ferries from Holyhead to Dublin. # Holyhead to Dublin Ferry. The ferry crossing from Holyhead to Dublin takes approximately 3 hours 15 minutes on ferries servicing this route. The ferry duration for the Holyhead to Dublin ferry can range between 2 hours 15 minutes and 5 hours 45 minutes depending on the operator that you decide to travel with. The fastest ferry from Holyhead to Dublin is with Irish Ferries in 2 hours 15 minutes. ## What is the price of a fast ferry from Holyhead to Dublin? ## How much is a cabin on the ferry from Holyhead to Dublin? Yes, you can travel as a foot passenger on the Holyhe...\n4. Ferry prices explained | Holyhead-Dublin crossing score=0.68\n   URL: https://holyhead-dublin.com/price/\n   Snippet: A standard car with two adults typically costs between £119 and £200 one way. During the busiest summer sailings, prices can be higher if you book close to the\n5. Ferry to Dublin and Holyhead | Stena Line score=0.63\n   URL: https://www.stenalinetravel.com/routes/holyhead-dublin\n   Snippet: # Ferry to Dublin and Holyhead. Travel by ferry to Dublin and Holyhead and get away the easy way to Ireland and Wales. Enjoy the best travel experience on the Irish Sea onboard the Stena Adventurer or Stena Estrid Superferries travelling 8 times daily between Dublin and Holyhead in only 3 hours 15 minutes. Pack up the car and travel by ferry to the heart of Dublin. ## Dublin to Holyhead – it’s easy by car. With no baggage charges taking the ferry to Dublin and Holyhead is easy so pack it all in and enjoy a car-cation with Stena Line today. If you’re travelling by car, not only can you look forward to great savings onboard but you can also buy in bulk in our Duty Free port shops in Holyhead and Fishguard! Travel by ferry to Dublin and Holyhead and get away the easy way to Ireland and Wales. ## Ferry to Dublin and Holyhead.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "d105b6c1-d17c-467e-8f11-ce590bb3de9c",
+        "tool_call_id": "call_uqp4RdCy6WlXJFBHtbmgyhcy",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nAbbey Court Hostel in Dublin offers budget-friendly rates starting from $21 in September 2026. It provides various room types and includes breakfast for €7.00. The hostel is conveniently located near public transport and attractions.\n\nTavily results:\n1. Abbey Court Hostel, Dublin | 2026 Updated Prices, Deals - Agoda.com score=0.65\n   URL: https://www.agoda.com/abbey-court-apartments/hotel/dublin-ie.html\n   Snippet: With an average room price of just $211, this hostel offers exceptional value for money, especially when compared to the average price of a hotel room in Dublin\n2. Abbey Court Hostel from $21. Dublin Hotel Deals & Reviews - KAYAK score=0.64\n   URL: https://www.kayak.com/Dublin-Hotels-Abbey-Court-Hostel.167738.ksp\n   Snippet: The cheapest price a room at Abbey Court Hostel was booked for on KAYAK in the last 2 weeks was $28, while the most expensive was $187. How long should\n3. Hostel Abbey Court Dublin - new 2026 prices, reviews, book now score=0.59\n   URL: https://abbey-court-hostel.hotel-inn-dublin.com/en/\n   Snippet: # Abbey Court Hostel Dublin. The modern 2-star Abbey Court Hostel Dublin, located merely 1.2 km from St Stephens Green, features Wi-Fi throughout the property. Located a few steps from Ha'penny Bridge, this Dublin hostel is providing guests with bag storage. Bakery The HOT Donut is close to this Dublin hostel. Dublin airport is located a 20-minute ride away, while Tara Street train stop is in the neighbourhood of Abbey Court Hostel. * Most popular 2 star hotels in Copenhagen: Hostel Meininger, Hotel Metro;. * Best Central hotels in New York: Hotel The Standard, High Line;. Check Top hotels near Abbey Court Hostel Dublin. Stauntons On The Green Hotel Dublin. 55 Aungier Street, Dublin, Ireland. Maldron Hotel Pearse Street Dublin City. 98-107 Pearse Street, Dublin, Ireland. Hotel 4 stars The High Line. Hostel Central Park Studios @Lex. 150 East 105Th Street, New York, United States. Hotel 3...\n4. Abbey Court, Dublin - 2026 Prices & Reviews - Hostelworld score=0.58\n   URL: https://www.hostelworld.com/hostels/p/100/abbey-court/\n   Snippet: Breakfast provided every day for just €7.00! With various room types available from Double private en-suite rooms to large dormitories, there's something for\n5. Abbey Court Hostel, Dublin, Ireland - www.trivago.com score=0.54\n   URL: https://www.trivago.com/en-US/oar/abbey-court-hostel-dublin?search=100-1278113\n   Snippet: This hostel offers a vibrant social atmosphere, particularly centered around its lively bar and common areas, making it a memorable choice for budget travelers.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "10fa07b2-5016-4f5e-a8f9-8608e2803353",
+        "tool_call_id": "call_4VQRK2TbIHEgEycnSbRpYuk2",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nThe Leap Visitor Card for 2026 offers 1 day for €8.00, 3 days for €16.00, and 7 days for €32.00, providing unlimited travel on Dublin public transport.\n\nTavily results:\n1. Leap Visitor Card - Leap Card score=1.00\n   URL: https://about.leapcard.ie/leap-visitor-card\n   Snippet: The Leap Visitor Card is a convenient public transport ticket for tourists and visitors to Dublin. Get unlimited travel for your selected time period on Dublin City Bus services (operated by Dublin Bus and Go-Ahead Ireland), Luas (tram), DART and Commuter Rail in Zone 1: TFI Dublin City. If you don’t wish to purchase a Leap Visitor card, you can always purchase a regular TFI Leap Card and avail of the TFI 90 minute fare. The Leap Visitor Card is currently available to buy online and from selected agents in Dublin. \\*Please note that the Leap Visitor Card is not an e-ticket and will be delivered to your postal address. * Dublin Bus, 59 Upper O’Connell Street, Dublin 1. Once you have a Leap Visitor Card, you can top-up with additional time periods (1, 3 or 7 days) for the prices shown above at any Leap Card outlet in Dublin (up to a maximum of 5 times).\n2. Tickets for Dublin Public Transport (including Leap Card) — Dublin Public Transport - Maps, Timetables and Information score=1.00\n   URL: https://www.dublinpublictransport.ie/tickets\n   Snippet: Trains and trams   Buses   Leap Card zones. # Tickets for Dublin public transport. ## Leap Cards: the cheapest way to travel in Dublin. You can buy tickets for Dublin’s trains, trams and buses at individual stations or on buses. However, it is cheaper to use a ‘Leap Card’ to travel around Dublin on public transport. You can buy a regular Leap Card in a wide range of locations throughout Dublin - you can find an outlet near you on the Leap Card website. A Leap Visitor Card allows you unlimited travel after the first time you use it (for the period you have selected) on the following public transport services:. You can buy a Leap Card in advance of your visit to Dublin from the Leap Card website. The 90 minute fare is valid for trips taken on Dublin Bus, Luas, most DART, and commuter rail services (within zones 1 to 4 of the Short Hop Zone), as well as Go-Ahead Ireland city services in Dub...\n3. Leap Visitor Card: Tourists 2026 Guide score=1.00\n   URL: https://www.theirishroadtrip.com/leap-visitor-card/\n   Snippet: 1 day (24 hours): €8.00; 3 days (72 hours): €18.00; 7 days (168 hours): €24.00. 4. Where you can use it.\n4. See more of Dublin with unlimited travel. The Visitor TFI Leap Card ... score=1.00\n   URL: https://www.facebook.com/DublinBusNews/posts/see-more-of-dublin-with-unlimited-travelthe-visitor-tfi-leap-card-is-the-easiest/1434107268747448/\n   Snippet: Quick note for Dublin public transit. We are here now and bought the visitor Leap Card one week pass for $23/person. It's unlimited use on the\n5. Fare Zones - Transport for Ireland score=0.99\n   URL: https://www.transportforireland.ie/fares/new-fare-zones/\n   Snippet: # Fare Zones. #### **New Fare Zones**. The four Leap fare zones across Dublin and surrounding areas, cover up to 50km from the city centre. #### **Zone 1: TFI Dublin** **|** **Commuter Zones 2, 3 and 4** **|****Leap Single Fares | Leap Tickets** **|** **Important information**. ### **Zone 1 (TFI Dublin)**. Valid on Dublin City Bus services (Dublin Bus and Go-Ahead Ireland), Luas, DART, and Commuter Rail within Zone 1. Note: **Dublin Commuter Bus services** (Bus Éireann & Go-Ahead Ireland) are **not eligible** for the TFI 90-minute fare or capping. If you use your Leap Travel Credit on a Dublin Commuter Bus service to travel into Zone 1, any additional travel within Zone 1 (by bus, train, or tram) will incur an extra charge. However, if you use Leap Travel credit on Irish Rail Services to travel into Zone 1 your trip will be eligible for a free transfer in Zone 1 within 90 minutes. ### **...",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "eab2f3e4-9759-48c1-aa9b-cb4db9524a50",
+        "tool_call_id": "call_asV9DgH2oJZ6a5YUMiyfjUHP",
+        "status": "success"
+      },
+      {
+        "content": "",
+        "additional_kwargs": {
+          "refusal": null
+        },
+        "response_metadata": {
+          "token_usage": {
+            "completion_tokens": 172,
+            "prompt_tokens": 5652,
+            "total_tokens": 5824,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": null,
+              "audio_tokens": 0,
+              "reasoning_tokens": 0,
+              "rejected_prediction_tokens": null,
+              "image_tokens": 0
+            },
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0,
+              "cache_write_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost": 0.03342,
+            "is_byok": false,
+            "cost_details": {
+              "upstream_inference_cost": 0.03342,
+              "upstream_inference_prompt_cost": 0.02826,
+              "upstream_inference_completions_cost": 0.00516
+            }
+          },
+          "model_provider": "openai",
+          "model_name": "openai/gpt-5.5-20260423",
+          "system_fingerprint": null,
+          "id": "gen-1778953939-CiCWEf0se9gizUPEBomw",
+          "service_tier": "default",
+          "finish_reason": "tool_calls",
+          "logprobs": null
+        },
+        "type": "ai",
+        "id": "lc_run--019e31ea-e924-75b0-9c13-f955a8007917-0",
+        "tool_calls": [
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "official Howth Cliff Walk Dublin hiking route visitor information"
+            },
+            "id": "call_9ghCmij7JW1prYjyE1uw5H1P",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "official Bray Head Cliff Walk Dublin hiking coastal DART visitor information"
+            },
+            "id": "call_6sQeJvVsxmGg1IGLlB2aiJzu",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Dublin pubs traditional music official tourism Temple Bar Brazen Head O'Donoghue's"
+            },
+            "id": "call_tucVWCJ8BDW03d4XYEBrAMaT",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Wicklow Mountains National Park Glendalough official visitor centre opening hours parking hiking"
+            },
+            "id": "call_YEQ4GKS7H1nsj6gdk8Hgz2TI",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Frankfurt to Dublin by car ferry route Calais Dover Holyhead Dublin driving distance"
+            },
+            "id": "call_EP7x6VyYPKQdYuqzDQZe5lfs",
+            "type": "tool_call"
+          }
+        ],
+        "invalid_tool_calls": [],
+        "usage_metadata": {
+          "input_tokens": 5652,
+          "output_tokens": 172,
+          "total_tokens": 5824,
+          "input_token_details": {
+            "audio": 0,
+            "cache_read": 0
+          },
+          "output_token_details": {
+            "audio": 0,
+            "reasoning": 0
+          }
+        }
+      },
+      {
+        "content": "Tavily answer:\nThe Howth Cliff Walk is a 7.8km loop starting from Howth DART station, taking about 2 hours, and offering stunning coastal views. It's accessible via a day trip from Dublin. There are multiple routes, including the 6km \"Green Route\" loop.\n\nTavily results:\n1. Howth Cliff Walk: 5 Routes for 2026 (Parking + Maps) score=0.70\n   URL: https://www.theirishroadtrip.com/howth-cliff-walk/\n   Snippet: # Howth Cliff Walk: 5 Routes for 2026 (Parking + Maps). **The Howth Cliff Walk, also known as the Howth Head Walk, is one of a series of trails that takes you along some of Dublin’s most impressive coastal scenery.**. The different versions of the Howth Cliff Walk in Dublin are relatively straightforward, once you take some time to get to know the route *before*you set off:. There are 5 versions of the Howth walk to tackle, each of which kicks off at the DART station:. ## **Howth Cliff Walk maps and guides to each of the routes**. a map of the looped howth cliff walk route mapa map of the looped howth cliff walk route map. a map of the looped howth cliff walk route map. a map of the howth cliff walk red routea map of the howth cliff walk red route. a map of the howth cliff walk red route.\n2. Howth Cliff Walk Guide, Ireland - Family Adventures near Dublin score=0.69\n   URL: https://scots2travel.com/2022/02/07/howth-cliff-walk-guide-ireland/\n   Snippet: # Howth Cliff Walk Guide, Ireland –. **Howth Cliff Walk Guide for Families. Hike near Dublin, Ireland –** So close to the city centre buzz of Dublin, yet this wild walk offers amazing scenery, quirky food stops and it feels a million miles away from a capital, but there are several tips and hacks along the way (especially if you’re attempting the route with children). ## Things to See on the Cliff Top Walk. When I heard we’d see Ireland’s Eye, I pictured the Irish equivalent of the London Eye. Ireland’s Eye is actually a small island that lies around 1,200–1,500 metres from Howth Harbour, not like the London Eye at all 🙂. ## Getting to Howth Cliff Walk & Parking – **Howth Cliff Walk Guide for Families**. Parking here means that you’re in the heart of town (ideal for cafés before or after your walk) and to take in the boats in the harbour. ## Route – **Howth Cliff Walk Guide**.\n3. Howth Cliff Walk: Hiking the Green Route Loop - A Rambling Unicorn score=0.64\n   URL: https://aramblingunicorn.com/howth-cliff-walk-exploring-the-green-route-loop/\n   Snippet: Home » Blog3 » Hiking Trails » Europe Hiking Trails » Hiking in Ireland » Howth Cliff Walk: Hiking the Green Route Loop. # Howth Cliff Walk: Hiking the Green Route Loop. During a visit to Dublin in July 2021, I took a day trip to the charming seaside village of Howth. While I was there, I decided to stretch my legs and take a stroll along the renowned Howth Cliff Walk. So it’s easy to visit on a day trip even if you don’t have a car. Actually, there are several hiking trails that are all generally referred to as the “Howth Cliff Walk” so it’s easy to get them confused. For my hike, I decided to check out the Cliff Path Loop – a 6 km (3.7 mile) trail that is also known as the “Green Route”. Walking along the Upper Cliff Path on the Howth Cliffs.\n4. Howth Cliff Walk, in Dublin, Ireland. - Facebook score=0.61\n   URL: https://www.facebook.com/groups/598489870988954/posts/1644888753015722/\n   Snippet: The delightful Howth - Cliff Path Loop takes two hours to complete and starts from the village DART (train) station.The trail leads walkers\n5. Howth Coastal Walk - Dublin Tour Guide score=0.58\n   URL: https://www.dublintourguide.ie/tour/howth-coastal-walk/\n   Snippet: Hike to Howth Hill's 200m peak for panoramic views of Dublin City. Enjoy a scenic coastal walk along Howth's rugged cliffs and tranquil coves. Discover Howth's",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "20987382-2cc6-4718-83e8-d67959639aa6",
+        "tool_call_id": "call_9ghCmij7JW1prYjyE1uw5H1P",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nThe Bray Head Cliff Walk is a popular coastal hike near Dublin, accessible via DART train from Bray. The walk is temporarily closed due to landslides; the Bray Head Loop is a recommended alternative. It's about 7 km long and takes around 2 hours.\n\nTavily results:\n1. Hiking in Ireland on lovely day with amazing views - Instagram score=0.56\n   URL: https://www.instagram.com/reel/DWI5X_6hWwE/?hl=en\n   Snippet: ... coastal town called Bray and hiked up to Bray Head ⛰️ It's about 40 mins from Dublin by the DART, and totally worth it, it's easy to moderate\n2. Bray Head Walk score=0.53\n   URL: https://bray.ie/brayheadwalk/\n   Snippet: The hill dominates the end of the promenade and the stone cross atop the hill is an iconic feature of the town. To start the climb, follow the promenade up towards the hill. The real climb begins at the steps; from here there is a well-worn path straight up to the cross. To come down following the same path again, or if you want to extend the walk follow the path to the South. The path will veer off to the right and follow it to come out at Windgates on the Bray to Greystones Road. Follow the path back to Bray passing Bray Golf Club, keep going straight until Newcourt road, turn right and follow the road till the end then turn right to end up back on the seafront, where you can relax with well-deserved ice cream or cup of coffee in one of the many fine cafés and restaurants.\n3. Bray Head Loop - Cliff Walk - Wicklow County Tourism score=0.47\n   URL: https://visitwicklow.ie/listing/bray-head-loop-cliff-walk/\n   Snippet: # Bray Head Loop – Cliff Walk. ## ***WARNING: The Cliff Walk between Bray and Greystones has been temporarily closed due to a number of landslides. Parts of the walk have become unstable:  some of the landslides are visible from the walk but others are not and are considered dangerous as those using the walk would not be aware of same. Wicklow County Council are currently working on a way to reopen the******Bray Head Cliff Walk and presently recommend the use of alternative routes such as the Bray Head Loop.***. # Bray Head Loop. The Bray Head Loop Walk is a great alternative to the Cliff Walk offering stunning views over the Irish Sea, Bray, the Dublin Bay and the Wicklow Mountains. The Loop is accessible from Bray Seafront up Bray Head to reach the Cross. The loop is completed by following the public footpath alongside the R761 for 1.5km back towards Bray and the roundabout on the Veva...\n4. Cliff Walk - bray.ie score=0.45\n   URL: https://bray.ie/cliffwalk/\n   Snippet: The Cliff Walk is about 7 kilometres long, takes about 2 hours to complete and is suitable for all abilities.\n5. Dublin Coastal Trail: Discover Hidden Gems Outside the City score=0.41\n   URL: https://irelandonabudget.com/news/dublin-coastal-trail/\n   Snippet: Visitors can actually start their Dublin Coastal Trail journey at the Grand Canal Dock and take a DART train from there to Skerries, a 50-minute ride. The Grand",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "0f7e6b14-d846-4fec-8ffa-85bb0a819f08",
+        "tool_call_id": "call_6sQeJvVsxmGg1IGLlB2aiJzu",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nThe Brazen Head and O'Donoghue's Bar in Dublin are renowned for traditional Irish music. The Temple Bar Pub offers live Irish music 24/7. O'Donoghue's Bar is historically linked to The Dubliners and other traditional musicians.\n\nTavily results:\n1. Irelands Oldest Pub - The Brazen Head score=0.75\n   URL: https://brazenhead.com/\n   Snippet: # Irelands Oldest Pub - The Brazen Head. ## [THE BRAZEN HEAD](https://brazenhead.com/). *   [Our Story](https://brazenhead.com/story/). *   [All Day Menu](https://brazenhead.com/all-day-menu/). *   [Music](https://brazenhead.com/music/). *   [Gallery](https://brazenhead.com/gallery/). *   [Latest](https://brazenhead.com/latest/). *   [Contact Us](https://brazenhead.com/contact/). [SHOP](https://thebrazenhead.myshopify.com/collections/all). *   [Our Story](https://brazenhead.com/story/). *   [All Day Menu](https://brazenhead.com/all-day-menu/). *   [Music](https://brazenhead.com/music/). *   [Gallery](https://brazenhead.com/gallery/). *   [Latest](https://brazenhead.com/latest/). *   [Contact Us](https://brazenhead.com/contact/). [SHOP](https://thebrazenhead.myshopify.com/collections/all). [](https://www.facebook.com/brazenhead.dublin/)[](https://www.instagram.com/brazenheaddublin)[](http...\n2. The Temple Bar Pub | Dublin, Ireland score=0.70\n   URL: https://thetemplebarpub.com/visit/\n   Snippet: # Visit The Temple Bar. Live Irish Music 24/7. Experience The Temple Bar Pub! Enjoy our Live Traditional Irish Music that begins from opening time all the way until closing. The Temple Bar is much more than just a pub — it’s a true piece of Dublin’s living history. Whether you’re enjoying a pint of Guinness or listening to live traditional music, you can genuinely feel the historical significance of the place. 🇮🇪 The Temple Bar dates back to the 14th century and has become one of Dublin’s most photographed pubs, sitting in a historic area once home to artists, traders, and writers. With over 450+ whiskeys behind the bar and live Irish music daily, it’s a must-visit spot to experience the energy, history, and social heart of Dublin in one place. Is Temple Bar super touristy, a bit pricier than other local pubs and always crowded? **Stay with us and experience the best of Temple Bar.**. 47...\n3. Brazen Head Pub | Pubs & Music | Attractions Ireland - Irish Tourism score=0.64\n   URL: https://www.irishtourism.com/brazen-head-pub\n   Snippet: The Brazen Head has established itself as one of Dublin's most popular and best live music venues with live music to be enjoyed nightly.\n4. O'Donoghue's Bar score=0.63\n   URL: https://www.visitdublin.com/o-donoghue-s-bar\n   Snippet: Click to go back to the homepage. 4. O'Donoghue's Bar. # O'Donoghue's Bar. One of Dublin's best known bars, O' Donoghue's Bar is strongly associated with The Dubliners, a famous Irish ballad group. This has helped it to become something of a mecca for traditional musicians. O'Donoghue's Bar has a rich heritage and stands on a very historical site in Dublin City. Yet its more modern musical history is really the stuff of legends. Ask any Irish man to name the artists or bands that have shaped Irish traditional and contemporary music and The Dubliners will always comes up. Christy Moore and The Dubliners have spent many a memorable night entertaining Dublin's music lovers in this bar. It is this spirit that is kept alive by today's musicians. It has an array of drawings and photos of Irish musicians adorning its walls. There is live music seven nights a week commencing at 9 pm and at 5 pm...\n5. Home - O'Donoghue's Bar, Lounge & Guesthouse score=0.60\n   URL: https://www.odonoghues.ie/\n   Snippet: Traditional Irish Music. Music is a huge part of Dublin's History and traditional Irish music has a home right here in O'Donoghue's famous bar. Music Bar",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "059253a0-b526-4930-92a6-16cba112a59a",
+        "tool_call_id": "call_tucVWCJ8BDW03d4XYEBrAMaT",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nThe Glendalough Visitor Centre is open daily from 09:30 to 18:00 from mid-March to mid-October, and parking is available from 8 a.m. to 8 p.m. Laragh Car Park offers access to hiking trails including the Wicklow Way.\n\nTavily results:\n1. Glendalough score=1.00\n   URL: https://glendalough.ie/\n   Snippet: **Access to the Monastic City:** The monuments and lakes are accessible all year round at anytime of the day however the car parks may have the barrier down early in the morning and late in the evening. There is no charge to see the Monastic sites*(churches/round tower)* or the Upper and Lower Lakes except the car park fees for the Upper Lake and the Visitor Centre at the Monastic Site. There are toilet facilities for public use at the Monastic Site (Visitor Centre) and also at the Upper Lake Car Park area (toilets may close early during the Winter months). * **Wicklow National Park** – Events page. The Glendalough Valley is located in the Wicklow Mountains National Park and has many attractions to entice visitors, from its world famous **Monastic Site with Round Tower** to its scenic lakes and valleys, as well as a selection of walks and trails in the area including **The Wicklow Way**.\n2. Glendalough Visitor Centre: Opening Hours + 2026 Info score=1.00\n   URL: https://www.theirishroadtrip.com/glendalough-visitor-centre/\n   Snippet: The visitors centre is open daily throughout the year starting at 09:30. The centre closes at 18:00 during the peak season from mid-March through mid-October.\n3. Visit Glendalough Visitor Centre with Discover Ireland score=1.00\n   URL: https://www.discoverireland.ie/wicklow/glendalough-visitor-centre\n   Snippet: Discover the Glendalough monastic site, one of Ireland's most famous landmarks. Stop by the informative visitor centre and soak up the spectacular scenery of County Wicklow. Experience Glendalough, one of the most popular tourist attractions in Ireland. Positioned in a glaciated valley with two lakes, marvel at the fascinating early Christian settlement founded by Saint Kevin in the 6th century. The ancient ruins of Glendalough include several churches and an impressive 30 metre high round tower. Glendalough's Upper Lake was the original site of the monastic settlement and features Reefert Church, Temple-na-Skellig, Saint Kevin's Cell, Saint Kevin's Bed, the Caher and a number of high crosses. Glendalough is a beautiful place for walking, take a short stroll around the ruins or choose one of the challenging mountain hikes through the valley and around the scenic lakes. After, drop by the...\n4. Day Trip to Glendalough/The Wicklow Mountains - candid alexandra score=1.00\n   URL: https://www.candidalexandra.com/blog/glendalough\n   Snippet: Parking is easily available and for affordable prices. The two easiest places to park for entry are the Visitor Centre Car Park and the Upper\n5. Glendalough weather and parking information - Facebook score=1.00\n   URL: https://www.facebook.com/groups/598489870988954/posts/2111151356389457/\n   Snippet: Free to park and opened from 8am to 8pm. Exit and turn left over the bridge( now closed to heavy traffic). Walk towards the Woollen Mills and",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "a8de6b7f-5a54-498a-8b51-364cb542a679",
+        "tool_call_id": "call_YEQ4GKS7H1nsj6gdk8Hgz2TI",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nThe driving distance from Frankfurt to Dublin via car ferry from Calais to Dover to Holyhead is 847 miles (1,363 km). This route includes ferry crossings and a long drive. The air distance is shorter at 676 miles (1,088 km).\n\nTavily results:\n1. Driving Distance from Frankfurt, Germany to Dublin, Ireland score=0.68\n   URL: https://www.travelmath.com/drive-distance/from/Frankfurt,+Germany/to/Dublin,+Ireland\n   Snippet: The total driving distance from Frankfurt, Germany to Dublin, Ireland is 847 miles or 1 363 kilometers. Your trip begins in Frankfurt, Germany. It ends in\n2. Distance Frankfurt → Dublin - Air line, driving route, midpoint score=0.67\n   URL: https://www.distance.to/Frankfurt/Dublin\n   Snippet: The shortest distance (air line) between Frankfurt and Dublin is 676.06 mi (1,088.02 km). Driving route: 826.36 mi (1,329.90 km) (15h 35min).\n3. Frankfurt am Main to Ireland - 7 ways to travel via train, plane, ferry score=0.58\n   URL: https://www.rome2rio.com/s/Frankfurt-am-Main/Ireland\n   Snippet: Take the ferry from Holyhead Ferry to Dublin Ferryport B+Iferry 0. 15h 36m. €306–605 · Drive, car ferry. Drive from Frankfurt am Main to Dunkirkcar; Take the\n4. Calais Ferry Port to Dublin - 10 ways to travel via train, bus, plane score=0.54\n   URL: https://www.rome2rio.com/s/Calais-Ferry-Port/Dublin\n   Snippet: The distance between Calais Ferry Port and Dublin is 964 km. How do I travel from Calais Ferry Port to Dublin without a car?\n5. Distance from Frankfurt to Dublin (FRA – DUB) - Air Miles Calculator score=0.49\n   URL: https://www.airmilescalculator.com/distance/fra-to-dub/\n   Snippet: Distance from Frankfurt to Dublin (Frankfurt Airport – Dublin Airport) is 676.4 miles / 1088.6 kilometers / 587.8 nautical miles.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "46061d3a-815e-4e80-8cce-11a609ef092e",
+        "tool_call_id": "call_EP7x6VyYPKQdYuqzDQZe5lfs",
+        "status": "success"
+      },
+      {
+        "content": "",
+        "additional_kwargs": {
+          "refusal": null
+        },
+        "response_metadata": {
+          "token_usage": {
+            "completion_tokens": 260,
+            "prompt_tokens": 9791,
+            "total_tokens": 10051,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": null,
+              "audio_tokens": 0,
+              "reasoning_tokens": 91,
+              "rejected_prediction_tokens": null,
+              "image_tokens": 0
+            },
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 5120,
+              "cache_write_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost": 0.033715,
+            "is_byok": false,
+            "cost_details": {
+              "upstream_inference_cost": 0.033715,
+              "upstream_inference_prompt_cost": 0.025915,
+              "upstream_inference_completions_cost": 0.0078
+            }
+          },
+          "model_provider": "openai",
+          "model_name": "openai/gpt-5.5-20260423",
+          "system_fingerprint": null,
+          "id": "gen-1778953949-HO6kwOzK7CJVUQNb1uVG",
+          "service_tier": "default",
+          "finish_reason": "tool_calls",
+          "logprobs": null
+        },
+        "type": "ai",
+        "id": "lc_run--019e31eb-10b1-76e2-ba21-5d7746646851-0",
+        "tool_calls": [
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Generator Dublin hostel official Dublin prices September 2026 Smithfield"
+            },
+            "id": "call_yv7KGlNCdhSWrtQkraeZjis2",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Dublin budget hostel official Jacobs Inn Abbey Court Generator Dublin September rates"
+            },
+            "id": "call_7ZeJIFSt9TYtsb942SZdAn0u",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Dublin city centre parking 24 hour rates official car park 2026"
+            },
+            "id": "call_2Ns0x2R5NsRXUphEIoq3TjUj",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "M50 toll Dublin car official toll charge 2026"
+            },
+            "id": "call_QUA97CYTv5JzEKtDmphSrG1p",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Frankfurt to Calais driving tolls fuel cost route official viamichelin"
+            },
+            "id": "call_Jm5BA6E9nFc8GM6FrWuGzDBl",
+            "type": "tool_call"
+          }
+        ],
+        "invalid_tool_calls": [],
+        "usage_metadata": {
+          "input_tokens": 9791,
+          "output_tokens": 260,
+          "total_tokens": 10051,
+          "input_token_details": {
+            "audio": 0,
+            "cache_read": 5120
+          },
+          "output_token_details": {
+            "audio": 0,
+            "reasoning": 91
+          }
+        }
+      },
+      {
+        "content": "Tavily answer:\nGenerator Dublin hostel prices for September 2026 start from €45.81 per night. Located in Smithfield, it offers both dorms and private rooms. Check booking sites for exact rates.\n\nTavily results:\n1. GENERATOR DUBLIN - Updated 2026 Prices & Hostel Reviews ... score=1.00\n   URL: https://www.tripadvisor.com/Hotel_Review-g186605-d2153102-Reviews-Generator_Dublin-Dublin_County_Dublin.html\n   Snippet: You'll find Generator Dublin in the heart of Smithfield Square in central Dublin. This newly fashionable area located between the developing museum district\n2. Generator Dublin, Dublin (updated prices 2026) - Booking.com score=1.00\n   URL: https://www.booking.com/hotel/ie/generator-hostel.html\n   Snippet: Experience our hostel in Dublin city center, with easy access to Dublin airport and Temple Bar. You'll find Generator Dublin in the hip Smithfield neighborhood.\n3. Generator Dublin, Dublin - 2026 Prices & Reviews score=1.00\n   URL: https://www.hostelworld.com/hostels/p/48058/generator-dublin/\n   Snippet: # Generator Dublin. Generator Dublin is a design hotel-hostel located in trendy Smithfield, adjacent to the Jameson Distillery and just a short walk from Temple Bar. Guests can choose from shared dorms to private rooms, offering something for everyone. With its state-of-the-art facilities, top quality rooms, a central location, fun atmosphere, and friendly staff, Generator offers everything you could be looking for Ã¢â‚¬â€œ and all for the right price! Our fun and friendly staff are on hand 24hrs to give you advice and recommendations on where to go, and to point you in the direction of all of Dublin's hotspots and hidden gems. For those interested in Dublin's exciting nightlife scene, the famous Temple Bar district is within 10 minutes' walking distance from our hostel, where you will find some of the city's best nightclubs, bars and restaurants. With handy transport links on your do...\n4. Generator Dublin, Dublin | 2026 Updated Prices, Deals - Agoda.com score=1.00\n   URL: https://www.agoda.com/generator-dublin/hotel/dublin-ie.html\n   Snippet: The average room rate for Generator Dublin in the past month is 45.81 EUR, compared to city's average of 159.29 EUR. What do travelers love most about Generator\n5. Generator Dublin, Dublin: Hotel Reviews, Rooms & Prices score=1.00\n   URL: https://www.hotels.com/ho381227/generator-dublin-dublin-ireland/\n   Snippet: Generator Dublin, Art Deco hostel with restaurant, near Jameson Distillery Bow St. Choose dates to view prices.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "cbc6d248-7ab3-4925-8e9a-356ff3f6e6c5",
+        "tool_call_id": "call_yv7KGlNCdhSWrtQkraeZjis2",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nJacobs Inn Abbey Court in Dublin offers budget-friendly hostels with modern amenities and central location. Rates vary, check current prices on Agoda or Hostelworld. Generator Dublin is another nearby option with trendy accommodations.\n\nTavily results:\n1. Abbey Court Hostel, Dublin | 2026 Updated Prices, Deals - Agoda.com score=0.57\n   URL: https://www.agoda.com/abbey-court-apartments/hotel/dublin-ie.html\n   Snippet: With an average room price of just $211, this hostel offers exceptional value for money, especially when compared to the average price of a hotel room in Dublin\n2. Abbey Court Hostel from $21. Dublin Hotel Deals & Reviews - KAYAK score=0.44\n   URL: https://www.kayak.com/Dublin-Hotels-Abbey-Court-Hostel.167738.ksp\n   Snippet: # Abbey Court Hostel. 11 more Abbey Court Hostel deals. Photos of Abbey Court Hostel. Situated amongst a variety of well-known attractions, boutiques and eateries, Abbey Court is ideal for those wishing to explore Dublin and its surroundings. There are a range of facilities available to guests of Abbey Court Hostel, including free Wi-Fi, a 24-hour reception and meeting facilities. Rooms at Abbey Court Hostel Dublin are modern and provide an in-room dining area, a dishwasher and a refrigerator. The hostel has an on-site pub where guests can socialize while sitting down to a casual meal and a drink. ## Latest deals for Abbey Court Hostel. ## Reviews of Abbey Court Hostel. The beds at Abbey Court Hostel come with curtains for added privacy, and the all-female rooms provide a comfortable and secure environment for a good night's sleep. Guests can enjoy a complimentary breakfast at Abbey Cour...\n3. Abbey Court Hostel, Dublin, Ireland - trivago score=0.40\n   URL: https://www.trivago.com/en-US/oar/abbey-court-hostel-dublin?search=100-1278113\n   Snippet: Abbey Court Hostel%22%3E%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22transparent%22%3E%3C%2Fstop%3E%3Cstop%20offset%3D%2250%25%22%20stop-color%3D%22rgba(255%2C255%2C255%2C0.1)%22%3E%3C%2Fstop%3E%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22transparent%22%3E%3C%2Fstop%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22400%25%22%20height%3D%22100%25%22%20fill%3D%22url(%23shimmerGradient)%22%20x%3D%22100%25%22%3E%3Canimate%20attributeName%3D%22x%22%20from%3D%22-200%25%22%20to%3D%22100%25%22%20dur%3D%222.5s%22%20repeatCount%3D%22indefinite%22%3E%3C%2Fanimate%3E%3C%2Frect%3E%3Csvg%20x%3D%22968%22%20y%3D%22478%22%20width%3D%2264%22%20height%3D%2264%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cg%20fill%3D%22%238d8d8b%22%3E%3Cpath%20d%3D%22M20%2010H9a2%202%200%2000-2%202v8a2%202%200%20002%202h11a2%202%200%20002-2v-8a2%202%200%2000-2-2zM9%2011h11a1%201%200%20011%201v2.29l-4.5%204.5-3....\n4. Abbey Court Hostel Dublin score=0.40\n   URL: https://www.abbey-court.com/\n   Snippet: ## Dublin’s Favourite Hostel. Dublin is the world’s top destination for solo travellers, and there’s no better place to stay than Abbey Court Hostel ⭐. In the heart of Dublin, Abbey Court is the best located hostel on O’Connell Bridge. Come enjoy a €5.50 pint of GUINNESS in our Bobby’ Bar after a day of taking in the nearby sites of Dublin, you won’t find a cheaper pint of Guinness elsewhere! STAY WITH US, and get the most out of your trip! #### See the best way to get to us! ## the only Family owned and run hostel in dublin. No. Abbey Court Hostel is open 24 hours and our reception is available for any questions or issues all the time! Upon check-in, you can request to have a top or bottom bunk and we will do our best to accommodate you. Our expert team will give you the insider’s advice on how to get the most out of your trip to Dublin.\n5. Generator Dublin, Dublin - 2026 Prices & Reviews - Hostelworld score=0.38\n   URL: https://www.hostelworld.com/hostels/p/48058/generator-dublin/\n   Snippet: # Generator Dublin. Generator Dublin is a design hotel-hostel located in trendy Smithfield, adjacent to the Jameson Distillery and just a short walk from Temple Bar. Guests can choose from shared dorms to private rooms, offering something for everyone. With its state-of-the-art facilities, top quality rooms, a central location, fun atmosphere, and friendly staff, Generator offers everything you could be looking for Ã¢â‚¬â€œ and all for the right price! Our fun and friendly staff are on hand 24hrs to give you advice and recommendations on where to go, and to point you in the direction of all of Dublin's hotspots and hidden gems. For those interested in Dublin's exciting nightlife scene, the famous Temple Bar district is within 10 minutes' walking distance from our hostel, where you will find some of the city's best nightclubs, bars and restaurants. With handy transport links on your do...",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "b8086a69-a241-4984-a9c6-492c06daa12c",
+        "tool_call_id": "call_7ZeJIFSt9TYtsb942SZdAn0u",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nIn Dublin city centre, 24-hour parking rates are €21 from 2026. Rates vary by location, with some spots offering lower hourly rates. Current rates may change; check local authorities for the latest information.\n\nTavily results:\n1. Parking in Dublin City Centre score=1.00\n   URL: https://dublin-360.com/guide/parking-in-dublin-city-centre\n   Snippet: €3.50 for 1 hour; €21 for 24 hours. Hours of Operation: 24 hours, 7 days a week. The Dawson Car Park. Address: 8\n2. 7 Tips for Parking in Dublin City - My Irish Cousin score=1.00\n   URL: https://www.myirishcousin.com/blog/7-tips-for-parking-in-dublin-city\n   Snippet: Color-Coded Zones: Rates range from $0.97 to $4.32 per hour depending on demand. · Park & Ride Options: Affordable daily rates ($2.16–$5.40) with Luas tram\n3. The Ultimate Guide to Parking in Dublin City Centre - Wayleadr Go Blog score=1.00\n   URL: https://parkpnp.com/blog/the-ultimate-guide-to-parking-in-dublin-city-centre/\n   Snippet: # The Ultimate Guide to Parking in Dublin City Centre. We’ve got it cracked with the “Ultimate Guide to Parking in Dublin”. We’ve got all the top tips for parking including free parking, on-street parking, pay and display, park & ride and on-demand parking. Grab €5 free parking and book one of our 20,000 available spaces in Dublin now. The real value in the world car park is with their package deals where drivers can save up to 50% on by prebooking special deals online. St. Mark’s Church is a hidden gem of Dublin City centre parking. As there are many offices in the locality it is perfect for pre-booking guaranteed parking with daily, weekly and monthly parking offers. St Stephen’s Green Shopping Centre Car Park is one of Dublin’s biggest and most popular. Ideal for visitors coming in from the North of the city, the car park is a short walk away from the Spire Dublin and O’Connell Street...\n4. Long Term Parking Dublin: Your Essential Guide to Savings - Parksy score=1.00\n   URL: https://www.parksy.com/blog/long-term-parking-dublin-your-essential-guide-savings\n   Snippet: City Centre Car Parks: Perfect for commuters or residents who need a spot ... Standard hourly rates in public car parks can easily hit €2 to €4. But if\n5. Parking Charges Changing from 1 January 2026 New parking rates ... score=1.00\n   URL: https://www.instagram.com/p/DSFMJ2hDIO-/\n   Snippet: Parking Charges Changing from · Car parking charges will apply in parks and leisure car parks, after an initial free period, from 27 April. ·",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "54f9645e-f166-4e0c-9bdf-c9d00fc5b82e",
+        "tool_call_id": "call_2Ns0x2R5NsRXUphEIoq3TjUj",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nThe M50 toll for motor cars in Dublin will be €3.80 in 2026, with a peak hour increase to €5.20. Unregistered vehicles are exempt from the toll increase. VAT does not apply to M50 tolls.\n\nTavily results:\n1. Transport Infrastructure Ireland score=0.91\n   URL: https://www.tii.ie/en/news/press-releases/toll-charge-increase-from-1st-january-2026/\n   Snippet: # Toll Charge Increase from 1st January 2026. CPI increased by 2% between August 2024 and August 2025 and this increase has resulted in an increase in the tolls chargeable for users of the M50 as set out in Table 1. VAT is not applicable to the M50 Tolls. **Table 1**M50 Applicable Tolls 2026. Public Private Tolls Toll Concessionaires (PPP): Eight PPP toll concessionaires throughout country. **Table 2** PPP *Concession Appropriate Tolls*. The tolling arrangements at the Dublin Port Tunnel are intended to manage demand at peak times and ensure that HGV movements to and from Dublin Port are not impeded with additional traffic and congestion (HGV’s travel toll-free through the Dublin Port Tunnel). As set out above, given increased levels of traffic using Dublin Port Tunnel during the AM southbound peak, TII is increasing tolls during these peak hours for citybound traffic from €13 to €14. Of...\n2. M50 Toll & Road Payment Guide: Avoid Fines in Ireland (2026) | Ireland Car Rental | Ireland Car Rental Expert score=0.90\n   URL: https://irelandcarrental.ie/en/blog/m50-toll-payment-guide\n   Snippet: # M50 Toll & Road Payment Guide: Avoid Fines in Ireland (2026). Enter your email, and we'll remind you to pay the toll byTue 21 Apr8 PM to avoid the €3.50 initial fine. **Tip for Renters:** If your rental company pays the toll for you, they will likely charge an additional Administrative Fee (often €2-€5 per toll). You must pay the toll before **8:00 PM the following day** after your journey! Just walk up to the cashier, say \"I want to pay the M50 toll,\" and give them your license plate number. **HOWEVER!** The rental company usually adds an **Administrative Fee of €2 to €5** per toll. **💡 Our Strong Recommendation:** When picking up your car, explicitly ask the desk agent: \"Am I responsible for the M50 toll, or is it covered by the car's tag?\" To be safe, **paying it yourself online is the most secure and cheapest method**. Therefore, we recommend paying AFTER you pass the M50, but befo...\n3. Citizens Information score=0.88\n   URL: https://www.facebook.com/citizensinformation/posts/noticed-changes-to-toll-fares-recently-from-the-1-jan-2026-the-dublin-port-tunne/1315020267333435/\n   Snippet: # Noticed changes to toll fares... Noticed changes to toll fares recently? Image 1: 📢 From the 1 Jan 2026, the Dublin Port Tunnel toll increased by €1, making the toll fare €14. Image 2: ⚠️Heavy goods vehicles (HGVs) and buses don’t have to pay this toll increase. Image 3: 🚗 M50 tolls for all vehicles increased by 10 cent. If your car is unregistered, without a tag or video account, you don't have to pay this increase. Image 4: 🚚 M50 tolls for HGVs over 10,000kg with a video account increased by 20 cent. if you have a tag, you are being penalised and have to pay the increase but unregistered you dont have to pay the increase?? 1. Why the f there were tolls at all to begin with if it is paid by taxpayers? Pay the M50 toll to sit in a traffic jam & burn more petrol to pay even more taxes & all to the pollution problems.\n4. [PDF] M50 (BETWEEN JUNCTIONS 6 AND 7) APPLICABLE AND ... score=0.85\n   URL: https://www.tii.ie/media/1zbduud3/tii-m50-tolls-2026.pdf\n   Snippet: ... Tolls for 2026 are as follows: • Initial Default Toll for a user/vehicle class is the. Applicable Toll specified for the User/Vehicle. Class plus €4.00\n5. M50 Toll Prices 2026 - Money Guide Ireland score=0.83\n   URL: https://www.moneyguideireland.com/m50-toll-comparison-of-prices-and-options.html\n   Snippet: Summary of M50 Toll Prices 2026 ; Motorcycles, Free ; A motor car or public service vehicle with seating for up to 8 passengers, €3.80 ; A goods",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "025328b0-5e0e-4c83-8357-55708a000a16",
+        "tool_call_id": "call_QUA97CYTv5JzEKtDmphSrG1p",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nViaMichelin calculates the driving distance, fuel, and toll costs for the route from Frankfurt to Calais. The detailed cost includes specific fuel and toll expenses based on your vehicle's specifications. For the most accurate costs, input your vehicle details on ViaMichelin.\n\nTavily results:\n1. Calais - Frankfurt driving directions - journey, distance, time and costs score=0.64\n   URL: https://www.viamichelin.com/routes/results/calais-62100-pas_de_calais-hauts_de_france-france-to-frankfurt-91480-neustadt_an_der_aisch_bad_windsheim-bavaria-germany\n   Snippet: Calais Frankfurt driving directions. Distance, cost (tolls, fuel, cost per passenger) and journey time, based on traffic conditions.\n2. Frankfurt am Main - Calais driving directions - journey, distance, time ... score=0.60\n   URL: https://www.viamichelin.com/routes/results/frankfurt_am_main-60310-frankfurt_am_main-hesse-germany-to-calais-62100-pas_de_calais-hauts_de_france-france\n   Snippet: Frankfurt am Main Calais driving directions. Distance, cost (tolls, fuel, cost per passenger) and journey time, based on traffic conditions.\n3. Route planner: route calculation, detailed journey cost - ViaMichelin score=0.40\n   URL: https://www.viamichelin.com/routes\n   Snippet: # Michelin Route planner – Europe and worldwide driving directions. ViaMichelin is a specialist in route calculation in Europe. Take advantage of our multiple calculation options: the fastest route, the most economical route, or the discovery route (which allows you to choose the most picturesque roads). Provide information about your vehicle (brand, consumption, type of fuel, etc.) to obtain personalized information on the detailed cost of your car journey. Choose services along your route (service and rest areas, gas stations, hotels) and consult the Michelin Guide selection (restaurants and tourist sites to visit on your route). ViaMichelin can provide a **detailed journey cost** for any  car or motorcycle route: **fuel cost** (with details on fuel costs for motorways and other roads) and **toll costs** (information for each toll used). By entering the **make, range, model, year, engi...\n4. ViaMichelin: Route planner, Maps, Traffic info, Hotels score=0.09\n   URL: https://www.viamichelin.com/\n   Snippet: ## On ViaMichelin, you can find ... ## Which services are offered by ViaMichelin ? ViaMichelin offers the following services:. ## Which type of routes can you calculate on ViaMichelin ? These stages will also be included in the ViaMichelin GPS app if you have saved your route in your Michelin account. For every calculated route, ViaMichelin offers the choice of two or three itineraries and allows you to make an easy comparison. ## Does ViaMichelin offer real-time traffic information? ViaMichelin provides  real-time traffic information. ViaMichelin offers  accommodation booking at no extra cost. The ViaMichelin advantage: **choose a hotel along the route**, or close to your destination, and access the **Michelin hotel selections** through a filter in the results list. ## Can you look up or book a restaurant on ViaMichelin ? ViaMichelin offers access to **free information on  restaurants i...",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "56bfa682-76eb-4786-83aa-6d988554a75c",
+        "tool_call_id": "call_Jm5BA6E9nFc8GM6FrWuGzDBl",
+        "status": "success"
+      },
+      {
+        "content": "",
+        "additional_kwargs": {
+          "refusal": null
+        },
+        "response_metadata": {
+          "token_usage": {
+            "completion_tokens": 1587,
+            "prompt_tokens": 14448,
+            "total_tokens": 16035,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": null,
+              "audio_tokens": 0,
+              "reasoning_tokens": 1552,
+              "rejected_prediction_tokens": null,
+              "image_tokens": 0
+            },
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 9216,
+              "cache_write_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost": 0.078378,
+            "is_byok": false,
+            "cost_details": {
+              "upstream_inference_cost": 0.078378,
+              "upstream_inference_prompt_cost": 0.030768,
+              "upstream_inference_completions_cost": 0.04761
+            }
+          },
+          "model_provider": "openai",
+          "model_name": "openai/gpt-5.5-20260423",
+          "system_fingerprint": null,
+          "id": "gen-1778953958-uQ6wnBvFTXJfQWwMPqff",
+          "service_tier": "default",
+          "finish_reason": "tool_calls",
+          "logprobs": null
+        },
+        "type": "ai",
+        "id": "lc_run--019e31eb-3389-78f1-b264-dbe92ed90418-0",
+        "tool_calls": [
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Visit Dublin Howth Head walk official coastal trail DART Howth"
+            },
+            "id": "call_xshQ3mNFEIeDN8G8mm7VEp6b",
+            "type": "tool_call"
+          }
+        ],
+        "invalid_tool_calls": [],
+        "usage_metadata": {
+          "input_tokens": 14448,
+          "output_tokens": 1587,
+          "total_tokens": 16035,
+          "input_token_details": {
+            "audio": 0,
+            "cache_read": 9216
+          },
+          "output_token_details": {
+            "audio": 0,
+            "reasoning": 1552
+          }
+        }
+      },
+      {
+        "content": "Tavily answer:\nTo visit Howth Head, take the DART train to Howth village, then follow the cliff path loop starting from the DART station. The walk offers stunning coastal views and takes about 2 hours. Maps and guides are available for the different routes.\n\nTavily results:\n1. Explore the Dublin Coastal Trail With Visit Dublin score=1.00\n   URL: https://www.visitdublin.com/guides/dublin-coastal-trail\n   Snippet: Winding through 11 villages from Skerries in the north to Killiney in the south, the Dublin Coastal Trail is accessible by DART rail line and Irish Rail, making for an easy car-free day trip for those craving salt air and saltier seafood while based in the city. On a good day, you can also hop on two wheels with the Bleeper Bike share scheme, available in several places along the Trail, and freewheel your way along the coast. From fish and chips in Dún Laoghaire to seal-watching in Howth, here’s everything you can get up to along the Dublin Coastal Trail. This is the only stop on the Dublin Coastal Trail not accessible by DART – you’ll need to hop on a quick Iarnród Éireann (Irish Rail) train from the city centre. Head out on a paddleboard tour with Skerries Watersports or Skerries Paddle Tours and follow it up with an award-winning ice cream at Storm in a Teacup on the pier.\n2. Howth - Cliff Path Loop score=1.00\n   URL: https://www.visitdublin.com/howth-cliff-path-loop\n   Snippet: Click to go back to the homepage. 2. Things to see & do. 4. Howth - Cliff Path Loop. Setting off from the pretty harbour village of Howth, explore some of Dublin’s most spectacular coastline on a 7.8km clifftop loop boasting idyllic island and lighthouse views. The delightful Howth - Cliff Path Loop takes 2 hours to complete and starts from the village DART (train) station. The trail leads walkers along the charming harbour before climbing away from the village around the Nose of Howth and onto the breathtaking clifftops. Along the way you’ll enjoy stunning views of Lambay Island, Ireland’s Eye and embrace great expanses of Dublin Bay too. The Baily Lighthouse comes into view before you ascend towards the car park at ‘The Summit’ and return to Howth Village along a path running parallel to your outward route. Back in the village, you’ll find plenty of cafés, pubs and restaurants to rewar...\n3. Howth Cliff Walk: 5 Routes for 2026 (Parking + Maps) score=1.00\n   URL: https://www.theirishroadtrip.com/howth-cliff-walk/\n   Snippet: # Howth Cliff Walk: 5 Routes for 2026 (Parking + Maps). **The Howth Cliff Walk, also known as the Howth Head Walk, is one of a series of trails that takes you along some of Dublin’s most impressive coastal scenery.**. The different versions of the Howth Cliff Walk in Dublin are relatively straightforward, once you take some time to get to know the route *before*you set off:. There are 5 versions of the Howth walk to tackle, each of which kicks off at the DART station:. ## **Howth Cliff Walk maps and guides to each of the routes**. a map of the looped howth cliff walk route mapa map of the looped howth cliff walk route map. a map of the looped howth cliff walk route map. a map of the howth cliff walk red routea map of the howth cliff walk red route. a map of the howth cliff walk red route.\n4. Explore the Howth Cliff Walk on a Day Trip from Dublin - Just Chasing Sunsets score=1.00\n   URL: https://www.justchasingsunsets.com/howth-cliff-walk/\n   Snippet: # Explore the Howth Cliff Walk on a Day Trip from Dublin. solo cliff walk in Howth, Ireland. A short, and very simple, DART ride north of Dublin, Ireland you’ll find Howth, a small fishing village famed for its fresh seafood and beautiful views. On all of my trips to Ireland, locals and tourists alike would recommend I check out the Howth cliff walk. Instead of heeding their advice, I traveled south of Dublin for the**Bray to Greystones cliff walk** which is also a very beautiful day trip from Dublin. I’ve also had trips to Ireland where I skipped Dublin all together and instead headed straight from the airport to **Killarney** or **Galway****.** But, on a recent trip, I had few spare days in Dublin, so I decided to sharpie the Howth cliff walk into my itinerary. One of the best things about this **Dublin day trip** is how easy it is to get there and back!\n5. Howth Head Walks | Fingal County Council score=1.00\n   URL: https://www.fingal.ie/directory/amenities/open-space/howth-head-walks\n   Snippet: Starting at Howth Dart Station, follow the purple arrows to take the path all along the cliffs to beyond Red Rock, passing the Baily Lighthouse, and then",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "b558913a-70cb-46d7-86c2-d864cb643549",
+        "tool_call_id": "call_xshQ3mNFEIeDN8G8mm7VEp6b",
+        "status": "success"
+      },
+      {
+        "content": "# Baseline itinerary: Frankfurt to Dublin by car and ferry, 5–10 September 2026\n\n## Goal and constraints understood\n- Origin: Frankfurt, Germany\n- Destination: Dublin, Ireland\n- Dates: 2026-09-05 to 2026-09-10\n- Traveler: 1 adult, solo\n- Budget: €3,000\n- Transport: car + ferry only; no flights\n- Accommodation: hostel or budget hotel\n- Interests: hiking, nature, coastal landscapes, local pubs\n- Baseline limitation: this plan uses only Tavily web-search evidence, not live booking, routing, hotel, ferry, or traffic validation.\n\n## Search summary\n- Cross-Channel ferry evidence: [Port of Dover ferry/tickets](https://www.portofdover.com/ferry/tickets/), [P&O Ferries](https://www.poferries.com/en); Tavily found Dover–Calais/Calais–Dover car fares from about £70–£77 and typical crossing around 1h35, but exact 2026 sailings must be booked live.\n- Irish Sea ferry evidence: [Irish Ferries Dublin–Holyhead](https://www.irishferries.com/uk-en/routes-and-times/dublin-holyhead/) says the route has up to 4 sailings daily and the fast ferry can cross in just over 2 hours; [Stena Line Holyhead–Dublin](https://www.stenalinetravel.com/routes/holyhead-dublin) says 8 daily crossings and about 3h15.\n- Driving-distance evidence: Tavily found Frankfurt–Dublin by road/ferry at about 1,330–1,360 km using distance-planning sources; actual driving time and cost require live routing.\n- Accommodation evidence: [Abbey Court Hostel](https://www.abbey-court.com/) is a central budget hostel with 24h reception; [Generator Dublin / Hostelworld listing](https://www.hostelworld.com/hostels/p/48058/generator-dublin/) places Generator in Smithfield near Jameson Distillery and Temple Bar.\n- Dublin transit evidence: [Leap Visitor Card](https://about.leapcard.ie/leap-visitor-card) covers Dublin Bus, Luas, DART and commuter rail in Zone 1; Tavily reported 2026 visitor-card prices around €8 / €16 / €32 for 1 / 3 / 7 days, but verify before purchase.\n- Hiking/coast evidence: [Visit Dublin Howth Cliff Path Loop](https://www.visitdublin.com/howth-cliff-path-loop) describes a 7.8 km loop from Howth DART station taking about 2 hours; [Dublin Coastal Trail](https://www.visitdublin.com/guides/dublin-coastal-trail) is accessible by DART/Irish Rail.\n- Wicklow hiking evidence: [Glendalough official site](https://glendalough.ie/) notes year-round access to the monastic site, lakes and walks; [Discover Ireland Glendalough Visitor Centre](https://www.discoverireland.ie/wicklow/glendalough-visitor-centre) highlights the lakes, monastic site and hiking.\n- Pub evidence: [The Brazen Head](https://brazenhead.com/), [The Temple Bar Pub](https://thetemplebarpub.com/visit/), and [Visit Dublin: O’Donoghue’s Bar](https://www.visitdublin.com/o-donoghue-s-bar) support the pub/music choices; O’Donoghue’s lists live music seven nights a week in the Visit Dublin snippet.\n- Tolls/parking evidence: [Transport Infrastructure Ireland](https://www.tii.ie/en/news/press-releases/toll-charge-increase-from-1st-january-2026/) gives 2026 M50 toll context; Tavily reported motor-car M50 toll around €3.80. Dublin city parking costs are variable and treated as estimates.\n\n## Day 1 — Saturday 5 September 2026: Frankfurt to Channel crossing and overnight in southeast England\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 06:30-07:00 | transport | Depart Frankfurt early by car; pack ferry documents, passport, insurance/green-card details, UK/Ireland driving kit, snacks and water. | Frankfurt | €0 | No flights used. Long solo-driving day; take rest breaks every ~2 hours. |\n| 07:00-13:30 | transport | Drive Frankfurt to Calais ferry port via Germany/Belgium/northern France. | Frankfurt → Calais | €75 | Fuel/toll estimate only; [ViaMichelin](https://www.viamichelin.com/routes) can calculate route-specific toll and fuel costs. |\n| 13:30-15:00 | meal/rest | Late lunch and ferry check-in buffer. | Calais ferry port | €20 | Ferry operators generally require advance check-in; exact timing must be confirmed with booked operator. |\n| 15:00-16:35 | ferry | Take Calais–Dover car ferry. | Calais → Dover | €100 | Estimate based on Tavily results from P&O/DFDS/Irish Ferries around £70–£77+; [Port of Dover ferry page](https://www.portofdover.com/ferry/tickets/) and [P&O Ferries](https://www.poferries.com/en) for live booking. Crossing typically about 1h35; verify exact 2026 sailing. |\n| 16:35-17:30 | transport | UK arrival processing and short drive to Dover/Folkestone/Canterbury budget lodging. | Dover area | €10 | Allow border and port exit buffer. |\n| 17:30-18:30 | accommodation | Check in to a budget hotel or hostel-style room near Dover/Folkestone. | Dover/Folkestone/Canterbury | €80 | Estimate; live availability not verified by Tavily. Choose a property with parking. |\n| 19:00-21:00 | meal/pub | Simple dinner and early night before the long UK crossing drive. | Dover/Folkestone | €35 | Local pub/restaurant estimate; keep alcohol minimal before next-day driving. |\n\n## Day 2 — Sunday 6 September 2026: Drive across Britain, ferry to Dublin, check in\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 06:30-07:00 | meal | Breakfast and vehicle check. | Dover area | €12 | Estimate. |\n| 07:00-14:30 | transport | Drive Dover/Folkestone to Holyhead with motorway breaks. Avoid optional toll roads where possible. | Dover → Holyhead | €95 | Fuel estimate; UK drive is long for solo travel. Confirm route live for roadworks/traffic. |\n| 14:30-16:00 | rest/check-in | Arrive Holyhead, eat, refuel, ferry check-in. | Holyhead | €35 | Ferry check-in buffers vary by operator and vehicle; verify with booked ticket. |\n| 16:00-19:15 | ferry | Take Holyhead–Dublin car ferry. | Holyhead → Dublin Port | €230 | Estimate for car + driver. [Stena Line](https://www.stenalinetravel.com/routes/holyhead-dublin) states Holyhead–Dublin in about 3h15 and 8 daily crossings; [Irish Ferries](https://www.irishferries.com/uk-en/routes-and-times/dublin-holyhead/) also operates this route, with fast ferry just over 2h on some sailings. |\n| 19:15-20:15 | transport | Disembark, pay/record any toll requirements if using M50, drive to parking or accommodation. | Dublin Port → city centre/Smithfield | €8 | M50 toll for cars reported by Tavily around €3.80 from [TII 2026 toll notice](https://www.tii.ie/en/news/press-releases/toll-charge-increase-from-1st-january-2026/); route may avoid M50 depending on lodging. |\n| 20:15-21:00 | accommodation | Check in to hostel/budget hotel: Abbey Court Hostel, Generator Dublin, or similar. | Dublin city centre / Smithfield | €60 | Estimate dorm/private-budget rate. [Abbey Court](https://www.abbey-court.com/) is central with 24h reception; [Generator Dublin listing](https://www.hostelworld.com/hostels/p/48058/generator-dublin/) places it in Smithfield near Temple Bar. |\n| 21:00-22:30 | meal/pub | Easy first Dublin pub dinner close to lodging; avoid a late night after the drive. | Dublin city centre | €35 | Pub meal/pint estimate. |\n\n## Day 3 — Monday 7 September 2026: Dublin orientation, riverside walk, traditional pubs\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 08:30-09:15 | meal | Hostel breakfast or inexpensive café breakfast. | Dublin | €8 | Abbey Court’s booking listings mention low-cost breakfast; exact 2026 price not verified. |\n| 09:15-10:00 | transport/admin | Park the car for the Dublin stay and switch to walking/transit. Buy a Leap Visitor Card if useful. | Dublin city centre | €32 | Tavily reported 7-day Leap Visitor Card around €32; verify at [Leap Visitor Card](https://about.leapcard.ie/leap-visitor-card). Parking estimate not included here; see budget. |\n| 10:00-12:30 | sightseeing/walk | Self-guided central Dublin walk: River Liffey, Ha’penny Bridge, Temple Bar area, Trinity exterior, Grafton Street, St Stephen’s Green. | Dublin city centre | €0 | Free walking route; no paid attraction booked. |\n| 12:30-13:30 | meal | Budget lunch. | Dublin city centre | €15 | Estimate. |\n| 14:00-16:00 | sightseeing | Optional low-cost museum or relaxed city time; keep this flexible after the long inbound travel. | Dublin | €0 | Many national museums are free, but specific opening hours not verified by Tavily for this date. |\n| 16:00-18:00 | rest | Rest at hostel/hotel. | Dublin | €0 | Practical recovery buffer. |\n| 18:30-20:00 | meal/pub | Dinner at or near The Brazen Head. | Dublin | €35 | [The Brazen Head](https://brazenhead.com/) is marketed as Ireland’s oldest pub; check music/food times before going. |\n| 20:30-22:30 | pub/music | Traditional pub music night at O’Donoghue’s or Temple Bar Pub. | Merrion Row / Temple Bar | €25 | [Visit Dublin: O’Donoghue’s](https://www.visitdublin.com/o-donoghue-s-bar) says live music seven nights a week in the Tavily snippet; [Temple Bar Pub](https://thetemplebarpub.com/visit/) advertises live Irish music daily/“24/7.” Drinks estimate. |\n\n## Day 4 — Tuesday 8 September 2026: Wicklow Mountains and Glendalough hiking day\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 07:30-08:15 | meal | Breakfast; pack water, rain layer, hiking shoes, snacks. | Dublin | €10 | Weather can change quickly in Wicklow; practical hiking assumption. |\n| 08:15-10:00 | transport | Drive from Dublin to Glendalough / Wicklow Mountains National Park. | Dublin → Glendalough | €25 | Fuel estimate. Parking may apply. |\n| 10:00-10:30 | sightseeing | Start at Glendalough Visitor Centre / monastic site area. | Glendalough | €0-€8 | [Glendalough official](https://glendalough.ie/) says monastic site/lakes are accessible year-round; [Discover Ireland](https://www.discoverireland.ie/wicklow/glendalough-visitor-centre) describes the visitor centre and monastic site. Any visitor-centre fee not verified for 2026. |\n| 10:30-13:30 | hiking/nature | Hike around the Lower and Upper Lakes; choose a marked valley/lakes walk suited to weather and daylight. | Glendalough | €0 | [Glendalough official](https://glendalough.ie/) notes walks/trails and lakes in the valley. Exact trail selection should be made on site based on conditions. |\n| 13:30-14:30 | meal | Packed lunch or café lunch in/near Glendalough/Laragh. | Glendalough / Laragh | €15 | Estimate. |\n| 14:30-16:30 | hiking/scenery | Short second walk or viewpoint stop if weather is good; otherwise visit the monastic ruins and lakes at an easier pace. | Glendalough | €0 | Free outdoor activity; follow local safety signs. |\n| 16:30-18:00 | transport | Drive back to Dublin before evening traffic becomes too late. | Glendalough → Dublin | €25 | Fuel estimate. |\n| 19:30-21:30 | meal/pub | Casual dinner and a local pub away from the most touristy Temple Bar prices, or return to O’Donoghue’s if music is the priority. | Dublin | €40 | Pub spend estimate; [O’Donoghue’s](https://www.visitdublin.com/o-donoghue-s-bar) evidence supports traditional music option. |\n\n## Day 5 — Wednesday 9 September 2026: Howth coastal hike and seafood/pub evening\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 08:30-09:15 | meal | Breakfast. | Dublin | €8 | Estimate. |\n| 09:15-10:00 | transport | Take DART or public transport to Howth; leave car parked in Dublin. | Dublin → Howth | €0 | Covered if using Leap Visitor Card; [Leap Visitor Card](https://about.leapcard.ie/leap-visitor-card) covers DART/commuter rail in Zone 1, subject to current rules. |\n| 10:00-12:30 | hiking/coast | Walk the Howth Cliff Path Loop. | Howth | €0 | [Visit Dublin Howth Cliff Path Loop](https://www.visitdublin.com/howth-cliff-path-loop) describes a 7.8 km loop from Howth DART station taking about 2 hours with island, lighthouse and Dublin Bay views. |\n| 12:30-14:00 | meal | Seafood lunch or fish-and-chips in Howth harbour. | Howth | €25 | Estimate; Visit Dublin notes cafés, pubs and restaurants in Howth after the walk. |\n| 14:00-15:30 | scenery/free time | Harbour stroll, Ireland’s Eye views, coffee, or continue part of the Dublin Coastal Trail if weather is excellent. | Howth | €8 | [Dublin Coastal Trail](https://www.visitdublin.com/guides/dublin-coastal-trail) supports coastal day trips by DART/Irish Rail. |\n| 15:30-16:15 | transport | Return to Dublin by DART/public transport. | Howth → Dublin | €0 | Covered by Leap assumption. |\n| 16:15-18:30 | rest | Rest, laundry, repack for end of trip or onward travel. | Dublin hostel/hotel | €0 | Practical buffer. |\n| 19:00-22:00 | meal/pub | Final Dublin pub night: The Brazen Head, O’Donoghue’s, or Temple Bar Pub depending on music preference and crowd tolerance. | Dublin | €50 | [The Brazen Head](https://brazenhead.com/), [O’Donoghue’s](https://www.visitdublin.com/o-donoghue-s-bar), [Temple Bar Pub](https://thetemplebarpub.com/visit/) provide evidence for historic/live-music pub options. Temple Bar is likely pricier. |\n\n## Day 6 — Thursday 10 September 2026: Dublin buffer day and trip end\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 08:30-09:30 | meal | Breakfast and check-out. | Dublin | €8 | Hostel/budget hotel breakfast estimate. |\n| 09:30-10:30 | accommodation/admin | Check out; store luggage if needed. Confirm car, ferry, or onward arrangements. | Dublin | €0-€10 | Luggage storage may cost extra; not verified. |\n| 10:30-13:00 | sightseeing/free time | Flexible final morning: riverside walk, bookshop/café time, or a free museum if open. | Dublin city centre | €0-€10 | Specific museum hours not verified with Tavily; keep flexible. |\n| 13:00-14:00 | meal | Lunch. | Dublin | €15 | Estimate. |\n| 14:00-16:00 | transport/admin | End baseline trip in Dublin. If returning the car/continuing onward, allow a large buffer for Dublin traffic and ferry check-in. | Dublin | €0 | Return to Frankfurt is not scheduled because the query did not explicitly request a round trip. |\n| Evening | optional | Optional extra pub session if staying another night. | Dublin | €25 | Optional; not included in core plan unless you extend lodging. |\n\n## Budget summary\n- Estimated Channel ferry, Calais–Dover with car: €100\n- Estimated Irish Sea ferry, Holyhead–Dublin with car: €230\n- Estimated fuel for Frankfurt–Calais–Dover–Holyhead–Dublin plus Wicklow driving: €250\n- Estimated tolls, port access, M50, small road charges: €30\n- Estimated parking in Dublin: €80-€130, depending on location and whether hostel parking exists\n- Accommodation:\n  - 1 night Dover/Folkestone budget hotel: ~€80\n  - 4 nights Dublin hostel/budget hotel: ~€240-€400\n  - Accommodation subtotal estimate: €320-€480\n- Food, cafés, pub meals and drinks: ~€350-€450\n- Dublin public transport / Leap Visitor Card: ~€32, if purchased\n- Hiking/sightseeing admissions and parking: ~€20-€50\n- Contingency for higher ferry fares, hotel surge pricing, parking, currency exchange, and weather changes: ~€500-€800\n\n**Estimated total baseline cost:** approximately **€1,900-€2,550**, leaving a buffer inside the **€3,000** budget.  \nThis is not a booking quote; ferry, hostel and parking prices must be verified live for September 2026.\n\n## Unscheduled or uncertain items\n- Return journey to Frankfurt is **not scheduled**. The user asked for Frankfurt to Dublin from 5–10 September, but did not explicitly request a round trip. A car-and-ferry return would likely require two additional heavy travel days or sacrificing most Dublin hiking/pub time.\n- Exact 2026 ferry departure times and fares are not verified. Book Calais–Dover and Holyhead–Dublin directly with operators once schedules open.\n- Exact hostel/budget hotel availability for 5–10 September 2026 is not verified. Abbey Court and Generator Dublin are suitable budget candidates, but live booking is required.\n- Dublin parking is uncertain. Many central hostels do not include parking; consider pre-booking a secure car park or staying slightly outside the centre with parking and using public transport.\n- Bray-to-Greystones Cliff Walk is not scheduled because Tavily evidence indicated closures/landslide issues; Howth is the safer baseline coastal hike.\n- Weather-dependent hikes may need adjustment. If Wicklow weather is poor, substitute a shorter Glendalough lakes walk or a Dublin Coastal Trail segment.\n\n## Assumptions and gaps\n- Assumption: trip ends in Dublin on 10 September 2026 rather than returning to Frankfurt the same day.\n- Assumption: you are using your own car and are comfortable driving in the UK and Ireland on the left.\n- Assumption: you can legally take the car across borders and ferries, with valid insurance, registration, roadside cover and any required UK/Ireland driving documentation.\n- Assumption: costs are converted approximately to euros; ferry operators may price in GBP or EUR depending on route.\n- Gap: Tavily cannot confirm live traffic, ferry capacity, hotel availability, or parking inventory.\n- Gap: exact opening hours for every pub/venue in September 2026 should be checked closer to departure.\n- Gap: fuel cost depends heavily on your car’s consumption and 2026 fuel prices.",
+        "additional_kwargs": {
+          "refusal": null
+        },
+        "response_metadata": {
+          "token_usage": {
+            "completion_tokens": 5554,
+            "prompt_tokens": 15610,
+            "total_tokens": 21164,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": null,
+              "audio_tokens": 0,
+              "reasoning_tokens": 1034,
+              "rejected_prediction_tokens": null,
+              "image_tokens": 0
+            },
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 14336,
+              "cache_write_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost": 0.180158,
+            "is_byok": false,
+            "cost_details": {
+              "upstream_inference_cost": 0.180158,
+              "upstream_inference_prompt_cost": 0.013538,
+              "upstream_inference_completions_cost": 0.16662
+            }
+          },
+          "model_provider": "openai",
+          "model_name": "openai/gpt-5.5-20260423",
+          "system_fingerprint": null,
+          "id": "gen-1778954003-L7m0O6747TdCQ2uLv3Ob",
+          "service_tier": "default",
+          "finish_reason": "stop",
+          "logprobs": null
+        },
+        "type": "ai",
+        "id": "lc_run--019e31eb-e24f-7ec2-b305-5c301693b6a6-0",
+        "tool_calls": [],
+        "invalid_tool_calls": [],
+        "usage_metadata": {
+          "input_tokens": 15610,
+          "output_tokens": 5554,
+          "total_tokens": 21164,
+          "input_token_details": {
+            "audio": 0,
+            "cache_read": 14336
+          },
+          "output_token_details": {
+            "audio": 0,
+            "reasoning": 1034
+          }
+        }
+      }
+    ]
+  },
+  "error": null,
+  "metadata": {
+    "LANGSMITH_ENDPOINT": "https://eu.api.smith.langchain.com",
+    "LANGSMITH_PROJECT": "travelplanner",
+    "LANGSMITH_TRACING": "true",
+    "ls_integration": "langgraph",
+    "ls_run_depth": 0,
+    "revision_id": "10ec8d0-dirty",
+    "thread_id": "b59421ca-d7f5-4bae-9792-456866e1ea20"
+  },
+  "langsmith": {
+    "organization": {
+      "name": "Personal",
+      "id": "477adfd8-a90b-45c3-95f6-1375325770e8"
+    },
+    "workspace": {
+      "name": "Workspace 1",
+      "id": "06241d75-72ec-4af5-b325-52629e7730a0"
+    },
+    "tracing_project": {
+      "id": "d92c06e8-225e-4665-a627-fdf375468f7c",
+      "name": "travelplanner"
+    }
+  }
+}

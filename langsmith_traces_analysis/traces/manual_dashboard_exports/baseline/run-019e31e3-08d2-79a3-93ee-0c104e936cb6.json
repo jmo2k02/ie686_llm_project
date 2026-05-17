@@ -1,0 +1,451 @@
+{
+  "inputs": {
+    "messages": [
+      {
+        "content": "You are the Simple Baseline TravelPlanner Agent.\n\nPurpose:\n- Produce a single-agent baseline itinerary for later comparison against the\n  multi-agent TravelPlanner system.\n- You have exactly one tool: Tavily web search. You have no sub-agents and no\n  specialized flight, hotel, restaurant, routing, or validation tools.\n\nOperating rules:\n1. Use Tavily web search before the final itinerary for current facts, links,\n   opening hours, prices, neighborhoods, transit hints, and source URLs.\n   The workflow may require a minimum number of completed Tavily searches before\n   you may answer with final markdown only; if you receive a workflow nudge,\n   complete the requested searches first.\n   Use a small number of high-value searches, then synthesize the final answer.\n2. Respect every hard constraint supplied by the user. If a constraint cannot be\n   verified, state the assumption instead of silently ignoring it.\n3. Prefer official tourism, venue, transit, accommodation, restaurant, and event\n   pages when search results contain them. Use blogs and aggregators only as\n   secondary evidence.\n4. Do not invent exact prices, opening hours, flight numbers, hotel availability,\n   or booking status. Mark uncertain values as estimates.\n5. Order each day like the main execution agent: travel/check-in first, meals at\n   plausible meal times, attractions during likely opening hours, transfers\n   between distant places, and rest/free time when useful.\n6. Return only markdown in the final answer.\n\nFinal markdown structure:\nUse exactly these section headings, in this order:\n1. `# Baseline itinerary: ...`\n2. `## Goal and constraints understood`\n3. `## Search summary`\n4. `## Day 1 ...` and one section per day\n5. `## Budget summary`\n6. `## Unscheduled or uncertain items`\n7. `## Assumptions and gaps`\n\nEach day must be a markdown table with exactly these columns:\n`Time | Type | Plan | Location | Cost | Evidence/Notes`.\n\nSource discipline:\n- Every non-obvious venue, attraction, transit pass, opening-time claim, and\n  ticket price should have either a markdown link in Evidence/Notes or be marked\n  as an estimate.\n- If a requested item cannot be scheduled with available evidence, list it under\n  \"Unscheduled or uncertain items\" rather than hiding it.\n- Never include raw Tavily result dumps in the final answer.\n\nExample final output shape:\n\n# Baseline itinerary: 3 days in Lisbon\n\n## Goal and constraints understood\n- Origin: Berlin\n- Dates: 2026-06-12 to 2026-06-14\n- Budget: 800 EUR for 2 travelers\n\n## Search summary\n- Official tourism page for Belém Tower: https://...\n- Transit pass information: https://...\n\n## Day 1\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 09:00-10:30 | transport | Arrive and transfer to hotel | Airport to Baixa | €8 | Metro estimate; verify live schedules |\n\n## Budget summary\n- Estimated total: €...\n\n## Unscheduled or uncertain items\n- Flight number unavailable because only Tavily web search is available.\n\n## Assumptions and gaps\n- Hotel prices require live booking confirmation.\n",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "system",
+        "id": "aef8c6ae-2b96-42fb-bca3-f1fe44a72368"
+      },
+      {
+        "content": "GOAL\nCreate a comparable baseline travel plan in markdown.\n\nUSER QUERY\nMy partner and I are going on our honeymoon to the Maldives from October 10th to 20th, 2026. We have a budget of €8,000 and want a luxury overwater bungalow or high-end beach resort. We love snorkelling, diving, spa treatments, and romantic sunset dinners. Please plan the full trip including flights from Berlin.\n\nCONSTRAINTS\n{\n  \"hard_constraints\": {\n    \"origin\": \"Berlin\",\n    \"destination\": \"Maldives\",\n    \"date_from\": \"2026.10.10\",\n    \"date_to\": \"2026.10.20\",\n    \"travelers\": {\n      \"adults\": 2,\n      \"children_under_6\": 0,\n      \"children_6_to_16\": 0\n    },\n    \"budget_amount\": 8000,\n    \"budget_currency\": \"EUR\",\n    \"accommodation\": \"overwater bungalow or luxury beach resort\",\n    \"transport\": \"Flight\",\n    \"interests\": \"snorkelling, diving, romantic dinners, spa, relaxation, private beach\"\n  }\n}\n\nOUTPUT REQUIREMENT\nReturn the final plan as markdown using the same practical timetable style as the main execution agent, but acknowledge that this baseline only has Tavily evidence. Include source links found via Tavily.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "human",
+        "id": "55c356ae-0e1d-4276-9278-471e38da4c5c"
+      }
+    ]
+  },
+  "outputs": {
+    "messages": [
+      {
+        "content": "You are the Simple Baseline TravelPlanner Agent.\n\nPurpose:\n- Produce a single-agent baseline itinerary for later comparison against the\n  multi-agent TravelPlanner system.\n- You have exactly one tool: Tavily web search. You have no sub-agents and no\n  specialized flight, hotel, restaurant, routing, or validation tools.\n\nOperating rules:\n1. Use Tavily web search before the final itinerary for current facts, links,\n   opening hours, prices, neighborhoods, transit hints, and source URLs.\n   The workflow may require a minimum number of completed Tavily searches before\n   you may answer with final markdown only; if you receive a workflow nudge,\n   complete the requested searches first.\n   Use a small number of high-value searches, then synthesize the final answer.\n2. Respect every hard constraint supplied by the user. If a constraint cannot be\n   verified, state the assumption instead of silently ignoring it.\n3. Prefer official tourism, venue, transit, accommodation, restaurant, and event\n   pages when search results contain them. Use blogs and aggregators only as\n   secondary evidence.\n4. Do not invent exact prices, opening hours, flight numbers, hotel availability,\n   or booking status. Mark uncertain values as estimates.\n5. Order each day like the main execution agent: travel/check-in first, meals at\n   plausible meal times, attractions during likely opening hours, transfers\n   between distant places, and rest/free time when useful.\n6. Return only markdown in the final answer.\n\nFinal markdown structure:\nUse exactly these section headings, in this order:\n1. `# Baseline itinerary: ...`\n2. `## Goal and constraints understood`\n3. `## Search summary`\n4. `## Day 1 ...` and one section per day\n5. `## Budget summary`\n6. `## Unscheduled or uncertain items`\n7. `## Assumptions and gaps`\n\nEach day must be a markdown table with exactly these columns:\n`Time | Type | Plan | Location | Cost | Evidence/Notes`.\n\nSource discipline:\n- Every non-obvious venue, attraction, transit pass, opening-time claim, and\n  ticket price should have either a markdown link in Evidence/Notes or be marked\n  as an estimate.\n- If a requested item cannot be scheduled with available evidence, list it under\n  \"Unscheduled or uncertain items\" rather than hiding it.\n- Never include raw Tavily result dumps in the final answer.\n\nExample final output shape:\n\n# Baseline itinerary: 3 days in Lisbon\n\n## Goal and constraints understood\n- Origin: Berlin\n- Dates: 2026-06-12 to 2026-06-14\n- Budget: 800 EUR for 2 travelers\n\n## Search summary\n- Official tourism page for Belém Tower: https://...\n- Transit pass information: https://...\n\n## Day 1\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 09:00-10:30 | transport | Arrive and transfer to hotel | Airport to Baixa | €8 | Metro estimate; verify live schedules |\n\n## Budget summary\n- Estimated total: €...\n\n## Unscheduled or uncertain items\n- Flight number unavailable because only Tavily web search is available.\n\n## Assumptions and gaps\n- Hotel prices require live booking confirmation.\n",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "system",
+        "id": "aef8c6ae-2b96-42fb-bca3-f1fe44a72368"
+      },
+      {
+        "content": "GOAL\nCreate a comparable baseline travel plan in markdown.\n\nUSER QUERY\nMy partner and I are going on our honeymoon to the Maldives from October 10th to 20th, 2026. We have a budget of €8,000 and want a luxury overwater bungalow or high-end beach resort. We love snorkelling, diving, spa treatments, and romantic sunset dinners. Please plan the full trip including flights from Berlin.\n\nCONSTRAINTS\n{\n  \"hard_constraints\": {\n    \"origin\": \"Berlin\",\n    \"destination\": \"Maldives\",\n    \"date_from\": \"2026.10.10\",\n    \"date_to\": \"2026.10.20\",\n    \"travelers\": {\n      \"adults\": 2,\n      \"children_under_6\": 0,\n      \"children_6_to_16\": 0\n    },\n    \"budget_amount\": 8000,\n    \"budget_currency\": \"EUR\",\n    \"accommodation\": \"overwater bungalow or luxury beach resort\",\n    \"transport\": \"Flight\",\n    \"interests\": \"snorkelling, diving, romantic dinners, spa, relaxation, private beach\"\n  }\n}\n\nOUTPUT REQUIREMENT\nReturn the final plan as markdown using the same practical timetable style as the main execution agent, but acknowledge that this baseline only has Tavily evidence. Include source links found via Tavily.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "human",
+        "id": "55c356ae-0e1d-4276-9278-471e38da4c5c"
+      },
+      {
+        "content": "",
+        "additional_kwargs": {
+          "refusal": null
+        },
+        "response_metadata": {
+          "token_usage": {
+            "completion_tokens": 339,
+            "prompt_tokens": 1069,
+            "total_tokens": 1408,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": null,
+              "audio_tokens": 0,
+              "reasoning_tokens": 83,
+              "rejected_prediction_tokens": null,
+              "image_tokens": 0
+            },
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0,
+              "cache_write_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost": 0.015515,
+            "is_byok": false,
+            "cost_details": {
+              "upstream_inference_cost": 0.015515,
+              "upstream_inference_prompt_cost": 0.005345,
+              "upstream_inference_completions_cost": 0.01017
+            }
+          },
+          "model_provider": "openai",
+          "model_name": "openai/gpt-5.5-20260423",
+          "system_fingerprint": null,
+          "id": "gen-1778953423-fwJTavGTHcMecOTdVBAi",
+          "service_tier": "default",
+          "finish_reason": "tool_calls",
+          "logprobs": null
+        },
+        "type": "ai",
+        "id": "lc_run--019e31e3-08d4-7bc2-8500-527c9a0f9564-0",
+        "tool_calls": [
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "official Berlin to Male Maldives flights airlines one stop 2026 Qatar Emirates Turkish flights source"
+            },
+            "id": "call_Yy4bSF48Wo9Z49ndjTCNgGX9",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Maldives resort overwater villa all inclusive honeymoon October rates official 2026"
+            },
+            "id": "call_NDHTDJ3wSMNF4V69evu4I5za",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Maldives luxury overwater villa resort snorkeling diving spa romantic dinner official rates"
+            },
+            "id": "call_DpwaESAHbT6Gf4qgFLCwG0If",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Maldives seaplane transfer resort official cost 2026 overwater villa"
+            },
+            "id": "call_E9iVUM7Zwx6KfUwWiwSA6cYd",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Maldives October weather snorkeling diving official tourism"
+            },
+            "id": "call_jkfbWu4K41KWh4S7j2LB4tOv",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Maldives green tax departure tax official tourism 2026 resort"
+            },
+            "id": "call_iraNLcc41v1TMbT4pWUKnMD0",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Maldives resort official activities snorkeling diving spa sunset dinner overwater villa all inclusive"
+            },
+            "id": "call_fTOR8QB1fAvI3BnsNgbxrpGO",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Berlin Brandenburg airport airlines Doha Dubai Istanbul Male Maldives official"
+            },
+            "id": "call_fOlCwf5KQKwQ3YvoluzXWRQl",
+            "type": "tool_call"
+          }
+        ],
+        "invalid_tool_calls": [],
+        "usage_metadata": {
+          "input_tokens": 1069,
+          "output_tokens": 339,
+          "total_tokens": 1408,
+          "input_token_details": {
+            "audio": 0,
+            "cache_read": 0
+          },
+          "output_token_details": {
+            "audio": 0,
+            "reasoning": 83
+          }
+        }
+      },
+      {
+        "content": "Tavily answer:\nQatar Airways, Turkish Airlines, and Emirates offer one-stop flights from Berlin to Male, Maldives in 2026. Booking in advance is recommended for the best prices.\n\nTavily results:\n1. Berlin To Male Flights - MakeMyTrip score=1.00\n   URL: https://www.makemytrip.global/international-flights/qatar/berlin-male-cheap-airtickets.html\n   Snippet: Berlin to Male Flights - Book Berlin to Male flight tickets and get upto 20% cashback to wallet. Book Berlin Male flights at cheap airfares on MakeMyTrip.\n2. Flights From Berlin to Maldives | Turkish Airlines score=1.00\n   URL: https://www.turkishairlines.com/en/book-flights-from-berlin-to-maldives\n   Snippet: # Discover Berlin to Maldives flight offers starting from EUR916\\* and book now! ## Discover Flights From Berlin to Maldives. | Berlin (BER) | Male (MLE) | Round-trip / Economy | Thu, June 04 - Sun, June 14 | From  EUR1,635\\*  Last update 17 hrs ago |  |. | Berlin (BER) | Male (MLE) | Round-trip / Economy | Sat, July 04 - Sat, July 18 | From  EUR1,723\\*  Last update 18 hrs ago |  |. | Berlin (BER) | Male (MLE) | Round-trip / Economy | Tue, June 02 - Wed, June 10 | From  EUR1,777\\*  Last update 44 minutes ago |  |. | Berlin (BER) | Male (MLE) | Round-trip / Economy | Mon, October 26 - Sun, November 01 | From  EUR1,082\\*  Last update 22 hrs ago |  |. | Berlin (BER) | Male (MLE) | Round-trip / Economy | Sun, November 08 - Sat, November 21 | From  EUR1,232\\*  Last update 13 hrs ago |  |.\n3. Book Flights to Maldives(MLE) from Berlin(BER) - Qatar Airways score=1.00\n   URL: https://www.qatarairways.com/en-us/destinations/flights-to-maldives/from-berlin.html\n   Snippet: /content/us/en/destinations/flights-to-maldives/from-berlin https://www.qatarairways.com/en-us/search-results.html. * Earn Avios on every booking. Earn Avios on every journey. Spend Avios on trips across the globe or an upgrade to Business Class on your next flight. Save up to 20% when paying with Avios as you explore luxury brands & dine on gourmet cuisine. Save on holidays around the world, collect bonus Avios with us and our partners, and more. * Departure airport for flight 1 is missing. * Destination airport for flight 1 is missing. * Departure date for flight 1 is missing. If you’re flying from Berlin in either First or Business Class with Qatar Airways, be sure to relax before your journey in one of the airport’s luxurious executive lounges. To get the best price on your {Destination} flights, it is recommended that you book well in advance of your departure date, as booking early...\n4. Flight Schedule From Berlin To North Male Atoll | BER - Wego score=0.99\n   URL: https://www.wego.com/schedules/ber/mle/flight-schedules-from-berlim-to-maldivas\n   Snippet: Flight Schedules From Berlin to North Male Atoll ; 14:30BER. 07:45MLE. 13 Hrs,15m. 1 Stop (IST). Turkish Airlines·A32Q. M · -. -. T · -. S · - ; 19:20BER. 12:35MLE.\n5. Find Cheap Flights from Berlin to Malé (BER - MLE) - Google score=0.99\n   URL: https://www.google.com/travel/flights/flights-from-berlin-to-male.html?gl=DE&hl=en\n   Snippet: Use Google Flights to find cheap flights from Berlin to Malé, and book tickets for your next trip.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "0065064a-4aa1-4626-8f33-dcfa68d0a44d",
+        "tool_call_id": "call_Yy4bSF48Wo9Z49ndjTCNgGX9",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nFor 2026, Adaaran Prestige Vadoo Maldives offers all-inclusive overwater villas with private pools for honeymooners. Rates and availability should be confirmed directly with the resort or a travel agency. Luxury Escapes also lists Maldives honeymoon packages including overwater bungalows.\n\nTavily results:\n1. All-Inclusive Maldives Overwater | Unforgettable Honeymoons® score=0.88\n   URL: https://www.unforgettablehoneymoons.com/honeymoon-packages/adaaran-prestige-vadoo-maldives-all-inclusive-honeymoons/\n   Snippet: Unforgettable Honeymoons - Honeymoon travel agency. ## Best 2026 Luxury Maldives All-Inclusive Overwater Pool Villa Honeymoon. The Perfect Maldives All Inclusive Overwater Pool Villas. ## Maldives Overwater All -Inclusive Honeymoon With Private Pool. ### Adaaran Prestige Vadoo Maldives Adult Only All Inclusive Escape. **Unforgettable Honeymoons® Top Adults Only All Inclusive Overwater Bungalow Maldives Honeymoon Hideaway**, Adaaran Prestige is perfect for couples looking for an overwater villa with a private pool, all inclusive and adults only for an affordable price point. * One of the “Rare” Adult Only Resorts in all of the Maldives, no kids, only couples seeking romance and privacy. * **Overwater Villas** with your own private pool and Jacuzzi- choose sunrise or sunset\\*. **Interested in this amazing Maldives Overwater Bungalow package?** We offer 1 complimentary estimate or quote for...\n2. Maldives Honeymoon Packages 2026: 12 Best Romance Resorts… score=0.75\n   URL: https://resortlife.travel/maldives-honeymoon-packages-2026\n   Snippet: The Maldives is the world's most-booked honeymoon destination — but not every resort is a honeymoon resort. The variables that decide a great honeymoon booking sit in the small print: villa spacing, sunset orientation, the difference between a real adults-only policy and an \"adults-leaning\" guest mix. This guide ranks the 12 worth the money across every budget tier from USD 7,000 to USD 80,000+ for a 7-night couple. Resortlife Travel has been a Maldives DMC since 2006 — direct contracts with every resort on this page, ground operations in Malé, 24/7 WhatsApp through the trip. The hidden variables — sunset orientation, villa spacing, how genuinely adults-only the guest mix runs — separate a great honeymoon booking from a regret. Every Maldives resort markets a \"private beach dinner\" — the question is whether it's a candlelit setup at a separate table on the public beach (75% of resorts) o...\n3. Maldives Honeymoon Packages 2026/2027 score=0.74\n   URL: https://www.expedia.com/lp/theme-vacations/honeymoon-vacations/109/Maldives\n   Snippet: Maldives honeymoon packages from $1,127 include your return airfare and hotel room for the duration of the stay, as well as relevant taxes. For all-inclusive\n4. Maldives Honeymoon Holidays Packages & Deals 2026/2027 - Luxury Escapes score=0.62\n   URL: https://luxuryescapes.com/us/maldives.honeymoon.holiday-packages?srsltid=AfmBOord2HmqNNsadUrSKOm8HDCyj9glc7ZKxchlI-mw1eg7UzmQ9PwD\n   Snippet: # Maldives Honeymoon Holiday Packages. ## Explore our Holiday Package deals in Maldives. Maldives Honeymoon Holiday Packages | Maldives Honeymoon Hotels | Maldives Honeymoon Tours | Maldives Honeymoon Holiday Homes. The North and South Ari atolls are easily accessible from the capital and are home to some of the country’s most luxurious resorts, each on their own patch of paradise. Animal lovers will relish the chance to witness whale sharks in their natural habitat with a stay on one of the 80 islands in Ari Atoll, west of Male, while flora fans will want to choose a Maldives holiday package based on Baa Atoll, a UNESCO World Biosphere Reserve. Floating in the Indian Ocean, the Maldives is perfectly placed for you to live out all your tropical island fantasies, with something new to delight every day. Opt for a Maldives holiday package with a sumptuous spa to luxuriate in back-to-back s...\n5. THE BEST Overwater Bungalows in Maldives in 2026 score=0.54\n   URL: https://dreamoverwater.com/places/maldives/\n   Snippet: Compare the top-rated overwater bungalows in Maldives in 2026. Filter by price, and type - from cheap chic to ultra-luxury all-inclusive.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "a6f27142-2bde-414c-8da5-bd5b224b374e",
+        "tool_call_id": "call_NDHTDJ3wSMNF4V69evu4I5za",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nAdaaran Prestige Water Villas offers luxury overwater villas with all-inclusive packages, snorkeling, and fine dining. Hard Rock Hotels provide overwater villas with complimentary snorkeling trips. Anantara Veli offers romantic overwater villas with spa services.\n\nTavily results:\n1. Adaaran Prestige Water Villas Official Site score=1.00\n   URL: https://www.adaaran.com/prestigewatervillas/\n   Snippet: Adults-Only Premium All-Inclusive Resort. Set on a mature natural island with one of the best house reefs in the Maldives, this adults-only haven invites you to snorkel through coral gardens that flourish. Rooted in some of the world’s best global sustainability practices, the environment here is cared for as thoughtfully as every guest. Slip off your shoes, leave the week behind, and let serenity take over in these Maldives luxury water villas. Your Premium All-Inclusive Getaway. Begin your love in the pristine embrace of the Maldives, where Adaaran Water Villas redefine luxury. Sample an array of sublime tastes and flavours at one of the best restaurants in Maldives serving everything from succulent seafood fresh out of the dhonis to signature European delicacies. Our stay at the water villas was absolutely perfect. It was the second trip to the Maldives, for the first time at Addaran...\n2. Maldives Over Water Villa Packages - Hard Rock Hotels score=1.00\n   URL: https://hotel.hardrock.com/maldives/rock-star-vacay-experience-offer.aspx\n   Snippet: One complimentary snorkeling trip or sunset cruise for 2 people per stay; Dining experience for 2 people – Rock Star Romantic Dinner Under the Stars per stay\n3. Maldives Romantic Resort | Anantara Veli | Over Water Villa score=1.00\n   URL: https://www.anantara.com/en/veli-maldives/rooms/over-water-villa\n   Snippet: 741 Book Now VIEW RATES. Stunning 5 Star Overwater Villas in Maldives. Maldives over-water villas boast cool hardwood floors, colourful indigenous fabrics and\n4. What are luxury overwater villas in Maldives with good snorkeling ... score=1.00\n   URL: https://www.facebook.com/groups/816181090101629/posts/963067962079607/\n   Snippet: Favorite resorts that offer true all inclusive with over water villas and good diving for under or around $1,000usd/ night. Antonio Vasques de\n5. 10 Best Cheap Water Villa Resorts in Maldives 2025 - Maldives Magazine score=1.00\n   URL: https://maldives-magazine.com/top-10/10-most-affordable-water-villas.htm\n   Snippet: # Best Cheapest Water Villas in the Maldives. ## Top Budget Over-Water Accommodation in Maldives. Book Your Maldives Vacation and save up to 50% at Crown & Champa Resorts. When you dream of an overwater villa - the Maldives is simply a must go destination for any travelers, offering some of the most high-class accommodations. With luxury amenities and spacious design, the water villas exude privacy and will be ideally located for swimming and snorkelling on the house reef. Located on Fares Island in the Baa Atoll, the 5\\* star resort is comprised of 176 guest rooms, including standard accommodation and a selection of villas with pools. Best Experience for:  Couples, Families, All Inclusive, Beach, Diving, House Reef Snorkeling, Value. Strips of pristine beaches, world-class diving, a range of villas, endless dining options and knockout spa, Kuramathi Maldives is rated one of the best hot...",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "bf05004c-127f-4429-945d-a81b7b5bbd3c",
+        "tool_call_id": "call_DpwaESAHbT6Gf4qgFLCwG0If",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nSeaplane transfer to Maldives resorts in 2026 costs $400-$700 per person. Some resorts offer free transfers for longer stays. Overwater villa prices start at $300 per night.\n\nTavily results:\n1. Maldives Resort with Free Seaplane Transfer 2026: Your $600+ Savings Guide | Are Seaplanes Included? - Maldives Magazine score=1.00\n   URL: https://maldives-magazine.com/offers/maldives-resort-free-seaplane-transfer-2026.htm\n   Snippet: # The 2026 Maldives Offer: Unlock Free Seaplane Transfers & Major Savings. ## How to Get a Free Seaplane Transfer in 2026: The 4-Night & 7-Night Rule. For travelers dreaming of the Maldives, the **iconic seaplane flight** over turquoise atolls is a bucket-list experience. How to Get Your Free Seaplane Transfer in the Maldives. ## The Core Offer: How to Get Your Free Seaplane Transfer. The most valuable and clear-cut offer for 2026 comes from resorts within **The Sun Siyam Resorts** portfolio, including **Siyam World** and **Sun Siyam Iru Veli**. * **For a 4-Night Stay:** You receive a **complimentary shared return seaplane transfer for one person**. * **For a 7-Night Stay:** The offer expands to cover **free shared return seaplane transfers for two persons**. When you book a 7-night stay at Siyam World, for example, you are effectively saving over **$1,100 on transportation costs** for t...\n2. Maldives Transfers 2026: Seaplane vs Speedboat Cost & Time score=1.00\n   URL: https://resortlife.travel/insights/maldives-transfers-speedboat-seaplane-domestic-flights\n   Snippet: Maldives Transfers 2026: Seaplane vs Speedboat Cost & Time. Maldives transfer cost compared: seaplane USD 500–850 vs speedboat USD 250–400 vs domestic flight + speedboat. The transfer from Velana International Airport (MLE) to your resort is rarely described in travel brochures with the precision it deserves. It's not an inconvenience — it's a flight over 300 kilometres of coral, or a hundred-knot speedboat through pastel lagoons, or a short-hop regional jet landing on a strip of reclaimed sand. Understanding the three modes — and which one your resort uses — is the difference between a seamless first night and a five-hour ordeal. When your resort confirms the transfer, it'll be one of three options, determined by distance from Malé:. For resorts in **North and South Malé Atoll** — and a few nearby outer islands connected by sheltered routes. You land on a regional airport, then speedboa...\n3. Water Villas in Maldives: 2026 Guide, Types & Prices score=1.00\n   URL: https://pickyourtrail.com/blog/water-villas-in-maldives\n   Snippet: # Water Villas in Maldives: Complete Guide. When you think of luxury travel to the Maldives, one experience is synonymous with luxury, and that is waking up in the epitome of a **water villa in Maldives,** the spectacular over-water bungalow perched high atop stilts above the turquoise lagoon. Whether you are looking for a honeymoon hideaway, family getaway or a once in a lifetime trip, knowing the types of resorts, prices, and the best resort options will help you with planning your getaway. * **Cost Range:** Water villas in the Maldives start from around **$300 per night** for budget-friendly options and can exceed **$2,000 per night** for ultra-luxury stays. * **Villa Categories:** Choose from a wide variety, including base water villas, pool villas, eco-friendly villas, family villas, and overwater suites, some even come with private butlers. * **Package Options:** Opt for Maldives w...\n4. Maldives all-inclusive vacation packages with free transfers score=1.00\n   URL: https://www.facebook.com/groups/816181090101629/posts/1411947510524981/\n   Snippet: 6 Nights in an Overwater Villa at Adaaran Prestige Vadoo ✨ Premium All-Inclusive – Just USD 6,730 for 2 Adults Includes Speedboat Transfers\n5. Transfer Costs: The $300 to $1,400 Fee Nobody Mentions Before Booking | IM Maldives score=1.00\n   URL: https://immaldives.com/travel-guide/costs/transfer-costs/\n   Snippet: # Transfer Costs. Speedboat, seaplane, and domestic flight prices for every major resort. Transfer costs are per person, round trip, and can add $600-$1,400 to a couple's trip. Speedboat resorts near Male cost $30-$200pp. Seaplane resorts cost $400-$700pp. Your resort's location determines which transfer you need. For resorts within 80 km of Male airport. For resorts 80-250 km from Male. Scheduled flights to regional airports, then speedboat to the resort. ## Speedboat Transfer Costs. | Kurumba Maldives | 10 min | $30 | $15 | Closest resort to airport |. ## Seaplane Transfer Costs. | Resort | Flight Time | Adult (RT) | Child (RT) | Location |. | Lily Beach Resort | 25 min | $460 | $280 | South Ari Atoll |. ## Need transfer costs for a specific resort? ## Domestic Flight + Speedboat Transfers. Includes the domestic flight and speedboat to the resort. ## Family Transfer Costs. 5 real budge...",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "b7d4de2b-ad28-41cb-b6ab-b16c8a46b948",
+        "tool_call_id": "call_E9iVUM7Zwx6KfUwWiwSA6cYd",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nMaldives in October is warm, with temperatures around 28°C, ideal for snorkeling and diving. Rain is unlikely. The official tourism season is favorable.\n\nTavily results:\n1. Weather in Maldives score=0.77\n   URL: https://www.weatherapi.com/\n   Snippet: {'location': {'name': 'Male', 'region': 'Maale', 'country': 'Maldives', 'lat': 4.167, 'lon': 73.5, 'tz_id': 'Indian/Maldives', 'localtime_epoch': 1778953401, 'localtime': '2026-05-16 22:43'}, 'current': {'last_updated_epoch': 1778952600, 'last_updated': '2026-05-16 22:30', 'temp_c': 28.5, 'temp_f': 83.2, 'is_day': 0, 'condition': {'text': 'Patchy rain nearby', 'icon': '//cdn.weatherapi.com/weather/64x64/night/176.png', 'code': 1063}, 'wind_mph': 14.3, 'wind_kph': 23.0, 'wind_degree': 279, 'wind_dir': 'W', 'pressure_mb': 1009.0, 'pressure_in': 29.8, 'precip_mm': 0.39, 'precip_in': 0.02, 'humidity': 80, 'cloud': 76, 'feelslike_c': 33.3, 'feelslike_f': 92.0, 'windchill_c': 28.5, 'windchill_f': 83.2, 'heatindex_c': 33.3, 'heatindex_f': 92.0, 'dewpoint_c': 24.6, 'dewpoint_f': 76.3, 'vis_km': 9.0, 'vis_miles': 5.0, 'uv': 0.0, 'gust_mph': 20.0, 'gust_kph': 32.2, 'will_it_rain': 1, 'chance_of_ra...\n2. [PDF] ARM MJO Investigation Experiment on Gan Island (AMIE-Gan ... score=0.08\n   URL: https://armgov.svcs.arm.gov/publications/programdocs/doe-sc-arm-11-005.pdf\n   Snippet: C Long, et al., April 2011, DOE/SC-ARM-11-005 vii Acronyms and Abbreviations 1D one-dimensional AERI atmospheric emitted radiance interferometer AERIPROF AERI Profiles of Water Vapor and Temperature AMF2 ARM Mobile Facility 2 AMIE ARM MJO Investigation Experiment AMIE-Gan ARM MJO Investigation Experiment on Gan Island AMIE-Manus ARM MJO Investigation Experiment at the ARM TWP Manus site AOD aerosol optical depth ARM Atmospheric Radiation Measurement Climate Research Facility ARSCL Active Remotely Sensed Cloud Locations ASR Atmospheric System Research CAWCR Centre for Australian Weather and Climate Research CINDY2011 Cooperative Indian Ocean experiment on intraseasonal variability in the Year 2011 CPC Climate Prediction Center CRM cloud-resolving model CSRM cloud-system-resolving models DSD drop size distribution DYNAMO Dynamics of the Madden-Julian Oscillation ECMWF European Centre for M...\n3. [PDF] Section 7 Biological Opinion and Conference Report - NOAA Fisheries score=0.03\n   URL: https://www.fisheries.noaa.gov/s3/2025-05/PIFSC-LOA-2025-2030-BiOp-Final-OPR1.pdf\n   Snippet: Feet FR Federal Register FWS US Fish and Wildlife Service GHG Greenhouse Gas HARA Hawaiian Archipelago Research Area Hz Hertz IATTC Inter-American Tropical Tuna Commission ICCB Intergovernmental Coordination and Conservation Branch in Inch(es) ITS Incidental Take Statement ITP Incidental Take Permit IUU Illegal, unreported and unregulated fishing kg Kilogram(s) m Meter(s) Mara Mariana Archipelago Research Area mm Millimeter(s) nm Nautical Mile(s) NMFS National Marine Fisheries Service (aka NOAA Fisheries) NOAA National Oceanic and Atmospheric Administration MTBAP Marine Turtle Biology and Assessment Program PIFSC Pacific Islands Fisheries Science Center PIRO Pacific Islands Regional Office PSAT Pop-off Satellite Archival Transmitting Tag PTS Permanent Threshold Shift SPL Sound Pressure Level SSLL Shallow-set longline fishery TTS Temporary Threshold Shift U.S. United States 5 WCPFC Wester...\n4. Mauritius  Travel Advisory | Travel.State.gov score=0.03\n   URL: https://travel.state.gov/en/international-travel/travel-advisories/mauritius.html\n   Snippet: An official website of the United States government. A **.gov** website belongs to an official government organization in the United States. A lock () or**https://** means you’ve safely connected to the .gov website. Americans in the Middle East should follow the latest guidance from the nearest U.S. embassy or consulate and can contact the U.S. Department of State to receive information or assistance. The Department of State advises Americans worldwide, and especially in the Middle East, to exercise increased caution. Travel.State.Gov US Department of State Homepage. Review the latest State Department Travel Advisory about Mauritius. You can plan for safe travel by following the entry and exit requirements, reviewing local laws, and other travel guidance from the U.S. embassy or consulate. Learn more about U.S. and Mauritius relations at State.gov. ## Travel advisory - Republic of Mauri...\n5. [PDF] Island Sanctuary Comprehensive Guide Island Sanctuary ... score=0.03\n   URL: https://jobs.jacksonms.gov/libweb/KqxXLz/0OK005/island-sanctuary-comprehensive_guide.pdf\n   Snippet: Water Sports: Islands with excellent snorkeling, diving, or kayaking opportunities. Relaxation: Remote islands with luxury resorts and spas. Accessibility",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "f7bf45c1-a575-4a08-b2f7-694a90f2a467",
+        "tool_call_id": "call_jkfbWu4K41KWh4S7j2LB4tOv",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nThe Maldives green departure tax is $12 per night per room for two guests as of 2026. This tax covers waste management costs. The tax was increased in 2026 to sustain tourism resorts.\n\nTavily results:\n1. Maldives to raise green tax in 2026—what does it mean for your ... score=1.00\n   URL: https://www.kiyovia.com/en/blog/maldives-green-tax-increase-2026\n   Snippet: But in 2026, an official increase in this tax was approved to cover the increasing costs of waste management in tourist resorts. If you are\n2. Green Tax - MIRA - Maldives Inland Revenue Authority score=1.00\n   URL: https://www.mira.gov.mv/Pages/View/whatisgreentax\n   Snippet: Green tax is a tax payable by tourists who stay in tourist resorts, integrated tourist resorts, resort hotels, tourist hotels, hotels, tourist guesthouses,\n3. Maldives Collects Over USD 27 Million in Green Tax During First ... score=1.00\n   URL: https://en.maaldif.com/12255/\n   Snippet: The Maldives generated more than USD 27.31 million in green tax revenue during the first two months of 2026, reflecting strong tourism\n4. [PDF] Changes to Green Tax (Effective 1 January 2025) - britacom score=1.00\n   URL: https://www.britacom.org/zt/BRPolicies/Maldives/Booklets/202503/P020250319492431010757.pdf\n   Snippet: A guest who checks in during December 2024 may continue their stay into January 2025 creating a 24-hour block that spans two diferent Green Tax rates. Hence, in order to determine the tax rate applicable for the 24-hour block which started at 11:00 hours of 31 December 2024 and ended at 11:00 hours of 1 January 2025, we need to identify on which date the frst 12 hours of this 24-hour block fall. Thus, the frst 12 hours of the 24-hour block ended on 31 December 2024, and the Green Tax must be paid at the prevailing tax rate at that date. Green tax amount to be collected from Mr. Henry should be calculated as follows: 24-hour block 1: USD 6 – to be included in the Green Tax Return for December 2024. 24-hour block 2: USD 12 – to be included in the Green Tax Return for January 2025. 24-hour block 3: USD 12 – to be included in the Green Tax Return for January 2025.\n5. Green Tax revenue exceeds MVR 221 million in January - Maldives score=1.00\n   URL: https://en.mmtv.mv/8425\n   Snippet: A tax of USD 12 per night is charged on guests staying at resorts, hotels and safari vessels, while USD 6 per night is charged on guesthouse stays. Children",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "9c726e88-23bc-4f9c-b7fa-be3fe09dd5db",
+        "tool_call_id": "call_iraNLcc41v1TMbT4pWUKnMD0",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nMaldives resorts offer snorkeling, diving, spa, and all-inclusive sunset dinners in overwater villas. JW Marriott and Anantara Veli provide these activities. All-inclusive packages include luxury experiences.\n\nTavily results:\n1. JW Marriott Maldives Resort & Spa Unveils 'Around the World ... score=1.00\n   URL: https://www.facebook.com/visitmaldives/posts/jw-marriott-maldives-resort-spa-unveils-around-the-world-festive-program-for-202/1264600335708184/\n   Snippet: These activities included snorkeling, deep sea fishing, yoga, aqua ... maldives/) soft- opened in May, unveiling 16 overwater bungalows.\n2. 8 luxe all-inclusive Maldives breaks for 2026 - The Times score=1.00\n   URL: https://www.thetimes.com/static/maldives-hotels-holidays-best-at-travel/\n   Snippet: The resort, out on the northwestern tip of North Malé, offers a choice of beach or overwater villas surrounded by fabulous diving spots. Or\n3. THE 10 BEST Maldives All Inclusive Resorts 2026 (with Prices) score=1.00\n   URL: https://www.tripadvisor.com/HotelsList-Maldives-All-Inclusive-Resorts-o30-zfp41281.html\n   Snippet: \"The Kanifushi All Inclusive plan is hard to beat as it includes a spa treatment, 2 excursions, all drinks, daily restocked villa mini\n4. Luxury all-inclusive resort in Maldives - Facebook score=0.99\n   URL: https://www.facebook.com/groups/816181090101629/posts/1436872261365839/\n   Snippet: *Just USD 5,550* (5 nights for 2 adults) ✓ Overwater luxury ✓ Sunset views ✓ Fine dining & privacy And Free Upgrade *Lagoon Suite with Pool* to\n5. Maldives All Inclusive Resorts Adults Only | Deluxe Over Water Villa score=0.99\n   URL: https://www.anantara.com/en/veli-maldives/rooms/deluxe-over-water-villa\n   Snippet: Experience the epitome of luxury at Anantara Veli, the finest among Maldives all-inclusive resorts for adults only. Book our Deluxe Over-Water Villa.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "5090eef1-18ae-49f0-a5fa-5b5a0b06a3b9",
+        "tool_call_id": "call_fTOR8QB1fAvI3BnsNgbxrpGO",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nBerlin Brandenburg Airport serves flights to Doha with Qatar Airways, Dubai with Turkish Airlines, and Maldives with both Turkish Airlines and Condor.\n\nTavily results:\n1. Find Cheap Flights from Berlin to Malé (BER - MLE) - Google score=0.50\n   URL: https://www.google.com/travel/flights/flights-from-berlin-to-male.html\n   Snippet: Turkish Airlines flies from Berlin Brandenburg Airport (BER) to Velana International Airport (MLE). Other popular airlines flying from Berlin to Malé are:.\n2. Qatar Airways | BER Airport score=0.45\n   URL: https://ber.berlin-airport.de/en/flying/airlines-ziele/airlines-uebersicht/qatar-airways-qr.html\n   Snippet: Qatar Airways in front of Terminal 1. ## With Qatar Airways to Doha. Qatar Airways has been flying from Berlin to Qatar since 2005, regularly connecting the capital region with the Qatari capital Doha. The flight time from BER to Doha is approx. 6.25 hours from Doha to BER. ## Qatar Airways at BER. Qatar Airways took off from Berlin-Tegel to Doha for the first time in winter 2005 and became an integral part of the capital region’s flight offer over the following years. The success of the non-stop connection to the Persian Gulf was reflected in the continuous expansion of the flight offer: the number of flight days was gradually increased and larger aircraft were used. A notable highlight in Qatar Airways’ success story in the region was when an A350 landed on BER’s southern runway in November 2020, marking the official opening of BER’s new runway. Qatar Airways is departing from BER.\n3. Flights From Berlin to Maldives | Turkish Airlines score=0.45\n   URL: https://www.turkishairlines.com/en/book-flights-from-berlin-to-maldives\n   Snippet: # Discover Berlin to Maldives flight offers starting from EUR916\\* and book now! ## Discover Flights From Berlin to Maldives. | Berlin (BER) | Male (MLE) | Round-trip / Economy | Thu, June 04 - Sun, June 14 | From  EUR1,635\\*  Last update 17 hrs ago |  |. | Berlin (BER) | Male (MLE) | Round-trip / Economy | Sat, July 04 - Sat, July 18 | From  EUR1,723\\*  Last update 18 hrs ago |  |. | Berlin (BER) | Male (MLE) | Round-trip / Economy | Tue, June 02 - Wed, June 10 | From  EUR1,777\\*  Last update 44 minutes ago |  |. | Berlin (BER) | Male (MLE) | Round-trip / Economy | Mon, October 26 - Sun, November 01 | From  EUR1,082\\*  Last update 22 hrs ago |  |. | Berlin (BER) | Male (MLE) | Round-trip / Economy | Sun, November 08 - Sat, November 21 | From  EUR1,232\\*  Last update 13 hrs ago |  |.\n4. Book Flights to Doha (DOH) from Berlin (BER) - Qatar Airways score=0.44\n   URL: https://www.qatarairways.com/en-us/destinations/flights-to-doha/from-berlin.html\n   Snippet: Fly to Doha from Berlin with Qatar Airways. Find the best flight deals, receive exclusive airfares and travel the world with an award-winning airline.\n5. Flights from Berlin-Brandenburg to Maldives - Condor score=0.42\n   URL: https://www.condor.com/en-de/flights-from-berlin-brandenburg-to-maldives\n   Snippet: Get the best deals on flights from Berlin-Brandenburg to Maldives. Explore destinations worldwide with Condor ✈ Book your flight today!",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "35d985d3-62be-47ef-bff1-380962031949",
+        "tool_call_id": "call_fOlCwf5KQKwQ3YvoluzXWRQl",
+        "status": "success"
+      },
+      {
+        "content": "",
+        "additional_kwargs": {
+          "refusal": null
+        },
+        "response_metadata": {
+          "token_usage": {
+            "completion_tokens": 387,
+            "prompt_tokens": 8430,
+            "total_tokens": 8817,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": null,
+              "audio_tokens": 0,
+              "reasoning_tokens": 239,
+              "rejected_prediction_tokens": null,
+              "image_tokens": 0
+            },
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0,
+              "cache_write_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost": 0.05376,
+            "is_byok": false,
+            "cost_details": {
+              "upstream_inference_cost": 0.05376,
+              "upstream_inference_prompt_cost": 0.04215,
+              "upstream_inference_completions_cost": 0.01161
+            }
+          },
+          "model_provider": "openai",
+          "model_name": "openai/gpt-5.5-20260423",
+          "system_fingerprint": null,
+          "id": "gen-1778953433-kYQNqSBMKkTUKGKBFJhg",
+          "service_tier": "default",
+          "finish_reason": "tool_calls",
+          "logprobs": null
+        },
+        "type": "ai",
+        "id": "lc_run--019e31e3-3357-7282-9dbe-a49cf1fa1583-0",
+        "tool_calls": [
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Adaaran Prestige Vadoo official all inclusive overwater villas speedboat transfer honeymoon Maldives"
+            },
+            "id": "call_BWfr42Q73CyrhEe41evnEtGz",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Adaaran Prestige Vadoo official excursions snorkeling diving spa romantic dinner"
+            },
+            "id": "call_tntwNkx3KywiRkq5PGiPYlfk",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Adaaran Prestige Vadoo official rates October 2026 sunset water villa all inclusive"
+            },
+            "id": "call_uNAn1eNF3iko5JieaAbkCRyO",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Adaaran Prestige Vadoo Maldives official transfer from Male airport speedboat cost"
+            },
+            "id": "call_eJU6rWmM4oPAeoUdkjlEBwEe",
+            "type": "tool_call"
+          }
+        ],
+        "invalid_tool_calls": [],
+        "usage_metadata": {
+          "input_tokens": 8430,
+          "output_tokens": 387,
+          "total_tokens": 8817,
+          "input_token_details": {
+            "audio": 0,
+            "cache_read": 0
+          },
+          "output_token_details": {
+            "audio": 0,
+            "reasoning": 239
+          }
+        }
+      },
+      {
+        "content": "Tavily answer:\nAdaaran Prestige Vadoo offers all-inclusive overwater villas with complimentary speedboat transfers for honeymooners in the Maldives. The resort provides premium amenities and prohibits smoking for a comfortable stay.\n\nTavily results:\n1. Honeymoon Villa in Maldives | Adaaran Prestige Vadoo score=0.86\n   URL: https://www.adaaran.com/prestigevadoo/villas/honeymoon-villas/\n   Snippet: Complimentary speedboat Transfers*; Complementary Seaplane Transfers for ... Premium All Inclusive · Villas · Offers · Experiences. quick links. Dining · Location\n2. Maldives Premium All Inclusive Resort | Adaaran Prestige Vadoo ... score=0.85\n   URL: https://www.adaaran.com/prestigevadoo/\n   Snippet: Complimentary Speedboat Transfers*. Book Direct. In Villa Breakfast. Book Now. Accommodation. Overwater Villa Hideaways. Overwater Villas with plunge pools\n3. Resort Adaaran Prestige Vadoo, South Male Atoll, Maldives - trivago score=0.83\n   URL: https://www.trivago.com/en-US/oar/resort-adaaran-prestige-vadoo-south-male-atoll?search=100-127093\n   Snippet: Adaaran Prestige Vadoo%22%3E%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22transparent%22%3E%3C%2Fstop%3E%3Cstop%20offset%3D%2250%25%22%20stop-color%3D%22rgba(255%2C255%2C255%2C0.1)%22%3E%3C%2Fstop%3E%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22transparent%22%3E%3C%2Fstop%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22400%25%22%20height%3D%22100%25%22%20fill%3D%22url(%23shimmerGradient)%22%20x%3D%22100%25%22%3E%3Canimate%20attributeName%3D%22x%22%20from%3D%22-200%25%22%20to%3D%22100%25%22%20dur%3D%222.5s%22%20repeatCount%3D%22indefinite%22%3E%3C%2Fanimate%3E%3C%2Frect%3E%3Csvg%20x%3D%22968%22%20y%3D%22478%22%20width%3D%2264%22%20height%3D%2264%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cg%20fill%3D%22%238d8d8b%22%3E%3Cpath%20d%3D%22M20%2010H9a2%202%200%2000-2%202v8a2%202%200%20002%202h11a2%202%200%20002-2v-8a2%202%200%2000-2-2zM9%2011h11a1%201%200%20011%201v2.29l-4.5%204....\n4. Speedboat Transfer Maldives | Adaaran Prestige Vadoo score=0.77\n   URL: https://www.adaaran.com/prestigevadoo/facilities/transfers/\n   Snippet: Experience seamless journeys with our Speedboat Transfer Maldives, connecting you to Adaaran Prestige Vadoo with style and oceanfront luxury.\n5. Adaaran Prestige Vadoo - Adults Only - All Inclusive with Free ... score=0.73\n   URL: https://www.hotels.com/ho326417/adaaran-prestige-vadoo-vadoo-island-maldives/\n   Snippet: On a stunning white sand beach, Adaaran Prestige Vadoo - Adults Only - All Inclusive with Free Transfers offers an unforgettable escape.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "9fa4eaab-b416-492e-aaa2-e8b1ac2b131b",
+        "tool_call_id": "call_BWfr42Q73CyrhEe41evnEtGz",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nAdaaran Prestige Vadoo offers snorkeling, diving, spa, and romantic dinners. Guests can enjoy excursions and beachside romantic dinners. The resort provides a variety of activities and experiences.\n\nTavily results:\n1. Maldives Excursions | Adaaran Prestige Vadoo score=1.00\n   URL: https://www.adaaran.com/prestigevadoo/experiences/excursions/\n   Snippet: At Adaaran Prestige Vadoo, guests can enjoy a variety of exciting Maldives excursions that allow them to explore the beauty and culture of the Maldives.\n2. Romantic Getaway | Adaaran Prestige Vadoo score=1.00\n   URL: https://www.adaaran.com/prestigevadoo/offers/storrington-collective-romantic-getaway/\n   Snippet: Romantic candlelit dinner at the beach (for stays more than 7 nights); 30-min photoshoot at a designated area or villa assisted by the butler/ GRE; In-villa\n3. Adaaran Prestige Vadoo Tickets & Tours - GetYourGuide score=1.00\n   URL: https://www.getyourguide.com/adaaran-prestige-vadoo-l247274/\n   Snippet: Maldives: Adaaran Vadoo Resort Day Pass with Lunch or Dinner. Escape to tropical bliss with a day pass to Adaaran Vadoo Island Resort, a stunning private\n4. Adaaran Prestige Vadoo Snorkeling: Pictures & Reviews - Tripadvisor score=1.00\n   URL: https://www.tripadvisor.com/Hotel_Feature-g298571-d638253-zft19081-Adaaran_Prestige_Vadoo.html\n   Snippet: It truly was so beautiful. We had a table with a lighted heart around it in the sand! It was very romantic, and the food was so good! If you\n5. Checking in at the Adaaran Prestige Vadoo Maldives score=1.00\n   URL: https://thetravelescape.com/adaaran-prestige-vadoo-maldives/\n   Snippet: Such as a romantic floating dinner, a treehouse dinner and beach barbecues. ... There was an issue with their indoor couples room, so we had to have our massage",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "6ce6804e-cc84-4d8d-a3e9-55faf7c0ac06",
+        "tool_call_id": "call_tntwNkx3KywiRkq5PGiPYlfk",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nAdaaran Prestige Vadoo offers all-inclusive sunset water villas with private pools for October 2026. Rates include meals, transfers, and amenities. Check their official site for exact pricing.\n\nTavily results:\n1. Adaaran Prestige Vadoo - Adults Only Premium All Inclusive with Free Transfers -15 Minutes away from Male, South Male Atoll (updated prices 2026) score=0.81\n   URL: https://www.booking.com/hotel/mv/adaaran-prestige-vadoo.html\n   Snippet: Adaaran Prestige Vadoo - Adults Only Premium All Inclusive with Free Transfers -15 Minutes away from Male. Adaaran Prestige Vadoo offers water villas with a private plunge pool and a glass-bottomed bathroom lounge with view of marine life. Free WiFi is provided in the rooms. Guests of Adaaran Prestige Vadoo can take a dip in the outdoor pool or go for an in-room spa treatment. Adaaran Prestige Vadoo is 5 mi from Malé International Airport, which is about 15 minutes by speedboat. Sign in to see if you can save 10% or more at this property. Select dates to see this property's availability and prices. From the moment we arrived, everything was very orderly at the airport and with check-in. ## Resort facilities at Adaaran Prestige Vadoo - Adults Only Premium All Inclusive with Free Transfers -15 Minutes away from Male. Guests staying at Adaaran Prestige Vadoo - Adults Only Premium All Inclus...\n2. Resort Adaaran Prestige Vadoo, South Male Atoll, Maldives - trivago score=0.63\n   URL: https://www.trivago.com/en-US/oar/resort-adaaran-prestige-vadoo-south-male-atoll?search=100-127093\n   Snippet: Adaaran Prestige Vadoo%22%3E%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22transparent%22%3E%3C%2Fstop%3E%3Cstop%20offset%3D%2250%25%22%20stop-color%3D%22rgba(255%2C255%2C255%2C0.1)%22%3E%3C%2Fstop%3E%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22transparent%22%3E%3C%2Fstop%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22400%25%22%20height%3D%22100%25%22%20fill%3D%22url(%23shimmerGradient)%22%20x%3D%22100%25%22%3E%3Canimate%20attributeName%3D%22x%22%20from%3D%22-200%25%22%20to%3D%22100%25%22%20dur%3D%222.5s%22%20repeatCount%3D%22indefinite%22%3E%3C%2Fanimate%3E%3C%2Frect%3E%3Csvg%20x%3D%22968%22%20y%3D%22478%22%20width%3D%2264%22%20height%3D%2264%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cg%20fill%3D%22%238d8d8b%22%3E%3Cpath%20d%3D%22M20%2010H9a2%202%200%2000-2%202v8a2%202%200%20002%202h11a2%202%200%20002-2v-8a2%202%200%2000-2-2zM9%2011h11a1%201%200%20011%201v2.29l-4.5%204....\n3. ADAARAN PRESTIGE VADOO - Updated 2026 Prices & Hotel ... score=0.58\n   URL: https://www.tripadvisor.com/Hotel_Review-g298571-d638253-Reviews-Adaaran_Prestige_Vadoo-Male.html\n   Snippet: Awarded as the World's Leading Water Villa retreat at the World Travel Awards in 2010, Adaaran Prestige Vadoo is a luxurious Maldives Island resort that stands\n4. Maldives Premium All Inclusive Resort | Adaaran Prestige Vadoo ... score=0.52\n   URL: https://www.adaaran.com/prestigevadoo/\n   Snippet: Best Rate Guaranteed with up to 40% Off · Non-motorized Water Sports · Butler Service · Complimentary Speedboat Transfers* · In Villa Breakfast.\n5. Sunset Water Villa with Private Pool and Jacuzzi - Adaaran Resorts score=0.51\n   URL: https://www.adaaran.com/prestigevadoo/villas/sunset-water-villas/\n   Snippet: The Sunset Maldives Water Villa with a Private Pool offers pleasing sunset views, creating a magical and romantic atmosphere with an unparalleled experience",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "383b9e58-0479-49cc-881d-35720564ee43",
+        "tool_call_id": "call_uNAn1eNF3iko5JieaAbkCRyO",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nThe official speedboat transfer from Male airport to Adaaran Prestige Vadoo Maldives costs $120 for a 30-minute ride per adult. This service is provided by the resort itself.\n\nTavily results:\n1. Adaaran Prestige Vadoo Maldives Speedboat Transfer | Male Airport score=0.94\n   URL: https://maldivestour.guide/transfer/Adaaran-Vadoo-Maldives-Transfer.html\n   Snippet: Book your speedboat transfer to Adaaran Prestige Vadoo Maldives from Male Airport. Premium 20-minute transfer service starting at $80 per adult.\n2. Adaaran Prestige Vadoo Maldives Speedboat Transfers score=0.94\n   URL: https://callainamaldives.com/transfer/adaaran-prestige-vadoo-maldives-speedboat-transfers/\n   Snippet: Total Price. $65. Est. duration: 12m · Distance: ~10.6 km. Send Request. Route: Velana International Airport(MLE) Maldives → Adaaran Prestige Vadoo Maldives\n3. Adaaran Vadoo Maldives Speedboat Transfer score=0.85\n   URL: https://maldivesholidayexperts.com/transfer/adaaran-vadoo-maldives-transfer/\n   Snippet: Adaaran Vadoo Maldives Transfer – $80 Per Person | 25 Minutes. Book your Adaaran Vadoo speedboat transfer from Velana International Airport to Adaaran\n4. Say hello to paradise Adaaran Prestige Vadoo, Maldives From $299 ... score=0.79\n   URL: https://www.facebook.com/stafftravelvoyage/posts/say-hello-to-paradise-adaaran-prestige-vadoo-maldives-from-299-all-inclusive-adu/1304669465040578/\n   Snippet: Say hello to paradise Adaaran Prestige Vadoo, Maldives From $299 All-Inclusive Adults Only | FREE Return Speedboat Transfer Where time\n5. The Complete Guide to Speedboat Travel in the Maldives - Racing Across Paradise: The Practical Path to Your Island Dreams | Maldives Travel Guide score=0.73\n   URL: https://www.maldivesnomad.com/transport/speedboats/\n   Snippet: The Complete Guide to Speedboat Travel in the Maldives. This is speedboat travel in the Maldives – not the most glamorous option, perhaps, but often the most practical, flexible, and cost-effective way to reach paradise. Whether you're heading to an overwater villa in North Male Atoll or a guesthouse in Maafushi, speedboats offer the most direct connection between the airport and your island destination. Most resorts in Kaafu, North Male Atoll, and South Male Atoll plus all local islands accessible via scheduled services or private hire. Resort transfers range from $65-$350 per person one-way, local island scheduled services $20-$50, and private charters $200-$1,200 depending on distance and boat size. Shared transfers cost $35-$195 but involve waiting for other passengers, while private boats offer $200-$1,200 immediate departure with flexible timing. Speedboat accessibility in the Mald...",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "a01341f5-55a0-4865-952d-c2d304bd2219",
+        "tool_call_id": "call_eJU6rWmM4oPAeoUdkjlEBwEe",
+        "status": "success"
+      },
+      {
+        "content": "# Baseline itinerary: Honeymoon in the Maldives from Berlin, 10–20 Oct 2026\n\n## Goal and constraints understood\n- Origin: Berlin Brandenburg Airport, Germany.\n- Destination: Maldives, using Velana International Airport, Malé/MLE.\n- Dates: 10 Oct 2026 to 20 Oct 2026.\n- Travelers: 2 adults, honeymoon.\n- Budget: €8,000 total.\n- Required transport: flights from Berlin.\n- Accommodation requirement: luxury overwater bungalow or high-end beach resort.\n- Interests: snorkelling, diving, spa treatments, romantic sunset dinners, relaxation, private beach.\n- Baseline limitation: this plan uses Tavily web-search evidence only; flight fares, resort availability, room category pricing, and activity pricing must be rechecked before booking.\n\n## Search summary\n- Flight evidence: [Turkish Airlines Berlin–Maldives page](https://www.turkishairlines.com/en/book-flights-from-berlin-to-maldives) shows Berlin–Maldives round-trip fares from about €916 on sample dates; [Qatar Airways Berlin–Maldives page](https://www.qatarairways.com/en-us/destinations/flights-to-maldives/from-berlin.html) and [BER Airport Qatar Airways page](https://ber.berlin-airport.de/en/flying/airlines-ziele/airlines-uebersicht/qatar-airways-qr.html) support one-stop routing via Doha.\n- Resort choice: [Adaaran Prestige Vadoo official site](https://www.adaaran.com/prestigevadoo/) — adults-only, premium all-inclusive, overwater villas with plunge pools, butler service, non-motorized watersports, and complimentary speedboat transfers when booked direct under stated offer conditions.\n- Room fit: [Adaaran Sunset Water Villa with Private Pool and Jacuzzi](https://www.adaaran.com/prestigevadoo/villas/sunset-water-villas/) fits the overwater bungalow / honeymoon requirement.\n- Transfers: [Adaaran transfers page](https://www.adaaran.com/prestigevadoo/facilities/transfers/) confirms resort speedboat transfer access from Malé; third-party snippets suggest 15–25 minutes, but exact cost/complimentary status must be confirmed with the booking.\n- Experiences: [Adaaran excursions page](https://www.adaaran.com/prestigevadoo/experiences/excursions/) supports excursions; [Adaaran romantic getaway offer](https://www.adaaran.com/prestigevadoo/offers/storrington-collective-romantic-getaway/) mentions candlelit beach dinner for stays over 7 nights and a photoshoot, subject to offer terms.\n- Tax: [Maldives Inland Revenue Authority green tax page](https://www.mira.gov.mv/Pages/View/whatisgreentax) confirms green tax applies to tourists; search evidence indicates resort green tax is about USD 12 per guest per night from 2025 onward, to be verified on invoice.\n\n## Day 1 — Sat 10 Oct 2026: Depart Berlin\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 14:00–16:00 | transport | Travel to Berlin Brandenburg Airport and check in for an evening one-stop flight to Malé. | Berlin → BER | €60 estimate | Local transfer estimate; verify based on home address. |\n| 17:30–22:30 | flight | Fly Berlin to a Gulf/Turkish hub such as Istanbul or Doha. | BER → IST/DOH | Included in flight estimate | One-stop Berlin–Maldives routings supported by [Turkish Airlines](https://www.turkishairlines.com/en/book-flights-from-berlin-to-maldives), [Qatar Airways](https://www.qatarairways.com/en-us/destinations/flights-to-maldives/from-berlin.html), and [BER Airport Qatar page](https://ber.berlin-airport.de/en/flying/airlines-ziele/airlines-uebersicht/qatar-airways-qr.html). Exact flight not booked. |\n| 23:00–02:00 | transport | Layover and overnight connection toward Malé. | IST/DOH | Included | Timing is illustrative; choose the shortest safe connection available. |\n\n## Day 2 — Sun 11 Oct 2026: Arrive Malé and check into overwater villa\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 08:00–12:00 | flight | Arrive at Velana International Airport, Malé. | MLE | Included in flight estimate | Arrival time depends on selected airline; MLE is the main international gateway for Maldives resorts. |\n| 12:00–13:00 | transport | Resort meet-and-greet and speedboat transfer to Adaaran Prestige Vadoo. | MLE → Vadoo Island, South Malé Atoll | €0–€250 estimate | [Adaaran official site](https://www.adaaran.com/prestigevadoo/) advertises complimentary speedboat transfers under direct-booking conditions; confirm eligibility before payment. |\n| 13:00–15:00 | accommodation | Check into Sunset Water Villa with Private Pool and Jacuzzi, or closest available overwater villa category. | Adaaran Prestige Vadoo | Included in resort estimate | Room category evidence: [Sunset Water Villa](https://www.adaaran.com/prestigevadoo/villas/sunset-water-villas/). |\n| 15:30–17:30 | relaxation | First lagoon swim, unpacking, private deck time. | Villa / house reef area | Included | Resort offers overwater villas and non-motorized watersports via [official site](https://www.adaaran.com/prestigevadoo/). |\n| 18:00–19:00 | meal | Sunset welcome drinks and relaxed dinner on the premium all-inclusive plan. | Resort restaurant/bar | Included | Premium all-inclusive stated by [Adaaran](https://www.adaaran.com/prestigevadoo/); exact inclusions require package confirmation. |\n| 20:00–21:00 | romance | Quiet honeymoon evening on the villa deck. | Overwater villa | Included | Built around the requested relaxation/private beach style. |\n\n## Day 3 — Mon 12 Oct 2026: Snorkelling and couples’ spa\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 07:30–09:00 | meal | In-villa or resort breakfast. | Villa / resort | Included | In-villa breakfast is advertised on [Adaaran official site](https://www.adaaran.com/prestigevadoo/); verify room/package terms. |\n| 09:30–11:00 | activity | Guided house-reef snorkelling orientation. | Vadoo house reef | Included/€80 estimate | Resort promotes non-motorized watersports and reef setting via [official site](https://www.adaaran.com/prestigevadoo/); guided session cost uncertain. |\n| 12:30–13:30 | meal | Lunch on the all-inclusive plan. | Resort restaurant | Included | Package-dependent. |\n| 15:00–16:30 | spa | Couples’ massage or in-room spa treatment. | Resort spa / villa | €220 estimate | Booking.com search snippet notes in-room spa treatments; official spa pricing not verified, so estimate only. |\n| 18:00–19:00 | relaxation | Sunset swim from the overwater villa deck. | Villa lagoon | Included | Fits overwater villa/private lagoon brief. |\n| 19:30–21:00 | meal | Romantic dinner reservation at the resort. | Resort restaurant | Included/€100 estimate | Premium all-inclusive may include dinner; special setup may cost extra unless under [romantic getaway offer](https://www.adaaran.com/prestigevadoo/offers/storrington-collective-romantic-getaway/). |\n\n## Day 4 — Tue 13 Oct 2026: Intro diving and private beach time\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 08:00–09:00 | meal | Breakfast. | Resort | Included | All-inclusive assumption; verify package. |\n| 09:30–12:00 | activity | Discover scuba / refresher dive session, depending on certification level. | Resort dive centre / lagoon | €220 estimate | Diving is not clearly priced in search evidence; schedule as optional paid activity. |\n| 12:30–13:30 | meal | Lunch and hydration break. | Resort | Included | Package-dependent. |\n| 14:30–16:30 | relaxation | Private beach loungers, reading, swimming. | Vadoo beach | Included | Resort is a private-island beach resort per [Adaaran official site](https://www.adaaran.com/prestigevadoo/). |\n| 17:30–18:30 | activity | Sunset photo walk around the island. | Resort island | Included | Optional; honeymoon-friendly. |\n| 19:30–21:00 | meal | Dinner on all-inclusive plan. | Resort | Included | Verify restaurant reservation rules. |\n\n## Day 5 — Wed 14 Oct 2026: Excursion day and sunset cruise option\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 08:00–09:00 | meal | Breakfast. | Resort | Included | Package-dependent. |\n| 09:30–12:00 | activity | Choose a Maldives excursion: snorkelling boat trip, island visit, or dolphin/sunset-cruise-style excursion if available. | South Malé Atoll | €180 estimate | [Adaaran excursions page](https://www.adaaran.com/prestigevadoo/experiences/excursions/) confirms excursions exist; exact menu/times/prices not verified. |\n| 12:30–14:00 | meal | Lunch and rest after excursion. | Resort | Included | Package-dependent. |\n| 15:00–17:00 | relaxation | Pool, villa deck, or beach downtime. | Villa / beach | Included | Prevents honeymoon from becoming over-scheduled. |\n| 18:00–19:00 | romance | Sunset cruise if not done in the morning; otherwise sunset cocktails. | Resort / lagoon | €0–€150 estimate | Some packages/promos may include a sunset cruise; verify with resort. |\n| 19:30–21:00 | meal | Dinner. | Resort | Included | Package-dependent. |\n\n## Day 6 — Thu 15 Oct 2026: Slow luxury day\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 08:30–10:00 | meal | Late breakfast, ideally in-villa. | Overwater villa | Included | In-villa breakfast noted on [Adaaran official site](https://www.adaaran.com/prestigevadoo/); confirm package eligibility. |\n| 10:30–12:00 | relaxation | Unstructured lagoon swimming and snorkelling from the villa/house reef area. | Vadoo lagoon | Included | Non-motorized watersports and reef setting supported by [official site](https://www.adaaran.com/prestigevadoo/). |\n| 12:30–13:30 | meal | Lunch. | Resort | Included | Package-dependent. |\n| 14:00–16:00 | relaxation | Nap, private plunge pool, reading, honeymoon downtime. | Villa | Included | Fits relaxation/private beach interest. |\n| 16:30–17:30 | spa | Optional second shorter spa ritual or bath setup. | Spa / villa | €150 estimate | Price unverified; keep optional if budget tight. |\n| 19:30–21:00 | meal | Dinner. | Resort | Included | Package-dependent. |\n\n## Day 7 — Fri 16 Oct 2026: Certified dive or premium snorkelling\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 07:30–08:30 | meal | Early breakfast. | Resort | Included | Package-dependent. |\n| 09:00–12:00 | activity | Two-tank certified dive, or advanced snorkelling boat trip if not certified. | South Malé Atoll | €260 estimate | Diving/snorkelling requested; official excursion existence supported by [Adaaran excursions](https://www.adaaran.com/prestigevadoo/experiences/excursions/), but exact dive pricing not verified. |\n| 12:30–14:00 | meal | Lunch and surface interval/rest. | Resort | Included | Package-dependent. |\n| 15:00–17:00 | relaxation | Beach and villa rest. | Resort | Included | Built-in recovery after water activity. |\n| 18:00–19:00 | romance | Sunset from the villa deck. | Sunset Water Villa | Included | Room category selected for sunset views via [official villa page](https://www.adaaran.com/prestigevadoo/villas/sunset-water-villas/). |\n| 19:30–21:00 | meal | Dinner. | Resort | Included | Package-dependent. |\n\n## Day 8 — Sat 17 Oct 2026: Candlelit beach dinner night\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 08:00–09:30 | meal | Breakfast. | Resort | Included | Package-dependent. |\n| 10:00–11:30 | activity | Easy snorkelling or kayaking/paddle activity. | Lagoon | Included/€50 estimate | Non-motorized watersports advertised by [Adaaran](https://www.adaaran.com/prestigevadoo/); exact inclusions require confirmation. |\n| 12:30–13:30 | meal | Lunch. | Resort | Included | Package-dependent. |\n| 14:30–16:30 | relaxation | Private beach afternoon and couple photos on the island. | Resort beach | Included/€100 estimate | [Romantic getaway offer](https://www.adaaran.com/prestigevadoo/offers/storrington-collective-romantic-getaway/) mentions a 30-min photoshoot under terms; otherwise paid/private arrangement. |\n| 18:30–21:00 | meal | Candlelit romantic beach dinner. | Beach dining setup | Included/€150 estimate | [Adaaran romantic getaway offer](https://www.adaaran.com/prestigevadoo/offers/storrington-collective-romantic-getaway/) mentions candlelit beach dinner for stays over 7 nights; confirm offer eligibility. |\n\n## Day 9 — Sun 18 Oct 2026: Final full water-sports day\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 08:00–09:00 | meal | Breakfast. | Resort | Included | Package-dependent. |\n| 09:30–12:00 | activity | Final snorkelling excursion or repeat favourite dive site. | South Malé Atoll | €180 estimate | Excursion availability supported by [Adaaran excursions](https://www.adaaran.com/prestigevadoo/experiences/excursions/); exact pricing/timing not verified. |\n| 12:30–13:30 | meal | Lunch. | Resort | Included | Package-dependent. |\n| 14:00–16:00 | relaxation | Spa, villa pool, or beach nap. | Resort | €0–€180 estimate | Keep optional depending on remaining budget. |\n| 17:30–18:30 | romance | Sunset cocktails and honeymoon toast. | Resort bar / beach | Included/€40 estimate | Premium all-inclusive likely covers some drinks; verify brand inclusions. |\n| 19:30–21:00 | meal | Dinner. | Resort | Included | Package-dependent. |\n\n## Day 10 — Mon 19 Oct 2026: Last full resort day\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 08:30–10:00 | meal | Slow in-villa breakfast. | Overwater villa | Included | [Adaaran](https://www.adaaran.com/prestigevadoo/) advertises in-villa breakfast; confirm terms. |\n| 10:30–12:00 | relaxation | Last relaxed snorkel from the house reef / lagoon. | Vadoo lagoon | Included | Resort reef and non-motorized watersports supported by [official site](https://www.adaaran.com/prestigevadoo/). |\n| 12:30–13:30 | meal | Lunch. | Resort | Included | Package-dependent. |\n| 14:00–16:00 | relaxation | Pack lightly, private plunge pool, beach time. | Villa / beach | Included | Practical final-day pacing. |\n| 17:30–18:30 | romance | Final sunset photo session from the villa deck. | Sunset Water Villa | Included | Sunset villa category supported by [official villa page](https://www.adaaran.com/prestigevadoo/villas/sunset-water-villas/). |\n| 19:30–21:30 | meal | Farewell dinner; request best available sunset-facing table. | Resort | Included/€100 estimate | Special table/decor may cost extra; verify with resort. |\n\n## Day 11 — Tue 20 Oct 2026: Depart Maldives\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 07:00–08:00 | meal | Early breakfast and check-out. | Resort | Included | Check-out time to be confirmed by resort. |\n| 08:00–09:00 | transport | Speedboat transfer back to Velana International Airport. | Vadoo → MLE | €0–€250 estimate | [Adaaran transfers](https://www.adaaran.com/prestigevadoo/facilities/transfers/) confirms speedboat transfer access; complimentary status depends on booking offer. |\n| 10:30–16:00 | flight | Fly Malé to Istanbul/Doha/Dubai-style hub. | MLE → hub | Included in flight estimate | Exact airline and timing not booked; one-stop options evidenced by [Turkish Airlines](https://www.turkishairlines.com/en/book-flights-from-berlin-to-maldives) and [Qatar Airways](https://www.qatarairways.com/en-us/destinations/flights-to-maldives/from-berlin.html). |\n| 17:00–23:00 | flight | Connect onward to Berlin. Some schedules may arrive early on 21 Oct. | Hub → BER | Included in flight estimate | If the best fare arrives 21 Oct, add one post-trip calendar day for arrival only. |\n| 23:00–00:00 | transport | Transfer home from BER if same-day arrival. | BER → Berlin | €60 estimate | Estimate; depends on home location and arrival time. |\n\n## Budget summary\n- Flights Berlin–Malé–Berlin for 2 adults: **€2,100 estimate**  \n  - Based on Tavily evidence from Turkish Airlines showing sample Berlin–Maldives fares from about €916 per person, with October 2026 fares needing live confirmation.\n- Resort: 9 nights at Adaaran Prestige Vadoo, overwater villa / Sunset Water Villa style, premium all-inclusive: **€4,900 estimate**  \n  - This is an assumed direct-booking/promotional target; official site advertises offers but exact Oct 2026 total was not verified.\n- Speedboat transfers: **€0–€500 estimate**  \n  - Plan assumes direct-booking complimentary transfer if eligible; otherwise budget may rise.\n- Green tax: **about €200 estimate**  \n  - Based on Maldives green tax evidence of about USD 12 per guest per night for resorts; confirm on invoice via [MIRA](https://www.mira.gov.mv/Pages/View/whatisgreentax).\n- Paid extras: diving/snorkelling excursions, spa treatments, special dinner/photos: **€700 estimate**  \n  - Can be reduced by choosing included non-motorized watersports and only one paid spa/diving day.\n- Berlin airport transfers/miscellaneous: **€120 estimate**.\n- **Estimated total: €8,020 if transfers are not complimentary; about €7,520–€7,800 if direct-booking complimentary transfers and romantic-dinner offer apply.**\n- Budget recommendation: book only if the resort quote including taxes and transfers is **≤ €5,100** and flights are **≤ €2,200 total**; otherwise switch to a lower villa category for 2–3 nights or reduce paid diving/spa extras.\n\n## Unscheduled or uncertain items\n- Exact flight numbers and departure times are not booked; one-stop options via Turkish Airlines or Qatar Airways are evidenced, but availability for 10–20 Oct 2026 must be checked live.\n- Exact resort rate for 9 nights in October 2026 was not verifiable with Tavily alone.\n- Complimentary speedboat transfer is shown as an Adaaran direct-booking offer, but eligibility and terms must be confirmed before paying.\n- Diving prices, spa prices, and special-dinner supplements were not found as official fixed prices; all are estimates.\n- October weather was not strongly evidenced by an official tourism/weather page in the search results; assume warm tropical conditions with possible rain and build flexibility into water activities.\n- If return flights from Malé depart late on 20 Oct, arrival in Berlin may be on 21 Oct.\n\n## Assumptions and gaps\n- Assumption: the honeymoon package is booked directly with Adaaran Prestige Vadoo to maximize all-inclusive value and possible complimentary speedboat transfers.\n- Assumption: economy flights are acceptable to preserve the €8,000 budget; business class would likely exceed budget.\n- Assumption: the couple prioritizes a luxury overwater villa and all-inclusive ease over staying in a more remote atoll requiring expensive seaplane transfers.\n- Gap: live booking engines are required to validate final flight fare, baggage, seat selection, resort availability, taxes, service charges, and cancellation terms.\n- Gap: activity schedules are resort-dependent and may change due to weather, sea conditions, or certification level for diving.",
+        "additional_kwargs": {
+          "refusal": null
+        },
+        "response_metadata": {
+          "token_usage": {
+            "completion_tokens": 5331,
+            "prompt_tokens": 11814,
+            "total_tokens": 17145,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": null,
+              "audio_tokens": 0,
+              "reasoning_tokens": 516,
+              "rejected_prediction_tokens": null,
+              "image_tokens": 0
+            },
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 8192,
+              "cache_write_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost": 0.182136,
+            "is_byok": false,
+            "cost_details": {
+              "upstream_inference_cost": 0.182136,
+              "upstream_inference_prompt_cost": 0.022206,
+              "upstream_inference_completions_cost": 0.15993
+            }
+          },
+          "model_provider": "openai",
+          "model_name": "openai/gpt-5.5-20260423",
+          "system_fingerprint": null,
+          "id": "gen-1778953445-D4es41YliXqeoRia6EU2",
+          "service_tier": "default",
+          "finish_reason": "stop",
+          "logprobs": null
+        },
+        "type": "ai",
+        "id": "lc_run--019e31e3-61e1-7ac3-83e3-06a60c3fe3cf-0",
+        "tool_calls": [],
+        "invalid_tool_calls": [],
+        "usage_metadata": {
+          "input_tokens": 11814,
+          "output_tokens": 5331,
+          "total_tokens": 17145,
+          "input_token_details": {
+            "audio": 0,
+            "cache_read": 8192
+          },
+          "output_token_details": {
+            "audio": 0,
+            "reasoning": 516
+          }
+        }
+      }
+    ]
+  },
+  "error": null,
+  "metadata": {
+    "LANGSMITH_ENDPOINT": "https://eu.api.smith.langchain.com",
+    "LANGSMITH_PROJECT": "travelplanner",
+    "LANGSMITH_TRACING": "true",
+    "ls_integration": "langgraph",
+    "ls_run_depth": 0,
+    "revision_id": "10ec8d0-dirty",
+    "thread_id": "840cf338-ffa3-4848-a5b8-b0047af343e6"
+  },
+  "langsmith": {
+    "organization": {
+      "name": "Personal",
+      "id": "477adfd8-a90b-45c3-95f6-1375325770e8"
+    },
+    "workspace": {
+      "name": "Workspace 1",
+      "id": "06241d75-72ec-4af5-b325-52629e7730a0"
+    },
+    "tracing_project": {
+      "id": "d92c06e8-225e-4665-a627-fdf375468f7c",
+      "name": "travelplanner"
+    }
+  }
+}

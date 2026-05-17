@@ -1,0 +1,693 @@
+{
+  "inputs": {
+    "messages": [
+      {
+        "content": "You are the Simple Baseline TravelPlanner Agent.\n\nPurpose:\n- Produce a single-agent baseline itinerary for later comparison against the\n  multi-agent TravelPlanner system.\n- You have exactly one tool: Tavily web search. You have no sub-agents and no\n  specialized flight, hotel, restaurant, routing, or validation tools.\n\nOperating rules:\n1. Use Tavily web search before the final itinerary for current facts, links,\n   opening hours, prices, neighborhoods, transit hints, and source URLs.\n   The workflow may require a minimum number of completed Tavily searches before\n   you may answer with final markdown only; if you receive a workflow nudge,\n   complete the requested searches first.\n   Use a small number of high-value searches, then synthesize the final answer.\n2. Respect every hard constraint supplied by the user. If a constraint cannot be\n   verified, state the assumption instead of silently ignoring it.\n3. Prefer official tourism, venue, transit, accommodation, restaurant, and event\n   pages when search results contain them. Use blogs and aggregators only as\n   secondary evidence.\n4. Do not invent exact prices, opening hours, flight numbers, hotel availability,\n   or booking status. Mark uncertain values as estimates.\n5. Order each day like the main execution agent: travel/check-in first, meals at\n   plausible meal times, attractions during likely opening hours, transfers\n   between distant places, and rest/free time when useful.\n6. Return only markdown in the final answer.\n\nFinal markdown structure:\nUse exactly these section headings, in this order:\n1. `# Baseline itinerary: ...`\n2. `## Goal and constraints understood`\n3. `## Search summary`\n4. `## Day 1 ...` and one section per day\n5. `## Budget summary`\n6. `## Unscheduled or uncertain items`\n7. `## Assumptions and gaps`\n\nEach day must be a markdown table with exactly these columns:\n`Time | Type | Plan | Location | Cost | Evidence/Notes`.\n\nSource discipline:\n- Every non-obvious venue, attraction, transit pass, opening-time claim, and\n  ticket price should have either a markdown link in Evidence/Notes or be marked\n  as an estimate.\n- If a requested item cannot be scheduled with available evidence, list it under\n  \"Unscheduled or uncertain items\" rather than hiding it.\n- Never include raw Tavily result dumps in the final answer.\n\nExample final output shape:\n\n# Baseline itinerary: 3 days in Lisbon\n\n## Goal and constraints understood\n- Origin: Berlin\n- Dates: 2026-06-12 to 2026-06-14\n- Budget: 800 EUR for 2 travelers\n\n## Search summary\n- Official tourism page for Belém Tower: https://...\n- Transit pass information: https://...\n\n## Day 1\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 09:00-10:30 | transport | Arrive and transfer to hotel | Airport to Baixa | €8 | Metro estimate; verify live schedules |\n\n## Budget summary\n- Estimated total: €...\n\n## Unscheduled or uncertain items\n- Flight number unavailable because only Tavily web search is available.\n\n## Assumptions and gaps\n- Hotel prices require live booking confirmation.\n",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "system",
+        "id": "43962cc0-2005-4223-9700-7c41c1468dfb"
+      },
+      {
+        "content": "GOAL\nCreate a comparable baseline travel plan in markdown.\n\nUSER QUERY\nI am travelling with my partner from Munich to Barcelona from September 5th to 10th, 2026. I am a wheelchair user and need full accessibility throughout — wheelchair-accessible flights and seating, a hotel with a roll-in shower and lift access, and activities reachable by wheelchair. Budget is €4,000. We love Gaudí architecture, accessible beaches, and local food. Please plan a fully accessible trip.\n\nCONSTRAINTS\n{\n  \"hard_constraints\": {\n    \"origin\": \"Munich\",\n    \"destination\": \"Barcelona\",\n    \"date_from\": \"2026.09.05\",\n    \"date_to\": \"2026.09.10\",\n    \"travelers\": {\n      \"adults\": 2,\n      \"children_under_6\": 0,\n      \"children_6_to_16\": 0\n    },\n    \"budget_amount\": 4000,\n    \"budget_currency\": \"EUR\",\n    \"accommodation\": \"fully accessible hotel with roll-in shower and lift\",\n    \"transport\": \"Flight\",\n    \"interests\": \"Gaudí architecture, accessible beaches, local food, accessible museums\"\n  }\n}\n\nOUTPUT REQUIREMENT\nReturn the final plan as markdown using the same practical timetable style as the main execution agent, but acknowledge that this baseline only has Tavily evidence. Include source links found via Tavily.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "human",
+        "id": "eb48fddb-7e67-4600-8056-51bb3bf7c4dc"
+      }
+    ]
+  },
+  "outputs": {
+    "messages": [
+      {
+        "content": "You are the Simple Baseline TravelPlanner Agent.\n\nPurpose:\n- Produce a single-agent baseline itinerary for later comparison against the\n  multi-agent TravelPlanner system.\n- You have exactly one tool: Tavily web search. You have no sub-agents and no\n  specialized flight, hotel, restaurant, routing, or validation tools.\n\nOperating rules:\n1. Use Tavily web search before the final itinerary for current facts, links,\n   opening hours, prices, neighborhoods, transit hints, and source URLs.\n   The workflow may require a minimum number of completed Tavily searches before\n   you may answer with final markdown only; if you receive a workflow nudge,\n   complete the requested searches first.\n   Use a small number of high-value searches, then synthesize the final answer.\n2. Respect every hard constraint supplied by the user. If a constraint cannot be\n   verified, state the assumption instead of silently ignoring it.\n3. Prefer official tourism, venue, transit, accommodation, restaurant, and event\n   pages when search results contain them. Use blogs and aggregators only as\n   secondary evidence.\n4. Do not invent exact prices, opening hours, flight numbers, hotel availability,\n   or booking status. Mark uncertain values as estimates.\n5. Order each day like the main execution agent: travel/check-in first, meals at\n   plausible meal times, attractions during likely opening hours, transfers\n   between distant places, and rest/free time when useful.\n6. Return only markdown in the final answer.\n\nFinal markdown structure:\nUse exactly these section headings, in this order:\n1. `# Baseline itinerary: ...`\n2. `## Goal and constraints understood`\n3. `## Search summary`\n4. `## Day 1 ...` and one section per day\n5. `## Budget summary`\n6. `## Unscheduled or uncertain items`\n7. `## Assumptions and gaps`\n\nEach day must be a markdown table with exactly these columns:\n`Time | Type | Plan | Location | Cost | Evidence/Notes`.\n\nSource discipline:\n- Every non-obvious venue, attraction, transit pass, opening-time claim, and\n  ticket price should have either a markdown link in Evidence/Notes or be marked\n  as an estimate.\n- If a requested item cannot be scheduled with available evidence, list it under\n  \"Unscheduled or uncertain items\" rather than hiding it.\n- Never include raw Tavily result dumps in the final answer.\n\nExample final output shape:\n\n# Baseline itinerary: 3 days in Lisbon\n\n## Goal and constraints understood\n- Origin: Berlin\n- Dates: 2026-06-12 to 2026-06-14\n- Budget: 800 EUR for 2 travelers\n\n## Search summary\n- Official tourism page for Belém Tower: https://...\n- Transit pass information: https://...\n\n## Day 1\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 09:00-10:30 | transport | Arrive and transfer to hotel | Airport to Baixa | €8 | Metro estimate; verify live schedules |\n\n## Budget summary\n- Estimated total: €...\n\n## Unscheduled or uncertain items\n- Flight number unavailable because only Tavily web search is available.\n\n## Assumptions and gaps\n- Hotel prices require live booking confirmation.\n",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "system",
+        "id": "43962cc0-2005-4223-9700-7c41c1468dfb"
+      },
+      {
+        "content": "GOAL\nCreate a comparable baseline travel plan in markdown.\n\nUSER QUERY\nI am travelling with my partner from Munich to Barcelona from September 5th to 10th, 2026. I am a wheelchair user and need full accessibility throughout — wheelchair-accessible flights and seating, a hotel with a roll-in shower and lift access, and activities reachable by wheelchair. Budget is €4,000. We love Gaudí architecture, accessible beaches, and local food. Please plan a fully accessible trip.\n\nCONSTRAINTS\n{\n  \"hard_constraints\": {\n    \"origin\": \"Munich\",\n    \"destination\": \"Barcelona\",\n    \"date_from\": \"2026.09.05\",\n    \"date_to\": \"2026.09.10\",\n    \"travelers\": {\n      \"adults\": 2,\n      \"children_under_6\": 0,\n      \"children_6_to_16\": 0\n    },\n    \"budget_amount\": 4000,\n    \"budget_currency\": \"EUR\",\n    \"accommodation\": \"fully accessible hotel with roll-in shower and lift\",\n    \"transport\": \"Flight\",\n    \"interests\": \"Gaudí architecture, accessible beaches, local food, accessible museums\"\n  }\n}\n\nOUTPUT REQUIREMENT\nReturn the final plan as markdown using the same practical timetable style as the main execution agent, but acknowledge that this baseline only has Tavily evidence. Include source links found via Tavily.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "human",
+        "id": "eb48fddb-7e67-4600-8056-51bb3bf7c4dc"
+      },
+      {
+        "content": "",
+        "additional_kwargs": {
+          "refusal": null
+        },
+        "response_metadata": {
+          "token_usage": {
+            "completion_tokens": 253,
+            "prompt_tokens": 1081,
+            "total_tokens": 1334,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": null,
+              "audio_tokens": 0,
+              "reasoning_tokens": 38,
+              "rejected_prediction_tokens": null,
+              "image_tokens": 0
+            },
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0,
+              "cache_write_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost": 0.012995,
+            "is_byok": false,
+            "cost_details": {
+              "upstream_inference_cost": 0.012995,
+              "upstream_inference_prompt_cost": 0.005405,
+              "upstream_inference_completions_cost": 0.00759
+            }
+          },
+          "model_provider": "openai",
+          "model_name": "openai/gpt-5.5-20260423",
+          "system_fingerprint": null,
+          "id": "gen-1778953775-zLh2h7hGuVJ5ewnrkogV",
+          "service_tier": "default",
+          "finish_reason": "tool_calls",
+          "logprobs": null
+        },
+        "type": "ai",
+        "id": "lc_run--019e31e8-6916-7782-949e-147810e7278d-0",
+        "tool_calls": [
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "official Barcelona accessible tourism wheelchair Gaudi attractions Sagrada Familia Park Guell Casa Batllo accessibility roll-in shower hotel"
+            },
+            "id": "call_yyxZ8Hs8jYun0IaKA2smDfx7",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Barcelona official accessible beaches wheelchair assistance September Nova Icaria Barceloneta beach"
+            },
+            "id": "call_mm54J6UvLptYcx5ZqpelGL7A",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Barcelona public transport accessibility wheelchair metro bus airport official 2026 Hola Barcelona travel card prices"
+            },
+            "id": "call_vcRqhdvtJQ4Rn8Pv9uV5Ofmc",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Munich to Barcelona flights wheelchair assistance airline official accessibility Lufthansa Vueling 2026"
+            },
+            "id": "call_ynnMr9JpWtzcfZkjCup6ow2d",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Barcelona accessible hotel roll-in shower lift official hotel accessibility Barcelona wheelchair"
+            },
+            "id": "call_cGDn2ErX9zAFVeFol63d5rxM",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Barcelona accessible restaurants local Catalan food wheelchair access Eixample Gothic Quarter official"
+            },
+            "id": "call_kffSMqxjXthaqdU8Wn2FHIFu",
+            "type": "tool_call"
+          }
+        ],
+        "invalid_tool_calls": [],
+        "usage_metadata": {
+          "input_tokens": 1081,
+          "output_tokens": 253,
+          "total_tokens": 1334,
+          "input_token_details": {
+            "audio": 0,
+            "cache_read": 0
+          },
+          "output_token_details": {
+            "audio": 0,
+            "reasoning": 38
+          }
+        }
+      },
+      {
+        "content": "Tavily answer:\nBarcelona's Sagrada Familia, Park Güell, and Casa Batlló are accessible for wheelchair users, with roll-in showers and accessible facilities available. Many hotels in the city also offer accessible rooms.\n\nTavily results:\n1. Gaudi's Casa Batlló Guided Tour | Wheel The World score=0.68\n   URL: https://wheeltheworld.com/accessible-things-to-do/spain/barcelona/gaudi-walking-tour-casa-batllo-visit?srsltid=AfmBOorrKjlBRsaDb4hgWSt9Rs_VgAt6E_iPBbuItdoAbBJjX4icfa2c\n   Snippet: ## Gaudi's Casa Batlló Guided Tour. Exploring Gaudi's universe: Casa Batlló guided tour. The facade of Casa Batlló. You will get a chance to admire the building in detail. A wheelchair user explores Casa Batlló. On this private, 2-hour, accessible guided tour in Barcelona, you'll discover Gaudi's universe and his designs' genius by visiting Casa Batlló, one of Gaudi's masterpieces. The tour includes entrance tickets, a guide, and accessible pick-up and drop-off services from and to your Barcelona hotel. Casa Batlló is wheelchair-accessible and has an elevator to the rooftop, from which you can admire city views. Throughout the tour, your guide will be available to assist you if necessary and can answer your questions about Gaudi and Barcelona. Enjoy a 2-hour accessible tour of Casa Batlló with wheelchair-friendly transport, ramps, an elevator to the rooftop, accessible bathrooms, and dis...\n2. The Definitive Wheelchair Guide to Barcelona (2026) score=0.67\n   URL: https://wheelietravel.com/en/guides/barcelona\n   Snippet: Wheelchair accessible Barcelona guide (2026). Transport, attractions, dining, and accessible hotels, everything you need to explore Barcelona.\n3. The best Barcelona Wheelchair accessible 2026 - Free cancellation score=0.61\n   URL: https://www.getyourguide.com/barcelona-l45/wheelchair-accessible-tc239/\n   Snippet: Our most recommended Barcelona Wheelchair accessible · Barcelona: Sagrada Familia Entry Ticket with Audio Guide · Barcelona: Park Güell Admission Ticket.\n4. Park Güell Accessibility | Wheelchair Access & Facilities score=0.59\n   URL: https://www.barcelona-tickets.com/park-guell/accessibility/\n   Snippet: # Park Güell accessibility: Wheelchair routes, elevators, and visitor tips. While its charming hills and winding paths can be tricky for visitors with mobility challenges, the park offers accessible routes, ramps, and plenty of spots to rest. * **Accessible entrances:** The Carretera del Carmel entrance is located at the eastern side of the park, near the neighborhood of El Carmel. This entrance leads directly to the park's woodland area and is the most accessible entrance. * **Wheelchair availability:** You can reserve a limited number of wheelchairs in advance by contacting Park Güell's visitor support service. ## Park Güell accessibility for different disabilities. * **Wheelchair accessibility:** Most of the park is accessible by wheelchair, except for some areas with steep inclines or stairs that may be difficult to navigate. While there is no escalator in Park Güell, you can take se...\n5. Accessible Barcelona - Tourism of Barcelona score=0.59\n   URL: https://www.barcelonaturisme.com/wv3/en/page/47/accessible-barcelona.html\n   Snippet: + Barcelona, City of the Literature. # Accessible Barcelona. It has established itself as one of the world’s most accessible cities and continues working daily to guarantee accessibility for all. The city has implemented innovations that improve the experience of all its visitors, and has pioneered the inclusion of state-of-the-art technologies. One of the best examples of this is the **Navilens** accessible QR code system that has been designed to help visually impaired people get around public spaces and use public transport independently. p>Barcelona offers solutions that will let you explore the city without barriers: adapted accommodation, accessible means of transport and a wide range of adapted cultural attractions. ## ACCESSIBLE TRANSPORT IN BARCELONA. visit inside Palau de la Música Catalana World Heritage Sites   accessible guided tour around Gothic Quarter Accessible guided to...",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "a7b94be4-3d34-4a0b-acea-fc181f21adab",
+        "tool_call_id": "call_yyxZ8Hs8jYun0IaKA2smDfx7",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nNova Icària Beach in Barcelona offers wheelchair assistance, accessible paths, and facilities for disabled visitors in September. It has ramps, accessible showers, and volunteer help. It's one of the best accessible beaches in the city.\n\nTavily results:\n1. Barcelona Accessible Beaches | Disabled Accessible Travel score=1.00\n   URL: https://disabledaccessibletravel.com/barcelona-accessible-beaches/\n   Snippet: ### Barcelona Beaches. Nova Icària Beach is unquestionably the most popular accessible beach in Barcelona. It is well known for its comfortable beach wheelchairs, the presence of volunteer assistance, its sea-side promenade with plenty accessible paths that lead to the beach and facilities such as accessible showers, toilets, and a hoist. A user-generated content app to help users find, add, and share accessible toilets on the go. User-generated as we truly believe there is a gap in the, correct and validated, information availability about accessible toilets worldwide. Together with Sant Sebastià Beach, this is one of the cities oldest and best-loved beaches. It is also one of the three beaches that offer assisted bathing services that allow you to take a dip in the sea. This seawater swimming pool, located in the North part of the city, does however provide the same personalized assist...\n2. Nova Icària Beach - Tourism of Barcelona score=1.00\n   URL: https://www.barcelonaturisme.com/wv3/en/page/1537/nova-icaria-beach.html\n   Snippet: + Barcelona, a city with a beer culture. + Barcelona, City of the Literature. Things to do /  Sea and beaches /  Beaches / Nova Icària Beach. The Nova Icària Beach is rightly considered to be a very peaceful beach, and is a popular choice for families and groups of friends. Lying very close to the Port Olímpic, it is surrounded by a great variety of restaurants and bars, as well as the most comprehensive range of facilities for sports and other activities on the entire coastline. All city beaches have reserved parking with accessible routes to the dry beach area, visual and tactile signage and information, adapted toilets, adapted showers, and wooden walkways that get as close as possible to the water. This accessible beach with assisted bathing service has an inclusive changing room, amphibious chair, life jackets, a shaded canopy, and service to assist people with reduced mobility to e...\n3. Barcelona's Nova Icaria beach is running a special service to allow ... score=1.00\n   URL: https://www.facebook.com/helenaironline/posts/barcelonas-nova-icaria-beach-is-running-a-special-service-to-allow-disabled-beac/10159290139687398/\n   Snippet: Notably, Nova Icària Beach stands out for its wheelchair-friendly features, including ramps, wooden walkways, accessible toilets, and beach\n4. 8 Amazing Reasons To Visit Nova Icària Beach Barcelona In A ... score=1.00\n   URL: https://www.simplyemma.co.uk/8-amazing-reasons-visit-nova-icaria-beach-barcelona-wheelchair/\n   Snippet: Nova Icària Beach Barcelona has amazing accessibility with beach wheelchairs, accessible paths/promenade, volunteer bathing service and more\n5. How does a wheelchair user go to the beach? 🏖️♿️ Barcelona is ... score=1.00\n   URL: https://www.instagram.com/reel/DOlwUlpDOss/\n   Snippet: This is Bogatel Beach in Barcelona. Which is one of five accessible beaches in the area. Now, I've been to plenty of accessible beaches before,",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "8658ac14-afe0-4d3c-b796-d71612e6866b",
+        "tool_call_id": "call_mm54J6UvLptYcx5ZqpelGL7A",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nThe Hola Barcelona Travel Card offers unlimited public transport access in Barcelona for 24 to 120 hours, including metro, buses, and airport transfers. Prices start from €11.80 for a 24-hour card. It's valid from the first use for the full duration.\n\nTavily results:\n1. Hola Barcelona Travel Card 2026 • Public Transportation score=1.00\n   URL: https://sagradafamiliatickets.tours/hola-barcelona-travel-card/\n   Snippet: Book your Hola Barcelona Travel Card. Explore Barcelona with access to public transportation, including metro, buses, trains, and trams. Free cancellation!\n2. Hola Barcelona Travel Card > All public transport in Barcelona score=1.00\n   URL: https://www.barcelona.com/barcelona-tickets/hola-barcelona-travel-card\n   Snippet: # Hola Barcelona Travel Card. ## Unlimited transport in Barcelona by metro, bus, train, tram and funicular. Discover the magic of Barcelona with our \"Hola Barcelona\" travel card. With flexible options of 48h, 72h, 96h or 120h, travel without limits across the city, from the moment you arrive at the airport to the most hidden corners of the metropolis. ### Hola Barcelona Card. Enjoy unlimited access from 48 to 120 hours to Barcelona's public transport: Metro, bus (TMB), urban railway (FGC, Zone 1), Montjuïc funicular, tram (TRAM), regional railway (Rodalies de Cataluny) + 1 round trip from the airport to the city center. ## Barcelona transport included in the Hola Barcelona Travel Card. The Hola Barcelona card allows you to travel in Zone 1 of the metropolitan network, i.e. the whole of Barcelona and a number of other towns around the Catalan capital. The best solution for unlimited trave...\n3. Hola BCN Card Review 2026: Price, Benefits – Is It Worth Buying? score=1.00\n   URL: https://www.travelguide.barcelona/publictransport-tmb/holabcn-hola-barcelona-travel-card/\n   Snippet: Without the Hola Barcelona Card, a separate return airport ticket costs €11.80 (2026). Train Transfer Hola BCN. Airport transfers by train, Metro or TMB bus are\n4. Tickets to visit Barcelona | Transports Metropolitans de Barcelona score=1.00\n   URL: https://www.tmb.cat/en/barcelona-fares-metro-bus/tickets-visit-barcelona/barcelona-travel-card-hola-bcn\n   Snippet: # Hola Barcelona Travel Card. Your return metro trips to and from the airport are included! ## Hola Barcelona Travel Card options. ## Advantatges of the Hola Barcelona Travel Card. You can also buy it at the Hola Barcelona Store, located in the L3 lobby os the catalunya metro station or buy them from vending machines and Punt TMB customer service centres in the metro, or from Tourist Information Offices around the city. * You can start using your Hola Barcelona Travel Card at any time of day and enjoy unlimited journeys on Barcelona public transport for 24, 48, 72, 96 or 120 hours from the first validation. * Your Hola Barcelona Travel Card is personal and reusable. It allows recharging any of the Hola Barcelona Travel Card travel options once the title contained on the card has been used up, at the ticket machines in the metro network. ## Are you sure you want to alerts notifications fo...\n5. 2026 Hola Barcelona Travel Card (with Reviews) - Tripadvisor score=1.00\n   URL: https://www.tripadvisor.ca/AttractionProductReview-g187497-d17525784-Hola_Barcelona_Travel_Card-Barcelona_Catalonia.html\n   Snippet: Offering an unlimited number of journeys on the metro and buses (night buses not included) operated by Transports Metropolitans de Barcelona (TMB), Ferrocarrils",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "962332ad-4d45-4482-b92d-acd2240ee06b",
+        "tool_call_id": "call_vcRqhdvtJQ4Rn8Pv9uV5Ofmc",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nLufthansa and Vueling both offer wheelchair assistance for flights from Munich to Barcelona, with services including free airport wheelchairs and special check-in procedures.\n\nTavily results:\n1. Passengers requiring wheelchairs - Lufthansa score=0.52\n   URL: https://www.lufthansa.com/ar/en/passengers-using-wheelchairs\n   Snippet: At the airport, you will be provided with a wheelchair free of charge. · If you need wheelchair assistance at your place of departure or destination, please make\n2. Munich Airport Wheelchair Assistance & Accessibility score=0.52\n   URL: https://wheelchairtravel.org/munich-airport/\n   Snippet: Munich Airport is a major airline hub, with non-stop flights to destinations in the United States and Europe. The Munich Airport, named for the former Bavarian Prime Minister Franz Josef Strauß, is the 2nd busiest airport and Germany, and 7th busiest in Europe. My experience at the airport was generally good, and I agreed to collect my power wheelchair at the baggage claim area on arrival. The chair arrived at baggage claim a few minutes after I did, and I was quickly on my way to the Munich city center via public transportation. As I noted earlier, I do not have any experience with departing from Munich Airport (only arriving to it), but I can offer some information that applies to all wheelchair users, regardless of the airport. You can plan a successful and accessible air travel experience by reading my answers to frequently asked questions in my Wheelchair Users’ Guide to Air Travel....\n3. Special Assistance - Vueling help score=0.49\n   URL: https://help.vueling.com/hc/en-gb/categories/19798714411665-Special-Assistance\n   Snippet: Special Assistance · Passengers with reduced mobility and special needs · Wheelchair Check-in · Carriage of battery-powered wheelchairs · Invisible Disabilities\n4. Accessible travel - Lufthansa City Airlines score=0.47\n   URL: https://www.lufthansa-city.com/en/information/before-your-flight/accessible-travel.html\n   Snippet: Find out more about the services for Lufthansa City Airlines passengers who are dependent on a wheelchair at the airport and on board. Booking and reservation.\n5. How to Book Lufthansa Wheelchair Assistance score=0.44\n   URL: https://airline-updates.com/blog/lufthansa-wheelchair-assistance/\n   Snippet: Alaska Airlines Cancellation Policy – Get Refund Online. + Volaris Flight Change Policy – How to Change Flight Online? Hawaiian Airlines Flight Change Policy – Change Flight in 24 Hours. Finnair Flight Change Policy – Change Flight in 24 Hours. JetBlue Change Flight Policy – Request Flight Date/Time Changes On The Go. JetBlue Change Flight Policy – Request Flight Date/Time Changes On The Go. + JetBlue Name Change Policy – A JetBlue Correction Guide For Flyers On The Go. JetBlue Name Change Policy – A JetBlue Correction Guide For Flyers On The Go. Southwest Airlines Name Change Policy – Name Correction in a few steps. Among the various benefits it offers to ensure a seamless travel experience for all passengers, Lufthansa Wheelchair Assistance stands out as a shining example of the airline’s dedication to making air travel accessible to individuals with reduced mobility. Passengers can re...",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "c3615fd9-858e-4bfc-9051-3a9fcf0c06a2",
+        "tool_call_id": "call_ynnMr9JpWtzcfZkjCup6ow2d",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nHotel Indigo Barcelona Plaza Catalunya and Hotel AC Sants offer accessible rooms with roll-in showers for wheelchair users. Both are centrally located in Barcelona. Check their official websites for details.\n\nTavily results:\n1. Wheelchair Accessible Room at Hotel Indigo Barcelona Plaza ... score=0.80\n   URL: https://wheelchairtravel.org/wheelchair-accessible-room-hotel-indigo-barcelona-plaza-catalunya/\n   Snippet: This wheelchair accessible hotel in the heart of Barcelona has roll-in showers and is within walking distance of major attractions.\n2. Search for accessible hotels in Barcelona - Wheel The World score=0.70\n   URL: https://wheeltheworld.com/accessible-hotels/spain/barcelona?srsltid=AfmBOop7FznL6vpU4tYYzAZJmkLgqAWEu7SC4nimnJuIXUodw27r_sJq\n   Snippet: Guaranteed accessibility features. Roll in shower; Shower seat; Pool lift; Step-free entrance. Show Prices ... Transfer shower; Step-free entrance\n3. 4 Star Barcelona Accessible Hotel with Roll-In Shower score=0.67\n   URL: https://www.sagetraveling.com/barcelona-4star-barcelona-accessible-hotel-with-roll-in-shower\n   Snippet: The bathrooms in the disabled rooms are fully accessible with grab bars located on either side of the toilet, a roll in shower with grab bars and a shower chair\n4. Wheelchair accessible hotels in Barcelona with roll-in showers? score=0.67\n   URL: https://www.facebook.com/groups/56575757128/posts/10161449559332129/\n   Snippet: Hotel AC Sants (Near Sants Station) - Why? - Roll-in showers with fold-down seats (properly step-free—we checked!). - Space under beds for a\n5. Wheelchair-accessible hotels in Barcelona (especially in Gràcia) score=0.59\n   URL: https://www.reddit.com/r/AskBarcelona/comments/1bsc2qp/wheelchairaccessible_hotels_in_barcelona/\n   Snippet: The only proper big hotel I can think of in Gracia is Casa Fuster, other than that it's more hostels and similar. There are plenty a little bit lower down.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "c74c7739-2ba6-41bd-b665-7189c39e1272",
+        "tool_call_id": "call_cGDn2ErX9zAFVeFol63d5rxM",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nBarcelona has many accessible restaurants in Eixample and Gothic Quarter, including Somni Restaurant and Ziryab Fusion Tapas Bar. Most restaurants offer wheelchair access and serve local Catalan food. Book ahead for better accessibility.\n\nTavily results:\n1. Accessible Restaurants - wheelieguides score=0.71\n   URL: https://wheelieguides.com/en/barcelona/get-started/accessible-restaurants/\n   Snippet: # Accessible Restaurants. The good news is that Barcelona's warm climate means terrace dining is available most of the year, which often solves access problems that exist inside older buildings. **Passeig de Gracia** is the main boulevard, lined with restaurants that have spacious terraces and accessible interiors. The seafront from Barceloneta to the Olympic Port has many accessible restaurants. **Port Olimpic** has several large restaurants with step-free access and accessible toilets. Upper Gracia, particularly around the main squares, has cafes and restaurants with outdoor seating that is generally accessible. Some restaurants on the wider streets, such as Carrer de Ferran and Placa Reial, are accessible. La Rambla itself is wide and flat, and the tourist restaurants along it are often accessible from the street. Terrace dining solves many access problems. * Book ahead and mention yo...\n2. The 10 Best Wheelchair Accessible Restaurants in Eixample ... score=0.66\n   URL: https://www.thefork.com/restaurants/barcelona-c41710/eixample-a94/handicap-accessible-t346\n   Snippet: The 10 Best Wheelchair Accessible Restaurants in Eixample, Barcelona · Somni Restaurant - Hotel The One · Seventeen - Hotel Olivia Balmes · Can Pizza - Universidad.\n3. Wheelchair accessible restaurants Barcelona | Disabled Accessible Travel score=0.63\n   URL: https://disabledaccessibletravel.com/wheelchair-accessible-restaurants-barcelona/\n   Snippet: Tapas Eating Out Barcelona wheelchair accessible restaurants. ### Accessible Restaurants BCN. Our team has put together the ultimate list of wheelchair accessible restaurants for your next visit to Barcelona. The list is very diverse and therefore we are sure that you will find what you are looking for, whatever your taste is. It is one of those restaurants that appear on all the travel blogs and top lists of places to eat in Barcelona. The place is stunning; it is over 2,600 m2 in size, has a capacity of more than 700 guests and the design is iconic. Start your night out with a fancy cocktail or a nice glass of wine at one of the bars, before enjoying a meal. Looking for a place to eat after your visit to Barcelona’s accessible beach ‘La Barceloneta’? If you are looking for a night out with authentic Spanish tapas, we recommend you to go to Xaloc.\n4. TOP 10 BEST Wheelchair Accessible Restaurant in Barcelona, Spain score=0.62\n   URL: https://www.yelp.com/search?find_desc=Wheelchair+Accessible+Restaurant&find_loc=Barcelona\n   Snippet: Top 10 Best Wheelchair Accessible Restaurant Near Barcelona, Barcelona ; 1. Ziryab Fusion Tapas Bar · (38 reviews) · Carrer de Grunyí, 5, 08003 Barcelona Spain.\n5. The 10 Best Wheelchair Accessible Restaurants in Eixample ... score=0.59\n   URL: https://www.thefork.com/restaurants/barcelona-c41710/eixample-a94/handicap-accessible-t346?p=3\n   Snippet: The 10 Best Wheelchair Accessible Restaurants in Eixample, Barcelona · L'Illa de Rosselló - Hotel Evenia Rosselló · Thai Barcelona | Royal Cuisine · Transilvania",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "dd575ce9-dcd5-4a26-ac09-8647d49bec31",
+        "tool_call_id": "call_kffSMqxjXthaqdU8Wn2FHIFu",
+        "status": "success"
+      },
+      {
+        "content": "",
+        "additional_kwargs": {
+          "refusal": null
+        },
+        "response_metadata": {
+          "token_usage": {
+            "completion_tokens": 276,
+            "prompt_tokens": 5767,
+            "total_tokens": 6043,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": null,
+              "audio_tokens": 0,
+              "reasoning_tokens": 94,
+              "rejected_prediction_tokens": null,
+              "image_tokens": 0
+            },
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0,
+              "cache_write_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost": 0.037115,
+            "is_byok": false,
+            "cost_details": {
+              "upstream_inference_cost": 0.037115,
+              "upstream_inference_prompt_cost": 0.028835,
+              "upstream_inference_completions_cost": 0.00828
+            }
+          },
+          "model_provider": "openai",
+          "model_name": "openai/gpt-5.5-20260423",
+          "system_fingerprint": null,
+          "id": "gen-1778953785-bK2BpaQXPPXzozIX5spK",
+          "service_tier": "default",
+          "finish_reason": "tool_calls",
+          "logprobs": null
+        },
+        "type": "ai",
+        "id": "lc_run--019e31e8-9100-7cb3-80fb-5e6ff03f5dab-0",
+        "tool_calls": [
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "official Sagrada Familia tickets prices opening hours accessibility wheelchair Barcelona"
+            },
+            "id": "call_iFgi8TBlQEpdPjS4t1jRl5dw",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "official Casa Batllo tickets accessibility wheelchair opening hours Barcelona"
+            },
+            "id": "call_mK5qBBDdtJm0uT4x2C9bO6ja",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "official Park Guell tickets accessibility wheelchair opening hours Barcelona"
+            },
+            "id": "call_zt4hSQptFdWBT8TYkyC9mRIq",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Hotel Indigo Barcelona Plaza Catalunya official accessible room roll in shower lift"
+            },
+            "id": "call_lHK5pkqyTtP5DflN5zirbh1v",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Barcelona airport official reduced mobility assistance wheelchair accessible transport Aerobus taxi"
+            },
+            "id": "call_dG5q3fUhscDZYAQ1KBFqj2jT",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Barcelona Picasso Museum official accessibility wheelchair opening hours tickets"
+            },
+            "id": "call_sV5419yUCc63C8SjGYj9GeFW",
+            "type": "tool_call"
+          }
+        ],
+        "invalid_tool_calls": [],
+        "usage_metadata": {
+          "input_tokens": 5767,
+          "output_tokens": 276,
+          "total_tokens": 6043,
+          "input_token_details": {
+            "audio": 0,
+            "cache_read": 0
+          },
+          "output_token_details": {
+            "audio": 0,
+            "reasoning": 94
+          }
+        }
+      },
+      {
+        "content": "Tavily answer:\nSagrada Familia is wheelchair accessible; main areas are step-free. Opening hours are 9 AM to 9 PM. Companions of disabled visitors get free tickets.\n\nTavily results:\n1. Sagrada Familia Wheelchair Accessible? - Ticket Sagrada Familia score=0.72\n   URL: https://ticketsagradafamilia.com/sagrada-familia-wheelchair-accessible/\n   Snippet: Official Tickets for the Sagrada Familia. ## Sagrada Familia Wheelchair Accessible? Visiting Barcelona’s iconic Sagrada Familia is a dream for many travelers, but accessibility is a key consideration for those using wheelchairs or with limited mobility. The good news is that Sagrada Familia is largely wheelchair-friendly, making it possible for everyone to experience Gaudí’s masterpiece. The main entrance of Sagrada Familia is fully accessible for wheelchair users. Visitors in wheelchairs can also use the elevators to access areas that would otherwise require stairs, although some parts of the basilica, like the towers, are not accessible due to safety and structural limitations. Staff at Sagrada Familia are trained to assist visitors with disabilities, ensuring a smooth entry and enjoyable visit. Accessible restrooms are located on-site, and seating areas are available throughout the ba...\n2. Sagrada Familia Accessibility Guide: Admiring this Masterpiece with Ease score=0.61\n   URL: https://www.sagrada-familia-tickets.com/wheelchair-accessibility\n   Snippet: # Accessibility at the Sagrada Familia. ## Full guide to the Sagrada Familia accessibility. Entrance to Sagrada Familia for wheelchair users is facilitated by accessible paths and dedicated assistance and they are eligible for free entry along with their caregiver. Inside the Sagrada Familia, the pathways are designed to accommodate wheelchair and scooter users. ### Services and assistance. Assistance services are also available to enhance your visit. The most convenient metro station to reach the Sagrada Familia is called Sagrada Familia and both the L2 and L5 lines stop there. The station is fully accessible, but note that the elevator from the L2 part of the station will leave you closer to the entrance reserved for people with disabilities at the Sagrada Familia compared to the L5 exit. What facilities are available for wheelchair users visiting the Sagrada Familia? Are there special...\n3. Sagrada Família Accessibility | Wheelchair & Mobility Guide 2026 score=0.58\n   URL: https://www.sagradafamiliatickets.info/sagrada-familia-accessibility\n   Snippet: # **Sagrada Fam****í****lia Accessibility: 2026 Guide for All Visitors**. ## Sagrada Família Accessibility: 2026 Visitor Guide. The **Sagrada Familia** is a masterpiece designed for everyone. Antoni Gaudi’s vision was to create a space that mimics the inclusivity of nature, and in 2026, the Basilica has fulfilled this by becoming a world leader in accessible tourism. Whether you are visiting with a wheelchair, a stroller, or have sensory requirements, the Basilica is fully equipped to ensure your experience is seamless. Use this guide to understand how to use your **Sagrada Familia tickets** for the most comfortable and accessible visit possible. The Sagrada Familia is 100% step-free throughout the main nave, the museum, and the shop. Simply show your digital **Sagrada Familia tickets** to the staff at the gate for immediate assistance. Is the Sagrada Familia wheelchair accessible?** Yes...\n4. La Sagrada Familia - Access Card score=0.55\n   URL: https://www.accesscard.online/providers/la-sagrada-familia/\n   Snippet: The companion of a disabled person gets a free ticket but must pay for any additional services. The guided tour costs €4 and the tower visit, €10. Tickets must\n5. Is Sagrada Família Wheelchair Accessible? score=0.54\n   URL: https://disabledaccessibletravel.com/wheelchair-accessibility-sagrada-familia/\n   Snippet: ### Sagrada Família. # Wheelchair Accessibility Sagrada Família. When visiting Barcelona, the Sagrada Família is a must for any traveller. Today, wheelchair users and visitors with reduced mobility can experience this extraordinary building. In this guide, we walk you through everything you need to know: how to get there, where to find the Sagrada Família accessible entrance, what to expect inside, and how to make the most of your visit. ✓ Step-free accessible entrance (Carrer de la Marina, Entrance B). ✗ Towers are not wheelchair accessible. ## Is Sagrada Família wheelchair accessible? Yes. The Sagrada Família is wheelchair accessible. The main basilica and its museum are step-free, with smooth, even flooring and wide-open spaces. ## The history of the Sagrada Família. The Sagrada Família has one of the most fascinating stories of any building in the world. Wheelchair users and visitors...",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "7e90462a-0922-4a44-998c-48f3dbb2f302",
+        "tool_call_id": "call_iFgi8TBlQEpdPjS4t1jRl5dw",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nCasa Batlló is wheelchair accessible; opening hours are 9am to 7:45pm; discounted tickets are available for disabled visitors.\n\nTavily results:\n1. Tickets sale | Casa Batlló official website score=1.00\n   URL: https://www.casabatllo.es/en/online-tickets/\n   Snippet: ### If you want to be part of our VIP agency group and benefit from the advantages, fill in the following form and we will reply quickly to your request:. ### In order that we may process your booking, please complete the following form with your details and we will send you a confirmation e-mail shortly. ### Booking form for companies. ## General Visit + Immersive Exhibition. First access: 9am | Last access: 7:45pm. ## Night Visit + Immersive Exhibition. First access: 8:30pm | Last access: 9:30pm. ## Visit + Concert \"Magical Nights\". **\\*NOT A VISIT TO CASA BATLLÓ**. First access: 9am | Last access: 8:45pm. €3 off (Junior, Student, Senior, Disability). ## General Visit. First access: 9am | Last access: 7:45pm. ## Night Visit. First access: 8:30pm | Last access: 9:30pm. ## Morning Visit \"Be the First\". **\\*NOT A VISIT TO CASA BATLLÓ**. Junior (13-17) €19 | Children (6-12) €12. Discounts...\n2. Gaudi's Casa Batlló Guided Tour | Wheel The World score=1.00\n   URL: https://wheeltheworld.com/accessible-things-to-do/spain/barcelona/gaudi-walking-tour-casa-batllo-visit?srsltid=AfmBOoqff8UowK3Scz5d4-1pJkIOv-nUkX29xKnJKbJMuU-FG6JfV4Kc\n   Snippet: ## Gaudi's Casa Batlló Guided Tour. Exploring Gaudi's universe: Casa Batlló guided tour. The facade of Casa Batlló. You will get a chance to admire the building in detail. A wheelchair user explores Casa Batlló. On this private, 2-hour, accessible guided tour in Barcelona, you'll discover Gaudi's universe and his designs' genius by visiting Casa Batlló, one of Gaudi's masterpieces. The tour includes entrance tickets, a guide, and accessible pick-up and drop-off services from and to your Barcelona hotel. Casa Batlló is wheelchair-accessible and has an elevator to the rooftop, from which you can admire city views. Throughout the tour, your guide will be available to assist you if necessary and can answer your questions about Gaudi and Barcelona. Enjoy a 2-hour accessible tour of Casa Batlló with wheelchair-friendly transport, ramps, an elevator to the rooftop, accessible bathrooms, and dis...\n3. Access Card: Making access easy score=1.00\n   URL: https://www.accesscard.online/find-a-provider/casa-batll-/casa-batll-/\n   Snippet: # Access Card. # Casa Batlló. Casa Batlló is a building in the center of Barcelona, Spain. A remodel of a previously built house, it was redesigned in 1904 by Gaudí and has been refurbished several times since. ## Access Card notes. This means that it has been highlighted by feedback from multiple Access Card holders who have used their card to gain access or a discounted ticket type. The information provided in this listing is sourced directly from the provider’s publicly available information. * under the supervision of their owners and with the approval of Casa Batlló staff. Casa Batlló may request official documentation that certifies the degree of disability at the entrance. * The audio guide is available in English, Spanish, Catalan, French, Italian, Portuguese, German, Dutch, Polish, Romanian, Russian, Korean, Mandarin Chinese, Cantonese Chinese, and Japanese. Available in English...\n4. Barcelona Disabled Access Guide (Sights + Transport) score=1.00\n   URL: https://barcelonahacks.com/barcelona-disabled-access/\n   Snippet: Disabled visitors and visitors in wheelchairs pay €20.00. These tickets can be bought exclusively at the ticket windows found at gate number 9 on Avinguda Joan\n5. Has anyone been to casa batlló with disabled person and carer. Site ... score=1.00\n   URL: https://www.facebook.com/groups/barcelonatraveltips/posts/1132365434861298/\n   Snippet: Free admission is for a disabled and one companion. And although the entry for wheelchair users is free, you also need to book your tickets in",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "3f9b9034-2a7b-4178-b79b-340f9de29db7",
+        "tool_call_id": "call_mK5qBBDdtJm0uT4x2C9bO6ja",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nPark Güell is accessible for wheelchair users; it opens daily year-round, and tickets are required for entry.\n\nTavily results:\n1. Park Güell Accessibility | Wheelchair Access & Facilities score=0.74\n   URL: https://www.barcelona-tickets.com/park-guell/accessibility/\n   Snippet: # Park Güell accessibility: Wheelchair routes, elevators, and visitor tips. While its charming hills and winding paths can be tricky for visitors with mobility challenges, the park offers accessible routes, ramps, and plenty of spots to rest. * **Accessible entrances:** The Carretera del Carmel entrance is located at the eastern side of the park, near the neighborhood of El Carmel. This entrance leads directly to the park's woodland area and is the most accessible entrance. * **Wheelchair availability:** You can reserve a limited number of wheelchairs in advance by contacting Park Güell's visitor support service. ## Park Güell accessibility for different disabilities. * **Wheelchair accessibility:** Most of the park is accessible by wheelchair, except for some areas with steep inclines or stairs that may be difficult to navigate. While there is no escalator in Park Güell, you can take se...\n2. Is Park Güell Wheelchair Accessible? score=0.71\n   URL: https://disabledaccessibletravel.com/park-guell-wheelchair-accessibility-guide/\n   Snippet: 3. Park Güell Wheelchair Accessibility Guide. # Visiting Park Güell in Barcelona with a Wheelchair or Scooter: Accessibility Guide. With its bright mosaics, flowing architecture, and sweeping views over Barcelona, Park Güell is one of the city’s most popular landmarks. But if you are visiting with a wheelchair or mobility scooter, what can you expect? For visitors using a wheelchair or mobility scooter, exploring the park is definitely possible, though some areas are not as accessible. Because of its hillside location and historic layout, accessibility at Park Güell is rather uneven. That said, this guide walks you through what to expect of Park Güell’s wheelchair and scooter accessibility so you can prepare accordingly. The location of the park was a big piece of land bought by Güell, in an area called the Muntanya Pelada, or “bare mountain,” overlooking Barcelona and the sea. At the Ca...\n3. Frequently asked questions | Web oficial Park Güell | Barcelona score=0.67\n   URL: https://parkguell.barcelona/en/planning-your-visit/faqs\n   Snippet: #### Why is access to Park Güell regulated? From October 2013, Barcelona City Council has got under way a plan for regulation of Park Güell, with the priority objective of preserving this iconic space of our city and keeping it in the best possible state of conservation. For years now, Park Güell and its entire surrounding area have been suffering from mass tourist visits that involve serious disturbance for local residents, as well as a constant degradation of this architectural heritage, unique in the world. Access to Park Güell is limited to 1400 visitors per hour and tickets give access to the monument area, the green area and the panoramic areas. To enter the park, they will need to have a personal and non-transferable card, which may be requested by the entrance staff. *Passi Verd* is the system that allows people registered as residents in the city of Barcelona to enter Park Güell...\n4. Opening times | Web oficial Park Güell | Barcelona score=0.66\n   URL: https://parkguell.barcelona/en/planning-your-visit/prices-and-times\n   Snippet: Park Güell prices and times. Regulating the entry ensures the conservation and maintenance of the monumental heritage, and guarantees a safe visit for neighbors as well as other visitors.**The park is open all the year round**. \\* You have 30’ after the time showed on your ticket to enter the site. ## PARK GÜELL OPENING AND CLOSING TIMES. Once you are inside the Park Güell, you can take as long as you like to enjoy the brilliant architect's work, but once you exit, you cannot re-enter. Tickets are assigned on the basis of time-slots, and you can enter the restricted area up to 30 minutes after your allocated start time. For example, if you have a reservation for 9:30, you can enter the park until 10:00. REMEMBER that once you are inside the park, you can **take as long as you like** to enjoy the brilliant architect's work, but once you have left the exited, you cannot re-enter.\n5. Accessibility | Web oficial Park Güell | Barcelona score=0.62\n   URL: https://parkguell.barcelona/en/accessibility\n   Snippet: Due to the characteristics of Park Güell, people with specific needs may have difficulty in completing the visit satisfactorily. You can access Park Güell from the entrance to Carrer Marianao or from the entrance to Carretera del Carmel, which we recommend. Download the Park Güell App before you come. The app will show you which areas of the park are most accessible and provide information on how to get there. * Architectural route: where you can see Park Güell’s most iconic sites. We have three free parking places for visitors with reduced mobility and accredited vehicles, located at the tourist coaches parking lot, in front of the Carretera del Carmel entrance. If you come on public transport, we recommend you check out the Transports Metropolitans de Barcelona website on how to get to Carretera del Carmel, 23: https://www.tmb.cat/en/barcelona/journey-planner. For further information a...",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "272f562b-e6fb-46c9-9cfc-ee171b182c39",
+        "tool_call_id": "call_zt4hSQptFdWBT8TYkyC9mRIq",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nHotel Indigo Barcelona Plaza Catalunya offers ADA compliant rooms with roll-in showers and lift access. The hotel is wheelchair accessible throughout. Booking is recommended for specific accessible features.\n\nTavily results:\n1. Accessible hotel Hotel Indigo Barcelona - Plaza Catalunya, an IHG ... score=1.00\n   URL: https://wheeltheworld.com/accessible-hotels/spain/barcelona/hotel-indigo-barcelona-plaza-catalunya-ihg-hotel?srsltid=AfmBOooCRf5Ja7KUnDHxsjrxRELzO9RW57C3eHgl9ms4bLzP3pg48vRx\n   Snippet: Select rooms have in-room accessibility, as well as roll-in showers in the restroom. In addition, the hallways and areas are wheelchair-accessible. The hotel\n2. Hotel Indigo Barcelona - Plaza Catalunya Accessibility score=1.00\n   URL: https://www.ihg.com/hotelindigo/hotels/us/en/barcelona/bcnin/hoteldetail/accessibility\n   Snippet: ADA compliant guest rooms and access routes. Grab bars and tall toilets available. Adequate clear turning space in bathrooms. Handheld shower with hose.\n3. Hotel Indigo Barcelona Plaza Catalunya: A Spanish Delight score=1.00\n   URL: https://www.hotel-scoop.com/hotel-indigo-barcelona-plaza-catalunya-a-spanish-delight/\n   Snippet: The 4-star boutique hotel has 82 rooms, all individually decorated. This Hotel Indigo is located in a former hostel, now an historic building.\n4. Hotel Indigo Barcelona - Plaza Catalunya - Travel Weekly score=1.00\n   URL: https://www.travelweekly.com/Hotels/Barcelona/Hotel-Indigo-Barcelona-Plaza-Catalunya-p5669679\n   Snippet: Boutique hotel set in the heart of Barcelona, with vibrant murals of Gaudi – A short walk from Museu Picasso and Sagrada Familia.\n5. Hotel Indigo Barcelona - Plaza Catalunya - IHG Hotels & Resorts score=1.00\n   URL: https://www.ihg.com/hotelindigo/hotels/us/en/barcelona/bcnin/hoteldetail\n   Snippet: Boutique hotel in Barcelona city centre near La Rambla & Casa Battló. Book this design hotel with artistic décor, outdoor pool, terrace bar & restaurant.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "6a2f3111-38df-470c-9155-dde5746cd382",
+        "tool_call_id": "call_lHK5pkqyTtP5DflN5zirbh1v",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nBarcelona Airport offers PRM assistance, wheelchair-accessible Aerobús, and specialized taxis for travelers with reduced mobility. Pre-booking is recommended for smooth transfers. Taxis from the airport to central Barcelona cost around 25-35 euros.\n\nTavily results:\n1. Wheelchair Accessible Airport Transfers in Barcelona score=1.00\n   URL: https://wheelieguides.com/en/barcelona/transportation/airport/\n   Snippet: # Airport Accessibility. Accessibility details for Barcelona-El Prat Airport (BCN). PRM assistance, terminal features, and accessible transport to the city center. ## About Barcelona-El Prat Airport (BCN). Barcelona-El Prat Airport (officially Josep Tarradellas Barcelona-El Prat) is located 15 km southwest of central Barcelona. Opened in 2009, it is modern with wide corridors, elevators at every level, automatic doors, and accessible toilets throughout. PRM (Person with Reduced Mobility) assistance at Barcelona-El Prat is provided by AENA, the Spanish airport authority. 3. Specify the type of help you need: wheelchair to the gate, boarding assistance, or a meet-and-greet at arrival. 4. Arrive at the airport at least 2 hours before departure to give the assistance team time to reach you. If you did not pre-book PRM assistance, you can still request it at the airport. The Metro L9 Sud line...\n2. Wheelchair Taxi Barcelona | Airport & Cruise Port Transfers score=1.00\n   URL: https://disabledaccessibletravel.com/wheelchair-accessible-taxi-barcelona/\n   Snippet: # Wheelchair Accessible Taxi Barcelona – Airport & Cruise Port Transfers. ## Wheelchair Accessible Taxi Transfers Across Barcelona. Our wheelchair accessible taxi service in Barcelona provides safe, private, and fully adapted transport for travellers with reduced mobility. Whether you require a wheelchair accessible taxi from Barcelona El Prat Airport, a specialized transfer from the cruise port, a pickup from Barcelona Sants train station. To ensure a smooth arrival or departure, every accessible taxi transfer in Barcelona is pre-arranged and tailored to match your specific mobility needs. ## Wheelchair Accessible Taxi from Barcelona El Prat Airport. We specialize in providing a wheelchair accessible taxi from Barcelona El Prat Airport directly to your hotel or accommodation. ## Wheelchair Accessible Taxi from Barcelona Cruise Port. For cruise travellers, we arrange wheelchair accessibl...\n3. Barcelona Airport - Passengers with reduced mobility PRM score=1.00\n   URL: https://www.aeropuertobarcelona-elprat.com/ingl/airport-services-disabled-travellers.htm\n   Snippet: # Barcelona airport. Vehicle to transport people with disabilities within the airport. In compliance with the regulation of the European Parliament (EC) 1107/206, you can request assistance services for people with reduced mobility at the Barcelona Airport, as one such person, or as aprofessional at their care, and can make your trip a more comfortable way. This assistance service is available to all passengers with reduced mobility or any kind of disability, and must be requested at least 48 hours before the trip, so that everything is ready from the moment the passenger arrives at the meeting point indicated. ### PRM Services for passengers with reduced mobility. The disabled person or person with reduced mobility can announce their arrival at the airport from there and request assistance. * They are located in the parking lots, arrivals sidewalk, check-in area and inside the terminal....\n4. Barcelona in wheelchair - Aerobús score=1.00\n   URL: https://aerobusbarcelona.es/barcelona-in-wheelchair/?lang=en\n   Snippet: In the city center, you will find tours adapted for people with reduced mobility and you can visit emblematic places in Barcelona. There are\n5. Wheelchair Accessible Taxi (with Reviews) - Tripadvisor score=1.00\n   URL: https://www.tripadvisor.com/AttractionProductReview-g911483-d19828254-Wheelchair_Accessible_Taxi-El_Prat_de_Llobregat_Catalonia.html\n   Snippet: We provide wheelchair Accessible Taxi from Barcelona Airport to City center. We can hold up to 7 passengers and 1 wheelchair with all their luggage.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "7c166053-2528-47dd-a4b4-e5d1c1217c55",
+        "tool_call_id": "call_dG5q3fUhscDZYAQ1KBFqj2jT",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nThe Picasso Museum in Barcelona is accessible for wheelchair users and is open Tuesday to Sunday from 9:00am to 8:00pm, with Thursdays extending to 9:30pm. Tickets can be purchased on the official website.\n\nTavily results:\n1. Picasso Museum in Barcelona, Catalunya, Spain score=1.00\n   URL: https://www.barcelona-tourist-guide.com/en/attractions/picasso-musuem-barcelona.html\n   Snippet: # Picasso Museum in Barcelona. The Picasso Museum is a building dedicated to the famous Spanish artist Pablo Picasso. The museum exhibits many of the artworks created by Picasso and has been acknowledged by the Government of Catalonia as a museum of national interest. ## Location map showing the walking routes to Picasso Museum from the nearest metro stop. BSM Moll de la Fusta Car Park. NN Palau de La Muscia Car Park. BSM La Boqueria Car Park. Below you will find the address, nearest metro stop, parking, opening hours, people with a disability and link to the official website of Picasso Museum. Nearest stop for Picasso Museum is **\"Catedral - Gòtic\"** with the  \"hop on hop off\" sightseeing bus. Car Park Car parking near Picasso Museum in El Born. Our Insider Tip Get 10% discount off entrance tickets with the Barcelona Essentials Pass. |  | Sunday | 09:00 - 20:00 |. Back To The Top Of The...\n2. Buy tickets and opening hours | Picasso museum Barcelona | Official website score=1.00\n   URL: https://museupicassobcn.cat/en/plan-your-visit/buy-tickets-and-opening-hours\n   Snippet: ## Picasso and Barcelona. * Picasso's connection with Barcelona. * Picasso's relationship with Sabartés. * History of the Picasso Museum. * Virtual tour of Picasso’s Barcelona. © Fundación Museu Picasso de Barcelona. © de las reproducciones de las obras de Pablo Picasso: Sucesión Picasso, VEGAP, Madrid 2026. * Tuesday, Wednesday and Sunday, from 9.00am to 8.00pm. * Thursday, Friday and Saturday, from 9.00am to 9.00pm. **From 29 September to 29 March:**. * From Tuesday to Sunday, 10.00am to 7.00pm. * From 29 September to 29 March**:** Thursday from 4.00 to 7.00pm (Prior reservation required\\*). * The opening time of the ticket office finishes 30 minutes before the closing time of the Museum. * Holders of the Libraries Card of Barcelona. * Holders of the free-of-charge Pink Card. * Duly accredited members of the Associació de Museòlegs de Catalunya. A single ticket that allows its holder t...\n3. Accessibility | Picasso museum Barcelona | Official website score=1.00\n   URL: https://museupicassobcn.cat/en/plan-your-visit/accessibility\n   Snippet: ## Picasso and Barcelona. * Picasso's connection with Barcelona. * Picasso's relationship with Sabartés. * History of the Picasso Museum. * Virtual tour of Picasso’s Barcelona. ## Museum. Legal notice | Data protection policy | Intellectual property | Accessibility | Contact. © Fundación Museu Picasso de Barcelona. © de las reproducciones de las obras de Pablo Picasso: Sucesión Picasso, VEGAP, Madrid 2026. # Accessibility. Enllaç a l’activitat «Creativitat i memòria». dilluns, del 12 de gener al 23 de març de 2026. Enllaç a l’activitat Apropar l'art als/a les cuidador(e)s. ## Apropar l'art als/a les cuidador(e)s. Enllaç a l’activitat El Museu Picasso s'Apropa. ## El Museu Picasso s'Apropa. The access of guide dogs** is allowed in the building and the rooms. The museum provides folding chairs** in the galleries to make the visit more comfortable. Logo de FacebookLogo de TwitterLogo de Ins...\n4. Picasso Museum Barcelona Tickets score=1.00\n   URL: https://www.barcelona.com/museums/picasso-museum-barcelona\n   Snippet: The museum is open from Tuesday to Sunday from 9am to 7pm. Thursdays until 9:30 pm. · Closed every Monday and the following public holidays: January 1, May 1,\n5. Visit Picasso Museum Barcelona | Hours, Tips & Tickets score=1.00\n   URL: https://www.barcelona-tickets.com/picasso-museum/plan-your-visit/\n   Snippet: # Visit Picasso Museum Barcelona. Picasso Museum Barcelona (Museu Picasso) is the world's most comprehensive collection of Pablo Picasso's formative work, housed inside five interconnected medieval palaces on Carrer de Montcada. It is an intimate, corridor-heavy museum where rooms are small and crowds stack up quickly on weekends and free-entry days. Most visits take 1 to 2 hours, and the one thing that catches visitors off-guard is the strict no re-entry policy: step outside and your ticket is void. This guide covers everything you need, from getting there to choosing the right ticket to knowing what not to miss once you are inside. How long to visit the Picasso Museum Barcelona ultimately depends on your pace, but budget at least 90 minutes to avoid rushing. The best time to visit the Picasso Museum is first thing on a weekday: tour groups do not arrive until mid-morning, and the intim...",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "20e0d317-496b-465e-ad73-1b53b07ca688",
+        "tool_call_id": "call_sV5419yUCc63C8SjGYj9GeFW",
+        "status": "success"
+      },
+      {
+        "content": "",
+        "additional_kwargs": {
+          "refusal": null
+        },
+        "response_metadata": {
+          "token_usage": {
+            "completion_tokens": 323,
+            "prompt_tokens": 11715,
+            "total_tokens": 12038,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": null,
+              "audio_tokens": 0,
+              "reasoning_tokens": 217,
+              "rejected_prediction_tokens": null,
+              "image_tokens": 0
+            },
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 0,
+              "cache_write_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost": 0.068265,
+            "is_byok": false,
+            "cost_details": {
+              "upstream_inference_cost": 0.068265,
+              "upstream_inference_prompt_cost": 0.058575,
+              "upstream_inference_completions_cost": 0.00969
+            }
+          },
+          "model_provider": "openai",
+          "model_name": "openai/gpt-5.5-20260423",
+          "system_fingerprint": null,
+          "id": "gen-1778953794-j7HYAYclpjsQUu6F0l2B",
+          "service_tier": "default",
+          "finish_reason": "tool_calls",
+          "logprobs": null
+        },
+        "type": "ai",
+        "id": "lc_run--019e31e8-b2e6-70e0-b373-0c53baa49cc9-0",
+        "tool_calls": [
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "El Nacional Barcelona wheelchair accessible official accessibility restaurant Passeig de Gracia"
+            },
+            "id": "call_6G4epkhBV3XbEdrcFTPXOkxr",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Barcelona food market La Boqueria official accessibility wheelchair opening hours"
+            },
+            "id": "call_mqTpQfxldhAmwzIuBAGiTxOj",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Barcelona Maritime Museum official accessibility wheelchair opening hours tickets accessible museum"
+            },
+            "id": "call_NNbioGwkNRm9KSUh6EK5Loav",
+            "type": "tool_call"
+          }
+        ],
+        "invalid_tool_calls": [],
+        "usage_metadata": {
+          "input_tokens": 11715,
+          "output_tokens": 323,
+          "total_tokens": 12038,
+          "input_token_details": {
+            "audio": 0,
+            "cache_read": 0
+          },
+          "output_token_details": {
+            "audio": 0,
+            "reasoning": 217
+          }
+        }
+      },
+      {
+        "content": "Tavily answer:\nEl Nacional on Passeig de Gracia is wheelchair accessible. It offers diverse dining options and is located in central Barcelona. It is currently open for dining.\n\nTavily results:\n1. El Nacional Accessible Restaurant Barcelona Cocktail Bar score=1.00\n   URL: https://disabledaccessibletravel.com/wheelchair-accessible-restaurants-barcelona/2-2/\n   Snippet: Disabled Accessible Travel. Passeig Picasso 38 08003, Barcelona Spain. +34 ... Closed. Whee'love travel. Wheelchair Accessibility of Topkapi Palace, Istanbul\n2. EL NACIONAL, Barcelona - Passeig de Gràcia 24 Bis, La Dreta de l ... score=1.00\n   URL: https://www.tripadvisor.com/Restaurant_Review-g187497-d7175242-Reviews-El_Nacional-Barcelona_Catalonia.html\n   Snippet: Private Dining. Reservations. Seating. Serves Alcohol. Table Service. Wheelchair Accessible. Wine and Beer. Improve this listing. Closed now. 12:00 PM - 1:00 AM\n3. EL NACIONAL - Updated May 2026 - 1743 Photos & 461 Reviews score=1.00\n   URL: https://www.yelp.com/biz/el-nacional-barcelona-5\n   Snippet: EL NACIONAL - Try Our New Menu - Passeig de Gracia, 24, 08007 Barcelona ... Is El Nacional wheelchair accessible? Yes, El Nacional is wheelchair\n4. El Nacional, an emblematic space in Passeig de Gràcia score=1.00\n   URL: https://barcelonapaseodegracia.com/en/news/el-nacional-passeig-de-gracia/\n   Snippet: El Nacional is a multispace with more than 3000 square meters of surface, located in a centenary place in Passeig de Gràcia.\n5. The restaurant | El Nacional Barcelona score=1.00\n   URL: https://www.elnacionalbcn.com/en/the-restaurant/\n   Snippet: ## A unique gastronomic concept. El Nacional is a unique gastronomic multi-space that includes 4 restaurants and 4 bars under the same modernist roof. A meat restaurant, a fish restaurant, a tapas restaurant and a fast delicatessen restaurant. Four distinct spaces that are complemented by 4 bars specialising in beers and preserves, wines and cold cuts, oysters and cocktails, which make El Nacional a unique restaurant where you can immerse yourself in the local life of Barcelona. The establishment is located on Passeig de Gràcia and has a surface area of 2,600 m2 with a capacity for more than 700 diners. An emblematic place, full of history, that has borne witness to Barcelona’s industrial revolution since it was built in 1889. Initially, it housed a café-theatre, a fabric dye factory, a car dealer’s shop before the Civil War……and finally a garage. Large windows and metal pillars give the...",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "8126d85f-f1a2-4a5a-97e2-7fdf1cdef516",
+        "tool_call_id": "call_6G4epkhBV3XbEdrcFTPXOkxr",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nLa Boqueria market is accessible for wheelchair users, open daily from 8 a.m. to 8:30 p.m., with quieter hours on weekdays before 10 a.m.\n\nTavily results:\n1. La Boqueria Market Accessibility Guide | Barcelona - wheelieguides score=1.00\n   URL: https://wheelieguides.com/en/barcelona/attractions/la-boqueria/\n   Snippet: Entry is free. · The best time for wheelchair users is Monday to Friday between 8:00am and 10:00am, before the tourist crowds arrive. · Saturday\n2. La Boqueria Market: Top Snacks and Stalls + Food Itinerary score=1.00\n   URL: https://barcelonahacks.com/la-boqueria-market-barcelona/\n   Snippet: Mercado de la Boqueria is open Monday to Saturday from 8:00 am to 8:30 pm (closed Sunday). Some of the stalls shut as early as 2 pm so it's best to get there\n3. Welcome to La Boqueria | Barcelona Market score=1.00\n   URL: https://www.boqueria.barcelona/market-boqueria\n   Snippet: If you are unable to find what you are looking for, leave it to us and we will get it for you, as we have always done. We are the beating heart of the city, and our customers include local customers, people from Barcelona in general and people from other parts of Catalonia.What’s more, as we are right in the city centre, on theRambla, many tourists who visit Barcelona have the opportunity to visit us and sample the food on offer in our bars and restaurants, prepared with products fresh from the market. Our doors are always open to all those who want to come in and buy our products, with the same respect and consideration for the market as we have always had. Over time, the interest expressed by the citizens of Barcelona and all those who visit our city in our market, the market of Boqueria-Sant Josep, have converted it into a symbol that has put Barcelona on the map of the world.\n4. MERCAT LA BOQUERIA - Farmers Market - Yelp score=1.00\n   URL: https://www.yelp.com/biz/mercat-la-boqueria-barcelona\n   Snippet: It's open everyday except Sunday. Many already prepared foods ready to eat. Also, juices, pastries and of course churros with chocolate. Very interesting place\n5. A Complete Guide to La Boqueria Barcelona score=1.00\n   URL: https://www.barcelona-tickets.com/food-drink/la-boqueria-barcelona/\n   Snippet: # La Boqueria Barcelona | Highlights, What to Eat & More. ## What is La Boqueria Market in Barcelona? Sant Josep Market, otherwise popularly known as ‘La Boqueria’ is located in the heart of Barcelona city at La Rambla. The exteriors of the markets are made of a metallic/glass structure, but the interiors are what make it stand out in the world for its immense diversity and quality of products. La Boqueria is today, a symbol that has put Barcelona on the map of the world when it comes to the sale of fresh produce. Visting La Boqueria is one of the best things to do in Barcelona for anyone visiting the city! ## Where is La Boqueria in Barcelona? * A section of La Boqueria Barcelona is dedicated to the market’s more exotic produce. This was placed at the entrance gate of the city’s walls, close to the La Boqueria market in Barcelona. La Boqueria is a famous market in Barcelona, located at...",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "9fd994b5-e421-4d5a-8a2c-396195f8041b",
+        "tool_call_id": "call_mqTpQfxldhAmwzIuBAGiTxOj",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nThe Barcelona Maritime Museum is open Tuesday to Sunday from 10:00 to 20:00, closed Mondays, and is fully wheelchair accessible. Free entry every Sunday after 3:00 pm. Tickets available online.\n\nTavily results:\n1. Barcelona Maritime Museum Tickets Offer - tickadoo score=1.00\n   URL: https://www.tickadoo.com/barcelona/maritim-museum-entry-tickets?srsltid=AfmBOop8waDB-Vq7U7MPt8nu67TRub-PPGq4uu9SFH-Zt7UjnvEK2Al8\n   Snippet: The museum is open Tuesday to Sunday from 10:00 to 20:00. It is closed on Mondays. Is the museum wheelchair accessible? Yes, it offers full wheelchair\n2. Accessibility - Barcelona - Museu Marítim score=1.00\n   URL: https://www.mmb.cat/en/accessibility/\n   Snippet: The building is wheelchair-accessible and has an elevator for accessing the Espai Mirador. The restrooms in the restaurant and inside the museum are accessible.\n3. Barcelona, an accessible city - Tourism of Barcelona score=1.00\n   URL: https://www.barcelonaturisme.com/wv3/en/enjoy/195/barcelona-an-accessible-city.html\n   Snippet: The city's maritime museum, the Museu Marítim, is barrier free and includes a series of tactile models that visually impaired visitors can\n4. Plan your visit score=1.00\n   URL: https://www.mmb.cat/en/visit/plan-your-visit/\n   Snippet: **OPENING HOURS MARITIME MUSEUM OF BARCELONA**. The Museum is open to the public from Monday to Sunday: from 10:00 am to 8:00 pm (access permitted until 7:00 pm). December 24 and 31 the museum closes on 3:00 pm. **Saturdays, Sundays and public holidays for any questions about visits, buy tickets or free hours contact directly on 933 429 920**. From Tuesday to Sunday, and public holidays: from 10:00 am to 8:00 pm. **GENERAL REGISTRY**Monday to Friday: 10:00 am to 2:00 pm. **LIBRARY**Monday to Friday: 10:00 am to 2:00 pm. **RESTAURANT** Monday to Friday: 8:00 am to 8:00 pm. Saturdays and Sundays: 9:00 am to 8:00 pm. **STORE** Monday to Sunday: 10:00 am to 8:00 pm. **Every Sunday after 3:00 pm, Maritim Museum of Barcelona access is free of charge.**. | cookielawinfo-checkbox-analytics | 1 year | Set by the GDPR Cookie Consent plugin, this cookie records the user consent for the cookies in t...\n5. Maritime Museum Barcelona: Opening Hours & Prices 2026 score=1.00\n   URL: https://www.museos.com/en/barcelona/maritime-museum/\n   Snippet: # Maritime Museum. ## Maritime Museum SHIPS AND GALLEYS. You can learn everything about shipping and the culture of the sea at this museum. only, that it probably doesn't belong in the top 10 list for a first-time visit to Barcelona. A visit to the sailing ship “Santa Eulalia” at the harbor is included in the price of admission! **Museum:** Monday to Sunday, 10.00 a.m. Last access: at 7.00 p.m. free admission for children under the age of 7, every Sunday after 3.00 p.m. EUR 5 Euro for children aged 7–16 years, students under the age of 25, senior citizens over the age of 65. EUR 5 Euro for children aged 7–16 years, students under the age of 25, senior citizens over the age of 65. EUR 1 for children aged 7–16 years, students under the age of 25, senior citizens over the age of 65. free admission for children under the age of 7, every Sunday after 3.00 p.m.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "bbc302a5-34a2-4dc7-91c3-04aed65ab55c",
+        "tool_call_id": "call_NNbioGwkNRm9KSUh6EK5Loav",
+        "status": "success"
+      },
+      {
+        "content": "",
+        "additional_kwargs": {
+          "refusal": null
+        },
+        "response_metadata": {
+          "token_usage": {
+            "completion_tokens": 650,
+            "prompt_tokens": 14151,
+            "total_tokens": 14801,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": null,
+              "audio_tokens": 0,
+              "reasoning_tokens": 516,
+              "rejected_prediction_tokens": null,
+              "image_tokens": 0
+            },
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 11264,
+              "cache_write_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost": 0.039567,
+            "is_byok": false,
+            "cost_details": {
+              "upstream_inference_cost": 0.039567,
+              "upstream_inference_prompt_cost": 0.020067,
+              "upstream_inference_completions_cost": 0.0195
+            }
+          },
+          "model_provider": "openai",
+          "model_name": "openai/gpt-5.5-20260423",
+          "system_fingerprint": null,
+          "id": "gen-1778953805-cRzchiCRKGXXnd67UIvV",
+          "service_tier": "default",
+          "finish_reason": "tool_calls",
+          "logprobs": null
+        },
+        "type": "ai",
+        "id": "lc_run--019e31e8-de90-7711-8c99-d48120234173-0",
+        "tool_calls": [
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "official La Pedrera Casa Mila accessibility wheelchair opening hours tickets Barcelona"
+            },
+            "id": "call_QpzfwaOpuwfeiIoEy9ANAEAZ",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "official Barcelona beaches assisted bathing service September accessible beach opening hours Nova Icaria 2026"
+            },
+            "id": "call_P1KTUmHp70yjvT3DeZFqfAh7",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "official Barcelona taxi wheelchair accessible taxi IMET reduced mobility"
+            },
+            "id": "call_EtwFymReyaFwvmMHmHZI1U2S",
+            "type": "tool_call"
+          },
+          {
+            "name": "tavily_web_search",
+            "args": {
+              "query": "Barcelona official Gaudi accessible route wheelchair tourism"
+            },
+            "id": "call_jnnVJsTtAiFKxZ0eOzJsrZxb",
+            "type": "tool_call"
+          }
+        ],
+        "invalid_tool_calls": [],
+        "usage_metadata": {
+          "input_tokens": 14151,
+          "output_tokens": 650,
+          "total_tokens": 14801,
+          "input_token_details": {
+            "audio": 0,
+            "cache_read": 11264
+          },
+          "output_token_details": {
+            "audio": 0,
+            "reasoning": 516
+          }
+        }
+      },
+      {
+        "content": "Tavily answer:\nLa Pedrera Casa Milà is accessible for wheelchair users; it opens daily from 9:00 am to 8:30 pm, with tickets available online.\n\nTavily results:\n1. Accessibility | La Pedrera - Casa Milà Official website score=1.00\n   URL: https://www.lapedrera.com/en/accessibility/\n   Snippet: Fundació Catalunya La Pedrera, the organisation that manages the building, embraces diversity and responds to the needs of its visitors. It also designs and offers a range of programmes and services to ensure that La Pedrera is an accessible space for everyone. Physical accessibility   ## Sensory accessibility   ## Cognitive accessibility   Web accessibility   Accessible visits and reduced rates. ## Cognitive accessibility. It’s no problem if **people with disabilities** want to visit La Pedrera, but it is not easy for them to plan a day and time. It is partially accessible for people with reduced mobility and **wheelchair** users. A **wheelchair loan service** is available to facilitate visits for people with reduced mobility. For temporary exhibitions, an **accessibility resource** is available to support people with reduced mobility: **portable seats**. This support is for visits to t...\n2. Accessible Casa Milà - La Pedrera Barcelona - Ataxia.scot score=1.00\n   URL: https://ataxia.scot/accessible-casa-mila-la-pedrera-barcelona/\n   Snippet: Casa Milà – La Pedrera is open daily from 9am (and I would definitely recommend getting there as early as possible, to enjoy a more-relaxed visit). Casa Milà –\n3. Wheelchair Accessibility of La Pedrera - Casa Milà Barcelona score=1.00\n   URL: https://disabledaccessibletravel.com/wheelchair-accessible-la-pedrera-casa-mila/\n   Snippet: Please note the opening times of La Pedrera vary depending on the season. You can check the current opening times on the official website of La Pedrera.\n4. Casa Milà Tickets and Tours - TicketLens score=1.00\n   URL: https://www.ticketlens.com/en/p735360/barcelona/casa-mila\n   Snippet: Typical daytime visit (La Pedrera Essential / Open Date): 9:00 am–8:30 pm, last entrance 7:00 pm. Art Season visit: 9:00 am–6:30 pm, last entrance 5:30 pm.\n5. La Pedrera FAQs – Visitor Rules, Accessibility & Practical Info score=1.00\n   URL: https://la-pedrera.barcelona/en/faqs\n   Snippet: Frequently asked questions about visiting Casa Milà: opening hours, accessibility, audio guide, dress code, how to get there and ticketing policies.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "3b23c3a2-f494-44ec-8f50-82e7e22f3192",
+        "tool_call_id": "call_QpzfwaOpuwfeiIoEy9ANAEAZ",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nNova Icaria Beach offers assisted bathing services in 2026, with opening from mid-September. The beach is fully accessible with specialized equipment and staff. Check local council updates for exact hours.\n\nTavily results:\n1. Barcelona beach season 2026 information and updates - Facebook score=1.00\n   URL: https://www.facebook.com/groups/1687696031796960/posts/2069061253660434/\n   Snippet: Assisted bathing services (amphibious chairs and specialized staff) are available at Nova Icària and the Fòrum bathing area. Quick Safety\n2. Nova Icària Beach - Tourism of Barcelona score=1.00\n   URL: https://www.barcelonaturisme.com/wv3/en/page/1537/nova-icaria-beach.html\n   Snippet: + Barcelona, a city with a beer culture. + Barcelona, City of the Literature. Things to do /  Sea and beaches /  Beaches / Nova Icària Beach. The Nova Icària Beach is rightly considered to be a very peaceful beach, and is a popular choice for families and groups of friends. Lying very close to the Port Olímpic, it is surrounded by a great variety of restaurants and bars, as well as the most comprehensive range of facilities for sports and other activities on the entire coastline. All city beaches have reserved parking with accessible routes to the dry beach area, visual and tactile signage and information, adapted toilets, adapted showers, and wooden walkways that get as close as possible to the water. This accessible beach with assisted bathing service has an inclusive changing room, amphibious chair, life jackets, a shaded canopy, and service to assist people with reduced mobility to e...\n3. Barcelona Beach Season 2026: What You Need to Know! Heading ... score=1.00\n   URL: https://www.facebook.com/MyLuckyEarth/posts/%EF%B8%8F-barcelona-beach-season-2026-what-you-need-to-know-heading-to-the-coast-barcelo/845644545234177/\n   Snippet: Assisted bathing services (amphibious chairs and specialized staff) are available at Nova Icària and the Fòrum bathing area. Quick Safety\n4. Bathing season | Barcelona website | Barcelona City Council score=1.00\n   URL: https://www.barcelona.cat/en/what-to-do-in-bcn/bathing-and-beaches/bathing-season\n   Snippet: Logo of Barcelona City Council. The official portal of Barcelona City Council. Tools related to the world of work, business and entrepreneurship. All the activities and places that enable you to make the most of your city. It is throughout this period that the Barcelona City Council has to equip and service the beaches to enable their use as a bathing and sunbathing space, fulfilling all possible guarantees in terms of security, rescuing, health and environmental assistance. Each year a Plan of Uses is drawn up for the Barcelona beach season, covering all the requirements set by the competent authorities as well as the equipment and services that the City Council considers vital for the recreational use of this important part of the city. **Mid beach season**: from 28 to 31 March; from 1 to 6, weekends and from 27 to 30 April; from 1 to 29 May; from 14 to 27 September; and on 3 and 4 Oct...\n5. Accessible tourism on the beaches of Spain - Spain.info score=1.00\n   URL: https://www.spain.info/en/discover-spain/accessibility-beaches-spain/\n   Snippet: The beach of Nova Icària (Barcelona) has amphibious chairs, adapted access and assisted bathing services with online or telephone booking.Other notable options",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "020069dc-9851-43c6-abdf-317efe33d36d",
+        "tool_call_id": "call_P1KTUmHp70yjvT3DeZFqfAh7",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nBarcelona's official taxi service, managed by IMET, offers wheelchair-accessible taxis for travelers with reduced mobility. These taxis are available for airport, cruise port, and city transfers. Pre-booking is recommended for smooth access.\n\nTavily results:\n1. Wheelchair Accessible Taxi Barcelona | Airport & Cruise Port Transfers score=1.00\n   URL: https://disabledaccessibletravel.com/wheelchair-accessible-taxi-barcelona/\n   Snippet: # Wheelchair Accessible Taxi Barcelona – Airport & Cruise Port Transfers. ## Wheelchair Accessible Taxi Transfers Across Barcelona. Our wheelchair accessible taxi service in Barcelona provides safe, private, and fully adapted transport for travellers with reduced mobility. Whether you require a wheelchair accessible taxi from Barcelona El Prat Airport, a specialized transfer from the cruise port, a pickup from Barcelona Sants train station. To ensure a smooth arrival or departure, every accessible taxi transfer in Barcelona is pre-arranged and tailored to match your specific mobility needs. ## Wheelchair Accessible Taxi from Barcelona El Prat Airport. We specialize in providing a wheelchair accessible taxi from Barcelona El Prat Airport directly to your hotel or accommodation. ## Wheelchair Accessible Taxi from Barcelona Cruise Port. For cruise travellers, we arrange wheelchair accessibl...\n2. Book Wheelchair Accessible Taxi in Barcelona score=1.00\n   URL: https://www.taxi24bcn.com/-en/book/adapted-taxi-barcelona/ia3453\n   Snippet: Transportation for people with reduced mobility. We offer the client a large fleet of eurotaxis with capacity for one or two wheelchairs, all our adapted taxi\n3. Taxi Amic Adaptat | Especializados en el transporte de personas con movilidad reducida score=1.00\n   URL: https://www.taxiamic.cat/en/\n   Snippet: ## **Your adapted taxi service in Barcelona**. ## Make your reservation online. ## Specialized in the transport of people with reduced mobility. #### Individualized and personal transport. #### Subscriber service for companies or institutions. #### Vehicles equipped with access ramp. ## More than 15 years of experience and a comprehensive fleet of adapted taxis at your disposal. ## Disfrute de nuestro transporte adaptado y atención individualizada. El servicio adaptado requiere de un trato personalizado al usuario. La amplia experiencia i conocimiento del mismo, hace que los conductores no se dediquen exclusivamente al transporte de personas, sino que realicen otras funciones como son:. ### Institutions that work with us. ## Últimas noticias. TAXI AMIC RENEWS ITS CORPORATE IMAGE. AN INTEGRAL FLEET OF ADAPTED TAXIS. A LIFE AT THE SERVICE OF THE CITY. Designed by Elegant Themes | Powered b...\n4. Taxi | Mobility and transport - Ajuntament de Barcelona score=1.00\n   URL: https://www.barcelona.cat/mobilitat/en/means-of-transport/taxi\n   Snippet: The taxi fleet operating in Barcelona is managed by the Metropolitan Taxi Institute (IMET), an autonomous institution that reports to the Metropolitan Area of\n5. 【Wheelchair-accessible taxi】▷ Book online NOW score=1.00\n   URL: https://taxiridebarcelona.com/en/wheelchair-adapted-taxi/\n   Snippet: A wheelchair-accessible taxi is a vehicle equipped with specific features that allow people with reduced mobility to be transported safely without having to",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "992d9776-a42e-4012-89be-54ecf788b5a9",
+        "tool_call_id": "call_EtwFymReyaFwvmMHmHZI1U2S",
+        "status": "success"
+      },
+      {
+        "content": "Tavily answer:\nBarcelona's Casa Batlló and Casa Vicens are accessible for wheelchair users, with ramps and elevators. Tours are available with guides and accessible transport. The city offers comprehensive wheelchair-friendly tours.\n\nTavily results:\n1. Gaudi's Casa Batlló Guided Tour | Wheel The World score=0.85\n   URL: https://wheeltheworld.com/accessible-things-to-do/spain/barcelona/gaudi-walking-tour-casa-batllo-visit?srsltid=AfmBOorFoJB8AIHQyeUI-Nuhv0NBCWQXuH986NF-dz1OjIJqhqsqnxpS\n   Snippet: ## Gaudi's Casa Batlló Guided Tour. Exploring Gaudi's universe: Casa Batlló guided tour. The facade of Casa Batlló. You will get a chance to admire the building in detail. A wheelchair user explores Casa Batlló. On this private, 2-hour, accessible guided tour in Barcelona, you'll discover Gaudi's universe and his designs' genius by visiting Casa Batlló, one of Gaudi's masterpieces. The tour includes entrance tickets, a guide, and accessible pick-up and drop-off services from and to your Barcelona hotel. Casa Batlló is wheelchair-accessible and has an elevator to the rooftop, from which you can admire city views. Throughout the tour, your guide will be available to assist you if necessary and can answer your questions about Gaudi and Barcelona. Enjoy a 2-hour accessible tour of Casa Batlló with wheelchair-friendly transport, ramps, an elevator to the rooftop, accessible bathrooms, and dis...\n2. Gaudi's Casa Vincens Guided Tour | Wheel The World score=0.83\n   URL: https://wheeltheworld.com/accessible-things-to-do/spain/barcelona/gaudi-walking-tour-casa-vicens-visit?srsltid=AfmBOooTVMcF3UwYs_R4HZF1Rl164O6KfKlvzG8ZXwukE4k0xxYUUINC\n   Snippet: A man in a wheelchair in front of the Casa Vicens building. Details from inside Casa Vicens house. Casa Vicens stands as Gaudí's inaugural masterpiece, a remarkable summer house nestled in the tranquil neighborhood of Gràcia. This 2-hour, private,  guided, and accessible tour offers a captivating glimpse into the architect's early years, immersing you in the enchanting aromas of the Orient and Mudéjar influences. The tour includes entrance tickets, a guide, and accessible pick-up and drop-off services from and to your Barcelona hotel. Casa Vicens' main entrance is accessed via steps. However, there is a side entrance with a ramp. There is an accessible bathroom with grab bars at Casa Vicens. Enjoy a 2-hour accessible tour of Casa Vicens with wheelchair-friendly transport, a ramped side entrance, accessible bathrooms, on-site wheelchair borrowing, and disability-experienced staff assistan...\n3. The Definitive Wheelchair Guide to Barcelona (2026) score=0.77\n   URL: https://wheelietravel.com/en/guides/barcelona\n   Snippet: # The Definitive Wheelchair Guide to Barcelona. The dedicated accessible entrance is on Carrer de Sardenya with staff assistance. The nave is entirely level with smooth stone flooring. The underground museum is accessible via a ramp (somewhat steep for manual chairs). Pro tip: Free entry for disability 65%+ and one companion. Enter via the Carretera del Carmel gate (highest accessible point) for a generally downhill or flat journey. Pro tip: Enter via Carretera del Carmel for the most accessible route. Pro tip: Most of the rooftop is accessible — only minor sections have steps. Pro tip: Free for disability 65%+ and one companion. Fully accessible with ramps to all galleries and the rooftop viewpoint. Use Bus 150 or the Montjuïc Cable Car to avoid the steep walk from Plaça d'Espanya. Pro tip: Take Bus 150 directly to the entrance to avoid the steep hill from Plaça d'Espanya. Pro tip: Purp...\n4. Wheelchair Accessible City Tour Highlights Of Barcelona score=0.70\n   URL: https://disabledaccessibletravel.com/accessible-destinations/spain/accessible-barcelona/wheelchair-accessible-city-tour-highlights-of-barcelona-with-transport-approx-8-hours/\n   Snippet: Experience the vibrant and historic city of Barcelona like never before with this wheelchair-accessible full-day tour. Designed for comfort and ease, this tour\n5. Inclusive Barcelona: Wheelchair-Friendly Private Tour - ToursByLocals score=0.67\n   URL: https://www.toursbylocals.com/tours/spain/barcelona/tour-details/inclusive-barcelona-wheelchair-friendly-private-tour-6947f5fb4d259000f17e1c35\n   Snippet: Discover Barcelona without barriers on this private, fully accessible tour, designed for wheelchair users, their families, and friends.",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "type": "tool",
+        "name": "tavily_web_search",
+        "id": "e8f929d2-b991-4c76-9516-5a4839053c69",
+        "tool_call_id": "call_jnnVJsTtAiFKxZ0eOzJsrZxb",
+        "status": "success"
+      },
+      {
+        "content": "# Baseline itinerary: accessible Munich to Barcelona trip, 5–10 September 2026\n\n## Goal and constraints understood\n- Travelers: 2 adults, one wheelchair user.\n- Route and dates: Munich → Barcelona, 5 September 2026; Barcelona → Munich, 10 September 2026.\n- Transport: flight, with wheelchair assistance and suitable seating requested.\n- Accommodation: fully accessible hotel with lift access and roll-in shower.\n- Interests: Gaudí architecture, accessible beaches, local food, accessible museums.\n- Budget: €4,000 total.\n- Accessibility standard used for this baseline: step-free or wheelchair-reachable plans wherever Tavily evidence was found; any item requiring direct confirmation is flagged.\n\n## Search summary\n- Barcelona official accessible tourism page notes adapted accommodation, accessible transport and adapted cultural attractions: [Turisme de Barcelona – Accessible Barcelona](https://www.barcelonaturisme.com/wv3/en/page/47/accessible-barcelona.html).\n- Barcelona beach accessibility and Nova Icària assisted bathing: [Turisme de Barcelona – Nova Icària Beach](https://www.barcelonaturisme.com/wv3/en/page/1537/nova-icaria-beach.html), plus city bathing-season information from [Barcelona City Council](https://www.barcelona.cat/en/what-to-do-in-bcn/bathing-and-beaches/bathing-season).\n- Public transport visitor pass source: [TMB Hola Barcelona Travel Card](https://www.tmb.cat/en/barcelona-fares-metro-bus/tickets-visit-barcelona/barcelona-travel-card-hola-bcn).\n- Flight wheelchair assistance sources found for likely Munich–Barcelona carriers: [Lufthansa wheelchair assistance](https://www.lufthansa.com/ar/en/passengers-using-wheelchairs) and [Vueling special assistance](https://help.vueling.com/hc/en-gb/categories/19798714411665-Special-Assistance).\n- Accessible airport/PRM support in Barcelona: [Barcelona Airport PRM information](https://www.aeropuertobarcelona-elprat.com/ingl/airport-services-disabled-travellers.htm).\n- Accessible hotel candidate: [Hotel Indigo Barcelona – Plaza Catalunya official accessibility page](https://www.ihg.com/hotelindigo/hotels/us/en/barcelona/bcnin/hoteldetail/accessibility).\n- Gaudí and museum sources: [Casa Batlló official tickets](https://www.casabatllo.es/en/online-tickets/), [Park Güell official accessibility](https://parkguell.barcelona/en/accessibility), [Park Güell official prices/times](https://parkguell.barcelona/en/planning-your-visit/prices-and-times), [La Pedrera official accessibility](https://www.lapedrera.com/en/accessibility/), [Picasso Museum official opening hours](https://museupicassobcn.cat/en/plan-your-visit/buy-tickets-and-opening-hours), [Picasso Museum official accessibility](https://museupicassobcn.cat/en/plan-your-visit/accessibility), [Maritime Museum official accessibility](https://www.mmb.cat/en/accessibility/).\n- Local food sources: [El Nacional official restaurant page](https://www.elnacionalbcn.com/en/the-restaurant/) and [La Boqueria official market page](https://www.boqueria.barcelona/market-boqueria).\n\n## Day 1 – Saturday 5 September 2026: Munich to Barcelona, accessible arrival\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 08:30-10:30 | transport | Arrive at Munich Airport early for PRM/wheelchair assistance, battery/wheelchair checks, and pre-boarding. | Munich Airport | Included/estimate | Book wheelchair assistance at least 48h before travel through the airline; Tavily found airline assistance pages for [Lufthansa](https://www.lufthansa.com/ar/en/passengers-using-wheelchairs) and [Vueling](https://help.vueling.com/hc/en-gb/categories/19798714411665-Special-Assistance). Exact flight not booked by this baseline. |\n| 11:00-13:10 | flight | Direct Munich → Barcelona flight; request aisle chair, bulkhead/accessible seating if suitable, and wheelchair delivery at aircraft door where possible. | MUC → BCN | €500-€900 estimate for 2 | Flight times and fares are estimates because this baseline only has Tavily search, not live flight inventory. |\n| 13:10-14:15 | accessibility/transport | Use Barcelona airport PRM assistance for deplaning, wheelchair return, baggage, and exit to transport. | Barcelona-El Prat Airport | Included | Barcelona Airport PRM assistance should be requested at least 48h before travel according to [Barcelona Airport PRM info](https://www.aeropuertobarcelona-elprat.com/ingl/airport-services-disabled-travellers.htm). |\n| 14:15-15:00 | transport | Pre-book wheelchair-accessible taxi to hotel rather than relying on station lifts after a flight. | BCN Airport → Eixample/Plaça Catalunya | €45-€80 estimate | Accessible taxi availability should be pre-booked; Barcelona taxi fleet is managed by IMET per [Barcelona mobility/taxi page](https://www.barcelona.cat/mobilitat/en/means-of-transport/taxi). |\n| 15:00-16:30 | accommodation | Check in to accessible room: confirm roll-in shower, lift access, turning space, grab bars, bed height, and step-free route before arrival. | Hotel Indigo Barcelona – Plaza Catalunya, or equivalent | Included in hotel total | Candidate hotel has official accessibility details: [Hotel Indigo accessibility](https://www.ihg.com/hotelindigo/hotels/us/en/barcelona/bcnin/hoteldetail/accessibility). Roll-in shower availability must be confirmed directly for the exact room. |\n| 17:00-18:30 | rest | Rest after travel; inspect bathroom, lift, emergency exits, and route from room to lobby. | Hotel | €0 | Accessibility safety buffer. |\n| 19:30-21:00 | food | Welcome dinner at a spacious central food hall; request step-free table and accessible toilet confirmation when booking. | El Nacional, Passeig de Gràcia | €80-€130 estimate | Official page describes a large 2,600 m² multi-restaurant space on Passeig de Gràcia: [El Nacional](https://www.elnacionalbcn.com/en/the-restaurant/). Wheelchair access should still be reconfirmed. |\n\n## Day 2 – Sunday 6 September 2026: Sagrada Família, Casa Batlló, modernist Barcelona\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 08:00-09:00 | food | Breakfast at hotel; ask reception to reconfirm today’s step-free taxi/metro routes. | Hotel | Included/estimate | Use hotel as accessibility base. |\n| 09:15-09:45 | transport | Accessible taxi or accessible metro/bus to Sagrada Família. | Eixample → Sagrada Família | €15-€25 taxi estimate | The TMB visitor card covers unlimited public transport from first validation, including airport metro trips per [TMB Hola Barcelona Travel Card](https://www.tmb.cat/en/barcelona-fares-metro-bus/tickets-visit-barcelona/barcelona-travel-card-hola-bcn); elevator status should be checked live. |\n| 10:00-12:00 | Gaudí architecture | Visit Sagrada Família nave and museum; avoid tower tickets because towers are not reliably wheelchair-accessible. | Sagrada Família | €0-€70 estimate | Tavily found accessibility evidence that main areas are wheelchair-friendly, but official opening/ticket price should be verified at booking. Companion/free disability policies vary by proof and are not assumed. |\n| 12:15-13:30 | food | Lunch near Sagrada Família at a step-free restaurant or terrace; reserve and mention wheelchair dimensions. | Sagrada Família area | €50-€80 estimate | Restaurant accessibility not individually verified; terrace dining often easier but must be confirmed. |\n| 13:30-14:00 | transport | Accessible taxi to Passeig de Gràcia. | Sagrada Família → Casa Batlló | €12-€20 estimate | Taxi recommended to reduce fatigue. |\n| 14:00-16:00 | Gaudí architecture | Visit Casa Batlló general visit and immersive exhibition; request elevator access and accessible route. | Casa Batlló | €60-€90 estimate | Official ticket page lists first access 9:00 and last access 19:45 for general visits and mentions disability discount: [Casa Batlló official tickets](https://www.casabatllo.es/en/online-tickets/). |\n| 16:00-17:30 | local walk | Slow roll along Passeig de Gràcia for façades and shopfronts; keep to wide pavements. | Passeig de Gràcia | €0 | Central, flatter route; accessibility based on general city layout, not a venue claim. |\n| 18:00-19:00 | rest | Return to hotel and rest. | Hotel | €0-€15 | Taxi or short roll depending on hotel location. |\n| 20:00-21:30 | food | Catalan dinner in Eixample; choose terrace or confirmed step-free interior. | Eixample | €90-€140 estimate | Exact restaurant not fixed because baseline search did not verify a specific Catalan restaurant’s step-free toilet. |\n\n## Day 3 – Monday 7 September 2026: Park Güell accessible route and Nova Icària accessible beach\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 08:00-09:00 | food | Breakfast and prepare sun protection, water, beach towel, and proof of disability if using concessions. | Hotel | Included/estimate | Beach and park day; avoid midday heat where possible. |\n| 09:00-09:30 | transport | Accessible taxi to Park Güell’s recommended accessible entrance. | Hotel → Park Güell, Carretera del Carmel entrance | €20-€35 estimate | Official accessibility page recommends entrance from Carretera del Carmel and notes PRM parking spaces: [Park Güell accessibility](https://parkguell.barcelona/en/accessibility). |\n| 09:30-11:30 | Gaudí architecture | Visit Park Güell using the accessible route/app; skip steep or stepped sections. | Park Güell | €20-€40 estimate | Park is open year-round with timed tickets according to [Park Güell prices/times](https://parkguell.barcelona/en/planning-your-visit/prices-and-times); official page warns some visitors with specific needs may have difficulty. |\n| 11:30-12:00 | transport | Accessible taxi from hillside area to beach district. | Park Güell → Nova Icària | €25-€40 estimate | Taxi recommended because Park Güell terrain is hilly. |\n| 12:00-13:15 | food | Lunch by Port Olímpic/Nova Icària; book step-free restaurant with accessible toilet. | Port Olímpic / Nova Icària | €60-€100 estimate | Many restaurants nearby; exact accessibility must be confirmed. |\n| 13:30-16:00 | beach | Accessible beach time at Nova Icària; use wooden walkways, adapted toilets/showers, shaded area, and assisted bathing if operating. | Nova Icària Beach | €0 | Turisme de Barcelona states all city beaches have accessible routes, adapted toilets/showers and walkways; Nova Icària has assisted bathing, inclusive changing room, amphibious chair and support service: [Nova Icària Beach](https://www.barcelonaturisme.com/wv3/en/page/1537/nova-icaria-beach.html). |\n| 16:00-16:30 | transport | Accessible taxi back to hotel. | Nova Icària → Hotel | €18-€30 estimate | Beach fatigue buffer. |\n| 16:30-19:30 | rest | Rest and shower at hotel. | Hotel | €0 | Roll-in shower is a hard constraint; must be guaranteed before booking. |\n| 20:00-21:30 | food | Casual tapas dinner near hotel or Passeig de Gràcia. | Eixample/Plaça Catalunya | €70-€110 estimate | Reserve accessible table; exact venue not verified. |\n\n## Day 4 – Tuesday 8 September 2026: La Pedrera, La Boqueria, Picasso Museum\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 08:00-09:00 | food | Breakfast at hotel. | Hotel | Included/estimate | Keep morning flexible for elevator/taxi delays. |\n| 09:15-11:00 | Gaudí architecture | Visit La Pedrera/Casa Milà; use accessible route and wheelchair loan if needed. | La Pedrera – Casa Milà | €50-€70 estimate | Official accessibility page says La Pedrera offers accessibility services and wheelchair loan, but is only partially accessible for wheelchair users: [La Pedrera accessibility](https://www.lapedrera.com/en/accessibility/). |\n| 11:00-11:30 | transport | Taxi or accessible bus/metro toward La Rambla. | Passeig de Gràcia → La Boqueria | €10-€18 estimate | Use taxi if metro elevator status is uncertain. |\n| 11:30-13:00 | local food | Explore La Boqueria for market snacks and fresh produce; avoid peak crowds where possible. | Mercat de la Boqueria | €20-€50 estimate | Official market page confirms central La Rambla location and food stalls: [La Boqueria](https://www.boqueria.barcelona/market-boqueria). Accessibility and quieter-time advice came from secondary Tavily evidence, so verify on arrival. |\n| 13:00-14:15 | food | Lunch at or near the market; choose a stall/restaurant with clear turning space. | La Rambla / La Boqueria | €50-€80 estimate | Exact stall access varies; choose on the day. |\n| 14:15-14:45 | transport | Accessible taxi to El Born. | La Rambla → Museu Picasso | €10-€18 estimate | Short transfer avoids crowded Gothic Quarter paving. |\n| 15:00-17:00 | museum | Visit Picasso Museum with folding-chair/rest stop options. | Museu Picasso Barcelona | €25-€35 estimate | Official hours for early September: Tue/Wed/Sun 9:00-20:00 and Thu/Fri/Sat 9:00-21:00 per [Picasso tickets/hours](https://museupicassobcn.cat/en/plan-your-visit/buy-tickets-and-opening-hours); accessibility page notes guide dogs and folding chairs: [Picasso accessibility](https://museupicassobcn.cat/en/plan-your-visit/accessibility). |\n| 17:00-18:00 | local walk | Gentle roll in El Born if cobbles are manageable; otherwise return to hotel. | El Born | €0-€15 | Historic streets may be uneven; treat as optional. |\n| 20:00-21:30 | food | Dinner in El Born or Eixample; reserve step-free access and accessible toilet. | El Born/Eixample | €80-€130 estimate | Specific restaurant access not verified by official source. |\n\n## Day 5 – Wednesday 9 September 2026: Maritime Museum, waterfront, final Gaudí/local food evening\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 08:30-09:30 | food | Breakfast at hotel. | Hotel | Included/estimate | Slower start after two full sightseeing days. |\n| 10:00-10:30 | transport | Accessible taxi to the Maritime Museum. | Hotel → Museu Marítim | €12-€20 estimate | Taxi recommended for step-free reliability. |\n| 10:30-12:30 | museum | Visit Maritime Museum; focus on barrier-free galleries and accessible restrooms. | Museu Marítim de Barcelona | €20-€30 estimate | Official accessibility page states the building is wheelchair-accessible, has elevator access to Espai Mirador and accessible restrooms: [MMB accessibility](https://www.mmb.cat/en/accessibility/). Official visit page lists opening 10:00-20:00 and Sunday after 15:00 free: [MMB plan your visit](https://www.mmb.cat/en/visit/plan-your-visit/). |\n| 12:30-13:00 | transport | Transfer to seafront restaurant area. | Maritime Museum → Barceloneta/Port area | €10-€18 estimate | Short taxi or roll depending on energy and pavement conditions. |\n| 13:00-14:30 | food | Seafood or Catalan lunch on the waterfront; reserve accessible table. | Barceloneta / Port area | €80-€130 estimate | Exact restaurant not fixed; step-free toilet must be confirmed. |\n| 14:30-16:00 | beach/waterfront | Optional roll on the accessible seafront promenade or second beach stop if conditions are good. | Barceloneta/Nova Icària waterfront | €0 | Turisme de Barcelona states city beaches have accessible routes, adapted toilets/showers and wooden walkways: [Nova Icària Beach](https://www.barcelonaturisme.com/wv3/en/page/1537/nova-icaria-beach.html). |\n| 16:00-17:00 | transport/rest | Return to hotel for rest and packing. | Waterfront → Hotel | €18-€30 estimate | Preserve energy before departure day. |\n| 19:30-21:30 | food | Final Barcelona dinner at El Nacional or another confirmed step-free Catalan/tapas venue. | Passeig de Gràcia / Eixample | €100-€160 estimate | [El Nacional](https://www.elnacionalbcn.com/en/the-restaurant/) is the best-evidenced food venue from baseline search; reconfirm accessible toilet and table. |\n\n## Day 6 – Thursday 10 September 2026: accessible departure Barcelona to Munich\n\n| Time | Type | Plan | Location | Cost | Evidence/Notes |\n|---|---|---|---|---:|---|\n| 08:00-09:00 | food | Breakfast and final room check. | Hotel | Included/estimate | Confirm wheelchair, chargers, medical items, and airline documents. |\n| 09:00-10:00 | accommodation | Check out; ask hotel to help with pre-booked accessible taxi. | Hotel | €0 | Hotel lift/step-free lobby access must be confirmed before booking. |\n| 10:00-10:45 | transport | Accessible taxi to Barcelona-El Prat Airport. | Hotel → BCN Airport | €45-€80 estimate | Airport PRM service should already be booked 48h+ in advance: [Barcelona Airport PRM info](https://www.aeropuertobarcelona-elprat.com/ingl/airport-services-disabled-travellers.htm). |\n| 10:45-12:45 | accessibility/airport | PRM check-in, wheelchair handling, security assistance, and boarding support. | BCN Airport | Included | Allow extra time for wheelchair and battery documentation. |\n| 13:00-15:10 | flight | Direct Barcelona → Munich flight with wheelchair assistance and suitable seating requested. | BCN → MUC | Included in flight estimate | Exact flight time/fare unavailable without live flight tool; use airline assistance pages found via Tavily: [Lufthansa](https://www.lufthansa.com/ar/en/passengers-using-wheelchairs), [Vueling](https://help.vueling.com/hc/en-gb/categories/19798714411665-Special-Assistance). |\n| 15:10-16:00 | arrival | PRM assistance on arrival and wheelchair return at Munich. | Munich Airport | Included | Confirm chair return point before boarding in Barcelona. |\n\n## Budget summary\n- Flights Munich–Barcelona return for 2: €500-€900 estimate.\n- Accessible hotel, 5 nights, central Barcelona with lift and roll-in shower: €1,250-€1,900 estimate.\n- Accessible taxis/local transport: €300-€550 estimate, depending on number of pre-booked adapted taxis.\n- Attractions and museums: €200-€350 estimate for 2, depending on disability concessions and selected ticket types.\n- Food: €850-€1,200 estimate for breakfasts, lunches, dinners, market snacks and drinks.\n- Contingency/accessibility buffer: €300-€500 for taxi delays, equipment needs, room upgrade, or private accessible transfer.\n- Estimated total: €3,400-€5,400.\n- Budget fit: A careful version should fit the €4,000 budget if flights are booked early, hotel rate is near €250-€300/night, and most transfers are standard accessible taxis. If hotel rates exceed €350/night or adapted private transfers are needed daily, the plan may exceed budget.\n\n## Unscheduled or uncertain items\n- Exact flights, seat assignments, fares, wheelchair stowage approval, and aircraft type are not confirmed because this baseline only used Tavily search.\n- The hotel is a candidate, not a booking. The exact accessible room must be guaranteed in writing with roll-in shower, lift access, door widths, bed height, toilet grab bars, and turning space.\n- Sagrada Família official 2026 ticket prices/opening hours were not fully verified from an official source in Tavily results; schedule is based on likely daytime opening and secondary accessibility evidence.\n- Restaurant accessibility is not fully verified for every meal. Each restaurant should be contacted directly for step-free entry, accessible toilet, table height, and indoor route.\n- Assisted bathing at Nova Icària depends on the city’s 2026 beach-service calendar, weather and staffing. The City Council page indicates mid beach season includes 14–27 September, while this trip is 5–10 September; exact September 5–10 assisted-bathing hours must be checked closer to travel.\n- Public transport elevator status can change daily; taxis are used as the conservative accessible default.\n\n## Assumptions and gaps\n- Assumption: the traveler can transfer to an aircraft seat with assistance, or will specify WCHC/WCHS/WCHR needs to the airline as appropriate.\n- Assumption: a direct Munich–Barcelona flight will operate on both travel dates; this is likely but not confirmed.\n- Assumption: a central Eixample/Plaça Catalunya hotel base is preferable because it reduces long transfers and puts Casa Batlló, La Pedrera, restaurants and transit close by.\n- Assumption: accessible taxis are available when pre-booked; same-day availability may be limited.\n- Gap: no live hotel booking engine, flight inventory, wheelchair-taxi dispatch, or official restaurant accessibility database was available to this baseline agent.\n- Before booking, request written confirmations from airline, hotel, taxi provider, and key attractions so the trip is genuinely fully accessible rather than only “accessibility-likely.”",
+        "additional_kwargs": {
+          "refusal": null
+        },
+        "response_metadata": {
+          "token_usage": {
+            "completion_tokens": 5483,
+            "prompt_tokens": 17454,
+            "total_tokens": 22937,
+            "completion_tokens_details": {
+              "accepted_prediction_tokens": null,
+              "audio_tokens": 0,
+              "reasoning_tokens": 516,
+              "rejected_prediction_tokens": null,
+              "image_tokens": 0
+            },
+            "prompt_tokens_details": {
+              "audio_tokens": 0,
+              "cached_tokens": 13824,
+              "cache_write_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost": 0.189552,
+            "is_byok": false,
+            "cost_details": {
+              "upstream_inference_cost": 0.189552,
+              "upstream_inference_prompt_cost": 0.025062,
+              "upstream_inference_completions_cost": 0.16449
+            }
+          },
+          "model_provider": "openai",
+          "model_name": "openai/gpt-5.5-20260423",
+          "system_fingerprint": null,
+          "id": "gen-1778953825-oVSa6UlVGdSRR4Pssj0a",
+          "service_tier": "default",
+          "finish_reason": "stop",
+          "logprobs": null
+        },
+        "type": "ai",
+        "id": "lc_run--019e31e9-2ca2-7e72-8ae2-e41c17672a38-0",
+        "tool_calls": [],
+        "invalid_tool_calls": [],
+        "usage_metadata": {
+          "input_tokens": 17454,
+          "output_tokens": 5483,
+          "total_tokens": 22937,
+          "input_token_details": {
+            "audio": 0,
+            "cache_read": 13824
+          },
+          "output_token_details": {
+            "audio": 0,
+            "reasoning": 516
+          }
+        }
+      }
+    ]
+  },
+  "error": null,
+  "metadata": {
+    "LANGSMITH_ENDPOINT": "https://eu.api.smith.langchain.com",
+    "LANGSMITH_PROJECT": "travelplanner",
+    "LANGSMITH_TRACING": "true",
+    "ls_integration": "langgraph",
+    "ls_run_depth": 0,
+    "revision_id": "10ec8d0-dirty",
+    "thread_id": "4501210a-1dcc-4668-bfc9-3e6001af26a4"
+  },
+  "langsmith": {
+    "organization": {
+      "name": "Personal",
+      "id": "477adfd8-a90b-45c3-95f6-1375325770e8"
+    },
+    "workspace": {
+      "name": "Workspace 1",
+      "id": "06241d75-72ec-4af5-b325-52629e7730a0"
+    },
+    "tracing_project": {
+      "id": "d92c06e8-225e-4665-a627-fdf375468f7c",
+      "name": "travelplanner"
+    }
+  }
+}

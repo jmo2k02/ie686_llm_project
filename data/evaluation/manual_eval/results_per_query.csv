@@ -1,0 +1,7 @@
+query_id,query_label,agent,constraint_n,constraint_agree_%,constraint_kappa,"judge_lenient (J=P,M!=P)","judge_strict  (J!=P,M=P)",slot_n,slot_agree_%
+1,Q1 (couple citytrip),Baseline,20,90.0,0.444,1,1,32,87.5
+1,Q1 (couple citytrip),TravelAgent,19,94.7,0.0,1,0,60,76.7
+7,Q5 (business solo),Baseline,20,70.0,0.286,6,0,31,93.5
+7,Q5 (business solo),TravelAgent,19,100.0,n/a,0,0,36,94.4
+16,Q16 (already at dest),Baseline,18,83.3,0.7,1,2,28,85.7
+16,Q16 (already at dest),TravelAgent,18,61.1,0.364,2,4,48,70.8

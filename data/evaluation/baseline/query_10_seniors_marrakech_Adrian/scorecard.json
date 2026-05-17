@@ -1,0 +1,1285 @@
+{
+  "plan_excerpt": "# TravelPlan: Marrakech, July 5–12, 2026\n\n| Day 1 — 2026-07-05 — Fly from Hamburg and settle into the riad | Day 2 — 2026-07-06 — Gentle guided introduction to the Medina | Day 3 — 2026-07-07 — Bahia Palace, Mellah and Saadian heritage | Day 4 — 2026-07-08 — Jardin Majorelle and Gueliz | Day 5 — 202",
+  "judge_models": [
+    "openrouter:minimax/minimax-m2.7",
+    "openrouter:google/gemini-3-flash-preview",
+    "openrouter:deepseek/deepseek-v4-flash",
+    "openrouter:qwen/qwen3.5-397b-a17b"
+  ],
+  "timed_out_models": [],
+  "rationale_verifications": [
+    {
+      "day_index": 1,
+      "slot_position": 1,
+      "slot_name": "Fly Hamburg to Marrakech",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.flightsfrom.com/HAM-RAK"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provided a specific link (flightsfrom.com/HAM-RAK) to verify the flight route and duration, but no evidence was retrieved from that link or any other source. Therefore, the claims regarding the existence of a direct easyJet service, the 4h20 duration, and the feasibility of the 09:00 to 13:20 time window cannot be verified.",
+      "claims_checked": [
+        "Route: Hamburg Airport (HAM) to Marrakech-Menara Airport (RAK)",
+        "Operator: easyJet offers non-stop service",
+        "Duration: Approximately 4h20",
+        "Time window: 09:00 to 13:20",
+        "Cost: €1200.00 for 2 people"
+      ]
+    },
+    {
+      "day_index": 1,
+      "slot_position": 2,
+      "slot_name": "Airport Transfer",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.marrakechtransportagency.com/how-much-should-a-taxi-be-from-marrakech-airport-to-the-medina/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims a cost of €30.00 for a private transfer or official taxi from Marrakech-Menara Airport to the Medina. The evidence states that official airport taxis charge 100–150 MAD ($10–$15) and private transfers cost 150–250 MAD ($15–$25). Since €30.00 is approximately 320 MAD, it comfortably covers the upper range of the private transfer costs mentioned in the source (250 MAD). The location and transport mode are also confirmed by the source.",
+      "claims_checked": [
+        "Route: Marrakech-Menara Airport to Medina",
+        "Cost: €30.00",
+        "Transport mode: Private transfer or official airport taxi"
+      ]
+    },
+    {
+      "day_index": 1,
+      "slot_position": 3,
+      "slot_name": "Riad Check-in",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.riadmedinaart.com/en/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims the Riad Medina Art & Suites is located in the Medina, near Jemaa el-Fnaa and the Koutoubia. The evidence explicitly supports this, stating the riad is 'in the center of Marrakech, just next to the Jamaa El Fna square and the Koutoubia' and is a 'gem hidden behind the austere walls of the Medina.' The slot's note to request a quiet room is consistent with the evidence's claim that 'Very high walls completely protect from outside noise and give our guests a perfect calm.' While the evidence does not explicitly mention 'mint tea' or 'unpacking,' these are standard activities for a riad check-in and do not contradict the source.",
+      "claims_checked": [
+        "Venue name: Riad Medina Art & Suites",
+        "Location: Medina",
+        "Proximity: Near Jemaa el-Fnaa/Koutoubia",
+        "Category: Traditional riad/lodging"
+      ]
+    },
+    {
+      "day_index": 1,
+      "slot_position": 4,
+      "slot_name": "First Dinner",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.partakekitchen.com/",
+        "https://clevelandrocksclevelandeats.com/2018/06/29/serenite-in-medina/",
+        "https://www.yelp.com/search?find_desc=Dinner&find_loc=Medina%2C+OH+44256",
+        "https://www.thefarmerstablemedina.com/",
+        "https://clevelandmagazine.com/articles/medinas-22-best-restaurants-dining-guide/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot describes a dinner in 'Medina' at a 'riad' or nearby restaurant. The search results provided refer exclusively to Medina, Ohio, USA (mentioning 'Medina, OH', 'Cleveland', and 'Ohio'). A 'riad' is a traditional Moroccan house with an interior garden, typically found in Morocco (e.g., Marrakech Medina). The evidence does not contain information about riads or restaurants in a Moroccan Medina, nor does it confirm the existence of a riad-based dining option in Medina, Ohio. Therefore, the evidence is silent on the specific claims regarding the venue type (riad) and the location context implied by that term.",
+      "claims_checked": [
+        "Location: Medina",
+        "Venue type: Riad or nearby restaurant",
+        "Cost: €60.00",
+        "Activity: Dinner"
+      ]
+    },
+    {
+      "day_index": 1,
+      "slot_position": 5,
+      "slot_name": "Orientation Walk",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://activities.marriott.com/africa/morocco/marrakesh/activities/marrakech_medina_souks_koutoubia_walking_tour-XE26DT",
+        "https://www.instagram.com/reel/DXLLp3eCOXK/",
+        "https://www.instagram.com/reel/DXK79kCCTsn/",
+        "https://www.youtube.com/watch?v=lcLjbvO-JcY",
+        "https://www.youtube.com/watch?v=fXp2AjQMT84"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a short escorted orientation walk between the Koutoubia area and Jemaa el-Fnaa. Evidence from Source 1 confirms that guided walking tours through Jemaa el-Fnaa and the Koutoubia Mosque exterior are standard activities for an 'introduction to Marrakech with a local guide.' Source 2 and 5 confirm that the square is active and vibrant at night ('night transforms space into pure life'), which aligns with the 20:00 (8:00 PM) time slot. While the specific €10 cost is not explicitly listed in the snippets, the general existence and feasibility of the activity in this location at this time are supported.",
+      "claims_checked": [
+        "Location: Jemaa el-Fnaa / Koutoubia area",
+        "Activity: Escorted orientation walk",
+        "Time: Evening (20:00)",
+        "Category: Leisure/Walking tour"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 1,
+      "slot_name": "Breakfast at riad",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://hotelzagora.com/blog/moroccan-riad-breakfast",
+        "https://www.experienceittours.com/blog/moroccan-riad-food-guide-breakfast-dinner/",
+        "https://riadjoya.com/the-moroccan-breakfast-reimagined-a-sacred-morning-ritual/",
+        "https://www.facebook.com/groups/26592725050374918/posts/33443751191938902/",
+        "https://www.eclectickim.com/breakfasts-and-dinners-at-riad-siwan-marrakesh/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims that breakfast is a common feature at Moroccan riads but should be confirmed upon booking. The evidence supports this: Source 2 states that 'The food is made fresh for you' at riads and provides a guide on what to expect, while Source 4 explicitly discusses how breakfast works when booking a riad, confirming it is a standard service often included or available. The location 'Riad' is a generic category for a traditional Moroccan house, which the evidence (Source 2) confirms.",
+      "claims_checked": [
+        "Breakfast is served at riads.",
+        "Most riads include breakfast (implied by the description to confirm).",
+        "A riad is a traditional Moroccan home/accommodation type."
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 2,
+      "slot_name": "Private Medina Orientation",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.peek.com/marrakesh-marrakesh-safi-morocco/r0azmn/marrakech-medina-explore-souks-and-historic-sites/a0dzz38"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence from the provided link confirms the tour is a 'private half-day tour' of the 'vibrant medina of Marrakech'. It specifically mentions visiting 'historical sites like the Kotoubia Mosque' and exploring the 'souks'. While the exact price of €130 for two people is not explicitly listed in the snippet, the slot notes it as an 'estimate', and the tour details (private, half-day, Medina/Koutoubia/souks) align perfectly with the evidence.",
+      "claims_checked": [
+        "Private tour",
+        "Half-day duration",
+        "Location: Medina",
+        "Location: Koutoubia Mosque",
+        "Location: Souks",
+        "Activity: Orientation/Exploration"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 3,
+      "slot_name": "Lunch in Medina",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://wanderlog.com/list/geoCategory/316693/best-spots-for-lunch-in-medina",
+        "https://www.tripadvisor.com/Restaurants-g50636-zfp30-Medina_Ohio.html",
+        "https://www.medinahealthcare.net/patient-visitors/medina-cafe",
+        "https://www.yelp.com/search?find_desc=Lunch&find_loc=Medina%2C+OH+44256",
+        "https://www.thefarmerstablemedina.com/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot describes a lunch in 'the Medina' featuring Moroccan cuisine (salads, tagine, couscous). However, the search results provided refer exclusively to Medina, Ohio, USA (mentioning 'Ohio', 'Sully's Irish Pub', and 'Fiesta Jalapenos'). There is no evidence in the provided search results regarding a Medina that serves Moroccan food, nor any confirmation of the cost or specific meal types mentioned in the slot. The evidence is silent on the intended location (likely Medina, Morocco) and its specific claims.",
+      "claims_checked": [
+        "Location: Medina",
+        "Cuisine: Moroccan salads, tagine or couscous",
+        "Cost: €45.00",
+        "Time: 12:30 - 14:00"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 4,
+      "slot_name": "Riad Siesta",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.vrbo.com/1911005a",
+        "https://villas-riads-marrakech.com/en/organisation-devenements/",
+        "https://villas-riads-marrakech.com/en/evenements/lieux-de-reception/la-siesta/",
+        "https://en.planetofhotels.com/morocco/marrakech/villa-siesta",
+        "https://www.google.com.ng/travel/hotels/entity/ChkQ5LiE7eWj471eGg0vZy8xMXc4aDgweDJjEAI"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a 'Riad siesta' as a leisure activity to avoid the July heat in Marrakech. The evidence confirms the existence of a venue named 'Domaine LA SIESTA' or 'Villa Siesta' in Marrakech, which specifically advertises facilities for a siesta, such as a 'Berber tent waiting for you for a siesta' and 'shaded terraces.' While the slot treats 'siesta' as a generic activity, the existence of a venue with this specific name in Marrakech that facilitates this activity supports the claim. The 'Free' note is consistent with a guest resting at their accommodation.",
+      "claims_checked": [
+        "Venue name: Riad Siesta",
+        "Location: Marrakech (implied by context and July heat description)",
+        "Category: leisure",
+        "Activity: Siesta/resting during heat"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 5,
+      "slot_name": "Souk Exploration",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.exploreworldwide.com/blog/exploring-the-souks-of-marrakech",
+        "https://www.getyourguide.com/explorer/marrakech-ttd208/souks-in-marrakech/",
+        "https://moroccanjourneys.com/the-souks-of-marrakech/",
+        "https://www.worldofatravelholic.com/getting-lost-souks/",
+        "https://www.odynovotours.com/morocco/marrakech/jemaa-el-fna-square.html"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms that the souks are located north of Jemaa el-Fnaa (Source 1: 'This popular souk lies to the north of Jamma el-Fnna'; Source 5: 'Most of them are closely clustered on the north and northeast'). The description mentions a focus on spices and textiles, which is consistent with the general nature of these markets (Source 2: 'You'll find just about everything here — from pottery to fabrics'). While the specific cost of €20.00 is not explicitly mentioned, it is a reasonable estimate for a guided tour or personal spending in a market context, and no evidence contradicts it. The time window is consistent with standard market operating hours.",
+      "claims_checked": [
+        "Location: Souks are north of Jemaa el-Fnaa",
+        "Content: Souks feature textiles and various goods",
+        "Accessibility: Accessible from Jemaa el-Fnaa"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 6,
+      "slot_name": "Dinner near riad",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://heerby.ma/en/blog/top-10-riads-restaurants-marrakech-medina",
+        "https://www.tripadvisor.co.uk/RestaurantsNear-g293734-d26336141-Riad_CK_Medina-Marrakech_Marrakech_Safi.html",
+        "https://riad-selouane.net/en/restaurants-medina-marrakesh/",
+        "https://www.tui.co.uk/things-to-do/marrakech/riad-diner-in-marrakech-medina-with-transport-5-123953/",
+        "https://marrakech-riads.com/en/restaurant-marrakech-medina/?srsltid=AfmBOoqrC9fQYcZtvnRuSRsKjfr8_e4B82vUYS1h_ZYJzWLQNWF0Cv37"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a dinner in the Medina of Marrakech. The evidence confirms that the Medina is a primary location for riad-based dining (Source 1: 'Top Riad Restaurants in Marrakech's Medina'). While the slot does not name a specific restaurant, the location ('Medina') and category ('meal') are consistent with the numerous dining options described in the search results (Sources 1, 2, 3, and 5). The cost of €65.00 is presented as an 'Estimate' in the notes, and the evidence supports the existence of high-end dining experiences in restored riads that would align with such a budget.",
+      "claims_checked": [
+        "Location: Medina",
+        "Category: meal",
+        "Activity: Evening meal in the Medina"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 1,
+      "slot_name": "Breakfast at riad",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://hotelzagora.com/blog/moroccan-riad-breakfast",
+        "https://www.experienceittours.com/blog/moroccan-riad-food-guide-breakfast-dinner/",
+        "https://riadjoya.com/the-moroccan-breakfast-reimagined-a-sacred-morning-ritual/",
+        "https://www.facebook.com/groups/26592725050374918/posts/33443751191938902/",
+        "https://www.eclectickim.com/breakfasts-and-dinners-at-riad-siwan-marrakesh/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a breakfast meal at a 'Riad' and notes the need to confirm inclusion. The evidence confirms that breakfast is a standard and significant service provided at Moroccan riads (Sources 1, 2, and 3). Source 2 specifically notes that food is 'made fresh for you' in these traditional homes, and Source 1 highlights it as a consistent guest experience. The slot's instruction to 'confirm breakfast inclusion' is a logical administrative step consistent with the nature of riad stays described in the travel guides.",
+      "claims_checked": [
+        "Venue name: Riad",
+        "Category: meal",
+        "Activity: Breakfast",
+        "Context: Breakfast is a service typically offered/available at Moroccan Riads"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 2,
+      "slot_name": "Bahia Palace Visit",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.getyourguide.com/marrakesh-l208/marrakech-bahia-palace-madrasa-ben-youssef-and-medina-tour-t563312/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provided a specific GetYourGuide link as evidence, but no content was retrieved from that link or any other source. Therefore, there is no evidence available to verify the claims regarding the price (€18.00), the specific tour details (licensed guide, focus on specific architectural features), or the location's operational status for the requested date.",
+      "claims_checked": [
+        "Venue name: Bahia Palace",
+        "Cost: €18.00 (for 2 people + guide estimate)",
+        "Activity: Visit with a licensed guide",
+        "Focus: Courtyards, cedar ceilings, and zellige tilework",
+        "Time window: 09:00 to 11:00 on 2026-07-07"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 3,
+      "slot_name": "Mellah Guided Walk",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://activities.marriott.com/africa/morocco/marrakesh/activities/the_tour_of_the_kasbah_and_the_jewish_quarter_mellah-XBOONO",
+        "https://www.lokalee.app/tours/the-tour-of-the-kasbah-and-the-jewish-quarter-mellah?srsltid=AfmBOopZMszJORum_gw0S3tv2b0YzCw8ZpVZrUlIZ4bb86byYJu0oOJ5",
+        "https://www.tripadvisor.com/AttractionProductReview-g293734-d33472161-Marrakech_Jewish_Heritage_Morning_Tour_Mellah_Synagogue_Souks-Marrakech_Marrakech_.html",
+        "https://www.tripadvisor.com/AttractionProductReview-g293734-d19498436-The_tour_of_the_Kasbah_and_the_Jewish_Quarter_Mellah-Marrakech_Marrakech_Safi.html",
+        "https://www.getyourguide.com/mellah-l10162/walking-tours-tc3/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a guided walk through the Mellah/Kasbah area with an optional spice market stop. Evidence from Source 1 and 2 confirms the existence of tours covering 'the Kasbah and the Jewish Quarter (Mellah)'. Source 4 specifically mentions a 'break for tea at the spice shop' during this tour, supporting the 'spice market stop' claim. Source 3 confirms these are walking tours led by 'licensed, knowledgeable local guide[s]', supporting the 'Local guide recommended' note. While the specific price of €15.00 is not explicitly listed in the snippets, the existence, location, and thematic content of the activity are well-supported.",
+      "claims_checked": [
+        "Venue name: Mellah Guided Walk",
+        "Location: Mellah / Kasbah area",
+        "Description: Gentle walk through the Mellah area",
+        "Description: Optional spice market stop",
+        "Notes: Local guide recommended"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 4,
+      "slot_name": "Lunch",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://wanderlog.com/list/geoCategory/316693/best-spots-for-lunch-in-medina",
+        "https://www.facebook.com/groups/621460085122411/posts/1970879283513811/",
+        "https://www.tripadvisor.com/Restaurants-g50636-zfp30-Medina_Ohio.html",
+        "https://m.yelp.com/search?find_desc=Southern&find_loc=Medina%2C+OH",
+        "https://clevelandmagazine.com/articles/medinas-22-best-restaurants-dining-guide/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot describes a lunch in the 'Southern Medina' near a 'palace'. The search results provided refer exclusively to Medina, Ohio (USA), mentioning 'Medina County', 'I-71', and 'Medina's historic district'. These results do not mention a 'palace' or a 'Southern Medina' district consistent with a location that would typically be associated with a palace (such as Marrakesh or Tunis). Consequently, the evidence is silent on the specific claims regarding the location's proximity to a palace and the feasibility of the €45.00 cost for a meal in that specific context.",
+      "claims_checked": [
+        "Location: Southern Medina",
+        "Proximity: Near the palace",
+        "Cost: €45.00"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 5,
+      "slot_name": "Riad Rest",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://riadlecalife.com/leisure-services/",
+        "https://www.tripsavvy.com/complete-guide-to-moroccan-riads-4686125",
+        "https://www.journeybeyondtravel.com/blog/riad-morocco-guesthouse.html",
+        "https://www.jackandjilltravel.com/whats-it-like-to-stay-in-a-moroccan-riad/",
+        "https://www.instagram.com/riadmimouna/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a period of rest at a 'Riad' (a traditional Moroccan house/hotel) to avoid midday heat, specifically mentioning a pool or shaded courtyard. The evidence confirms that Riads are traditional Moroccan houses (Source 2, 4) often featuring courtyards with fountains or plunge pools (Source 3). Source 3 specifically recommends choosing a riad with a 'plunge pool in the courtyard' if visiting 'in mid summer' (matching the July date in the slot). The location 'Riad' refers to the traveler's accommodation, and the 'Free' cost is consistent with resting at one's own lodging.",
+      "claims_checked": [
+        "Venue name: Riad (generic term for accommodation)",
+        "Category: leisure",
+        "Description: Riad rest / pool or shaded courtyard time",
+        "Purpose: July midday heat buffer",
+        "Cost: Free"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 6,
+      "slot_name": "Saadian Tombs (Optional)",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://en.wikipedia.org/wiki/Saadian_Tombs",
+        "https://www.lonelyplanet.com/points-of-interest/saadian-tombs/1144240",
+        "https://www.tripadvisor.com/Attraction_Review-g293734-d318040-Reviews-Saadian_Tombs-Marrakech_Marrakech_Safi.html",
+        "https://saadiantombs.com/location/",
+        "https://marocmama.com/the-saadian-tombs-marrakech/"
+      ],
+      "verdict": "FAIL",
+      "reasoning": "The slot claims a cost of €25.00. However, evidence from Tripadvisor (Source 3) states that 'Admission costs 100 Dirhams (about 9,20 €)'. This is a significant discrepancy. Other claims regarding the name and location (Kasbah) are supported by multiple sources (Sources 1, 2, 4).",
+      "claims_checked": [
+        "Venue name: Saadian Tombs",
+        "Location: Kasbah district, Marrakech",
+        "Cost: €25.00",
+        "Category: attraction"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 7,
+      "slot_name": "Rooftop Dinner",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.moroccanventures.com/rooftop-dinners-in-marrakech-romance-above-the-medina",
+        "https://dunerooftop.com/",
+        "https://www.tripadvisor.com/Restaurant_Review-g293734-d19721405-Reviews-M_Rooftop_By_Medina_Heritage-Marrakech_Marrakech_Safi.html",
+        "https://m.yelp.com/search?find_desc=Rooftop+Dinner&find_loc=Medina%2C+OH",
+        "https://www.getyourguide.com/medina-marrakech-l104985/sky-dining-experiences-tc2469/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a rooftop dinner in the Medina with a duration of 1.5 hours (19:30 to 21:00) and a cost of €70. Evidence from Source 5 specifically mentions a 'delicious dinner at a rooftop guesthouse in the medina' that lasts 'For an hour and a half'. Source 1 and 2 confirm the existence of rooftop dining experiences in the Marrakech Medina. While the specific cost of €70 is not explicitly detailed in the snippets, it is a plausible price point for 'luxury' or 'refined' dining experiences mentioned in Sources 1 and 2. The location 'Medina' is verified as a hub for such dining in Marrakech.",
+      "claims_checked": [
+        "Location: Medina (Marrakech)",
+        "Activity: Rooftop or riad dinner",
+        "Duration: 1.5 hours (19:30 - 21:00)",
+        "Category: Meal"
+      ]
+    },
+    {
+      "day_index": 4,
+      "slot_position": 1,
+      "slot_name": "Early Breakfast",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://hotelzagora.com/blog/moroccan-riad-breakfast",
+        "https://www.experienceittours.com/blog/moroccan-riad-food-guide-breakfast-dinner/",
+        "https://www.facebook.com/groups/26592725050374918/posts/33443751191938902/",
+        "https://riadjoya.com/the-moroccan-breakfast-reimagined-a-sacred-morning-ritual/",
+        "https://heerby.ma/en/blog/moroccan-breakfast-guide"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims that breakfast can be taken at a 'Riad' and suggests an early start (08:00) to avoid heat and crowds. The evidence confirms that riads typically serve breakfast to their guests (Source 2: 'The food is made fresh for you... service is personal') and that these meals occur in the morning 'before the medina fully awakens' (Source 4). While specific opening times vary by riad, the concept of a morning meal at a riad is a standard practice supported by all sources.",
+      "claims_checked": [
+        "Location: Riad",
+        "Category: meal",
+        "Time: 08:00 AM",
+        "Context: Early start helps avoid heat and crowds"
+      ]
+    },
+    {
+      "day_index": 4,
+      "slot_position": 2,
+      "slot_name": "Taxi to Jardin Majorelle",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://ismytaxi.com/blog/taxi-prices-marrakech-medina-gueliz",
+        "https://www.rome2rio.com/s/Majorelle-Garden/Gueliz-Marrakesh-40000-Morocco",
+        "https://marocmama.com/marrakech-jardin-majorelle/",
+        "https://www.rome2rio.com/s/Gueliz-Marrakesh-40000-Morocco/Majorelle-Garden",
+        "https://www.reddit.com/r/Morocco/comments/1i48fco/which_transport_should_i_use_in_marrakech/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims a taxi ride from the Medina to the Majorelle/Gueliz area takes approximately 20 minutes and costs around €10.00. Evidence from Source 1 indicates that a taxi between Medina and Gueliz typically costs 15–25 MAD (approx. €1.40–€2.30) and Gueliz to Majorelle costs 20–35 MAD (approx. €1.85–€3.25). Source 5 explicitly mentions that a driver might ask for 10 euros from a tourist, even though the local rate is much lower (10 dirhams). Therefore, the slot's cost of €10.00 is a high but realistic 'tourist' estimate or a maximum cap for this route. The duration of 20 minutes is consistent with the short distances described (2 minutes for sub-segments in Source 2/4) when accounting for Medina traffic and pickup time.",
+      "claims_checked": [
+        "Route: Medina to Majorelle/Gueliz",
+        "Duration: 20 minutes (09:00 to 09:20)",
+        "Cost: €10.00",
+        "Transport mode: Taxi"
+      ]
+    },
+    {
+      "day_index": 4,
+      "slot_position": 3,
+      "slot_name": "Jardin Majorelle & Berber Arts Museum",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.jardinmajorelle.com/en/",
+        "https://tickets.jardinmajorelle.com/Visite"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims the Jardin Majorelle and the Pierre Bergé Museum of Berber Arts are open for a visit at 09:30 on a Wednesday (2026-07-08). Evidence from the official website confirms the Jardin is open daily from 8:00 a.m. to 6:30 p.m. and the Museum is open daily from 8:30 a.m. to 6:00 p.m. The cost estimate of €30–€45 for two people is consistent with typical pricing for these attractions, although the specific ticket price is not explicitly listed in the text of the provided evidence, the slot's cost field of €45.00 falls within the range provided in the notes.",
+      "claims_checked": [
+        "Venue name: Jardin Majorelle & Berber Arts Museum",
+        "Opening hours: Open at 09:30",
+        "Opening days: Open on Wednesday (2026-07-08)",
+        "Location: Jardin Majorelle",
+        "Combined visit: Jardin Majorelle and Pierre Bergé Museum of Berber Arts"
+      ]
+    },
+    {
+      "day_index": 4,
+      "slot_position": 4,
+      "slot_name": "Musée Yves Saint Laurent (Optional)",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.museeyslmarrakech.com/en/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims the museum is located near Jardin Majorelle, which is supported by the official website's link to the Jardin Majorelle ticketing system and calendar. The slot notes a potential closure on Wednesdays; the evidence provided is a landing page that does not explicitly list hours, but the slot correctly identifies this as a risk ('Note: may be closed on Wednesdays'). The cost of €30.00 is a reasonable estimate for a combined ticket or premium entry at this high-profile site, though the specific price is not on the landing page. Since the slot is marked 'Optional' and includes a warning to verify the specific Wednesday opening (July 8, 2026, is a Wednesday), it is factually consistent with the need for verification indicated by the official site's calendar link.",
+      "claims_checked": [
+        "Venue name: Musée Yves Saint Laurent",
+        "Location: Near Jardin Majorelle",
+        "Potential closure on Wednesdays",
+        "Cost: €30.00"
+      ]
+    },
+    {
+      "day_index": 4,
+      "slot_position": 5,
+      "slot_name": "Lunch in Gueliz",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://timenceguide.com/en/article/eat-drink/lunch-gueliz-marrakech",
+        "https://lekilim.com/en/menu/",
+        "https://www.facebook.com/groups/moroccotraveltipsandrecommendations/posts/26581347248190298/",
+        "https://alfassia.com/gueliz/",
+        "https://cafedelagaremarrakech.com/en/gueliz-restaurant/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms that Gueliz is a modern neighborhood in Marrakech (Source 4: 'western-inspired district where the traditional meets the modern') and is a popular destination for lunch with numerous restaurants (Source 1, 4, 5). While the cost is an estimate, Source 2 shows individual lunch items ranging from 30 to 70 MAD (approx. €3-€7), suggesting a €55 budget for a meal in this area is feasible and consistent with a mid-to-high range dining experience in this district.",
+      "claims_checked": [
+        "Location: Gueliz",
+        "Gueliz is a modern neighborhood break from the Medina",
+        "Lunch is available in Gueliz",
+        "Time window: 12:30 to 14:00"
+      ]
+    },
+    {
+      "day_index": 4,
+      "slot_position": 6,
+      "slot_name": "Return to Riad",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://ismytaxi.com/marrakech-transfer/gueliz-to-medina",
+        "https://www.reddit.com/r/Morocco/comments/1i48fco/which_transport_should_i_use_in_marrakech/",
+        "https://www.rome2rio.com/s/Gueliz/Medina-Marrakesh-Safi-Morocco",
+        "https://www.rome2rio.com/s/Medina-Marrakesh-Safi-Morocco/Gueliz",
+        "https://www.getyourguide.com/en-gb/gueliz-l10176/transfers-tc152/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims a taxi transport from Gueliz to the Medina with a cost of €10.00 and a duration within the 14:00-16:30 window. Evidence from Source 1 confirms that a private transfer/taxi for this specific route (Gueliz to Medina) is available starting from €8 ('Book your private transfer from Gueliz to Medina from €8'), which makes the €10 estimate realistic. The same source notes the journey is approximately 3 km and takes about 10 minutes ('comfortable 3 km journey taking approximately 10 minutes'), which easily fits within the allocated 2.5-hour time window.",
+      "claims_checked": [
+        "Transport mode: Taxi",
+        "Route: Gueliz to Medina",
+        "Cost: €10.00",
+        "Duration: Fits within 14:00 - 16:30 window"
+      ]
+    },
+    {
+      "day_index": 4,
+      "slot_position": 7,
+      "slot_name": "Hammam/Spa or Tea",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.facebook.com/groups/446975377754726/posts/877956987989894/",
+        "https://www.thehammamspa.com/",
+        "https://www.tripadvisor.com/Attraction_Review-g293734-d6542844-Reviews-Hammam_Spa_of_Riad_72-Marrakech_Marrakech_Safi.html",
+        "https://www.instagram.com/reel/DXK8y0pAKMd/",
+        "https://abroadtravelingabroad.com/my-expert-guide-to-the-perfect-moroccan-hammam-experience/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a leisure activity (Hammam/Spa or Tea) at a 'Riad or spa' with an estimated cost of €120 for two people. The evidence confirms that Riads in Morocco (specifically Marrakech, as implied by the context of the search results) commonly feature hammams and spas (Source 1, 3). While specific pricing varies by establishment, Source 3 mentions 'Hammam Spa of Riad 72' as a valid location for 2026. The cost of €120 for two (€60 per person) is consistent with mid-to-high-end private spa treatments in Moroccan Riads, which are described as 'modern luxury' and 'sanctuaries' (Source 2). The description of the activity as a 'must' in Morocco (Source 5) supports its inclusion as a leisure slot.",
+      "claims_checked": [
+        "Activity: Hammam/Spa or Tea",
+        "Location: Riad or spa",
+        "Category: Leisure",
+        "Cost: €120.00 for 2 people",
+        "Availability: July 2026"
+      ]
+    },
+    {
+      "day_index": 4,
+      "slot_position": 8,
+      "slot_name": "Light Dinner",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.blondieinmorocco.com/locals-guide-to-the-best-restaurants-in-marrakech-new-town-gueliz/",
+        "https://daytripsetc.com/where-to-eat-in-the-marrakech-medina/",
+        "https://www.eva-darling.com/best-restaurants-in-marrakech/",
+        "https://www.facebook.com/groups/moroccotraveltipsandrecommendations/posts/25426259310365770/",
+        "https://marocmama.com/what-to-eat-and-what-to-avoid-in-marrakech/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a light dinner in either the Medina or Gueliz neighborhoods of Marrakech with a budget of €60. The evidence confirms that both the Medina and Gueliz are primary dining hubs in Marrakech. Source 1 and 3 explicitly discuss dining in both the Medina and Gueliz, noting that the Medina offers authentic Moroccan food while Gueliz offers a more international scene. Source 5 mentions that a 'really great (dinner) meal of traditional Moroccan food' can be found for a 'very reasonable price,' which supports the feasibility of a €60 budget for a light dinner.",
+      "claims_checked": [
+        "Location: Medina or Gueliz",
+        "Category: meal (Dinner)",
+        "Cost: €60.00"
+      ]
+    },
+    {
+      "day_index": 5,
+      "slot_position": 1,
+      "slot_name": "Breakfast at riad",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://hotelzagora.com/blog/moroccan-riad-breakfast",
+        "https://www.experienceittours.com/blog/moroccan-riad-food-guide-breakfast-dinner/",
+        "https://riadjoya.com/the-moroccan-breakfast-reimagined-a-sacred-morning-ritual/",
+        "https://www.facebook.com/groups/26592725050374918/posts/33443751191938902/",
+        "https://www.eclectickim.com/breakfasts-and-dinners-at-riad-siwan-marrakesh/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a standard breakfast service at a Moroccan riad. The evidence confirms that riads typically serve breakfast to their guests (Source 1, 2, 3, 5) and that it is a personalized experience where the food is 'made fresh for you' (Source 2). The slot's instruction to 'Confirm with lodging' and the note 'Estimate' are consistent with the evidence that breakfast is a service provided by the specific riad where one is staying.",
+      "claims_checked": [
+        "Venue name: Riad",
+        "Category: meal",
+        "Activity: Breakfast",
+        "Requirement: Confirm with lodging"
+      ]
+    },
+    {
+      "day_index": 5,
+      "slot_position": 2,
+      "slot_name": "Ben Youssef Madrasa",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.getyourguide.com/marrakesh-l208/marrakech-bahia-palace-madrasa-ben-youssef-and-medina-tour-t563312/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provided a GetYourGuide link as evidence, but no content was retrieved from that link or any other source. Therefore, there is no evidence available to verify the claims regarding the venue name, location, cost, or architectural features.",
+      "claims_checked": [
+        "Venue name: Ben Youssef Madrasa",
+        "Location: Ben Youssef Madrasa",
+        "Cost: €10.00",
+        "Description: Features Islamic architecture, carved cedar, and stucco",
+        "Time window: 09:00 to 10:30"
+      ]
+    },
+    {
+      "day_index": 5,
+      "slot_position": 3,
+      "slot_name": "Heritage Lanes Walk",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.gpsmycity.com/attractions/old-medina-37492.html",
+        "https://notjustatourist.com/all-of-moroccos-unesco-world-heritage-attractions-ultimate-guide/",
+        "https://www.aaa.com/tripcanvas/thing-to-do/private-guided-walking-tour-of-fes-medina-with-local-expert-437299P1",
+        "https://www.getyourguide.com/en-gb/medina-l101130/walking-tours-tc3/",
+        "https://www.nationalgeographic.com/travel/article/medina-of-fez-world-heritage-site"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a walking tour of heritage lanes in a 'Northern Medina' featuring fountains, funduqs, and artisan quarters. The evidence (Source 3 and 5) confirms that Fez (Fes), located in Northern Morocco, contains a famous Medina characterized by a 'labyrinth' of alleys, 'hidden alleys', and 'local craftsmen' (artisan quarters). Source 3 specifically mentions a 'Private Guided Walking Tour' that visits 'madrasas, palaces, and ancient gates' which aligns with the heritage lane description. While the specific name 'Heritage Lanes Walk' is a generic descriptor, the components (location in Northern Morocco, artisan quarters, and guided nature) are well-supported by the search results for Fez Medina tours.",
+      "claims_checked": [
+        "Location: Northern Medina (Fez/Fes is in Northern Morocco)",
+        "Activity: Walking tour of heritage lanes",
+        "Features: Fountains, funduqs, and artisan quarters",
+        "Cost: €100.00 (consistent with private guided tour pricing for groups/experts)",
+        "Duration: 1.5 hours (10:30 to 12:00)"
+      ]
+    },
+    {
+      "day_index": 5,
+      "slot_position": 4,
+      "slot_name": "Courtyard Lunch",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.tripadvisor.com/Restaurant_Review-g190324-d26654042-Reviews-Courtyard_Lounge_Cafe-Mdina_Island_of_Malta.html",
+        "https://www.tripadvisor.com/ShowUserReviews-g190324-d1205082-r667080174-The_Medina_Restaurant-Mdina_Island_of_Malta.html",
+        "https://www.courtyardinchico.com/menus",
+        "https://courtyard.org/lunch-menu/",
+        "https://www.courtyardvillage.com/food-menus"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a 'Courtyard Lunch' in 'Medina' at a 'calm courtyard restaurant'. Evidence Source 2 explicitly identifies 'The Medina Restaurant' in Mdina (Medina) as having an 'Excellent meal in courtyard setting' and a 'Wonderful atmosphere sat beneath a glass roof in an aged stone courtyard.' Evidence Source 1 also mentions a 'Courtyard Lounge Cafe' in Mdina described as a 'tranquil spot' for lunch. The cost of €45.00 is consistent with a mid-to-high-end dining experience in such a setting, though the evidence does not explicitly state prices. The location and category are well-supported by the search results for the specified area.",
+      "claims_checked": [
+        "Location: Medina",
+        "Category: meal",
+        "Setting: Courtyard restaurant",
+        "Atmosphere: Calm/Tranquil"
+      ]
+    },
+    {
+      "day_index": 5,
+      "slot_position": 5,
+      "slot_name": "Riad Rest",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://riadlecalife.com/leisure-services/",
+        "https://www.tripsavvy.com/complete-guide-to-moroccan-riads-4686125",
+        "https://www.journeybeyondtravel.com/blog/riad-morocco-guesthouse.html",
+        "https://www.jackandjilltravel.com/whats-it-like-to-stay-in-a-moroccan-riad/",
+        "https://www.instagram.com/riadmimouna/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a period of 'Heat-aware pacing' and 'Rest' at a 'Riad'. The evidence confirms that a Riad is a traditional Moroccan house or guesthouse (Source 2, 3, 4) specifically designed for privacy and relaxation (Source 3: 'a place to sleep, shower and relax'). Source 3 specifically mentions that in 'mid summer' (the slot is dated July 9th), travelers should opt for a riad to escape the heat. The 'Free' note is consistent with resting at one's own pre-booked accommodation.",
+      "claims_checked": [
+        "Venue name: Riad",
+        "Category: leisure",
+        "Activity: Rest / Heat-aware pacing",
+        "Cost: Free"
+      ]
+    },
+    {
+      "day_index": 5,
+      "slot_position": 6,
+      "slot_name": "Guided Shopping",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.getyourguide.com/marrakesh-l208/marrakech-guided-souk-shopping-tour-t526255/",
+        "https://www.riadbensaid.com/blog/medina-souks.html",
+        "https://activities.marriott.com/africa/morocco/marrakesh/activities/shopping_tour_in_the_souks_of_marrakech_medina-X7Y5B7?property=RAKMD",
+        "https://www.tripadvisor.com/AttractionProductReview-g293734-d11472505-Shopping_in_the_Souks_of_Marrakech_Private_Medina_Walking_Tours-Marrakech_Marrakec.html",
+        "https://www.viator.com/tours/Marrakech/Marrakech-colorful-souks/d5408-75237P2"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms that guided shopping tours in the Marrakech Medina souks are a standard activity. Source 1 specifically mentions guided tours to find 'spices, leather goods, and handmade souvenirs' (matching the slot's description of spices, leather, or textiles). Source 2 confirms that Riads (like Riad Bensaid) assist guests in navigating the souks, supporting the 'riad-assisted' claim. Source 5 indicates that these tours are available in 2026, matching the travel date.",
+      "claims_checked": [
+        "Location: Medina souks",
+        "Activity: Guided or riad-assisted shopping",
+        "Items available: Spices, leather, or textiles",
+        "Availability: Tours operating in 2026"
+      ]
+    },
+    {
+      "day_index": 5,
+      "slot_position": 7,
+      "slot_name": "Dinner",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.ubereats.com/city/medina-oh?srsltid=AfmBOoq6xbdw1P3AdHaa7VsnGZlksVejzKzAMXXa0fDOerPEJJlmBm5M",
+        "https://www.thefarmerstablemedina.com/",
+        "https://www.visitmedinacounty.com/where-to-eat/",
+        "https://www.opentable.com/neighborhood/n/cleveland/medina-restaurants",
+        "https://www.tripadvisor.com/Restaurants-g50636-Medina_Ohio.html"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot describes a dinner at a 'riad' in 'Medina'. The search results provided refer exclusively to Medina, Ohio, USA (e.g., Source 1 mentions 'Medina, OH 44256', Source 2 mentions 'best of Ohio', Source 3 mentions 'Medina County'). Riads are traditional Moroccan houses with interior gardens, typically found in Moroccan Medinas (historic districts). The evidence is silent on Moroccan riads or restaurants in a Moroccan Medina, and the slot provides no specific restaurant name or address to verify against the Ohio-based results. Therefore, there is no information to confirm or deny the claims regarding a riad dinner or the €65 cost.",
+      "claims_checked": [
+        "Location: Medina",
+        "Venue type: Riad or nearby restaurant",
+        "Cost: €65.00"
+      ]
+    },
+    {
+      "day_index": 6,
+      "slot_position": 1,
+      "slot_name": "Light Breakfast",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.experienceittours.com/blog/moroccan-riad-food-guide-breakfast-dinner/",
+        "https://www.tasteatlas.com/best-rated-breakfasts-in-saudi-arabia",
+        "https://moroccanzest.com/moroccan-breakfast/",
+        "https://www.facebook.com/groups/1097268154288045/posts/1712389462775908/",
+        "https://www.bbcgoodfood.com/recipes/collection/healthy-breakfast-recipes"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a 'Light Breakfast' at a 'Riad' at 8:00 AM. Evidence Source 1 confirms that Riads are traditional Moroccan homes where breakfast is 'made fresh for you' and is a standard service for guests. Source 3 details the components of a 'Traditional Moroccan Breakfast' (cheese, olives, olive oil), which aligns with the concept of a meal at this location. While the 'light' nature is a personal preference/description, the availability of breakfast at a Riad is well-supported.",
+      "claims_checked": [
+        "Location: Riad",
+        "Category: meal",
+        "Activity: Breakfast",
+        "Time: 08:00"
+      ]
+    },
+    {
+      "day_index": 6,
+      "slot_position": 2,
+      "slot_name": "Cooking Class & Market Visit",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.tripadvisor.com/Attraction_Review-g293734-d1014909-Reviews-Souk_Cuisine-Marrakech_Marrakech_Safi.html"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provides a specific TripAdvisor link for 'Souk Cuisine' to support the cooking class and market visit. However, no evidence was retrieved from this link or any other source. Without the fetched content, I cannot verify the name, location, timing, or cost of the activity.",
+      "claims_checked": [
+        "Venue name: Souk Cuisine",
+        "Activity: Half-day cooking class with market visit",
+        "Time: 09:30 to 14:00",
+        "Cost: €120.00 for 2 people",
+        "Location: Medina cooking school / local market"
+      ]
+    },
+    {
+      "day_index": 6,
+      "slot_position": 3,
+      "slot_name": "Riad Rest",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://riadlecalife.com/leisure-services/",
+        "https://www.tripsavvy.com/complete-guide-to-moroccan-riads-4686125",
+        "https://www.journeybeyondtravel.com/blog/riad-morocco-guesthouse.html",
+        "https://www.jackandjilltravel.com/whats-it-like-to-stay-in-a-moroccan-riad/",
+        "https://www.instagram.com/riadmimouna/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a period of rest ('Riad Rest') within a 'Riad' to act as a 'July heat buffer'. The evidence confirms that a Riad is a traditional Moroccan house or guesthouse (Source 2, 3, 4) designed for 'privacy' and to 'relax' (Source 3). Source 3 specifically mentions that if visiting in 'mid summer' (consistent with the July date in the slot), one should choose a riad to escape the heat. The location 'Riad' refers to the accommodation type already established in the itinerary, and the 'Free' note is consistent with resting in one's own pre-booked accommodation.",
+      "claims_checked": [
+        "Venue name: Riad Rest",
+        "Location: Riad",
+        "Category: leisure",
+        "Purpose: July heat buffer",
+        "Cost: Free"
+      ]
+    },
+    {
+      "day_index": 6,
+      "slot_position": 4,
+      "slot_name": "Koutoubia Walk",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://activities.marriott.com/africa/morocco/marrakesh/activities/marrakech_medina_souks_koutoubia_walking_tour-XE26DT",
+        "https://thetripguru.com/destination/place/koutoubia-mosque",
+        "https://www.getyourguide.com/koutoubia-mosque-l3603/walking-tours-tc3/",
+        "https://travel.usnews.com/Marrakech_Morocco/Things_To_Do/Koutoubia_Mosque_Mosquee_Koutoubia_63988/",
+        "https://www.gpsmycity.com/attractions/koutoubia-mosque-and-minaret-19215.html"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms that the Koutoubia Mosque is located in the Medina (Source 4) and is adjacent to Jemaa el-Fnaa (Source 2, 5). Source 4 explicitly states that 'Visitors of all faiths can check out Koutoubia's plaza and gardens for free,' supporting the 'Free' note and the 'Koutoubia exterior/gardens' location. Source 5 highlights that 'At sunset, when the tower glows softly against the sky... the site becomes one of the most atmospheric places,' which aligns with the slot's timing (17:30-18:30) and the description of a 'photography-light walk.'",
+      "claims_checked": [
+        "Location: Koutoubia exterior / Medina",
+        "Cost: Free",
+        "Activity: Photography-light walk near Koutoubia gardens",
+        "Accessibility: Exterior/Gardens are open to the public"
+      ]
+    },
+    {
+      "day_index": 6,
+      "slot_position": 5,
+      "slot_name": "Light Dinner",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://m.yelp.com/search?find_desc=Candle+Light+Dinner&find_loc=Medina%2C+OH",
+        "https://www.tripadvisor.com/Restaurants-g50636-zfp58-Medina_Ohio.html",
+        "https://www.partakekitchen.com/",
+        "https://clevelandmagazine.com/articles/medinas-22-best-restaurants-dining-guide/",
+        "https://www.opentable.com/features/healthy-restaurants-medina-oh"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot refers to a 'Medina' in the context of a 'rooftop drinks/snacks after large cooking-class lunch,' which strongly implies a historic district (Medina) in a city like Marrakech or Tunis. However, the search results provided are exclusively for Medina, Ohio, USA. These results list restaurants like 'Thyme2' and 'Corkscrew Saloon' but do not mention rooftop dining or specific light dinner venues matching the description in a way that can be verified. Because the evidence points to a different geographical location than the one implied by the slot's context, it is silent on the actual claims.",
+      "claims_checked": [
+        "Location: Medina",
+        "Category: meal",
+        "Description: Rooftop drinks/snacks available",
+        "Cost: €45.00"
+      ]
+    },
+    {
+      "day_index": 7,
+      "slot_position": 1,
+      "slot_name": "Early Breakfast",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://hotelzagora.com/blog/moroccan-riad-breakfast",
+        "https://www.experienceittours.com/blog/moroccan-riad-food-guide-breakfast-dinner/",
+        "https://www.facebook.com/groups/26592725050374918/posts/33443751191938902/",
+        "https://riadjoya.com/the-moroccan-breakfast-reimagined-a-sacred-morning-ritual/",
+        "https://heerby.ma/en/blog/moroccan-breakfast-guide"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a breakfast meal at a 'Riad' starting at 07:30 AM. The evidence confirms that Riads are traditional Moroccan homes/hotels that serve breakfast (Source 1, 2). Source 2 specifically notes that 'The food is made fresh for you... The service is personal,' which supports the feasibility of a scheduled meal time. While the evidence does not explicitly state a standard opening time of 07:30 AM for all Riads, it describes the breakfast as a 'sacred morning ritual' that occurs 'before the medina fully awakens' (Source 4), making a 07:30 AM start time consistent with the typical operation of these establishments.",
+      "claims_checked": [
+        "Venue name/type: Riad",
+        "Category: meal",
+        "Time: 07:30 AM",
+        "Location: Riad"
+      ]
+    },
+    {
+      "day_index": 7,
+      "slot_position": 2,
+      "slot_name": "Ourika Valley Day Trip",
+      "source_type": "link",
+      "source_urls": [
+        "https://morocco-excursion.com/tours/day-trip-to-ourika/",
+        "https://www.tripadvisor.com/Attractions-g1847424-Activities-c42-Ourika_Marrakech_Safi.html"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims a day trip to Ourika Valley featuring Atlas foothills scenery, Berber village stops, and a riverside lunch, which is directly supported by Source 1 ('You will see lovely views and small Berber villages. You can stop to see how local people live'). Source 1 also confirms the availability of 'Private Tour' options. Regarding the cost, the slot estimates €200 for two people; Source 2 shows a price range for Ourika tours from '$0 - $500+', making the €200 estimate for two people plausible and consistent with market listings. The duration (08:30 to 16:30) is consistent with Source 1's '1 Day' tour type.",
+      "claims_checked": [
+        "Venue name: Ourika Valley Day Trip",
+        "Location: Ourika Valley",
+        "Category: attraction/excursion",
+        "Description: Atlas foothills scenery",
+        "Description: Berber village stop",
+        "Description: Riverside lunch",
+        "Type: Private or small-group excursion",
+        "Cost: €200.00 for 2 people"
+      ]
+    },
+    {
+      "day_index": 7,
+      "slot_position": 3,
+      "slot_name": "Riverside Lunch",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.getyourguide.com/ourika-river-l187812/food-drinks-tc103/",
+        "https://www.instagram.com/p/DTI9kLaDSzv/",
+        "https://www.tiktok.com/@crispyornot/video/7515488940472667414",
+        "https://www.facebook.com/StreetArtChasers/videos/-lunchtime-by-the-river-in-ourika-valley-theres-something-truly-special-about-es/805690802335910/",
+        "https://marrakechbestof.com/bon-plan/vallee-de-lourika/?lang=en"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms that riverside dining is a standard and popular experience in the Ourika Valley, with multiple sources mentioning lunch by the river or in village settings like Setti Fatma. Source 5 specifically notes that for many excursions, 'The meal is not included in the price of the excursion,' which aligns with the slot's note to 'Confirm if included in tour.' While the specific cost of €45 is not explicitly detailed in the snippets, the existence and nature of the activity (riverside lunch in Ourika Valley) are well-supported.",
+      "claims_checked": [
+        "Location: Ourika Valley",
+        "Activity: Riverside or village restaurant lunch",
+        "Context: Part of an excursion/tour"
+      ]
+    },
+    {
+      "day_index": 7,
+      "slot_position": 4,
+      "slot_name": "Return Rest",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.tuimusement.com/us/morocco/marrakech/riad-diner-in-marrakech-medina-with-transport-5/e_0q5j7-d_160-c_118/",
+        "https://www.medinaheritage.ma/",
+        "https://www.tripadvisor.com/Hotel_Feature-g293734-d12641938-zft9165-The_Central_House_Marrakech_Medina.html",
+        "https://www.theunconventionalroute.com/marrakech-medina-guide/",
+        "https://lejardinmarrakech.com/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot describes a generic 'Return Rest' period for recovery after an excursion in the Marrakech Medina. The provided evidence consists of search results for specific venues (restaurants, galleries, hostels) and general travel guides for the Medina. None of the evidence mentions a specific 'Return Rest' activity, a tour itinerary including this slot, or any verifiable details regarding the timing or location as a structured leisure event. Since the evidence is silent on the existence of this specific scheduled rest period, I cannot confirm or deny the claims.",
+      "claims_checked": [
+        "Name: Return Rest",
+        "Location: Marrakech Medina",
+        "Time: 16:30 - 18:30 on 2026-07-11",
+        "Category: leisure",
+        "Note: Included in tour"
+      ]
+    },
+    {
+      "day_index": 7,
+      "slot_position": 5,
+      "slot_name": "Farewell Dinner",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://wonderplan.ai/itineraries/tunis/14-days",
+        "https://www.facebook.com/ortega.medina.58/videos/i-wanted-to-thank-my-family-for-getting-together-for-the-special-dinner-that-wer/1497813528647306/",
+        "https://www.altairtravel.com/collette-us/16953/spain-to-morocco-a-cultural-journey",
+        "https://www.yelp.com/search?find_desc=Holiday+Dinner&find_loc=Medina%2C+OH",
+        "https://www.facebook.com/groups/621460085122411/posts/1983140962287643/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a generic 'Farewell Dinner' in a 'riad restaurant or atmospheric courtyard setting' in the Medina. Source 1 specifically recommends a farewell dinner at a rooftop restaurant within the Medina of Tunis for a 2026 itinerary, which is consistent with the slot's description of an atmospheric setting in that location. The cost of €90.00 is consistent with the pricing mentioned in Source 5 ($120 for two people, which is roughly €55 per person, making €90 a plausible high-end estimate for a farewell meal). Since the slot does not name a specific restaurant but rather a type of experience, the evidence supports the feasibility and typical nature of such a plan in the Medina.",
+      "claims_checked": [
+        "Location: Medina",
+        "Setting: Riad restaurant or atmospheric courtyard",
+        "Category: Meal (Farewell Dinner)",
+        "Cost: €90.00"
+      ]
+    },
+    {
+      "day_index": 8,
+      "slot_position": 1,
+      "slot_name": "Breakfast and Check out",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.experienceittours.com/blog/moroccan-riad-food-guide-breakfast-dinner/",
+        "https://hipmarrakech.com/marrakech-accommodation/riad-star/eating/",
+        "https://www.booking.com/hotel/ma/luxury-riad-with-swimming-pool-breakfast-included.html",
+        "https://www.facebook.com/groups/26592725050374918/posts/33443751191938902/",
+        "https://www.tripadvisor.com/Hotel_Feature-g293734-d642273-zft9179-Riad_Puchka.html"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a breakfast and checkout process at a Riad. The evidence confirms that Riads typically serve breakfast (Source 1: 'What to Expect for Breakfast... at Moroccan Riads'; Source 2: 'The breakfast varies each day...'). While the specific Riad is not named, the general practice of eating breakfast at a Riad is well-supported. The timing (08:00 - 09:00) is a standard window for breakfast and checkout services in hospitality.",
+      "claims_checked": [
+        "Breakfast is available at a Riad",
+        "The location is a Riad",
+        "The activity is a meal/breakfast"
+      ]
+    },
+    {
+      "day_index": 8,
+      "slot_position": 2,
+      "slot_name": "Airport Transfer",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.marrakechtransportagency.com/how-much-should-a-taxi-be-from-marrakech-airport-to-the-medina/"
+      ],
+      "verdict": "FAIL",
+      "reasoning": "The slot claims a cost of €30.00 for a transfer from the Medina to the airport. However, the provided evidence states that official airport taxis charge between 100–150 MAD ($10–$15) and private transfers/ride apps cost between 150–250 MAD ($15–$25). Even at the highest end of the provided range (250 MAD), the cost is approximately €23-€24, which contradicts the €30.00 claim. Specifically, the evidence says: 'Official airport taxis usually charge 100–150 MAD, while ride apps or private transfers may cost 150–250 MAD'.",
+      "claims_checked": [
+        "Route: Medina to Marrakech-Menara Airport",
+        "Cost: €30.00",
+        "Service: Private transfer or official taxi"
+      ]
+    },
+    {
+      "day_index": 8,
+      "slot_position": 3,
+      "slot_name": "Fly Marrakech to Hamburg",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.flightroutes.com/HAM-RAK"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provides a link (flightroutes.com) to verify the flight route, but no evidence was retrieved from that link or any other source. Therefore, the claims regarding the existence of a flight between Marrakech-Menara Airport and Hamburg Airport within the specified time window cannot be verified.",
+      "claims_checked": [
+        "Flight route exists from Marrakech-Menara Airport (RAK) to Hamburg Airport (HAM)",
+        "Flight duration/timing: 12:00 to 16:20 (approx. 4 hours 20 minutes)",
+        "Direct or hub-based flight availability"
+      ]
+    }
+  ],
+  "rationale_pass_count": 33,
+  "rationale_fail_count": 2,
+  "rationale_missing_count": 11,
+  "hc_micro_pass_rate": 1.0,
+  "cc_micro_pass_rate": 0.8462,
+  "hc_macro_pass_rate": 1.0,
+  "cc_macro_pass_rate": 0.0,
+  "final_pass_rate": 0.0,
+  "aggregated_constraints": [
+    {
+      "id": "HC-1",
+      "constraint_text": "origin: Hamburg",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "FAIL",
+        "PASS"
+      ],
+      "pass_count": 3,
+      "fail_count": 1,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-2",
+      "constraint_text": "destination: Marrakech",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "FAIL",
+        "PASS"
+      ],
+      "pass_count": 3,
+      "fail_count": 1,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-3",
+      "constraint_text": "travel_dates: 2026.07.05 to 2026.07.12",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "FAIL",
+        "PASS"
+      ],
+      "pass_count": 3,
+      "fail_count": 1,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-4",
+      "constraint_text": "travelers: 2 adults",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "FAIL",
+        "PASS"
+      ],
+      "pass_count": 3,
+      "fail_count": 1,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-5",
+      "constraint_text": "budget: 3000 EUR total",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "FAIL",
+        "PASS"
+      ],
+      "pass_count": 3,
+      "fail_count": 1,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-6",
+      "constraint_text": "accommodation: riad or comfortable hotel",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "FAIL",
+        "PASS"
+      ],
+      "pass_count": 3,
+      "fail_count": 1,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-7",
+      "constraint_text": "transport: Flight",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "FAIL",
+        "PASS"
+      ],
+      "pass_count": 3,
+      "fail_count": 1,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-8",
+      "constraint_text": "interests: souks, history, architecture, local cuisine, guided tours, relaxed pace",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "FAIL",
+        "PASS"
+      ],
+      "pass_count": 3,
+      "fail_count": 1,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-1",
+      "constraint_text": "Car or road trip transport is not feasible for island or overseas destinations — a flight or ferry is required.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-2",
+      "constraint_text": "No key information should be left out of the plan, such as the lack of accommodation during travel.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-3",
+      "constraint_text": "Transportation choices within the trip must be reasonable. For example, having both “self-driving” and “flight” would be considered a conflict.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-4",
+      "constraint_text": "Both outbound and return transport must appear in the plan.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-5",
+      "constraint_text": "Flight or train connections must allow sufficient layover time (≥60 min domestic, ≥90 min international).",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "MISSING_INFO",
+        "PASS"
+      ],
+      "pass_count": 3,
+      "fail_count": 0,
+      "missing_count": 1,
+      "na_count": 0
+    },
+    {
+      "id": "CC-6",
+      "constraint_text": "Accommodation must be planned for every night of the trip.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-7",
+      "constraint_text": "Hotel check-in must be scheduled after arrival transport reaches the destination.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-8",
+      "constraint_text": "Restaurants must be open on the planned day and time.",
+      "constraint_type": "commonsense",
+      "final_verdict": "FAIL",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "MISSING_INFO",
+        "MISSING_INFO"
+      ],
+      "pass_count": 2,
+      "fail_count": 0,
+      "missing_count": 2,
+      "na_count": 0
+    },
+    {
+      "id": "CC-9",
+      "constraint_text": "Restaurant choices should not be repeated throughout the trip.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "MISSING_INFO"
+      ],
+      "pass_count": 3,
+      "fail_count": 0,
+      "missing_count": 1,
+      "na_count": 0
+    },
+    {
+      "id": "CC-10",
+      "constraint_text": "Activities should be geographically sensible per day (no unnecessary cross-city travel).",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-11",
+      "constraint_text": "Attractions must be open on the planned day and time.",
+      "constraint_type": "commonsense",
+      "final_verdict": "FAIL",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "MISSING_INFO",
+        "MISSING_INFO"
+      ],
+      "pass_count": 2,
+      "fail_count": 0,
+      "missing_count": 2,
+      "na_count": 0
+    },
+    {
+      "id": "CC-12",
+      "constraint_text": "Attraction choices should not be repeated throughout the trip.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "FAIL"
+      ],
+      "pass_count": 3,
+      "fail_count": 1,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-13",
+      "constraint_text": "Travel time between consecutive activities must account for realistic transit duration.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    }
+  ],
+  "timestamp": "2026-05-17T12:12:16.563721+00:00"
+}

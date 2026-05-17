@@ -1,8 +1,1456 @@
 {
   "id": "query_4_special_interest_astronomy_Adrian",
   "source": "baseline",
-  "status": "error",
-  "error": "ValidationError: 5 validation errors for TravelPlan\ndays.1.slots.4.category\n  Input should be 'meal', 'attraction', 'transport', 'lodging', 'leisure' or 'other' [type=literal_error, input_value='hiking', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/literal_error\ndays.2.slots.4.category\n  Input should be 'meal', 'attraction', 'transport', 'lodging', 'leisure' or 'other' [type=literal_error, input_value='hiking', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/literal_error\ndays.3.slots.2.category\n  Input should be 'meal', 'attraction', 'transport', 'lodging', 'leisure' or 'other' [type=literal_error, input_value='hiking', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/literal_error\ndays.5.slots.2.category\n  Input should be 'meal', 'attraction', 'transport', 'lodging', 'leisure' or 'other' [type=literal_error, input_value='hiking', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/literal_error\ndays.6.slots.3.category\n  Input should be 'meal', 'attraction', 'transport', 'lodging', 'leisure' or 'other' [type=literal_error, input_value='hiking', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/literal_error",
-  "duration_seconds": 40.5,
-  "plan_path": "data/travelplans/baseline/query_4_special_interest_astronomy_Adrian.md"
+  "status": "ok",
+  "has_timeout": false,
+  "timed_out_models": [],
+  "duration_seconds": 307.5,
+  "plan_path": "data/travelplans/baseline/query_4_special_interest_astronomy_Adrian.md",
+  "scorecard": {
+    "plan_excerpt": "# TravelPlan: Baseline itinerary: Hamburg to La Palma dark-sky astronomy trip, 12–19 Nov 2026\n\n| Day 1 — 2026-11-12 — Fly to La Palma, collect car, settle in Garafía/Puntagorda | Day 2 — 2026-11-13 — Roque de los Muchachos orientation | Day 3 — 2026-11-14 — Official observatory visit attempt | Day 4",
+    "judge_models": [
+      "openrouter:minimax/minimax-m2.7",
+      "openrouter:google/gemini-3-flash-preview",
+      "openrouter:deepseek/deepseek-v4-flash",
+      "openrouter:qwen/qwen3.5-397b-a17b"
+    ],
+    "timed_out_models": [],
+    "rationale_verifications": [
+      {
+        "day_index": 1,
+        "slot_position": 1,
+        "slot_name": "Fly Hamburg to La Palma Airport",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.skyscanner.com/routes/ham/spc/hamburg-international-to-la-palma.html"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot provides a specific flight route (HAM to SPC) and a link to Skyscanner for verification. However, no evidence was retrieved from the provided link or any other source. Without the fetched content, it is impossible to verify the existence of flights on the specific date (2026-11-12), the duration of the travel window, or the accuracy of the cost estimate.",
+        "claims_checked": [
+          "Flight route exists from Hamburg (HAM) to La Palma (SPC)",
+          "Flight duration/timing fits within 06:00 to 14:00 window",
+          "Cost is approximately €550.00 (range €250-€550)",
+          "Route is available on 2026-11-12"
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 2,
+        "slot_name": "Pick up rental car at La Palma Airport",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.booking.com/cars/airport/es/spc.html",
+          "https://www.cestee.com/airport/la-palma-spc/transport",
+          "https://www.budget.com/en/locations/es/la-palma/spc",
+          "https://www.skyscanner.com/car-rental-from/spc/car-rental-from-la-palma-airport.html",
+          "https://www.kayak.com/Santa-Cruz-de-la-Palma-La-Palma-Airport-Car-Rentals.SPC.cap.ksp"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims that car rentals are available at La Palma Airport (SPC), which is confirmed by multiple sources (Booking.com, Cestee, Budget, Skyscanner, KAYAK). Source [2] specifically notes that 'the terminal's arrivals hall is home to many local and multinational car rental companies.' Regarding the cost, the slot estimates €50-€70/day. Source [1] provides an average price of $71.46 per day (approximately €66), which is consistent with the slot's estimate. The location 'SPC Airport' is the correct IATA code for La Palma Airport as confirmed by the search results.",
+        "claims_checked": [
+          "Rental cars are available for pickup at La Palma Airport (SPC)",
+          "Rental car desks are located within the airport terminal",
+          "Estimated cost is approximately €50-€70 per day"
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 3,
+        "slot_name": "Drive to rural accommodation",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.taxilapalma.com/en/minibus-transfers/airport-transfers/",
+          "https://taxisenlapalma.com/en/services/transfers-from-la-palma-airport/",
+          "https://www.shuttlespaintransfers.com/en/airport-transfers-la-palma",
+          "https://www.jayride.com/airport-transfer/spain/la-palma-airport-spc?srsltid=AfmBOoopkfx2l5jFibbb0YH9_3n3Wo6ci9okUAVAqrUGw02uFxCXjigr",
+          "https://english.lapalmaesturismo.com/planea-tu-viaje/como-moverse.html"
+        ],
+        "verdict": "FAIL",
+        "reasoning": "The slot claims a cost of €10.00 for a drive from the Airport to northwest La Palma (Garafía or Puntagorda). Evidence from taxi and transfer providers shows that destinations in the northwest or similar distances are significantly more expensive. For example, Source 2 lists Barlovento (northeast) at €63.00 and Los Llanos (west) at €56.00. Source 1 lists Hotel La Palma Romántica (Barlovento area) at €60.60. A €10.00 cost only covers very short distances near the airport, such as Los Cancajos (€10.00-€11.50 per Source 1). Even as a fuel estimate for a rental car, the distance from the airport to Garafía is roughly 65-75km (over 1.5 hours), making €10.00 an underestimate for a one-way trip given mountain terrain.",
+        "claims_checked": [
+          "Route: La Palma Airport to northwest La Palma (Garafía/Puntagorda)",
+          "Cost: €10.00",
+          "Duration: 2 hours (15:00 to 17:00)",
+          "Transport mode: Drive (implied rental or taxi)"
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 4,
+        "slot_name": "Check in to rural house/small hotel",
+        "source_type": "link",
+        "source_urls": [
+          "https://en.la-palma.travel/region/northwest/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims that rural houses/small hotels are available in the Garafía/Puntagorda (Northwest) region of La Palma within a price range of €70-€110. The evidence from the provided link confirms the existence of 'Holiday Country Houses' in the Northwest region. Specifically, it lists 'El Lomito' starting from €98/day and 'Casa Gomez' starting from €96/day, both of which fall within the slot's estimated cost range of €70-€110. The evidence also mentions features like a 'Sea View Terrace' for Casa Gomez, supporting the slot's description to book a place with a terrace.",
+        "claims_checked": [
+          "Location: Garafía or Puntagorda (Northwest La Palma)",
+          "Category: Rural house/small hotel lodging",
+          "Cost: €70-€110 per night",
+          "Features: Availability of houses with terraces"
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 5,
+        "slot_name": "Simple dinner/self-catering groceries",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://islabonita.com/en/hotel/casa-la-verada/",
+          "https://www.instagram.com/reel/C8A2yYps0AC/",
+          "https://m.yelp.com/search?find_desc=Homemade+Food&find_loc=Punta+Gorda%2C+FL",
+          "https://lapalmaisland.com/en/accommodation/",
+          "https://www.yelp.com/search?find_desc=Family+Meals&find_loc=Punta+Gorda%2C+FL"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot makes a general 'rural-area assumption' for Puntagorda/Garafía, suggesting self-catering or a simple dinner. Evidence Source 4 confirms that 'The tourist accommodations in Tijarafe, as well as in the nearby areas of Puntagorda and Garafía, mainly consist of rural houses,' which supports the context of a rural area where self-catering is a standard practice. Source 1 specifically mentions a 'self-catering cottage' in Puntagorda. While the evidence does not list specific grocery store names or November restaurant hours, the slot's description is framed as a 'practical assumption' rather than a definitive claim of a specific venue's existence, and the geographical context is verified.",
+        "claims_checked": [
+          "Location: Puntagorda/Garafía",
+          "Context: Rural area",
+          "Activity: Self-catering/simple dinner is a practical assumption for this area"
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 6,
+        "slot_name": "First dark-sky acclimatisation session",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.starsislandlapalma.es/en/observatory/visit-the-observatory/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot describes a private, self-guided activity (stargazing from an accommodation terrace) in rural northwest La Palma. The provided evidence link (Stars Island La Palma) is for visiting the Roque de los Muchachos Observatory, which is a formal guided tour facility. The evidence does not contain information about private accommodation terraces, general dark-sky conditions in the northwest for that specific date, or the cost of self-guided stargazing (though €0.00 is logical for a terrace session). Because the evidence is focused on observatory tours and does not mention the specific location or activity described in the slot, it cannot verify or contradict the claims.",
+        "claims_checked": [
+          "Location: Rural northwest La Palma",
+          "Activity: Dark-sky acclimatisation from accommodation terrace",
+          "Cost: €0.00",
+          "Time: 21:00 - 22:30 on 2026-11-12"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 1,
+        "slot_name": "Breakfast at accommodation",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://ie.hotels.com/de463030/booking-hotels-in-garafia-spain/",
+          "https://www.booking.com/city/es/garafia.html",
+          "https://www.agoda.com/puntagorda/maps/la-palma-es.html",
+          "https://www.expedia.com/Puntagorda-Hotels-Casa-Lucia.h34148919.Hotel-Information",
+          "https://www.cozycozy.com/us/punta-gorda-bed-and-breakfast"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot suggests 'Self-catering recommended' for breakfast in the Garafía/Puntagorda area. The evidence supports the feasibility of this by identifying several holiday homes and apartments in the specific locations (Casa Efrén and Casas las Gemelas in Garafía; Casa Barbara and Casa Lucia in Puntagorda). Specifically, Source 4 mentions 'Enjoy fresh bread for breakfast' at a property in Puntagorda, which aligns with the self-catering/accommodation-based meal suggestion. The cost of €8.00 is a reasonable estimate for a self-catered breakfast, though not explicitly stated in the text. The location 'Garafía/Puntagorda' is directly confirmed as a valid geographic area in La Palma by multiple sources.",
+        "claims_checked": [
+          "Location: Garafía/Puntagorda",
+          "Category: meal (breakfast)",
+          "Description: Self-catering recommended",
+          "Cost: €8.00"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 2,
+        "slot_name": "Drive toward Roque de los Muchachos",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.google.com/maps/search/Drive+to+Roque+de+los+Muchachos%2C+La+Palma%2C+Spain",
+          "https://visitlapalma.es/en/car-excursions/la-palma/car-route-around-santa-cruz-de-la-palma-roque-de-los-muchachos-and/",
+          "https://lapalmatransfer.com/roque-de-los-muchachos/",
+          "https://www.rome2rio.com/s/Puntagorda/Roque-de-los-Muchachos",
+          "https://www.tripadvisor.com.my/ShowTopic-g187475-i4235-k13169512-Transport_from_Mirador_del_Time_to_Roque_de_los_Muchachos-La_Palma_Canary_Islands.html"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a drive from the Garafía/Puntagorda area to Roque de los Muchachos. Evidence from Rome2rio (Source 4) confirms that the drive from Puntagorda to Roque de los Muchachos is approximately 28.4 km and takes about 27 minutes. The slot's time window of 90 minutes (09:00 to 10:30) is consistent with this driving time while allowing for the 'slow drive' and 'stops at viewpoints' mentioned in the description. Source 2 confirms that the route involves mountain roads with 'inevitable' bends and scenic views of the Atlantic. The cost of €10 for fuel is a reasonable estimate for a ~30km mountain drive.",
+        "claims_checked": [
+          "Route: Puntagorda/Garafía to Roque de los Muchachos",
+          "Travel time: 1.5 hours (including stops)",
+          "Road type: Mountain roads",
+          "Cost: €10.00 fuel estimate"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 3,
+        "slot_name": "Visit Roque de los Muchachos viewpoints",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.iac.es/en/observatorios-de-canarias/roque-de-los-muchachos-observatory/visits"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms that the Roque de los Muchachos Observatory (ORM) is open for public visits ('Public visits to the Roque de los Muchachos Observatory (ORM) are currently available'). The claim that the cost is €0.00 is supported by the statement that the program 'does not entail any economic activity or benefit for the Observatory'. The location is confirmed as the highest point of La Palma by the name and context of the observatory site. The description of visiting viewpoints and the exterior area is consistent with the general information provided for public visits.",
+        "claims_checked": [
+          "Venue name: Roque de los Muchachos viewpoints / Observatory",
+          "Location: Roque de los Muchachos (La Palma's highest point)",
+          "Cost: €0.00",
+          "Availability: Public visits are permitted"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 4,
+        "slot_name": "Picnic lunch",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.tripadvisor.com/Attraction_Review-g609029-d3655222-Reviews-Mirador_de_San_Roque-Viveiro_Province_of_Lugo_Galicia.html",
+          "https://www.yelp.com/search?find_desc=Restaurants+With+A+View&find_loc=Picnic+Point%2C+WA",
+          "https://www.tripadvisor.com/Attraction_Review-g1006045-d2359816-Reviews-Roque_Nublo-Tejeda_Gran_Canaria_Canary_Islands.html",
+          "https://www.instagram.com/reel/DYPQbS4oq3Q/",
+          "https://www.yelp.com/search?find_desc=Picnic+Food&find_loc=Seattle%2C+WA"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a picnic lunch at a 'Roque viewpoint area' and notes that services are limited near the observatory. Source 1 (Mirador de San Roque) explicitly confirms that 'You can go up for a picnic because there is everything you need' and mentions the 'lovely views'. While the evidence does not explicitly mention an 'observatory' in the same sentence as the picnic area, the description of limited services is a cautionary note rather than a claim of a specific facility's existence, and the feasibility of a picnic at a 'Roque' viewpoint is supported.",
+        "claims_checked": [
+          "Location: Roque viewpoint area",
+          "Activity: Picnic lunch",
+          "Feasibility: Area is suitable for picnicking",
+          "Context: Services are limited near the area"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 5,
+        "slot_name": "Short high-altitude walk",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://huntingforbliss.com/roque-de-los-muchachos",
+          "https://www.facebook.com/groups/hikingspain/posts/1350379446887945/",
+          "https://travelingwithserenity.com/2021/06/25/roque-de-los-muchachos/",
+          "https://lapalmaoutdoor.com/en/tour/guided-route-in-el-roque-de-los-muchachos/",
+          "https://www.alltrails.com/trail/spain/la-palma/roque-de-los-muchachos"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms that Roque de los Muchachos is the highest point on La Palma (2,426m) and features a ridge trail along the caldera rim (Source 1, 4). Source 3 explicitly describes it as a 'short hike along the rim of a volcano' that can be done 'above the clouds,' supporting the slot's description of a short high-altitude walk. Source 1 notes that you can 'drive almost to the top' and step away from the car parks for a ridge walk without 'committing to a full-day,' which aligns with the slot's advice to avoid long routes. The cost of €0.00 is consistent with a public hiking trail on a ridge.",
+        "claims_checked": [
+          "Location: Roque de los Muchachos ridge",
+          "Activity: Short high-altitude walk on the caldera rim",
+          "Condition: High-altitude (approx 2,426m)",
+          "Cost: €0.00"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 6,
+        "slot_name": "Return to accommodation",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.rome2rio.com/s/Puntagorda/Garaf%C3%ADa",
+          "https://www.shuttlefare.com/punta_gorda_airport_shuttle_pgd",
+          "https://www.yelp.com/search?cflt=transport&find_loc=Punta+Gorda%2C+FL+33950",
+          "https://www.jayride.com/airport-transfer/united-states/punta-gorda-airport-pgd?srsltid=AfmBOooNv3jxFtEf7RrppvHjZXC_s-nmzjnaD-O_wZHb6-uHg1DmfEpP",
+          "https://www.flypgd.com/ground-transportation/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a transport leg between Garafía and Puntagorda (La Palma, Spain) with an estimated fuel cost of €10.00. Evidence Source 1 confirms that these two locations are connected by the line 120 bus and that the travel time is approximately 18 minutes. While the evidence mentions a bus cost of €3, a fuel estimate of €10 for a private vehicle (as implied by the 'fuel estimate' note) is consistent with a short driving distance in this region. The time window of 2 hours is more than sufficient for an 18-minute transit.",
+        "claims_checked": [
+          "Location: Garafía/Puntagorda",
+          "Transport mode: Driving/Bus (implied by fuel estimate/location)",
+          "Cost: €10.00 (fuel estimate)",
+          "Duration: Within the 16:30 to 18:30 window"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 7,
+        "slot_name": "Dinner",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://schoandjo.com/punta-gorda-restaurants/",
+          "https://www.yelp.com/search?find_desc=Dinner&find_loc=Punta+Gorda%2C+FL+33950",
+          "https://rivierabarandgrillpuntagorda.com/",
+          "https://www.carmelosristorante.com/",
+          "https://rtwin30days.com/best-punta-gorda-restaurants/"
+        ],
+        "verdict": "FAIL",
+        "reasoning": "The slot specifies a location of 'Garafía/Puntagorda', which in the context of a trip involving Garafía refers to the municipalities on the island of La Palma, Spain. However, all retrieved evidence describes restaurants in 'Punta Gorda, Florida, USA'. The evidence discusses 'Southwest Florida's best foodie destination' and 'Punta Gorda, FL 33950', which contradicts the geographical context of Garafía. Furthermore, the evidence does not support the specific cost estimate of €25.00 for a rural restaurant in the intended Spanish location.",
+        "claims_checked": [
+          "Location: Garafía/Puntagorda",
+          "Category: meal",
+          "Cost: €25.00",
+          "Description: Rural restaurant/self-catering estimate"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 8,
+        "slot_name": "Independent dark-sky session",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.iac.es/en/observatorios-de-canarias/roque-de-los-muchachos-observatory",
+          "https://www.getyourguide.com/roque-de-los-muchachos-l87442/stargazing-tc1036/",
+          "https://lagomera.travel/en/experiences/the-best-places-to-observe-the-meteor-shower-in-la-gomera/",
+          "https://visitlapalma.es/en/stargazing/la-palma/stargazing-at-el-roque-de-los-muchachos/",
+          "https://www.spain.info/en/top/star-gazing-la-palma/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms that the Roque de los Muchachos area in the municipality of Garafía is a premier location for stargazing. Source 1 places the observatory in Garafía at 2,396 meters. Source 4 explicitly mentions the 'Roque de los Muchachos Stargazing Viewpoint' as a 'privileged place' for observing the 'sea of stars.' Source 5 mentions the 'Roque de los Muchachos route' as an astronomical path. The cost of €0.00 is consistent with an 'independent' session at a public viewpoint or roadside area, as opposed to the paid guided tours mentioned in Source 2. The location 'Garafía/Roque access road area' is supported by Source 4, which describes the viewpoint as being 'set at the highest point' and Source 3 (though discussing La Gomera) mentions viewpoints located 'a few meters from the access road' as ideal for low light pollution, which aligns with the slot's description of using safe roadside/viewpoints.",
+        "claims_checked": [
+          "Location: Garafía/Roque access road area",
+          "Category: leisure/stargazing",
+          "Cost: €0.00 (Independent session)",
+          "Activity: Dark-sky session/stargazing from a viewpoint or roadside"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 1,
+        "slot_name": "Breakfast",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://aredspatula.com/simple-hotel-room-breakfast-ideas/",
+          "https://www.bedandbreakfastforsale.com/resources/breakfast-menu-ideas-for-bbs/",
+          "https://au.pinterest.com/peakypetal/breakfast-in-your-hotel-room/",
+          "https://dontjustfly.com/breakfast-ideas-for-hotel-rooms/",
+          "https://www.littlehotelier.com/blog/running-your-property/bed-breakfast-recipes/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot describes a breakfast at an unspecified 'Accommodation' for €8.00. The provided evidence consists of general articles about hotel room breakfast ideas, B&B menu suggestions, and Pinterest recipes. None of the evidence mentions a specific accommodation, its location, or a verified price of €8.00 for a meal. Because the 'Accommodation' is not named and the evidence is generic, there is no way to verify or contradict the claims.",
+        "claims_checked": [
+          "Location: Accommodation",
+          "Cost: €8.00",
+          "Category: meal"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 2,
+        "slot_name": "Drive to Roque de los Muchachos",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.tripadvisor.co.uk/ShowTopic-g187475-i4235-k13169512-Transport_from_Mirador_del_Time_to_Roque_de_los_Muchachos-La_Palma_Canary_Islands.html",
+          "https://research.iac.es/OOCC/observatorio-del-roque/how-to-get-to-the-orm/",
+          "https://www.taxiamarcosycordero.es/en/hiking-routes-with-taxi-4x4-in-la-palma/travel-to-roque-de-los-muchachos/",
+          "https://www.rome2rio.com/s/Puntagorda/Roque-de-los-Muchachos",
+          "https://lapalmatransfer.com/roque-de-los-muchachos/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a drive from the Garafía/Puntagorda area to the Roque de los Muchachos Observatory (ORM). Evidence from Rome2Rio (Source 4) indicates the drive from Puntagorda takes approximately 27 minutes, which fits well within the 90-minute window provided (09:00 to 10:30). The cost of €10.00 is consistent with the 'fuel estimate' note, as Source 4 mentions travel options starting from $6. Source 2 confirms the existence of the ORM entrance and the necessity of driving to reach it. Source 3 confirms that routes to the Roque often originate from Garafía or Puntagorda.",
+        "claims_checked": [
+          "Route: Garafía/Puntagorda to ORM",
+          "Travel time: 1.5 hours (09:00 to 10:30)",
+          "Cost: €10.00 (fuel estimate)",
+          "Destination: Roque de los Muchachos Observatory (ORM)"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 3,
+        "slot_name": "Reserved public visit to Observatory",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.iac.es/en/observatorios-de-canarias/roque-de-los-muchachos-observatory/visits"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms that public visits to the Roque de los Muchachos Observatory (ORM) are available and subject to telescope operations and weather conditions ('They will be permitted only if the operation of the telescopes and weather conditions permit'). The slot's description and notes regarding the cost (estimate €0-€25) are consistent with the evidence stating the program 'does not entail any economic activity or benefit for the Observatory', implying the observatory itself does not charge a commercial fee, though external booking platforms or transport often associated with these visits may incur costs within that range. The location (ORM) matches the venue name.",
+        "claims_checked": [
+          "Venue name: Roque de los Muchachos Observatory",
+          "Location: ORM",
+          "Requirement: Prior reservation",
+          "Condition: Depends on telescope operations and weather",
+          "Cost: €25.00 (estimated range €0-€25)"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 4,
+        "slot_name": "Picnic or café stop",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.tripadvisor.com/Restaurant_Review-g187476-d23780610-Reviews-Utopia_Cafe_La_Palma-Santa_Cruz_de_la_Palma_La_Palma_Canary_Islands.html",
+          "https://www.tripadvisor.com/Restaurants-g187475-c8-zfp6-La_Palma_Canary_Islands.html",
+          "https://wanderlog.com/list/geoCategory/313100/best-spots-for-lunch-in-santa-cruz-de-la-palma",
+          "https://www.facebook.com/groups/lapalmatraveltips/posts/923545466518558/",
+          "http://www.ing.iac.es/~crb/lap/lprest.html"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a generic 'Picnic or café stop' in Northwest La Palma following a descent from the summit (Roque de los Muchachos area). Evidence source [5] confirms there are eating places 'Near the observatory, in the north' and notes that there are 'Selected eating places' in that geographical area, supporting the claim that services exist but are specific to certain locations. The cost of €15.00 is a reasonable estimate for a café meal in the region, and the description of 'limited services near the summit' is consistent with the remote nature of the observatory area mentioned in the search results.",
+        "claims_checked": [
+          "Location: Northwest La Palma",
+          "Category: meal",
+          "Description: Limited services near the summit",
+          "Cost: €15.00"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 5,
+        "slot_name": "Gentle walk around Puntagorda/Garafía",
+        "source_type": "link",
+        "source_urls": [
+          "https://en.la-palma.travel/region/northwest/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a gentle walk in the Puntagorda/Garafía countryside. The provided evidence (Source 1) explicitly titles the region as 'Northwest La Palma: Puntagorda, Tijarafe Garafia' and describes the area as a 'natural setting' with 'Country Holiday House[s]'. While the evidence does not list a specific named trail, it confirms that Puntagorda and Garafía are located in the Northwest region of La Palma and characterizes the environment as rural/countryside, which is consistent with the activity of a countryside walk. The cost of €0.00 is consistent with a self-guided walk in a public rural area.",
+        "claims_checked": [
+          "Location: Puntagorda/Garafía is in the Northwest of La Palma",
+          "Activity: Countryside walk is possible in this region",
+          "Cost: €0.00"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 6,
+        "slot_name": "Sunset viewpoint session",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.pureflorida.com/blog/post/best-sunset-spots-punta-gorda-englewood-beach/",
+          "https://www.getyourguide.com/punta-gorda-florida-l216988/viewing-points-tc238/",
+          "https://www.instagram.com/p/DRiPczSkUnj/",
+          "https://www.flypgd.com/top-10-places-to-watch-the-sunset-in-punta-gorda-englewood-beach/",
+          "https://www.getyourguide.com/punta-gorda-florida-l216988/sunset-tours-tc306/"
+        ],
+        "verdict": "FAIL",
+        "reasoning": "The slot refers to 'Puntagorda/Garafía', which are municipalities on the island of La Palma, Spain (indicated by the mention of 'scouting a night-sky spot', as La Palma is a famous Starlight Reserve, and the pairing of Puntagorda and Garafía). However, all retrieved evidence describes 'Punta Gorda' in Florida, USA. Because the evidence describes a completely different geographical location (Florida Gulf Coast vs. Canary Islands), it contradicts the implied location and the specific pairing of Puntagorda with Garafía.",
+        "claims_checked": [
+          "Location: Puntagorda/Garafía coast or hills",
+          "Activity: Sunset viewpoint session",
+          "Cost: €0.00",
+          "Time: 17:00 - 18:30"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 7,
+        "slot_name": "Dinner",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.clariso.eu/en/Restaurant/La-Palma/Garafia/Restaurante-Parrilla-Pino-de-La-Virgen-57/",
+          "https://www.youtube.com/watch?v=odc4E-9lqTM",
+          "https://rivierabarandgrillpuntagorda.com/",
+          "https://www.yelp.com/search?find_desc=Family+Meals&find_loc=Punta+Gorda%2C+FL",
+          "https://www.carmelosristorante.com/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a generic evening meal in Puntagorda/Garafía (La Palma, Spain) with a budget of €25.00. Evidence Source 1 confirms the existence of 'Pino de la Virgen', a restaurant in Puntagorda specializing in traditional Canarian cuisine. While the slot does not name a specific restaurant, the location and activity (dinner) are supported by the presence of dining establishments in that specific area. The cost of €25.00 is a reasonable estimate for a standard meal in this region, though not explicitly detailed in the text. Note: Sources 2-5 refer to Punta Gorda in Florida or Roatán, which are different locations, but Source 1 directly confirms the relevant location in La Palma.",
+        "claims_checked": [
+          "Location: Puntagorda/Garafía",
+          "Activity: Evening meal/Dinner",
+          "Cost: €25.00"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 8,
+        "slot_name": "Guided stargazing tour",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.islabonitatours.com/en/ruta/bus-tours-la-palma/stargazing-tour-roque-muchachos/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims a guided stargazing tour at Roque de los Muchachos with a cost of €90 (estimated range €45-€90) and mentions Saturday availability. The provided link (Source 1) confirms the existence of a 'STARGAZING TOUR LA PALMA from Roque de los Muchachos' operated by IslaBonita Tours. While the full text of the page is truncated, the title and URL explicitly support the venue name, location, and activity type. The cost of €90 falls within the range mentioned in the notes and is a plausible price for such tours in this region. The slot's note about 'Saturday availability' is consistent with the tour's nature as a scheduled event.",
+        "claims_checked": [
+          "Venue name: Guided stargazing tour (IslaBonita Tours)",
+          "Location: Roque de los Muchachos",
+          "Cost: €90.00 (range €45-€90)",
+          "Activity: Guided stargazing tour",
+          "Operator: IslaBonita Tours"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 1,
+        "slot_name": "Early breakfast and pack lunch",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.facebook.com/groups/homemakingtips/posts/771602186869613/",
+          "https://allisonmariealexander.com/2024/04/19/vacation-meal-prep-for-breakfast-lunch-no-microwave/",
+          "https://www.reddit.com/r/nursing/comments/153ar8y/what_does_everyone_take_for_a_packed_breakfast/",
+          "https://www.thekitchn.com/family-meal-prep-plan-261285",
+          "https://theeastcoastkitchen.com/6-meal-prep-recipes-for-breakfast-lunch-dinner/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot describes a generic activity ('Early breakfast and pack lunch') at a non-specific location ('Accommodation'). The provided evidence consists of general meal prep ideas and recipes from blogs and social media. None of the evidence mentions a specific accommodation, a specific cost of €10.00, or the feasibility of this activity at a particular destination. While the activity is plausible, there is no factual evidence to verify the specific claims of cost or location for this itinerary.",
+        "claims_checked": [
+          "Activity: Early breakfast and pack lunch",
+          "Location: Accommodation",
+          "Cost: €10.00",
+          "Time: 07:30:00 to 08:30:00"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 2,
+        "slot_name": "Drive toward Caldera de Taburiente",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://lapalmatransfer.com/en/caldera-de-taburiente/",
+          "https://tortoiseandhareontour.com/hiking-in-the-caldera-de-taburiente-lp13/",
+          "https://www.facebook.com/groups/2610471662416174/posts/3796418950488100/",
+          "https://www.tripadvisor.com/ShowTopic-g187475-i4235-k10483273-Accessing_Parque_Nacional_de_la_Caldera_de_Taburiente-La_Palma_Canary_Islands.html",
+          "https://visitlapalma.es/en/hiking/la-palma/caldera-de-taburiente/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a drive to the Caldera de Taburiente area with a cost of €15.00 for fuel/transport. Evidence from Source [2] confirms that a taxi to the carpark at the start of the caldera costs exactly '15 euros', which aligns with the slot's cost claim. Source [5] confirms the location is in the 'heart of the island of La Palma' and mentions access points like 'Mirador de Los Brecitos' and 'La Cumbrecita'. The slot's mention of 'parking permits' is consistent with the general management of a National Park, and the duration (1.5 hours) is a reasonable estimate for a drive across the island, though not explicitly stated in the text.",
+        "claims_checked": [
+          "Location: Caldera de Taburiente area",
+          "Cost: €15.00",
+          "Description: Drive toward access area/trailhead",
+          "Note: Requirement for parking permits"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 3,
+        "slot_name": "Caldera de Taburiente hike",
+        "source_type": "link",
+        "source_urls": [
+          "https://visitlapalma.es/en/hiking/la-palma/caldera-de-taburiente/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms that Caldera de Taburiente National Park offers several hiking possibilities, including the specific 'La Cumbrecita' route mentioned in the slot description ('the surroundings also include routes... through the recreational zone of La Cumbrecita'). The evidence also supports the idea of shorter or alternative routes for those who do not want to do the full trek ('Anyone who prefers not to undertake the entire route has the option of visiting the Park from the Mirador de la Cumbrecita viewing point'). While the evidence lists a specific 6-hour/12.5km route as 'High' difficulty, it explicitly mentions the La Cumbrecita option as an alternative for those not doing the full route, which aligns with the slot's 'moderate' and 'shorter' description. There is no mention of an entrance fee, which is consistent with the €0.00 cost claim for a National Park hike.",
+        "claims_checked": [
+          "Location: Caldera de Taburiente National Park",
+          "Route option: La Cumbrecita viewpoints",
+          "Route option: Shorter national-park route",
+          "Difficulty: Moderate (for the suggested shorter routes)",
+          "Cost: €0.00"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 4,
+        "slot_name": "Packed lunch on trail",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://sectionhiker.com/myog-caldera-cone-cozies/",
+          "https://www.reddit.com/r/PacificCrestTrail/comments/aq7mhb/favorite_trail_food_for_breakfast_lunch_and_dinner/",
+          "https://www.facebook.com/groups/Havasupai/posts/1651386658964714/",
+          "https://www.youtube.com/watch?v=ra1cXFMjotM",
+          "https://www.rei.com/learn/expert-advice/planning-menu.html"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot describes a 'Packed lunch on trail' in the 'Caldera area'. The provided evidence discusses 'Caldera Cone' cooking systems (Source 1) and general backpacking food ideas (Sources 2-5), but it does not mention a specific geographic 'Caldera area' or a specific trail meal service/location associated with that name. There is no evidence to confirm or deny the existence of a specific trail or meal plan in a location called 'Caldera area' for the date provided.",
+        "claims_checked": [
+          "Location: Caldera area",
+          "Activity: Packed lunch on trail",
+          "Note: Included in morning prep"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 5,
+        "slot_name": "Return to accommodation",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://aromasuites.com/discover/santorini-itinerary-3-days",
+          "https://www.journeys6senses.com/en/where-to-stay-in-santorini/",
+          "https://www.instagram.com/p/DWL_FmzD23T/",
+          "https://www.facebook.com/groups/isantorini/posts/10169610771925176/",
+          "https://www.facebook.com/groups/greekislandtravel/posts/10163551814535854/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The evidence provided discusses general accommodation areas in Santorini (Fira, Imerovigli, Oia, Akrotiri) and general costs for hotels and meals. However, it contains no specific information regarding transport costs for a 'mountain driving' route from the Caldera area to the northwest, nor does it provide fuel estimates or travel durations for this specific path. There is no data to verify if €15.00 is a reasonable fuel estimate for this specific journey.",
+        "claims_checked": [
+          "Route: Caldera area to northwest",
+          "Transport mode: Mountain driving",
+          "Cost: €15.00 (fuel estimate)",
+          "Duration: 1.5 hours (15:30 to 17:00)"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 6,
+        "slot_name": "Dinner",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://schoandjo.com/punta-gorda-restaurants/",
+          "https://www.yelp.com/search?find_desc=Dinner&find_loc=Punta+Gorda%2C+FL+33950",
+          "https://rivierabarandgrillpuntagorda.com/",
+          "https://www.carmelosristorante.com/",
+          "https://rtwin30days.com/best-punta-gorda-restaurants/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot refers to Garafía and Puntagorda, which are municipalities on the island of La Palma, Spain (implied by the pairing of these two specific neighboring locations). However, the search results provided (Sources 1-5) exclusively discuss Punta Gorda, Florida, USA. Because the evidence pertains to a different geographical location than the one intended by the slot, there is no relevant information to verify the availability or cost of a dinner in Garafía/Puntagorda, Spain.",
+        "claims_checked": [
+          "Location: Garafía/Puntagorda",
+          "Activity: Evening meal/Dinner",
+          "Cost: €25.00"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 7,
+        "slot_name": "Optional low-effort sky check",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.kayak.com/Fort-Lauderdale-Hotels-Sky-Accommodation-minutes-from-the-airport-FLL.1072979334.ksp",
+          "https://darksky.org/what-we-do/darksky-approved/lodging/",
+          "https://www.afar.com/hotels/10-hotels-where-you-can-go-stargazing",
+          "https://www.tripadvisor.com/Hotel_Review-g34227-d84407-Reviews-Ocean_Sky_Hotel_Resort-Fort_Lauderdale_Broward_County_Florida.html",
+          "https://www.instagram.com/reel/DHpS9yIPjxc/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot describes a generic activity ('sky check') at a generic location ('Accommodation') without specifying a city, country, or specific hotel name. The provided evidence contains search results for various hotels with 'Sky' in the name (e.g., Sky Accommodation in Fort Lauderdale) or general articles about stargazing hotels, but none of these can be linked to the specific 'Accommodation' mentioned in the slot. Because the location is not defined, the claims regarding the feasibility or cost of a 'sky check' cannot be verified.",
+        "claims_checked": [
+          "Activity: Optional low-effort sky check",
+          "Location: Accommodation",
+          "Cost: €0.00",
+          "Time: 2026-11-15T21:00:00 to 22:30:00"
+        ]
+      },
+      {
+        "day_index": 5,
+        "slot_position": 1,
+        "slot_name": "Breakfast",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://aredspatula.com/simple-hotel-room-breakfast-ideas/",
+          "https://www.bedandbreakfastforsale.com/resources/breakfast-menu-ideas-for-bbs/",
+          "https://au.pinterest.com/peakypetal/breakfast-in-your-hotel-room/",
+          "https://dontjustfly.com/breakfast-ideas-for-hotel-rooms/",
+          "https://www.littlehotelier.com/blog/running-your-property/bed-breakfast-recipes/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot describes a breakfast at an unspecified 'Accommodation' for €8.00. The provided evidence consists of general articles about hotel room breakfast ideas and B&B menu suggestions. Since the specific accommodation is not named in the slot and the evidence does not contain information about a specific property's breakfast pricing or availability for the date 2026-11-16, it is impossible to verify the cost or the feasibility of the meal at that location.",
+        "claims_checked": [
+          "Location: Accommodation",
+          "Cost: €8.00",
+          "Category: meal"
+        ]
+      },
+      {
+        "day_index": 5,
+        "slot_position": 2,
+        "slot_name": "Astronomy education / Backup slot",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.starsislandlapalma.es/en/observatory/visit-the-observatory/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot is described as a flexible backup for astronomy education or an observatory visit. The provided link (Source 1) confirms the existence of observatory visits at the Roque de los Muchachos Observatory. While the fetched content is partially truncated, the title 'Visit the Observatory ⋆ Stars Island La Palma' and the URL confirm the location and activity. The cost of €15 is consistent with typical guided tour fees for this specific site, and the location 'Roque area' matches the observatory's location.",
+        "claims_checked": [
+          "Activity: Astronomy education / Observatory visit",
+          "Location: La Palma / Roque area",
+          "Cost: €15.00 (estimate €0-€15)",
+          "Existence of a visitor/information center or observatory tours"
+        ]
+      },
+      {
+        "day_index": 5,
+        "slot_position": 3,
+        "slot_name": "Lunch",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.beachnest.com/best-lunch-in-santa-cruz/",
+          "https://downtownsantacruz.com/discover/eat/lunch",
+          "https://www.tripadvisor.com/Restaurants-g33048-zfp30-Santa_Cruz_California.html",
+          "https://www.yelp.com/search?find_desc=Lunch&find_loc=Santa+Cruz%2C+CA",
+          "https://www.quora.com/What-restaurant-would-you-pick-if-you-had-to-single-out-one-restaurant-of-any-food-style-to-say-that-is-the-most-Santa-Cruz-CA-experience"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot provides a generic placeholder for a meal ('Lunch') with a vague location ('Northwest or Santa Cruz side depending on plan'). While the evidence confirms that Santa Cruz has numerous lunch options and lists several specific restaurants (e.g., Linda's Seabreeze Cafe, Jack O'Neill Restaurant), the slot does not name a specific venue. Therefore, there are no specific claims regarding a business name, exact address, or specific menu pricing that can be verified against the evidence. The cost of €18.00 is a generic estimate that cannot be confirmed or refuted without a specific restaurant selection.",
+        "claims_checked": [
+          "Location: Northwest or Santa Cruz side",
+          "Cost: €18.00",
+          "Time: 12:30 - 13:30"
+        ]
+      },
+      {
+        "day_index": 5,
+        "slot_position": 4,
+        "slot_name": "Light recovery afternoon",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.instagram.com/reel/DXR8EXuEW0P/",
+          "https://www.sciencedirect.com/science/article/pii/S0965856422000714",
+          "https://ecos.fws.gov/docs/recovery_plan/sfl_msrp/SFL_MSRP_Ecol%20Comm.pdf",
+          "https://www.facebook.com/PalmBeachesFL/posts/discover-ultimate-serenity-at-amrit-ocean-resort-the-largest-spa-in-florida-span/1173263671496600/",
+          "https://www.myclearwater.com/Neighborhood-Map-Locations/Parks-Trails-and-Recreation-Centers/McKay-Park"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The provided evidence consists of search results for 'The Palm Beaches' (Florida), COVID-19 lifestyle impacts, and a US Fish and Wildlife recovery plan. None of the evidence mentions the island of La Palma (Canary Islands), its old town (Santa Cruz de La Palma), or its northwest villages. Therefore, there is no information to verify or contradict the claims about the location or the feasibility of the leisure activity.",
+        "claims_checked": [
+          "Location: La Palma",
+          "Activity: Visit Santa Cruz de La Palma old town or northwest villages",
+          "Cost: €0.00"
+        ]
+      },
+      {
+        "day_index": 5,
+        "slot_position": 5,
+        "slot_name": "Rest at accommodation",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://en.wikipedia.org/wiki/Right_to_rest_and_leisure",
+          "https://michaelkelley.co/2020/02/leisure-is-a-poor-substitute-for-rest/",
+          "https://www.stayapt.com/guests/leisure/",
+          "https://blogs.lawrence.edu/vcsc/2011/10/with-dignity-the-right-to-rest-and-leisure.html",
+          "https://pmillerd.com/vacation-leisure-rest-stoics-seneca-darwin/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a period of rest and leisure at an accommodation. The evidence provided (Source 1, 2, 4, and 5) defines 'rest' and 'leisure' as periods of inactivity, refreshing ease, or time away from responsibilities. Source 3 confirms that accommodations (hotels/suites) are designed for travelers to 'relax and settle in.' While the specific logistical tasks (charging equipment) are not mentioned in the general definitions, they are consistent with the 'preparation' and 'leisure' nature of the slot. Since the location is a generic 'Accommodation' and the cost is €0.00, there are no specific commercial claims to contradict.",
+        "claims_checked": [
+          "Category is leisure",
+          "Activity is rest",
+          "Location is accommodation",
+          "Cost is €0.00"
+        ]
+      },
+      {
+        "day_index": 5,
+        "slot_position": 6,
+        "slot_name": "Dinner",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://schoandjo.com/punta-gorda-restaurants/",
+          "https://www.yelp.com/search?find_desc=Dinner&find_loc=Punta+Gorda%2C+FL+33950",
+          "https://rivierabarandgrillpuntagorda.com/",
+          "https://www.carmelosristorante.com/",
+          "https://rtwin30days.com/best-punta-gorda-restaurants/"
+        ],
+        "verdict": "FAIL",
+        "reasoning": "The slot specifies a location of 'Garafía/Puntagorda', which in the context of a travel plan involving Garafía (a municipality in La Palma, Spain), refers to the Canary Islands. However, all retrieved evidence describes restaurants in 'Punta Gorda, Florida, USA'. The evidence confirms that 'Punta Gorda' is a city in Florida with a vibrant dining scene (e.g., Source 1: 'Our 11 Favorite Restaurants in Punta Gorda, Florida'), but it does not support the existence of a combined 'Garafía/Puntagorda' dining area or provide relevant meal options for the intended Spanish destination. Because the search results point to a completely different continent/country than the likely intended destination, the specific location claim is not validated by the provided evidence.",
+        "claims_checked": [
+          "Location: Garafía/Puntagorda",
+          "Category: meal",
+          "Cost: €25.00"
+        ]
+      },
+      {
+        "day_index": 5,
+        "slot_position": 7,
+        "slot_name": "Stargazing",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.islabonitatours.com/en/ruta/bus-tours-la-palma/stargazing-tour-roque-muchachos/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims a stargazing activity in the Roque area with a cost of €90.00 (estimated €0-€90). The provided link (Source 1) explicitly titles the activity 'STARGAZING TOUR LA PALMA from Roque de los Muchachos'. While the full text of the page is truncated, the title and URL confirm the location (Roque de los Muchachos) and the nature of the activity (Stargazing Tour). The cost of €90 falls within the range of typical guided tours for this location, and the slot's own note 'estimate €0-€90' acknowledges potential variability. The time window is consistent with a night-time stargazing activity.",
+        "claims_checked": [
+          "Activity: Stargazing",
+          "Location: Roque area / Roque de los Muchachos",
+          "Cost: €90.00 (estimate €0-€90)",
+          "Operator/Link: IslaBonita Tours"
+        ]
+      },
+      {
+        "day_index": 6,
+        "slot_position": 1,
+        "slot_name": "Breakfast",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://aredspatula.com/simple-hotel-room-breakfast-ideas/",
+          "https://www.bedandbreakfastforsale.com/resources/breakfast-menu-ideas-for-bbs/",
+          "https://au.pinterest.com/peakypetal/breakfast-in-your-hotel-room/",
+          "https://dontjustfly.com/breakfast-ideas-for-hotel-rooms/",
+          "https://www.littlehotelier.com/blog/running-your-property/bed-breakfast-recipes/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot describes a breakfast at an unspecified 'Accommodation' for €8.00. The provided evidence consists of general articles about hotel room breakfast ideas, B&B menu suggestions, and Pinterest recipes. None of the evidence mentions a specific accommodation, its location, or a verified price of €8.00 for a meal. Without knowing the specific accommodation intended, it is impossible to verify the cost or availability of the meal.",
+        "claims_checked": [
+          "Location: Accommodation",
+          "Cost: €8.00",
+          "Category: meal"
+        ]
+      },
+      {
+        "day_index": 6,
+        "slot_position": 2,
+        "slot_name": "Drive to Roque de los Muchachos area",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.google.com/maps/search/Drive+to+Roque+de+los+Muchachos%2C+La+Palma%2C+Spain",
+          "https://lapalmatransfer.com/roque-de-los-muchachos/",
+          "https://www.tripadvisor.com/ShowTopic-g187475-i4235-k10217804-Roque_de_los_Muchachos-La_Palma_Canary_Islands.html",
+          "https://www.islabonitatours.com/en/ruta/other-activities-in-la-palma/bus-tour-roque-de-los-muchachos/",
+          "https://www.tripadvisor.com.my/ShowTopic-g187475-i4235-k13169512-Transport_from_Mirador_del_Time_to_Roque_de_los_Muchachos-La_Palma_Canary_Islands.html"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a drive from the Northwest of La Palma to the Roque de los Muchachos area with a duration of 1.5 hours and a fuel cost estimate of €10. Evidence from Source 4 mentions that the road to Roque de los Muchachos is 'one of the most spectacular roads in the island' and is a 'winding road that snakes its way across the island,' supporting the feasibility of a driving route. Source 5 mentions leaving a 'hire car' to access the area, confirming private vehicle transport is a standard method. While the exact duration depends on the specific starting point in the 'Northwest,' a 90-minute window is consistent with typical travel times on La Palma's winding mountain roads to reach the summit (approx. 2,426m). The €10 cost is a reasonable 'fuel estimate' for a mountain ascent in a rental car.",
+        "claims_checked": [
+          "Route: Northwest La Palma to Roque de los Muchachos",
+          "Transport mode: Drive (private vehicle)",
+          "Duration: 1 hour 30 minutes (09:00 to 10:30)",
+          "Cost: €10.00 (fuel estimate)"
+        ]
+      },
+      {
+        "day_index": 6,
+        "slot_position": 3,
+        "slot_name": "Roque de los Muchachos ridge hike",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://huntingforbliss.com/roque-de-los-muchachos",
+          "https://geckotours-lapalma.com/en/roque-de-los-muchachos/",
+          "https://www.komoot.com/highlight/380643",
+          "https://lapalmaoutdoor.com/en/tour/guided-route-in-el-roque-de-los-muchachos/",
+          "https://www.alltrails.com/poi/spain/canary-islands/roque-de-los-muchachos"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms that Roque de los Muchachos is the highest point on La Palma (2,426m) and features a ridge trail along the Caldera rim (Source 1, 2, 4). Source 2 describes a typical hike in this area as being approximately 3 hours long, which fits within the slot's 4-hour time window (10:30 to 14:30). Source 1 and 2 confirm the high-altitude nature (over 2,000m) and describe it as 'wild and exposed' or 'challenging,' supporting the slot's description. As it is a public trail in a National Park area, the cost of €0.00 is consistent with standard hiking access.",
+        "claims_checked": [
+          "Location: Roque de los Muchachos / Caldera rim",
+          "Activity: Ridge hike",
+          "Time window: 4 hours (10:30 - 14:30)",
+          "Cost: €0.00",
+          "Nature: High-altitude and potentially challenging"
+        ]
+      },
+      {
+        "day_index": 6,
+        "slot_position": 4,
+        "slot_name": "Picnic lunch / late lunch",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.pinterest.fr/ideas/picnic-lunch-food/915796631772",
+          "https://vocabdictionary.com/english/picnic-lunch",
+          "https://experiencecadescove.com/blog/lunch-cades-cove-picnic-area",
+          "https://www.pinterest.ca/ideas/kids-picnic-lunch-ideas/941765157834",
+          "https://www.pinterest.ca/ideas/gluten-free-picnic-lunch/912987023703"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The provided evidence consists of generic definitions of a picnic lunch and Pinterest boards for picnic ideas. None of the search results mention a 'Roque area' or any specific location, pricing, or logistical details corresponding to the slot's claims. Therefore, there is no information to verify or contradict the location, cost, or specific timing.",
+        "claims_checked": [
+          "location: Roque area",
+          "cost: €12.00",
+          "time: 14:30:00 to 15:30:00",
+          "category: meal"
+        ]
+      },
+      {
+        "day_index": 6,
+        "slot_position": 5,
+        "slot_name": "Return and rest",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://fam.state.gov/fam/03fam/03fam3720.html",
+          "https://busbrother.com/areas/fort-lauderdale/hotel-shuttle/",
+          "https://therightwaytransportation.com/fort-lauderdale-hotel-shuttle/",
+          "https://www.facebook.com/groups/ProtarasQ.AForum/posts/10162378809089831/",
+          "https://www.abta.com/help-and-complaints/frequently-asked-questions/my-flights-been-cancelled-what-will-happen-rest-my"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot describes a generic transport activity ('Return and rest') to an unspecified 'Accommodation' with a cost of €10.00. The provided evidence consists of generic information about Foreign Service R&R travel, shuttle services in Florida, and flight cancellation rights. None of the evidence mentions a specific location, a €10.00 fuel/transport cost for this specific itinerary, or the feasibility of this transport window. Without a specific destination or starting point, the claims cannot be verified.",
+        "claims_checked": [
+          "Transport to Accommodation",
+          "Cost: €10.00",
+          "Time window: 15:30 to 17:30",
+          "Notes: fuel estimate"
+        ]
+      },
+      {
+        "day_index": 6,
+        "slot_position": 6,
+        "slot_name": "Early dinner",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://m.yelp.com/search?find_desc=Early+Bird+Dinner&find_loc=Punta+Gorda%2C+FL",
+          "https://en.la-palma.travel/restaurant/restaurante-la-mata/",
+          "https://m.yelp.com/search?find_desc=Pre+Theatre+Dinner&find_loc=Punta+Gorda%2C+FL",
+          "https://www.carmelosristorante.com/",
+          "https://www.pureflorida.com/listings/spinnaker-cafe/583/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a generic 'Early dinner' in the Garafía/Puntagorda area of La Palma. While several search results incorrectly point to Punta Gorda, Florida, Source 2 confirms the existence of 'Restaurante La Mata' in Garafía, La Palma. Although that specific restaurant closes at 19:00 (midway through the slot's time window), the slot itself does not name a specific venue, only a location and a time. The evidence confirms Garafía is a valid location in La Palma with dining options. A cost of €25 for a meal in this region is consistent with local pricing for a standard dinner.",
+        "claims_checked": [
+          "Location: Garafía/Puntagorda (La Palma)",
+          "Activity: Early dinner",
+          "Time: 18:30 - 19:30"
+        ]
+      },
+      {
+        "day_index": 6,
+        "slot_position": 7,
+        "slot_name": "Premium stargazing tour",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.islabonitatours.com/en/ruta/bus-tours-la-palma/stargazing-tour-roque-muchachos/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims a stargazing tour at Roque de los Muchachos with a cost estimate of €45-€100. The provided link (Source 1) explicitly titles the activity 'STARGAZING TOUR LA PALMA from Roque de los Muchachos'. While the full body text of the page is truncated in the evidence, the title and URL confirm the existence of the tour at the specified location and by the operator implied in the link. The cost of €100 falls within the 'Premium' category and the note's range of €45-€100. The time window (20:00-23:30) is consistent with a standard evening stargazing activity.",
+        "claims_checked": [
+          "Venue name: Premium stargazing tour (IslaBonita Tours)",
+          "Location: Roque de los Muchachos",
+          "Cost: €100.00 (within range €45-€100)",
+          "Activity: Stargazing tour with telescope interpretation"
+        ]
+      },
+      {
+        "day_index": 7,
+        "slot_position": 1,
+        "slot_name": "Breakfast",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://aredspatula.com/simple-hotel-room-breakfast-ideas/",
+          "https://www.bedandbreakfastforsale.com/resources/breakfast-menu-ideas-for-bbs/",
+          "https://au.pinterest.com/peakypetal/breakfast-in-your-hotel-room/",
+          "https://dontjustfly.com/breakfast-ideas-for-hotel-rooms/",
+          "https://www.littlehotelier.com/blog/running-your-property/bed-breakfast-recipes/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot describes a breakfast at an unspecified 'Accommodation' for €8.00. The provided evidence consists of general articles about hotel room breakfast ideas and B&B menu suggestions. Since the specific accommodation is not named in the slot and the evidence does not contain information regarding a specific property's breakfast pricing or availability for the date 2026-11-18, it is impossible to verify the cost or the feasibility of the meal at that location.",
+        "claims_checked": [
+          "Location: Accommodation",
+          "Cost: €8.00",
+          "Time: 08:30:00 to 09:30:00"
+        ]
+      },
+      {
+        "day_index": 7,
+        "slot_position": 2,
+        "slot_name": "Weather backup buffer",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.iac.es/en/observatorios-de-canarias/roque-de-los-muchachos-observatory/visits"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot is a 'Weather backup buffer' for activities related to the Roque de los Muchachos Observatory. The evidence from the official IAC website confirms that visits to the observatory are subject to weather conditions: 'They will be permitted only if the operation of the telescopes and weather conditions permit.' This directly supports the slot's purpose as a weather backup. The location (Roque/Garafía) is consistent with the observatory's location. While the specific cost of €50 is not explicitly detailed in the snippet, the slot notes it as an 'estimate' for potential missed tours, and the evidence mentions visits are available through different programs which typically involve external guides/operators.",
+        "claims_checked": [
+          "Location: Roque/Garafía/Puntagorda",
+          "Purpose: Weather backup for observatory visit/hike/stargazing",
+          "Dependency: Visits depend on weather conditions"
+        ]
+      },
+      {
+        "day_index": 7,
+        "slot_position": 3,
+        "slot_name": "Lunch",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.getyourguide.com/la-palma-l417/la-palma-treasures-of-the-northwest-day-trp-with-lunch-t510775/",
+          "https://www.yelp.com/search?find_desc=Lunch+Restaurants&find_loc=La+Palma%2C+CA+90623",
+          "https://www.spain.info/en/top/food-markets-la-palma/",
+          "https://www.tripadvisor.com/Restaurants-g187475-zfp30-La_Palma_Canary_Islands.html",
+          "https://wanderlog.com/list/geoCategory/313100/best-spots-for-lunch-in-santa-cruz-de-la-palma"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot provides a generic 'Lunch' entry with a broad location ('Northwest La Palma') and a specific cost (€18.00). While the evidence confirms that La Palma (Canary Islands) has lunch restaurants and even mentions a 'Treasures of the Northwest' tour that includes lunch at a winery, there is no specific restaurant name or menu data provided in the slot to verify against the search results. The evidence does not mention specific pricing for a standard lunch in Northwest La Palma to confirm if €18.00 is accurate, nor does it provide enough detail to validate a specific venue at that location.",
+        "claims_checked": [
+          "Location: Northwest La Palma",
+          "Cost: €18.00",
+          "Category: meal"
+        ]
+      },
+      {
+        "day_index": 7,
+        "slot_position": 4,
+        "slot_name": "Easy final walk",
+        "source_type": "link",
+        "source_urls": [
+          "https://en.la-palma.travel/region/northwest/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes an 'Easy final walk' in the 'Garafía/Puntagorda' area. The provided link (Source 1) explicitly confirms that Puntagorda and Garafía are part of the 'Northwest' region of La Palma, as stated in the title: 'Northwest La Palma: Puntagorda, Tijarafe Garafia'. While the evidence does not list specific walking trails, it confirms the geographical location and the nature of the region as a destination for activities. The cost of €0.00 is consistent with a self-guided walk in a natural area.",
+        "claims_checked": [
+          "Location: Garafía/Puntagorda is in the Northwest of La Palma",
+          "Activity: Walking/Hiking is appropriate for this region",
+          "Cost: €0.00"
+        ]
+      },
+      {
+        "day_index": 7,
+        "slot_position": 5,
+        "slot_name": "Packing and prep",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://vickyflipfloptravels.com/packing-prep-checklist-for-staying-in-a-vacation-rental/",
+          "https://www.dwellworksliving.com/blog-detail/blog/2020/10/04/what-to-pack-when-preparing-for-temporary-housing",
+          "https://www.ish.org.uk/a-students-guide-for-packing-and-moving-into-student-accommodation/",
+          "https://hericoll.com/packing-list-for-staycation/",
+          "https://www.youtube.com/watch?v=b6q5s21eWIM"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a generic personal activity ('Packing and prep') at an 'Accommodation' with zero cost. The evidence provided consists of general travel checklists and guides for packing and preparing for accommodations (Sources 1, 2, and 4). While the evidence does not mention the specific user's flight or car, the activity of 'packing' and 'prep' is a standard travel practice supported by the existence of these guides. Since the claims are logistical and personal rather than location-specific or commercial, and no contradictions exist in the evidence, it meets the criteria for a PASS.",
+        "claims_checked": [
+          "Activity: Packing and prep",
+          "Location: Accommodation",
+          "Cost: €0.00",
+          "Tasks: Pack, check flight status, refuel car plan"
+        ]
+      },
+      {
+        "day_index": 7,
+        "slot_position": 6,
+        "slot_name": "Farewell dinner",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.carmelosristorante.com/",
+          "https://www.tripadvisor.com/Restaurant_Review-g34583-d21273553-Reviews-or45-Riviera_Bar_and_Grill-Punta_Gorda_Florida.html",
+          "https://www.eventective.com/punta-gorda-fl/visani-restaurant-and-banquet-hall-270297.html",
+          "https://www.carmelosristorante.com/events/",
+          "https://www.facebook.com/GoldenCorralPuntaGordaFL/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot describes a 'Farewell dinner' in 'Puntagorda/Garafía'. The search results provided (Sources 1-5) all refer to 'Punta Gorda, Florida' (USA), whereas 'Puntagorda' and 'Garafía' are municipalities in La Palma, Canary Islands, Spain. Because the evidence pertains to a different geographical location than the one implied by the pairing of Puntagorda and Garafía, there is no relevant information to verify the existence of a specific venue, the cost, or the feasibility of a meal in the intended location.",
+        "claims_checked": [
+          "Location: Puntagorda/Garafía",
+          "Category: meal",
+          "Cost: €30.00"
+        ]
+      },
+      {
+        "day_index": 7,
+        "slot_position": 7,
+        "slot_name": "Final self-guided observing session",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.dcr.virginia.gov/state-parks/event?id=2026-02-04-10-40-31-859855-ja9",
+          "https://lakejunaluska.com/accommodations/",
+          "https://tpwd.texas.gov/publications/pwdpubs/media/pwd_bk_p4000_0000aa.pdf",
+          "https://www.crystalgolfresort.com/things-to-do/resort-guest-activities",
+          "https://www.nps.gov/goga/learn/management/upload/8_GOGA_FGMP_Volume_II.pdf"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The provided evidence consists of generic search results for parks in Virginia, hotels in North Carolina, and management plans for California. None of the search results mention a specific 'Accommodation terrace' or 'dark rural spot' associated with the user's travel plan, nor do they provide information regarding the feasibility or cost of a self-guided observing session at the unspecified location. The evidence is silent on the claims made in the slot.",
+        "claims_checked": [
+          "Venue name: Accommodation terrace/dark rural spot",
+          "Activity: Final self-guided observing session",
+          "Cost: €0.00",
+          "Time: 2026-11-18T21:00:00 → 2026-11-18T23:00:00"
+        ]
+      },
+      {
+        "day_index": 8,
+        "slot_position": 1,
+        "slot_name": "Breakfast and check out",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.quora.com/Can-you-have-the-free-breakfast-in-a-hotel-on-the-same-day-you-are-required-to-check-out",
+          "https://forum.wordreference.com/threads/how-should-i-refer-to-accommodation-with-breakfast.3527867/",
+          "https://traveler.marriott.com/hotel-dining/healthiest-hotel-breakfast-options/",
+          "https://www.instagram.com/p/DXdp74zE7z2/",
+          "https://aredspatula.com/simple-hotel-room-breakfast-ideas/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot refers to a generic 'Accommodation' for breakfast and checkout. The evidence provided consists of general articles about hotel breakfast policies, terminology, and meal ideas, but contains no specific information regarding a particular venue, its location, its actual checkout times, or the cost of breakfast at a specific establishment. Therefore, there is no factual evidence to verify or contradict the claims made in the slot.",
+        "claims_checked": [
+          "Breakfast is available at the accommodation",
+          "Checkout occurs between 07:00 and 08:00",
+          "Breakfast cost is €8.00"
+        ]
+      },
+      {
+        "day_index": 8,
+        "slot_position": 2,
+        "slot_name": "Drive to La Palma Airport",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.jayride.com/airport-transfer/spain/la-palma-airport-spc?srsltid=AfmBOoqKbRTrBB3C9FIDNq8-H2-ThCpyTS2T2vrCO3645hUj4Q5bw7si",
+          "https://www.rome2rio.com/s/Nearby-Airports/La-Palma-Airport-SPC",
+          "https://www.rome2rio.com/s/La-Palma-Airport-SPC/La-Palma-Canary-Islands-Spain",
+          "https://www.suntransfers.com/santa-cruz-de-la-palma-airport",
+          "https://www.rome2rio.com/s/La-Palma/La-Palma-Airport-SPC"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a drive from the Northwest of La Palma to the airport (SPC). Evidence Source 1 confirms the airport code 'SPC' and its location on La Palma. While the evidence does not provide a specific fuel cost for a rental car, Source 4 indicates that a private transfer starts at approximately €44.82, making the slot's €25.00 fuel estimate for a self-drive reasonable and consistent with general travel costs for the island. The mention of 'mountain roads' is consistent with the description of the island's geography (Caldera de Taburiente National Park) in Source 1.",
+        "claims_checked": [
+          "Airport name/code is SPC",
+          "Location is on La Palma",
+          "Transport mode: Drive/Rental car",
+          "Cost estimate: €25.00",
+          "Route involves mountain roads"
+        ]
+      },
+      {
+        "day_index": 8,
+        "slot_position": 3,
+        "slot_name": "Return rental car and check in",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.budget.com/en/locations/es/la-palma/spc",
+          "https://www.facebook.com/groups/dullmensclub/posts/2270524770270718/",
+          "https://www.enterprise.com/en/car-rental-locations/es/santa-cruz-de-la-palma-airport-lye7.html",
+          "https://www.yelp.com/biz/spc-transportation-services-los-angeles",
+          "https://sonomacountyairport.org/passengers/ground-transportation/car-rentals/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims that one can return a rental car at SPC Airport (Santa Cruz de La Palma Airport). Evidence from Source 1 (Budget) and Source 3 (Enterprise) confirms that car rental agencies operate at SPC Airport and have return procedures on-site. Source 1 specifically states 'RETURNS: Same as pick-up' at the SPC location. The time window and check-in process are standard airport procedures consistent with the existence of these facilities.",
+        "claims_checked": [
+          "Location: SPC Airport (Santa Cruz de La Palma Airport)",
+          "Service: Rental car return available at SPC Airport",
+          "Service: Check-in available at SPC Airport"
+        ]
+      },
+      {
+        "day_index": 8,
+        "slot_position": 4,
+        "slot_name": "Fly La Palma to Hamburg",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.swiss.com/lhg/es/en/o-d/cy-cy/santa-cruz-de-la-palma-hamburg",
+          "https://www.flightlist.io/santa-cruz-de-la-palma-spc-hamburg-ham-cheap-one-way-flights.php",
+          "https://www.airlineinformation.com/SPC-HAM",
+          "https://www.flightsfrom.com/SPC-HAM",
+          "https://www.lufthansa.com/lhg/de/en/o-d/cy-cy/santa-cruz-de-la-palma-hamburg"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims a flight from La Palma (SPC) to Hamburg (HAM) with a duration/window of approximately 7 hours (11:00 to 18:00) and mentions both direct and one-stop options. Evidence from Source 3 and 4 confirms direct flights exist via Eurowings and Marabu with a flight time of approximately 4 hours and 55 minutes ('Both Eurowings and Marabu operates non-stop flights from La Palma to Hamburg Airport and the flight time is 4 hours and 55 minutes'). Source 1 and 5 confirm the existence of connecting flights (SWISS, Lufthansa). The 7-hour window provided in the slot is consistent with a ~5-hour direct flight plus airport procedures, or a one-stop connection.",
+        "claims_checked": [
+          "Flight route exists from La Palma (SPC) to Hamburg (HAM)",
+          "Direct flights are available",
+          "One-stop flights are available",
+          "Flight duration/window is approximately 7 hours (11:00 to 18:00)"
+        ]
+      },
+      {
+        "day_index": 8,
+        "slot_position": 5,
+        "slot_name": "Arrival snack/dinner in Hamburg",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.hamburg-airport.de/en/shop-dine/eat-drink/all",
+          "https://www.visitacity.com/en/hamburg/guides/hamburg-food-culture",
+          "https://www.tripadvisor.com/Restaurants-g187331-zfr7917546-Hamburg.html",
+          "https://www.royalcaribbean.com/inspire/what-to-eat-in-hamburg",
+          "https://www.facebook.com/groups/1148362312625736/posts/1712232659572029/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a generic arrival meal in Hamburg for €15.00. Evidence from Hamburg Airport (Source 1) confirms the existence of numerous dining options at the arrival level, including 'Sashimi Sushi (Arrival)', 'Marché Bistro', and 'McDonald's'. Source 3 also mentions 'Nice Setup on the Arrival Level' for food. While the slot does not name a specific restaurant, the cost of €15.00 is consistent with the types of quick-service and casual dining establishments listed (e.g., McDonald's, Burger King, bakeries, and bistros) found in such transit hubs.",
+        "claims_checked": [
+          "Location: Hamburg",
+          "Category: meal",
+          "Cost: €15.00",
+          "Availability of arrival snacks/dinner in Hamburg"
+        ]
+      }
+    ],
+    "rationale_pass_count": 32,
+    "rationale_fail_count": 4,
+    "rationale_missing_count": 19,
+    "hc_micro_pass_rate": 1.0,
+    "cc_micro_pass_rate": 0.6923,
+    "hc_macro_pass_rate": 1.0,
+    "cc_macro_pass_rate": 0.0,
+    "final_pass_rate": 0.0,
+    "aggregated_constraints": [
+      {
+        "id": "HC-1",
+        "constraint_text": "origin: Hamburg",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-2",
+        "constraint_text": "destination: La Palma",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-3",
+        "constraint_text": "travel_dates: 2026.11.12 to 2026.11.19",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-4",
+        "constraint_text": "travelers: 1 adult",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-5",
+        "constraint_text": "budget: 2000 EUR total",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "FAIL",
+          "PASS"
+        ],
+        "pass_count": 3,
+        "fail_count": 1,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-6",
+        "constraint_text": "accommodation: rural house or small hotel near observatory",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-7",
+        "constraint_text": "transport: Flight",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-8",
+        "constraint_text": "interests: stargazing, astronomy, dark sky reserves, observatory visits, hiking",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-1",
+        "constraint_text": "Car or road trip transport is not feasible for island or overseas destinations — a flight or ferry is required.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-2",
+        "constraint_text": "No key information should be left out of the plan, such as the lack of accommodation during travel.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-3",
+        "constraint_text": "Transportation choices within the trip must be reasonable. For example, having both “self-driving” and “flight” would be considered a conflict.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-4",
+        "constraint_text": "Both outbound and return transport must appear in the plan.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-5",
+        "constraint_text": "Flight or train connections must allow sufficient layover time (≥60 min domestic, ≥90 min international).",
+        "constraint_type": "commonsense",
+        "final_verdict": "FAIL",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "MISSING_INFO",
+          "MISSING_INFO"
+        ],
+        "pass_count": 2,
+        "fail_count": 0,
+        "missing_count": 2,
+        "na_count": 0
+      },
+      {
+        "id": "CC-6",
+        "constraint_text": "Accommodation must be planned for every night of the trip.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-7",
+        "constraint_text": "Hotel check-in must be scheduled after arrival transport reaches the destination.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-8",
+        "constraint_text": "Restaurants must be open on the planned day and time.",
+        "constraint_type": "commonsense",
+        "final_verdict": "FAIL",
+        "judge_verdicts": [
+          "FAIL",
+          "PASS",
+          "MISSING_INFO",
+          "FAIL"
+        ],
+        "pass_count": 1,
+        "fail_count": 2,
+        "missing_count": 1,
+        "na_count": 0
+      },
+      {
+        "id": "CC-9",
+        "constraint_text": "Restaurant choices should not be repeated throughout the trip.",
+        "constraint_type": "commonsense",
+        "final_verdict": "FAIL",
+        "judge_verdicts": [
+          "FAIL",
+          "PASS",
+          "PASS",
+          "MISSING_INFO"
+        ],
+        "pass_count": 2,
+        "fail_count": 1,
+        "missing_count": 1,
+        "na_count": 0
+      },
+      {
+        "id": "CC-10",
+        "constraint_text": "Activities should be geographically sensible per day (no unnecessary cross-city travel).",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-11",
+        "constraint_text": "Attractions must be open on the planned day and time.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-12",
+        "constraint_text": "Attraction choices should not be repeated throughout the trip.",
+        "constraint_type": "commonsense",
+        "final_verdict": "FAIL",
+        "judge_verdicts": [
+          "FAIL",
+          "PASS",
+          "PASS",
+          "FAIL"
+        ],
+        "pass_count": 2,
+        "fail_count": 2,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-13",
+        "constraint_text": "Travel time between consecutive activities must account for realistic transit duration.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      }
+    ],
+    "timestamp": "2026-05-17T12:13:40.008577+00:00"
+  }
 }

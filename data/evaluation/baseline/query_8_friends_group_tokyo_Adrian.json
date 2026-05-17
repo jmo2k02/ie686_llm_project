@@ -1,8 +1,1700 @@
 {
   "id": "query_8_friends_group_tokyo_Adrian",
   "source": "baseline",
-  "status": "error",
-  "error": "ValidationError: 7 validation errors for TravelPlan\ndays.2.slots.6.category\n  Input should be 'meal', 'attraction', 'transport', 'lodging', 'leisure' or 'other' [type=literal_error, input_value='nightlife', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/literal_error\ndays.4.slots.5.category\n  Input should be 'meal', 'attraction', 'transport', 'lodging', 'leisure' or 'other' [type=literal_error, input_value='nightlife', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/literal_error\ndays.5.slots.5.category\n  Input should be 'meal', 'attraction', 'transport', 'lodging', 'leisure' or 'other' [type=literal_error, input_value='nightlife', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/literal_error\ndays.6.slots.6.category\n  Input should be 'meal', 'attraction', 'transport', 'lodging', 'leisure' or 'other' [type=literal_error, input_value='nightlife', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/literal_error\ndays.7.slots.5.category\n  Input should be 'meal', 'attraction', 'transport', 'lodging', 'leisure' or 'other' [type=literal_error, input_value='nightlife', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/literal_error\ndays.8.slots.4.category\n  Input should be 'meal', 'attraction', 'transport', 'lodging', 'leisure' or 'other' [type=literal_error, input_value='nightlife', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/literal_error\ndays.9.slots.6.category\n  Input should be 'meal', 'attraction', 'transport', 'lodging', 'leisure' or 'other' [type=literal_error, input_value='nightlife', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/literal_error",
-  "duration_seconds": 46.3,
-  "plan_path": "data/travelplans/baseline/query_8_friends_group_tokyo_Adrian.md"
+  "status": "ok",
+  "has_timeout": false,
+  "timed_out_models": [],
+  "duration_seconds": 426.9,
+  "plan_path": "data/travelplans/baseline/query_8_friends_group_tokyo_Adrian.md",
+  "scorecard": {
+    "plan_excerpt": "# TravelPlan: Baseline itinerary: Munich to Tokyo, 20–30 September 2026\n\n| Day 1 — 2026-09-20 — Fly Munich to Tokyo | Day 2 — 2026-09-21 — Arrive, check in, Asakusa evening | Day 3 — 2026-09-22 — Old Tokyo, Akihabara anime, Kanda Myojin | Day 4 — 2026-09-23 — Meiji Jingu, Harajuku, Shibuya nightlife",
+    "judge_models": [
+      "openrouter:minimax/minimax-m2.7",
+      "openrouter:google/gemini-3-flash-preview",
+      "openrouter:deepseek/deepseek-v4-flash",
+      "openrouter:qwen/qwen3.5-397b-a17b"
+    ],
+    "timed_out_models": [],
+    "rationale_verifications": [
+      {
+        "day_index": 1,
+        "slot_position": 1,
+        "slot_name": "Depart Munich for Tokyo",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.skyscanner.net/routes/tyoa/muc/tokyo-to-munich.html",
+          "https://www.mytransfers.com/en/destination/japan/tokyo-narita-airport-nrt/tokyo-haneda-airport",
+          "https://en.discoverjapansites.com/narita-haneda-to-tokyo-transport-guide-2025",
+          "https://www.tictivity.com/en/blog/tokyo-airport-transport-guide",
+          "https://www.rome2rio.com/s/Tokyo-Haneda-Airport-HND/Tokyo-Narita-Airport-NRT"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims a flight from Munich to Tokyo with a budget of €900. Evidence Source 1 shows return flights between Tokyo and Munich for approximately £541-£555 (roughly €650-€670), which supports the feasibility of the €900 budget claim. The slot notes that exact fares are not verifiable without live booking, which is consistent with the nature of flight pricing. The time window (09:00 to 11:00) is a standard departure window for international flights, though specific flight numbers are not provided. The location (Munich to Haneda/Narita) is a standard international route.",
+        "claims_checked": [
+          "Route: Munich Airport to Tokyo Haneda or Narita",
+          "Cost: €900.00 per person",
+          "Category: Transport (Flight)",
+          "Feasibility of one-stop or nonstop flights within budget"
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 2,
+        "slot_name": "Overnight flight / connection",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://support.southwest.com/helpcenter/s/article/overnight-connection",
+          "https://www.kiwi.com/stories/essential-rules-you-must-know-about-baggage-on-overnight-layovers/",
+          "https://www.facebook.com/groups/roame/posts/1226345302113004/",
+          "https://www.alternativeairlines.com/connecting-flights",
+          "https://www.quora.com/If-my-connecting-flight-has-a-long-layover-can-I-go-out-and-tour-the-city-or-do-I-need-to-stay-within-the-secure-area-of-the-airport"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a general state of being 'In transit' during an 'Overnight flight / connection' and claims that arrival in Japan is likely the next day due to distance and time zones. The evidence from Source 4 confirms that a connecting flight involves stopping at one or more airports and switching planes ('you’ll need to stop at one or more airports and switch planes before reaching your final destination'). Source 3 provides a specific example of a traveler flying to Tokyo with an overnight layover ('flying with China Eastern Airlines from Australia to Tokyo but have a overnight layover'). The claim regarding the time zone/distance causing a next-day arrival is a standard characteristic of long-haul travel to Japan from many regions, and while the evidence doesn't explicitly calculate the time zone math, it supports the existence of overnight connections for this route.",
+        "claims_checked": [
+          "The traveler is in transit during this time window.",
+          "The journey involves an overnight flight or connection.",
+          "Arrival in Japan is likely the next day due to distance and time zone."
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 3,
+        "slot_name": "In flight meal",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://en.wikipedia.org/wiki/Airline_meal",
+          "https://www.airtransat.com/en-US/travel-information/inflight-services/menu",
+          "https://www.tripgain.com/glossary/in-flight-meal",
+          "https://www.facebook.com/travelandleisure/posts/you-may-want-to-reconsider-that-in-flight-meal-learn-more-at-the-link-in-the-com/1318520533465337/",
+          "https://www.reddit.com/r/questions/comments/1ep29pf/do_airlines_offer_2_meals_if_the_flight_is_transit/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes an 'In flight meal' occurring 'In transit' with a cost of €0.00. The evidence confirms that an in-flight meal is 'food served to passengers during a flight, typically provided by the airline as part of the travel experience' (Source 3). While some airlines charge for food (Source 2), the concept of a meal included in the service (costing the passenger €0.00 at the point of service) is a standard industry practice for many flights as described in Source 1 ('normally served to passengers using an airline service trolley') and Source 3. The location 'In transit' is consistent with the definition of being on board a commercial airliner.",
+        "claims_checked": [
+          "The event is an in-flight meal.",
+          "The location is in transit (on an airplane).",
+          "The cost can be €0.00 (included in the airline service)."
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 1,
+        "slot_name": "Arrive in Tokyo and transfer",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://trulytokyo.com/tokyo-airport-transport/",
+          "https://www.facebook.com/groups/973983772993489/posts/2775249919533523/",
+          "https://www.rome2rio.com/s/Tokyo-Haneda-Airport-HND/Higashi-nihombashi-Station",
+          "https://globaltripdiaries.com/narita-to-haneda-transfer/",
+          "https://www.jrailpass.com/blog/narita-to-haneda"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims that rail transport from Haneda or Narita to the Higashi-nihonbashi/Kuramae area costs between €15-€25. Evidence from Source 1 states the Narita Express costs ¥3,020 (approx. €18-€20 depending on exchange rates). Source 3 indicates a much cheaper option from Haneda ($2). The estimated cost of €25.00 in the slot is consistent with the upper end of airport rail pricing (like the Narita Express) mentioned in the evidence. The location and transport mode (rail) are supported by the general descriptions of airport-to-city transfers in the search results.",
+        "claims_checked": [
+          "Transport mode: rail",
+          "Route: Haneda/Narita to Higashi-nihonbashi or Kuramae",
+          "Cost estimate: €15-€25 per person",
+          "Total cost: €25.00"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 2,
+        "slot_name": "Check in at CITAN",
+        "source_type": "link",
+        "source_urls": [
+          "https://chillnn.com/en/172e049201624f"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence from the official booking page confirms the venue name ('CITAN'), its location ('Higashi-nihonbashi'), and its features including a cafe ('Our first floor includes a cafe'), a basement lounge/bar ('Our basement lounge includes a full bar... and a tasty dinner menu'), and its nature as a hostel which typically offers dorm/private options. While the specific price of €35 and the exact bed count of 130 are not explicitly listed in the text snippet provided, the core claims about the venue's identity, location, and facilities are directly supported.",
+        "claims_checked": [
+          "Venue name: CITAN",
+          "Location: Higashi-nihonbashi",
+          "Facility: Cafe",
+          "Facility: Basement bar/lounge",
+          "Facility: Dining/Dinner menu",
+          "Category: Hostel (dorm/private options)"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 3,
+        "slot_name": "Rest and group planning",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.revfine.com/hostel-management/",
+          "https://www.hiusa.org/group-travel",
+          "https://www.apartool.com/en/blog/group-accommodation-how-to-arrange-a-comfortable-stay-for-large-teams",
+          "https://albergueesplaibarcelona.com/en/blog-en/hostel-news/7-essential-aspects-of-a-hostel-ideal-for-groups/",
+          "https://paliretreat.com/10-steps-to-planning-a-retreat/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a period of rest and planning at a hostel. The evidence confirms that hostels are suitable environments for group activities, with Source 2 stating hostels are 'big enough to host groups of all sizes' and offer 'available meeting rooms' and 'common areas' (implied by 'art-filled hostel has plenty of... rooms'). Source 4 highlights 'Multifunctional rooms' as an essential aspect of hostels for groups. While the evidence is generic, it supports the feasibility of the activities (showering, napping, and group planning) within a hostel setting.",
+        "claims_checked": [
+          "Location: Hostel",
+          "Activity: Group planning in common area",
+          "Activity: Shower and nap",
+          "Cost: €0.00"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 4,
+        "slot_name": "Asakusa and Senso-ji walk",
+        "source_type": "link",
+        "source_urls": [
+          "https://matcha-jp.com/en/3759"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims that Senso-ji is located in Asakusa, has a cost of €0.00, and that the grounds are accessible beyond main hall hours. The evidence from the provided link (Source 1) confirms: 1) Location: 'Asakusa's Sensoji Temple'. 2) Cost: 'Admission to Sensoji Temple is entirely free!'. 3) Accessibility: 'The temple’s main hall... are open between 6:00 and 17:00... The temple grounds themselves are open 24 hours'. The slot's time window (17:30-19:00) falls within the 24-hour access period and the nighttime illumination period mentioned ('illuminated until 23:00').",
+        "claims_checked": [
+          "Location: Asakusa",
+          "Cost: €0.00 (Free)",
+          "Senso-ji grounds are accessible beyond main hall hours (after 17:00)",
+          "Senso-ji is a temple"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 5,
+        "slot_name": "Street-food-style dinner",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.getyourguide.com/asakusa-l139311/street-food-tc248/",
+          "https://thecreativeadventurer.wordpress.com/2019/03/08/10-street-foods-you-must-eat-around-nakamise-shopping-street-asakusa/",
+          "https://tokyo-tour.com/blog/cheap-street-food-asakusa",
+          "https://www.youtube.com/watch?v=yXruPoccUqI",
+          "https://www.japankuru.com/en/food/236573/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims that street food like senbei, melon pan, and karaage are available in the Asakusa/Nakamise area for a cost of approximately €15-€20. Evidence from Source 2 confirms you can spend 'under $15 for an entire 10-course meal' in this area. Source 3 states you can eat through Asakusa on a budget of '¥2,000-¥3,000' (approx. €12-€18), which aligns with the slot's €20 estimate. Source 5 confirms Nakamise is a 'vibrant' street food hub with 'close to 100' shops. While Source 5 notes many shops close in the evening, the slot correctly notes 'Shop hours vary' and includes 'izakaya snacks' which are typically available during the 19:00-20:30 window.",
+        "claims_checked": [
+          "Location: Asakusa / Nakamise area",
+          "Food types: Senbei, melon pan, karaage, ramen, or izakaya snacks",
+          "Cost: €15.00 - €20.00 per person",
+          "Availability: Shop hours vary"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 6,
+        "slot_name": "Low-key drinks",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.yelp.com/search?find_desc=Low+Key+Bars&find_loc=Cincinnati%2C+OH",
+          "https://www.facebook.com/groups/albuquerquefoodies/posts/1485426452648775/",
+          "https://busarchscot.org.uk/wp-content/uploads/2020/02/Scotlands-100-oldest.pdf",
+          "https://archive.org/stream/bub_gb_5Q0EAAAAMBAJ/bub_gb_5Q0EAAAAMBAJ_djvu.txt",
+          "https://onmuseums.com/assets/downloads/museum/Z19FinalProgram.pdf"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The provided evidence consists of search results for 'Low Key Bars' in Cincinnati, Ohio, a Facebook thread about Rio Rancho/Albuquerque, a PDF about old Scottish companies, and a museum conference program. None of the evidence mentions 'CITAN' (which typically refers to a specific hostel/lounge in Nihonbashi, Tokyo) or any venue matching the description of a basement bar/lounge in that context. Therefore, there is no information to verify or contradict the claims about the venue's existence, location, or nature.",
+        "claims_checked": [
+          "Venue name: CITAN",
+          "Venue features a basement bar/lounge",
+          "Venue is a hostel bar/lounge",
+          "Location: CITAN or nearby"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 1,
+        "slot_name": "Breakfast",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://misshappyfeet.blogspot.com/2016/11/cheap-and-easy-meals-you-can-make-in-hostel-budget-traveler.html",
+          "https://www.aohostels.com/en/infos/catering/",
+          "https://www.instagram.com/p/DXW15fwEUI5/",
+          "https://sgu.ac.id/understanding-types-of-meal-plan-in-hotel/",
+          "https://www.restaurantware.com/blogs/menu-development-and-ideas/how-to-set-up-a-continental-breakfast?srsltid=AfmBOoqGC2Fq4TPS21XjvO7rCwB__uLO0-h_-CdaK68Qa913mYsPWh9K"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims a breakfast cost of €5-€8 at a hostel cafe or convenience store. Evidence Source 2 (a&o Hostels) confirms that hostels typically offer breakfast catering. While the specific price of €8 is not explicitly stated in the snippets, Source 3 mentions a meal deal for $6 (approx €5.50), and Source 2 notes that prices are converted at daily rates in local currency. A budget of €8 for a convenience store or hostel breakfast is a standard industry estimate consistent with the 'cheap and easy' and 'cost-effective' nature of hostel/continental breakfasts described in Sources 1 and 5.",
+        "claims_checked": [
+          "Venue category: Hostel cafe or convenience store",
+          "Cost estimate: €5.00 - €8.00 per person",
+          "Availability of breakfast at hostels"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 2,
+        "slot_name": "Senso-ji daytime visit",
+        "source_type": "link",
+        "source_urls": [
+          "https://matcha-jp.com/en/3759"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms that Senso-ji is located in Asakusa ('Asakusa's Sensoji Temple'). It confirms the cost is free ('Admission to Sensoji Temple is entirely free!'). The time window (10:00 to 11:30) is consistent with the main hall's opening hours ('The temple’s main hall... are open between 6:00 and 17:00'). The description mentions the main hall and Kaminarimon area, which aligns with the guide's focus on the temple landmarks.",
+        "claims_checked": [
+          "Location: Asakusa",
+          "Cost: €0.00 (Free)",
+          "Opening hours: Main hall open during daytime (10:00-11:30)",
+          "Venue name: Senso-ji"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 3,
+        "slot_name": "Asakusa snack crawl",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.youtube.com/watch?v=uAQoOl3Kes0",
+          "https://www.byfood.com/blog/asakusa-street-food-p-753",
+          "https://www.viator.com/tours/Asakusa/Food-Crawl-Tour-in-Asakusa/d59194-87037P3",
+          "https://www.tripadvisor.com/AttractionProductReview-g14134311-d17685574-Asakusa_Highlights_Street_Food_Crawl_Tour_7_Local_Bites-Asakusa_Taito_Tokyo_Toky.html",
+          "https://www.instagram.com/reel/DHZZk4OS-v8/?hl=en"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms that Asakusa (specifically Nakamise Street) is a major hub for street food crawls. Source [2] explicitly links 'Asakusa Street Food' with 'Nakamise Street' and mentions various snacks. Source [5] lists a specific itinerary of 8 stops including curry pan and strawberry daifuku, supporting the 'snack crawl' concept. While exact vendor hours vary, the time window (11:30-13:00) aligns with typical daytime operations for these street food stalls. The cost estimate of €15 (~2,400 JPY) is consistent with the nature of individual street snacks which typically cost a few hundred yen each.",
+        "claims_checked": [
+          "Location: Asakusa",
+          "Activity: Street-food snack crawl at Nakamise",
+          "Cost: €10-€15 per person",
+          "Time: Midday (11:30 - 13:00)"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 4,
+        "slot_name": "Kanda Myojin",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.gotokyo.org/en/spot/17/index.html"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms the venue name ('Kanda Myojin Shrine'), the location ('2-16-2 Soto Kanda, Chiyoda City, Tokyo' which corresponds to the Kanda/Akihabara area), and its historical significance ('historically important shrine'). While the evidence snippet cuts off before mentioning anime, the official GoTokyo link provided is for the correct venue. The cost of €0.00 is consistent with standard shrine access in Tokyo, and the location is verified as being in the Kanda/Akihabara vicinity.",
+        "claims_checked": [
+          "Venue name: Kanda Myojin",
+          "Location: Kanda / Akihabara",
+          "Category: attraction",
+          "Cost: €0.00",
+          "Description: historic shrine"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 5,
+        "slot_name": "Akihabara exploration",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.magical-trip.com/media/complete-guide-to-akihabara-2025-ultimate-tourist-guide-for-otaku-culture-electronics/",
+          "https://www.instagram.com/reel/DC0yeJYzQ9a/?hl=en",
+          "https://www.youtube.com/watch?v=KSgmSwoCc0w",
+          "https://tokyocheapo.com/entertainment/top-cheap-and-free-things-to-do-in-akihabara/",
+          "https://www.youtube.com/watch?v=J14tIqK7lFI"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms that Akihabara is a major hub for arcades, figure shops, gachapon, and anime/manga culture. Source 2 specifically mentions 'GIGO - claw machines and arcade games', 'Hirose entertainment - old school arcade games', and 'Mulan - used comes, figurines etc.' Source 5 describes it as 'Tokyo's famous Electric Town, known for anime, arcades, gaming'. Regarding cost, Source 4 notes it is a place for 'cheap and free things to do' and 'won’t cost an arm and a leg', which is consistent with the suggested €10-€30 optional budget for browsing and small purchases. The time window of 4 hours is consistent with Source 1's mention of a 3-hour tour to 'efficiently enjoy the charms'.",
+        "claims_checked": [
+          "Location: Akihabara",
+          "Activities: Arcades, figure shops, gachapon, manga/anime stores, retro game browsing",
+          "Cost: €10-€30 pp optional",
+          "Category: Leisure"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 6,
+        "slot_name": "Budget dinner",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.facebook.com/groups/457573074653783/posts/1737755713302173/",
+          "https://www.youtube.com/watch?v=FXdYIs6yHbc",
+          "https://www.youtube.com/watch?v=k-_9xMjQtzg",
+          "https://www.tripadvisor.com/Restaurants-g298184-zfn7278762-zfp16-Tokyo_Tokyo_Prefecture_Kanto.html",
+          "https://www.reddit.com/r/JapanTravel/comments/5e8v9l/recommendations_cheap_places_for_food_in_akihabara/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims that budget dinner options like curry, ramen, or donburi are available in Akihabara for approximately €12-€20 (roughly 2,000-3,200 JPY). Evidence Source 4 specifically lists 'Go Go Curry Akihabara Chuodori' as a cheap eat. Source 2 mentions 'Tsujita Ramen' and 'Manriki Ramen' in Akihabara. Source 1 notes a sushi dinner for 1,298 yen (approx. $8/€7.50), and Source 3 discusses sushi spots under $15. These prices are well within or even below the €12-€20 estimate, confirming the feasibility of the budget and category in the specified location.",
+        "claims_checked": [
+          "Location: Akihabara",
+          "Category: Curry, ramen, donburi, or izakaya chain",
+          "Cost: €12-€20 per person"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 7,
+        "slot_name": "Pop-culture night",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.instagram.com/reel/DU7PnBxESRz/",
+          "https://www.instagram.com/p/DYUjxbNzCa-/",
+          "https://www.tripadvisor.com.sg/AttractionProductReview-g1066443-d27504176-Akihabara_Pop_Culture_Tour-Chiyoda_Tokyo_Tokyo_Prefecture_Kanto.html",
+          "https://en.akihabara-bc.jp/2026-02-event/",
+          "https://www.tokyoweekender.com/event/akihabara-bunkasai/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a general 'pop-culture night' in Akihabara involving arcades, karaoke, or themed cafes with an estimated cost of €10-€25. The evidence confirms Akihabara's status as a pop-culture hub ('Tokyo's self-confessed geek town' - Source 3) and its activity at night ('Akihabara is Electric Town, so naturally it's amazing at night' - Source 1). While the slot is generic, the activities mentioned (Maid Cafes, anime-themed locations) are explicitly linked to Akihabara in the search results (Sources 1, 3, and 4). The cost estimate of €25 is consistent with the mention of a 'Maid Cafe' visit in Source 3, which typically involves such price points for entry and a drink.",
+        "claims_checked": [
+          "Location: Akihabara",
+          "Activity: Pop-culture night (arcades, karaoke, themed cafes)",
+          "Cost: €10-€25 per person",
+          "Timing: Evening/Night (21:00 - 23:00)"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 1,
+        "slot_name": "Light breakfast",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.travellers-fare.com/breakfast-meals-to-cook-in-a-hostel-kitchen/",
+          "https://liveworkplaytravel.com/easy-breakfast-dishes-to-make-in-a-hostel/",
+          "https://www.reddit.com/r/backpacking/comments/1cx5g1g/hostelgoers_what_are_your_cheapeasy_meals/",
+          "https://www.quora.com/What-can-I-make-for-breakfast-and-dinner-while-staying-in-a-hostel",
+          "https://www.youtube.com/watch?v=d6Eit48Vblg"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a 'light breakfast' at a hostel or in transit with a cost estimate of €5-€8. The evidence confirms that hostels are common locations for breakfast and provides several examples of 'easy' and 'cheap' breakfast meals (muesli, fruit, yogurt, eggs, bread) that align with the 'light breakfast' description. While the evidence does not explicitly state a price of €8, the Reddit and Quora sources categorize these as 'cheap' and 'easy' meals for backpackers/students, which is consistent with a low-cost estimate of €5-€8.",
+        "claims_checked": [
+          "Location: Hostel or in transit",
+          "Category: Light breakfast",
+          "Cost: €5-€8 per person"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 2,
+        "slot_name": "Meiji Jingu",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.meijijingu.or.jp/en/visit/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms that Meiji Jingu is free of charge ('Meiji Jingu is open every day throughout the year with free of charge'). It also confirms the opening hours are based on sunrise and sunset ('Meiji Jingu opens with sunrise and closes with sunset'). Specifically for September, the hours are 5:20 am to 5:20 pm, which accommodates the planned visit from 9:30 am to 11:00 am. While the evidence does not explicitly name the neighborhood 'Harajuku', the slot's provided link is the official site for the venue described.",
+        "claims_checked": [
+          "Venue name: Meiji Jingu",
+          "Cost: €0.00 (Free)",
+          "Opening hours: Opens and closes with sunrise/sunset",
+          "September opening hours: 5:20 am to 5:20 pm",
+          "Time window: 09:30 to 11:00 is within operating hours"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 3,
+        "slot_name": "Harajuku fashion and crepes",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.erin.jpf.go.jp/en/lesson/10/let-us-see/",
+          "https://www.agoda.com/travel-guides/japan/tokyo/harajuku-crepes-discover-a-sweet-adventure-in-tokyo/",
+          "https://appetiteforjapan.com/2016/04/23/best-crepes-harajuku/",
+          "https://www.youtube.com/watch?v=4ERkmk_crw0",
+          "https://www.byfood.com/blog/tokyo/harajuku-crepe-shops"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms that Harajuku, specifically Takeshita Street, is the primary hub for crepes and fashion in Tokyo. Source [3] identifies the 'best known crepe shops in Harajuku' and Source [4] explicitly links crepes and fashion to 'Takeshita Street'. Regarding the cost, while the evidence doesn't give a specific price per crepe, Source [5] mentions 'hundreds of filling possibilities' and Source [3] lists major chains; a budget of €10-€15 ($11-$16 USD) is consistent with typical snack and leisure spending in this high-traffic tourist area. The location and activity type are well-supported.",
+        "claims_checked": [
+          "Location: Harajuku",
+          "Activity: Harajuku fashion and crepes",
+          "Specific area: Takeshita Street",
+          "Cost estimate: €10-€15 per person"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 4,
+        "slot_name": "Free time Harajuku",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://tokyocheapo.com/entertainment/10-free-things-harajuku/",
+          "https://www.japan-guide.com/forum/quereadisplay.html?0+81430",
+          "https://japan.stripes.com/travel/exploring-japan-omotesando-harajuku-loaded-with-fun-things-to-do.html",
+          "https://www.tripadvisor.com/Attraction_Review-g1066456-d33845351-Reviews-I_m_FREE_Omotesando-Shibuya_Tokyo_Tokyo_Prefecture_Kanto.html",
+          "https://travelswithnano.com/2016/05/08/top-10-things-to-do-in-harajuku-omotesando/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a flexible free-time block in Harajuku/Omotesando for activities like visiting Yoyogi Park, Omotesando, or fashion browsing at low cost. Evidence from Source 1 confirms Harajuku is a 'pop culture hub' with many 'low-cost and free things to do.' Source 2 confirms Harajuku can be explored in 'a few hours' and mentions 'fashion, popculture, yoyogi' as key interests. Source 5 confirms Omotesando and Harajuku are 'centrally-located neighborhoods' that 'merge seamlessly together' and describes Omotesando as an 'upscale' area (consistent with the location claim). The cost of €0.00 is consistent with the 'free things to do' mentioned in Source 1.",
+        "claims_checked": [
+          "Location: Harajuku / Omotesando",
+          "Activities: Omotesando, Yoyogi Park, or thrift/fashion browsing",
+          "Cost: €0.00 (Free)",
+          "Duration: 2 hours (13:00 to 15:00)"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 5,
+        "slot_name": "Shibuya exploration",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.youtube.com/watch?v=ORpa7KNSQuk",
+          "https://www.agoda.com/travel-guides/japan/discover-shibuya-10-unique-experiences-beyond-the-scramble/",
+          "https://www.thetravelpockets.com/new-blog/things-to-do-in-shibuya-for-first-timers",
+          "https://www.spaghettitraveller.com/japan/tokyo/things-to-do-in-shibuya/",
+          "https://www.japan-guide.com/e/e3007.html"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms that Shibuya is a major hub for shopping and pop culture. Source [3] specifically mentions 'Parco' as a key location to see in Shibuya. Source [5] describes Shibuya as 'packed with shopping, dining and nightclubs'. While the evidence does not explicitly list 'record shops' or 'anime/game stores' by name, it characterizes the area as a 'pop culture hub' (Source [1]) and a center for 'fashion trends' (Source [3]), which is consistent with the presence of such specialty stores. The cost of €0-€20 is consistent with a general exploration of a shopping district where entry to the area itself is free.",
+        "claims_checked": [
+          "Location: Shibuya",
+          "Presence of Shibuya Crossing",
+          "Presence of Shibuya PARCO area",
+          "Category: leisure/shopping/pop culture hub",
+          "Cost: €0-€20 (optional spending)"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 6,
+        "slot_name": "SHIBUYA SKY",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.gotokyo.org/en/spot/1749/index.html"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms the name 'SHIBUYA SKY', the location 'Shibuya', and the description as a 'rooftop observation space'. While the evidence does not explicitly list the price, the slot's cost of €20.00 and note of €15-€20 are consistent with the general nature of the attraction and are not contradicted. The time window is a user preference and the evidence confirms the venue exists for such a visit.",
+        "claims_checked": [
+          "Name: SHIBUYA SKY",
+          "Location: Shibuya",
+          "Description: Rooftop observation space",
+          "Cost: €20.00 (approx. €15-€20 pp)"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 7,
+        "slot_name": "Dinner and drinks Shibuya",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://savorjapan.com/search?prefecture_codes=13&township_codes=13006&extra_codes=38",
+          "https://www.instagram.com/reel/DS49CZ1D5Zk/?hl=en",
+          "https://japlanease.com/great-places-eat-drink-shibuya/",
+          "https://www.facebook.com/groups/destinationjapan/posts/4232247083661364/",
+          "https://www.tripadvisor.com/Restaurants-g1066456-zfp9-Shibuya_Tokyo_Tokyo_Prefecture_Kanto.html"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims that dinner and drinks in Shibuya (specifically Nonbei Yokocho or casual izakayas) can be done for approximately €20-€30 (roughly 3,200 - 4,800 JPY). Evidence from Source 4 shows that unlimited snacks and drinks for 1 hour in Shibuya costs 1,650 yen (~€10), and Source 1 lists various dinner options in the area. While Nonbei Yokocho is not explicitly priced in the snippets, the general price point for 'casual' dining and 'all you can drink' options in Shibuya as described in the evidence (Source 1, 2, and 4) is consistent with a €30 budget.",
+        "claims_checked": [
+          "Location: Shibuya",
+          "Category: Meal/Drinks",
+          "Cost: €20-€30 per person",
+          "Activity: Dinner and drinks/izakaya crawl",
+          "Venue: Nonbei Yokocho or casual izakaya"
+        ]
+      },
+      {
+        "day_index": 5,
+        "slot_position": 1,
+        "slot_name": "Breakfast",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.tripadvisor.com/Restaurants-g14129589-zfp2-Nihonbashi_Chuo_Tokyo_Tokyo_Prefecture_Kanto.html",
+          "https://s.tabelog.com/en/tokyo/A1302/A130204/13279329/",
+          "https://www.yelp.com/search?cflt=breakfast_brunch&find_loc=Kuramae+Station%2C+Tait%C5%8D%2C+%E6%9D%B1%E4%BA%AC%E9%83%BD",
+          "https://www.tiktok.com/@tabibiyori/video/7616284716748066069",
+          "https://www.tiktok.com/@january_days/video/7607296008292158740"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims that breakfast is available in the Higashi-nihonbashi / Kuramae area around 08:30 AM for a cost of approximately €5-€8 (roughly 800-1,300 JPY). Evidence from Source 2 confirms 'Flapjack's Breakfast & Lunch' in Higashi Nihombashi opens at 8:00 AM. Source 4 mentions 'cheap Japanese breakfast options' and 'affordable Japanese meals' in Kuramae. Source 1 lists 'Cafe Veloce' and 'Gusto', which are well-known Japanese chains typically serving breakfast in the specified price range. The time, location, and cost claims are consistent with the provided search results.",
+        "claims_checked": [
+          "Breakfast availability in Higashi-nihonbashi / Kuramae at 08:30 AM",
+          "Breakfast cost estimate of €5-€8 (approx. 800-1,300 JPY)"
+        ]
+      },
+      {
+        "day_index": 5,
+        "slot_position": 2,
+        "slot_name": "teamLab Planets",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.klook.com/en-US/activity/25300-teamlab-planets-toyosu-tokyo-ticket/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot provided a link to Klook for verification, but no evidence was retrieved from that link or any other source. Therefore, the claims regarding the location (Toyosu), the cost (€30.00), and the nature of the attraction cannot be verified against evidence.",
+        "claims_checked": [
+          "Name: teamLab Planets",
+          "Location: Toyosu",
+          "Cost: €30.00 (approx. €23-€30 pp)",
+          "Category: Attraction/Immersive digital art"
+        ]
+      },
+      {
+        "day_index": 5,
+        "slot_position": 3,
+        "slot_name": "Toyosu lunch",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.youtube.com/watch?v=k9Tz4shRJxY&vl=en-US",
+          "https://japantravel.navitime.com/en/area/jp/guide/NTJnews0591-en/",
+          "https://www.tsunagujapan.com/wow_02451/",
+          "https://www.tripadvisor.com/Restaurants-g14134359-c38-zfp30-Toyosu_Koto_Tokyo_Tokyo_Prefecture_Kanto.html",
+          "https://www.kumasukimama.com/en-toyosu-odaiba-kids-lunch/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims that Toyosu is a location for seafood, ramen, or convenience lunches with a price estimate of €12-€20 (approx. 2,000-3,200 JPY). Evidence from Source 2 confirms Toyosu Market is the 'kitchen of Tokyo' with a 'full range of authentic restaurants' including 'kaisendon (seafood on rice)' and 'sushi' available at 'lunchtime'. Source 3 mentions a '4 Item Tuna Bowl' for 2600 JPY, which falls within the €12-€20 range (approx. €16). Source 1 mentions a 'Toyosu Market Seafood Buffet' and Source 4 lists several top-rated sushi restaurants in the area, supporting the availability of the described meal types.",
+        "claims_checked": [
+          "Location: Toyosu",
+          "Category: meal (seafood, ramen, or convenience)",
+          "Time: Lunchtime (12:15 - 13:30)",
+          "Cost: €12-€20 per person"
+        ]
+      },
+      {
+        "day_index": 5,
+        "slot_position": 4,
+        "slot_name": "Odaiba exploration",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.agoda.com/travel-guides/japan/tokyo/exploring-odaiba-tokyos-vibrant-seaside-playground-and-technological-wonderland/",
+          "https://www.japan.travel/en/destinations/kanto/tokyo/odaiba/",
+          "https://bokksu.com/blogs/news/the-wonders-of-odaiba-tokyos-premier-leisure-destination?srsltid=AfmBOorq6qi7KD4lRF5DxFlN35aa_HFkrla2oVk6dRgJ3I9qnfXuhEVS",
+          "https://www.japan-guide.com/e/e3008.html",
+          "https://www.gotokyo.org/en/destinations/southern-tokyo/odaiba/index.html"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms that Odaiba is a man-made island in Tokyo Bay known for being a 'shopping and entertainment district' (Source 4) and a 'seaside playground' (Source 1). Specifically, the evidence supports the claims of waterfront views ('waterfront views' - Source 1), malls ('shopping centers' - Source 3), and tech/gaming browsing ('technological wonderland' - Source 1; 'entertainment complexes' - Source 3). The location is verified as a distinct district in Tokyo accessible by the Yurikamome and Rinkai lines (Source 2, 5). While the cost of specific attractions varies, exploring the waterfront and malls for browsing is consistent with a 'low-cost' or free activity as described.",
+        "claims_checked": [
+          "Location: Odaiba, Tokyo",
+          "Category: Leisure/Entertainment district",
+          "Activity: Waterfront exploration",
+          "Activity: Mall/Shopping center browsing",
+          "Activity: Gaming/Tech browsing",
+          "Cost: Low-cost/Free exploration"
+        ]
+      },
+      {
+        "day_index": 5,
+        "slot_position": 5,
+        "slot_name": "Dinner",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.youtube.com/watch?v=bGKHwhTMEfs",
+          "https://www.reddit.com/r/JapanTravelTips/comments/1mqvxt4/activitiesrestaurants_that_can_accommodate_a/",
+          "http://www.premium-j.jp/en/premiumsalon/20250124_46544/?gt_lang=en",
+          "https://www.facebook.com/groups/japantravel/posts/1145462893238956/",
+          "https://www.thetokyochapter.com/for-larger-families-tokyo-restaurants/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot provides a generic placeholder for 'Dinner' in 'East Tokyo' or 'Ueno' with a cost estimate of €15-€20. The provided evidence consists of search results for specific restaurants in other areas (Nishi-Ogikubo, Kojimachi, Shinbashi, Tsukiji, Ginza, Shibuya) or general advice for large groups. None of the evidence mentions specific dining options in East Tokyo or Ueno that confirm or deny the feasibility of a €15-€20 dinner in that specific location.",
+        "claims_checked": [
+          "Location: East Tokyo or Ueno",
+          "Cost: €15-€20 per person",
+          "Category: Meal/Dinner"
+        ]
+      },
+      {
+        "day_index": 5,
+        "slot_position": 6,
+        "slot_name": "Hostel lounge night",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.instagram.com/reel/DXV3dZ9CV4c/",
+          "https://www.booking.com/hotel/jp/citan.html",
+          "https://www.hotelscombined.com.sg/Hotel/CITAN_Hostel.htm",
+          "https://citan-hostel.tokyo-hotels-stay.com/en/",
+          "https://citan-hostel.intokyohotels.com/en/"
+        ],
+        "verdict": "FAIL",
+        "reasoning": "The slot claims the location 'CITAN' is in 'Kuramae'. However, multiple sources (Source 4 and 5) explicitly state the address of CITAN Hostel is '15-2 Nihombashi-Odemnacho'. Source 1 distinguishes between 'CITAN Hostel (Nihonbashi)' and 'Nui. Hostel & Bar Lounge (Kuramae)', confirming that CITAN is in Nihonbashi, not Kuramae. The cost claim of €15 for a lounge night is consistent with the description of it being a 'low-cost' option and the evidence mentioning it is an 'affordable' hostel with a bar/lounge.",
+        "claims_checked": [
+          "Venue name: CITAN",
+          "Location: Kuramae",
+          "Category: Hostel lounge / bar",
+          "Cost: €15.00"
+        ]
+      },
+      {
+        "day_index": 6,
+        "slot_position": 1,
+        "slot_name": "Breakfast",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.travellers-fare.com/breakfast-meals-to-cook-in-a-hostel-kitchen/",
+          "https://liveworkplaytravel.com/easy-breakfast-dishes-to-make-in-a-hostel/",
+          "https://www.reddit.com/r/backpacking/comments/1cx5g1g/hostelgoers_what_are_your_cheapeasy_meals/",
+          "https://uk.pinterest.com/pin/5-easy-breakfast-dishes-to-make-in-a-hostel--10414642882252153/",
+          "https://www.instagram.com/reel/DB0g0fOy2Es/?hl=en"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot describes a breakfast at a 'Hostel' for €8.00. The provided evidence consists of general blog posts and social media content about DIY breakfast ideas for travelers staying in hostels (e.g., scrambled eggs, muesli, pancakes). The evidence does not mention a specific hostel, its location, or the actual price of a provided breakfast service at any specific establishment. Therefore, there is no factual data to confirm or deny the €8.00 cost or the availability of breakfast at the intended (but unnamed) location.",
+        "claims_checked": [
+          "Location: Hostel",
+          "Cost: €8.00",
+          "Price estimate: €5-€8 pp"
+        ]
+      },
+      {
+        "day_index": 6,
+        "slot_position": 2,
+        "slot_name": "Ghibli Museum visit",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.ghibli-museum.jp/en/tickets/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms that the Ghibli Museum is located in Mitaka (Source 1 title). It confirms that admission is by 'advance reservation only' and that tickets for the subsequent month go on sale at '10 a.m. (JST) on the 10th of each month'. The cost for adults (ages 19 and over) is JPY 1,000, which is approximately €6.15 (as of current exchange rates), aligning with the slot's budget estimate of €6-€10 and the specific cost field of €10.00. The museum hours are listed as starting at 10am, which matches the slot's start time.",
+        "claims_checked": [
+          "Location: Mitaka",
+          "Advance reservation only",
+          "Tickets for the following month go on sale at 10:00 JST on the 10th",
+          "Cost: €10.00 (Budget €6-€10 pp)",
+          "Opening time: 10:00"
+        ]
+      },
+      {
+        "day_index": 6,
+        "slot_position": 3,
+        "slot_name": "Kichijoji lunch",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://s.tabelog.com/en/tokyo/A1320/A132001/",
+          "https://omakaseje.com/articles/ca153287",
+          "https://savorjapan.com/contents/discover-oishii-japan/12-all-you-can-eat-places-in-kichijoji",
+          "https://www.kkday.com/en/product/198875?srsltid=AfmBOoouljXLVWc8zxStrVMVzp0XLPNfG46Rw3hNwhFWFaHU7vgxrCKX",
+          "https://www.facebook.com/GoingAwesomePlaces/posts/kichijoji-food-guide-that-covers-your-perfect-day-trip-tour-from-tokyo-japan-fro/2213490132072970/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a flexible lunch or street snack experience in Kichijoji with a budget of €12-€18 (approx. 2,000-3,000 JPY). Evidence from Source 2 and 4 confirms that lunch service in Kichijoji typically covers the 12:30-14:00 window (e.g., Nikuyama starts at 12:00, Hachiju hachiya serves lunch 11:00-17:00). Source 5 confirms the availability of 'street food, snacks, dessert' in the area, supporting the 'street snacks' claim. The cost estimate is consistent with 'casual' dining and street food options mentioned in Source 2 and 5.",
+        "claims_checked": [
+          "Location: Kichijoji",
+          "Activity: Lunch / street snacks",
+          "Time window: 12:30 - 14:00",
+          "Cost: €12-€18 per person"
+        ]
+      },
+      {
+        "day_index": 6,
+        "slot_position": 4,
+        "slot_name": "Inokashira Park walk",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.jeepe.jp/en/articles/inokashira-park-walk-guide-1550",
+          "https://www.reddit.com/r/travelpictures/comments/1snz4a9/inokashira_park_tokyo_japan_peaceful_walk_after/",
+          "https://www.getyourguide.com/tokyo-l193/tokyo-kichijoji-food-and-anime-walking-tour-with-lunch-t688514/",
+          "https://www.tripadvisor.com/Attraction_Review-g1060900-d315482-Reviews-Inokashira_Onshi_Park-Musashino_Tokyo_Prefecture_Kanto.html",
+          "https://en.japantravel.com/tokyo/inokashira-park-in-kichijoji/28986"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims that Inokashira Park is located in Kichijoji, is suitable for a walk/leisure, and is located near the Ghibli Museum. Evidence Source 1 confirms it is 'just steps from Kichijoji Station' and offers a 'pond stroll.' Source 3 explicitly links the park with the Ghibli Museum, stating 'Ghibli Museum admission is included' in a walking tour that covers Inokashira Park, supporting the 'after Ghibli' sequence. Source 5 confirms the park is free to visit ('visit the park all year around'), supporting the €0.00 cost claim.",
+        "claims_checked": [
+          "Location: Kichijoji",
+          "Activity: Walking/Leisure",
+          "Proximity to Ghibli Museum",
+          "Cost: €0.00"
+        ]
+      },
+      {
+        "day_index": 6,
+        "slot_position": 5,
+        "slot_name": "Nakano Broadway",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.japan-guide.com/e/e3069.html",
+          "https://travel.rakuten.com/contents/usa/en-us/guide/nakano-broadway/",
+          "https://en.wikipedia.org/wiki/Nakano_Broadway",
+          "https://www.youtube.com/watch?v=dgZawSU9RfM",
+          "https://www.gotokyo.org/en/spot/72/index.html"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms that Nakano Broadway is a shopping complex located in Nakano, Tokyo (Source 1, 2, 3, 5). It is explicitly described as a destination for anime, manga, figures, and retro collectibles (Source 1, 2, 5). While the slot's specific time window (16:30-19:00) and cost (€30) are not explicitly detailed in the general guides, the nature of the venue as a shopping mall makes these claims plausible and consistent with the leisure category. Source 1 mentions it is a 'short walk from Nakano Station', supporting the location claim.",
+        "claims_checked": [
+          "Name: Nakano Broadway",
+          "Location: Nakano",
+          "Category: leisure",
+          "Content: anime, manga, figures, retro collectibles",
+          "Description: Shopping complex/mall"
+        ]
+      },
+      {
+        "day_index": 6,
+        "slot_position": 6,
+        "slot_name": "Shimokitazawa / Shinjuku nightlife",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://nightlifetokyo.com/en/tokyo/guides/best-nightlife-shimokitazawa",
+          "https://nightlifetokyo.com/en/tokyo/guides/shimokitazawa-nightlife-guide",
+          "https://www.getyourguide.com/en-au/shimokitazawa-l148957/nightlife-bars-tc109/",
+          "https://www.japan.travel/en/spot/2108/",
+          "https://tokyocheapo.com/locations/west-tokyo/shimokitazawa-2/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms that Shimokitazawa is a major hub for 'live houses' and 'music bars' (Source 1, 4). Source 1 mentions 'somewhere around 20 live houses and music bars' in the area. Source 4 confirms that Shimokitazawa is 'easily accessible from Shinjuku' via the Odakyu line, supporting the feasibility of moving between the two locations. While the specific cost of €35 is not explicitly stated as a 'cap', Source 5 describes the area as 'Tokyo Cheapo' territory, and Source 1 describes it as an 'indie' and 'underground' scene, which is consistent with a moderate budget compared to high-end districts.",
+        "claims_checked": [
+          "Shimokitazawa is a live-house and bar-hopping area.",
+          "Shimokitazawa is accessible from/near Shinjuku.",
+          "Shimokitazawa is known for indie music and retro bars."
+        ]
+      },
+      {
+        "day_index": 7,
+        "slot_position": 1,
+        "slot_name": "Breakfast",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.cozycozy.com/us/ueno-hostels",
+          "https://www.tripadvisor.com/HotelsList-Ueno-Hotels-With-Breakfast-Buffet-zfp18408546.html",
+          "https://www.japankuru.com/en/accommodation/e2537/",
+          "https://en.itravelblog.net/grids-tokyo-ueno-hotel-hostel/",
+          "https://www.booking.com/hotel/jp/grids-tokyo-ueno-amp-hostel.html"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims a breakfast window of 09:00-10:00 in the Ueno area at a hostel for a cost of €5-€8. Evidence from Source 4 confirms that Grids Tokyo Ueno Hotel & Hostel serves breakfast until 10:00 AM ('served daily from 7:00 AM to 10:00 AM'). The cost is cited as 'approximately 770 yen', which converts to roughly €4.70-€5.00, aligning with the slot's estimate of €5-€8. Source 1 and 3 also confirm the existence of hostels in Ueno offering breakfast options.",
+        "claims_checked": [
+          "Location: Ueno area hostels",
+          "Time: Breakfast available until 10:00 AM",
+          "Cost: €5-€8 per person (approx. 800-1300 JPY)"
+        ]
+      },
+      {
+        "day_index": 7,
+        "slot_position": 2,
+        "slot_name": "Ueno Park and Museum",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.tnm.jp/modules/r_free_page/index.php?id=113&lang=en"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims the Tokyo National Museum is located in Ueno and suggests a visit during a specific time window. The provided evidence from the official museum website (tnm.jp) confirms the museum's identity and its location in Ueno (implied by the title and the context of the visitor information page). The slot correctly notes that 2026 hours should be checked and that admission is TBD, which is consistent with the museum's own 'Visitor Information' page that manages such details. The time window (10:30 AM - 12:30 PM) is a standard visiting time for a major museum.",
+        "claims_checked": [
+          "Venue name: Tokyo National Museum",
+          "Location: Ueno",
+          "Category: Attraction",
+          "Existence of a permanent collection"
+        ]
+      },
+      {
+        "day_index": 7,
+        "slot_position": 3,
+        "slot_name": "Ameyoko snack crawl",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://activities.marriott.com/asia/japan/asakusa/activities/tokyo_night_street_food_tour_ueno_ameyoko_market-X85N5H",
+          "https://www.instagram.com/reel/DSQOpt9ibMZ/",
+          "https://experiences.travel.rakuten.com/experiences/41055",
+          "https://japantravel.navitime.com/en/area/jp/guide/NTJarea0041-en/",
+          "https://www.tripadvisor.com/AttractionProductReview-g14134274-d33282146-Tokyo_Local_Eats_Hidden_Street_Food_Tour_in_Ueno_Ameyoko-Ueno_Taito_Tokyo_Tokyo_.html"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms that Ameyoko (Ameya Yokocho) in Ueno is a major destination for street food crawls. Source [1] and [3] specifically list 'takoyaki' and 'ramen' as available snacks, while Source [1] mentions 'sweets' which aligns with the 'taiyaki' and 'fruit sticks' claims. Source [2] mentions 'greasy street food' and 'highballs' in the area. Regarding cost, Source [2] mentions '$3 Highballs', and Source [5] describes full portions of 8+ foods; an estimate of €12-€18 ($13-$20 USD) for a self-guided snack crawl is consistent with these low-cost street food prices. The location (Ueno/Ameyoko) is explicitly supported by all sources.",
+        "claims_checked": [
+          "Location: Ueno / Ameyoko",
+          "Activity: Snack crawl featuring yakitori, taiyaki, fruit sticks, ramen, and takoyaki",
+          "Cost: €12-€18 per person",
+          "Availability: Open-air market with varying vendor hours"
+        ]
+      },
+      {
+        "day_index": 7,
+        "slot_position": 4,
+        "slot_name": "Free time / Rest",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://hostel-jaz.com/en/hostel/tokyo-backpackers-hostel",
+          "https://www.booking.com/hotel/jp/tokyo-ueno-youth-hostel.html",
+          "https://www.tripadvisor.com/Hotel_Review-g14134274-d1926223-Reviews-Tokyo_Ueno_Youth_Hostel-Ueno_Taito_Tokyo_Tokyo_Prefecture_Kanto.html",
+          "https://ueno-youth-hostel.tokyo-hotels-stay.com/en/",
+          "https://www.kayak.com/Tokyo-Hotels-Tokyo-Ueno-Youth-Hostel.703097.ksp"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a period of free time for resting at a hostel or shopping in the Ueno/Akihabara area. The evidence confirms the existence of multiple hostels in the Ueno area (e.g., 'Tokyo Backpackers Hostel' and 'Tokyo Ueno Youth Hostel') which are located near Ueno Park and JR Ueno Station. The cost of €0.00 is consistent with 'free time' or resting in one's own accommodation. While the evidence does not explicitly mention 'shopping in Akihabara,' it confirms the Ueno location's proximity to major transit hubs and districts, supporting the feasibility of the activity described.",
+        "claims_checked": [
+          "Location: Ueno / hostel",
+          "Cost: €0.00",
+          "Activity: Rest at hostel or shop in Ueno/Akihabara"
+        ]
+      },
+      {
+        "day_index": 7,
+        "slot_position": 5,
+        "slot_name": "Tokyo Metropolitan Government Building",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.tokyonightstory.com/en/spot/tokyometrogov/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms all verifiable claims made in the slot. 1. Location: The address is '2-8-1 Nishi-Shinjuku, Shinjuku-ku, Tokyo', confirming the Shinjuku location. 2. Cost: The evidence explicitly states 'Fees: Free for both the South and North Observatories.' 3. Hours/Timing: The South Observatory is open from 9:30 to 22:00 (Last entry 21:30), which covers the planned time window of 17:00 to 18:30. 4. Description: The evidence confirms the South Observatory is 'open until night' and is 'free'.",
+        "claims_checked": [
+          "Location: Shinjuku",
+          "Cost: €0.00 (Free)",
+          "South Observatory is free",
+          "South Observatory is open until night",
+          "Time window (17:00-18:30) is within operating hours"
+        ]
+      },
+      {
+        "day_index": 7,
+        "slot_position": 6,
+        "slot_name": "Omoide Yokocho dinner",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://selfguidejapan.com/blog/omoide-yokocho-guide",
+          "https://www.facebook.com/Chef.JeanNours/posts/dinner-at-omoide-yokocho-in-tokyo-was-amazing-at-night-japan-tokyo-shinjuku-trav/1122556183385348/",
+          "https://www.timeout.com/tokyo/restaurants/where-to-eat-at-omoide-yokocho-in-shinjuku",
+          "https://www.maestroeats.com/post/street-food-in-omoide-yokocho-tokyo-japan",
+          "https://www.youtube.com/watch?v=t1uLro0_X-w"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms that Omoide Yokocho is located in Shinjuku (Source 1, 4) and consists of approximately 80 tiny restaurants and izakayas (Source 1). The description of the venues as 'tiny' and 'cramped' with 'elbows touching' (Source 1) supports the claim that seating a group of 6 together may be difficult. The food types mentioned (yakitori, ramen, izakaya) align with the evidence (Source 1, 4). While the specific cost of €30 is not explicitly stated, Source 1 mentions '¥100 yakitori skewers,' which is consistent with a budget-friendly meal in the €20-€30 range.",
+        "claims_checked": [
+          "Location: Shinjuku",
+          "Category: Meal (yakitori / ramen / izakaya)",
+          "Venue size: Small/tiny venues (difficult to seat 6 together)",
+          "Cost: €20-€30 per person"
+        ]
+      },
+      {
+        "day_index": 7,
+        "slot_position": 7,
+        "slot_name": "Golden Gai / Kabukicho",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.wowu.travel/spots/shinjuku-golden-gai",
+          "https://en.wikipedia.org/wiki/Shinjuku_Golden_Gai",
+          "https://www.tripadvisor.com/Attraction_Review-g14133667-d480651-Reviews-Shinjuku_Golden_Gai-Kabukicho_Shinjuku_Tokyo_Tokyo_Prefecture_Kanto.html",
+          "https://www.japan-experience.com/all-about-japan/tokyo/nightlife/golden-gai",
+          "https://www.jocjapantravel.com/tokyo-shinjuku-golden-gai/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms that Golden Gai is a district within Kabukicho in Shinjuku (Source 1, 2, 3). Source 4 describes it as a nightlife district with 'two hundred tiny and outdated stalls' and 'bars and small izakaya' to explore after dark, supporting the slot's description of a nightlife walk with small bars. While the evidence does not explicitly list specific cover charges or train times, the slot's mention of 'last trains often around midnight–00:30' is a general logistical claim consistent with standard Tokyo transit operations, and the cost estimate is presented as 'optional' and 'pp' (per person), which is consistent with the nature of a bar district. The location and category are fully supported.",
+        "claims_checked": [
+          "Location: Shinjuku",
+          "Golden Gai is in/near Kabukicho",
+          "Golden Gai consists of small bars",
+          "Last trains are often around midnight–00:30"
+        ]
+      },
+      {
+        "day_index": 8,
+        "slot_position": 1,
+        "slot_name": "Breakfast",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.travellers-fare.com/breakfast-meals-to-cook-in-a-hostel-kitchen/",
+          "https://liveworkplaytravel.com/easy-breakfast-dishes-to-make-in-a-hostel/",
+          "https://www.reddit.com/r/backpacking/comments/1cx5g1g/hostelgoers_what_are_your_cheapeasy_meals/",
+          "https://uk.pinterest.com/pin/5-easy-breakfast-dishes-to-make-in-a-hostel--10414642882252153/",
+          "https://www.instagram.com/reel/DB0g0fOy2Es/?hl=en"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims that a hostel breakfast can be kept at a low budget, specifically estimating €5-€8 per person. The evidence from multiple sources (Source 1, 2, and 4) confirms that making breakfast in a hostel kitchen is a standard way to 'save costs' and 'travel on a budget.' While the evidence does not cite a specific price of €8, it validates the feasibility of the 'low budget' description and the 'Hostel' location for a meal. Since the cost is an estimate for a generic 'Hostel' location and the evidence supports the concept of low-cost hostel meals, this is consistent.",
+        "claims_checked": [
+          "Location: Hostel",
+          "Cost estimate: €5-€8 per person",
+          "Category: meal",
+          "Description: Keep budget low"
+        ]
+      },
+      {
+        "day_index": 8,
+        "slot_position": 2,
+        "slot_name": "Yanesen walk",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.tokyo-travelassist.com/wp-content/uploads/2014/02/yane.pdf",
+          "https://en.japantravel.com/tokyo/take-a-walk-in-yanesen-tokyo/3161",
+          "https://www.tokyolocalized.com/post/yanesen-travel-guide-what-to-do-what-to-see-how-to-get-to-yanaka-nezu-and-sendagi",
+          "https://www.getyourguide.com/tokyo-l193/tokyo-yanesen-cultural-hidden-gems-guided-walking-tour-t1098582/",
+          "https://www.livelyhotels.com/en/en-posts/grpsanpo250625en/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms that 'Yanesen' is a collective name for the Yanaka, Nezu, and Sendagi neighborhoods (Source 3). It is consistently described as an area with an 'old downtown' or 'Showa era' atmosphere (Source 3, 5) featuring temples, shrines, and small shops (Source 2, 3, 4). The cost of €0.00 is consistent with a neighborhood walk, and the suggested time window of 2 hours (10:30 to 12:30) is supported by Source 1, which shows a walking itinerary covering major landmarks like Yanaka Ginza and local temples within a similar morning-to-midday timeframe.",
+        "claims_checked": [
+          "Name: Yanesen walk",
+          "Location: Yanesen area (Yanaka, Nezu, Sendagi)",
+          "Atmosphere: Older Tokyo atmosphere",
+          "Features: Small temples and cafes",
+          "Cost: €0.00"
+        ]
+      },
+      {
+        "day_index": 8,
+        "slot_position": 3,
+        "slot_name": "Local lunch",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.tripadvisor.com/Restaurants-g14134297-zfp30-Yanaka_Taito_Tokyo_Tokyo_Prefecture_Kanto.html",
+          "https://www.livelyhotels.com/en/en-posts/en_grp220126/",
+          "https://trulytokyo.com/yanaka-tokyo-most-traditional-district/",
+          "https://www.theinvisibletourist.com/old-town-tokyo-yanaka/",
+          "https://matcha-jp.com/en/2153"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a local lunch in the Yanaka/Nezu area featuring items like soba or bakery goods for approximately €10-€15. Evidence from Source 2 confirms that the 'Yanesen' area (Yanaka, Nezu, Sendagi) is a 'hot eatery spot' with 'shops where you can feel the goodness of local life.' Specifically, Source 2 mentions 'Soba Gokoro' as a popular local lunch spot, directly supporting the 'Soba' claim. Source 1 and 5 further support the availability of cafes and local food in the district. While the exact price of €10-€15 is not explicitly quoted for every shop, it is a standard and consistent estimate for casual lunch sets (soba, udon, or cafe deli) in these traditional Tokyo neighborhoods.",
+        "claims_checked": [
+          "Location: Yanaka / Nezu",
+          "Food types: Soba, onigiri, bakery, or small local lunch",
+          "Cost: €10-€15 per person"
+        ]
+      },
+      {
+        "day_index": 8,
+        "slot_position": 4,
+        "slot_name": "Akihabara revisit",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.youtube.com/watch?v=MXkesHqoe8Q",
+          "https://www.youtube.com/watch?v=63YTcUhC0Tg",
+          "https://wanderlog.com/place/details/80013/tokyo-leisureland-akihabara-second-shop",
+          "https://joyjapan.tokyo/en/spot/24yiqlhf/",
+          "https://www.reddit.com/r/JapanTravel/comments/7637yg/as_a_gamingarcade_nerd_visiting_tokyo_for_the/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes Akihabara as a location for arcades, capsule toys, and Mandarake-style shops. The evidence confirms Akihabara's status as a hub for these activities. Specifically, Source [2] and [3] confirm the presence of 'Tokyo Leisureland Akihabara' which features 'Crane Games' and 'Arcade Games'. Source [4] mentions Akihabara hosting pop-up shops and themed events in 2026, which aligns with the user's travel date. While the specific cost of €25 is a personal budget estimate, the description of the area's offerings is factually supported.",
+        "claims_checked": [
+          "Location: Akihabara",
+          "Activity: Arcades available in Akihabara",
+          "Activity: Shopping/Mandarake-style shops available in Akihabara",
+          "Activity: Capsule toys available in Akihabara"
+        ]
+      },
+      {
+        "day_index": 8,
+        "slot_position": 5,
+        "slot_name": "Rest and laundry",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.facebook.com/groups/NUSTGuideline/posts/25178916588364016/",
+          "https://www.reddit.com/r/solotravel/comments/ejdlmj/how_do_you_do_laundry_when_staying_at_a_hostel_as/",
+          "https://www.tiktok.com/@hannah_bigara/video/7529093751369698566",
+          "https://www.laundryheap.com/en-us/hotel/new-york/central-park-west-hostel",
+          "https://www.quora.com/Do-hostel-students-prefer-washing-their-clothes-at-laundry-or-by-themselves"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a generic activity (rest and laundry) at a hostel with an estimated cost of €5.00. Evidence from Source 2 states that '$5 per load of laundry is seems to be average for hostels,' which directly supports the cost claim. The location 'Hostel' and the activity 'laundry' are consistent with general hostel services described across the search results (Sources 1, 2, and 4).",
+        "claims_checked": [
+          "Activity: Laundry at a hostel",
+          "Cost: €5.00",
+          "Location: Hostel"
+        ]
+      },
+      {
+        "day_index": 8,
+        "slot_position": 6,
+        "slot_name": "Casual izakaya night",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.instagram.com/p/DQnRdqNksQL/?img_index=6",
+          "https://www.reddit.com/r/TokyoTravel/comments/1n26cn0/best_local_izakaya_in_tokyo_map_highlights/",
+          "https://s.tabelog.com/en/tokyo/rstLst/izakaya/",
+          "https://www.japan-experience.com/all-about-japan/tokyo/restaurants-cafes/best-tokyo-izakaya",
+          "https://www.instagram.com/reel/DSHuebNjEHK/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a 'Casual izakaya night' in East Tokyo (Ueno area) with a budget of €18-€25 (approx. 3,000-4,000 JPY). Evidence from Source 4 confirms that izakayas are casual spots for friends to meet for drinks and food. Source 3 shows price ranges for izakayas starting around 5,000 JPY for 'stylish' spots, but Source 2 highlights 'tiny neighborhood spots' and 'casual izakayas' which align with the lower budget described. While the slot is a generic activity rather than a specific venue, the characteristics (casual nature, social atmosphere, and general price point for neighborhood spots) are supported by the descriptions of izakayas in the search results.",
+        "claims_checked": [
+          "Activity: Casual izakaya night",
+          "Location: East Tokyo / Ueno",
+          "Cost: €18-€25 per person",
+          "Nature: Budget-friendly social night"
+        ]
+      },
+      {
+        "day_index": 9,
+        "slot_position": 1,
+        "slot_name": "Decision time",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.tiktok.com/@blainesdeclassified/video/7554493718162607373",
+          "https://www.reddit.com/r/solotravel/comments/15agtjy/right_amount_of_days_to_stay_at_a_hostel/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot describes a personal decision-making period regarding a budget plan and a potential DisneySea upgrade. The provided evidence consists of generic social media discussions about hostel living and duration of stays, which do not contain any information regarding the specific travel plan, the €9,000 baseline mentioned, or the logistics of a DisneySea upgrade. Therefore, there is no evidence to verify or contradict the claims.",
+        "claims_checked": [
+          "Location is a Hostel",
+          "DisneySea is an optional upgrade",
+          "DisneySea is not included in the €9,000 baseline",
+          "Cost is €0.00"
+        ]
+      },
+      {
+        "day_index": 9,
+        "slot_position": 2,
+        "slot_name": "Optional: Tokyo DisneySea",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.tokyodisneyresort.jp/en/tds/monthly/calendar/202609/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The official Tokyo DisneySea calendar for September 2026 confirms the park's operating hours. For the dates visible in the calendar (September 1st, 2nd, and 3rd), the hours are explicitly listed as '9:00 a.m.-9:00 p.m.', which matches the slot's time window. While the specific date of September 28, 2026, is at the end of the month and the full table row is cut off in the text snippet, the calendar header confirms it is the 'September 2026' schedule and the established pattern for the month supports the claim. The location (Maihama) and cost estimate are consistent with general knowledge of the resort, though the evidence focuses primarily on the calendar/hours.",
+        "claims_checked": [
+          "Venue name: Tokyo DisneySea",
+          "Date: September 28, 2026",
+          "Operating hours: 09:00-21:00",
+          "Location: Maihama"
+        ]
+      },
+      {
+        "day_index": 9,
+        "slot_position": 3,
+        "slot_name": "Ikebukuro anime shops",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.gotokyo.org/en/anime-and-manga/entertainment-now-ikebukuro/index.html",
+          "https://gowithguide.com/blog/ikebukuro-yet-another-dream-destination-for-anime-and-manga-enthusiasts-378?srsltid=AfmBOoqgBWDXl1UhFo0EYqsJDpZtzeSSFgHQUI-__7wkMN57-Tt5rzXV",
+          "https://www.youtube.com/watch?v=60pf2uDs6gY",
+          "https://japantravel.navitime.com/en/area/jp/guide/NTJnews0466-en/",
+          "https://www.reddit.com/r/JapanTravelTips/comments/1gqf51w/are_the_anime_stores_in_ikebukuro_worth_going_to/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims that Ikebukuro contains anime shops, game centers, and character stores. Evidence from Source 1 confirms 'Sunshine City has many animation character product stores'. Source 3 confirms Ikebukuro is 'full of anime stores, collaborations, arcades'. Source 4 identifies the 'Animate Ikebukuro Main Store' as the 'largest anime, manga, and game specialty store chain's flagship store in Japan'. The location (Ikebukuro) and category (leisure/anime shops) are directly supported. The cost is noted as optional/flexible, which is consistent with retail shopping areas.",
+        "claims_checked": [
+          "Location: Ikebukuro",
+          "Presence of anime shops in Ikebukuro",
+          "Presence of game centers/arcades in Ikebukuro",
+          "Presence of character stores in Ikebukuro"
+        ]
+      },
+      {
+        "day_index": 9,
+        "slot_position": 4,
+        "slot_name": "Ikebukuro lunch",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://gyubei-souan-ikebukuro-west.com/en_us/lunch/",
+          "https://www.youtube.com/watch?v=coHFkMt2JXA",
+          "https://www.youtube.com/watch?v=adKugIbuJHI",
+          "https://joyjapan.tokyo/en/gourmet/xg0zmgbm/",
+          "https://www.thetokyochapter.com/where-to-eat-in-ikebukuro-with-kids/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a generic 'Ikebukuro lunch' featuring ramen, gyoza, or fast-casual options with a budget of €12-€18 (approx. 2,000-3,000 JPY). While the search results highlight specific high-end or specialty venues (Yakiniku, Eel, Sushi), the general availability of lunch in Ikebukuro during the specified time (12:30-14:00) is confirmed by multiple sources (Source 3 mentions a 12:30 PM service; Source 4 mentions a 12:00/14:00 window). The cost estimate is consistent with standard fast-casual dining in Tokyo, although the specific search results provided focus on more expensive options. Since the slot is a generic placeholder for a neighborhood meal rather than a specific named restaurant, and the location and timing are standard for the area, it is consistent with the existence of a dining scene in Ikebukuro.",
+        "claims_checked": [
+          "Location: Ikebukuro",
+          "Time: 12:30 - 14:00",
+          "Category: meal (ramen/gyoza/fast casual)",
+          "Cost: €12-€18 per person"
+        ]
+      },
+      {
+        "day_index": 9,
+        "slot_position": 5,
+        "slot_name": "Sunshine City / Free time",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.agoda.com/sunshine-city-prince-hotel-ikebukuro-tokyo/hotel/tokyo-jp.html",
+          "https://www.reddit.com/r/japanlife/comments/1ainff2/your_experience_in_sunshine_city/",
+          "https://www.seibuprince.com/sunshine-city-prince-hotel",
+          "https://sunshine-city-prince.hotels-tokyo-jp.com/en/",
+          "https://www.il.kayak.com/Tokyo-Hotels-Sunshine-City-Prince-Hotel.76508.ksp"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms that Sunshine City is a major complex in Ikebukuro (Source 1, 2, 3). Source 2 explicitly describes it as a 'mall in Ikebukuro' containing attractions like an aquarium, which supports the claims of it being a location for 'shopping' and 'leisure'. The location 'Ikebukuro' is consistently mentioned across all sources. While the specific cost of €20 is an optional spending estimate, Source 2 notes that while the mall itself doesn't require a ticket, specific attractions like the aquarium do, making the 'optional spending' note and cost estimate reasonable for a leisure visit.",
+        "claims_checked": [
+          "Name: Sunshine City",
+          "Location: Ikebukuro",
+          "Category: leisure",
+          "Activities: shopping / arcades",
+          "Cost: €20.00 (optional spending)"
+        ]
+      },
+      {
+        "day_index": 9,
+        "slot_position": 6,
+        "slot_name": "Group dinner and karaoke",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.tripadvisor.com/ShowTopic-g1066457-i13059-k14573652-Karaoke_and_other_evening_stuff_for_20_and_50_year_olds-Shinjuku_Tokyo_Tokyo_Prefecture_.html",
+          "https://s.tabelog.com/en/tokyo/A1304/A130401/rstLst/ZZ999909/",
+          "https://savorjapan.com/0020003865",
+          "https://s.tabelog.com/en/tokyo/A1305/A130501/rstLst/ZZ999909/",
+          "https://www.reddit.com/r/JapanTravelTips/comments/1hy3czb/any_karaoke_in_kabukicho_in_shinjuku_tokyo_that/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims that group dinner and karaoke are available in Ikebukuro or Shinjuku and that pricing varies. Evidence from Source 2 and 4 confirms numerous karaoke venues in both Shinjuku (Karaoke Kan) and Ikebukuro (Karaoke no Tetsujin, Pasela, Utahiroba). Source 2 specifically mentions 'Group reservations welcome'. Regarding cost, while the evidence doesn't provide a specific total for dinner + karaoke, Source 3 identifies 'KARAOKE HUNDRED Ikebukuro West Exit' as a 'Dining Bar' that serves food (Pasta, Fried Rice, Beer), supporting the feasibility of a combined dinner and karaoke activity in these areas. The price point of €35 (approx. 5,500 JPY) is consistent with general Tokyo karaoke chain pricing which 'varies by venue and time' as stated in the slot.",
+        "claims_checked": [
+          "Location: Ikebukuro or Shinjuku",
+          "Activity: Group dinner and karaoke",
+          "Karaoke pricing varies by venue and time",
+          "Cost: €35.00 (approx. 5,500 JPY)"
+        ]
+      },
+      {
+        "day_index": 10,
+        "slot_position": 1,
+        "slot_name": "Breakfast",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.travellers-fare.com/breakfast-meals-to-cook-in-a-hostel-kitchen/",
+          "https://liveworkplaytravel.com/easy-breakfast-dishes-to-make-in-a-hostel/",
+          "https://www.reddit.com/r/backpacking/comments/1cx5g1g/hostelgoers_what_are_your_cheapeasy_meals/",
+          "https://uk.pinterest.com/pin/5-easy-breakfast-dishes-to-make-in-a-hostel--10414642882252153/",
+          "https://www.instagram.com/reel/DB0g0fOy2Es/?hl=en"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a breakfast at a hostel with a cost estimate of €5-€8. The evidence provided (Sources 1, 2, and 4) confirms that cooking breakfast in a hostel kitchen is a common practice for budget travelers to save costs. While the evidence does not specify a fixed price of €8, the cost estimate is consistent with the 'cheap/easy meals' and 'budget' nature of hostel breakfasts described in the search results (Source 3 and 4). Since the location is a generic 'Hostel' and the cost is an estimate, the claims are consistent with general hostel travel practices found in the evidence.",
+        "claims_checked": [
+          "Location: Hostel",
+          "Category: meal",
+          "Cost estimate: €5-€8 per person"
+        ]
+      },
+      {
+        "day_index": 10,
+        "slot_position": 2,
+        "slot_name": "Final anime shopping",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://1000journey.my/en/the-ultimate-otakus-shopping-guide-to-akihabara-2025/",
+          "https://www.instagram.com/reel/DYZYz7gu-_n/",
+          "https://www.japan-experience.com/all-about-japan/tokyo/attractions-and-excursions/nakano-broadway-tokyo-a-shopping-paradise-for-anime-and-manga-enthusiasts",
+          "https://www.youtube.com/watch?v=Lsi6Qcz9T-g",
+          "https://jw-webmagazine.com/tips/anime-shops-in-akihabara/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims that Akihabara and Nakano are locations for anime and pop-culture shopping. Evidence from Source 1 describes Nakano as 'Home to plenty of otaku stores centered around the Nakano Broadway' and Source 5 identifies Akihabara as having '10 incredible stores packed with collectibles, figures, and exclusive merch'. Source 3 confirms Nakano Broadway is a 'shopping paradise for anime and manga enthusiasts'. The time window and cost are flexible/optional and do not contradict the general nature of these shopping districts.",
+        "claims_checked": [
+          "Akihabara is a location for anime/pop-culture shopping.",
+          "Nakano (specifically Nakano Broadway) is a location for anime/pop-culture shopping.",
+          "Nakano Broadway is located in Tokyo."
+        ]
+      },
+      {
+        "day_index": 10,
+        "slot_position": 3,
+        "slot_name": "Cheap lunch",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.reddit.com/r/JapanTravel/comments/5e8v9l/recommendations_cheap_places_for_food_in_akihabara/",
+          "https://www.tripadvisor.com/Restaurants-g298184-zfn7278762-zfp16-Tokyo_Tokyo_Prefecture_Kanto.html",
+          "https://www.youtube.com/watch?v=zs8PTa3swrQ&vl=en",
+          "https://www.facebook.com/100091063962376/posts/-food-japanese-10-lunch-gets-you-what-in-tokyo-tokyo-japan-antoninjapan/257520340626763/",
+          "https://glo-explore.com/cheap-food-in-japan-everything-you-can-eat-on-10-a-day/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims that a cheap lunch can be found in the Akihabara/Nakano area for approximately €10-€15 (roughly 1,600 - 2,400 JPY). The evidence supports the availability of cheap meals in these areas well within or below this budget. Source 1 mentions soba meals for 500 yen in Akihabara. Source 3 and 4 explicitly discuss meals under $10 (approx. €9) in Tokyo. Source 5 notes that a full restaurant lunch can be found for as low as $4 (approx. €3.70). Therefore, the cost estimate and location for a 'cheap lunch' are factually consistent with the provided evidence.",
+        "claims_checked": [
+          "Location: Akihabara / Nakano",
+          "Cost: €10-€15 per person",
+          "Availability of 'cheap lunch' in these areas"
+        ]
+      },
+      {
+        "day_index": 10,
+        "slot_position": 4,
+        "slot_name": "Rest / packing",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://randiwithani.com/2017/07/23/what-to-pack-hostel-travel-essentials/",
+          "https://hostelpass.co/the-ultimate-hostel-packing-list/",
+          "https://southeastasiabackpacker.com/hostel-essentials/",
+          "https://www.packhacker.com/packing-list/hostel-essentials-packing-list/",
+          "https://www.alongdustyroads.com/posts/hostel-packing-list"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot describes a personal activity (resting and packing) at a generic 'Hostel' at a specific time. The provided evidence consists of general blog posts and guides about what items to pack for a hostel stay (e.g., sleep masks, towels). The evidence does not contain any information regarding a specific hostel location, the feasibility of the time window for this specific traveler, or any factual data that can confirm or contradict the 'Rest / packing' activity for this specific itinerary. Since the evidence is generic and silent on the specific claims of the slot, a verdict of MISSING_INFO is required.",
+        "claims_checked": [
+          "Activity: Rest / packing",
+          "Location: Hostel",
+          "Time: 2026-09-29T14:30:00 to 17:00:00",
+          "Cost: €0.00"
+        ]
+      },
+      {
+        "day_index": 10,
+        "slot_position": 5,
+        "slot_name": "Tokyo Skytree area walk",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://en.tabiiro.travel/activities/article/skytree-around-sightseeing/",
+          "https://www.youtube.com/watch?v=sWKZLo-Krew",
+          "https://www.timeout.com/tokyo/attractions/tokyo-skytree",
+          "https://www.tripadvisor.com/Attractions-g14134337-Activities-Oshiage_Sumida_Tokyo_Tokyo_Prefecture_Kanto.html",
+          "https://www.tokyonightstory.com/en/route/recommend2/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a walk around the Tokyo Skytree area and browsing Solamachi. Evidence from Source 3 confirms that 'the area around its base is home to Tokyo Skytree Town, a complex boasting 310 shops and restaurants' (Solamachi is the shopping mall within Skytree Town). Source 5 confirms the area is suitable for an 'evening at the foot of the SKYTREE' and mentions walking routes toward Oshiage. The location 'Oshiage / Skytree' is consistent with Source 1 and 5, which identify Oshiage as the home of the tower. The cost of €0.00 for a walk and browsing is consistent with the nature of public areas and shopping malls.",
+        "claims_checked": [
+          "Location: Oshiage / Skytree",
+          "Activity: Tokyo Skytree area walk",
+          "Activity: Solamachi browsing",
+          "Cost: €0.00 (for the walk/browsing)",
+          "Note: Paid deck is an extra cost"
+        ]
+      },
+      {
+        "day_index": 10,
+        "slot_position": 6,
+        "slot_name": "Farewell dinner",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.facebook.com/groups/457573074653783/posts/2368907233520348/",
+          "https://www.instagram.com/reel/DUJnaDfk1Ro/",
+          "https://savorjapan.com/contents/discover-oishii-japan/5-tokyo-restaurants-recommended-for-a-welcome-or-farewell-party",
+          "https://omakaseje.com/restaurants/pref/tokyo/areas/area-11",
+          "https://www.tripadvisor.com/Restaurant_Review-g14134311-d1662964-Reviews-Asakusa_Unatetsu-Asakusa_Taito_Tokyo_Tokyo_Prefecture_Kanto.html"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a generic 'Farewell dinner' consisting of street food or an izakaya in the Asakusa/Ueno area with a budget of €25-€35 (approx. 4,000-5,500 JPY). While the evidence does not point to a specific named venue matching all criteria, Source 3 confirms that the Asakusa/Ueno area is a recognized location for 'farewell parties' and Source 5 shows restaurants in Asakusa (like Unatetsu) offering skewered items typical of izakaya-style dining. The price point is consistent with standard mid-range izakaya or street-food dining in these districts, and the location is a major hub for such activities.",
+        "claims_checked": [
+          "Location: Asakusa / Ueno",
+          "Category: meal (izakaya / street-food)",
+          "Cost: €25-€35 per person",
+          "Activity: Farewell dinner"
+        ]
+      },
+      {
+        "day_index": 10,
+        "slot_position": 7,
+        "slot_name": "Final drinks",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://wanderlog.com/list/geoCategory/1786047/best-hostels-in-tokyo",
+          "https://hostelgeeks.com/3-best-hostels-tokyo/",
+          "https://www.reddit.com/r/SoberCurious/comments/1iiiz7m/i_tried_and_reviewed_31_non_alcohol_brands_in_31/",
+          "https://jacksonvillemom.com/food/non-alcoholic-social-tonics/",
+          "https://www.seriouseats.com/best-nonalcoholic-drinks-8770603"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms that CITAN and Nui are related establishments (managed by the same team) and that CITAN specifically functions as a hostel with a bar and cafe. Source 1 states: 'CITAN is a trendy hostel... featuring a cafe, bar, and guest kitchen. It is managed by the same team behind Toco and Nui'. This supports the claim of it being a 'hostel bar/lounge' and the 'Nui alternative' mention. While the specific cost and opening hours for 2026 are not explicitly detailed in the snippets, the existence of the venue and its nature as a social hostel bar are verified.",
+        "claims_checked": [
+          "CITAN is a hostel with a bar/lounge.",
+          "Nui is a related/alternative establishment to CITAN.",
+          "CITAN/Nui are suitable for low-key drinks/group hangouts."
+        ]
+      },
+      {
+        "day_index": 11,
+        "slot_position": 1,
+        "slot_name": "Simple breakfast",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://liveworkplaytravel.com/easy-breakfast-dishes-to-make-in-a-hostel/",
+          "https://www.reddit.com/r/backpacking/comments/1cx5g1g/hostelgoers_what_are_your_cheapeasy_meals/",
+          "https://food.ndtv.com/food-drinks/5-breakfast-recipes-to-make-the-mornings-easy-for-the-hostellers-5141490",
+          "https://littleoneexplores.com/easy-hostel-recipes/",
+          "https://www.pinterest.com/pin/23292123066554625/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot describes a 'Simple breakfast' at a 'Hostel' for €8.00. The provided evidence consists of generic blog posts and Reddit threads about DIY breakfast recipes for hostel travelers (e.g., PB&J, scrambled eggs, muesli). The evidence does not mention a specific hostel, its location, or the actual price of a breakfast service at a specific establishment. Therefore, there is no factual data to confirm or contradict the specific cost or location claims.",
+        "claims_checked": [
+          "Venue name: Hostel",
+          "Category: meal",
+          "Cost: €8.00",
+          "Activity: Simple breakfast"
+        ]
+      },
+      {
+        "day_index": 11,
+        "slot_position": 2,
+        "slot_name": "Check out",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.aohostels.com/en/infos/checkin/",
+          "https://www.bookingninjas.com/blog/how-can-i-reduce-the-time-spent-on-manual-check-ins-and-check-outs-in-my-hostel",
+          "https://www.wombats-hostels.com/booking/faq",
+          "https://www.hiusa.org/new-to-hostels",
+          "https://www.hostelz.com/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims a check-out time window ending at 10:00 AM and a potential cost of €0-€5 for luggage storage. Evidence from Source 3 (Wombat's Hostels) confirms that 'Check-out time is 10 am'. Regarding the cost, while specific luggage storage fees vary by hostel, Source 1 mentions that 'a&o Hostels' offers various services and discounts, and it is standard industry practice for hostels to offer luggage storage either for free or for a small nominal fee (consistent with the €0-€5 estimate). The location 'Hostel' is a generic placeholder, and the claims made are consistent with general hostel operations found in the search results.",
+        "claims_checked": [
+          "Check-out time: 10:00 AM",
+          "Cost: €0-€5 (for luggage storage/fees)",
+          "Category: lodging"
+        ]
+      },
+      {
+        "day_index": 11,
+        "slot_position": 3,
+        "slot_name": "Free time",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://tokyocheapo.com/locations/east-tokyo/",
+          "https://matcha-jp.com/en/5073",
+          "https://voyapon.com/east-tokyo/",
+          "https://en.activityjapan.com/feature/tokyo_activity_special/",
+          "https://www.reddit.com/r/Tokyo/comments/1ev1ma4/what_do_you_like_doing_on_your_free_time/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a flexible 'free time' period for walking in Asakusa/Kuramae (East Tokyo) with a cost of €0.00. Evidence from Source 1 confirms that Asakusa (implied by the 'White Heron Dance' location and general East Tokyo guides) offers free activities. Source 3 confirms that East Tokyo is a recognized area for visitors. Source 5 mentions 'walking' as a common free-time activity in Tokyo. The cost of €0.00 is consistent with a 'walk' in these neighborhoods.",
+        "claims_checked": [
+          "Location: East Tokyo (Asakusa/Kuramae)",
+          "Cost: €0.00",
+          "Activity: Walking/Leisure"
+        ]
+      },
+      {
+        "day_index": 11,
+        "slot_position": 4,
+        "slot_name": "Transfer to airport",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.blacklane.com/en/countries/japan/tokyo/airport-transfer/haneda-hnd/",
+          "https://trulytokyo.com/tokyo-airport-transport/",
+          "https://www.jrailpass.com/blog/narita-to-haneda",
+          "https://narita.airport-taxi.soushin-ichiba.jp/en",
+          "https://tokyo-haneda.com/en/access/narita/index.html"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims a rail transfer from Tokyo to either Haneda or Narita airport with a cost estimate of €15-€25 (approx. ¥2,400-¥4,000 based on current exchange rates). Evidence from Source 2 confirms the JR Narita Express costs ¥3,020 (approx. €19) for a 65-minute journey to Narita. Source 5 indicates rail transfers to/from Haneda/Narita range from ¥1,760 to ¥3,080 (approx. €11-€19). The time window of 3 hours is more than sufficient for the 65-115 minute travel times cited in the evidence.",
+        "claims_checked": [
+          "Transfer mode: rail",
+          "Destination: Haneda or Narita airport",
+          "Cost: €15.00 - €25.00",
+          "Duration: Within a 3-hour window (13:00 to 16:00)"
+        ]
+      },
+      {
+        "day_index": 11,
+        "slot_position": 5,
+        "slot_name": "Fly Tokyo to Munich",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.flightroutes.com/HND-MUC",
+          "https://www.swiss.com/lhg/de/en/o-d/cy-cy/tokyo-munich",
+          "https://www.skyscanner.com/routes/tyoa/muc/tokyo-to-munich.html",
+          "https://www.lufthansa.com/lhg/de/en/o-d/cy-cy/tokyo-munich",
+          "https://www.google.com/travel/flights/flights-from-tokyo-to-munich.html"
+        ],
+        "verdict": "FAIL",
+        "reasoning": "The slot claims a flight duration of 2 hours (18:00 to 20:00). However, the evidence from multiple sources (Flightroutes, Lufthansa) states that a non-stop flight from Tokyo to Munich takes approximately 14 hours and 20 minutes. Even accounting for the 7-hour time difference (Tokyo is ahead of Munich), a flight departing at 18:00 Tokyo time would arrive at 08:20 Munich time the following morning (a 14+ hour journey), which contradicts the 2-hour window provided in the slot.",
+        "claims_checked": [
+          "Flight route: Tokyo to Munich",
+          "Flight duration: 2 hours (18:00 to 20:00)",
+          "Arrival may be same day or Oct 1"
+        ]
+      }
+    ],
+    "rationale_pass_count": 57,
+    "rationale_fail_count": 2,
+    "rationale_missing_count": 7,
+    "hc_micro_pass_rate": 0.875,
+    "cc_micro_pass_rate": 0.7692,
+    "hc_macro_pass_rate": 0.0,
+    "cc_macro_pass_rate": 0.0,
+    "final_pass_rate": 0.0,
+    "aggregated_constraints": [
+      {
+        "id": "HC-1",
+        "constraint_text": "origin: Munich",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-2",
+        "constraint_text": "destination: Tokyo",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-3",
+        "constraint_text": "travel_dates: 2026.09.20 to 2026.09.30",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-4",
+        "constraint_text": "travelers: 6 adults",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-5",
+        "constraint_text": "budget: 9000 EUR total",
+        "constraint_type": "hard",
+        "final_verdict": "FAIL",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "FAIL",
+          "FAIL"
+        ],
+        "pass_count": 2,
+        "fail_count": 2,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-6",
+        "constraint_text": "accommodation: hotel or hostel with shared common areas",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-7",
+        "constraint_text": "transport: Flight",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-8",
+        "constraint_text": "interests: anime, street food, nightlife, temples, technology, pop culture",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-1",
+        "constraint_text": "Car or road trip transport is not feasible for island or overseas destinations — a flight or ferry is required.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-2",
+        "constraint_text": "No key information should be left out of the plan, such as the lack of accommodation during travel.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-3",
+        "constraint_text": "Transportation choices within the trip must be reasonable. For example, having both “self-driving” and “flight” would be considered a conflict.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-4",
+        "constraint_text": "Both outbound and return transport must appear in the plan.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-5",
+        "constraint_text": "Flight or train connections must allow sufficient layover time (≥60 min domestic, ≥90 min international).",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "MISSING_INFO",
+          "PASS"
+        ],
+        "pass_count": 3,
+        "fail_count": 0,
+        "missing_count": 1,
+        "na_count": 0
+      },
+      {
+        "id": "CC-6",
+        "constraint_text": "Accommodation must be planned for every night of the trip.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-7",
+        "constraint_text": "Hotel check-in must be scheduled after arrival transport reaches the destination.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-8",
+        "constraint_text": "Restaurants must be open on the planned day and time.",
+        "constraint_type": "commonsense",
+        "final_verdict": "FAIL",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "MISSING_INFO",
+          "MISSING_INFO"
+        ],
+        "pass_count": 2,
+        "fail_count": 0,
+        "missing_count": 2,
+        "na_count": 0
+      },
+      {
+        "id": "CC-9",
+        "constraint_text": "Restaurant choices should not be repeated throughout the trip.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "FAIL"
+        ],
+        "pass_count": 3,
+        "fail_count": 1,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-10",
+        "constraint_text": "Activities should be geographically sensible per day (no unnecessary cross-city travel).",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-11",
+        "constraint_text": "Attractions must be open on the planned day and time.",
+        "constraint_type": "commonsense",
+        "final_verdict": "FAIL",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "MISSING_INFO",
+          "MISSING_INFO"
+        ],
+        "pass_count": 2,
+        "fail_count": 0,
+        "missing_count": 2,
+        "na_count": 0
+      },
+      {
+        "id": "CC-12",
+        "constraint_text": "Attraction choices should not be repeated throughout the trip.",
+        "constraint_type": "commonsense",
+        "final_verdict": "FAIL",
+        "judge_verdicts": [
+          "FAIL",
+          "PASS",
+          "FAIL",
+          "FAIL"
+        ],
+        "pass_count": 1,
+        "fail_count": 3,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-13",
+        "constraint_text": "Travel time between consecutive activities must account for realistic transit duration.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "FAIL",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 3,
+        "fail_count": 1,
+        "missing_count": 0,
+        "na_count": 0
+      }
+    ],
+    "timestamp": "2026-05-17T11:54:57.164964+00:00"
+  }
 }

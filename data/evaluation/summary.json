@@ -1,7 +1,7 @@
 {
   "n_total": 30,
-  "n_ok": 22,
-  "n_error": 8,
+  "n_ok": 30,
+  "n_error": 0,
   "n_timeout": 0,
   "timeout_ids": [],
   "summary_by_source": {
@@ -15,16 +15,56 @@
       "rationale_pass_rate_mean": 0.5601455979157475
     },
     "baseline": {
-      "n": 7,
-      "hc_micro_mean": 0.9071428571428571,
-      "hc_macro_mean": 0.5714285714285714,
-      "cc_micro_mean": 0.6813285714285714,
+      "n": 15,
+      "hc_micro_mean": 0.9304733333333334,
+      "hc_macro_mean": 0.6,
+      "cc_micro_mean": 0.7641133333333333,
       "cc_macro_mean": 0.0,
       "final_pass_rate_mean": 0.0,
-      "rationale_pass_rate_mean": 0.7343739608414384
+      "rationale_pass_rate_mean": 0.7344168824674342
     }
   },
   "per_query_comparison": [
+    {
+      "id": "query_10_seniors_marrakech_Adrian",
+      "travel_agent": {
+        "hc_micro_pass_rate": 1.0,
+        "hc_macro_pass_rate": 1.0,
+        "cc_micro_pass_rate": 0.9231,
+        "cc_macro_pass_rate": 0.0,
+        "final_pass_rate": 0.0,
+        "rationale_pass_rate": 0.6538461538461539
+      },
+      "baseline": {
+        "hc_micro_pass_rate": 1.0,
+        "hc_macro_pass_rate": 1.0,
+        "cc_micro_pass_rate": 0.8462,
+        "cc_macro_pass_rate": 0.0,
+        "final_pass_rate": 0.0,
+        "rationale_pass_rate": 0.717391304347826
+      },
+      "delta_final_pass_rate": 0.0
+    },
+    {
+      "id": "query_11_backpacker_capetown_Adrian",
+      "travel_agent": {
+        "hc_micro_pass_rate": 1.0,
+        "hc_macro_pass_rate": 1.0,
+        "cc_micro_pass_rate": 0.6154,
+        "cc_macro_pass_rate": 0.0,
+        "final_pass_rate": 0.0,
+        "rationale_pass_rate": 0.32653061224489793
+      },
+      "baseline": {
+        "hc_micro_pass_rate": 1.0,
+        "hc_macro_pass_rate": 1.0,
+        "cc_micro_pass_rate": 0.9231,
+        "cc_macro_pass_rate": 0.0,
+        "final_pass_rate": 0.0,
+        "rationale_pass_rate": 0.7083333333333334
+      },
+      "delta_final_pass_rate": 0.0
+    },
     {
       "id": "query_13_weekend_copenhagen_Adrian",
       "travel_agent": {
@@ -66,6 +106,66 @@
       "delta_final_pass_rate": 0.0
     },
     {
+      "id": "query_1_couple_citytrip_Adrian",
+      "travel_agent": {
+        "hc_micro_pass_rate": 1.0,
+        "hc_macro_pass_rate": 1.0,
+        "cc_micro_pass_rate": 1.0,
+        "cc_macro_pass_rate": 1.0,
+        "final_pass_rate": 1.0,
+        "rationale_pass_rate": 0.4666666666666667
+      },
+      "baseline": {
+        "hc_micro_pass_rate": 0.8571,
+        "hc_macro_pass_rate": 0.0,
+        "cc_micro_pass_rate": 0.9231,
+        "cc_macro_pass_rate": 0.0,
+        "final_pass_rate": 0.0,
+        "rationale_pass_rate": 0.8787878787878788
+      },
+      "delta_final_pass_rate": 1.0
+    },
+    {
+      "id": "query_21_mixed_group_ibiza_Adrian",
+      "travel_agent": {
+        "hc_micro_pass_rate": 0.875,
+        "hc_macro_pass_rate": 0.0,
+        "cc_micro_pass_rate": 0.7692,
+        "cc_macro_pass_rate": 0.0,
+        "final_pass_rate": 0.0,
+        "rationale_pass_rate": 0.39215686274509803
+      },
+      "baseline": {
+        "hc_micro_pass_rate": 0.875,
+        "hc_macro_pass_rate": 0.0,
+        "cc_micro_pass_rate": 0.9231,
+        "cc_macro_pass_rate": 0.0,
+        "final_pass_rate": 0.0,
+        "rationale_pass_rate": 0.6862745098039216
+      },
+      "delta_final_pass_rate": 0.0
+    },
+    {
+      "id": "query_23_wheelchair_barcelona_Adrian",
+      "travel_agent": {
+        "hc_micro_pass_rate": 1.0,
+        "hc_macro_pass_rate": 1.0,
+        "cc_micro_pass_rate": 0.7692,
+        "cc_macro_pass_rate": 0.0,
+        "final_pass_rate": 0.0,
+        "rationale_pass_rate": 0.5
+      },
+      "baseline": {
+        "hc_micro_pass_rate": 1.0,
+        "hc_macro_pass_rate": 1.0,
+        "cc_micro_pass_rate": 0.9231,
+        "cc_macro_pass_rate": 0.0,
+        "final_pass_rate": 0.0,
+        "rationale_pass_rate": 0.6666666666666666
+      },
+      "delta_final_pass_rate": 0.0
+    },
+    {
       "id": "query_2_family_Adrian",
       "travel_agent": {
         "hc_micro_pass_rate": 1.0,
@@ -82,6 +182,46 @@
         "cc_macro_pass_rate": 0.0,
         "final_pass_rate": 0.0,
         "rationale_pass_rate": 0.7307692307692307
+      },
+      "delta_final_pass_rate": 0.0
+    },
+    {
+      "id": "query_3_no_flight_overseas_Adrian",
+      "travel_agent": {
+        "hc_micro_pass_rate": 1.0,
+        "hc_macro_pass_rate": 1.0,
+        "cc_micro_pass_rate": 0.7692,
+        "cc_macro_pass_rate": 0.0,
+        "final_pass_rate": 0.0,
+        "rationale_pass_rate": 0.5454545454545454
+      },
+      "baseline": {
+        "hc_micro_pass_rate": 1.0,
+        "hc_macro_pass_rate": 1.0,
+        "cc_micro_pass_rate": 0.6923,
+        "cc_macro_pass_rate": 0.0,
+        "final_pass_rate": 0.0,
+        "rationale_pass_rate": 0.7727272727272727
+      },
+      "delta_final_pass_rate": 0.0
+    },
+    {
+      "id": "query_4_special_interest_astronomy_Adrian",
+      "travel_agent": {
+        "hc_micro_pass_rate": 1.0,
+        "hc_macro_pass_rate": 1.0,
+        "cc_micro_pass_rate": 0.7692,
+        "cc_macro_pass_rate": 0.0,
+        "final_pass_rate": 0.0,
+        "rationale_pass_rate": 0.54
+      },
+      "baseline": {
+        "hc_micro_pass_rate": 1.0,
+        "hc_macro_pass_rate": 1.0,
+        "cc_micro_pass_rate": 0.6923,
+        "cc_macro_pass_rate": 0.0,
+        "final_pass_rate": 0.0,
+        "rationale_pass_rate": 0.5818181818181818
       },
       "delta_final_pass_rate": 0.0
     },
@@ -142,6 +282,26 @@
         "cc_macro_pass_rate": 0.0,
         "final_pass_rate": 0.0,
         "rationale_pass_rate": 0.7307692307692307
+      },
+      "delta_final_pass_rate": 0.0
+    },
+    {
+      "id": "query_8_friends_group_tokyo_Adrian",
+      "travel_agent": {
+        "hc_micro_pass_rate": 1.0,
+        "hc_macro_pass_rate": 1.0,
+        "cc_micro_pass_rate": 0.8462,
+        "cc_macro_pass_rate": 0.0,
+        "final_pass_rate": 0.0,
+        "rationale_pass_rate": 0.6037735849056604
+      },
+      "baseline": {
+        "hc_micro_pass_rate": 0.875,
+        "hc_macro_pass_rate": 0.0,
+        "cc_micro_pass_rate": 0.7692,
+        "cc_macro_pass_rate": 0.0,
+        "final_pass_rate": 0.0,
+        "rationale_pass_rate": 0.8636363636363636
       },
       "delta_final_pass_rate": 0.0
     },

@@ -1,0 +1,990 @@
+{
+  "plan_excerpt": "# TravelPlan: Baseline itinerary: 5 days in Vienna from Munich\n\n| Day 1 — 2026-07-10 — Munich to Vienna, check-in, Albertina evening | Day 2 — 2026-07-11 — Kunsthistorisches Museum, Naschmarkt, Ringstrasse walk | Day 3 — 2026-07-12 — Schönbrunn gardens, Wien Museum, traditional dinner | Day 4 — 2026",
+  "judge_models": [
+    "openrouter:minimax/minimax-m2.7",
+    "openrouter:google/gemini-3-flash-preview",
+    "openrouter:deepseek/deepseek-v4-flash",
+    "openrouter:qwen/qwen3.5-397b-a17b"
+  ],
+  "timed_out_models": [],
+  "rationale_verifications": [
+    {
+      "day_index": 1,
+      "slot_position": 1,
+      "slot_name": "Train Munich to Vienna",
+      "source_type": "link",
+      "source_urls": [
+        "https://int.bahn.de/en/offers/saver-fare-flexible-fare/saver-fare-europe-austria",
+        "https://www.oebb.at/en/tickets-kundenkarten/oesterreich-europa/sparschiene"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims a direct train service from Munich to Vienna exists, which is supported by Source 1 stating there are 'Over 50 direct services every day' between Germany and Austria, specifically mentioning 'Munich to Vienna'. The slot suggests a cost of €120 for two adults (approx. €60 each) and mentions 'advance saver fares'. Source 1 confirms saver fares (Sparpreis Europa) starting from €23.99 for this route, and Source 2 confirms 'Sparschiene' tickets starting from €9.90, noting that 'the earlier you book, the lower the price'. A cost of €120 for two adults is consistent with these pricing structures, especially if not booking the absolute lowest tier. The location (München Hbf to Wien Hbf) is a standard route for these operators.",
+      "claims_checked": [
+        "Direct train service exists from Munich to Vienna",
+        "Availability of advance saver fares (Sparpreis/Sparschiene)",
+        "Estimated cost of €80–€120 for 2 adults",
+        "Route: München Hbf to Wien Hbf"
+      ]
+    },
+    {
+      "day_index": 1,
+      "slot_position": 2,
+      "slot_name": "Vienna Transit Passes",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.wien.info/en/travel-info/transport/tickets-361360"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence explicitly supports the existence and price of the 'Flexible 7-day VIENNA Ticket (digital ticket and non-transferable)' at €25.20. The slot's total cost of €50.40 for two tickets is mathematically consistent with this price. The evidence also confirms these tickets are valid for 'seven consecutive calendar days' and can be purchased at 'multilingual ticket machines' which are found at subway stations (consistent with Wien Hbf).",
+      "claims_checked": [
+        "Existence of a digital flexible 7-day Vienna ticket",
+        "Price of €25.20 per digital 7-day ticket",
+        "Total cost of €50.40 for 2 tickets",
+        "Availability of tickets at transit hubs like Wien Hbf"
+      ]
+    },
+    {
+      "day_index": 1,
+      "slot_position": 3,
+      "slot_name": "Hotel Check-in",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.motel-one.com/en/hotels/vienna/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot suggests a hotel check-in near Wien Hauptbahnhof / Belvedere, specifically linking to Motel One in Vienna. The evidence confirms that Motel One has multiple locations in Vienna (5 hotels) and describes them as having a 'central location' and being 'walking distance from everything' or 'main attractions.' While the evidence does not explicitly list the 'Wien Hauptbahnhof' address in the snippet, it confirms the existence of the chain in Vienna and its reputation for being 'affordable' and 'budget' friendly, which aligns with the slot's budget target of €110–€130/night and the 'Suggested area for convenience' description.",
+      "claims_checked": [
+        "Hotel chain: Motel One",
+        "Location: Vienna",
+        "Category: Budget/Affordable",
+        "Central location/Convenience"
+      ]
+    },
+    {
+      "day_index": 1,
+      "slot_position": 4,
+      "slot_name": "Light Late Lunch",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.tripadvisor.ie/Restaurant_Review-g190454-d15009686-Reviews-Som_Kitchen_Hauptbahnhof-Vienna.html",
+        "https://www.tripadvisor.com/Restaurant_Review-g190454-d8509456-Reviews-L_Osteria_Wien_am_Hauptbahnhof-Vienna.html",
+        "https://www.tripadvisor.com/Restaurants-g190454-zfd10647-zfn15622913-Vienna-Sandwiches.html",
+        "https://www.tripadvisor.com/Restaurants-g190454-zfd20148-zfn15622913-Vienna-Hoagie.html",
+        "https://www.tripadvisor.com/RestaurantsNear-g187346-d11924201-Hauptbahnhof-Wiesbaden_Hesse.html"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a generic 'Light Late Lunch' at a 'Sausage stand, bakery, or casual café near Hauptbahnhof' in the Favoriten district with an estimated cost of €20–€25. The evidence confirms the existence of multiple casual dining options at Vienna Hauptbahnhof in the Favoriten district (Source 1: Som Kitchen; Source 2: L'Osteria). Source 1 specifically mentions 'Reasonable portions and prices' for a 'quick lunch' at the station, which is consistent with the €20-€25 budget for a light meal. Source 2 confirms 'Lunch' and 'Late Night' meal types are available in this location.",
+      "claims_checked": [
+        "Location: Hauptbahnhof / Favoriten",
+        "Category: meal (Sausage stand, bakery, or casual café)",
+        "Cost: €20–€25",
+        "Availability: Late lunch (15:30)"
+      ]
+    },
+    {
+      "day_index": 1,
+      "slot_position": 5,
+      "slot_name": "Albertina Museum",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.albertina.at/en/visit/opening-hours/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims the Albertina Museum has extended hours on Friday and is open during the 17:00-19:00 window on July 10, 2026 (which is a Friday). The evidence explicitly states: 'Wednesday & Friday | 10 a.m. to 9 p.m.', confirming both the extended hours and that the museum is open during the requested time. The location 'Albertina, Innere Stadt' is consistent with the museum's identity. While the evidence does not list the specific ticket price, the slot's cost of €39.80 for two people is a reasonable estimate that does not contradict the provided opening hours information.",
+      "claims_checked": [
+        "Venue name: Albertina Museum",
+        "Opening hours: Friday extended hours apply",
+        "Time window: 17:00 to 19:00 on a Friday",
+        "Location: Albertina, Innere Stadt"
+      ]
+    },
+    {
+      "day_index": 1,
+      "slot_position": 6,
+      "slot_name": "City Orientation Walk",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.plotaroute.com/route/967866",
+        "https://www.alltrails.com/austria/vienna/innere-stadt/city-walk",
+        "https://www.youtube.com/watch?v=FkqDX2Whu0I",
+        "https://www.youtube.com/watch?v=ZmyXLSsX_lU",
+        "https://www.facebook.com/groups/943838713190379/posts/1732453887662187/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a self-guided walking route in the Innere Stadt district of Vienna. Evidence Source 1 confirms the existence of a 'Vienna - City Orientation Walking Tour I' which is a 2.5km route located in the '1. Bezirk-Innere Stadt'. Evidence Source 4 confirms that walking tours in the 'old center of Vienna' (Innere Stadt) are common during summer evenings. While the specific sequence of landmarks (Albertina to St. Stephen's) is not explicitly detailed in a single sentence in the evidence, the landmarks are all standard features of the Innere Stadt district mentioned in the search results, and the route is consistent with the 'City Orientation Walking Tour' identified in Source 1. The cost of €0.00 is consistent with a 'self-guided' walk.",
+      "claims_checked": [
+        "Location: Innere Stadt",
+        "Activity: City Orientation Walk",
+        "Route: Albertina via Vienna State Opera, Kärntner Straße, and St. Stephen’s Cathedral",
+        "Cost: €0.00 (Self-guided)"
+      ]
+    },
+    {
+      "day_index": 1,
+      "slot_position": 7,
+      "slot_name": "Dinner at Figlmüller",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.figlmueller.at/en/location-contact/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims the restaurant has two locations (Wollzeile or Bäckerstraße), which is confirmed by the evidence ('Figlmüller Wollzeile: Wollzeile 5' and 'Figlmüller Bäckerstraße: Bäckerstraße 6'). The slot claims the kitchen is open until 21:30. The evidence confirms that for the Wollzeile location, the kitchen is open 'daily 11am – 9:30pm' (21:30), while the Bäckerstraße location stays open even later ('Kitchen daily 11:30am – 10pm'). The time window of 20:15 to 21:30 fits within the operating hours of both locations. The cost estimate is not explicitly confirmed by the menu prices in this specific snippet, but it is a reasonable estimate for a high-end schnitzel dinner and does not contradict the provided evidence.",
+      "claims_checked": [
+        "Venue name: Figlmüller",
+        "Location: Wollzeile or Bäckerstraße",
+        "Kitchen open until 21:30",
+        "Time window: 20:15 to 21:30"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 1,
+      "slot_name": "Breakfast",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.schanihotels.com/en/hotels/hotel-schani-wien-hauptbahnhof/food-drink/breakfast",
+        "https://www.bahnhof.de/en/muenchen-hbf/hotel-muenchen-hauptbahnhof",
+        "https://www.yelp.com/search?cflt=breakfast_brunch&find_near=wien-hauptbahnhof-wien",
+        "https://www.novotel-wien-hauptbahnhof.com/en/restaurant-bar/breakfast/",
+        "https://all.accor.com/hotel/8564/index.en.shtml"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims a breakfast location at 'Hotel / Hauptbahnhof' (specifically Vienna, based on the context of 'Hauptbahnhof' and the search results) with a cost estimate of €15–€25. Evidence from Source 1 (Hotel Schani Wien Hauptbahnhof) and Source 3 (Yelp) confirms numerous breakfast options (hotels and bakeries like Ströck) exist at Vienna Hauptbahnhof. Regarding cost, Source 4 shows a high-end buffet at €29, while Source 3 lists bakeries and cafes which typically fall within or below the €15-€25 range. The time window is a standard breakfast hour.",
+      "claims_checked": [
+        "Location: Breakfast available at Hotel or near Hauptbahnhof",
+        "Cost: €15–€25 estimate",
+        "Category: Meal/Breakfast",
+        "Time: 08:30 - 09:30"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 2,
+      "slot_name": "Kunsthistorisches Museum",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.khm.at/en/visit"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms the museum is open on the requested date (Saturday, July 11, 2026) as the general hours are 'Tue - Sun, 10 a.m. - 6 p.m.' and the specific holiday list does not indicate a closure for that date. The time window (10:00 - 13:00) falls within these hours. While the provided evidence snippet does not explicitly list the ticket price or the specific collections (Bruegel, Egyptian, etc.), the slot's link is the official museum site, and the claims are consistent with the general operation of the Kunsthistorisches Museum. The cost estimate of €44 for 2 is reasonable given standard European museum pricing, though not explicitly verified in the text snippet provided.",
+      "claims_checked": [
+        "Venue name: Kunsthistorisches Museum",
+        "Opening hours: 10:00 AM - 6:00 PM on Saturdays",
+        "Date: 2026-07-11 (Saturday)",
+        "Time window: 10:00 - 13:00",
+        "Location: Maria-Theresien-Platz"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 3,
+      "slot_name": "Lunch at Naschmarkt",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.instagram.com/naschmarkt_vie/",
+        "https://omnivoreabroad.com/2020/01/03/vienna-naschmarkt-guide/",
+        "https://www.timetravel-vienna.at/en/the-naschmarkt-snacking-at-the-highest-level/",
+        "https://www.naschmarkt-vienna.com/restaurants",
+        "https://www.myguidevienna.com/travel-articles/naschmarkt-wien"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms that Naschmarkt is Vienna's largest inner-city market located right next to Karlsplatz (Source 3, 5). It is explicitly described as a popular spot for lunch breaks (Source 3) with over 100 vendors offering street food and quick bites (Source 4), supporting the claim of trying local foods without a formal restaurant. While the specific cost of €40 is not explicitly stated as a fixed price, Source 2 mentions it is suitable for those on a 'limited budget' and Source 4 mentions diverse options from street food to full dining, making the €30–€40 estimate a plausible upper-bound for a market lunch.",
+      "claims_checked": [
+        "Location: Naschmarkt / Karlsplatz",
+        "Category: meal/lunch",
+        "Description: Try local/regional foods without a formal restaurant",
+        "Cost/Notes: €30–€40 estimate"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 4,
+      "slot_name": "Ringstrasse Walk",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.visitingvienna.com/transport/walking-tour-ring/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a walk along a section of the Ringstrasse passing specific landmarks: MuseumsQuartier, Parliament, Rathaus, Burgtheater, and Volksgarten. The provided evidence (Source 1) explicitly states that this walking tour 'wanders along a section of the giant Ringstrassen boulevard with its parks, museums, and important civic buildings.' While the snippet cuts off before listing every individual building, the title and introductory text confirm the route covers the Ringstrasse and its major sights. The cost of €0.00 is consistent with a 'self-guided walking tour' described in the text.",
+      "claims_checked": [
+        "Location: Ringstrasse",
+        "Route includes MuseumsQuartier, Parliament, Rathaus, Burgtheater, and Volksgarten",
+        "Cost: €0.00 (Free walking tour)",
+        "Activity: Walking tour of the Ringstrasse section"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 5,
+      "slot_name": "Coffee and Cake Break",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://gannet39.com/2020/05/31/vienna-innere-stadt-coffee-cake-in-the-famous-cafes/",
+        "https://souvenirfinder.com/best-cafes-vienna-coffee-cake-schnitzel/",
+        "https://www.yelp.com/search?cflt=bakeries&find_loc=Innere+Stadt%2C+Vienna%2C+Wien",
+        "https://www.tripadvisor.com/Restaurants-g190432-c8-zfn20484350-Graz_Styria.html",
+        "https://m.yelp.com/search?find_desc=Bakeries&find_loc=Innere+Stadt"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a coffee and cake break in the Innere Stadt/Rathaus area of Vienna with a cost estimate of €18–€25. Evidence from Source 1 and 2 confirms that Vienna's Innere Stadt is world-famous for its coffeehouse culture and 'coffee and cake' breaks. Source 3 and 5 confirm the existence of numerous high-end bakeries and cafes in the Innere Stadt (1010 Vienna), such as Demel and Joseph, which are located near the Rathaus/Innere Stadt area. While specific menu prices aren't listed for every item, the cost estimate of €25 for coffee and cake is consistent with the premium nature of these 'famous' and 'iconic' locations mentioned in the evidence.",
+      "claims_checked": [
+        "Location: Café or bakery near Rathaus / Innere Stadt, Vienna",
+        "Activity: Traditional coffeehouse break (coffee and cake)",
+        "Cost: €18–€25",
+        "Context: Café Central is an iconic option in this area known for queues"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 6,
+      "slot_name": "Casual Dinner",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.tripadvisor.com/Restaurants-g190454-zfn7714400-zfp58-Vienna.html",
+        "https://www.opentable.com/landmark/restaurants-near-bezirksmuseum-innere-stadt",
+        "https://www.tripadvisor.com/Restaurants-g190454-zfd23038-zfn15622953-Vienna-Kaiserschmarrn.html",
+        "https://www.worldofmouth.app/articles/best-casual-restaurants-in-vienna",
+        "https://www.fodors.com/world/europe/austria/vienna/neighborhoods/the-hofburg-an-imperial-city/restaurants/page-2"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a generic 'Beisl-style tavern' or 'budget-friendly Austrian' meal in the Neubau, Josefstadt, or Innere Stadt districts with a budget of €45–€60. The evidence confirms the existence of numerous casual dining options in these specific districts. Source [1] confirms dinner restaurants in Josefstadt, Source [3] confirms restaurants in Neubau, and Source [5] lists 34 best restaurants in District 1 (Innere Stadt). Source [4] specifically mentions 'local favorites' and 'casual food' in Vienna, which aligns with the 'Beisl-style' description. While the evidence doesn't name a specific restaurant for this slot, the claim is for a category of dining in these locations, which the search results validate as readily available.",
+      "claims_checked": [
+        "Location: Neubau / Josefstadt / Innere Stadt",
+        "Category: Beisl-style tavern or budget-friendly Austrian plates",
+        "Cost: €45–€60"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 7,
+      "slot_name": "Evening Stroll",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.facebook.com/groups/743621250125804/posts/1227981188356472/",
+        "https://vienna-unwrapped.com/viennas-first-district-innere-stadt-top-places-to-experience/",
+        "https://en.wikivoyage.org/wiki/Vienna/Innere_Stadt",
+        "https://www.youtube.com/watch?v=ZmyXLSsX_lU",
+        "https://www.tripadvisor.com/ShowUserReviews-g190454-d191377-r473734409-The_Hofburg-Vienna.html"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms that the Hofburg Palace is located within the Innere Stadt (First District) and is a popular location for evening strolls. Source 1 specifically mentions that 'The Hofburg Palace in Vienna at night is a stunning sight' and is a 'perfect time to enjoy a leisurely stroll.' Source 5 describes the Hofburg as 'Part of a fabulous Vienna night walk.' While the Volksgarten is not explicitly named in the snippets, it is part of the Hofburg complex/Innere Stadt area described in Source 2 and 3. The cost of €0.00 is consistent with an outdoor stroll of palace exteriors.",
+      "claims_checked": [
+        "Location: Hofburg / Innere Stadt",
+        "Activity: Evening stroll through Hofburg exteriors",
+        "Cost: €0.00",
+        "Category: Leisure"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 1,
+      "slot_name": "Simple Breakfast",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://dictionary.cambridge.org/us/dictionary/english/simple",
+        "https://www.merriam-webster.com/dictionary/simple",
+        "https://www.collinsdictionary.com/us/dictionary/english/simple",
+        "https://www.thesaurus.com/browse/simple",
+        "https://www.facebook.com/simpleappofficial/"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot describes a generic 'Simple Breakfast' at a 'Hotel / bakery' with a cost estimate of €15–€25. The provided evidence consists entirely of dictionary definitions for the word 'simple' and a link to a weight loss app. There is no evidence regarding actual bakery or hotel breakfast prices in a specific location, nor any information to verify the feasibility of the €25 cost claim for a meal in this context.",
+      "claims_checked": [
+        "Venue name: Simple Breakfast",
+        "Location: Hotel / bakery",
+        "Cost: €25.00",
+        "Category: meal"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 2,
+      "slot_name": "Schönbrunn Palace Park",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.schoenbrunn.at/en/visitor-information/opening-times"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms that the Palace Park is open daily and specifically from 6:30 am to 9:00 pm during July ('May to July | 6.30 am–9.00 pm'), which covers the slot's time window of 9:30 am to 12:30 pm on July 12, 2026. The evidence explicitly states that 'You can enter the Palace Park free of charge during opening hours,' supporting the €0.00 cost and the note 'Free for park.'",
+      "claims_checked": [
+        "Venue name: Schönbrunn Palace Park",
+        "Opening hours: Open during 09:30 - 12:30 on July 12, 2026",
+        "Cost: €0.00 (Free entry for the park)",
+        "Activity: Walk to the Gloriette viewpoint/visit gardens"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 3,
+      "slot_name": "Lunch",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.plachutta-mario.at/en/",
+        "https://irenesviennadotcom.wordpress.com/tag/karlsplatz/",
+        "https://www.facebook.com/groups/943838713190379/posts/1541307340110177/",
+        "https://www.tripadvisor.com/Restaurants-g190454-zfn7714402-zfz10992-Vienna.html",
+        "https://www.tripadvisor.com/RestaurantsNear-g190454-d246424-Karlsplatz-Vienna.html"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot suggests lunch in Hietzing (near Schönbrunn) or Karlsplatz with a budget of €30–€40. Evidence confirms that Hietzing (Source 1, 4) and Karlsplatz (Source 2, 3, 5) are active dining areas. Specifically, Source 1 (Plachutta's Mario in Hietzing) offers daily lunch dishes, and Source 3 identifies Karlsplatz/Naschmarkt as areas for 'affordable' lunch options, which is consistent with the €30–€40 estimate for a meal in Vienna.",
+      "claims_checked": [
+        "Location: Hietzing (near Schönbrunn)",
+        "Location: Karlsplatz",
+        "Cost: €30–€40 for lunch",
+        "Availability of lunch options in these areas"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 4,
+      "slot_name": "Wien Museum Karlsplatz",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.wienmuseum.at/wien_museum_en"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot provided a specific URL (https://www.wienmuseum.at/wien_museum_en), but no content was retrieved from this link or any other source. Therefore, there is no evidence available to verify the claims regarding the museum's location, the specific exhibition name ('Vienna. My Story'), or the free admission policy.",
+      "claims_checked": [
+        "Venue name: Wien Museum Karlsplatz",
+        "Location: Karlsplatz",
+        "Exhibition name: 'Vienna. My Story'",
+        "Cost: €0.00 (Free admission)"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 5,
+      "slot_name": "Karlsplatz Exploration",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://aviewoncities.com/vienna/karlsplatz",
+        "https://vienna101.com/exploring-vienna-karlsplatz/",
+        "https://en.wikipedia.org/wiki/Karlsplatz",
+        "https://www.youtube.com/watch?v=5-SgQfdcLHQ",
+        "https://www.instagram.com/p/DRC-5zSEneA/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms that Karlsplatz is a major square in Vienna (Source 1, 3) and that both the Karlskirche (Charles Church) and the Secession building are key landmarks located there (Source 1, 2). Source 1 specifically mentions that the western half of Karlsplatz is of interest for the 'nearby Secession Building' and the eastern half is dominated by the 'Karlskirche'. Source 2 explicitly lists 'Charles Church' and 'Walking by Secession' as things not to miss in the Karlsplatz area. As these are public landmarks and squares, an exterior walk is feasible at no cost.",
+      "claims_checked": [
+        "Location: Karlsplatz / Secession is in Vienna",
+        "Karlskirche (Charles Church) is located at/near Karlsplatz",
+        "Secession building is located at/near Karlsplatz",
+        "The area is suitable for an exterior walking tour",
+        "Cost: €0.00 (public square/exterior view)"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 6,
+      "slot_name": "Traditional Viennese Dinner",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.plachutta.at/en/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence from the official website confirms that Plachutta is a Viennese restaurant famous for 'Tafelspitz' ('The Plachutta family and the Plachutta restaurants have become synonymous with... Tafelspitz'). While the evidence does not explicitly list a full menu with prices to confirm the €60–€80 estimate, the slot presents this as an estimate for a 'splurge meal,' which is consistent with the restaurant's branding as a high-end establishment for 'perfection of Viennese hospitality.' The location 'Plachutta' is verified by the website which lists multiple locations in Vienna (Wollzeile, Hietzing, Nussdorf).",
+      "claims_checked": [
+        "Venue name: Plachutta",
+        "Specialty: Tafelspitz",
+        "Category: Traditional Viennese cuisine",
+        "Location: Vienna"
+      ]
+    },
+    {
+      "day_index": 4,
+      "slot_position": 1,
+      "slot_name": "Breakfast",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.yelp.com/search?cflt=breakfast_brunch&find_near=wien-hauptbahnhof-wien",
+        "https://www.facebook.com/groups/943838713190379/posts/2006442866929953/",
+        "https://www.area15.com/eat-drink/conduit-cafe",
+        "https://www.reddit.com/r/LasVegas/comments/1e4ehuz/area_15_food/",
+        "https://www.tripadvisor.com/RestaurantsNear-g45963-d19930218-oa180-AREA15-Las_Vegas_Nevada.html"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims there are breakfast options, specifically bakeries, in the Hauptbahnhof/Belvedere area of Vienna with a cost estimate around €15-€25. Evidence Source 1 and 2 confirm several breakfast and bakery options in this specific area, including '15 süße Minuten', 'Cafe Goldegg', 'Ströck' (a well-known bakery chain), and 'The Breakfast Club'. While the evidence does not explicitly state a price of €25, Source 1 lists '15 süße Minuten' and 'Ströck', which are typical bakery/cafe establishments where a €15–€25 budget is highly realistic for breakfast. Note: Sources 3, 4, and 5 refer to 'AREA15' in Las Vegas and were disregarded as they are geographically irrelevant to the Vienna location.",
+      "claims_checked": [
+        "Location: Breakfast options exist in the Hauptbahnhof / Belvedere area",
+        "Category: Bakery/Breakfast venues are available in this area",
+        "Cost: €15–€25 is a plausible estimate for breakfast in this area"
+      ]
+    },
+    {
+      "day_index": 4,
+      "slot_position": 2,
+      "slot_name": "Belvedere Gardens & Museum",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.belvederepalace.at/en/visiting-hours"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims the venue is open on Monday, July 13, 2026, starting at 09:30 AM. The evidence confirms that on Mondays, the Belvedere is open from 09:00 AM to 06:00 PM ('Monday | 09:00 AM - 06:00 PM | Open'). The location 'Belvedere' is consistent with the address provided in the evidence ('Belvedere, Prinz-Eugen-Straße 27, 1030 Wien, Austria'). While the evidence does not explicitly state the ticket price or that the gardens are free, it does not contradict these claims, and the primary logistical claim (opening hours for the specific date) is supported.",
+      "claims_checked": [
+        "Venue name: Belvedere Gardens & Museum",
+        "Location: Belvedere",
+        "Opening hours: Open on Monday, July 13, 2026, at 09:30 AM",
+        "Gardens are free",
+        "Museum ticket estimate: €40–€50 for 2"
+      ]
+    },
+    {
+      "day_index": 4,
+      "slot_position": 3,
+      "slot_name": "Lunch",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://maps.google.com/",
+        "https://www.facebook.com/groups/oktoberfest.faq/posts/1041354626542503/",
+        "https://www.yelp.com/biz/bahnhof-cafe-cuero",
+        "https://www.reddit.com/r/Munich/comments/1aek07m/bus_station_question_can_you_waitsleep_there_at/",
+        "https://community.ricksteves.com/travel-forum/austria/you-two-favorite-restaurants-in-vienna"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence is insufficient to verify the claims. Source 2 and 4 discuss Munich, Source 3 refers to a cafe in Texas, and Source 5 mentions general restaurant recommendations in Vienna (Prater area) but does not provide specific lunch options, pricing, or location details for the '3rd district / Hbf / Belvedere' area specifically. There is no data to confirm if a €30–€40 lunch is standard or available in that specific neighborhood.",
+      "claims_checked": [
+        "Location: 3rd district / Hbf / Belvedere area",
+        "Cost: €30–€40 for lunch",
+        "Category: meal"
+      ]
+    },
+    {
+      "day_index": 4,
+      "slot_position": 4,
+      "slot_name": "Old City Lanes Walk",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.youtube.com/watch?v=2IMPO2HKLJ4",
+        "https://www.youtube.com/watch?v=FkSj5hOyQgU",
+        "https://www.youtube.com/watch?v=k0eoqF3BidA",
+        "https://www.varoom.com/activity/exclusive-vienna-old-town-highlights-walking-tour-max-6-persons/VT-514571",
+        "https://www.alltrails.com/austria/vienna/innere-stadt/city-walk"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a self-guided walk starting in Landstraße/Stadtpark and moving into the Innere Stadt (Old City) via the Ring, specifically mentioning Stephansplatz and Judenplatz. Evidence Source 1 confirms a walking route from 'Vienna City Park (Stadtpark) to Vienna's Imperial' areas. Source 2 and 4 confirm that the 'Innere Stadt' is the historic 'Old Town' center. Source 5 confirms the existence of popular city walk trails in the Innere Stadt. The locations mentioned (Stadtpark, Ring, Stephansplatz, Judenplatz) are standard landmarks within the Landstraße (3rd district) and Innere Stadt (1st district) areas of Vienna. As a self-guided walk in public spaces, the cost of €0.00 is consistent with general travel logic for public thoroughfares.",
+      "claims_checked": [
+        "Location: Landstraße / Innere Stadt",
+        "Route: Walk through Stadtpark",
+        "Route: Walk along the Ring",
+        "Route: Walk into old city lanes around Stephansplatz and Judenplatz",
+        "Cost: €0.00",
+        "Category: Leisure/Self-guided walk"
+      ]
+    },
+    {
+      "day_index": 4,
+      "slot_position": 5,
+      "slot_name": "Viennese Coffeehouse Stop",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://austria.info/en-us/inspiration/coffeehouse-culture",
+        "https://www.austria.info/ar/inspiration/coffeehouse-culture",
+        "http://www.austria.info/en-gb/inspiration/coffeehouse-culture",
+        "http://www.austria.info/en-us/inspiration/coffeehouse-culture",
+        "https://www.austria.info/en-gb/inspiration/coffeehouse-culture"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot suggests a stop at a famous coffeehouse like Café Central in the Innere Stadt. Evidence from Source 1 and 2 confirms that Café Central is a historic and 'grand' coffeehouse located in Vienna (specifically the Innere Stadt, though the district name is implied by its status as a central hub for intellectuals). The evidence mentions it serves 'coffee and cake or fine Viennese cuisine,' which aligns with the 'meal' category and the estimated cost of €18–€25 for a coffee and dessert/light meal in such a high-end historic venue. While the specific price is not explicitly listed in the text, the description of it as a 'grand' and 'prominent' venue for business and politics supports the reasonableness of the €25 estimate.",
+      "claims_checked": [
+        "Name: Café Central is a famous Viennese coffeehouse",
+        "Location: Café Central is in Vienna (Innere Stadt)",
+        "Category: Serves food/meals (coffee, cake, and fine Viennese cuisine)",
+        "Cost: Estimated €18–€25"
+      ]
+    },
+    {
+      "day_index": 4,
+      "slot_position": 6,
+      "slot_name": "Low-key Dinner",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.fodors.com/world/europe/austria/vienna/neighborhoods/the-inner-city-center-baroque-gems-and-viennas-shopwindows/restaurants",
+        "https://www.facebook.com/groups/943838713190379/posts/1289517998622447/",
+        "https://www.tripadvisor.com/Restaurants-g190454-zfd23038-zfn15622953-Vienna-Kaiserschmarrn.html",
+        "https://www.tripadvisor.com/Restaurants-g190454-zfn7714399-Vienna.html",
+        "https://www.falstaff.com/nordics/news/vienna-neubau-a-culinary-tour-through-the-7th-district"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a generic 'low-key dinner' in the Innere Stadt or Neubau districts with a budget of €35–€50. The evidence confirms that Neubau (District 7) is a culinary hub with 'low-key' options and 'affordable' local food. Specifically, Source 4 lists 'Schnitzelwirt' in Neubau, which is a well-known budget-friendly tavern consistent with the 'neighborhood tavern' description. Source 1 also explicitly mentions a 'low-key pub' in the area. While the slot doesn't name a specific venue, the claims regarding the availability of this type of dining in the specified location and price range are supported by the general descriptions of the neighborhood's dining scene.",
+      "claims_checked": [
+        "Location: Innere Stadt / Neubau",
+        "Category: meal (low-key dinner)",
+        "Cost: €35–€50",
+        "Availability of Würstelstand, goulash, or neighborhood taverns in these districts"
+      ]
+    },
+    {
+      "day_index": 4,
+      "slot_position": 7,
+      "slot_name": "Free Time",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.wien.gv.at/en/environment/old-danube-recreation",
+        "https://www.instagram.com/reel/DNTCKhKMAKE/",
+        "https://www.dayuse.com/s/austria/wien",
+        "https://www.visitingvienna.com/entertainment/donaukanal/",
+        "https://www.instagram.com/reel/DXPHxOAjGYN/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes an optional evening walk by the Donaukanal (Danube Canal) or returning to a hotel. Evidence from Source 4 confirms the Donaukanal is a 'river that skirts the old town' and is a notable area for visitors to 'watch the sunlight sparkle on the water' and see 'street art along the route.' Source 5 describes it as 'one of the best spots in Vienna' and 'perfect for slow summer days by the water,' which supports the 'leisure' category and the description of an evening walk. The cost of €0.00 is consistent with a public canal walk. While the specific hotel is not named, Source 3 lists numerous hotels in Vienna, confirming the general availability of such accommodations in the area.",
+      "claims_checked": [
+        "Location: Donaukanal is a place for leisure/walking in Vienna.",
+        "Category: Leisure.",
+        "Cost: €0.00 (Free).",
+        "Description: Optional evening walk by the Danube Canal."
+      ]
+    },
+    {
+      "day_index": 5,
+      "slot_position": 1,
+      "slot_name": "Breakfast and Pack",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.facebook.com/groups/709976529142628/posts/3193427020797554/",
+        "https://www.abountifullove.com/2025/07/hotel-room-food-ideas-to-pack.html",
+        "https://www.tripadvisor.com/HotelsList-Louisville-Hotels-With-Breakfast-Buffet-zfp18404665.html",
+        "https://www.reddit.com/r/Frugal/comments/9itxii/what_are_some_frugal_breakfastlunchdinners_to_eat/",
+        "https://www.youtube.com/watch?v=6dsod7xs9Pg"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot describes a generic activity ('Breakfast and Pack') at an unspecified 'Hotel' with an estimated cost of €25.00. The provided evidence consists of general tips for packing food for hotel stays or lists of hotels in Louisville, Kentucky. None of the evidence mentions a specific hotel, location, or price point relevant to the user's itinerary (which appears to be in Europe given the Euro currency). Therefore, there is no evidence to confirm or contradict the cost or the feasibility of the activity at the intended location.",
+      "claims_checked": [
+        "Activity: Breakfast and packing at the hotel",
+        "Cost: €25.00",
+        "Location: Hotel"
+      ]
+    },
+    {
+      "day_index": 5,
+      "slot_position": 2,
+      "slot_name": "Check Out",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.hotel-bb.com/en/hotel/wien-hbf",
+        "https://www.novotel-wien-hauptbahnhof.com/en/",
+        "https://www.kayak.com/Vienna-Hotels-B-B-Hotel-Wien-Hbf.5376823.ksp",
+        "https://www.expedia.com/Vienna-Hotels-BB-Hotel-Wien-Hauptbahnhof.h38993468.Hotel-Information",
+        "https://www.travelocity.com/Vienna-Hotels-BB-Hotel-Wien-Hauptbahnhof.h38993468.Hotel-Information"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes checking out of a hotel near Wien Hbf and potentially using station lockers. Evidence from Source 4 confirms that for a major hotel at this location (B&B Hotel Wien-Hbf), 'Check-out is at noon', which makes the slot's 9:00 AM to 10:00 AM window feasible. Regarding the cost and lockers, while the evidence does not explicitly list locker prices, the slot's note 'Locker estimate €0–€10' is a reasonable estimate for station services and the cost field of €10.00 is consistent with this. The location 'Hotel / Wien Hbf' is supported by multiple sources (1, 2, 3) confirming the existence of hotels like B&B and Novotel directly at the Vienna Main Station (Wien Hbf).",
+      "claims_checked": [
+        "Location: Hotel / Wien Hbf",
+        "Time window: 09:00 - 10:00 (consistent with noon check-out)",
+        "Service: Check out and luggage storage/lockers",
+        "Cost: €10.00 (locker estimate)"
+      ]
+    },
+    {
+      "day_index": 5,
+      "slot_position": 3,
+      "slot_name": "Final Old-town Walk",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.youtube.com/watch?v=FkqDX2Whu0I",
+        "https://en.wikivoyage.org/wiki/Vienna/Innere_Stadt",
+        "https://www.alltrails.com/austria/vienna/innere-stadt/city-walk",
+        "https://www.youtube.com/watch?v=FkSj5hOyQgU",
+        "https://www.tripadvisor.com/AttractionProductReview-g190454-d12350215-or10-Exclusive_Vienna_Old_Town_Highlights_Walking_Tour_max_6_persons-Vienna.html"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms that 'Innere Stadt' is the inner-most district and 'Old Town' of Vienna (Source 2, 4). Source 2 specifically lists the 'Hofburg Palace' as a major landmark within this district. While the specific streets 'Graben' and 'Kohlmarkt' are not explicitly named in the snippets, they are universally recognized parts of the Innere Stadt pedestrian zone, and the evidence supports the general claim of a walking route through historic attractions in this district. The cost of €0.00 is consistent with a self-guided outdoor walking route.",
+      "claims_checked": [
+        "Location: Innere Stadt is the Old Town of Vienna",
+        "The Hofburg is located in the Innere Stadt",
+        "The activity is a walking route through historic attractions",
+        "The activity is located in Vienna, Austria"
+      ]
+    },
+    {
+      "day_index": 5,
+      "slot_position": 4,
+      "slot_name": "Final Lunch",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.youtube.com/watch?v=I9BmUGIyYPQ",
+        "https://www.tripadvisor.com/Restaurants-g190454-zfn7714393-zfp30-Vienna.html",
+        "https://www.tripadvisor.com/ShowTopic-g190454-i147-k15434665-5_hours_central_train_station_Hbf-Vienna.html",
+        "https://www.yelp.com/search?find_desc=Lunch&find_loc=Am+Hbf%2C+1100+Wien",
+        "https://www.tripadvisor.com.sg/ShowTopic-g190454-i147-k14395815-Recommended_restaurant_for_lunch_after_SRS_performance-Vienna.html"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a 'Casual Austrian lunch or bakery picnic' in the 'Innere Stadt / Wien Hbf' area with a cost estimate of €25–€35. The evidence confirms that there are numerous lunch options in both the Inner City (Source 2) and near Wien Hauptbahnhof (Source 1, 3, 4). Specifically, Source 4 lists several restaurants near the Hbf (Cafe Goldegg, Columbus Bräu) as of April 2026, supporting the feasibility of finding a meal in that location. While the evidence does not explicitly list a 'bakery picnic' price, the cost estimate of €25-€35 is consistent with standard casual dining prices in Vienna as implied by the variety of 'best lunch' recommendations in these central areas.",
+      "claims_checked": [
+        "Location: Innere Stadt / Wien Hbf",
+        "Category: meal",
+        "Cost: €35.00 (Estimate €25–€35)",
+        "Description: Casual Austrian lunch or bakery picnic"
+      ]
+    },
+    {
+      "day_index": 5,
+      "slot_position": 5,
+      "slot_name": "Train to Munich",
+      "source_type": "link",
+      "source_urls": [
+        "https://int.bahn.de/en/offers/saver-fare-flexible-fare/saver-fare-europe-austria"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms the existence of 'saver fare Europe' tickets between Germany and Austria (specifically mentioning Munich to Vienna) starting from EUR 23.99. The slot's cost estimate of €120 for two people (approx. €60 each) is consistent with the evidence that fares start at €23.99 and increase based on availability. The operator (DB/ÖBB) is supported by the DB (Deutsche Bahn) official link provided. While the specific duration of 4.5 hours is not explicitly stated in the text, the route Wien Hbf to München Hbf is a standard direct service mentioned as part of the 'over 50 direct services every day'.",
+      "claims_checked": [
+        "Route: Wien Hbf to München Hbf",
+        "Operator: DB/ÖBB",
+        "Fare type: Saver fare Europe (Sparpreis Europa)",
+        "Cost: €120.00 total / €80–€120 for 2",
+        "Advance booking: Available up to 6 months in advance"
+      ]
+    },
+    {
+      "day_index": 5,
+      "slot_position": 6,
+      "slot_name": "Arrival in Munich",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.zugfinder.net/en/stationboard-M%C3%BCnchen_Hbf",
+        "https://www.tripadvisor.com/ShowTopic-g187309-i118-k14648208-Getting_to_Munich_HBF-Munich_Upper_Bavaria_Bavaria.html",
+        "https://www.bahnhof.de/en/muenchen-hbf/arrival",
+        "https://community.ricksteves.com/travel-forum/germany/getting-from-munich-airport-to-munich-hauptbahnhof",
+        "https://www.facebook.com/groups/1105207263843936/posts/1475824276782231/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes an arrival at 'München Hbf' (Munich Central Station). Evidence from bahnhof.de and Zugfinder confirms that München Hbf is a major railway hub with scheduled arrivals for regional and long-distance trains. The note regarding schedules being subject to availability is consistent with the nature of train bookings. While the specific time (18:00) cannot be verified for a date in 2026, the existence and function of the location as a primary arrival point in Munich are well-supported.",
+      "claims_checked": [
+        "Location: München Hbf",
+        "Function: Arrival point for trains in Munich",
+        "Note: Exact train schedules are subject to future availability"
+      ]
+    }
+  ],
+  "rationale_pass_count": 29,
+  "rationale_fail_count": 0,
+  "rationale_missing_count": 4,
+  "hc_micro_pass_rate": 0.8571,
+  "cc_micro_pass_rate": 0.9231,
+  "hc_macro_pass_rate": 0.0,
+  "cc_macro_pass_rate": 0.0,
+  "final_pass_rate": 0.0,
+  "aggregated_constraints": [
+    {
+      "id": "HC-1",
+      "constraint_text": "origin: Munich",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-2",
+      "constraint_text": "destination: Vienna",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-3",
+      "constraint_text": "travel_dates: 2026.07.10 to 2026.07.14",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-4",
+      "constraint_text": "travelers: 2 adults",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-5",
+      "constraint_text": "budget: 1200 EUR total",
+      "constraint_type": "hard",
+      "final_verdict": "FAIL",
+      "judge_verdicts": [
+        "PASS",
+        "FAIL",
+        "PASS",
+        "MISSING_INFO"
+      ],
+      "pass_count": 2,
+      "fail_count": 1,
+      "missing_count": 1,
+      "na_count": 0
+    },
+    {
+      "id": "HC-6",
+      "constraint_text": "accommodation: hotel",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-7",
+      "constraint_text": "interests: museums, food, city walks",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-1",
+      "constraint_text": "Car or road trip transport is not feasible for island or overseas destinations — a flight or ferry is required.",
+      "constraint_type": "commonsense",
+      "final_verdict": "FAIL",
+      "judge_verdicts": [
+        "NA",
+        "PASS",
+        "NA",
+        "PASS"
+      ],
+      "pass_count": 2,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 2
+    },
+    {
+      "id": "CC-2",
+      "constraint_text": "No key information should be left out of the plan, such as the lack of accommodation during travel.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-3",
+      "constraint_text": "Transportation choices within the trip must be reasonable. For example, having both “self-driving” and “flight” would be considered a conflict.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-4",
+      "constraint_text": "Both outbound and return transport must appear in the plan.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-5",
+      "constraint_text": "Flight or train connections must allow sufficient layover time (≥60 min domestic, ≥90 min international).",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "NA",
+        "PASS"
+      ],
+      "pass_count": 3,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 1
+    },
+    {
+      "id": "CC-6",
+      "constraint_text": "Accommodation must be planned for every night of the trip.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-7",
+      "constraint_text": "Hotel check-in must be scheduled after arrival transport reaches the destination.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-8",
+      "constraint_text": "Restaurants must be open on the planned day and time.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-9",
+      "constraint_text": "Restaurant choices should not be repeated throughout the trip.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-10",
+      "constraint_text": "Activities should be geographically sensible per day (no unnecessary cross-city travel).",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "MISSING_INFO"
+      ],
+      "pass_count": 3,
+      "fail_count": 0,
+      "missing_count": 1,
+      "na_count": 0
+    },
+    {
+      "id": "CC-11",
+      "constraint_text": "Attractions must be open on the planned day and time.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "MISSING_INFO"
+      ],
+      "pass_count": 3,
+      "fail_count": 0,
+      "missing_count": 1,
+      "na_count": 0
+    },
+    {
+      "id": "CC-12",
+      "constraint_text": "Attraction choices should not be repeated throughout the trip.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-13",
+      "constraint_text": "Travel time between consecutive activities must account for realistic transit duration.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "MISSING_INFO"
+      ],
+      "pass_count": 3,
+      "fail_count": 0,
+      "missing_count": 1,
+      "na_count": 0
+    }
+  ],
+  "timestamp": "2026-05-17T11:29:40.659954+00:00"
+}

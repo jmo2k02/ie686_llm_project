@@ -1,8 +1,1384 @@
 {
   "id": "query_21_mixed_group_ibiza_Adrian",
   "source": "baseline",
-  "status": "error",
-  "error": "ValidationError: 4 validation errors for TravelPlan\ndays.1.slots.3.category\n  Input should be 'meal', 'attraction', 'transport', 'lodging', 'leisure' or 'other' [type=literal_error, input_value='rest', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/literal_error\ndays.4.slots.0.category\n  Input should be 'meal', 'attraction', 'transport', 'lodging', 'leisure' or 'other' [type=literal_error, input_value='rest', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/literal_error\ndays.4.slots.6.category\n  Input should be 'meal', 'attraction', 'transport', 'lodging', 'leisure' or 'other' [type=literal_error, input_value='rest', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/literal_error\ndays.6.slots.3.category\n  Input should be 'meal', 'attraction', 'transport', 'lodging', 'leisure' or 'other' [type=literal_error, input_value='rest', input_type=str]\n    For further information visit https://errors.pydantic.dev/2.13/v/literal_error",
-  "duration_seconds": 37.9,
-  "plan_path": "data/travelplans/baseline/query_21_mixed_group_ibiza_Adrian.md"
+  "status": "ok",
+  "has_timeout": false,
+  "timed_out_models": [],
+  "duration_seconds": 244.2,
+  "plan_path": "data/travelplans/baseline/query_21_mixed_group_ibiza_Adrian.md",
+  "scorecard": {
+    "plan_excerpt": "# TravelPlan: Baseline itinerary: Ibiza from Dusseldorf, 15–22 August 2026\n\n| Day 1 — 2026-08-15 — Fly to Ibiza, villa check-in, easy pool evening | Day 2 — 2026-08-16 — Cala Llonga beach day and relaxed dinner | Day 3 — 2026-08-17 — Aquarium Cap Blanc and San Antonio sunset | Day 4 — 2026-08-18 — C",
+    "judge_models": [
+      "openrouter:minimax/minimax-m2.7",
+      "openrouter:google/gemini-3-flash-preview",
+      "openrouter:deepseek/deepseek-v4-flash",
+      "openrouter:qwen/qwen3.5-397b-a17b"
+    ],
+    "timed_out_models": [],
+    "rationale_verifications": [
+      {
+        "day_index": 1,
+        "slot_position": 1,
+        "slot_name": "Flight Dusseldorf to Ibiza",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.eurowings.com/en/booking/offers/flights-from/DE/DUS/to/ES/IBZ/2026-8.html"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot provides a specific link to Eurowings for a flight on 2026-08-15, but no content was retrieved from that link or any other source. Therefore, the claims regarding flight availability, duration (~2h35), and pricing (€54.99 or the group estimate) cannot be verified against evidence.",
+        "claims_checked": [
+          "Direct flight from DUS to IBZ exists on 2026-08-15",
+          "Flight duration is approximately 2h35",
+          "Eurowings operates this route",
+          "Fares start from €54.99",
+          "Departure time 08:00, Arrival time 10:35"
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 2,
+        "slot_name": "Car Rental Pickup",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.welcomepickups.com/ibiza/airport-transfer-to-santa-eulalia/",
+          "https://www.suntransfers.com/ibiza-airport-to-santa-eulalia-del-rio",
+          "https://gotransferibiza.com/airport-transfer-ibiza/santa-eularia/",
+          "https://ibizavipcar.com/how-to-get-from-ibiza-airport-to-santa-eulalia/",
+          "https://www.ibizainmotion.com/main-attractions/santa-eulalia/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims a travel time of 1.5 hours (12:00 to 13:30) for a pickup and drive from Ibiza Airport to Santa Eulalia. Evidence from Source 1 and Source 4 indicates the drive itself takes approximately 20-25 minutes ('The journey will... take around 20 minutes', 'The fastest option is a pre-booked private transfer (25 min...)'), making the 90-minute window realistic for car rental processing and driving. Regarding cost, the slot estimates €900 total (with a note of €900–€1,400/week). While the evidence focuses on one-way transfers rather than weekly rentals, Source 2 lists a Minivan transfer starting at €121.50. A weekly rental for a large 9-seat van or two cars at ~€900 is consistent with the scale of pricing seen for premium/large vehicle services in the area.",
+        "claims_checked": [
+          "Route: Ibiza Airport to Santa Eulalia",
+          "Travel time: 1.5 hours (including pickup and drive)",
+          "Vehicle options: 2 rental cars or 1 large 9-seat van",
+          "Cost estimate: €900 (or €900–€1,400/week)"
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 3,
+        "slot_name": "Villa Check-in",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.ferienhaus-ibiza.de/en/rentals/villa-santa-eulalia-beautifully-decorated-villa-with-pool-for-8-people-located-in-the-town-of-santa-eulalia/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence from the provided URL confirms the villa's name ('Villa Santa Eulalia'), location ('located in the town of Santa Eulalia'), capacity ('for 8 people'), and pool dimensions ('pool 7m x 3.5m'). The slot's cost of €6500 is consistent with the target range mentioned in the notes (€6,500–€7,200 for 7 nights), although specific pricing for August 2026 is not explicitly listed in the snippet, the slot's claim aligns with the provided target parameters. The description of a 4-bedroom villa is supported by the capacity for 8 people.",
+        "claims_checked": [
+          "Venue name: Villa Santa Eulalia",
+          "Location: Santa Eulalia area",
+          "Capacity: Sleeps 8",
+          "Pool dimensions: 7m x 3.5m",
+          "Category: Lodging/Villa",
+          "Cost: €6500.00 (within target range of €6,500–€7,200)"
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 4,
+        "slot_name": "Pool time and Grocery Run",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.google.co.uk/travel/hotels/entity/CiQIvdrd19yfwf-0ARDYyIb5h6H42zsaDS9nLzExc3NnY3A5M2wQAg?utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=2ahUKEwj8vc3lmsyTAxWhWKsCHUwKFZQQv6wDKAN6BAgEEHc&ts=CAEaIgoCGgASHBIUCgcI6g8QBhgQEgcI6g8QBhgSGAIyAhAAOAEqCQoFOgNVU0QaAA",
+          "https://www.airbnb.com/rooms/18456603",
+          "https://www.ferienhaus-ibiza.de/en/rentals/villa-santa-eulalia-beautifully-decorated-villa-with-pool-for-8-people-located-in-the-town-of-santa-eulalia/",
+          "https://www.villa-finder.com/en/4-bedroom-santa-eulalia",
+          "https://www.instagram.com/reel/DVehHeKjB_N/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a period for unpacking, pool time, and grocery shopping in Santa Eulalia. The evidence confirms that 'Villa Santa Eulalia' is a specific rental property in that location featuring a private pool (Source 2, 3). Source 3 explicitly mentions that the villa is 'less than a five minute walk to the restaurants, shops and vibrancy of Santa Eulalia', which supports the feasibility of a 'grocery run' in the immediate vicinity. The time window (16:00-18:30) is consistent with the villa's check-in time of 15:00 (Source 1). While the specific cost of €250 for groceries is an estimate that cannot be verified as a fixed price, the logistical claims of the location having a pool and being near shops are supported.",
+        "claims_checked": [
+          "Location: Villa / Santa Eulalia",
+          "Activity: Pool time (Villa has a pool)",
+          "Activity: Grocery run (Villa is near shops)",
+          "Time: 16:00-18:30 (Post check-in)"
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 5,
+        "slot_name": "Dinner at Ohana Ibiza",
+        "source_type": "link",
+        "source_urls": [
+          "https://ohanaibizarestaurant.com/santa-eulalia/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence from the official website confirms the restaurant's name ('Ohana Ibiza'), its location ('Located in the heart of Santa Eulalia Ibiza'), and its family-friendly nature ('Ohana Santa Eulalia, a family-friendly restaurant in Ibiza'). While the evidence does not explicitly list a total group cost of €220, the provided cocktail price of €14 is consistent with a mid-to-high range dining experience where a group dinner could reasonably reach the estimated €220–€300 range.",
+        "claims_checked": [
+          "Venue name: Ohana Ibiza",
+          "Location: Santa Eulalia",
+          "Category: Family-friendly",
+          "Description: Mediterranean and tropical/Hawaiian inspired cuisine"
+        ]
+      },
+      {
+        "day_index": 1,
+        "slot_position": 6,
+        "slot_name": "Rest / Optional Drinks",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://wanderlog.com/list/geoCategory/241454/best-bars-and-drinks-in-santa-eulalia-del-rio",
+          "https://hotelsantaeulalia.com-hotel.com/",
+          "https://welcometoibiza.com/en/que-ver-por-zonas/santa-eulalia-ibiza/",
+          "https://www.tripadvisor.com/Attractions-g642208-Activities-c20-t99-Santa_Eulalia_del_Rio_Ibiza_Balearic_Islands.html",
+          "https://www.expedia.com/Santa-Eulalia-Del-Rio-Hotels-All-Inclusive-Hotel.0-0-d5761-tAllinclusiveHotel.Travel-Guide-Filter-Hotels"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a period for rest or optional low-key drinks in Santa Eulalia. The evidence confirms that Santa Eulalia (specifically Santa Eulalia del Río in Ibiza) is a location with a variety of drinking spots suitable for this activity. Source 1 mentions 'cozy pubs' and 'diverse array of drinking spots,' while Source 3 specifically suggests 'having a drink on the seafront promenade' or hotel rooftops as a 'great idea.' Source 4 confirms the presence of bars in the area with pricing (10€ to 13€) consistent with a leisure drink activity. The timing (21:05 - 22:05) is consistent with evening leisure hours in a Mediterranean resort area.",
+        "claims_checked": [
+          "Location: Santa Eulalia",
+          "Activity: Optional low-key drinks / leisure",
+          "Feasibility of finding drinks in the area"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 1,
+        "slot_name": "Breakfast at villa",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://tacovilla.net/wp-content/uploads/2024/01/Taco-Vill-Menu.pdf",
+          "https://food52.com/story/28867-love-island-villa-breakfasts",
+          "https://tacovilla.net/menu/breakfast/",
+          "https://usamenuhub.com/taco-villa-menu/",
+          "https://www.facebook.com/LBKTacoVilla/videos/calling-all-early-birds-taco-villa-is-now-open-at-630am-for-breakfast-tag-an-ear/174923723818390/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot describes a 'Self-catering breakfast using groceries' at a 'Villa'. The provided evidence consists of search results for a restaurant chain called 'Taco Villa' and a cultural commentary on breakfasts in the 'Love Island' villa. None of the evidence provides information regarding the specific villa location, the availability of groceries for self-catering, or the feasibility of this activity at the specified time and location. The evidence is generic and does not address the verifiable claims of the slot.",
+        "claims_checked": [
+          "Location: Villa",
+          "Activity: Self-catering breakfast using groceries",
+          "Time: 08:00:00 to 09:00:00"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 2,
+        "slot_name": "Cala Llonga Beach Morning",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.introducingibiza.com/cala-llonga"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms that Cala Llonga is a 'long, sandy beach' located in 'East Ibiza' near Santa Eulalia. It explicitly supports the 'family' and 'shallow/calm water' claims by stating it has 'crystal-clear, calm water' and is 'perfect for families'. It also confirms the availability of water sports, stating it is a beach for 'young people interested in water sports'. While the evidence does not list specific prices for paddle boats, the slot's cost estimate of €80 is presented as an 'estimate' for water sports, which is a reasonable planning figure and not contradicted by the text.",
+        "claims_checked": [
+          "Location: Cala Llonga (East Ibiza)",
+          "Suitability: Family-friendly",
+          "Water conditions: Shallow/calm water",
+          "Activities: Water sports available",
+          "Beach type: Sandy beach"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 3,
+        "slot_name": "Lunch near beach",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.tripadvisor.com/Restaurants-g672815-zfp30-Cala_Llonga_Ibiza_Balearic_Islands.html",
+          "https://www.opentable.com/landmark/restaurants-near-cala-llonga-beach",
+          "https://m.yelp.com/search?cflt=restaurants&find_loc=Cala+Llonga",
+          "https://www.villa-finder.com/magazine/cala-llonga-restaurants/",
+          "https://www.reddit.com/r/ibiza/comments/1l5qg86/restaurants_in_cala_llonga/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a lunch near Cala Llonga beach with a group cost estimate of €180-€240. The evidence confirms that Cala Llonga is a location with numerous lunch restaurants (Source 1, 2). Specifically, Source 4 mentions 'Amante Ibiza' as a restaurant 'located steps away from the beach' in Cala Llonga. While the evidence does not provide specific menu prices for every venue, the existence of high-end beach clubs like Amante (Source 3, 4) and 'Ocean Brasserie at Hotel Riomar' (Source 2) in this specific Ibiza resort area makes a group lunch cost of €180 (approx €45/person for a group of 4) a realistic and verifiable claim for the location.",
+        "claims_checked": [
+          "Location: Cala Llonga",
+          "Category: meal/lunch",
+          "Proximity: near beach",
+          "Cost: €180.00 (Group estimate ~€180–€240)"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 4,
+        "slot_name": "Villa Downtime",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.battlemetrics.com/servers/rust/38235610/downtime",
+          "https://fivestar.ie/self-catering/blissful-downtime/",
+          "https://selfcater.com/rentals/spain/balearic-islands/sa-carroca/blissful-downtime",
+          "https://www.instagram.com/reel/DNiTx6SOBPp/",
+          "https://www.plumguide.com/homes/69822/blissful-downtime"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot describes a generic period of 'downtime' at a 'villa' for a toddler nap and pool time. The search results return specific commercial properties named 'Blissful Downtime' in Ibiza or technical server logs. There is no evidence in the search results to verify the existence or location of a specific 'Villa Downtime' corresponding to the user's itinerary, nor can the generic activity of 'returning to villa' be verified without knowing the specific villa's identity or location.",
+        "claims_checked": [
+          "Venue name: Villa Downtime",
+          "Location: Villa",
+          "Activity: Toddler nap, pool, and shade",
+          "Cost: €0.00"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 5,
+        "slot_name": "Villa Barbecue Dinner",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.vrbo.com/3858769",
+          "https://www.villaravenna.com/menu.html",
+          "https://www.yelp.com/biz/villas-grill-irving?start=120",
+          "https://www.opentable.com/r/villas-grill-brazilian-steakhouse-irving",
+          "https://www.facebook.com/villaravenna/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot describes a private, self-catered barbecue at a 'Villa' with an estimated grocery cost of €180. The search results provided refer to commercial restaurants named 'Villa Ravenna' and 'Villa's Grill' in the United States (Tulsa and Irving), or a specific vacation rental property 'Villa Del Mar 1'. None of the evidence pertains to the specific villa or the logistics/costs of a self-cooked meal for this specific itinerary. There is no evidence to confirm or deny the €180 grocery estimate or the feasibility of a barbecue at the user's specific (unnamed) villa location.",
+        "claims_checked": [
+          "Venue name: Villa",
+          "Activity: Barbecue / simple cooking night",
+          "Cost: €180.00 for groceries",
+          "Time: 18:30 - 20:30"
+        ]
+      },
+      {
+        "day_index": 2,
+        "slot_position": 6,
+        "slot_name": "Optional Club Night (Couple)",
+        "source_type": "link",
+        "source_urls": [
+          "https://pacha.com/events"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The provided evidence from the Pacha official website is a landing page for the 2026 season but does not list specific event dates, opening hours, or ticket prices for August 2026. While it confirms Pacha Ibiza will have a 2026 season ('Ibiza 2026 Party Calendar — Pacha Ibiza'), it does not contain the data necessary to verify the specific cost of €160 or the availability of an event on the night of August 16, 2026.",
+        "claims_checked": [
+          "Venue name: Pacha",
+          "Location: Ibiza Town",
+          "Date: 2026-08-16",
+          "Cost: €160.00 for two"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 1,
+        "slot_name": "Breakfast at villa",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://tacovilla.net/wp-content/uploads/2024/01/Taco-Vill-Menu.pdf",
+          "https://food52.com/story/28867-love-island-villa-breakfasts",
+          "https://tacovilla.net/menu/breakfast/",
+          "https://usamenuhub.com/taco-villa-menu/",
+          "https://www.facebook.com/LBKTacoVilla/videos/calling-all-early-birds-taco-villa-is-now-open-at-630am-for-breakfast-tag-an-ear/174923723818390/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a 'Self-catering breakfast' at a 'Villa'. While the search results primarily return a restaurant chain called 'Taco Villa', Source 2 ('Villa-Worthy Breakfasts We'd Actually Wake Up For') discusses breakfast as a meal within a villa setting. Since 'Self-catering' implies the traveler is providing their own food at their accommodation (the Villa), and the time window (08:00-09:00) is a standard breakfast time, there are no verifiable claims that contradict the evidence. The existence of a restaurant chain with a similar name does not invalidate the concept of a self-catered meal at a private residence.",
+        "claims_checked": [
+          "Activity: Breakfast",
+          "Category: Meal",
+          "Location: Villa",
+          "Description: Self-catering",
+          "Time: 08:00:00 to 09:00:00"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 2,
+        "slot_name": "Drive to San Antonio",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.facebook.com/groups/ibizaessentials/posts/3044503822384076/",
+          "https://www.ibiza-calendar.com/blog/getting-around-ibiza-transport-guide-2026",
+          "https://www.rome2rio.com/s/san-antonio-bay-Spain/Santa-Eul%C3%A0ria-des-Riu",
+          "https://www.supershuttle.com/locations/sanantonio-sat/",
+          "https://www.hitch.com/cities/san-antonio-tx"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a drive from Santa Eulalia to San Antonio (Ibiza) taking 1.5 hours (including a snack stop) with a cost of €20 for fuel/parking. Evidence from Rome2rio (Source 3) confirms the distance is short, with a bus taking 34 minutes, which makes a 90-minute window for a private drive with a snack stop highly plausible. Source 1 notes a taxi takes 30 minutes. Regarding cost, Source 3 notes bus fares are €2-€6, making a €20 estimate for fuel and parking for a private car reasonable for this distance in Ibiza.",
+        "claims_checked": [
+          "Route: Santa Eulalia to San Antonio",
+          "Duration: 1 hour 30 minutes (09:30 to 11:00)",
+          "Cost: €20.00 for fuel/parking",
+          "Transport mode: Driving"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 3,
+        "slot_name": "Aquarium Cap Blanc",
+        "source_type": "link",
+        "source_urls": [
+          "https://discoveribiza.com/thingstodo/aquarium-cap-blanc/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The provided evidence from Source 1 (discoveribiza.com) contains no text content, only a placeholder for an image. Therefore, there is no textual evidence to verify the location, pricing, or description of the aquarium. While the URL title confirms the existence of the page for 'Aquarium Cap Blanc', it does not provide the specific data points needed to validate the claims.",
+        "claims_checked": [
+          "Name: Aquarium Cap Blanc",
+          "Location: San Antonio",
+          "Adult price: €7",
+          "Child price: €5",
+          "Description: Child-friendly cave-style aquarium"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 4,
+        "slot_name": "Lunch in San Antonio",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.saltgrass.com/location/saltgrass-san-antonio-410-north-east-loop/",
+          "https://fogodechao.com/location/san-antonio-riverwalk/",
+          "https://www.tripadvisor.com/Restaurants-g60956-zfp30-San_Antonio_Texas.html",
+          "https://www.opentable.com/features/best-lunch-restaurants-san-antonio-tx",
+          "https://www.facebook.com/groups/796137797189662/posts/2435362836600475/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a flexible lunch in San Antonio with a preference for waterfront locations and a budget of €180-€240. The evidence confirms that San Antonio (specifically the Riverwalk area) is a major dining destination with waterfront options. Source 2 (Fogo de Chão) specifically mentions a 'River Room with a 180 degree glass wall view of downtown San Antonio & the Riverwalk' and offers lunch. While the cost is an estimate for a group or high-end meal, the existence of lunch venues in this location is well-supported.",
+        "claims_checked": [
+          "Location: San Antonio",
+          "Activity: Lunch",
+          "Availability of waterfront/riverfront dining",
+          "Time window: 12:45 - 14:15"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 5,
+        "slot_name": "Cala Gració or Villa Rest",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.ibiza-spotlight.com/beach/cala_gracio_i.htm",
+          "https://www.booking.com/hotel/es/villa-in-san-antonio-near-cala-gracio-beach.en-gb.html",
+          "https://en.tripadvisor.com.hk/ShowUserReviews-g652116-d7156213-r310627306-Cala_Gracio-Sant_Antoni_de_Portmany_Ibiza_Balearic_Islands.html",
+          "https://www.youtube.com/watch?v=NYydeawzqlE",
+          "https://www.instagram.com/p/DYSWUhDCInD/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot proposes a visit to Cala Gració or a rest at a villa in San Antonio. Evidence from Source 1 and Source 4 confirms that Cala Gració is a beach located in San Antonio ('Cala Gració... only a 15-minute walk... from the centre of San Antonio' and 'Cala Gracio is part of San Antonio'). Source 2 confirms the existence of villas in the San Antonio area near Cala Gració. The cost of €0.00 is consistent with a public beach visit or resting at one's own accommodation. The location 'San Antonio' is verified as the correct municipality for this beach.",
+        "claims_checked": [
+          "Cala Gració is located in San Antonio",
+          "Cala Gració is a beach (leisure category)",
+          "Villas are available in the San Antonio/Cala Gració area",
+          "The activity is consistent with a €0.00 cost (public beach/private villa)"
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 6,
+        "slot_name": "Sunset Dinner",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.alayounsunsetibiza.com/groups",
+          "https://www.instagram.com/p/DXeeIP-jEwD/",
+          "https://www.instagram.com/reel/DKuG6BeoHp_/",
+          "https://www.instagram.com/p/DXhVx1LDNBI/?img_index=2",
+          "https://www.instagram.com/p/DXhVx1LDNBI/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a group sunset dinner on the west coast (San Antonio) or near the villa (Santa Eulalia) with an estimated cost of €250. The evidence confirms that San Antonio is a primary location for 'sunset dining' (Sources 2, 3, 4, 5). Source 1 specifically mentions a venue in San Antonio ('Alayoun Sunset Ibiza') that accommodates groups ('/groups' in URL) and has 'very reasonable prices,' which is consistent with the provided budget of €250 for a group dinner. While the evidence does not specify a price of exactly €250, the existence of group-friendly sunset dining in the specified location makes the plan factually plausible and consistent with the search results.",
+        "claims_checked": [
+          "Location: San Antonio is a destination for sunset dinners.",
+          "Category: Meal/Dining is available in this area.",
+          "Group suitability: Sunset dining venues in San Antonio accommodate groups.",
+          "Cost: Sunset dining is available at reasonable prices in the area."
+        ]
+      },
+      {
+        "day_index": 3,
+        "slot_position": 7,
+        "slot_name": "Rest / Optional Nightlife",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.oliverstravels.com/spain/balearic-islands/ibiza/ibiza-town/",
+          "https://www.ibizasummervillas.com/location/ibiza-town",
+          "https://www.villa-finder.com/en/ibiza-town",
+          "https://www.dynamiclives.com/villa-destinations/rent-villas-ibiza-town/",
+          "https://www.splvillas.com/destinations/spain/ibiza/ibiza-town"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a period of rest or optional nightlife in a villa or Ibiza Town. The evidence confirms that Ibiza Town is a major destination for both family-friendly villa rentals and vibrant nightlife. Specifically, Source 1 notes Ibiza Town is 'widely recognised for its buzzing nightlife' and offers 'fabulous villas,' while Source 5 confirms villas in the area are 'perfect for couples, families and large groups.' The claims regarding the location's suitability for both rest (villas) and nightlife are supported.",
+        "claims_checked": [
+          "Location: Villa / Ibiza Town",
+          "Category: leisure",
+          "Suitability for families (returning to villa)",
+          "Suitability for couples (nightlife option)"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 1,
+        "slot_name": "Breakfast at villa",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://tacovilla.net/wp-content/uploads/2024/01/Taco-Vill-Menu.pdf",
+          "https://food52.com/story/28867-love-island-villa-breakfasts",
+          "https://tacovilla.net/menu/breakfast/",
+          "https://usamenuhub.com/taco-villa-menu/",
+          "https://www.facebook.com/LBKTacoVilla/videos/calling-all-early-birds-taco-villa-is-now-open-at-630am-for-breakfast-tag-an-ear/174923723818390/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a generic 'Breakfast at villa' (likely referring to the traveler's accommodation). While the search results primarily returned a restaurant chain called 'Taco Villa', the evidence confirms that breakfast is a standard meal associated with 'villas' (Source 2) and that breakfast service exists for entities named 'Villa' starting as early as 6:30 AM (Sources 4 and 5), which is consistent with the 8:00 AM time window. Since the slot is a private activity at a lodging, there are no specific commercial claims to contradict.",
+        "claims_checked": [
+          "Activity: Breakfast",
+          "Location: Villa",
+          "Time: 08:00:00 to 09:00:00"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 2,
+        "slot_name": "Drive to Cala Bassa",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.rome2rio.com/s/Santa-Eul%C3%A0ria-des-Riu/Cala-Bassa",
+          "https://www.rome2rio.com/s/Cala-Bassa/Santa-Eul%C3%A0ria-des-Riu",
+          "https://www.facebook.com/groups/ibizaessentials/posts/2771115076389620/",
+          "https://www.ibizamyvilla.com/blog/how-to-get-to-cala-bassa",
+          "https://www.tripadvisor.com/ShowTopic-g652116-i11346-k6478939-How_to_get_to_Cala_Bassa_beach-Sant_Antoni_de_Portmany_Ibiza_Balearic_Islands.html"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims a driving duration of 1 hour (09:30 to 10:30) and a cost of approximately €20 for fuel and parking. Evidence from Source 1 and 2 states the drive takes approximately 36-37 minutes, which fits comfortably within the 1-hour window provided. Regarding cost, Source 1 estimates fuel at €4 - €7; while the evidence does not explicitly state the current parking fee at Cala Bassa, a total estimate of €20 for fuel and parking is a reasonable and consistent claim for a day trip to a popular beach where parking fees are common.",
+        "claims_checked": [
+          "Transport mode: Drive",
+          "Route: Santa Eulalia to Cala Bassa",
+          "Duration: 1 hour (09:30 to 10:30)",
+          "Cost: €20.00 (Fuel/parking)"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 3,
+        "slot_name": "Cala Bassa Beach Day",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.santjosep.net/en/ideal-beaches-for-family-fun-in-sant-josep/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence provided is an article from the official Sant Josep tourism website (santjosep.net) titled 'Ideal beaches for family fun in Sant Josep'. While the snippet cuts off, the title and the introductory text ('the possibilities of enjoying the white sands and transparent waters are multiplied further with innumerable options') directly support the claim that Cala Bassa (located in Sant Josep) is listed as family-friendly by Sant Josep tourism. The description of 'shallow water' and 'sand play' is consistent with the general description of family-friendly beaches in the area mentioned in the text. The cost for loungers is an estimate provided in the notes and is not contradicted by the text.",
+        "claims_checked": [
+          "Location: Cala Bassa",
+          "Listed as family-friendly by Sant Josep tourism",
+          "Features: Shallow water, swimming, sand play",
+          "Optional loungers/umbrellas available"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 4,
+        "slot_name": "Lunch at Cala Bassa",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.tripadvisor.com/Restaurant_Review-g673348-d2146017-Reviews-CBbC_Cala_Bassa-Sant_Josep_de_Sa_Talaia_Ibiza_Balearic_Islands.html",
+          "https://www.eatinginibiza.com/en/restaurants-ibiza/san-jose/cala-bassa-beach-club",
+          "https://welcometoibiza.com/en/agenda-ibiza/lifestyle/cenas-inolvidables-frente-al-mar-en-cbbc-cala-bassa-beach-club-ibiza/",
+          "https://cbbcgroup.com/cartas/carta-cbbc-cala-bassa-restaurant-beach/",
+          "https://menu.tipsipro.com/en/esp/restaurants/cala-bassa-beach-club/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims a lunch location at Cala Bassa with a cost estimate of €220. Evidence from Source 1 and 2 confirms the existence of 'CBbC Cala Bassa' (Cala Bassa Beach Club) as a major restaurant at this location serving lunch. Source 5 provides menu pricing examples, such as 'Seafood paella' and 'CBbC (45 / Ud.- Pieces)', which supports a high-end price point consistent with a €220 estimate for a group or family meal. The location 'Cala Bassa, s/n, 07829, Sant Josep de Sa Talaia' matches the slot's location.",
+        "claims_checked": [
+          "Venue name/location: Cala Bassa",
+          "Category: meal (Lunch)",
+          "Cost: €220.00 (Estimate ~€220–€320)"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 5,
+        "slot_name": "Villa Pool Downtime",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.instagram.com/reel/DXeg-lDDbjG/",
+          "https://homes-and-villas.marriott.com/en/properties/40695391-santa-rosa-beach-downtime-watercolor-next-to-pool-lsv-bikes-golf-cart-family-friendly",
+          "https://www.vrbo.com/2755884",
+          "https://www.instagram.com/p/DPph1T5Dkts/",
+          "https://www.collinsvacationrentals.com/rentals/down-time"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot describes a generic activity ('Villa pool and downtime') at a generic location ('Villa'). The provided evidence consists of search results for specific vacation rentals named 'Downtime' or 'Down Time' in various locations (Florida, North Carolina, Antigua). There is no evidence provided that identifies the specific 'Villa' mentioned in the travel plan or confirms the existence of a pool at the user's intended accommodation. Therefore, the claims cannot be verified as PASS or FAIL.",
+        "claims_checked": [
+          "Location: Villa",
+          "Activity: Villa pool and downtime for children",
+          "Cost: €0.00"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 6,
+        "slot_name": "Shared Dinner",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.oliverstravels.com/spain/ibiza/santa-eulalia/villa-illa-blanca/",
+          "https://www.ibizacountryvillas.com/en/properties/first-line-restaurant-in-santa-eulalia/",
+          "https://www.instagram.com/reel/DXGwuhrjLFA/",
+          "https://www.tripadvisor.com/Restaurants-g642208-zfp9-Santa_Eulalia_del_Rio_Ibiza_Balearic_Islands.html",
+          "https://www.uniqueibizavillas.co.uk/ibiza/east-ibiza-villas/santa-eulalia-east/villa-margarita/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a generic 'Shared Dinner' in Santa Eulalia or at a villa with an estimated cost of €180. The evidence confirms that Santa Eulalia is a location in Ibiza with numerous restaurants suitable for group dining (Source 4) and villas equipped for family meals or private chefs (Source 1, 3, 5). Source 2 mentions a restaurant in Santa Eulalia with a capacity for 150 diners and an exterior area of 180 m², which aligns with the location and the scale of the cost/size mentioned. Since the slot is a flexible plan ('Santa Eulalia / villa') and the evidence supports the existence of these options in that specific location, the claims are consistent with the search results.",
+        "claims_checked": [
+          "Location: Santa Eulalia / villa",
+          "Category: meal",
+          "Cost: €180.00",
+          "Activity: Shared dinner"
+        ]
+      },
+      {
+        "day_index": 4,
+        "slot_position": 7,
+        "slot_name": "Club Night (Couple)",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.theushuaiaexperience.com/en/club",
+          "https://www.clubtickets.com/clubbing/ushuaia-ibiza"
+        ],
+        "verdict": "FAIL",
+        "reasoning": "The slot is scheduled for a 'Club Night' at Ushuaïa/Hï Ibiza from 23:00 to 04:00 on Tuesday, August 18, 2026. However, the evidence from the official venue site (Source 1) and official ticket partner (Source 2) identifies Ushuaïa as an 'Open-Air' venue with parties typically starting in the afternoon (e.g., 'From 17:00' or 'From 18:00'). Most importantly, Source 2 explicitly lists 'Calvin Harris' as the Tuesday event at Ushuaïa. Standard operating hours for Ushuaïa events typically conclude at midnight (24:00) due to its open-air nature, contradicting the 23:00–04:00 time window provided in the slot. While Hï Ibiza (the sister club across the street) operates during those late-night hours, the slot specifically links to and describes Ushuaïa-related events for a time window when Ushuaïa is generally closed or closing.",
+        "claims_checked": [
+          "Venue: Ushuaïa Ibiza / Hï Ibiza",
+          "Location: Playa d’en Bossa",
+          "Date: Tuesday, August 18, 2026",
+          "Time: 23:00:00 to 04:00:00",
+          "Event: Calvin Harris (Tuesday residency)",
+          "Cost: €180.00 for two"
+        ]
+      },
+      {
+        "day_index": 5,
+        "slot_position": 1,
+        "slot_name": "Slow Morning",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.instagram.com/reel/DVEVrENkaHQ/",
+          "https://www.facebook.com/TenutaDiMurlo/videos/slow-mornings-and-dreamy-nights-save-this-hidden-gem-for-your-next-vacationvilla/904798355920915/",
+          "https://villacotton.com/blogs/news/the-art-of-slow-mornings-how-to-create-a-luxurious-morning-routine?srsltid=AfmBOop0XIbCKZ0zkv-jQaIREbVGqkv9Xbh-Vf1pz_5xB17xBk8DAFdU",
+          "https://www.instagram.com/reel/DTm1HHkkZHO/",
+          "https://www.instagram.com/reel/DYHQhRXs_BM/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot describes a generic 'Slow Morning' activity at a 'Villa' (late breakfast, pool, laundry). The provided evidence consists of social media posts and blog articles about various specific villas (Las Casas Eraya, Tenuta di Murlo, Villa Yolanda, Villa Elara) or general lifestyle advice. None of the evidence pertains to a specific 'Villa' location associated with the user's itinerary, nor can it verify the availability of specific amenities like laundry or toddler nap flexibility for the user's unnamed accommodation. The evidence is generic and silent on the specific claims of this travel slot.",
+        "claims_checked": [
+          "Location: Villa",
+          "Activity: Late breakfast",
+          "Activity: Pool access",
+          "Activity: Laundry",
+          "Activity: Toddler nap flexibility"
+        ]
+      },
+      {
+        "day_index": 5,
+        "slot_position": 2,
+        "slot_name": "Lunch at Villa",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.villaitaliankitchen.com/",
+          "https://www.villaitalian.com/menu",
+          "https://lavillava.com/lunch-menu/",
+          "https://www.tripadvisor.com/Restaurant_Review-g41889-d504871-Reviews-The_Villa_Restaurant-Wayland_Massachusetts.html",
+          "https://www.instagram.com/lavillarestaurants/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot describes a 'Simple lunch at villa' with a grocery estimate of €100, implying a private meal at a rented accommodation rather than a specific commercial restaurant. The search results provided refer to various commercial restaurants named 'Villa Italian Kitchen' or 'La Villa' in the United States (Virginia, North Carolina, Massachusetts). None of the evidence pertains to a private villa stay or a specific location named 'Villa' that matches the context of buying groceries for a meal. Therefore, the evidence is silent on the claims made in the slot.",
+        "claims_checked": [
+          "Venue name: Villa",
+          "Category: meal (self-prepared/groceries)",
+          "Cost: €100.00 for groceries"
+        ]
+      },
+      {
+        "day_index": 5,
+        "slot_position": 3,
+        "slot_name": "Drive to Caves",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.rome2rio.com/s/Santa-Eul%C3%A0ria-des-Riu/Cova-de-Can-Mar%C3%A7%C3%A0",
+          "https://www.reddit.com/r/ibiza/comments/12bw9g5/cova_de_can_mar%C3%A7%C3%A1/",
+          "https://www.rome2rio.com/s/Ibiza/Cova-de-Can-Mar%C3%A7%C3%A0",
+          "https://www.tripadvisor.co.uk/ShowUserReviews-g775984-d1905717-r138113774-Cueva_de_Can_Marca-Port_de_Sant_Miguel_Ibiza_Balearic_Islands.html",
+          "https://www.rome2rio.com/s/Ibiza/Can-Mar%C3%A7%C3%A1"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims a drive from Santa Eulalia (Santa Eulària des Riu) to Cova de Can Marçà takes approximately 1 hour (14:00 to 15:00). Evidence from Rome2Rio (Source 1) indicates that even a bus takes 58 minutes, and Source 3 notes the quickest way (car/taxi) from Ibiza town is 26 minutes; given Santa Eulalia is further east, a 1-hour window for driving is consistent and realistic. The location 'Port de Sant Miquel' is confirmed as the location of the cave by Source 4. The cost of €20 for fuel/parking is a reasonable estimate for a private drive and is not contradicted by the evidence.",
+        "claims_checked": [
+          "Route: Santa Eulalia to Cova de Can Marçà",
+          "Duration: 1 hour (14:00 to 15:00)",
+          "Location: Cova de Can Marçà is in the Port de Sant Miquel area",
+          "Cost: €20.00 for fuel/parking"
+        ]
+      },
+      {
+        "day_index": 5,
+        "slot_position": 4,
+        "slot_name": "Cova de Can Marçà",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.introducingibiza.com/cova-can-marca"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms the location as 'Port de Sant Miquel'. The description of the cave as a guided visit is supported by the text mentioning a '40-minute walk' and a 'guided tour'. The opening hours (May–Oct 10:30–19:30) and the frequency of visits (every 30 minutes) are consistent with the provided link's data (though the text snippet cuts off at 'Schedule', the slot's claims align with the standard information for this venue found on the linked site). The cost estimate of €100-€140 for a group is reasonable given the nature of the attraction, though specific individual pricing is not explicitly detailed in the snippet.",
+        "claims_checked": [
+          "Name: Cova de Can Marçà",
+          "Location: Port de Sant Miquel",
+          "Category: attraction",
+          "Opening hours: May–Oct 10:30–19:30",
+          "Visit frequency: every 30 minutes",
+          "Activity: Guided cave visit"
+        ]
+      },
+      {
+        "day_index": 5,
+        "slot_position": 5,
+        "slot_name": "Beach Stop or Pool",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.hotels-in-ibiza.net/en/port-de-sant-miguel-hotels-31430/",
+          "https://en.wikipedia.org/wiki/Port_de_Sant_Miguel",
+          "https://www.tripadvisor.com/HotelsList-Port_de_Sant_Miguel-Beach-Resorts-zfp12310228.html",
+          "https://discoveribiza.com/beach/port-de-sant-miquel/",
+          "https://www.tripadvisor.com/Attraction_Review-g1078319-d3239386-Reviews-Port_de_Sant_Miquel-Sant_Miquel_De_Balansat_Sant_Joan_de_Labritja_Ibiza_Balearic.html"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims that Port de Sant Miquel is a beach location suitable for a 'beach stop' or swimming. Evidence from Source 2 confirms it is a 'small beach resort with a white, sandy beach'. Source 5 confirms the waters are 'ideal for swimming and snorkeling' and that the beach is 'easily accessible by car or bus'. The cost of €0.00 is consistent with public beach access. While the specific 'villa pool' mentioned depends on the user's private accommodation, the existence of villas with pools in the area is supported by Source 1 ('Hotel Rural Cas Pla Sant Miquel De Balansat villa includes a seasonal outdoor swimming').",
+        "claims_checked": [
+          "Location: Port de Sant Miquel is a beach/resort area.",
+          "Activity: Port de Sant Miquel is suitable for a beach stop/swimming.",
+          "Cost: Access to the beach is €0.00.",
+          "Accessibility: The beach is accessible for a short stop."
+        ]
+      },
+      {
+        "day_index": 5,
+        "slot_position": 6,
+        "slot_name": "Shared Dinner",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://wanderlog.com/list/geoCategory/368228/best-restaurants-to-have-dinner-in-santa-eulalia-del-rio",
+          "https://www.tripadvisor.com/Restaurants-g642208-zfp9-Santa_Eulalia_del_Rio_Ibiza_Balearic_Islands.html",
+          "https://ohanaibizarestaurant.com/santa-eulalia/",
+          "https://ohmibizarestaurant.com/en/",
+          "https://www.instagram.com/popular/the-bistrot-santa-eulalia-terrace/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a 'Shared Dinner' in 'Santa Eulalia' with a cost estimate of '€220.00'. The evidence confirms that Santa Eulalia del Río is a major dining destination with numerous restaurants (Source 1 mentions 220 restaurants). Multiple sources specifically highlight the 'sharing' concept in this location: Source 1 mentions a focus on 'sharing dishes', Source 4 (Ohm Ibiza) features 'dishes to share', and Source 5 mentions 'shared plates'. While the specific cost of €220 is an estimate for a group/shared meal, the existence of 'intimate and luxurious dining' (Source 1) and high-end Italian/Mediterranean options (Source 4) makes this price point plausible for a shared dinner in a premium Ibiza location. The time and date are logistical details consistent with standard dinner hours.",
+        "claims_checked": [
+          "Location: Santa Eulalia",
+          "Activity: Shared dinner",
+          "Cost: €220.00 (estimate)",
+          "Time: 19:30 - 21:30"
+        ]
+      },
+      {
+        "day_index": 5,
+        "slot_position": 7,
+        "slot_name": "Quiet Night",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.instagram.com/p/DJiJ0JzP9SA/",
+          "https://www.tripadvisor.com/Hotel_Review-g187824-d1422194-Reviews-Quiet_Night-La_Spezia_Province_of_La_Spezia_Liguria.html",
+          "https://open.spotify.com/track/4OYV2UQm3RANQxXRlycYgP",
+          "https://www.expedia.com/Williamsburg-Hotels-Quiet-Villa-With-Access-To-Amazing-Amenities.h78532995.Hotel-Information",
+          "https://www.booking.com/hotel/it/quietnight.html"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a 'Quiet Night' at a 'Villa' for the purpose of recovery, with a cost of €0.00. While the search results show specific businesses named 'Quiet Night' (a B&B in La Spezia) or songs, the context of the slot (location: 'Villa', description: 'recovery night after clubbing') indicates this is a private activity/rest period at the traveler's accommodation rather than a commercial venue. A night of rest at one's own villa has a logical cost of €0.00 and is consistent with general travel planning for recovery. There are no specific commercial claims (like an address for a business) that are contradicted by the evidence.",
+        "claims_checked": [
+          "Activity name: Quiet Night",
+          "Location: Villa",
+          "Cost: €0.00",
+          "Purpose: Recovery night after clubbing"
+        ]
+      },
+      {
+        "day_index": 6,
+        "slot_position": 1,
+        "slot_name": "Early Breakfast",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://m.yelp.com/search?find_desc=Early+Morning+Breakfast&find_loc=Villa+Park%2C+IL",
+          "https://www.tripadvisor.com/Restaurants-g36825-zfp2-Villa_Park_DuPage_County_Illinois.html",
+          "https://m.yelp.com/search?find_desc=Restaurants+Breakfast&find_loc=Villa+Park%2C+IL",
+          "https://www.yelp.com/search?find_desc=Breakfast+All+Day&find_loc=Villa+Park%2C+IL+60181",
+          "https://earlymorningdelight.com/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot describes a private activity ('Early breakfast and pack day bags') at a location called 'Villa'. The provided evidence consists of search results for public restaurants in 'Villa Park, IL' and 'Chicago, IL'. The evidence does not contain information about a specific private villa or a venue named 'Villa' that matches the context of packing for a trip to Formentera (an island in Spain). Therefore, the evidence is silent on the claims made in the slot.",
+        "claims_checked": [
+          "Activity: Early breakfast",
+          "Activity: Pack day bags for Formentera",
+          "Location: Villa",
+          "Time: 07:30 to 08:30"
+        ]
+      },
+      {
+        "day_index": 6,
+        "slot_position": 2,
+        "slot_name": "Drive to Port",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://en.intui.travel/ibiza-port-santa-eulalia/?srsltid=AfmBOorw70Rd_keLFIk1Z5yNyCDJgBmKjOX-rTkvs0cdF86ET6gUnIi2",
+          "https://ibizavipcar.com/",
+          "https://www.rome2rio.com/s/Santa-Eul%C3%A0ria-des-Riu/Ibiza-Port-Spain",
+          "https://www.suntransfers.com/ibiza-cruise-port-to-santa-eulalia-del-rio",
+          "https://www.rome2rio.com/s/Santa-Eul%C3%A0ria-des-Riu/Ibiza-Port-Station"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a drive from Santa Eulalia to Ibiza Port with a duration of 1 hour and a cost of €25. Evidence from Source 3 (Rome2rio) confirms that a taxi/drive between these two points takes approximately 17 minutes (well within the 1-hour window) and costs between €23 and €28. Source 2 also confirms a typical taxi ride starts around €25. The location and cost claims are well-supported by the evidence.",
+        "claims_checked": [
+          "Route: Santa Eulalia to Ibiza Port",
+          "Duration: 1 hour (09:00 to 10:00)",
+          "Cost: €25.00"
+        ]
+      },
+      {
+        "day_index": 6,
+        "slot_position": 3,
+        "slot_name": "Ferry to Formentera",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.visitformentera.com/en/ferry-ibiza-formentera-schedules/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms the existence of ferry services between Ibiza and Formentera for 2026, specifically mentioning Trasmapi, FormenteraLines, and Mediterránea Pitiusa. The evidence supports the slot's claim that schedules and deals are available via Visit Formentera ('Check Ibiza-Formentera Ferry schedules, prices & deals... using our exclusive discount code'). While the specific cost of €250 for a group is not explicitly listed as a fixed price in the text, the evidence points to booking forms for 'official schedules' and 'prices' which is consistent with the slot's description and notes regarding group estimates and deals.",
+        "claims_checked": [
+          "Ferry service operates from Ibiza to Formentera",
+          "Schedules and deals are available via Visit Formentera",
+          "Service is active/planned for 2026",
+          "Operators include Trasmapi and FormenteraLines"
+        ]
+      },
+      {
+        "day_index": 6,
+        "slot_position": 4,
+        "slot_name": "Formentera Beach Time",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://yourformentera.es/best-time-to-visit-formentera/",
+          "https://blog.formenterawonders.com/en/seasons-in-formentera-when-is-the-best-time-to-visit-and-how-each-season-differs/",
+          "https://wheretogoin.net/best-beaches-bars-restaurants-in-formentera/",
+          "https://ikh.villas/formentera-beaches-the-complete-guide-to-the-mediterraneans-most-beautiful-shores/",
+          "https://www.affittoformentera.com/en/formentera-climate/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims that Formentera is a location for leisure beach time in August. Evidence Source 2 confirms that 'Summer, from late June to August, is Formentera’s high season' and is the 'quintessential' time for those enjoying the island. Source 4 confirms Formentera is renowned for its beaches like Ses Illetes. The time window (11:30 - 14:30) is consistent with typical beach-going hours during the summer season described in the evidence.",
+        "claims_checked": [
+          "Location: Formentera",
+          "Activity: Beach/Leisure",
+          "Date: August 20, 2026 (Summer season)"
+        ]
+      },
+      {
+        "day_index": 6,
+        "slot_position": 5,
+        "slot_name": "Lunch on Formentera",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.tiktok.com/@bucks_afloat/video/7512727523764096264",
+          "https://www.tripadvisor.com/Restaurants-g187461-zfp30-Formentera_Balearic_Islands.html",
+          "https://www.daycharteribiza.com/en/the-best-beach-restaurants-ibiza-formentera/",
+          "https://www.cntraveler.com/story/wild-and-bohemian-formentera-is-a-laidback-alternative-to-ibiza",
+          "https://www.instagram.com/reel/DMz0EMWRL9U/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims a lunch meal on Formentera with a cost estimate of €220-€320. Evidence from Source 2 confirms Formentera has a lunch restaurant scene (TripAdvisor '10 Best Lunch Restaurants in Formentera'). Regarding cost, while Source 4 mentions a cheaper option ($75 for two), high-end dining is consistent with the island's reputation as a 'laidback alternative to Ibiza' (Source 4) and the presence of 'Top 3 Restaurants' (Source 1). The cost of €220 for a group or high-end meal is plausible within the context of Mediterranean beach dining described in the evidence, and no evidence contradicts this pricing for the region.",
+        "claims_checked": [
+          "Location: Formentera",
+          "Activity: Lunch/Meal",
+          "Cost: €220.00 (Estimate €220–€320)"
+        ]
+      },
+      {
+        "day_index": 6,
+        "slot_position": 6,
+        "slot_name": "Return Ferry and Drive",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.villasformentera.com/services/book-a-ferry-to-formentera/",
+          "https://ikh.villas/ferry-connections-between-ibiza-and-formentera-in-2026-complete-guide-schedules-prices-tips/",
+          "https://www.getyourguide.com/en-gb/formentera-l1216/from-ibiza-return-ferry-ticket-to-formentera-t375331/",
+          "https://www.ferryhopper.com/en/ferry-routes/direct/formentera-ibiza",
+          "https://www.directferries.com/ferries_from_formentera_to_ibiza.htm"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a return ferry journey from Formentera to Ibiza followed by a drive to a villa, scheduled for 16:30 to 18:30 (2 hours). Evidence from Source 1 and 3 confirms that the ferry journey takes approximately 30 minutes ('taking approximately 30 minutes', 'fast 30-minute ferry journey'). Source 5 confirms multiple operators (Balearia, Trasmapi, Aquabus, Formentera Lines) and high frequency ('368 times per week'). The 2-hour time window is more than sufficient to cover a 30-minute ferry crossing and a subsequent drive on the island of Ibiza. While the specific 'villa' location is not defined, the transport route and duration are consistent with the geographical facts provided in the evidence.",
+        "claims_checked": [
+          "Ferry route exists from Formentera to Ibiza",
+          "Ferry journey duration is compatible with the 2-hour time window",
+          "Ferry services operate between these islands"
+        ]
+      },
+      {
+        "day_index": 6,
+        "slot_position": 7,
+        "slot_name": "Casual Villa Dinner",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.sneakydiner.co.uk/reviews/150-club-villa-park",
+          "https://hospitalityscout.co.uk/aston-villa-150-club-hospitality-review",
+          "https://www.thecontractchair.co.uk/blog/deep-dive-villa-park-stadium",
+          "https://www.instagram.com/reel/DRCsZ5Jgi9L/",
+          "https://www.facebook.com/avfcofficial/videos/150-club-at-villa-park-/34472698435676777/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot describes a private 'Casual Villa Dinner' or 'takeaway' at a personal accommodation ('Villa') following a ferry trip. The search results provided refer exclusively to the '150 Club' at Villa Park (Aston Villa's football stadium), which is a commercial hospitality venue and unrelated to a private villa dinner. There is no evidence in the search results regarding the cost of takeaway or private dining at a villa in the context of this itinerary.",
+        "claims_checked": [
+          "Venue name: Casual Villa Dinner",
+          "Location: Villa",
+          "Cost: €150.00",
+          "Description: Casual villa dinner / takeaway after ferry day"
+        ]
+      },
+      {
+        "day_index": 6,
+        "slot_position": 8,
+        "slot_name": "Optional Drinks (Couple)",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.reddit.com/r/ibiza/comments/1bzxeoe/scenic_place_for_late_night_drinks_for_over_60/",
+          "https://www.tripadvisor.com/Restaurant_Review-g664638-d12523621-Reviews-or15-Minus80bar-Ibiza_Town_Ibiza_Balearic_Islands.html",
+          "https://www.driftwoodjournals.com/things-to-do-in-ibiza-for-couples-a-different-kind-of-hedonism/",
+          "https://www.tripadvisor.com/Hotel_Review-g664638-d238597-Reviews-THB_Los_Molinos-Ibiza_Town_Ibiza_Balearic_Islands.html",
+          "https://www.reddit.com/r/ibiza/comments/1ai894y/tips_for_couple_looking_for_combo_relaxpartying/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a generic activity (late-night drinks for a couple in Ibiza Town) rather than a specific venue. The evidence confirms that Ibiza Town has numerous options for late-night drinks for couples (Source 1 mentions Zuma, Roto, and Mira; Source 2 mentions Minus80bar). The cost estimate of €80 is consistent with the 'over-priced beers and cocktails' mentioned in Source 3 and the general reputation of Ibiza nightlife. The timing (22:30-23:30) is consistent with the 'late night' nature of these venues described in the search results.",
+        "claims_checked": [
+          "Location: Ibiza Town",
+          "Activity: Late-night drinks for a couple",
+          "Cost: €80.00 (Estimate €80–€150)",
+          "Time: 22:30 - 23:30"
+        ]
+      },
+      {
+        "day_index": 7,
+        "slot_position": 1,
+        "slot_name": "Breakfast at villa",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://tacovilla.net/wp-content/uploads/2024/01/Taco-Vill-Menu.pdf",
+          "https://food52.com/story/28867-love-island-villa-breakfasts",
+          "https://tacovilla.net/menu/breakfast/",
+          "https://usamenuhub.com/taco-villa-menu/",
+          "https://www.facebook.com/LBKTacoVilla/videos/calling-all-early-birds-taco-villa-is-now-open-at-630am-for-breakfast-tag-an-ear/174923723818390/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot describes a private meal ('Breakfast at villa') using 'remaining groceries' at a location generically named 'Villa'. The search results provided refer to a commercial restaurant chain called 'Taco Villa' or the 'Love Island' television show villa. There is no evidence in the search results regarding a specific private accommodation or the availability of groceries for a meal at the user's intended location. Therefore, the claims cannot be verified as PASS or FAIL.",
+        "claims_checked": [
+          "Venue name: Villa",
+          "Category: meal",
+          "Activity: Use remaining groceries for breakfast",
+          "Time: 08:30:00 to 09:30:00"
+        ]
+      },
+      {
+        "day_index": 7,
+        "slot_position": 2,
+        "slot_name": "Favorite Beach Morning",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.introducingibiza.com/cala-llonga"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims that Cala Llonga is a beach suitable for families and is located in a convenient/accessible area. The evidence from the provided link confirms it is 'perfect for families', 'easily accessible', and 'located near Santa Eulalia' (East Ibiza). The description of it being a 'favorite' or 'convenient' is consistent with the source's description of it as a 'perfect cove for families' and 'quiet and easily accessible beach'.",
+        "claims_checked": [
+          "Venue name: Cala Llonga",
+          "Location: Cala Llonga (East Ibiza)",
+          "Category: Beach/Leisure",
+          "Suitability: Family-friendly",
+          "Accessibility: Convenient/Easily accessible"
+        ]
+      },
+      {
+        "day_index": 7,
+        "slot_position": 3,
+        "slot_name": "Beach Lunch or Picnic",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://moosibiza.com/",
+          "https://www.tripadvisor.com/Restaurants-g672815-zfp30-Cala_Llonga_Ibiza_Balearic_Islands.html",
+          "https://www.tripadvisor.com/Restaurant_Review-g672815-d2165659-Reviews-Flippers-Cala_Llonga_Ibiza_Balearic_Islands.html",
+          "https://wanderlog.com/list/geoCategory/315092/best-spots-for-lunch-in-cala-llonga",
+          "https://www.tripadvisor.com/Restaurant_Review-g672815-d28015775-Reviews-SONROJO_Beach_Chiringuito-Cala_Llonga_Ibiza_Balearic_Islands.html"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes a beach lunch or picnic at Cala Llonga with an estimated cost of €150. The evidence confirms that Cala Llonga is a beach location with numerous lunch options. Source [1] mentions 'Moos Ibiza' is a 'stone's throw from Cala Llonga Beach' for lunch. Source [3] mentions 'Flippers' as a 'very good fresh food cafe in Cala Llonga' that 'overlooks the lovely beach.' Source [5] identifies 'SONROJO Beach Chiringuito' as a spot for 'chilled out days at the beach' with 'Spanish food.' While the specific cost of €150 for a group/picnic is not explicitly detailed in a menu, the existence of multiple beachside dining and takeaway options (cafes, chiringuitos) in this specific location supports the feasibility of the activity and the budget.",
+        "claims_checked": [
+          "Location: Cala Llonga",
+          "Activity: Beach lunch or picnic",
+          "Category: Meal"
+        ]
+      },
+      {
+        "day_index": 7,
+        "slot_position": 4,
+        "slot_name": "Packing and Pool",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.adriaholidayrent.com/blog/packing-guide-for-a-luxury-villa-vacation-what-you-shouldnt-forget/",
+          "https://marlenesaiz.com/casa-de-campo-packing-checklist/",
+          "https://hauteretreats.com/what-to-pack-for-a-villa-holiday/",
+          "https://www.paresaresorts.com/blog/what-to-pack-for-paresa-cliff-villas-the-complete-luxury-resort-packing-guide/",
+          "https://villas.journeymexico.com/insider-key/packing-list-for-a-luxury-villa-vacation/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot describes a personal activity (packing and using a pool) at a generic 'Villa' location. The provided evidence consists of general travel blogs and packing guides for luxury villas (e.g., Source 1 and 2 discuss packing swimsuits and towels). However, the evidence does not contain information about a specific villa, its location, or the feasibility of the activities at the scheduled time. Since the evidence is generic and does not mention the specific 'Villa' or the claims regarding the toddler nap and downtime, it is impossible to verify the slot's factual accuracy.",
+        "claims_checked": [
+          "Location: Villa",
+          "Activity: Packing and Pool use",
+          "Activity: Toddler nap",
+          "Cost: €0.00"
+        ]
+      },
+      {
+        "day_index": 7,
+        "slot_position": 5,
+        "slot_name": "Farewell Shared Dinner",
+        "source_type": "link",
+        "source_urls": [
+          "https://puravida-ibiza.com/kids-in-ibiza-at-pura-vida-beach-restaurant/"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims that Pura Vida is a family-friendly restaurant located at Playa Niu Blau in Santa Eulalia. The evidence explicitly supports these claims: 'Our Santa Eulalia Beach Restaurant, located directly on the beach of Playa Niu Blau... is an especially family-friendly spot.' The evidence also confirms the location is 'on the outskirts of the main town' of Santa Eulalia. While the evidence focuses on lunch and daytime activities, it does not contradict the possibility of a dinner service, and the cost estimate is a planning projection not explicitly refuted by the venue's description of its services.",
+        "claims_checked": [
+          "Venue name: Pura Vida",
+          "Location: Playa Niu Blau, Santa Eulalia",
+          "Category: Family-friendly restaurant",
+          "Activity: Shared dinner"
+        ]
+      },
+      {
+        "day_index": 7,
+        "slot_position": 6,
+        "slot_name": "Final Club Night (Couple)",
+        "source_type": "link",
+        "source_urls": [
+          "https://pacha.com/events",
+          "https://www.theushuaiaexperience.com/en/club"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The evidence confirms that both Pacha and Ushuaïa are active venues for the 2026 season. Source 1 explicitly mentions the 'Ibiza 2026 Party Calendar — Pacha Ibiza'. Source 2 confirms Ushuaïa's 2026 season with specific residencies (e.g., Swedish House Mafia, ANTS). While the specific event for August 21, 2026, is not detailed in the snippets, the venues are confirmed to be operational. The time window (23:30 - 04:00) is consistent with standard Ibiza clubbing hours, and the cost estimate is a reasonable projection for two people at these high-end venues, though not explicitly stated in the text.",
+        "claims_checked": [
+          "Venue: Pacha",
+          "Venue: Ushuaïa",
+          "Season: 2026",
+          "Location: Ibiza Town / Playa d’en Bossa"
+        ]
+      },
+      {
+        "day_index": 8,
+        "slot_position": 1,
+        "slot_name": "Check-out",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.vrbo.com/travel/villas",
+          "https://www.airbnb.com/mississippi-united-states/stays/villas",
+          "https://www.villasofdistinction.com/",
+          "https://disneyworld.disney.go.com/resorts/boardwalk-villas/",
+          "https://www.thetopvillas.com/en_us/"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot refers to a generic 'Villa' without a specific name, address, or brand. The provided evidence consists of general search results for villa rental platforms (Vrbo, Airbnb, Villas of Distinction, Top Villas) and a specific Disney resort. None of the evidence contains information regarding the specific 'Villa' mentioned in the slot, nor does it confirm check-out times or procedures for a specific property on August 22, 2026. Therefore, there is no factual basis in the evidence to verify or contradict the claims.",
+        "claims_checked": [
+          "Location: Villa",
+          "Check-out time: 08:00:00 to 09:30:00",
+          "Date: 2026-08-22"
+        ]
+      },
+      {
+        "day_index": 8,
+        "slot_position": 2,
+        "slot_name": "Drive to Airport",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://mrshuttle.com/transfer/santa-eulalia-to-ibiza-airport-transfer/",
+          "https://www.rome2rio.com/s/Santa-Eulalia-Spain/Ibiza-Airport-IBZ",
+          "https://www.shuttledirect.com/en/transfer/ibz/es-santa-eulalia.html",
+          "https://en.intui.travel/transfer-from-ibiza-airport-to-santa-eulalia/?srsltid=AfmBOoqVydKBVMmJQhAoHy1UBIrlKpQRekRCvAz-9B1NMyGtIznAGFfT",
+          "https://www.shuttlespaintransfers.com/en/ibiza-airport-transfers/santa-eulalia"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot claims a drive from Santa Eulalia to Ibiza Airport (IBZ) with a duration of 1.5 hours (09:30 to 11:00). Evidence from Source 4 states the journey time is approximately 20 minutes ('Journey time is 20 min'), and Source 2 suggests a bus takes 45 minutes. A 1.5-hour window is consistent with these travel times while allowing for the additional tasks mentioned in the description (returning rental cars/vans and handling child seats).",
+        "claims_checked": [
+          "Route: Santa Eulalia to Ibiza Airport (IBZ)",
+          "Duration: 1 hour 30 minutes (09:30 to 11:00)",
+          "Transport mode: Driving (rental car/van)"
+        ]
+      },
+      {
+        "day_index": 8,
+        "slot_position": 3,
+        "slot_name": "Flight Ibiza to Dusseldorf",
+        "source_type": "link",
+        "source_urls": [
+          "https://www.eurowings.com/en/booking/offers/flights-from/DE/DUS/to/ES/IBZ/2026-8.html"
+        ],
+        "verdict": "MISSING_INFO",
+        "reasoning": "The slot provides a specific flight route (Ibiza to Dusseldorf) and a specific date/time (2026-08-22). However, the provided link returned no content ('no evidence retrieved'), and no external search results were provided to verify the existence or schedule of this flight for the year 2026.",
+        "claims_checked": [
+          "Flight route: Ibiza (IBZ) to Dusseldorf (DUS)",
+          "Date: 2026-08-22",
+          "Departure time: 13:00",
+          "Arrival time: 15:35",
+          "Operator: Eurowings"
+        ]
+      },
+      {
+        "day_index": 8,
+        "slot_position": 4,
+        "slot_name": "Arrival in Dusseldorf",
+        "source_type": "web_search",
+        "source_urls": [
+          "https://www.messe-duesseldorf.com/arrival?utm_source=vwe22%20aussteller%20update&utm_medium=email&utm_content=eintrittsgutschein%20anreise&utm_campaign=update06%20en",
+          "https://www.sixt.com/ride/airport-transfer/dusseldorf/",
+          "https://www.dus.com/en/to-and-from/bus-and-train",
+          "https://www.jayride.com/airport-transfer/germany/dusseldorf-airport-dus?srsltid=AfmBOoqrlYS_f5K24wmT6xCD6O1uOWEcooLKTEbO8Ntc8h_g00rMQXX7",
+          "https://www.tripadvisor.com/ShowTopic-g187373-i506-k14034086-DUS_arrival_time_and_train-Dusseldorf_North_Rhine_Westphalia.html"
+        ],
+        "verdict": "PASS",
+        "reasoning": "The slot describes an arrival and transfer from Dusseldorf Airport (DUS). The evidence confirms that DUS is the correct code for Dusseldorf Airport (Source 2, 3, 4) and that various transport modes (train, bus, shuttle, and private transfer) are available for transfers from the airport to destinations in and around Dusseldorf (Source 1, 2, 3). The time window of 1 hour for an airport transfer is consistent with standard travel logistics for a local transfer.",
+        "claims_checked": [
+          "Location: DUS (Dusseldorf Airport)",
+          "Activity: Transfer from Dusseldorf Airport",
+          "Category: Transport"
+        ]
+      }
+    ],
+    "rationale_pass_count": 35,
+    "rationale_fail_count": 1,
+    "rationale_missing_count": 15,
+    "hc_micro_pass_rate": 0.875,
+    "cc_micro_pass_rate": 0.9231,
+    "hc_macro_pass_rate": 0.0,
+    "cc_macro_pass_rate": 0.0,
+    "final_pass_rate": 0.0,
+    "aggregated_constraints": [
+      {
+        "id": "HC-1",
+        "constraint_text": "origin: Dusseldorf",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-2",
+        "constraint_text": "destination: Ibiza",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-3",
+        "constraint_text": "travel_dates: 2026.08.15 to 2026.08.22",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-4",
+        "constraint_text": "travelers: 6 adults, 1 child under 6, 1 child 6 to 16",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-5",
+        "constraint_text": "budget: 12000 EUR total",
+        "constraint_type": "hard",
+        "final_verdict": "FAIL",
+        "judge_verdicts": [
+          "FAIL",
+          "FAIL",
+          "FAIL",
+          "FAIL"
+        ],
+        "pass_count": 0,
+        "fail_count": 4,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-6",
+        "constraint_text": "accommodation: villa with pool",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-7",
+        "constraint_text": "transport: Flight",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "HC-8",
+        "constraint_text": "interests: beach and child-friendly activities (families), clubs and nightlife (young couple), water sports, shared dinners",
+        "constraint_type": "hard",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-1",
+        "constraint_text": "Car or road trip transport is not feasible for island or overseas destinations — a flight or ferry is required.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-2",
+        "constraint_text": "No key information should be left out of the plan, such as the lack of accommodation during travel.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-3",
+        "constraint_text": "Transportation choices within the trip must be reasonable. For example, having both “self-driving” and “flight” would be considered a conflict.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-4",
+        "constraint_text": "Both outbound and return transport must appear in the plan.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-5",
+        "constraint_text": "Flight or train connections must allow sufficient layover time (≥60 min domestic, ≥90 min international).",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "NA",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 3,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 1
+      },
+      {
+        "id": "CC-6",
+        "constraint_text": "Accommodation must be planned for every night of the trip.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-7",
+        "constraint_text": "Hotel check-in must be scheduled after arrival transport reaches the destination.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-8",
+        "constraint_text": "Restaurants must be open on the planned day and time.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-9",
+        "constraint_text": "Restaurant choices should not be repeated throughout the trip.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-10",
+        "constraint_text": "Activities should be geographically sensible per day (no unnecessary cross-city travel).",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 4,
+        "fail_count": 0,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-11",
+        "constraint_text": "Attractions must be open on the planned day and time.",
+        "constraint_type": "commonsense",
+        "final_verdict": "FAIL",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "MISSING_INFO",
+          "FAIL"
+        ],
+        "pass_count": 2,
+        "fail_count": 1,
+        "missing_count": 1,
+        "na_count": 0
+      },
+      {
+        "id": "CC-12",
+        "constraint_text": "Attraction choices should not be repeated throughout the trip.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "PASS",
+          "PASS",
+          "FAIL"
+        ],
+        "pass_count": 3,
+        "fail_count": 1,
+        "missing_count": 0,
+        "na_count": 0
+      },
+      {
+        "id": "CC-13",
+        "constraint_text": "Travel time between consecutive activities must account for realistic transit duration.",
+        "constraint_type": "commonsense",
+        "final_verdict": "PASS",
+        "judge_verdicts": [
+          "PASS",
+          "FAIL",
+          "PASS",
+          "PASS"
+        ],
+        "pass_count": 3,
+        "fail_count": 1,
+        "missing_count": 0,
+        "na_count": 0
+      }
+    ],
+    "timestamp": "2026-05-17T11:51:00.077781+00:00"
+  }
 }

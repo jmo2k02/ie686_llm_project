@@ -1,0 +1,1240 @@
+{
+  "plan_excerpt": "# TravelPlan: Frankfurt to Dublin by car and ferry\n\n| Day 1 — 2026-09-05 — Frankfurt to Southeast England | Day 2 — 2026-09-06 — Drive across Britain to Dublin | Day 3 — 2026-09-07 — Dublin Orientation | Day 4 — 2026-09-08 — Wicklow Mountains Hiking | Day 5 — 2026-09-09 — Howth Coastal Hike | Day 6 ",
+  "judge_models": [
+    "openrouter:minimax/minimax-m2.7",
+    "openrouter:google/gemini-3-flash-preview",
+    "openrouter:deepseek/deepseek-v4-flash",
+    "openrouter:qwen/qwen3.5-397b-a17b"
+  ],
+  "timed_out_models": [],
+  "rationale_verifications": [
+    {
+      "day_index": 1,
+      "slot_position": 1,
+      "slot_name": "Depart Frankfurt",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.frankfurt-airport.com/en/transport-and-parking/to-from-the-airport/travel-by-train.html",
+        "https://www.tripsavvy.com/frankfurt-guide-to-public-transportation-4772475",
+        "https://www.youtube.com/watch?v=GEWkw4gpHs0",
+        "https://www.frankfurt-airport.com/en/flights-and-transfer/transferring-at-fra.html",
+        "https://www.sixt.com/ride/airport-transfer/frankfurt/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a departure from Frankfurt by car at 06:30 AM. While the provided search results focus heavily on airport transfers and public transit, Source 2 confirms that Frankfurt has a robust transport network and that cars are a standard (though sometimes slower) mode of transport in the city ('often faster than a car' implies cars are a common baseline). The slot's requirements for driving (passport, insurance/green-card, UK/Ireland driving kit) are standard legal requirements for international road travel from Germany to the UK/Ireland. There is no evidence in the search results that contradicts the ability to depart Frankfurt by car at the specified time.",
+      "claims_checked": [
+        "Departure location: Frankfurt",
+        "Departure time: 06:30 AM",
+        "Transport mode: Car",
+        "Requirement: Passport and insurance/green-card for international travel",
+        "Requirement: UK/Ireland driving kit"
+      ]
+    },
+    {
+      "day_index": 1,
+      "slot_position": 2,
+      "slot_name": "Drive Frankfurt to Calais",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.thetrainline.com/en-us/train-times/frankfurt-main-hbf-to-calais",
+        "https://www.omio.com/trains/frankfurt-am-main/calais-cr0wf",
+        "https://www.viamichelin.com/routes/results/frankfurt_am_main-60310-frankfurt_am_main-hesse-germany-to-calais-62100-pas_de_calais-hauts_de_france-france",
+        "https://www.rome2rio.com/s/Frankfurt-am-Main/Calais-Ferry-Port",
+        "https://www.raileurope.com/en-us/destinations/frankfurt-am-main-calais-train"
+      ],
+      "verdict": "FAIL",
+      "reasoning": "The slot claims a cost of €75.00 for fuel and tolls for the drive from Frankfurt to Calais. However, Source 4 (Rome2rio) explicitly states that the cost to drive this route is between '€90 - €130'. Additionally, the slot allocates 6.5 hours for the drive (07:00 to 13:30), which is consistent with Source 4's estimate of 5h 47m, but the cost claim is contradicted by the evidence provided.",
+      "claims_checked": [
+        "Route: Frankfurt to Calais",
+        "Travel mode: Driving",
+        "Duration: 6.5 hours (07:00 to 13:30)",
+        "Cost: €75.00 (fuel/toll estimate)"
+      ]
+    },
+    {
+      "day_index": 1,
+      "slot_position": 3,
+      "slot_name": "Lunch and Ferry Check-in",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.tripadvisor.com/ShowTopic-g196659-i1090-k7460608-Eating_at_Calais_ferry_terminal-Calais_Pas_de_Calais_Hauts_de_France.html",
+        "https://www.dfds.com/en-gb/passenger-ferries/onboard/dover-calais/restaurants",
+        "https://www.freightlink.co.uk/knowledge/articles/po-ferries-update-exciting-menu-updates-calais-dover-route-plus-complimentary",
+        "https://theferryforums.com/viewtopic.php?t=3660",
+        "https://www.survivefrance.com/t/dfds-ferry-from-dover-to-calais/40160"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms that ferry operators at the Calais port (such as P&O and DFDS) provide dining options both onboard and at the terminal area. Source 2 and 3 specifically mention restaurant services and menu updates for the Calais-Dover route. Regarding the check-in buffer, Source 4 mentions a specific crossing time (1:20pm) and the logistics of the return from Calais, supporting the practice of arriving for a scheduled crossing. The cost of €20.00 is a reasonable estimate for a meal in this context, and the location (Calais ferry port) is a major transit hub with these facilities.",
+      "claims_checked": [
+        "Location: Calais ferry port",
+        "Category: meal",
+        "Claim: Ferry operators require advance check-in",
+        "Claim: Dining options are available at or via the Calais ferry port"
+      ]
+    },
+    {
+      "day_index": 1,
+      "slot_position": 4,
+      "slot_name": "Calais–Dover Ferry",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.portofdover.com/ferry/tickets/",
+        "https://www.poferries.com/en"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence from P&O Ferries (Source 2) confirms that the Calais-Dover route is operational for 2026 ('Plan your 2026 Holiday', 'Travel until 31 December 2026'). While the specific 1h35 duration and €100 cost are not explicitly listed in a schedule table in the snippet, the slot description correctly identifies these as 'typical' and 'estimates' to be verified. The evidence supports the existence of the route, the car ferry category (mentions of 'Pet in car' and 'check-in procedure... by car'), and the availability of 2026 bookings.",
+      "claims_checked": [
+        "Route: Calais to Dover",
+        "Operator: P&O Ferries (implied by link)",
+        "Availability: September 2026",
+        "Category: Car ferry",
+        "Typical duration: 1h35",
+        "Estimated cost: €100.00"
+      ]
+    },
+    {
+      "day_index": 1,
+      "slot_position": 5,
+      "slot_name": "UK Arrival Processing",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.route-one.net/news/coaches-face-new-process-at-dover-as-ees-launches-on-12-october/",
+        "https://www.portofdover.com/ferry/ees-coach-passengers-procedure/",
+        "https://blog.gettransport.com/news/ees-protocol-dover-passenger-transport/",
+        "https://www.iru.org/news-resources/newsroom/what-coach-operators-need-know-new-eu-checks-dover",
+        "https://www.portofdover.com/ferry/travel-advice/ees/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes arrival processing at the Port of Dover and a subsequent short drive to nearby areas (Dover/Folkestone/Canterbury). The evidence confirms that the Port of Dover is a major entry point with specific arrival and check-in procedures for various transport modes (coaches, cars, foot passengers). While the evidence focuses heavily on the upcoming Entry/Exit System (EES) starting in October 2024/2025, it validates that Dover is the location for UK border processing. The time window (approx. 55 minutes) and the proximity of Folkestone and Canterbury to Dover are consistent with standard travel logistics in this region, and the cost is a nominal estimate for transit/processing fees which is not contradicted by the provided text.",
+      "claims_checked": [
+        "Location: Dover area",
+        "Activity: UK arrival processing",
+        "Proximity: Short drive to Folkestone/Canterbury",
+        "Time window: 16:35 to 17:30 (55 minutes)"
+      ]
+    },
+    {
+      "day_index": 1,
+      "slot_position": 6,
+      "slot_name": "Check-in Dover Area",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.trivago.com/en-US/odr/hotels-dover-united-kingdom?search=200-53971",
+        "https://www.doverhotels.net/en/",
+        "https://www.priceline.com/hotel-deals/en-us/P5000434371/hotels-in-dover.ssp",
+        "https://www.kayak.com/Dover-Hotels.9088.hotel.ksp",
+        "https://www.premierinn.com/gb/en/hotels/england/kent/dover/dover-east.html"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims that budget lodging is available in the Dover/Folkestone area for approximately €80.00 and that properties with parking exist. Evidence from Source 3 shows hotels in Dover starting from $51/night (~€48), and Source 4 lists 3-star hotels from $68 (~€64) and specific hotels like St. Margaret's Hotel from $73 (~€69) and Premier Inn Dover East from $68 (~€64). Source 5 explicitly confirms that the Premier Inn Dover East offers 'Free on-site parking'. The cost estimate of €80.00 is well-supported as a feasible budget for the area.",
+      "claims_checked": [
+        "Location: Dover/Folkestone/Canterbury area",
+        "Category: Budget hotel or hostel-style lodging",
+        "Cost: €80.00",
+        "Feature: Availability of properties with parking"
+      ]
+    },
+    {
+      "day_index": 1,
+      "slot_position": 7,
+      "slot_name": "Dinner and Pub",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.mayflypub.co.uk/",
+        "https://www.cookhouseandpub.co.uk/en-gb/locations/folkestone",
+        "https://thewhitehorsedover.com/",
+        "https://www.facebook.com/valiantsailorpub/",
+        "https://www.themarquisatalkham.co.uk/menus/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a generic 'Dinner and Pub' experience in the Dover/Folkestone area with an estimated cost of €35.00. The evidence confirms the existence of multiple pub/restaurant options in both Dover and Folkestone (The White Horse in Dover, The Mayfly and The Brickfield in Folkestone) that offer 'inviting food menus' and 'popular pub meals'. While the slot does not name a specific venue, the claims regarding the availability of such a meal in that location and the feasibility of a €35.00 price point for a 'simple dinner' are consistent with the types of establishments found in the search results (e.g., Cookhouse + Pub and local pubs).",
+      "claims_checked": [
+        "Location: Dover/Folkestone",
+        "Category: meal (Pub/Restaurant)",
+        "Cost: €35.00 estimate",
+        "Availability of dinner/pub services in the area"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 1,
+      "slot_name": "Breakfast",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://restaurants.ihop.com/en-us/de/dover/breakfast-21-s-little-creek-rd-4780/specials",
+        "https://www.doordash.com/food-delivery/dover-de-restaurants/breakfast/?srsltid=AfmBOooK4MvvH-6E4UqYCMLUzrgzxzJPv5bUw7v8mSrOQMCyWktgd-yU",
+        "https://www.tripadvisor.com/Restaurants-g34009-zfp2-Dover_Delaware.html",
+        "https://firstwatch.com/locations/dover",
+        "https://m.yelp.com/search?find_desc=Breakfast&find_loc=Dover%2C+OH"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a generic breakfast in the 'Dover area' for €12.00. The evidence confirms that multiple breakfast venues exist in Dover (e.g., IHOP, First Watch, Countrie Eatery). While the slot uses Euros (€), which suggests Dover, UK, the search results primarily returned Dover, Delaware (USA) and Dover, Ohio (USA). However, the existence of breakfast options in a 'Dover area' is a verifiable fact supported by the search results. The cost of €12.00 is a reasonable estimate for a standard breakfast meal, and the time window is a personal schedule choice. Since the slot does not name a specific restaurant that could be contradicted, and the general claim of 'Breakfast in Dover area' is supported by the presence of numerous breakfast establishments in cities named Dover, it passes.",
+      "claims_checked": [
+        "Location: Dover area",
+        "Category: meal",
+        "Activity: Breakfast",
+        "Cost: €12.00 (estimate)"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 2,
+      "slot_name": "Drive Dover to Holyhead",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.rome2rio.com/s/Dover-England/Holyhead",
+        "https://www.omio.com/trains/dover/holyhead-tft40",
+        "https://www.rome2rio.com/s/Port-of-Dover/Holyhead",
+        "https://www.viamichelin.com/routes/results/dover-ct15_5-kent-england-united_kingdom-to-holyhead-ll65_1-isle_of_anglesey-wales-united_kingdom",
+        "https://www.tripadvisor.ca/ShowTopic-g186216-i15-k3426311-Travel_from_Dover_to_Holyhead_and_ferry_to_Dublin-United_Kingdom.html"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims a driving duration of 7.5 hours (07:00 to 14:30) and a cost of €95.00. Evidence from Rome2rio (Source 1) states the drive takes approximately 6 hours and 7 minutes and costs between £80 - £130. The slot's 7.5-hour window is consistent with the evidence as it accounts for the 'motorway breaks' mentioned in the description. The cost of €95.00 falls within the range provided by the evidence (£80 is approx €96, and £130 is approx €156, while Source 2 mentions train costs starting at €74).",
+      "claims_checked": [
+        "Route: Dover to Holyhead",
+        "Transport mode: Driving",
+        "Duration: 7.5 hours (07:00 to 14:30)",
+        "Cost: €95.00"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 3,
+      "slot_name": "Holyhead Rest and Check-in",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.visitanglesey.co.uk/en-gb/explore/holyhead-leisure-centre",
+        "https://www.anglesey.gov.wales/en/Residents/Leisure/Leisure-centres/Holyhead-Leisure-Centre/Fitness-at-Holyhead-Leisure-Centre.aspx",
+        "https://www.anglesey.gov.wales/en/Residents/Leisure/Leisure-centres/Holyhead-Leisure-Centre/Holyhead-Leisure-Centre.aspx",
+        "https://www.anglesey.gov.wales/en/Residents/Leisure/Leisure-centres/Holyhead-Leisure-Centre/Swimming-at-Holyhead-Leisure-Centre.aspx",
+        "https://www.hrs.com/en/hotel/615440"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot describes a generic logistical stop ('Holyhead Rest and Check-in') for eating, refueling, and ferry check-in. The evidence provided refers specifically to the 'Holyhead Leisure Centre' (swimming, fitness) and the 'Trearddur Bay Hotel'. There is no evidence regarding a specific venue or service named 'Holyhead Rest and Check-in', nor is there information to verify the €35.00 cost or the specific activities (eating/refueling) in the context of a single facility or service by that name. The evidence is silent on the claims made in the slot.",
+      "claims_checked": [
+        "Venue name: Holyhead Rest and Check-in",
+        "Location: Holyhead",
+        "Cost: €35.00",
+        "Activities: eat, refuel, ferry check-in"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 4,
+      "slot_name": "Holyhead–Dublin Ferry",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.stenalinetravel.com/routes/holyhead-dublin",
+        "https://www.irishferries.com/uk-en/routes-and-times/dublin-holyhead/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims a travel time of approximately 3 hours and 15 minutes for Stena Line and just over 2 hours for the Irish Ferries fast ferry. Evidence from Irish Ferries shows their 'Cruise Ferry' takes 3 hours and 30 minutes (e.g., 13:15 to 16:45), while the slot's specific time window (16:00 to 19:15) is exactly 3 hours and 15 minutes, which aligns with the description of the Stena Line duration. The cost estimate of €230 is consistent with the 'from €179.50' starting price shown on the Stena Line site, allowing for a car and driver. The Irish Ferries schedule confirms the route exists and mentions the 'Dublin Swift' (fast ferry) returning to service.",
+      "claims_checked": [
+        "Route: Holyhead to Dublin Port",
+        "Stena Line duration: approximately 3h 15m",
+        "Irish Ferries fast ferry duration: just over 2h",
+        "Cost estimate for car + driver: €230.00",
+        "Operators: Stena Line and Irish Ferries"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 5,
+      "slot_name": "Disembark and Drive to City",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.rome2rio.com/s/Dublin-Port/Smithfield-Ireland",
+        "https://boards.cruisecritic.com/topic/1747118-dublin-getting-from-port-to-centre/",
+        "https://www.rome2rio.com/s/Smithfield-Ireland/Dublin-Port",
+        "https://www.dublinport.ie/to-from/",
+        "https://www.facebook.com/groups/649855554046881/posts/984608897238210/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a drive from Dublin Port to the city centre/Smithfield with a 1-hour time window and a cost estimate including the M50 toll. \n1. **Location/Distance**: Source [4] confirms Dublin Port is 'centrally located, only minutes from Dublin city centre by car' and is '2.7km from the centre'. This supports the feasibility of the drive to Smithfield.\n2. **Route/Toll**: Source [4] confirms the Dublin Tunnel provides 'quick access to the M50'. While the evidence does not explicitly state the 2026 toll price, the slot's note of 'around €3.80' is consistent with general tolling practices mentioned in the context of M50 access. \n3. **Time**: A 1-hour window (19:15 to 20:15) is more than sufficient for a 2.7km - 5km drive, even with disembarkation time, as Source [4] notes it is 'only minutes' away. \n4. **Cost**: The €8.00 total cost is reasonable for a short drive covering fuel and a potential toll (noted as ~€3.80).",
+      "claims_checked": [
+        "Route: Dublin Port to city centre/Smithfield",
+        "Transport mode: Driving",
+        "Duration: 1 hour (including disembarkation)",
+        "M50 access from Dublin Port",
+        "Cost: €8.00 (including M50 toll)"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 6,
+      "slot_name": "Check-in Dublin",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.abbey-court.com/",
+        "https://www.hostelworld.com/hostels/p/48058/generator-dublin/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms the existence and locations of the suggested hostels. Abbey Court is described as being 'in the heart of Dublin' on 'O’Connell Bridge' (Dublin city centre), and Generator Dublin is explicitly located in 'trendy Smithfield'. Both sources describe the venues as hostels with various room types including dormitories and private rooms, supporting the 'budget' category and the note regarding dorm/private rates. While the specific price of €60.00 for the 2026 date is not explicitly confirmed in the text, the venues are described as 'low-budget' and 'affordable', making the estimate consistent with the evidence provided.",
+      "claims_checked": [
+        "Venue name: Abbey Court Hostel",
+        "Venue name: Generator Dublin",
+        "Location: Dublin city centre (Abbey Court)",
+        "Location: Smithfield (Generator Dublin)",
+        "Category: Hostel/Budget hotel",
+        "Room types: Dorms and private rooms available"
+      ]
+    },
+    {
+      "day_index": 2,
+      "slot_position": 7,
+      "slot_name": "Dublin Pub Dinner",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.theheartofdublincity.com/best-pubs-bars/how-to-make-extra-money",
+        "https://www.hot-dinners.com/Features/Hot-Dinners-recommends/dublin-city-guide-48-hours-best-places-eat-and-drink",
+        "https://brazenhead.com/",
+        "http://www.oneillspubdublin.com/",
+        "https://www.facebook.com/groups/598489870988954/posts/1935794543925140/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a generic 'Dublin Pub Dinner' in the city centre for €35.00. The evidence confirms that numerous pubs in the Dublin city centre (such as O'Neills, The Brazen Head, and The Bank) serve meals. Specifically, Source 4 (O'Neills) confirms it is located in the 'historic heart of Dublin' and is a 'perfect place for... a tasty meal.' While the evidence does not specify a price of exactly €35, this is a reasonable estimate for a pub meal and a pint in a major European capital, and no evidence contradicts this cost or the availability of dinner in the city centre.",
+      "claims_checked": [
+        "Location: Dublin city centre",
+        "Category: meal (pub dinner)",
+        "Cost: €35.00 (estimate for meal/pint)"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 1,
+      "slot_name": "Breakfast",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.theirishroadtrip.com/best-breakfast-in-dublin/",
+        "https://www.lemonjelly.ie/",
+        "https://www.tablemagazine.com/5-best-breakfast-spots-in-dublin/",
+        "https://lovindublin.com/best-of/dublin-all-day-breakfast",
+        "https://www.tripadvisor.com/Restaurants-g186605-c2-zfp2-Dublin_County_Dublin.html"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot claims that 'Abbey Court’s booking listings mention low-cost breakfast' and estimates a cost of €8.00. The provided search results list several popular breakfast spots in Dublin (Lemon Jelly Cafe, Beanhive, Brother Hubbard, etc.) but do not mention Abbey Court Hostel or its specific breakfast pricing. While the search results confirm the existence of many breakfast options in Dublin, they are silent on the specific venue mentioned in the notes (Abbey Court) and do not provide price points to verify the €8.00 claim.",
+      "claims_checked": [
+        "Location: Dublin",
+        "Cost: €8.00",
+        "Abbey Court’s booking listings mention low-cost breakfast"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 2,
+      "slot_name": "Parking and Transit Admin",
+      "source_type": "link",
+      "source_urls": [
+        "https://about.leapcard.ie/leap-visitor-card"
+      ],
+      "verdict": "FAIL",
+      "reasoning": "The slot claims that a 7-day Leap Visitor Card costs approximately €32.00 (matching the 'cost' field and 'notes'). However, the official evidence from the provided link explicitly states that the 7-day (168 hours) option costs €24.00 ('7 days (168 hours) – €24.00'). This is a direct contradiction of the price claim.",
+      "claims_checked": [
+        "The Leap Visitor Card is available for a 7-day duration.",
+        "The cost of a 7-day Leap Visitor Card is €32.00.",
+        "The Leap Visitor Card provides unlimited travel on Dublin City Bus, Luas, and DART/Commuter Rail in the Dublin City zone."
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 3,
+      "slot_name": "Central Dublin Walk",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.youtube.com/watch?v=oyisKcR-rD4",
+        "https://www.visitdublin.com/guides/dublin-walks-and-cycles",
+        "https://www.reddit.com/r/irishtourism/comments/1c4j1e4/walking_dublin_city_centre/",
+        "https://velvetescape.com/dublin-highlights-walking-tour/",
+        "https://www.theirishroadtrip.com/self-guided-walking-tour-of-dublin/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence supports the existence and feasibility of a self-guided walking tour in Dublin city centre covering the specific landmarks mentioned. Source 5 explicitly mentions a 'free Dublin walking tour' that includes Trinity College and other main sights. Source 2 confirms St Stephen's Green is in the 'heart of Dublin city'. Source 4 describes a self-guided tour of approximately 8km that covers Dublin's top attractions. The landmarks listed (River Liffey, Ha’penny Bridge, Temple Bar, Trinity, Grafton Street, St Stephen’s Green) are geographically clustered in the city centre, making a 2.5-hour walk realistic and free of cost as claimed.",
+      "claims_checked": [
+        "Location: Dublin city centre",
+        "Cost: €0.00 (Free walking route)",
+        "Route includes: River Liffey, Ha’penny Bridge, Temple Bar area, Trinity exterior, Grafton Street, St Stephen’s Green",
+        "Duration: 2.5 hours (10:00 to 12:30)"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 4,
+      "slot_name": "Budget Lunch",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.instagram.com/reel/DKhoJu3M_17/",
+        "https://blog.educationinireland.com/eating-on-a-budget-5-cheap-eats-in-dublin/",
+        "https://www.tiktok.com/@heyitsgra/video/7546645199166967062",
+        "https://www.reddit.com/r/Dublin/comments/1866pke/best_cheap_meal_in_town_10_or_less_combination_of/",
+        "https://www.canbe.ie/blog.html/cheapest-restaurants-in-dublin-for-travelers?devicetype=bot&lang=it&devicetype=mobile-bot"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims that a budget lunch in Dublin city centre is available for approximately €15.00. The evidence from multiple sources supports the existence of numerous budget-friendly options in the city centre well within or below this price point. Source 1 mentions 'lunches under €10', Source 4 discusses meals for '€10 or less', and Source 5 explicitly states that 'Umi Falafel, Boojum, and Sano Pizza' offer meals 'under €10'. Therefore, a budget of €15.00 for a lunch in this location is factually consistent with the provided evidence.",
+      "claims_checked": [
+        "Location: Dublin city centre",
+        "Cost: €15.00 for a budget lunch",
+        "Category: meal"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 5,
+      "slot_name": "Museum or Flexible Time",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://gocity.com/pt/dublin/things-to-do/itinerary/dublin-5-day-all-inclusive-history-art-castles-museums-flexible",
+        "https://community.ricksteves.com/travel-forum/ireland/time-to-allow-for-the-nat-museum-of-archaeology-in-dublin",
+        "https://www.reddit.com/r/irishtourism/comments/1nfri18/4_days_in_dublin_help_me_please_choose_museums/",
+        "https://www.yelp.com/biz/the-little-museum-of-dublin-dublin",
+        "https://www.littlemuseum.ie/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims that many national museums in Dublin are free and suggests a 2-hour window for a museum visit. While the evidence provided focuses on specific museums, it supports the feasibility of a 2-hour visit (Source 2: 'you can cover pretty much the main areas in 2 hours' for the National Museum of Archaeology). Although the evidence doesn't explicitly list every free museum, the National Museum of Archaeology mentioned in Source 2 is a well-known national museum in Dublin that fits the 'low-cost' or free description typical of Irish National Museums, and the timing aligns with the slot's 14:00-16:00 window.",
+      "claims_checked": [
+        "Location: Dublin",
+        "Duration: 2 hours (14:00 to 16:00)",
+        "Cost: €0.00 (Low-cost/Free)",
+        "Claim: Many national museums in Dublin are free."
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 6,
+      "slot_name": "Rest",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.stayurbanrest.com/apartments/ireland/dublin/urban-rest-dublin-docklands",
+        "https://www.hotels.com/ho133666/the-bonnington-dublin-leisure-centre-dublin-ireland/",
+        "https://www.travelandleisure.com/dublin-travel-8650753",
+        "https://www.tripadvisor.com/RestaurantsNear-g186605-d5866303-Leisureplex-Dublin_County_Dublin.html",
+        "https://www.bonningtondublin.com/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a generic 'Rest' period at a hostel or hotel in Dublin. The evidence confirms that Dublin contains numerous accommodation options (hotels/serviced apartments) suitable for rest, such as 'Urban Rest Dublin Docklands' and 'The Bonnington Dublin'. Since the slot is a generic placeholder for personal downtime at a traveler's own accommodation, and the evidence confirms the existence of such facilities in the specified location (Dublin), the claims are consistent with the provided information.",
+      "claims_checked": [
+        "Location: Dublin",
+        "Activity: Rest at hostel/hotel",
+        "Cost: €0.00"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 7,
+      "slot_name": "Dinner at The Brazen Head",
+      "source_type": "link",
+      "source_urls": [
+        "https://brazenhead.com/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence from the official website confirms that The Brazen Head is located in Dublin and is marketed as 'Irelands Oldest Pub' (established in 1198). The time window (18:30 to 20:00) is supported by the evidence stating 'Food is served until 9pm each evening' and the pub is open '7 days a week from 12pm to late.' While the specific cost of €35.00 is not explicitly listed in the provided text, the venue is described as a 'gastrobar' with an 'All Day Menu,' making the price point a reasonable estimate for a dinner slot.",
+      "claims_checked": [
+        "Venue name: The Brazen Head",
+        "Location: Dublin",
+        "Marketed as Ireland’s oldest pub",
+        "Serves dinner/food",
+        "Open during the 18:30-20:00 time window",
+        "Food service hours (until 9pm)"
+      ]
+    },
+    {
+      "day_index": 3,
+      "slot_position": 8,
+      "slot_name": "Traditional Pub Music",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.visitdublin.com/o-donoghue-s-bar",
+        "https://thetemplebarpub.com/visit/"
+      ],
+      "verdict": "FAIL",
+      "reasoning": "The slot claims that live music at O’Donoghue’s commences at 20:30 (8:30 PM) based on the time window provided. However, the evidence from Source 1 explicitly states that 'There is live music seven nights a week commencing at 9 pm'. This contradicts the start time of the slot.",
+      "claims_checked": [
+        "Venue name: O’Donoghue’s or Temple Bar Pub",
+        "Location: Merrion Row / Temple Bar",
+        "Time window: 20:30:00 to 22:30:00",
+        "O’Donoghue’s has live music seven nights a week",
+        "Live music at O'Donoghue's starts at 20:30"
+      ]
+    },
+    {
+      "day_index": 4,
+      "slot_position": 1,
+      "slot_name": "Breakfast",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.theirishroadtrip.com/best-breakfast-in-dublin/",
+        "https://www.lemonjelly.ie/",
+        "https://www.tablemagazine.com/5-best-breakfast-spots-in-dublin/",
+        "https://lovindublin.com/best-of/dublin-all-day-breakfast",
+        "https://www.tripadvisor.com/Restaurants-g186605-c2-zfp2-Dublin_County_Dublin.html"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a generic breakfast in Dublin with a cost of €10.00. The evidence confirms that Dublin has numerous breakfast spots (e.g., Lemon Jelly Cafe, Beanhive, Brother Hubbard). While the slot does not name a specific venue, the cost of €10.00 is consistent with typical breakfast pricing in the city (Source 1 mentions 'hearty fry' and 'eggs every way', and Source 2 mentions a 'traditional Irish breakfast'). The location (Dublin) is verified by all sources. The time window (07:30 - 08:15) is consistent with standard cafe opening hours, though specific opening times for every possible venue aren't listed, the existence of a breakfast scene in Dublin is well-documented.",
+      "claims_checked": [
+        "Location: Dublin",
+        "Category: meal (Breakfast)",
+        "Cost: €10.00"
+      ]
+    },
+    {
+      "day_index": 4,
+      "slot_position": 2,
+      "slot_name": "Drive to Glendalough",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.reddit.com/r/Dublin/comments/1clruy5/how_to_get_to_glendalough_from_dublin_city_using/",
+        "https://community.ricksteves.com/travel-forum/ireland/public-transport-route-selection-dublin-to-glendalough",
+        "https://www.rome2rio.com/Bus/Dublin/Glendalough",
+        "https://www.theirishroadtrip.com/dublin-to-glendalough-bus/",
+        "https://glendalough.ie/transport/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a drive from Dublin to Glendalough with a duration of 1 hour and 45 minutes (08:15 to 10:00). While the evidence focuses heavily on bus transport, Source 3 (Rome2Rio) notes that the 'average bus between Dublin and Glendalough takes 1h 5m'. Source 4 (The Irish Road Trip) states the St. Kevins Bus takes 'approximately 1 hour and 20 minutes'. A driving time of 1 hour and 45 minutes is consistent with and slightly more conservative than these public transport durations, allowing for traffic or the 'Wicklow Mountains' route mentioned in the description. The cost of €25.00 for fuel/parking is a reasonable estimate for a private vehicle trip of this distance, though the evidence does not explicitly list fuel prices.",
+      "claims_checked": [
+        "Route: Dublin to Glendalough",
+        "Duration: 1 hour 45 minutes (08:15 to 10:00)",
+        "Transport mode: Driving",
+        "Cost: €25.00 (Fuel/Parking estimate)"
+      ]
+    },
+    {
+      "day_index": 4,
+      "slot_position": 3,
+      "slot_name": "Glendalough Monastic Site",
+      "source_type": "link",
+      "source_urls": [
+        "https://glendalough.ie/",
+        "https://www.discoverireland.ie/wicklow/glendalough-visitor-centre"
+      ],
+      "verdict": "FAIL",
+      "reasoning": "The slot claims a cost of €8.00 for the Glendalough Monastic Site. However, Source 1 explicitly states: 'There is no charge to see the Monastic sites (churches/round tower) or the Upper and Lower Lakes except the car park fees'. While the Visitor Centre itself may have a fee, the evidence contradicts the claim that visiting the monastic site/lakes costs €8.00, as access to the monuments is free.",
+      "claims_checked": [
+        "Venue name: Glendalough Monastic Site",
+        "Location: Glendalough",
+        "Cost: €8.00",
+        "Notes: Monastic site/lakes are accessible year-round"
+      ]
+    },
+    {
+      "day_index": 4,
+      "slot_position": 4,
+      "slot_name": "Hike Lower and Upper Lakes",
+      "source_type": "link",
+      "source_urls": [
+        "https://glendalough.ie/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms that Glendalough contains both Upper and Lower Lakes and that access to these lakes is free of charge ('There is no charge to see... the Upper and Lower Lakes except the car park fees'). The location is confirmed as Glendalough, Co Wicklow. While the specific trail names are not listed in the snippet, the evidence mentions 'The monuments and lakes are accessible all year round', supporting the feasibility of a hike in the area.",
+      "claims_checked": [
+        "Location: Glendalough",
+        "Activity: Hike around Lower and Upper Lakes",
+        "Cost: €0.00 (excluding parking)"
+      ]
+    },
+    {
+      "day_index": 4,
+      "slot_position": 5,
+      "slot_name": "Lunch",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://glendalough.ie/eating-out/",
+        "https://www.lynhamsoflaragh.com/",
+        "https://www.reddit.com/r/Wicklow/comments/1dihcka/best_lunch_in_glendalough/",
+        "https://www.discoverireland.ie/wicklow/the-wicklow-heather-restaurant",
+        "https://wicklowheather.ie/restaurant-near-glendalough/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims that lunch options (café or restaurant) are available in or near Glendalough/Laragh. The evidence confirms multiple establishments in Laragh (minutes from Glendalough) that serve lunch. Specifically, Source 2 (Lynhams of Laragh) confirms a lunch menu starting from 12pm ('our lunch and dinner menu from 12pm onwards'), and Source 4/5 (The Wicklow Heather) confirms they serve lunch in Laragh. The cost of €15 is a reasonable estimate for a lunch in this region, though not explicitly detailed in the snippets, and the location is verified as a hub for dining near the historic site.",
+      "claims_checked": [
+        "Lunch is available in/near Glendalough/Laragh",
+        "Lunch service is available during the 13:30-14:30 time window",
+        "Establishments like Lynhams of Laragh and The Wicklow Heather exist in this location"
+      ]
+    },
+    {
+      "day_index": 4,
+      "slot_position": 6,
+      "slot_name": "Second Walk or Viewpoint",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.tripadvisor.com/Attractions-g551590-Activities-c61-Glendalough_Village_Vale_of_Glendalough_County_Wicklow.html",
+        "https://visitwicklow.ie/listing/glendalough-spinc-and-glenealo-valley-walk-white-route/",
+        "https://glendalough.wicklowheritage.org/topics/nature/the-walking-trails-of-glendalough",
+        "https://irelandfamilyvacations.com/wonderful-glendalough-walks-families/attractions/",
+        "https://www.glendaloughhotel.com/some-of-our-favourite-walks-in-glendalough/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims there are walks and viewpoints available in Glendalough that can be done for free. Evidence from Source 3 and 4 confirms there are 'nine marked walking trails' and various routes like the 'Spinc and Glenealo Valley Walk' and 'Green Road Walk'. Source 2 specifically mentions a 'spectacular viewing point' accessible via these trails. Regarding cost, while the evidence doesn't explicitly state '€0.00', walking trails in Irish National Parks (NPWS) are generally free to access, and the evidence describes them as public outdoor activities. The location 'Glendalough' is consistently supported across all sources.",
+      "claims_checked": [
+        "Location: Glendalough",
+        "Activity: Walking trails or viewpoints available",
+        "Cost: Free outdoor activity",
+        "Alternative: Monastic ruins available in the same area"
+      ]
+    },
+    {
+      "day_index": 4,
+      "slot_position": 7,
+      "slot_name": "Drive back to Dublin",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.rome2rio.com/s/Glendalough/Dublin",
+        "https://www.rome2rio.com/s/Dublin/Glendalough",
+        "https://community.ricksteves.com/travel-forum/ireland/public-transport-route-selection-dublin-to-glendalough",
+        "https://www.theirishroadtrip.com/dublin-to-glendalough-bus/",
+        "https://www.reddit.com/r/irishtourism/comments/1kpno2z/best_ways_to_get_to_glendalough_from_dublin/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims a driving duration of 1.5 hours (16:30 to 18:00) and a cost of €25.00 for fuel. Evidence from Source 1 and 2 states the drive takes approximately 44-45 minutes and costs between €8 - €12 (likely for fuel/tolls). The slot's time window of 90 minutes is consistent with the evidence as it allows for the 45-minute drive plus a buffer for 'evening traffic' mentioned in the description. The cost of €25.00 is a 'fuel estimate' which is higher than the base estimate in the evidence but not contradictory for a rental car or different vehicle efficiency.",
+      "claims_checked": [
+        "Transport mode: Drive",
+        "Route: Glendalough to Dublin",
+        "Duration: 1.5 hours (16:30 to 18:00)",
+        "Cost: €25.00 (Fuel estimate)"
+      ]
+    },
+    {
+      "day_index": 4,
+      "slot_position": 8,
+      "slot_name": "Casual Dinner",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.visitdublin.com/o-donoghue-s-bar"
+      ],
+      "verdict": "FAIL",
+      "reasoning": "The slot is scheduled for a 'Casual Dinner' with a budget of €40.00. However, the provided evidence from the official Visit Dublin page for O'Donoghue's Bar explicitly states: 'The pub serves soup and sandwiches only, all day every day.' This contradicts the expectation of a full dinner service. Furthermore, while the slot aims to be 'away from the most touristy Temple Bar prices,' the evidence describes O'Donoghue's as 'One of Dublin's best known bars' and 'something of a mecca for traditional musicians,' which suggests it is a major tourist destination itself.",
+      "claims_checked": [
+        "Venue name: O'Donoghue's Bar",
+        "Category: meal (Dinner)",
+        "Location: Dublin",
+        "Cost: €40.00",
+        "Description: Casual dinner away from touristy Temple Bar prices"
+      ]
+    },
+    {
+      "day_index": 5,
+      "slot_position": 1,
+      "slot_name": "Breakfast",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.theirishroadtrip.com/best-breakfast-in-dublin/",
+        "https://www.lemonjelly.ie/",
+        "https://www.tablemagazine.com/5-best-breakfast-spots-in-dublin/",
+        "https://lovindublin.com/best-of/dublin-all-day-breakfast",
+        "https://www.tripadvisor.com/Restaurants-g186605-c2-zfp2-Dublin_County_Dublin.html"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot makes very general claims: a breakfast meal in Dublin at 08:30 AM for approximately €8.00. The evidence confirms that Dublin has numerous breakfast spots (Source 1, 3, 4, 5). Specifically, Source 2 (Lemon Jelly Cafe) confirms breakfast is available 'all day' and Source 1 mentions it is located in the 'City Centre'. While the specific cost of €8.00 is an estimate and not explicitly detailed for a full meal in the snippets, the existence of cafes and bakeries (Source 3) serving items like 'coffee, cookies, and cinnamon buns' or 'crepes' (Source 5) makes a €8.00 price point for a light breakfast in Dublin factually plausible and consistent with the provided evidence of a wide variety of breakfast options.",
+      "claims_checked": [
+        "Location: Dublin",
+        "Category: meal (breakfast)",
+        "Time: 08:30 AM",
+        "Cost: €8.00 (Estimate)"
+      ]
+    },
+    {
+      "day_index": 5,
+      "slot_position": 2,
+      "slot_name": "DART to Howth",
+      "source_type": "link",
+      "source_urls": [
+        "https://about.leapcard.ie/leap-visitor-card"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms that the Leap Visitor Card provides 'unlimited travel for your selected time period on... DART and Commuter Rail in Zone 1: TFI Dublin City'. While the evidence does not explicitly list 'Howth' by name, it confirms the DART is a covered transport mode under the card. The cost of €0.00 in the slot is consistent with the note that the journey is 'Covered if using Leap Visitor Card' (meaning no additional out-of-pocket expense beyond the card purchase). The time window of 45 minutes for a Dublin to Howth DART journey is a standard operational expectation for this commuter route, though the evidence focuses primarily on the card's validity.",
+      "claims_checked": [
+        "Transport mode: DART",
+        "Route: Dublin to Howth",
+        "Cost: €0.00 (additional to card)",
+        "Leap Visitor Card covers DART travel",
+        "Travel duration: 45 minutes"
+      ]
+    },
+    {
+      "day_index": 5,
+      "slot_position": 3,
+      "slot_name": "Howth Cliff Path Loop",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.visitdublin.com/howth-cliff-path-loop"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence from the official Visit Dublin website confirms all verifiable claims. The trail is explicitly named 'Howth - Cliff Path Loop' and is located in Howth. The distance is confirmed as '7.80km' and the duration as '2 hours'. The start and finish points are confirmed as the 'Howth Railway Station' (DART station). The views mentioned (Island, lighthouse, and Dublin Bay) are supported by the text: 'stunning views of Lambay Island, Ireland’s Eye... Dublin Bay... The Baily Lighthouse'. The cost of €0.00 is consistent with a public walking trail.",
+      "claims_checked": [
+        "Venue name: Howth Cliff Path Loop",
+        "Location: Howth",
+        "Distance: 7.8 km",
+        "Duration: 2 hours",
+        "Start point: Howth DART station",
+        "Views: Island, lighthouse and Dublin Bay",
+        "Cost: €0.00"
+      ]
+    },
+    {
+      "day_index": 5,
+      "slot_position": 4,
+      "slot_name": "Seafood Lunch",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.oarhousehowth.ie/",
+        "https://www.facebook.com/groups/newhowth/posts/8325104944194141/",
+        "https://www.tripadvisor.com/Restaurants-g212088-c33-Howth_County_Dublin.html",
+        "https://www.brassmonkey.ie/",
+        "https://www.thepierhouse.ie/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims that seafood and fish-and-chips are available for lunch in Howth Harbour. The evidence from multiple sources confirms that Howth is a fishing village with numerous seafood restaurants located on the piers (harbour area). Specifically, Source 4 mentions 'The Brass Monkey' is 'situated on the West Pier in Howth' and serves 'fresh fish and seafood.' Source 5 mentions 'The Pier House Restaurant' is 'located on the West Pier in the scenic fishing village of Howth.' Source 3 lists several seafood restaurants in the area. While the cost of €25 is an estimate, it is a reasonable expectation for a seafood lunch in this region, and the availability of the meal type in the specified location is well-supported.",
+      "claims_checked": [
+        "Location: Howth (specifically the harbour/pier area)",
+        "Category: Seafood/Fish-and-chips meal",
+        "Availability: Seafood restaurants exist in Howth"
+      ]
+    },
+    {
+      "day_index": 5,
+      "slot_position": 5,
+      "slot_name": "Harbour Stroll",
+      "source_type": "link",
+      "source_urls": [
+        "https://www.visitdublin.com/guides/dublin-coastal-trail"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The evidence confirms that Howth is a stop on the Dublin Coastal Trail and is accessible by DART ('Winding through 11 villages from Skerries in the north to Killiney in the south, the Dublin Coastal Trail is accessible by DART rail line... here’s everything you can get up to along the Dublin Coastal Trail... seal-watching in Howth'). The description mentions views of Ireland's Eye, which is a well-known landmark in Howth. While the specific cost of €8.00 for a 'harbour stroll' is not explicitly detailed (as a stroll is free), it is a reasonable estimate for the mentioned 'coffee' or a DART fare, and does not contradict the evidence provided.",
+      "claims_checked": [
+        "Location: Howth",
+        "Activity: Harbour stroll / Dublin Coastal Trail",
+        "Transport: Accessible by DART",
+        "Feature: Views of Ireland's Eye"
+      ]
+    },
+    {
+      "day_index": 5,
+      "slot_position": 6,
+      "slot_name": "Return to Dublin",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.rome2rio.com/s/Dublin/Howth",
+        "https://almostneverclever.wordpress.com/2015/06/11/dublin-day-trip-to-howth/",
+        "https://www.tripadvisor.com/ShowTopic-g186605-i90-k9605951-Transportation_from_Dublin_City_Center_to_Howth-Dublin_County_Dublin.html",
+        "https://www.facebook.com/groups/598489870988954/posts/2120993358738590/",
+        "https://thethirdculturetravels.com/howth-day-trip-from-dublin-cliff-walk-and-village-guide/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims that one can travel from Howth to Dublin via DART/public transport and that the journey takes approximately 45 minutes (15:30 to 16:15). Evidence from Source 1 confirms that the 'best way to get from Dublin to Howth is to train which takes 33 min' and that a bus alternative 'takes 43 min.' Source 2 and 4 confirm the existence of the DART and bus (H3) services between these locations. The duration in the slot (45 minutes) is consistent with the 33-43 minute range provided in the evidence.",
+      "claims_checked": [
+        "Transport from Howth to Dublin is available via DART/public transport.",
+        "The journey duration is approximately 45 minutes (15:30 to 16:15)."
+      ]
+    },
+    {
+      "day_index": 5,
+      "slot_position": 7,
+      "slot_name": "Rest and Repack",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://isaacs.ie/",
+        "https://backpackerscitihostel.dublinhotelsweb.com/en/",
+        "https://www.tripadvisor.com/Hotel_Review-g186605-d1625244-Reviews-or50-Backpackers_D1_Hostel_Dublin-Dublin_County_Dublin.html",
+        "https://talesofabackpacker.com/where-to-stay-backpacking-in-dublin-on-a-budget-gardiner-house-hostel-review/",
+        "https://staygenerator.com/hostels/dublin?lang=en-GB"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a generic period for 'Rest and Repack' at a 'Dublin hostel/hotel'. The evidence confirms the existence of multiple hostels in Dublin (Isaacs Hostel, Backpackers Citi Hostel, Gardiner House Hostel, Generator Dublin) that cater to travelers. While the slot does not name a specific property, the activity (rest, laundry, repacking) is a standard leisure/utility activity consistent with the facilities typically found in the hostels identified in the search results (e.g., Isaacs Hostel is described as a 'backpackers hostel' with 'great facilities'). The cost of €0.00 is consistent with personal time spent in one's own pre-booked accommodation.",
+      "claims_checked": [
+        "Location: Dublin hostel/hotel",
+        "Category: leisure",
+        "Cost: €0.00",
+        "Activity: Rest, laundry, repack"
+      ]
+    },
+    {
+      "day_index": 5,
+      "slot_position": 8,
+      "slot_name": "Final Dublin Pub Night",
+      "source_type": "link",
+      "source_urls": [
+        "https://brazenhead.com/",
+        "https://www.visitdublin.com/o-donoghue-s-bar",
+        "https://thetemplebarpub.com/visit/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot proposes a pub night at one of three venues: The Brazen Head, O’Donoghue’s, or Temple Bar Pub. \n1. The Brazen Head is confirmed to be in Dublin and open during the 19:00-22:00 window ('open 7 days a week from 12pm to late'). \n2. O’Donoghue’s Bar is confirmed to be in Dublin City and open during the window (live music starts at 9 pm daily). \n3. The Temple Bar Pub is confirmed to be a 'Legendary Dublin venue' with live music 'from opening time all the way until closing'. \nThe cost estimate and the note about Temple Bar being pricier are consistent with general travel expectations for these popular tourist venues, though specific pricing is not detailed in the provided text snippets.",
+      "claims_checked": [
+        "Location: Dublin",
+        "Venue: The Brazen Head",
+        "Venue: O’Donoghue’s",
+        "Venue: Temple Bar Pub",
+        "Time window: 19:00 - 22:00"
+      ]
+    },
+    {
+      "day_index": 6,
+      "slot_position": 1,
+      "slot_name": "Breakfast and Check-out",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.castle-hotel.ie/breakfast-included",
+        "https://www.stauntonsonthegreen.ie/breakfast/",
+        "https://www.allthefood.ie/single-post/where-to-get-a-hotel-breakfast-in-dublin-without-checking-in",
+        "https://www.instagram.com/reel/DWEyyVbEYZi/",
+        "https://www.tiktok.com/@ashleynewell.me/video/7161507305572306218"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot describes a generic breakfast and check-out at a Dublin accommodation with a budget estimate of €8.00. Evidence from Source 1 shows a hotel breakfast buffet served from 7:00 am to 10:30 am, which encompasses the slot's 8:30 am to 9:30 am window. While Source 2 lists a higher price (€19.50), the slot specifically notes its €8.00 cost is a 'Hostel/budget hotel breakfast estimate,' which is a reasonable projection for budget accommodations in the area and is not contradicted by the provided evidence of mid-to-high range hotels.",
+      "claims_checked": [
+        "Location: Dublin",
+        "Time window: 08:30 - 09:30",
+        "Activity: Breakfast and check-out",
+        "Cost: €8.00 (budget estimate)"
+      ]
+    },
+    {
+      "day_index": 6,
+      "slot_position": 2,
+      "slot_name": "Luggage Storage",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.visitdublin.com/stasher-luggage-storage-in-dublin",
+        "https://bounce.com/luggage-storage/dublin",
+        "https://luggagehero.com/dublin/",
+        "https://www.tipperaryhousedublin.com/luggage-storage-dublin/",
+        "https://www.getyourguide.com/dublin-l31/luggage-storage-dublin-t537517/"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot claims that luggage storage is available in Dublin and estimates a cost of €10.00. Evidence from multiple sources confirms that luggage storage services (Stasher, Bounce, LuggageHero, Tipperary House) are widely available in Dublin. Regarding cost, Source 2 mentions prices from €2.50/day, Source 3 mentions €1.49 per hour or €4.90 per day, and Source 4 mentions services near Heuston Station. A €10.00 budget is consistent with and supported by these findings as it covers the typical daily or hourly rates found in the evidence.",
+      "claims_checked": [
+        "Luggage storage is available in Dublin",
+        "Luggage storage cost is approximately €10.00"
+      ]
+    },
+    {
+      "day_index": 6,
+      "slot_position": 3,
+      "slot_name": "Flexible Final Morning",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.jobs.ie/jobs/flexible-hours/in-dublin-city-centre",
+        "https://ie.indeed.com/q-early-morning-l-dublin,-county-dublin-jobs.html",
+        "https://www.daymaker.travel/en/trips/discover-the-emerald-isle-in-4-days-2/planning/the-perfect-last-day-in-dublin",
+        "https://www.facebook.com/KOCOdamonlane/posts/a-quick-8-hours-in-dublinireland-%EF%B8%8F%EF%B8%8F%EF%B8%8F/1280773983414900/",
+        "https://www.irishjobs.ie/jobs/flexible/in-dublin"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The provided evidence consists primarily of job listings for 'flexible hours' in Dublin (Sources 1, 2, and 5) or generic travel itineraries (Source 3 and 4). While Source 3 mentions a 'final day in Dublin' with breakfast and culture, it does not provide specific details to verify the cost (€10.00) or the feasibility of the specific activities (riverside walk, bookshop/café, or free museums) within the 10:30 to 13:00 time window on the specific date of September 10, 2026. The evidence is silent on the specific claims made in the slot.",
+      "claims_checked": [
+        "Location: Dublin city centre",
+        "Time window: 10:30:00 to 13:00:00",
+        "Cost: €10.00",
+        "Activities: riverside walk, bookshop/café time, or a free museum"
+      ]
+    },
+    {
+      "day_index": 6,
+      "slot_position": 4,
+      "slot_name": "Lunch",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.hawksmoor.ie/dublin/food/lunch-dinner/",
+        "https://www.yelp.com/search?find_desc=Sit-down+Lunch&find_loc=Dublin",
+        "https://www.reddit.com/r/Dublin/comments/1qapylx/its_monday_but_lets_make_it_a_bit_brighter_whats/",
+        "https://hobnobmag.com/dublins-hot-spots-for-lunch/",
+        "https://www.tripadvisor.com/Restaurants-g186605-zfp30-Dublin_County_Dublin.html"
+      ],
+      "verdict": "PASS",
+      "reasoning": "The slot makes a general claim about having lunch in Dublin for approximately €15.00. Evidence from Source 3 (Reddit) mentions a '2026 Edition' discussion for meals in Dublin for '€7 or less' and 'mid price range' options, indicating that a €15.00 price point is realistic and achievable for lunch in the city center. While Source 1 shows a high-end steakhouse, Source 2 and 5 confirm a wide variety of lunch restaurants exist in Dublin, supporting the feasibility of the location and activity.",
+      "claims_checked": [
+        "Location: Dublin",
+        "Activity: Lunch",
+        "Cost: €15.00"
+      ]
+    },
+    {
+      "day_index": 6,
+      "slot_position": 5,
+      "slot_name": "Trip End",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.reddit.com/r/irishtourism/comments/1ompm67/dublin_to_start_and_end_the_trip/",
+        "https://www.tripadvisor.com/ShowTopic-g186605-i90-k11183148-Where_to_start_or_end_trip-Dublin_County_Dublin.html",
+        "https://community.ricksteves.com/travel-forum/ireland/dublin-beginning-end-or-all-at-once",
+        "https://www.affordabletours.com/t/204251-treasures-of-ireland-end-dublin",
+        "https://www.tripadvisor.com/ShowTopic-g186591-i88-k8382557-Dublin_beginning_or_end_of_trip-Ireland.html"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot describes a logistical 'Trip End' in Dublin with advice regarding traffic and ferry check-in. The provided evidence consists of forum discussions and tour listings about whether to visit Dublin at the start or end of a vacation. None of the evidence provides factual data regarding Dublin traffic patterns, ferry check-in procedures, or specific logistical requirements for ending a trip in Dublin on the specified date (September 10, 2026). Therefore, there is no evidence to confirm or refute the claims about traffic buffers or ferry check-ins.",
+      "claims_checked": [
+        "Location: Dublin",
+        "Cost: €0.00",
+        "Dublin traffic requires a large buffer",
+        "Ferry check-in requires a large buffer"
+      ]
+    },
+    {
+      "day_index": 6,
+      "slot_position": 6,
+      "slot_name": "Optional Pub Session",
+      "source_type": "web_search",
+      "source_urls": [
+        "https://www.discoverdublin.ie/post/traditional-irish-music-sessions-dublin",
+        "https://www.reddit.com/r/irishtourism/comments/1op02dw/best_pubs_for_trad_sessions_in_dublin/",
+        "https://www.huffpost.com/entry/an-outsiders-guide-to-a-d_b_9556002",
+        "https://www.irelandbylocals.com/dublin-trad-session/",
+        "https://community.ricksteves.com/travel-forum/ireland/are-there-any-good-pubs-for-traditional-music-in-dublin-outside-of-temple-bar"
+      ],
+      "verdict": "MISSING_INFO",
+      "reasoning": "The slot describes a generic 'Optional Pub Session' in Dublin with a specific cost of €25.00 and a time window. The provided evidence discusses various pubs in Dublin that host music sessions (O'Donoghue's, The Celt, The Cobblestone) and mentions pub tours, but it does not identify a specific organized 'session' or tour that matches the €25.00 price point or the specific 18:00-19:00 timeframe. While pub tours exist (Source 4), there is no evidence confirming a specific event or venue associated with this slot's details.",
+      "claims_checked": [
+        "Venue name: Optional Pub Session",
+        "Location: Dublin",
+        "Cost: €25.00",
+        "Time: 18:00 - 19:00"
+      ]
+    }
+  ],
+  "rationale_pass_count": 34,
+  "rationale_fail_count": 5,
+  "rationale_missing_count": 5,
+  "hc_micro_pass_rate": 1.0,
+  "cc_micro_pass_rate": 0.6923,
+  "hc_macro_pass_rate": 1.0,
+  "cc_macro_pass_rate": 0.0,
+  "final_pass_rate": 0.0,
+  "aggregated_constraints": [
+    {
+      "id": "HC-1",
+      "constraint_text": "origin: Frankfurt",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-2",
+      "constraint_text": "destination: Dublin",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-3",
+      "constraint_text": "travel_dates: 2026.09.05 to 2026.09.10",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-4",
+      "constraint_text": "travelers: 1 adult",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-5",
+      "constraint_text": "budget: 3000 EUR total",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-6",
+      "constraint_text": "accommodation: hostel or budget hotel",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-7",
+      "constraint_text": "transport: Car",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "HC-8",
+      "constraint_text": "interests: nature, hiking, coastal scenery, pubs",
+      "constraint_type": "hard",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-1",
+      "constraint_text": "Car or road trip transport is not feasible for island or overseas destinations — a flight or ferry is required.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-2",
+      "constraint_text": "No key information should be left out of the plan, such as the lack of accommodation during travel.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "FAIL",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 3,
+      "fail_count": 1,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-3",
+      "constraint_text": "Transportation choices within the trip must be reasonable. For example, having both “self-driving” and “flight” would be considered a conflict.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-4",
+      "constraint_text": "Both outbound and return transport must appear in the plan.",
+      "constraint_type": "commonsense",
+      "final_verdict": "FAIL",
+      "judge_verdicts": [
+        "MISSING_INFO",
+        "FAIL",
+        "FAIL",
+        "FAIL"
+      ],
+      "pass_count": 0,
+      "fail_count": 3,
+      "missing_count": 1,
+      "na_count": 0
+    },
+    {
+      "id": "CC-5",
+      "constraint_text": "Flight or train connections must allow sufficient layover time (≥60 min domestic, ≥90 min international).",
+      "constraint_type": "commonsense",
+      "final_verdict": "FAIL",
+      "judge_verdicts": [
+        "NA",
+        "NA",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 2,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 2
+    },
+    {
+      "id": "CC-6",
+      "constraint_text": "Accommodation must be planned for every night of the trip.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "FAIL",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 3,
+      "fail_count": 1,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-7",
+      "constraint_text": "Hotel check-in must be scheduled after arrival transport reaches the destination.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-8",
+      "constraint_text": "Restaurants must be open on the planned day and time.",
+      "constraint_type": "commonsense",
+      "final_verdict": "FAIL",
+      "judge_verdicts": [
+        "PASS",
+        "FAIL",
+        "PASS",
+        "FAIL"
+      ],
+      "pass_count": 2,
+      "fail_count": 2,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-9",
+      "constraint_text": "Restaurant choices should not be repeated throughout the trip.",
+      "constraint_type": "commonsense",
+      "final_verdict": "FAIL",
+      "judge_verdicts": [
+        "PASS",
+        "FAIL",
+        "PASS",
+        "FAIL"
+      ],
+      "pass_count": 2,
+      "fail_count": 2,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-10",
+      "constraint_text": "Activities should be geographically sensible per day (no unnecessary cross-city travel).",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-11",
+      "constraint_text": "Attractions must be open on the planned day and time.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "FAIL"
+      ],
+      "pass_count": 3,
+      "fail_count": 1,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-12",
+      "constraint_text": "Attraction choices should not be repeated throughout the trip.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "FAIL"
+      ],
+      "pass_count": 3,
+      "fail_count": 1,
+      "missing_count": 0,
+      "na_count": 0
+    },
+    {
+      "id": "CC-13",
+      "constraint_text": "Travel time between consecutive activities must account for realistic transit duration.",
+      "constraint_type": "commonsense",
+      "final_verdict": "PASS",
+      "judge_verdicts": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ],
+      "pass_count": 4,
+      "fail_count": 0,
+      "missing_count": 0,
+      "na_count": 0
+    }
+  ],
+  "timestamp": "2026-05-17T12:06:58.681697+00:00"
+}

@@ -47,6 +47,7 @@ def make_graph(
     model_name: str | None = None,
     temperature: float | None = None,
 ) -> StateGraph:
+    """This is the main application graph. This graph orchestrates the whole system."""
     effective_model_name = model_name or str(
         get_setting("models.workflows.task_planning.model_name")
     )

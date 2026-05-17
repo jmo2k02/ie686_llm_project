@@ -111,22 +111,6 @@ def make_validation_graph(
     )
 
 
-def _to_todo_items(raw_todos: Any) -> list[TodoItem]:
-    """Map deepagents' Todo TypedDicts ({content, status}) onto TodoItem."""
-    if not isinstance(raw_todos, list):
-        return []
-    items: list[TodoItem] = []
-    for entry in raw_todos:
-        if not isinstance(entry, dict):
-            continue
-        content = entry.get("content") or ""
-        status = entry.get("status", "pending")
-        if status not in ("pending", "in_progress", "completed"):
-            status = "pending"
-        items.append(TodoItem(title=content, status=status, description=""))
-    return items
-
-
 def _compose_user_prompt(state: StateContractModel) -> str:
     sections: list[str] = [
         "# Original user request",

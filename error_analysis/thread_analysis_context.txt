@@ -1,0 +1,524 @@
+# Context For Thorough Single-Thread LangSmith / LangGraph Error Analysis
+
+We are analyzing LangSmith/LangGraph traces for a TravelPlanner project.
+
+There are two systems:
+
+1. `baseline/`
+   - Single-agent baseline.
+   - Uses only Tavily web search.
+   - Local JSON exports contain `outputs.messages`.
+   - Baseline messages include real `tool_calls`, e.g. `tavily_web_search`.
+
+2. `travel_agent/`
+   - Multi-agent TravelPlanner system.
+   - Described in `paper.tex`.
+   - Uses planner, execution agent, domain subagents, TravelPlan mutation tools, and validator/reviewer.
+   - Local JSON exports contain final artifacts:
+     - `outputs.query`
+     - `outputs.task_list`
+     - `outputs.travelplan`
+     - `outputs.validation_passed`
+     - `outputs.validation_attempts`
+     - `outputs.message_histories`
+   - Local JSON exports do not contain full execution-agent raw tool-call history.
+   - Full LangSmith data was exported separately.
+
+## Important Files
+
+### Local Travel-Agent Final Artifacts
+
+```text
+travel_agent/run-*.json
+```
+
+Each has:
+
+```python
+metadata.thread_id
+langsmith.tracing_project.name
+langsmith.tracing_project.id
+langsmith.workspace.id
+outputs.query
+outputs.travelplan
+outputs.validation_passed
+outputs.validation_attempts
+```
+
+### Full LangSmith Thread Export
+
+The full all-thread export is here:
+
+```text
+thread_analysis/travel_agent_full/
+```
+
+Files:
+
+```text
+manifest.csv
+manifest.jsonl
+langsmith_runs.csv
+langsmith_runs.jsonl
+messages.csv
+messages.jsonl
+tool_calls.csv
+tool_calls.jsonl
+```
+
+Final export totals:
+
+```text
+runs:       19,161
+messages:   2,514,702
+tool_calls: 1,691,621
+threads:    15
+```
+
+This is huge because `messages.csv` and `tool_calls.csv` recursively extract messages/tool calls from serialized LangGraph states. These include duplicated state snapshots, not only unique actual executions.
+
+### Clean Actual Tool-Run Export
+
+A smaller, cleaner export is here:
+
+```text
+thread_analysis/travel_agent/
+```
+
+Files:
+
+```text
+manifest.csv
+langsmith_runs.csv
+tool_calls.csv
+```
+
+This export was generated with `--tool-runs-only`.
+
+It contains actual LangSmith `run_type=tool` rows only:
+
+```text
+real tool runs: 2,300
+threads: 15
+```
+
+This is best for actual execution-level tool-call analysis.
+
+Top real tool runs:
+
+```text
+add_slot: 971
+add_day: 238
+search_web: 214
+search_restaurants: 190
+delete_slot: 128
+write_todos: 123
+view_plan: 79
+insert_slot: 74
+check_route_timing: 70
+search_attractions: 68
+cost_summary: 41
+search_flights: 37
+search_hotels: 34
+init_plan: 26
+build_place_distance_graph: 5
+remove_day: 2
+```
+
+### Notebooks
+
+The most relevant notebook is:
+
+```text
+correct_langsmith_tool_error_analysis.ipynb
+```
+
+It was executed successfully and has embedded outputs.
+
+The generator is:
+
+```text
+scripts/make_correct_error_analysis_notebook.py
+```
+
+LaTeX snippets were generated into:
+
+```text
+paper_error_analysis_tables.tex
+```
+
+## Useful Helper Scripts
+
+Extract original query:
+
+```bash
+uv run python scripts/extract_user_query.py 019e31a3 --json
+```
+
+Extract final TravelPlan JSON:
+
+```bash
+uv run python scripts/extract_travelplan.py 019e31a3
+```
+
+Fast real tool-run export:
+
+```bash
+set -a && source .env && set +a
+uv run python scripts/export_travel_agent_threads.py --fetch-langsmith --tool-runs-only
+```
+
+Full verbose export:
+
+```bash
+set -a && source .env && set +a
+uv run python -u scripts/export_full_travel_agent_threads.py
+```
+
+The full exporter logs per thread/page and writes incrementally.
+
+## LangSmith Endpoint Note
+
+The local traces have:
+
+```text
+metadata.LANGSMITH_ENDPOINT = https://eu.api.smith.langchain.com
+```
+
+Using the US default endpoint caused `403 Forbidden`.
+EU endpoint worked.
+
+The old installed LangSmith SDK failed on modern payloads, so exporters use the REST API directly.
+
+## Recommended Single-Thread Workflow
+
+Given a root run id or thread id:
+
+1. Find the row in:
+
+```text
+thread_analysis/travel_agent_full/manifest.csv
+```
+
+or:
+
+```text
+thread_analysis/travel_agent/manifest.csv
+```
+
+2. Filter all relevant files by `thread_id`.
+
+Useful Pandas pattern:
+
+```python
+manifest = pd.read_csv("thread_analysis/travel_agent_full/manifest.csv")
+runs = pd.read_csv("thread_analysis/travel_agent_full/langsmith_runs.csv")
+messages = pd.read_csv("thread_analysis/travel_agent_full/messages.csv")
+tool_calls = pd.read_csv("thread_analysis/travel_agent_full/tool_calls.csv")
+
+thread_id = manifest.loc[manifest.root_run_id.str.contains("019e31a3"), "thread_id"].iloc[0]
+
+runs_t = runs[runs.thread_id == thread_id]
+messages_t = messages[messages.thread_id == thread_id]
+tool_calls_t = tool_calls[tool_calls.thread_id == thread_id]
+```
+
+For real executed tools only, prefer:
+
+```python
+runs = pd.read_csv("thread_analysis/travel_agent/langsmith_runs.csv")
+runs_t = runs[runs.thread_id == thread_id]
+```
+
+## Error Categories From `paper.tex`
+
+Paper taxonomy:
+
+```text
+T1: Invalid Arguments
+T2: Missing Mandatory Parameters
+T3: Redundant / Infinite Loops
+T4: Misinterpreting Tool Outputs
+T5: Link Rot / Empty Crawl
+T6: Cross-Agent Data Corruption
+```
+
+Current operational definitions:
+
+### Repeated Tool Calls
+
+For actual tool-run export:
+
+```python
+groupby(["thread_id", "name", "args_norm"]).size() > 1
+```
+
+This detects the exact same tool with identical normalized args.
+
+### Repeated Queries
+
+For search/domain tools only:
+
+```text
+search_web
+search_restaurants
+search_attractions
+search_flights
+search_hotels
+check_route_timing
+build_place_distance_graph
+```
+
+Normalize query/request-like fields from `inputs_json`.
+
+Repeated query definition:
+
+```python
+groupby(["thread_id", "name", "query_norm"]).size() > 1
+```
+
+### Dead Loops
+
+Current indicators:
+
+1. Consecutive exact repeat:
+   - same tool
+   - same args
+   - adjacent in call order
+
+2. Same call 3+ times:
+   - same tool
+   - same normalized args
+   - same thread
+
+3. Mutation backtracking loop:
+   - patterns like:
+     - `add_slot -> delete_slot -> add_slot -> delete_slot`
+     - `insert_slot -> delete_slot -> insert_slot -> delete_slot`
+     - `delete_slot -> add_slot -> delete_slot -> add_slot`
+
+This is most relevant for the TravelPlanner execution agent because it mutates a shared TravelPlan.
+
+### Timeouts / Long-Running Tool Calls
+
+No explicit tool errors were found in the clean `run_type=tool` export.
+
+Timeout risk was approximated by:
+
+- p99 latency outliers
+- output text containing:
+  - `timeout`
+  - `timed out`
+  - `failed`
+  - `error`
+  - `exception`
+  - `rate limit`
+  - `unavailable`
+  - `could not`
+  - `unable`
+
+### Cascading Errors
+
+Indicators:
+
+1. `validation_attempts > 1`
+   - validator repair loop
+
+2. Weak evidence followed by plan mutation:
+   - a tool output has uncertainty/error language
+   - later calls include `add_slot` or `insert_slot`
+
+3. Delete after prior insertion:
+   - `delete_slot` after prior `add_slot` or `insert_slot`
+   - interpreted as repair/backtracking
+
+### Structural TravelPlan Errors
+
+Use final `outputs.travelplan` from local JSONs.
+
+Important model semantics from `TravelPlan` / `Slot`:
+
+```python
+Slot fields:
+name
+description
+start_time
+end_time
+category
+location
+cost
+links
+notes
+
+valid categories:
+meal, attraction, transport, lodging, leisure, other
+
+invalid time:
+end_time <= start_time
+
+overlap:
+slot_a.start_time < slot_b.end_time and slot_b.start_time < slot_a.end_time
+```
+
+Structural checks:
+
+```text
+invalid_time_slots
+overlapping_slot_pairs
+slots_missing_links
+fragile_link_slots
+unknown_category_slots
+slots_with_uncertainty_notes
+computed_total_cost
+budget_amount
+budget_exceeded
+```
+
+Fragile link domains used:
+
+```text
+google.com
+maps.google
+instagram.com
+facebook.com
+tripadvisor.com
+booking.com
+expedia.com
+agoda.com
+turbopass.com
+```
+
+## Findings From Multi-Thread Analysis
+
+LaTeX table saved in:
+
+```text
+paper_error_analysis_tables.tex
+```
+
+Main grouped finding:
+
+```text
+Domain/search tools:
+calls: 618
+repeated calls: 0
+repeated queries: 0
+loop indicators: 0
+timeout/error indicators: 172
+uncertainty outputs: 181
+
+State-management tools:
+calls: 123
+repeated calls: 10
+repeated queries: 0
+loop indicators: 0
+timeout/error indicators: 0
+uncertainty outputs: 66
+
+TravelPlan mutation tools:
+calls: 1559
+repeated calls: 413
+repeated queries: 0
+loop indicators: 104
+timeout/error indicators: 38
+uncertainty outputs: 131
+```
+
+Interpretation:
+
+The strongest TravelPlanner error signal is not repeated domain search. It is repeated TravelPlan mutation and repair/backtracking in the execution agent. Domain/search tools contribute uncertainty and weak evidence, which can later be embedded into final itinerary slots.
+
+Most error-prone tools:
+
+```text
+add_slot:
+calls 971
+repeated calls 33
+loop indicators 61
+timeout/error indicators 17
+
+add_day:
+calls 238
+repeated calls 166
+loop indicators 25
+
+delete_slot:
+calls 128
+repeated calls 80
+loop indicators 11
+
+insert_slot:
+calls 74
+repeated calls 14
+loop indicators 5
+
+view_plan:
+calls 79
+repeated calls 77
+uncertainty outputs 79
+
+search_web:
+calls 214
+timeout/error indicators 54
+uncertainty outputs 82
+
+check_route_timing:
+calls 70
+timeout/error indicators 70
+
+search_attractions:
+calls 68
+timeout/error indicators 13
+uncertainty outputs 64
+
+search_flights:
+calls 37
+timeout/error indicators 6
+uncertainty outputs 34
+```
+
+Structural final-plan errors:
+
+```text
+transport uncertainty in final slot: 74
+meal missing evidence link: 63
+attraction fragile evidence link: 54
+meal uncertainty in final slot: 45
+transport fragile evidence link: 38
+meal fragile evidence link: 31
+attraction uncertainty in final slot: 28
+leisure missing evidence link: 22
+transport missing evidence link: 19
+```
+
+Cascade indicators:
+
+```text
+weak evidence then plan mutation: 471 events across 15 threads
+delete after prior insertion: 128 events across 8 threads
+validator repair loop: 4 events across 4 threads
+```
+
+Suggested paper interpretation:
+
+The corrected LangSmith export contains 2,300 real TravelPlanner tool runs across 15 LangGraph threads. Grouping tools by architectural role shows that most error indicators concentrate in the TravelPlan mutation layer rather than in a single domain-search agent. This is expected for the multi-agent design: subagents retrieve evidence, but the execution agent repeatedly mutates the shared TravelPlan object while repairing budget, timing, or validation issues. We therefore interpret repeated add/delete or insert/delete patterns as repair-loop indicators rather than simple duplicate search calls. Domain/search tools still contribute repeated-query and uncertainty signals, especially when retrieved evidence is weak or later embedded into final slots. Structural validation of the final TravelPlan adds a second view of error propagation: missing or fragile links and uncertainty-bearing slot notes reveal cases where retrieval uncertainty survived into the final itinerary artifact.
+
+## Important Caveat
+
+`thread_analysis/travel_agent_full/tool_calls.csv` is huge and contains recursive extraction from message snapshots. It is useful for reconstructing conversation/state, but it overcounts actual tool calls because LangGraph state snapshots duplicate prior messages.
+
+For actual tool execution counts, use:
+
+```text
+thread_analysis/travel_agent/langsmith_runs.csv
+```
+
+where `run_type == tool`, or the corresponding clean `tool_calls.csv`.
+
+For thorough single-thread reconstruction, use the full export, but deduplicate by:
+
+```python
+tool_call_id
+```
+
+or use real `run_type=tool` runs as the ground truth.

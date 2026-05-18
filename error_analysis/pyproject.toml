@@ -1,0 +1,14 @@
+[project]
+name = "error-analysis"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "jupyter>=1.1.1",
+    "travelplanner"
+]
+
+
+[tool.uv.sources]
+travelplanner = { path = "../travelplanner", editable = true }

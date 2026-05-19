@@ -44,9 +44,13 @@ def run_id_from_path(path: Path) -> str:
     return path.stem.removeprefix("run-")
 
 
-def local_manifest(run_id_filter: str | None = None) -> list[dict[str, Any]]:
+def local_manifest(
+    travel_dir: Path = TRAVEL_DIR,
+    root: Path = ROOT,
+    run_id_filter: str | None = None,
+) -> list[dict[str, Any]]:
     rows = []
-    for path in sorted(TRAVEL_DIR.glob("run-*.json")):
+    for path in sorted(travel_dir.glob("run-*.json")):
         root_run_id = run_id_from_path(path)
         if run_id_filter and run_id_filter not in root_run_id and run_id_filter not in path.name:
             continue
@@ -59,7 +63,7 @@ def local_manifest(run_id_filter: str | None = None) -> list[dict[str, Any]]:
 
         rows.append(
             {
-                "local_file": str(path.relative_to(ROOT)),
+                "local_file": str(path.relative_to(root)),
                 "root_run_id": root_run_id,
                 "thread_id": metadata.get("thread_id"),
                 "project_name": project,
@@ -205,7 +209,9 @@ def fetch_langsmith_runs(manifest: list[dict[str, Any]]) -> tuple[list[dict[str,
         if row.get("workspace_id"):
             headers["X-Tenant-Id"] = row["workspace_id"]
 
-        payload: dict[str, Any] = {"filter": filter_string, "limit": 50}
+        # Keep full run pages small; large LangSmith responses can intermittently
+        # return 5xx from the EU endpoint.
+        payload: dict[str, Any] = {"filter": filter_string, "limit": 20}
         if project_id:
             payload["session"] = [project_id]
         else:
@@ -215,7 +221,7 @@ def fetch_langsmith_runs(manifest: list[dict[str, Any]]) -> tuple[list[dict[str,
         while True:
             for attempt in range(6):
                 response = requests.post(f"{api_url}/runs/query", headers=headers, json=payload, timeout=60)
-                if response.status_code != 429:
+                if response.status_code != 429 and response.status_code < 500:
                     break
                 time.sleep(5 * (attempt + 1))
             response.raise_for_status()
@@ -232,7 +238,7 @@ def fetch_langsmith_runs(manifest: list[dict[str, Any]]) -> tuple[list[dict[str,
             payload = {"id": [row["root_run_id"]], "limit": 100}
             for attempt in range(6):
                 response = requests.post(f"{api_url}/runs/query", headers=headers, json=payload, timeout=60)
-                if response.status_code != 429:
+                if response.status_code != 429 and response.status_code < 500:
                     break
                 time.sleep(5 * (attempt + 1))
             response.raise_for_status()
@@ -279,7 +285,7 @@ def fetch_langsmith_tool_runs(manifest: list[dict[str, Any]]) -> tuple[list[dict
         while True:
             for attempt in range(6):
                 response = requests.post(f"{api_url}/runs/query", headers=headers, json=payload, timeout=60)
-                if response.status_code != 429:
+                if response.status_code != 429 and response.status_code < 500:
                     break
                 time.sleep(3 * (attempt + 1))
             response.raise_for_status()
@@ -313,33 +319,42 @@ def fetch_langsmith_tool_runs(manifest: list[dict[str, Any]]) -> tuple[list[dict
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Export travel-agent LangGraph/LangSmith thread data into notebook-friendly files.")
+    parser.add_argument("--root", type=Path, default=ROOT, help="Root used for relative local_file paths")
+    parser.add_argument("--travel-dir", type=Path, help="Override local travel_agent trace directory")
+    parser.add_argument("--output-dir", type=Path, help="Override output directory")
     parser.add_argument("--run-id", help="Optional full/partial local root run id to export")
     parser.add_argument("--offline", action="store_true", help="Only write local manifest; no LangSmith API calls")
     parser.add_argument("--fetch-langsmith", action="store_true", help="Fetch LangSmith runs for each local thread_id")
     parser.add_argument("--tool-runs-only", action="store_true", help="Fast mode: fetch only LangSmith tool runs and skip message expansion")
     args = parser.parse_args()
 
-    OUT_DIR.mkdir(parents=True, exist_ok=True)
-    manifest = local_manifest(args.run_id)
+    root = args.root.resolve()
+    travel_dir = (args.travel_dir or root / "travel_agent").resolve()
+    out_dir = (args.output_dir or root / "thread_analysis" / "travel_agent").resolve()
+    if not travel_dir.exists():
+        raise SystemExit(f"Travel Agent directory not found: {travel_dir}")
+
+    out_dir.mkdir(parents=True, exist_ok=True)
+    manifest = local_manifest(travel_dir, root, args.run_id)
     if not manifest:
         raise SystemExit("No matching travel_agent traces found")
 
-    write_jsonl(OUT_DIR / "manifest.jsonl", manifest)
-    write_csv(OUT_DIR / "manifest.csv", manifest)
+    write_jsonl(out_dir / "manifest.jsonl", manifest)
+    write_csv(out_dir / "manifest.csv", manifest)
 
     if args.fetch_langsmith:
         if args.tool_runs_only:
             run_rows, message_rows, tool_call_rows = fetch_langsmith_tool_runs(manifest)
         else:
             run_rows, message_rows, tool_call_rows = fetch_langsmith_runs(manifest)
-        write_jsonl(OUT_DIR / "langsmith_runs.jsonl", run_rows)
-        write_csv(OUT_DIR / "langsmith_runs.csv", run_rows)
-        write_jsonl(OUT_DIR / "messages.jsonl", message_rows)
-        write_csv(OUT_DIR / "messages.csv", message_rows)
-        write_jsonl(OUT_DIR / "tool_calls.jsonl", tool_call_rows)
-        write_csv(OUT_DIR / "tool_calls.csv", tool_call_rows)
+        write_jsonl(out_dir / "langsmith_runs.jsonl", run_rows)
+        write_csv(out_dir / "langsmith_runs.csv", run_rows)
+        write_jsonl(out_dir / "messages.jsonl", message_rows)
+        write_csv(out_dir / "messages.csv", message_rows)
+        write_jsonl(out_dir / "tool_calls.jsonl", tool_call_rows)
+        write_csv(out_dir / "tool_calls.csv", tool_call_rows)
 
-    print(f"Wrote {len(manifest)} manifest row(s) to {OUT_DIR.relative_to(ROOT)}")
+    print(f"Wrote {len(manifest)} manifest row(s) to {out_dir}")
     if args.fetch_langsmith:
         print("Wrote langsmith_runs/messages/tool_calls tables")
 

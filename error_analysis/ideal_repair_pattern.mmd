@@ -1,0 +1,36 @@
+flowchart LR
+  A[Validator or self check finds issue]
+  B[Classify issue type]
+  C[Identify affected slots and days]
+  D[Create repair checklist]
+  E[Choose smallest safe patch]
+  F[Search only missing evidence]
+  G[Patch affected slots]
+  H[Run local checks]
+  I{Checks pass}
+  J[Submit to validator]
+  K{Validator passes}
+  L[Final plan]
+  M[Create second local patch]
+  N{Patch budget exceeded}
+  O[Escalate to scoped day rebuild]
+  P[Full plan rebuild only with explicit approval]
+
+  A --> B
+  B --> C
+  C --> D
+  D --> E
+  E --> F
+  F --> G
+  G --> H
+  H --> I
+  I -->|yes| J
+  J --> K
+  K -->|yes| L
+  K -->|no| M
+  I -->|no| M
+  M --> N
+  N -->|no| F
+  N -->|yes| O
+  O --> H
+  O --> P

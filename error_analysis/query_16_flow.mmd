@@ -1,0 +1,42 @@
+flowchart LR
+  A[Query 16 Rome already at destination]
+  B[Extract constraints]
+  C[Draft plan]
+  D[Review plan]
+  E[Initial execution]
+  F[Search and build itinerary]
+  SW["search_web x13"]
+  SR["search_restaurants x10"]
+  SA["search_attractions x3"]
+  DG["build_place_distance_graph x1"]
+  AD["add_day x3"]
+  AS["add_slot x24"]
+  VP["view_plan x3"]
+  CS["cost_summary x1"]
+  G[Validator attempt 1 passed]
+  H[Final plan]
+  I[Final scorecard 44 point 4 percent]
+  J[Hard constraints 40 percent]
+  K[Rationale pass 54 point 2 percent]
+
+  A --> B
+  B --> C
+  C --> D
+  D --> E
+  E --> F
+  F --> SW
+  F --> SR
+  F --> SA
+  SW --> DG
+  SR --> DG
+  SA --> DG
+  DG --> AD
+  DG --> AS
+  AD --> VP
+  AS --> VP
+  VP --> CS
+  CS --> G
+  G --> H
+  H --> I
+  H --> J
+  H --> K

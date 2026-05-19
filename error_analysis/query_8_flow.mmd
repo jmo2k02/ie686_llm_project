@@ -1,0 +1,96 @@
+flowchart LR
+  A[Query 8 Tokyo group trip]
+  B[Extract constraints]
+  C[Draft plan]
+  D[Review plan]
+  E[Initial execution]
+  F[Search and build itinerary]
+  IP["init_plan x5"]
+  ISF["search_flights x6"]
+  ISH["search_hotels x4"]
+  ISW["search_web x10"]
+  ISR["search_restaurants x14"]
+  ISA["search_attractions x14"]
+  IRT["check_route_timing x5"]
+  IAD["add_day x60 from 5 full 12 day rebuilds"]
+  IAS["add_slot x197"]
+  IDEL["delete_slot x26"]
+  IINS["insert_slot x19"]
+  ICHK["view_plan x21 and cost_summary x9"]
+  G[Validator attempt 1 failed]
+  H[Problems: over budget; impossible return connection; flight cost and routing confused]
+  I[Repair 1]
+  SF["search_flights x3"]
+  SH["search_hotels x3"]
+  SW["search_web x1"]
+  DEL["delete_slot x14"]
+  INS["insert_slot x9"]
+  ADD["add_slot x3"]
+  J[26 mutations across 8 days]
+  K[Validator attempt 2 failed]
+  L[Problems: return flight too complex; food budget unrealistic; nightlife missing; Ghibli booking missing]
+  M[Repair 2]
+  FLIGHT2["search_flights x10"]
+  WEB2["search_web x8"]
+  HOTEL2["search_hotels x1"]
+  DEL2["delete_slot x30"]
+  ADD2["add_slot x27"]
+  INS2["insert_slot x3"]
+  N[60 mutations across 9 days]
+  O[Validator attempt 3 passed]
+  P[Final plan]
+  Q[Final scorecard 90 point 5 percent]
+
+  A --> B
+  B --> C
+  C --> D
+  D --> E
+  E --> F
+  F --> IP
+  IP --> ISF
+  F --> ISH
+  F --> ISW
+  F --> ISR
+  F --> ISA
+  ISF --> IRT
+  ISH --> IRT
+  ISW --> IRT
+  ISR --> IRT
+  ISA --> IRT
+  IRT --> IAD
+  IRT --> IAS
+  IAD --> IDEL
+  IAS --> IDEL
+  IDEL --> IINS
+  IINS --> ICHK
+  ICHK --> G
+  G --> H
+  H --> I
+  I --> SF
+  I --> SH
+  I --> SW
+  SH --> J
+  SF --> J
+  SW --> J
+  J --> DEL
+  J --> INS
+  J --> ADD
+  ADD --> K
+  DEL --> K
+  INS --> K
+  K --> L
+  L --> M
+  M --> FLIGHT2
+  M --> WEB2
+  M --> HOTEL2
+  FLIGHT2 --> N
+  WEB2 --> N
+  HOTEL2 --> N
+  N --> DEL2
+  N --> ADD2
+  N --> INS2
+  DEL2 --> O
+  ADD2 --> O
+  INS2 --> O 
+  O --> P
+  P --> Q

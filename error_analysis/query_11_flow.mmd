@@ -1,0 +1,50 @@
+flowchart LR
+  A[Query 11 Cape Town solo budget trip]
+  B[Extract constraints]
+  C[Draft plan]
+  D[Review plan]
+  E[Initial execution]
+  F[Search and build itinerary]
+  SF["search_flights x1"]
+  SH["search_hotels x1"]
+  SW["search_web x10"]
+  SR["search_restaurants x12"]
+  SA["search_attractions x6"]
+  RT["check_route_timing x5"]
+  AD["add_day x42"]
+  AS["add_slot x100"]
+  VP["view_plan x3"]
+  CS["cost_summary x1"]
+  G[Validator attempt 1 passed]
+  H[Final plan]
+  I[Final scorecard 76 point 2 percent]
+  J[Hard constraints 100 percent]
+  K[Rationale pass 32 point 7 percent]
+  L[62 missing rationale checks]
+
+  A --> B
+  B --> C
+  C --> D
+  D --> E
+  E --> F
+  F --> SF
+  F --> SH
+  F --> SW
+  F --> SR
+  F --> SA
+  SF --> RT
+  SH --> RT
+  SW --> RT
+  SR --> RT
+  SA --> RT
+  RT --> AD
+  RT --> AS
+  AD --> VP
+  AS --> VP
+  VP --> CS
+  CS --> G
+  G --> H
+  H --> I
+  H --> J
+  H --> K
+  H --> L

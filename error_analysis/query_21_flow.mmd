@@ -1,0 +1,54 @@
+flowchart LR
+  A[Query 21 Ibiza mixed group trip]
+  B[Extract constraints]
+  C[Draft plan]
+  D[Review plan]
+  E[Initial execution]
+  F[Search and build itinerary]
+  SF["search_flights x2"]
+  SH["search_hotels x1"]
+  SW["search_web x6"]
+  SR["search_restaurants x12"]
+  SA["search_attractions x7"]
+  RT["check_route_timing x5"]
+  DG["build_place_distance_graph x2"]
+  AD["add_day x16"]
+  AS["add_slot x51"]
+  INS["insert_slot x5"]
+  DEL["delete_slot x5"]
+  VP["view_plan x2"]
+  CS["cost_summary x2"]
+  G[Validator attempt 1 passed]
+  H[Final plan]
+  I[Final scorecard 81 percent]
+  J[Hard constraints 87 point 5 percent]
+  K[Rationale pass 39 point 2 percent]
+
+  A --> B
+  B --> C
+  C --> D
+  D --> E
+  E --> F
+  F --> SF
+  F --> SH
+  F --> SW
+  F --> SR
+  F --> SA
+  SF --> RT
+  SH --> RT
+  SW --> RT
+  SR --> RT
+  SA --> RT
+  RT --> DG
+  DG --> AD
+  DG --> AS
+  AD --> INS
+  AS --> INS
+  INS --> DEL
+  DEL --> VP
+  VP --> CS
+  CS --> G
+  G --> H
+  H --> I
+  H --> J
+  H --> K

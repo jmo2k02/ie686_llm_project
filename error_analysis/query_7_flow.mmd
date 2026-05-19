@@ -1,0 +1,47 @@
+flowchart LR
+  A[Query 7 Frankfurt to New York business trip]
+  B[Extract constraints]
+  C[Draft plan]
+  D[Review plan]
+  E[Initial execution]
+  F[Search and build itinerary]
+  IP["init_plan x1"]
+  SF["search_flights x1"]
+  SH["search_hotels x2"]
+  SW["search_web x12"]
+  SR["search_restaurants x7"]
+  RT["check_route_timing x4"]
+  AD["add_day x3"]
+  AS["add_slot x18"]
+  VP["view_plan x1"]
+  CS["cost_summary x1"]
+  G[Validator attempt 1 passed]
+  H[Final plan]
+  I[Final scorecard 95 percent]
+  J[Hard constraints 100 percent]
+  K[Rationale pass 94 point 4 percent]
+
+  A --> B
+  B --> C
+  C --> D
+  D --> E
+  E --> F
+  F --> IP
+  IP --> SF
+  F --> SH
+  F --> SW
+  F --> SR
+  SF --> RT
+  SH --> RT
+  SW --> RT
+  SR --> RT
+  RT --> AD
+  RT --> AS
+  AD --> VP
+  AS --> VP
+  VP --> CS
+  CS --> G
+  G --> H
+  H --> I
+  H --> J
+  H --> K

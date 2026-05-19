@@ -1,0 +1,66 @@
+flowchart LR
+  A[Query 1 Munich to Vienna city trip]
+  B[Extract constraints]
+  C[Draft plan]
+  D[Review plan]
+  E[Initial execution]
+  F[Search and build itinerary]
+  SW["search_web x18"]
+  SR["search_restaurants x10"]
+  SA["search_attractions x4"]
+  SF["search_flights x1"]
+  SH["search_hotels x1"]
+  RT["check_route_timing x8"]
+  AD["add_day x5"]
+  AS["add_slot x32"]
+  G[Validator attempt 1 failed]
+  H[Problems: transport pass coverage; Sunday opening and timing checks]
+  I[Repair 1]
+  RSW["search_web x5"]
+  RSR["search_restaurants x1"]
+  DEL["delete_slot x5"]
+  INS["insert_slot x3"]
+  ADD["add_slot x2"]
+  CHK["view_plan x1 and cost_summary x1"]
+  J[10 mutations across 2 days]
+  K[Validator attempt 2 passed]
+  L[Final plan]
+  M[Final scorecard 100 percent]
+  N[Rationale pass 46 point 7 percent]
+
+  A --> B
+  B --> C
+  C --> D
+  D --> E
+  E --> F
+  F --> SW
+  F --> SR
+  F --> SA
+  F --> SF
+  F --> SH
+  SW --> RT
+  SR --> RT
+  SA --> RT
+  SF --> RT
+  SH --> RT
+  RT --> AD
+  RT --> AS
+  AD --> G
+  AS --> G
+  G --> H
+  H --> I
+  I --> RSW
+  I --> RSR
+  I --> CHK
+  RSW --> J
+  RSR --> J
+  CHK --> J
+  J --> DEL
+  J --> INS
+  J --> ADD
+  DEL --> K
+  INS --> K
+  ADD --> K
+  K --> L
+  L --> M
+  L --> N
